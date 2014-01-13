@@ -20,7 +20,11 @@ public class HelloWorld {
 
 	public void changeName(String inname) {
 		
+<<<<<<< HEAD
 		this.setName(" " + inname  );
+=======
+		this.setName(" " + inname );
+>>>>>>> refs/remotes/origin/pentsko
 		
 	}
 	
