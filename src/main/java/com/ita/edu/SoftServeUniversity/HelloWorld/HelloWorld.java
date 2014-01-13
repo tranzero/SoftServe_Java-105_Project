@@ -20,7 +20,7 @@ public class HelloWorld {
 
 	public void changeName(String inname) {
 		
-		this.setName(" " + inname);
+		this.setName(" " + inname );
 		
 	}
 	
