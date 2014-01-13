@@ -59,7 +59,7 @@ public class HelloWorld {
    public static void main (String... args) {
 	   
 	  HelloWorld hi = new HelloWorld();
-	  HelloWorld hy = new HelloWorld("Dude");
+	  HelloWorld hy = new HelloWorld("Vasul");
 	
 }
 }
