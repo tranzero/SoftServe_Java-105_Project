@@ -8,5 +8,5 @@ package com.ita.edu.SoftServeUniversity.HelloWorld;
  *
  */
 public class DoSomesing {
-
+int a;
 }
