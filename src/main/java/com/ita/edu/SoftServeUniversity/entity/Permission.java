@@ -1,23 +1,40 @@
 package com.ita.edu.SoftServeUniversity.entity;
 
+/**
+ * @author admin
+ *
+ */
+
 public class Permission {
-	
+	/**
+	 * field name - {ADMIN, MANAGER, REGUSER}
+	 */
 	private String name;
 	
-
+	/**
+	 * Default constructor
+	 */
 	public Permission() {
 	}
 
+	/**
+	 * @param name
+	 */
 	public Permission(String name) {
-		super();
 		this.name = name;
 	}
 
+	 /**
+     * @return the name
+     */
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	 /**
+     * @param name
+     */
+	public void setName(final String name) {
 		this.name = name;
 	}
 
