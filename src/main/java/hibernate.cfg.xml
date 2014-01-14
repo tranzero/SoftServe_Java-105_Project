@@ -31,5 +31,16 @@
     <property name="connection.username">105-java</property>
     <property name="connection.password">105-java</property>
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    
+    <property name="current_session_context_class">thread</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    
+    <mapping class="com.ita.edu.SoftServeUniversity.entity.Lines" />
+<!--     <mapping class="com.ita.edu.SoftServeUniversity.entity.Routes" /> -->
+    <mapping class="com.ita.edu.SoftServeUniversity.entity.Stations" />
+<!--     <mapping class="com.ita.edu.SoftServeUniversity.entity.StationsOnLine" /> -->
+<!--     <mapping class="com.ita.edu.SoftServeUniversity.entity.Stops" /> -->
+<!--     <mapping class="com.ita.edu.SoftServeUniversity.entity.Users" /> -->
+    
 </session-factory>
 </hibernate-configuration>
