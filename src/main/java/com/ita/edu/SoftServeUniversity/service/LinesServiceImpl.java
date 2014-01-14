@@ -1,7 +1,9 @@
 package com.ita.edu.SoftServeUniversity.service;  
 
 import java.util.List;
-import com.ita.edu.SoftServeUniversity.entity.Lines;   
+
+import com.ita.edu.SoftServeUniversity.DAO.DaoFactory;
+import com.ita.edu.SoftServeUniversity.entity.Lines;
 
 /**  
  * @author yuraloga   
@@ -15,8 +17,9 @@ public class LinesServiceImpl implements LinesService {
 	 * 
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
-	public List<Lines> getLinesTwoStationsCertainOrder() { 		
-		return DaoFactory.getInstance().getLinesDAO().getLinesTwoStationsCertainOrder(); 
+	public List<Lines> getLinesTwoStationsCertainOrder() {
+		return null;
+//		return DaoFactory.getInstance().getLinesDAO().getLinesTwoStationsCertainOrder(); 
 	}  	
 
 	/**
@@ -25,7 +28,7 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	public List<Lines> getFullLines() { 
-		return DaoFactory.getInstance().getLinesDAO().getFullLines(); 
+		return DaoFactory.getInstance().getLinesDAO().getAllElements(); 
 	}  	
 	
 	/**
@@ -34,7 +37,7 @@ public class LinesServiceImpl implements LinesService {
 	 *  
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
-	public List<Lines> getLinesByStation() { 	
-		return DaoFactory.getInstance().getLinesDAO().getLinesByStation(); 
+	public List<Lines> getLinesByStation() {
+		return null;
 	} 
 }
