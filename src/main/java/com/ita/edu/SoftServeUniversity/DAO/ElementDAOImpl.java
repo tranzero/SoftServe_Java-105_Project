@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.ita.edu.SoftServeUniversity.db_util.HibernateUtil;
+
 
 public class ElementDAOImpl<E> implements ElementDAO<E> {
 	
