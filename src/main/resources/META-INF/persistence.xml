@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="Java105" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.ita.edu.SoftServeUniversity.entity.Lines</class>
+        <class>com.ita.edu.SoftServeUniversity.entity.Routes</class>
+        <class>com.ita.edu.SoftServeUniversity.entity.Stations</class>
+        <class>com.ita.edu.SoftServeUniversity.entity.StationsOnLine</class>
+        <class>com.ita.edu.SoftServeUniversity.entity.Stops</class>
+         <class>com.ita.edu.SoftServeUniversity.entity.Users</class>
+               
+         <properties>
+         		<!-- MsSQL -->
+<!--                <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" /> -->
+<!--                <property name="hibernate.connection.show_sql" value="true" /> -->
+<!--                <property name="hibernate.hbm2ddl.auto" value="never" /> -->
+<!--                <property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" /> -->
+<!--                <property name="hibernate.jdbc.use_scrollable_resultset" -->
+<!--                                 value="false" /> -->
+<!--                <property name="hibernate.connection.username" value="105-java" /> -->
+<!--                <property name="hibernate.connection.password" value="105-java" /> -->
+<!--                <property name="hibernate.connection.url" -->
+<!--                     	 value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=test" /> -->
+                
+                <!-- MySQL -->
+                <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+    			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test" />
+     			<property name="hibernate.connection.password" value="105-java" />
+     			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+     			<property name="hibernate.connection.show_sql" value="true" />
+     			<property name="hibernate.hbm2ddl.auto" value="never" />
+     			<property name="hibernate.jdbc.use_scrollable_resultset"  value="false" />
+     			<property name="current_session_context_class" value="thread"/>
+       </properties>
+    </persistence-unit>
+</persistence>
