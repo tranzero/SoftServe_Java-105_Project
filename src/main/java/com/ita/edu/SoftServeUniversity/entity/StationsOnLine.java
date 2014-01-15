@@ -11,17 +11,17 @@ import javax.persistence.*;
 @Table(name = "STATIONSONLINE")
 public class StationsOnLine {
         @Id
-        @Column(name = "STATIONONLINEID")
+        @Column(name = "STATIONONLINEID", nullable = false)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private int stationOnLineID;
         
         @ManyToOne
     	@JoinColumn(name = "LINEID", nullable = false)
-        private int lineId;
+        private Lines lineId;
         
         @ManyToOne
     	@JoinColumn(name = "STATIONID", nullable = false)
-        private int stationId;
+        private Stations stationId;
         
         @Column(name = "STATIONORDERNUM")
         private int stationOrderNum;
@@ -43,28 +43,28 @@ public class StationsOnLine {
         /**
          * @return the lineId
          */
-        public int getLineId() {
+        public Lines getLineId() {
                 return lineId;
         }
 
         /**
          * @param lineId the lineId to set
          */
-        public void setLineId(int lineId) {
+        public void setLineId(Lines lineId) {
                 this.lineId = lineId;
         }
 
         /**
          * @return the stationId
          */
-        public int getStationId() {
+        public Stations getStationId() {
                 return stationId;
         }
 
         /**
          * @param stationId the stationId to set
          */
-        public void setStationId(int stationId) {
+        public void setStationId(Stations stationId) {
                 this.stationId = stationId;
         }
 

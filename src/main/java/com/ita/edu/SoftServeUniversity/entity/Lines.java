@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Lines {
 	
 	 @Id
-     @Column(name = "LINEID")
+     @Column(name = "LINEID", nullable = false)
      @GeneratedValue(strategy = GenerationType.AUTO)
      private int lineID;
      

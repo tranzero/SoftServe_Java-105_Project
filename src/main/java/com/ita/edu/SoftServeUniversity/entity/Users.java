@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "USERS")
 public class Users {
         @Id
-        @Column(name = "USERID")
+        @Column(name = "USERID", nullable = false)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private int userId;
         
@@ -33,8 +33,8 @@ public class Users {
         @Column(name = "REGDATE")
         private Date regDate;
         
-        @Column(name = "PERMISSION")
-        private Set<Permission> permission;
+        @Column(name = "PERMISSION", nullable = false)
+        private Permission permission;
         
 
         /**
@@ -82,7 +82,7 @@ public class Users {
         /**
          * @return the permission
          */
-        public Set<Permission> getPermission() {
+        public Permission getPermission() {
                 return permission;
         }
 
@@ -131,7 +131,7 @@ public class Users {
         /**
          * @param permission the permission to set
          */
-        public void setPermission(Set<Permission> permission) {
+        public void setPermission(Permission permission) {
                 this.permission = permission;
         }
         

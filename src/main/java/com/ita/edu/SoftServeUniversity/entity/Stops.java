@@ -19,11 +19,11 @@ public class Stops {
         
         @ManyToOne
     	@JoinColumn(name = "ROUTEID", nullable = false)
-        private int routeId;
+        private Routes routeId;
         
         @ManyToOne
     	@JoinColumn(name = "STATIONONLINEID", nullable = false)
-        private int stationOnLineID;
+        private StationsOnLine stationOnLineID;
         
         @Column(name = "ARRIVAL")
         private Date arrival;
@@ -48,28 +48,28 @@ public class Stops {
         /**
          * @return the routeId
          */
-        public int getRouteId() {
+        public Routes getRouteId() {
                 return routeId;
         }
 
         /**
          * @param routeId the routeId to set
          */
-        public void setRouteId(int routeId) {
+        public void setRouteId(Routes routeId) {
                 this.routeId = routeId;
         }
 
         /**
          * @return the stationOnLineID
          */
-        public int getStationOnLineID() {
+        public StationsOnLine getStationOnLineID() {
                 return stationOnLineID;
         }
 
         /**
          * @param stationOnLineID the stationOnLineID to set
          */
-        public void setStationOnLineID(int stationOnLineID) {
+        public void setStationOnLineID(StationsOnLine stationOnLineID) {
                 this.stationOnLineID = stationOnLineID;
         }
 

@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Table(name = "ROUTES")
 public class Routes {
         @Id
-        @Column(name = "ROUTEID")
+        @Column(name = "ROUTEID", nullable = false)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private int routeID;
         
         @ManyToOne
     	@JoinColumn(name = "LINEID", nullable = false)
-        private int lineID;
+        private Lines lineID;
                 
         @Column(name = "ROUTECODE", nullable = false, length = 20)
         private String routeCode;
@@ -49,14 +49,14 @@ public class Routes {
         /**
          * @return the lineID
          */
-        public int getLineID() {
+        public Lines getLineID() {
                 return lineID;
         }
 
         /**
          * @param lineID the lineID to set
          */
-        public void setLineID(int lineID) {
+        public void setLineID(Lines lineID) {
                 this.lineID = lineID;
         }
 
