@@ -12,11 +12,11 @@ import javax.persistence.*;
 public class Stations {
 
 	 @Id
-     @Column(name = "STATIONID")
+     @Column(name = "STATIONID", nullable = false)
      @GeneratedValue(strategy = GenerationType.AUTO)
      private int stationId;
      
-     @Column(name = "STATIONCODE", nullable = false)
+     @Column(name = "STATIONCODE", unique = true, nullable = false)
      private String stationCode;
      
      @Column(name = "STATIONNAME", nullable = false, length = 100)
