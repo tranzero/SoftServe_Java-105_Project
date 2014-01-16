@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.daoimpl;
+package com.ita.edu.softserve.dao.impl;
 
 import java.util.List;
 

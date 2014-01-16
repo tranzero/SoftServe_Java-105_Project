@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.daoimpl;
+package com.ita.edu.softserve.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 
 
-import com.ita.edu.softserve.daoiface.AbstractDAOClass;
-import com.ita.edu.softserve.daoiface.UsersDAO;
+import com.ita.edu.softserve.dao.AbstractDAOClass;
+import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
 
 

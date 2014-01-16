@@ -1,10 +1,10 @@
-package com.ita.edu.softserve.daoimpl;
+package com.ita.edu.softserve.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.ita.edu.softserve.daoiface.AbstractDAOClass;
-import com.ita.edu.softserve.daoiface.StationsOnLineDAO;
+import com.ita.edu.softserve.dao.AbstractDAOClass;
+import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**

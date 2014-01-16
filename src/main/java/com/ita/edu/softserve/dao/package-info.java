@@ -5,4 +5,4 @@
  * @author tranzero
  *
  */
-package com.ita.edu.softserve.daoiface;
+package com.ita.edu.softserve.dao;

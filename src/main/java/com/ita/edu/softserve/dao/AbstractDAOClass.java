@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.daoiface;
+package com.ita.edu.softserve.dao;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
