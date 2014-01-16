@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.serviceimpl;
+package com.ita.edu.softserve.service.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
 import com.ita.edu.softserve.daoiface.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.serviceiface.UserService;
+import com.ita.edu.softserve.service.UserService;
 
 
 

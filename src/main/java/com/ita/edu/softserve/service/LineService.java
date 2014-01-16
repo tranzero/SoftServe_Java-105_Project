@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ita.edu.softserve.serviceiface;
+package com.ita.edu.softserve.service;
 
 import java.util.List;
 

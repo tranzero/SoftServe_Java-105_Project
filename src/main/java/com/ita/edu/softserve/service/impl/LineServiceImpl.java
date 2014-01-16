@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.ita.edu.softserve.serviceimpl;
+package com.ita.edu.softserve.service.impl;
 
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.serviceiface.LineService;
+import com.ita.edu.softserve.service.LineService;
 
 /**
  * @author MPS

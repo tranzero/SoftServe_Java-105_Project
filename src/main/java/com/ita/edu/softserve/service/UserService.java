@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.serviceiface;
+package com.ita.edu.softserve.service;
 
 public interface UserService {
 	
