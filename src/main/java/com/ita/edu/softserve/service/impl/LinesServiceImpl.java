@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.ita.edu.softserve.daoimpl.LinesDAOImpl;
+import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.service.LinesService;
