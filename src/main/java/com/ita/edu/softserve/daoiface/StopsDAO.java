@@ -9,7 +9,7 @@ import com.ita.edu.softserve.entity.Users;
  * 
  */
 public interface StopsDAO {
-	//
+	//+
 
 	Stops findByID(int id);
 
