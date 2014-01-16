@@ -1,16 +1,7 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Date;
-import java.util.Set;
-
 import javax.persistence.*;
-
-
-
-
-
-
-
 /**
  * @author tranzero
  *
@@ -118,56 +109,71 @@ public class Users {
                 return permission;
         }
 
-        /**
-         * @param userId the userId to set
-         */
-        public void setUserId(int userId) {
-                this.userId = userId;
-        }
-
-        /**
-         * @param firstName the firstName to set
-         */
-        public void setFirstName(String firstName) {
-                this.firstName = firstName;
-        }
-
-        /**
-         * @param lastName the lastName to set
-         */
-        public void setLastName(String lastName) {
-                this.lastName = lastName;
-        }
-
-        /**
-         * @param eMail the eMail to set
-         */
-        public void seteMail(String eMail) {
-                this.eMail = eMail;
-        }
-
-        /**
-         * @param passwd the passwd to set
-         */
-        public void setPasswd(String passwd) {
-                this.passwd = passwd;
-        }
-
-        /**
-         * @param regDate the regDate to set
-         */
-        public void setRegDate(Date regDate) {
-                this.regDate = regDate;
-        }
-
-        /**
-         * @param permission the permission to set
-         */
-        public void setPermission(Permission permission) {
-                this.permission = permission;
-        }
         
-        @Override
+        /**
+		 * @return the username
+		 */
+		private String getUsername() {
+			return username;
+		}
+
+		/**
+		 * @param userId the userId to set
+		 */
+		private void setUserId(int userId) {
+			this.userId = userId;
+		}
+
+		/**
+		 * @param firstName the firstName to set
+		 */
+		private void setFirstName(String firstName) {
+			this.firstName = firstName;
+		}
+
+		/**
+		 * @param lastName the lastName to set
+		 */
+		private void setLastName(String lastName) {
+			this.lastName = lastName;
+		}
+
+		/**
+		 * @param eMail the eMail to set
+		 */
+		private void seteMail(String eMail) {
+			this.eMail = eMail;
+		}
+
+		/**
+		 * @param passwd the passwd to set
+		 */
+		private void setPasswd(String passwd) {
+			this.passwd = passwd;
+		}
+
+		/**
+		 * @param regDate the regDate to set
+		 */
+		private void setRegDate(Date regDate) {
+			this.regDate = regDate;
+		}
+
+		/**
+		 * @param permission the permission to set
+		 */
+		private void setPermission(Permission permission) {
+			this.permission = permission;
+		}
+
+		/**
+		 * @param username the username to set
+		 */
+		private void setUsername(String username) {
+			this.username = username;
+		}
+
+		@Override
         public boolean equals(Object obj) {
             if (this == obj)
                 return true;
