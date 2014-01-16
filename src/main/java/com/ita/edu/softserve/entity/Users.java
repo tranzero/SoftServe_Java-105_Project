@@ -7,6 +7,10 @@ import javax.persistence.*;
 
 
 
+
+
+
+
 /**
  * @author tranzero
  *
@@ -44,6 +48,25 @@ public class Users {
         
         @Column(name = "USERNAME", nullable = false, unique = true)
         private String username;
+        
+        public Users() {
+
+        }
+
+        public Users(String username, String email, String password) {
+            this.username = username;
+            this.eMail = email;
+            this.passwd = password;
+            
+        }
+
+        public Users(String username, String firstname, String lastname, String email, String password) {
+            this.username = username;
+            this.firstName = firstname;
+            this.lastName = lastname;
+            this.eMail = email;
+            this.passwd = password;
+        }
         
 
         /**
@@ -142,6 +165,31 @@ public class Users {
          */
         public void setPermission(Permission permission) {
                 this.permission = permission;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Users other = (Users) obj;
+            if (passwd == null) {
+                if (other.passwd != null)
+                    return false;
+            } else if (!passwd.equals(other.passwd))
+                return false;
+            return true;
+        }
+        
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((passwd == null) ? 0 :passwd.hashCode());
+            return result;
         }
         
 
