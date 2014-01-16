@@ -33,6 +33,6 @@
     <!-- JPA Repositories -->
 	<jpa:repositories base-package="com.ita.edu.softserve.repositories"></jpa:repositories>
 	
-	<context:component-scan base-package="com.ita.edu.softserve.dao"></context:component-scan>
+	<context:component-scan base-package="com.ita.edu.softserve.old_dao"></context:component-scan>
     <context:component-scan base-package="com.ita.edu.softserve.service"></context:component-scan>
 </beans>

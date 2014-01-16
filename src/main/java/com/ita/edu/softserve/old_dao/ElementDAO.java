@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ita.edu.softserve.dao;
+package com.ita.edu.softserve.old_dao;
 
 import java.util.List;
 
