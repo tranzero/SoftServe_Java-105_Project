@@ -14,5 +14,9 @@ import com.ita.edu.softserve.entity.Lines;
 public interface LineService {
 	
 	public List<Lines> getAllLines();
+	
+	public List<Lines> getLinesByStation();
+	
+	public List<Lines> getLinesTwoStationsCertainOrder();
 
 }

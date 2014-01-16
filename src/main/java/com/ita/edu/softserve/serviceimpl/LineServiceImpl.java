@@ -20,4 +20,16 @@ public class LineServiceImpl implements LineService{
 		return null;
 	}
 
+	@Override
+	public List<Lines> getLinesByStation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Lines> getLinesTwoStationsCertainOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
