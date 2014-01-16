@@ -1,9 +1,9 @@
-package com.ita.edu.SoftServeUniversity.service;  
+package com.ita.edu.softserve.service;  
 
 import java.util.List;
 
-import com.ita.edu.SoftServeUniversity.DAO.DaoFactory;
-import com.ita.edu.SoftServeUniversity.entity.Lines;
+import com.ita.edu.softserve.dao.DaoFactory;
+import com.ita.edu.softserve.entity.Lines;
 
 /**  
  * @author yuraloga   

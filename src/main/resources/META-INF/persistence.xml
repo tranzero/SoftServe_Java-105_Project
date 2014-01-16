@@ -2,12 +2,12 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
     <persistence-unit name="Java105" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>com.ita.edu.SoftServeUniversity.entity.Lines</class>
-        <class>com.ita.edu.SoftServeUniversity.entity.Routes</class>
-        <class>com.ita.edu.SoftServeUniversity.entity.Stations</class>
-        <class>com.ita.edu.SoftServeUniversity.entity.StationsOnLine</class>
-        <class>com.ita.edu.SoftServeUniversity.entity.Stops</class>
-         <class>com.ita.edu.SoftServeUniversity.entity.Users</class>
+        <class>com.ita.edu.softserve.entity.Lines</class>
+        <class>com.ita.edu.softserve.entity.Routes</class>
+        <class>com.ita.edu.softserve.entity.Stations</class>
+        <class>com.ita.edu.softserve.entity.StationsOnLine</class>
+        <class>com.ita.edu.softserve.entity.Stops</class>
+         <class>com.ita.edu.softserve.entity.Users</class>
                
          <properties>
          		<!-- MsSQL -->

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ita.edu.SoftServeUniversity.entity;
+package com.ita.edu.softserve.entity;
 
 import javax.persistence.*;
 

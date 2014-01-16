@@ -1,6 +1,6 @@
-package com.ita.edu.SoftServeUniversity.DAO;
+package com.ita.edu.softserve.dao;
 
-import com.ita.edu.SoftServeUniversity.entity.StationsOnLine;
+import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
  * 

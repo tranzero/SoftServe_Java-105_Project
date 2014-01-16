@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ita.edu.SoftServeUniversity.db_util;
+package com.ita.edu.softserve.db_util;
 
 import java.util.logging.Logger;
 

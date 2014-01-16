@@ -1,4 +1,4 @@
-package com.ita.edu.SoftServeUniversity.DAO;
+package com.ita.edu.softserve.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.ita.edu.SoftServeUniversity.db_util.HibernateUtil;
+import com.ita.edu.softserve.db_util.HibernateUtil;
 
 
 public class ElementDAOImpl<E> implements ElementDAO<E> {
