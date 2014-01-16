@@ -5,15 +5,21 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+
+
 /**
- * @author admin
+ * @author tranzero
  *
  */
 
 @Entity
 @Table(name = "USERS")
+@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY)
 public class Users {
-        @Id
+        public static final String FIND_BY_NAME = "Users.findByName";
+        public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
+
+		@Id
         @Column(name = "USERID", nullable = false)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private int userId;
@@ -35,6 +41,9 @@ public class Users {
         
         @Column(name = "PERMISSION", nullable = false)
         private Permission permission;
+        
+        @Column(name = "USERNAME", nullable = false, unique = true)
+        private String username;
         
 
         /**
