@@ -1,4 +1,6 @@
-package com.ita.edu.SoftServeUniversity.DAO;
+package com.ita.edu.softserve.old_dao;
+
+
 
 /**
  * 

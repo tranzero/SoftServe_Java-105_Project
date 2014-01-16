@@ -20,7 +20,7 @@
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory" 
 	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" ref="classpath:/META-INF/persistence.xml"/>
+        <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
         <property name="persistenceUnitName" value="Java105"/>
     </bean>
     
@@ -31,7 +31,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
     <!-- JPA Repositories -->
-	<jpa:repositories base-package="com.ita.edu.softserve.repositories"></jpa:repositories>
+
 	
 	<context:component-scan base-package="com.ita.edu.softserve.old_dao"></context:component-scan>
     <context:component-scan base-package="com.ita.edu.softserve.old_service"></context:component-scan>

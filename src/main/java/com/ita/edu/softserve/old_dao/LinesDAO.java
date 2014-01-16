@@ -1,6 +1,8 @@
-package com.ita.edu.SoftServeUniversity.DAO;
+package com.ita.edu.softserve.old_dao;
 
-import com.ita.edu.SoftServeUniversity.entity.Lines;
+import com.ita.edu.softserve.entity.*;
+
+
 
 /**
  * 
