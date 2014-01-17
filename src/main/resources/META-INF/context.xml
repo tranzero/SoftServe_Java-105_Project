@@ -16,10 +16,13 @@
 	 <context:annotation-config />
      <tx:annotation-driven transaction-manager="transactionManager" />
 	<!-- Database -->
-	<jdbc:embedded-database id="DataSource" type="H2"></jdbc:embedded-database>
+<!-- 	<jdbc:embedded-database id="DataSource" type="H2"></jdbc:embedded-database> -->
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory" 
 	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+        	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
         <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
         <property name="persistenceUnitName" value="Java105"/>
     </bean>
