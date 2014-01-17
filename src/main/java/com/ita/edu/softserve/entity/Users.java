@@ -11,6 +11,12 @@ import javax.persistence.*;
 @Table(name = "USERS")
 @NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY)
 public class Users {
+	
+		public enum Role {
+			REGUSER,
+			MANAGER,
+			ADMIN
+		}
         public static final String FIND_BY_NAME = "Users.findByName";
         public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
 
@@ -34,8 +40,9 @@ public class Users {
         @Column(name = "REGDATE")
         private Date regDate;
         
-        @Column(name = "PERMISSION", nullable = false)
-        private Permission permission;
+        @Enumerated(EnumType.STRING)
+        @Column(columnDefinition="enum('REGUSER','MANAGER', 'ADMIN')")
+        private Role role;
         
         @Column(name = "USERNAME", nullable = false, unique = true)
         private String username;
@@ -105,17 +112,9 @@ public class Users {
         /**
          * @return the permission
          */
-        public Permission getPermission() {
-                return permission;
-        }
-
         
-        /**
-		 * @return the username
-		 */
-		private String getUsername() {
-			return username;
-		}
+        
+        
 
 		/**
 		 * @param userId the userId to set
@@ -162,15 +161,16 @@ public class Users {
 		/**
 		 * @param permission the permission to set
 		 */
-		private void setPermission(Permission permission) {
-			this.permission = permission;
+		
+
+		
+
+		public Role getRole() {
+			return role;
 		}
 
-		/**
-		 * @param username the username to set
-		 */
-		private void setUsername(String username) {
-			this.username = username;
+		private void setRole(Role role) {
+			this.role = role;
 		}
 
 		@Override
