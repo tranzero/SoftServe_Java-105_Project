@@ -18,7 +18,7 @@ public class Users {
 			ADMIN
 		}
         public static final String FIND_BY_NAME = "Users.findByName";
-        public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
+        public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
 
 		@Id
         @Column(name = "USERID", nullable = false)
