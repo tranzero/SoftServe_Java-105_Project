@@ -7,12 +7,15 @@ import javax.persistence.*;
 /**
  * @author admin
  * 
- * The persistent class for the STOPS database table.
+ *         The persistent class for the STOPS database table.
  */
-
 @Entity
 @Table(name = "STOPS")
+@NamedQuery(name = Stops.FIND_BY_ID, query = Stops.FIND_BY_ID_QUERY)
 public class Stops {
+
+	public static final String FIND_BY_ID = "Stops.findByID";
+	public static final String FIND_BY_ID_QUERY = "SELECT u FROM Users u WHERE u.stopId = ?1";
 
 	@Id
 	@Column(name = "STOPID")
@@ -33,14 +36,12 @@ public class Stops {
 	@Column(name = "DEPARTURE")
 	private Date departure;
 
-	
 	/**
 	 * Default Constructor
 	 */
 	public Stops() {
 	}
 
-	
 	/**
 	 * @return the stopId
 	 */
