@@ -4,41 +4,40 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.ita.edu.softserve.dao.AbstractDAOClass;
+import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StopsDAO;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Stops;
 
 /**
  * 
  * @author iryna
- *
+ * 
  */
-public class StationsDAOImpl extends AbstractDAOClass implements StopsDAO{
+public class StationsDAOImpl extends AbstractDAOClass implements StationsDAO {
 
 	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
-    private EntityManager entityManager;
-	
+	private EntityManager entityManager;
+
 	@Override
-	public Stops findByID(int id) {
+	public Stations findByStations(String stationName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(Stops stop) {
-		// TODO Auto-generated method stub
-		
+	public void save(Stations station) {
+		entityManager.persist(station);
 	}
 
 	@Override
-	public void remove(Stops stop) {
-		// TODO Auto-generated method stub
-		
+	public void remove(Stations station) {
+		entityManager.remove(station);
 	}
 
 	@Override
-	public Stops update(Stops stop) {
-		// TODO Auto-generated method stub
-		return null;
+	public Stations update(Stations station) {
+		return entityManager.merge(station);
 	}
 
 }

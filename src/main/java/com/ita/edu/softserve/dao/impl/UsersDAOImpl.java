@@ -12,7 +12,11 @@ import com.ita.edu.softserve.dao.AbstractDAOClass;
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
 
-
+/**
+ * 
+ * class UsersDAOImpl
+ *
+ */
 @Repository
 public class UsersDAOImpl extends AbstractDAOClass implements UsersDAO {
 	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
@@ -25,16 +29,13 @@ public class UsersDAOImpl extends AbstractDAOClass implements UsersDAO {
 	}
 
 	@Override
-	public void save(Users user) {
-		
-		entityManager.persist(user);
-		
+	public void save(Users user) {		
+		entityManager.persist(user);		
 	}
 
 	@Override
 	public void remove(Users user) {
-		 entityManager.remove(user);
-		
+		 entityManager.remove(user);		
 	}
 
 	@Override

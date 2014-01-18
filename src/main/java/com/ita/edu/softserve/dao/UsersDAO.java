@@ -2,19 +2,43 @@ package com.ita.edu.softserve.dao;
 
 import com.ita.edu.softserve.entity.Users;
 
-
-
+/**
+ * 
+ * interface UsersDAO
+ * 
+ */
 public interface UsersDAO {
-	
-	//
+
+	/**
+	 * Find Users by name
+	 * 
+	 * @param name
+	 * @return
+	 */
 	Users findByName(String name);
 
-    void save(Users user);
+	/**
+	 * Save a new user
+	 * 
+	 * @param user
+	 */
+	void save(Users user);
 
-    void remove(Users user);
+	/**
+	 * Remove a user
+	 * 
+	 * @param user
+	 */
+	void remove(Users user);
 
-    Users update(Users user);
-    
-    //
+	/**
+	 * Update a user
+	 * 
+	 * @param user
+	 * @return
+	 */
+	Users update(Users user);
+
+	//
 
 }
