@@ -2,9 +2,11 @@ package com.ita.edu.softserve.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.ita.edu.softserve.dao.AbstractDAOClass;
 import com.ita.edu.softserve.dao.RoutesDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 
 /**
@@ -19,8 +21,9 @@ public class RoutesDAOImpl extends AbstractDAOClass implements RoutesDAO {
 
 	@Override
 	public Routes findByCode(String routeCode) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+				.setParameter(1, routeCode);
+		return (Routes) find(query);
 	}
 
 	@Override

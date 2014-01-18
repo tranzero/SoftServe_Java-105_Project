@@ -2,6 +2,7 @@ package com.ita.edu.softserve.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.ita.edu.softserve.dao.AbstractDAOClass;
 import com.ita.edu.softserve.dao.StationsDAO;
@@ -21,8 +22,9 @@ public class StationsDAOImpl extends AbstractDAOClass implements StationsDAO {
 
 	@Override
 	public Stations findByStations(String stationName) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = entityManager.createNamedQuery(
+				Stations.FIND_BY_NAME_QUERY).setParameter(1, stationName);
+		return (Stations) find(query);
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Stops {
 
 	public static final String FIND_BY_ID = "Stops.findByID";
-	public static final String FIND_BY_ID_QUERY = "SELECT u FROM Users u WHERE u.stopId = ?1";
+	public static final String FIND_BY_ID_QUERY = "SELECT u FROM Stops u WHERE u.stopId = ?1";
 
 	@Id
 	@Column(name = "STOPID")

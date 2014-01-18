@@ -23,8 +23,9 @@ public class LinesDAOImpl extends AbstractDAOClass implements LinesDAO {
 
 	@Override
 	public Lines findByName(String lineName) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+				.setParameter(1, lineName);
+		return (Lines) find(query);
 	}
 
 	@Override
@@ -42,7 +43,6 @@ public class LinesDAOImpl extends AbstractDAOClass implements LinesDAO {
 		return entityManager.merge(line);
 	}
 
-	
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 

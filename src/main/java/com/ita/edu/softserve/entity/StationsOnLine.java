@@ -1,17 +1,22 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.List;
+
 import javax.persistence.*;
 
 /**
  * @author admin
  * 
- * The persistent class for the STATIONSONLINE database table.
+ *         The persistent class for the STATIONSONLINE database table.
  */
 
 @Entity
 @Table(name = "STATIONSONLINE")
+@NamedQuery(name = StationsOnLine.FIND_BY_ID, query = StationsOnLine.FIND_BY_ID_QUERY)
 public class StationsOnLine {
+
+	public static final String FIND_BY_ID = "StationsOnLine.findByID";
+	public static final String FIND_BY_ID_QUERY = "SELECT u FROM StationsOnLine u WHERE u.stationOnLineId = ?1";
 
 	@Id
 	@Column(name = "STATIONONLINEID")
@@ -32,14 +37,12 @@ public class StationsOnLine {
 	@Column(name = "STATIONORDERNUM")
 	private int stationOrderNum;
 
-	
 	/**
 	 * Default Constructor
 	 */
 	public StationsOnLine() {
 	}
 
-	
 	/**
 	 * @return the stationOnLineId
 	 */

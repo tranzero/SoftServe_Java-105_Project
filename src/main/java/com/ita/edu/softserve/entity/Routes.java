@@ -2,17 +2,22 @@ package com.ita.edu.softserve.entity;
 
 import java.sql.Time;
 import java.util.List;
+
 import javax.persistence.*;
 
 /**
  * @author admin
  * 
- * The persistent class for the ROUTES database table.
+ *         The persistent class for the ROUTES database table.
  */
 @Entity
 @Table(name = "ROUTES")
+@NamedQuery(name = Routes.FIND_BY_CODE, query = Routes.FIND_BY_CODE_QUERY)
 public class Routes {
-	
+
+	public static final String FIND_BY_CODE = "Routes.findByCode";
+	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";
+
 	@Id
 	@Column(name = "ROUTEID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,14 +36,12 @@ public class Routes {
 	@Column(name = "STARTTIME")
 	private Time startTime;
 
-	
 	/**
 	 * Default Constructor
 	 */
 	public Routes() {
 	}
 
-	
 	/**
 	 * @return the routeId
 	 */

@@ -5,14 +5,18 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * @author admin 
+ * @author admin
  * 
- * The persistent class for the STATIONS database table.
+ *         The persistent class for the STATIONS database table.
  */
 
 @Entity
 @Table(name = "STATIONS")
+@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY)
 public class Stations {
+
+	public static final String FIND_BY_NAME = "Station.findByName";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Station u WHERE u.stationName = ?1";
 
 	@Id
 	@Column(name = "STATIONID")
@@ -29,7 +33,6 @@ public class Stations {
 	@OneToMany(mappedBy = "stationId", fetch = FetchType.LAZY)
 	private List<StationsOnLine> stationsOnLines;
 
-	
 	/**
 	 * Default Constructor
 	 */
@@ -39,14 +42,13 @@ public class Stations {
 	/**
 	 * @param stationCode
 	 * @param stationName
-	 * Constructor with parametrs stationCode, stationName.
+	 *            Constructor with parametrs stationCode, stationName.
 	 */
 	public Stations(String stationCode, String stationName) {
 		this.stationCode = stationCode;
 		this.stationName = stationName;
 	}
 
-	
 	/**
 	 * @return the stationId
 	 */
