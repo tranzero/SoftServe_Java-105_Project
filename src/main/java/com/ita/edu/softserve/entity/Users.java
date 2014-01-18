@@ -14,8 +14,9 @@ import javax.persistence.*;
 public class Users {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
-	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
-
+	//public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
+	
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
