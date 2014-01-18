@@ -35,9 +35,9 @@
     <property name="current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     
-    <mapping class="com.ita.edu.softserve.entity.Lines" />
+<!--    <mapping class="com.ita.edu.softserve.entity.Lines" /> -->
 <!--     <mapping class="com.ita.edu.softserve.entity.Routes" /> -->
-    <mapping class="com.ita.edu.softserve.entity.Stations" />
+<!--    <mapping class="com.ita.edu.softserve.entity.Stations" /> -->
 <!--     <mapping class="com.ita.edu.softserve.entity.StationsOnLine" /> -->
 <!--     <mapping class="com.ita.edu.softserve.entity.entity.Stops" /> -->
 <!--     <mapping class="com.ita.edu.softserve.entity.Users" /> -->
