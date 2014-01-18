@@ -9,8 +9,6 @@ import org.hibernate.Transaction;
 
 import com.ita.edu.softserve.db_util.HibernateUtil;
 
-
-
 /**
  * 
  * @author iryna

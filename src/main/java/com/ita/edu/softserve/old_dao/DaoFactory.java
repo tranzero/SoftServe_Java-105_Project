@@ -1,7 +1,5 @@
 package com.ita.edu.softserve.old_dao;
 
-
-
 /**
  * 
  * @author iryna
