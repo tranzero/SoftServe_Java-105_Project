@@ -42,15 +42,7 @@ public class LinesDAOImpl extends AbstractDAOClass implements LinesDAO {
 		return entityManager.merge(line);
 	}
 
-	/**
-	 * 
-	 * @param line
-	 * @return
-	 */
-	public Lines update2(Lines line) {
-		return entityManager.merge(line);
-	}
-
+	
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
