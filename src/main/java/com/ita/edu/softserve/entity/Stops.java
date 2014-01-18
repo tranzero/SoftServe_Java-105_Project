@@ -6,100 +6,114 @@ import javax.persistence.*;
 
 /**
  * @author admin
- *
+ * 
+ * The persistent class for the STOPS database table.
  */
 
 @Entity
 @Table(name = "STOPS")
 public class Stops {
-        @Id
-        @Column(name = "STOPID")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private int stopId;
-        
-        @ManyToOne
-    	@JoinColumn(name = "ROUTEID", nullable = false)
-        private Routes routeId;
-        
-        @ManyToOne
-    	@JoinColumn(name = "STATIONONLINEID", nullable = false)
-        private StationsOnLine stationOnLineID;
-        
-        @Column(name = "ARRIVAL")
-        private Date arrival;
-        
-        @Column(name = "DEPARTURE")
-        private Date departure;
 
-        /**
-         * @return the stopId
-         */
-        public int getStopId() {
-                return stopId;
-        }
+	@Id
+	@Column(name = "STOPID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int stopId;
 
-        /**
-         * @param stopId the stopId to set
-         */
-        public void setStopId(int stopId) {
-                this.stopId = stopId;
-        }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ROUTEID")
+	private Routes routeId;
 
-        /**
-         * @return the routeId
-         */
-        public Routes getRouteId() {
-                return routeId;
-        }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "STATIONONLINEID")
+	private StationsOnLine stationOnLineId;
 
-        /**
-         * @param routeId the routeId to set
-         */
-        public void setRouteId(Routes routeId) {
-                this.routeId = routeId;
-        }
+	@Column(name = "ARRIVAL")
+	private Date arrival;
 
-        /**
-         * @return the stationOnLineID
-         */
-        public StationsOnLine getStationOnLineID() {
-                return stationOnLineID;
-        }
+	@Column(name = "DEPARTURE")
+	private Date departure;
 
-        /**
-         * @param stationOnLineID the stationOnLineID to set
-         */
-        public void setStationOnLineID(StationsOnLine stationOnLineID) {
-                this.stationOnLineID = stationOnLineID;
-        }
+	
+	/**
+	 * Default Constructor
+	 */
+	public Stops() {
+	}
 
-        /**
-         * @return the arrival
-         */
-        public Date getArrival() {
-                return arrival;
-        }
+	
+	/**
+	 * @return the stopId
+	 */
+	public int getStopId() {
+		return stopId;
+	}
 
-        /**
-         * @param arrival the arrival to set
-         */
-        public void setArrival(Date arrival) {
-                this.arrival = arrival;
-        }
+	/**
+	 * @param stopId
+	 *            the stopId to set
+	 */
+	public void setStopId(int stopId) {
+		this.stopId = stopId;
+	}
 
-        /**
-         * @return the departure
-         */
-        public Date getDeparture() {
-                return departure;
-        }
+	/**
+	 * @return the routeId
+	 */
+	public Routes getRouteId() {
+		return routeId;
+	}
 
-        /**
-         * @param departure the departure to set
-         */
-        public void setDeparture(Date departure) {
-                this.departure = departure;
-        }
-        
+	/**
+	 * @param routeId
+	 *            the routeId to set
+	 */
+	public void setRouteId(Routes routeId) {
+		this.routeId = routeId;
+	}
+
+	/**
+	 * @return the stationOnLineID
+	 */
+	public StationsOnLine getStationOnLineID() {
+		return stationOnLineId;
+	}
+
+	/**
+	 * @param stationOnLineID
+	 *            the stationOnLineID to set
+	 */
+	public void setStationOnLineID(StationsOnLine stationOnLineID) {
+		this.stationOnLineId = stationOnLineID;
+	}
+
+	/**
+	 * @return the arrival
+	 */
+	public Date getArrival() {
+		return arrival;
+	}
+
+	/**
+	 * @param arrival
+	 *            the arrival to set
+	 */
+	public void setArrival(Date arrival) {
+		this.arrival = arrival;
+	}
+
+	/**
+	 * @return the departure
+	 */
+	public Date getDeparture() {
+		return departure;
+	}
+
+	/**
+	 * @param departure
+	 *            the departure to set
+	 */
+	public void setDeparture(Date departure) {
+		this.departure = departure;
+	}
 
 }

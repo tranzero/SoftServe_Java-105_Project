@@ -1,93 +1,117 @@
 package com.ita.edu.softserve.entity;
 
-import java.util.Date;
-
+import java.sql.Time;
+import java.util.List;
 import javax.persistence.*;
 
 /**
  * @author admin
- *
+ * 
+ * The persistent class for the ROUTES database table.
  */
-
 @Entity
 @Table(name = "ROUTES")
 public class Routes {
-        @Id
-        @Column(name = "ROUTEID", nullable = false)
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private int routeID;
-        
-        @ManyToOne
-    	@JoinColumn(name = "LINEID", nullable = false)
-        private Lines lineID;
-                
-        @Column(name = "ROUTECODE", nullable = false, length = 20)
-        private String routeCode;
-        
-        @Column(name = "STARTTIME")
-        private Date startTime;
-        
-        
-        public Routes(){
-                
-        }
+	
+	@Id
+	@Column(name = "ROUTEID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int routeId;
 
-        /**
-         * @return the routeID
-         */
-        public int getRouteID() {
-                return routeID;
-        }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "LINEID")
+	private Lines lineId;
 
-        /**
-         * @param routeID the routeID to set
-         */
-        public void setRouteID(int routeID) {
-                this.routeID = routeID;
-        }
+	@OneToMany(mappedBy = "routeId", fetch = FetchType.LAZY)
+	private List<Stops> stops;
 
-        /**
-         * @return the lineID
-         */
-        public Lines getLineID() {
-                return lineID;
-        }
+	@Column(name = "ROUTECODE", length = 20)
+	private String routeCode;
 
-        /**
-         * @param lineID the lineID to set
-         */
-        public void setLineID(Lines lineID) {
-                this.lineID = lineID;
-        }
+	@Column(name = "STARTTIME")
+	private Time startTime;
 
-        
+	
+	/**
+	 * Default Constructor
+	 */
+	public Routes() {
+	}
 
-        /**
-         * @return the routeCode
-         */
-        public String getRouteCode() {
-                return routeCode;
-        }
+	
+	/**
+	 * @return the routeId
+	 */
+	public int getRouteId() {
+		return routeId;
+	}
 
-        /**
-         * @param routeCode the routeCode to set
-         */
-        public void setRouteCode(String routeCode) {
-                this.routeCode = routeCode;
-        }
+	/**
+	 * @param routeId
+	 *            the routeId to set
+	 */
+	public void setRouteId(int routeId) {
+		this.routeId = routeId;
+	}
 
-        /**
-         * @return the startTime
-         */
-        public Date getStartTime() {
-                return startTime;
-        }
+	/**
+	 * @return the lineId
+	 */
+	public Lines getLineId() {
+		return lineId;
+	}
 
-        /**
-         * @param startTime the startTime to set
-         */
-        public void setStartTime(Date startTime) {
-                this.startTime = startTime;
-        }
+	/**
+	 * @param lineId
+	 *            the lineId to set
+	 */
+	public void setLineId(Lines lineId) {
+		this.lineId = lineId;
+	}
+
+	/**
+	 * @return the stops
+	 */
+	public List<Stops> getStops() {
+		return stops;
+	}
+
+	/**
+	 * @param stops
+	 *            the stops to set
+	 */
+	public void setStops(List<Stops> stops) {
+		this.stops = stops;
+	}
+
+	/**
+	 * @return the routeCode
+	 */
+	public String getRouteCode() {
+		return routeCode;
+	}
+
+	/**
+	 * @param routeCode
+	 *            the routeCode to set
+	 */
+	public void setRouteCode(String routeCode) {
+		this.routeCode = routeCode;
+	}
+
+	/**
+	 * @return the startTime
+	 */
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	/**
+	 * @param startTime
+	 *            the startTime to set
+	 */
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
 
 }

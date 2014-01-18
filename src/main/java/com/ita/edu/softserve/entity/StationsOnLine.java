@@ -1,86 +1,118 @@
 package com.ita.edu.softserve.entity;
 
+import java.util.List;
 import javax.persistence.*;
 
 /**
  * @author admin
- *
+ * 
+ * The persistent class for the STATIONSONLINE database table.
  */
 
 @Entity
 @Table(name = "STATIONSONLINE")
 public class StationsOnLine {
-        @Id
-        @Column(name = "STATIONONLINEID", nullable = false)
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private int stationOnLineID;
-        
-        @ManyToOne
-    	@JoinColumn(name = "LINEID", nullable = false)
-        private Lines lineId;
-        
-        @ManyToOne
-    	@JoinColumn(name = "STATIONID", nullable = false)
-        private Stations stationId;
-        
-        @Column(name = "STATIONORDERNUM")
-        private int stationOrderNum;
 
-        /**
-         * @return the stationOnLineID
-         */
-        public int getStationOnLineID() {
-                return stationOnLineID;
-        }
+	@Id
+	@Column(name = "STATIONONLINEID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int stationOnLineId;
 
-        /**
-         * @param stationOnLineID the stationOnLineID to set
-         */
-        public void setStationOnLineID(int stationOnLineID) {
-                this.stationOnLineID = stationOnLineID;
-        }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "LINEID")
+	private Lines lineId;
 
-        /**
-         * @return the lineId
-         */
-        public Lines getLineId() {
-                return lineId;
-        }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "STATIONID")
+	private Stations stationId;
 
-        /**
-         * @param lineId the lineId to set
-         */
-        public void setLineId(Lines lineId) {
-                this.lineId = lineId;
-        }
+	@OneToMany(mappedBy = "stationOnLineId", fetch = FetchType.LAZY)
+	private List<Stops> stops;
 
-        /**
-         * @return the stationId
-         */
-        public Stations getStationId() {
-                return stationId;
-        }
+	@Column(name = "STATIONORDERNUM")
+	private int stationOrderNum;
 
-        /**
-         * @param stationId the stationId to set
-         */
-        public void setStationId(Stations stationId) {
-                this.stationId = stationId;
-        }
+	
+	/**
+	 * Default Constructor
+	 */
+	public StationsOnLine() {
+	}
 
-        /**
-         * @return the stationOrderNum
-         */
-        public int getStationOrderNum() {
-                return stationOrderNum;
-        }
+	
+	/**
+	 * @return the stationOnLineId
+	 */
+	public int getStationOnLineId() {
+		return stationOnLineId;
+	}
 
-        /**
-         * @param stationOrderNum the stationOrderNum to set
-         */
-        public void setStationOrderNum(int stationOrderNum) {
-                this.stationOrderNum = stationOrderNum;
-        }
-        
+	/**
+	 * @param stationOnLineId
+	 *            the stationOnLineId to set
+	 */
+	public void setStationOnLineId(int stationOnLineId) {
+		this.stationOnLineId = stationOnLineId;
+	}
+
+	/**
+	 * @return the lineId
+	 */
+	public Lines getLineId() {
+		return lineId;
+	}
+
+	/**
+	 * @param lineId
+	 *            the lineId to set
+	 */
+	public void setLineId(Lines lineId) {
+		this.lineId = lineId;
+	}
+
+	/**
+	 * @return the stationId
+	 */
+	public Stations getStationId() {
+		return stationId;
+	}
+
+	/**
+	 * @param stationId
+	 *            the stationId to set
+	 */
+	public void setStationId(Stations stationId) {
+		this.stationId = stationId;
+	}
+
+	/**
+	 * @return the stops
+	 */
+	public List<Stops> getStops() {
+		return stops;
+	}
+
+	/**
+	 * @param stops
+	 *            the stops to set
+	 */
+	public void setStops(List<Stops> stops) {
+		this.stops = stops;
+	}
+
+	/**
+	 * @return the stationOrderNum
+	 */
+	public int getStationOrderNum() {
+		return stationOrderNum;
+	}
+
+	/**
+	 * @param stationOrderNum
+	 *            the stationOrderNum to set
+	 */
+	public void setStationOrderNum(int stationOrderNum) {
+		this.stationOrderNum = stationOrderNum;
+	}
 
 }

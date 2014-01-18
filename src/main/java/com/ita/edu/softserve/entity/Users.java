@@ -2,201 +2,231 @@ package com.ita.edu.softserve.entity;
 
 import java.util.Date;
 import javax.persistence.*;
-/**
- * @author tranzero
- *
- */
 
+/**
+ * @author admin
+ * 
+ * The persistent class for the USERS database table.
+ */
 @Entity
 @Table(name = "USERS")
 @NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY)
 public class Users {
+
+	public static final String FIND_BY_NAME = "Users.findByName";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
+
+	@Id
+	@Column(name = "USERID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int userId;
+
+	@Column(name = "FIRSTNAME", nullable = true, length = 100)
+	private String firstName;
+
+	@Column(name = "LASTNAME", nullable = true, length = 100)
+	private String lastName;
+
+	@Column(name = "EMAIL", nullable = false, length = 100)
+	private String eMail;
+
+	@Column(name = "USERNAME", nullable = false, unique = true, length = 100)
+	private String username;
+
+	@Column(name = "PASSWD", nullable = false, length = 100)
+	private String passwd;
+
+	@Column(name = "REGDATE", nullable = true)
+	private Date regDate;
+
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition = "enum('REGUSER','MANAGER', 'ADMIN')")
+	private Role role;
+
 	
-		public enum Role {
-			REGUSER,
-			MANAGER,
-			ADMIN
-		}
-        public static final String FIND_BY_NAME = "Users.findByName";
-        public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
+	/**
+	 * Default Constructor
+	 */
+	public Users() {
 
-		@Id
-        @Column(name = "USERID", nullable = false)
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private int userId;
-        
-        @Column(name = "FIRSTNAME", length = 100)
-        private String firstName;
-        
-        @Column(name = "LASTNAME", length = 100)
-        private String lastName;
-        
-        @Column(name = "EMAIL", length = 100)
-        private String eMail;
-        
-        @Column(name = "PASSWD", length = 100)
-        private String passwd;
-        
-        @Column(name = "REGDATE")
-        private Date regDate;
-        
-        @Enumerated(EnumType.STRING)
-        @Column(columnDefinition="enum('REGUSER','MANAGER', 'ADMIN')")
-        private Role role;
-        
-        @Column(name = "USERNAME", nullable = false, unique = true)
-        private String username;
-        
-        public Users() {
+	}
 
-        }
+	/**
+	 * Constructor with parametrs:
+	 * 
+	 * @param username
+	 * @param email
+	 * @param password
+	 */
+	public Users(String username, String email, String password) {
+		this.username = username;
+		this.eMail = email;
+		this.passwd = password;
 
-        public Users(String username, String email, String password) {
-            this.username = username;
-            this.eMail = email;
-            this.passwd = password;
-            
-        }
+	}
 
-        public Users(String username, String firstname, String lastname, String email, String password) {
-            this.username = username;
-            this.firstName = firstname;
-            this.lastName = lastname;
-            this.eMail = email;
-            this.passwd = password;
-        }
-        
+	/**
+	 * Constructor with parametrs:
+	 * 
+	 * @param username
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param password
+	 */
+	public Users(String username, String firstname, String lastname,
+			String email, String password) {
+		this.username = username;
+		this.firstName = firstname;
+		this.lastName = lastname;
+		this.eMail = email;
+		this.passwd = password;
+	}
 
-        /**
-         * @return the userId
-         */
-        public int getUserId() {
-                return userId;
-        }
+	
+	/**
+	 * @return the userId
+	 */
+	public int getUserId() {
+		return userId;
+	}
 
-        /**
-         * @return the firstName
-         */
-        public String getFirstName() {
-                return firstName;
-        }
+	/**
+	 * @param userId
+	 *            the userId to set
+	 */
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-        /**
-         * @return the lastName
-         */
-        public String getLastName() {
-                return lastName;
-        }
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
-        /**
-         * @return the eMail
-         */
-        public String geteMail() {
-                return eMail;
-        }
+	/**
+	 * @param firstName
+	 *            the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-        /**
-         * @return the passwd
-         */
-        public String getPasswd() {
-                return passwd;
-        }
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
 
-        /**
-         * @return the regDate
-         */
-        public Date getRegDate() {
-                return regDate;
-        }
+	/**
+	 * @param lastName
+	 *            the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-        /**
-         * @return the permission
-         */
-        
-        
-        
+	/**
+	 * @return the eMail
+	 */
+	public String geteMail() {
+		return eMail;
+	}
 
-		/**
-		 * @param userId the userId to set
-		 */
-		private void setUserId(int userId) {
-			this.userId = userId;
-		}
+	/**
+	 * @param eMail
+	 *            the eMail to set
+	 */
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
 
-		/**
-		 * @param firstName the firstName to set
-		 */
-		private void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-		/**
-		 * @param lastName the lastName to set
-		 */
-		private void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-		/**
-		 * @param eMail the eMail to set
-		 */
-		private void seteMail(String eMail) {
-			this.eMail = eMail;
-		}
+	/**
+	 * @return the passwd
+	 */
+	public String getPasswd() {
+		return passwd;
+	}
 
-		/**
-		 * @param passwd the passwd to set
-		 */
-		private void setPasswd(String passwd) {
-			this.passwd = passwd;
-		}
+	/**
+	 * @param passwd
+	 *            the passwd to set
+	 */
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 
-		/**
-		 * @param regDate the regDate to set
-		 */
-		private void setRegDate(Date regDate) {
-			this.regDate = regDate;
-		}
+	/**
+	 * @return the regDate
+	 */
+	public Date getRegDate() {
+		return regDate;
+	}
 
-		/**
-		 * @param permission the permission to set
-		 */
-		
+	/**
+	 * @param regDate
+	 *            the regDate to set
+	 */
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 
-		
+	/**
+	 * @return the role
+	 */
+	public Role getRole() {
+		return role;
+	}
 
-		public Role getRole() {
-			return role;
-		}
+	/**
+	 * @param role
+	 *            the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
-		private void setRole(Role role) {
-			this.role = role;
-		}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		if (passwd == null) {
+			if (other.passwd != null)
+				return false;
+		} else if (!passwd.equals(other.passwd))
+			return false;
+		return true;
+	}
 
-		@Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            Users other = (Users) obj;
-            if (passwd == null) {
-                if (other.passwd != null)
-                    return false;
-            } else if (!passwd.equals(other.passwd))
-                return false;
-            return true;
-        }
-        
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((passwd == null) ? 0 :passwd.hashCode());
-            return result;
-        }
-        
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((passwd == null) ? 0 : passwd.hashCode());
+		return result;
+	}
 
 }
