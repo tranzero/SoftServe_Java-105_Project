@@ -64,5 +64,12 @@ public class LinesDAOImpl extends AbstractDAOClass implements LinesDAO {
 
 		return listOfLines;
 	}
+	
+	public static List<Lines> getAllLines(){
+		Query query = entityManager.createNamedQuery(Lines.GET_ALL_LINES);
+		@SuppressWarnings("unchecked")
+		List<Lines> listOfLines = query.getResultList();
+		return listOfLines;
+	}
 
 }

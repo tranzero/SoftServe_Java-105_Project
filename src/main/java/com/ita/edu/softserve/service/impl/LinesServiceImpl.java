@@ -30,7 +30,7 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getAllLines() {
 		// TODO Auto-generated method stub
-		return null;
+		return LinesDAOImpl.getAllLines();
 	}
 
 	/**
