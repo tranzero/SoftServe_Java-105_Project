@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -45,4 +47,9 @@ public class StationsDAOImpl extends AbstractDAOClass implements StationsDAO {
 		return entityManager.merge(station);
 	}
 
+	@Override
+	public List<Stations> findAllStations() {
+		Query query = entityManager.createNamedQuery(Stations.STATIONS_FIND_ALL);
+		return (List<Stations>) find(query);
+	}
 }
