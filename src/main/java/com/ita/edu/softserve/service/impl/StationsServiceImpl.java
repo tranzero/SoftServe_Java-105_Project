@@ -12,7 +12,7 @@ public class StationsServiceImpl implements StationsService {
 	 * Obtain list of all stations.
 	 * @author Роман
 	 */
-	public List<Stations> findAllStation() {
+	public List<Stations> findAllStations() {
 		 return new StationsDAOImpl().findAllStations();
 	}
 

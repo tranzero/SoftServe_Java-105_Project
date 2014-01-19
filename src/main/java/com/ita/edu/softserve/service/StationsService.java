@@ -13,6 +13,6 @@ public interface StationsService {
 	 * Get list of Stations.
 	 * @author Роман
 	 */
-	public List<Stations> findAllStation();
+	public List<Stations> findAllStations();
 
 }
