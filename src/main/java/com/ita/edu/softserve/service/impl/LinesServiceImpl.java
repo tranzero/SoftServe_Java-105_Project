@@ -6,6 +6,7 @@ package com.ita.edu.softserve.service.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
@@ -20,9 +21,9 @@ import com.ita.edu.softserve.service.LinesService;
  */
 public class LinesServiceImpl implements LinesService {
 
-    private static final Logger LOGGER = Logger.getLogger(Lines.class);
+	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 
-    /**
+	/**
 	 * Return all Lines
 	 * 
 	 * @return <code>List&lt;Lines&gt;</code>
@@ -39,7 +40,7 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesByStation() {
+	public List<Lines> getLinesByStation(Stations station) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -47,7 +48,7 @@ public class LinesServiceImpl implements LinesService {
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
-	 * @param station1 - first station, departure 
+	 * @param station1 - first station, departure
 	 * @param station2 - second station, arrival
 	 * 
 	 * @return <code>List&lt;Lines&gt;</code>
@@ -55,7 +56,7 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 													   Stations station2) {
-        return LinesDAOImpl.getLinesTwoStationsCertainOrder(station1, station2);
+		return LinesDAOImpl.getLinesTwoStationsCertainOrder(station1, station2);
 	}
 
 }
