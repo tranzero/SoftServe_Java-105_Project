@@ -16,7 +16,7 @@ import com.ita.edu.softserve.entity.Stations;
  */
 public interface LinesService {
 	
-	public List<Lines> getAllLines();
+	public List<Lines> getFullLines();
 	
 	public List<Lines> getLinesByStation();
 	

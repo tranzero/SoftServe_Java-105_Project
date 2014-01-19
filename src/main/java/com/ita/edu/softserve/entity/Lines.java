@@ -17,14 +17,14 @@ import javax.persistence.*;
 @NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER, query = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER_QUERY),
-		@NamedQuery(name = Lines.GET_ALL_LINES, query = Lines.GET_ALL_LINES_QUERY) })
+		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY) })
 public class Lines {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Lines u WHERE u.lineName = ?1";
 	//Query to find all lines
-	public static final String GET_ALL_LINES = "Lines.findAllLines";
-	public static final String GET_ALL_LINES_QUERY = "SELECT ln FROM Lines ln";
+	public static final String GET_FULL_LINES = "Lines.findFullLines";
+	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
 
 	public static final String GET_LINES_TWO_STATIONS_CERTAIN_ORDER = "Lines.getLinesTwoStationsCertainOrder";
 	/* Here must be a real query?! ||| in progress%%% - Answer - YES */

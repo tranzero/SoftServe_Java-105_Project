@@ -28,9 +28,9 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getAllLines() {
+	public List<Lines> getFullLines() {
 		// TODO Auto-generated method stub
-		return LinesDAOImpl.getAllLines();
+		return LinesDAOImpl.getFullLines();
 	}
 
 	/**
