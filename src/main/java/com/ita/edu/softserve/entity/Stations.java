@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Stations {
 
 	public static final String FIND_BY_NAME = "Station.findByName";
-	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Station u WHERE u.stationName = ?1";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
 
 	@Id
 	@Column(name = "STATIONID")
