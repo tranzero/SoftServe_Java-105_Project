@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import com.ita.edu.softserve.dao.AbstractDAOClass;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.entity.StationsOnLine;
@@ -13,6 +15,7 @@ import com.ita.edu.softserve.entity.StationsOnLine;
  * @author iryna
  * 
  */
+@Repository
 public class StationsOnLineDAOImpl extends AbstractDAOClass implements
 		StationsOnLineDAO {
 	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)

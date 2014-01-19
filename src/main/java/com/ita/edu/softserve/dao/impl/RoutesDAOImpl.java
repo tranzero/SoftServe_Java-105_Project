@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import com.ita.edu.softserve.dao.AbstractDAOClass;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Lines;
@@ -14,6 +16,7 @@ import com.ita.edu.softserve.entity.Routes;
  * @author iryna
  * 
  */
+@Repository
 public class RoutesDAOImpl extends AbstractDAOClass implements RoutesDAO {
 
 	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
