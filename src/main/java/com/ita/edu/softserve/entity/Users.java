@@ -20,7 +20,7 @@ public class Users {
 	// "SELECT u FROM Users u WHERE u.eMail = ?1";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
 	public static final String GET_ALL_USERS = "Users.getAllUsers";
-	public static final String GET_ALL_USERS_QUERY = "SELECT * FROM Users";
+	public static final String GET_ALL_USERS_QUERY = "SELECT user FROM Users user";
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
