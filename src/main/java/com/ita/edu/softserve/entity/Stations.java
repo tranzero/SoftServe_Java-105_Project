@@ -12,11 +12,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "STATIONS")
-@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY)
+@NamedQueries({
+		@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
+		@NamedQuery(name = Stations.STATIONS_FIND_ALL, query = Stations.STATIONS_FIND_ALL_QUERY) })
 public class Stations {
 
 	public static final String FIND_BY_NAME = "Station.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
+
+	public static final String STATIONS_FIND_ALL = "Stations.findAll";
+	public static final String STATIONS_FIND_ALL_QUERY = "SELECT s FROM Stations s";
 
 	@Id
 	@Column(name = "STATIONID")
