@@ -50,6 +50,6 @@ public class StationsDAOImpl extends AbstractDAOClass implements StationsDAO {
 	@Override
 	public List<Stations> findAllStations() {
 		Query query = entityManager.createNamedQuery(Stations.STATIONS_FIND_ALL);
-		return (List<Stations>) find(query);
+		return (List<Stations>) query.getResultList();
 	}
 }
