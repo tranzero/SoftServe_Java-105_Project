@@ -6,17 +6,21 @@ import javax.persistence.*;
 /**
  * @author admin
  * 
- * The persistent class for the USERS database table.
+ *         The persistent class for the USERS database table.
  */
 @Entity
 @Table(name = "USERS")
-@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY)
+@NamedQueries({
+		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
+		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY) })
 public class Users {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
-	//public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.eMail = ?1";
+	// public static final String FIND_BY_NAME_QUERY =
+	// "SELECT u FROM Users u WHERE u.eMail = ?1";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
-	
+	public static final String GET_ALL_USERS = "Users.getAllUsers";
+	public static final String GET_ALL_USERS_QUERY = "SELECT * FROM Users";
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +48,6 @@ public class Users {
 	@Column(columnDefinition = "enum('REGUSER','MANAGER', 'ADMIN')")
 	private Role role;
 
-	
 	/**
 	 * Default Constructor
 	 */
@@ -84,7 +87,6 @@ public class Users {
 		this.passwd = password;
 	}
 
-	
 	/**
 	 * @return the userId
 	 */

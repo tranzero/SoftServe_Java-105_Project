@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.List;
+
 import com.ita.edu.softserve.entity.Users;
 
 /**
@@ -39,6 +41,11 @@ public interface UsersDAO {
 	 */
 	Users update(Users user);
 
-	//
+	/**
+	 * Get all users from DB
+	 * 
+	 * @return
+	 */
+	public List<Users> getAllUsers();
 
 }
