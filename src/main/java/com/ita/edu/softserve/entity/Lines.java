@@ -17,7 +17,9 @@ import javax.persistence.*;
 @NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER, query = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER_QUERY),
-		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY) })
+		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
+		@NamedQuery(name = Lines.GET_LINES_BY_STATION, query= Lines.GET_LINES_BY_STATION_QUERY)})
+
 public class Lines {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
@@ -29,6 +31,9 @@ public class Lines {
 	public static final String GET_LINES_TWO_STATIONS_CERTAIN_ORDER = "Lines.getLinesTwoStationsCertainOrder";
 	/* Here must be a real query?! ||| in progress%%% - Answer - YES */
 	static final String GET_LINES_TWO_STATIONS_CERTAIN_ORDER_QUERY = "SELECT ln FROM Lines ln";
+	public static final String GET_LINES_BY_STATION ="Lines.getLinesByStation";
+	/* Here must be HQL query*/
+	public static final String GET_LINES_BY_STATION_QUERY = "SELECT `LINES`.LINEID, `LINES`.LINENAME FROM ( STATIONS JOIN STATIONSONLINES ON STATIONS.STATIONID = STATIONSONLINES.STATIONID JOIN `LINES` ON STATIONSONLINES.LINEID = `LINES`.LINEID ) WHERE STATIONS.STATIONNAME = @CERTAINSTATIONNAME";
 
 	@Id
 	@Column(name = "LINEID")

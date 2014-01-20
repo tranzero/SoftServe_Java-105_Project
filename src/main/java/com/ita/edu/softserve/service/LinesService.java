@@ -18,7 +18,7 @@ public interface LinesService {
 	
 	public List<Lines> getFullLines();
 	
-	public List<Lines> getLinesByStation(Stations station);
+	public List<Lines> getLinesByStation(String stationName);
 	
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 													   Stations station2);

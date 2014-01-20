@@ -78,5 +78,16 @@ public class LinesDAOImpl extends AbstractDAOClass implements LinesDAO {
 		List<Lines> listOfLines = query.getResultList();
 		return listOfLines;
 	}
-
+	
+	/**
+	 * @param stationName
+	 * @return List of lines which has certain station
+	 */
+	public static List<Lines> getLinesByStation(String stationName){
+		Query query = entityManager.createNamedQuery(Lines.GET_LINES_BY_STATION).setParameter("CERTAINSTATIONNAME", stationName);
+		@SuppressWarnings("unchecked")
+		List <Lines> lines = query.getResultList();
+		return lines;
+		
+	}
 }

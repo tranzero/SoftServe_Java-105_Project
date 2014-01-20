@@ -35,14 +35,14 @@ public class LinesServiceImpl implements LinesService {
 	}
 
 	/**
-	 * Return Lines that includes two stations in certain order
 	 * 
-	 * @return <code>List&lt;Lines&gt;</code>
+	 * @param stationName name of station
+	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 	@Override
-	public List<Lines> getLinesByStation(Stations station) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Lines> getLinesByStation(String stationName) {
+		
+		return LinesDAOImpl.getLinesByStation(stationName);
 	}
 
 	/**
