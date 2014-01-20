@@ -29,7 +29,7 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements StationsDA
 	
 	@Override
 	public List<Stations> findAllStations() {
-		Query query = entityManager.createNamedQuery(Stations.STATIONS_FIND_ALL);
+		Query query = entityManager.createNamedQuery(Stations.FIND_ALL_STATIONS);
 		return (List<Stations>) query.getResultList();
 	}
 

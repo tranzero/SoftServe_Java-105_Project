@@ -14,14 +14,14 @@ import javax.persistence.*;
 @Table(name = "STATIONS")
 @NamedQueries({
 		@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
-		@NamedQuery(name = Stations.STATIONS_FIND_ALL, query = Stations.STATIONS_FIND_ALL_QUERY) })
+		@NamedQuery(name = Stations.FIND_ALL_STATIONS, query = Stations.FIND_ALL_STATIONS_QUERY) })
 public class Stations extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Station.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
 
-	public static final String STATIONS_FIND_ALL = "Stations.findAll";
-	public static final String STATIONS_FIND_ALL_QUERY = "SELECT s FROM Stations s";
+	public static final String FIND_ALL_STATIONS = "Stations.findAll";
+	public static final String FIND_ALL_STATIONS_QUERY = "SELECT s FROM Stations s";
 
 	@Id
 	@Column(name = "STATIONID")
