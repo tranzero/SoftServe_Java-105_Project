@@ -21,7 +21,7 @@ public class StationsServiceImpl implements StationsService {
 	@Transactional
 	@Override
 	public List<Stations> findAllStations() {
-		 return stationDao.findAllStations();
+		 return stationDao.getAllEntities();
 	}
 
 }

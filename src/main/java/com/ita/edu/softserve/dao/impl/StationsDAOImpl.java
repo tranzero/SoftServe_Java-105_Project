@@ -1,7 +1,5 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.util.List;
-
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -16,9 +14,9 @@ import com.ita.edu.softserve.entity.Stations;
  * 
  */
 @Repository
-public class StationsDAOImpl extends AbstractDAO<Stations> implements StationsDAO {
+public class StationsDAOImpl extends AbstractDAO<Stations> implements
+		StationsDAO {
 
-	
 	@Override
 	public Stations findByStations(String stationName) {
 		Query query = entityManager.createNamedQuery(
@@ -26,17 +24,9 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements StationsDA
 		return (Stations) query.getSingleResult();
 	}
 
-	
-	@Override
-	public List<Stations> findAllStations() {
-		Query query = entityManager.createNamedQuery(Stations.FIND_ALL_STATIONS);
-		return (List<Stations>) query.getResultList();
-	}
-
-
 	@Override
 	protected Class<Stations> getEntityClass() {
-		
+
 		return Stations.class;
 	}
 }

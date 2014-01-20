@@ -8,47 +8,43 @@ import javax.persistence.PersistenceContext;
 
 import com.ita.edu.softserve.entity.BaseEntity;
 
-public abstract class AbstractDAO <E extends BaseEntity> {
+public abstract class AbstractDAO<E extends BaseEntity> {
 	public static final String PERSISTENCE_UNIT_NAME = "Java105";
 	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
-    protected EntityManager entityManager;
-	 
-	
-	    public E findById(int id) {
-	        return entityManager.find(getEntityClass(), id);
-	    }
+	protected EntityManager entityManager;
 
-	   
-	    public void save(E... entities) {
-	        
-	        for(E entity: entities){
-	        entityManager.persist(entity);
-	        }
-	    }
+	public E findById(int id) {
+		return entityManager.find(getEntityClass(), id);
+	}
 
-	    
-	    public void remove(E... entities) {
-	        for(E entity: entities){
-	        entityManager.remove(entity);
-	        }
-	    }
+	public void save(E... entities) {
 
-	 
-	    public List<E> update(E... entities) {
-	        List<E> entitiesResult =  new ArrayList<E>();
-	        for(E entity: entities){
-	         entitiesResult.add( entityManager.merge(entity));
-	        }
-	        return entitiesResult;
-	
-	    }
+		for (E entity : entities) {
+			entityManager.persist(entity);
+		}
+	}
 
-	   
-	    public List<E> getAllEntities() {
+	public void remove(E... entities) {
+		for (E entity : entities) {
+			entityManager.remove(entity);
+		}
+	}
 
-	      return   entityManager.createQuery("From " + getEntityClass()
-	                              .getCanonicalName()).getResultList();
-	      
-	    }
-	    protected abstract Class<E> getEntityClass();
+	public List<E> update(E... entities) {
+		List<E> entitiesResult = new ArrayList<E>();
+		for (E entity : entities) {
+			entitiesResult.add(entityManager.merge(entity));
+		}
+		return entitiesResult;
+
+	}
+
+	public List<E> getAllEntities() {
+
+		return entityManager.createQuery(
+				"From " + getEntityClass().getCanonicalName()).getResultList();
+
+	}
+
+	protected abstract Class<E> getEntityClass();
 }
