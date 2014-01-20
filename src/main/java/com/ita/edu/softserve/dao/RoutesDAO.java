@@ -16,27 +16,5 @@ public interface RoutesDAO {
 	 */
 	Routes findByCode(String routeCode);
 
-	/**
-	 * Save a new route
-	 * 
-	 * @param route
-	 */
-	void save(Routes route);
-
-	/**
-	 * Remove a route
-	 * 
-	 * @param route
-	 */
-	void remove(Routes route);
-
-	/**
-	 * Update a route
-	 * 
-	 * @param route
-	 * @return
-	 */
-	Routes update(Routes route);
-
-	//
+	
 }

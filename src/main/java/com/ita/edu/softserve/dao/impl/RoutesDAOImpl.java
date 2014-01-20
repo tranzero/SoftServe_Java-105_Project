@@ -6,7 +6,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.ita.edu.softserve.dao.AbstractDAOClass;
+import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
@@ -17,31 +17,23 @@ import com.ita.edu.softserve.entity.Routes;
  * 
  */
 @Repository
-public class RoutesDAOImpl extends AbstractDAOClass implements RoutesDAO {
+public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 
-	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
-	private EntityManager entityManager;
+	
 
 	@Override
 	public Routes findByCode(String routeCode) {
 		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
 				.setParameter(1, routeCode);
-		return (Routes) find(query);
+		return (Routes) query.getSingleResult();
 	}
 
 	@Override
-	public void save(Routes route) {
-		entityManager.persist(route);
+	protected Class<Routes> getEntityClass() {
+		
+		return Routes.class;
 	}
 
-	@Override
-	public void remove(Routes route) {
-		entityManager.remove(route);
-	}
-
-	@Override
-	public Routes update(Routes route) {
-		return entityManager.merge(route);
-	}
+	
 
 }

@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NamedQueries({
 		@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Stations.STATIONS_FIND_ALL, query = Stations.STATIONS_FIND_ALL_QUERY) })
-public class Stations {
+public class Stations extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Station.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";

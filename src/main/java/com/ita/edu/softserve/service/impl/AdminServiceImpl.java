@@ -6,19 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.UsersDAO;
+import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.service.AdminService;
 
 public class AdminServiceImpl implements AdminService {
 	@Autowired
-	private UsersDAO userDao;
+	private UsersDAOImpl userDao;
 
 	@Transactional
 	@Override
 	public void printAllUsers() {
 		List<Users> usersList = new ArrayList<Users>();
-		usersList = userDao.getAllUsers();
+		usersList = userDao.getAllEntities();
 		for (Users u : usersList) {
 			System.out.println("Users name" + u.getFirstName() + " "
 					+ u.getLastName());
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	@Override
 	public Integer countAllUsers() {		
-		int countUsers = userDao.getAllUsers().size();		
+		int countUsers = userDao.getAllEntities().size();		
 		System.out.println("Number of users:" + countUsers);
 		return countUsers;
 	}

@@ -22,6 +22,7 @@ import com.ita.edu.softserve.service.LinesService;
 public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
+	private LinesDAOImpl lineDao = new LinesDAOImpl();
 
 	/**
 	 * Return all Lines
@@ -31,7 +32,7 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getFullLines() {
 		// TODO Auto-generated method stub
-		return LinesDAOImpl.getFullLines();
+		return lineDao.getFullLines();
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getLinesByStation(String stationName) {
 		
-		return LinesDAOImpl.getLinesByStation(stationName);
+		return lineDao.getLinesByStation(stationName);
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 													   Stations station2) {
-		return LinesDAOImpl.getLinesTwoStationsCertainOrder(station1, station2);
+		return lineDao.getLinesTwoStationsCertainOrder(station1, station2);
 	}
 
 }

@@ -1,12 +1,8 @@
 package com.ita.edu.softserve.dao.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 
-import com.ita.edu.softserve.dao.AbstractDAOClass;
+import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.entity.Stops;
 
@@ -16,34 +12,13 @@ import com.ita.edu.softserve.entity.Stops;
  * 
  */
 @Repository
-public class StopsDAOImpl extends AbstractDAOClass implements StopsDAO {
-
-	@PersistenceContext(name = PERSISTENCE_UNIT_NAME)
-	private EntityManager entityManager;
+public class StopsDAOImpl extends AbstractDAO<Stops> implements StopsDAO {
 
 	@Override
-	public Stops findByID(int id) {
-		Query query = entityManager.createNamedQuery(Stops.FIND_BY_ID)
-				.setParameter(1, id);
-		return (Stops) find(query);
-
+	protected Class<Stops> getEntityClass() {
+		
+		return Stops.class;
 	}
 
-	@Override
-	public void save(Stops stop) {
-		entityManager.persist(stop);
-
-	}
-
-	@Override
-	public void remove(Stops stop) {
-		entityManager.remove(stop);
-
-	}
-
-	@Override
-	public Stops update(Stops stop) {
-		return entityManager.merge(stop);
-	}
-
+	
 }

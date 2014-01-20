@@ -2,7 +2,16 @@ package com.ita.edu.softserve.entity;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * @author admin
@@ -12,7 +21,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "STOPS")
 @NamedQuery(name = Stops.FIND_BY_ID, query = Stops.FIND_BY_ID_QUERY)
-public class Stops {
+public class Stops extends BaseEntity {
 
 	public static final String FIND_BY_ID = "Stops.findByID";
 	public static final String FIND_BY_ID_QUERY = "SELECT u FROM Stops u WHERE u.stopId = ?1";

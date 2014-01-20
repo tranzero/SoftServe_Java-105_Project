@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY) })
-public class Users {
+public class Users extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
 	// public static final String FIND_BY_NAME_QUERY =

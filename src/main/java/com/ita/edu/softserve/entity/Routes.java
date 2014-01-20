@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ROUTES")
 @NamedQuery(name = Routes.FIND_BY_CODE, query = Routes.FIND_BY_CODE_QUERY)
-public class Routes {
+public class Routes extends BaseEntity {
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";

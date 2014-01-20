@@ -1,6 +1,9 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.List;
+
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Stations;
 
 /**
  * 
@@ -15,28 +18,13 @@ public interface LinesDAO {
 	 * @param lineName
 	 * @return
 	 */
-	Lines findByName(String lineName);
+	public Lines findByName(String lineName);
 
-	/**
-	 * Save new line
-	 * 
-	 * @param line
-	 */
-	void save(Lines line);
-
-	/**
-	 * Remove line
-	 * 
-	 * @param line
-	 */
-	void remove(Lines line);
-
-	/**
-	 * Update line
-	 * 
-	 * @param line
-	 * @return
-	 */
-	Lines update(Lines line);
+	public List<Lines> getLinesTwoStationsCertainOrder(
+			Stations station1, Stations station2);
+	
+	public List<Lines> getLinesByStation(String stationName);
+	
+	public List<Lines> getFullLines();
 
 }
