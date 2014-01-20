@@ -25,4 +25,14 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	/**
+	 * Returns the number of all users 
+	 */
+	@Transactional
+	@Override
+	public Integer countAllUsers() {		
+		int countUsers = userDao.getAllUsers().size();		
+		System.out.println("Number of users:" + countUsers);
+		return countUsers;
+	}
 }
