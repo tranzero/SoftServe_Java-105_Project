@@ -1,7 +1,18 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Date;
-import javax.persistence.*;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * @author admin
@@ -51,7 +62,9 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	public Users() {
+	protected Users() {
+		this.setRegDate();
+		this.setUserId();
 
 	}
 
@@ -62,11 +75,13 @@ public class Users extends BaseEntity {
 	 * @param email
 	 * @param password
 	 */
-	public Users(String username, String email, String password) {
-		this.username = username;
-		this.eMail = email;
-		this.passwd = password;
-
+	public Users(String userName, String eMail, String password) {
+		this();
+		if (trueEnterValueOfFirstPart(userName, eMail, password)){
+		this.setUsername(userName);
+		this.seteMail(eMail);
+		this.setPasswd(password);
+		}
 	}
 
 	/**
@@ -78,13 +93,16 @@ public class Users extends BaseEntity {
 	 * @param email
 	 * @param password
 	 */
-	public Users(String username, String firstname, String lastname,
-			String email, String password) {
-		this.username = username;
-		this.firstName = firstname;
-		this.lastName = lastname;
-		this.eMail = email;
-		this.passwd = password;
+	public Users(String userName, String firstName, String lastName,
+			String eMail, String password) {
+		this(userName, eMail, password);
+		if (trueEnterValueOfSecondPart(firstName, lastName)){
+			this.setFirstName(firstName);
+			this.setLastName(lastName);
+		} else {
+			System.exit(1);
+		}
+		
 	}
 
 	/**
@@ -98,8 +116,8 @@ public class Users extends BaseEntity {
 	 * @param userId
 	 *            the userId to set
 	 */
-	public void setUserId(int userId) {
-		this.userId = userId;
+	private void setUserId() {
+		this.userId =(int) Integer.parseInt(UUID.randomUUID().toString()) ;
 	}
 
 	/**
@@ -158,7 +176,7 @@ public class Users extends BaseEntity {
 	 * @param username
 	 *            the username to set
 	 */
-	public void setUsername(String username) {
+	private void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -188,8 +206,8 @@ public class Users extends BaseEntity {
 	 * @param regDate
 	 *            the regDate to set
 	 */
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	private void setRegDate() {
+		this.regDate = new Date();
 	}
 
 	/**
@@ -205,6 +223,28 @@ public class Users extends BaseEntity {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	private boolean trueEnterValueOfFirstPart(String username,
+											String eMail, String password){
+		if (username != "" && username != null && eMail != "" 
+				&& eMail != null && password != "" 
+				&& password != null) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	private boolean trueEnterValueOfSecondPart( String firstName, 
+			String lastName){
+		if (firstName != "" && firstName != null && lastName != "" 
+				&& lastName != null) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	@Override
