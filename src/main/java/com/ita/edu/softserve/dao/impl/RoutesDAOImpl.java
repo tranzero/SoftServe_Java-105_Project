@@ -34,7 +34,7 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Routes> findRoutersListByStationIdArriving(
+	public List<Routes> findRoutersListByStationIDArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax) {
 		Query query = entityManager
 				.createNamedQuery(Routes.FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING)
@@ -46,7 +46,7 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Routes> findRoutersListByStationIdDeparting(
+	public List<Routes> findRoutersListByStationIDDeparting(
 			int idStationDeparting, Time timeDepartureMin,
 			Time timeDepartureMax) {
 		Query query = entityManager

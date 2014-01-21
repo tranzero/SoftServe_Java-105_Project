@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Lyubomyr
- * 
+ *
  */
 public class RoutesServiceMain {
 
@@ -26,7 +26,7 @@ public class RoutesServiceMain {
 		Time timeArrivalMin = new Time(0, 0, 0);
 		Time timeArrivalMax = new Time(23, 59, 0);
 		List<Routes> listRoutesArriving = routesService
-				.findRoutersListByStationIdArriving(idStationArriving,
+				.findRoutersListByStationIDArriving(idStationArriving,
 						timeArrivalMin, timeArrivalMax);
 		System.out.println("List Routers find by stationId arriving");
 		for (Routes routesArriving : listRoutesArriving) {
@@ -41,7 +41,7 @@ public class RoutesServiceMain {
 		Time timeDepartureMin = new Time(0, 0, 0);
 		Time timeDepartureMax = new Time(23, 59, 0);
 		List<Routes> listRoutesDeparting = routesService
-				.findRoutersListByStationIdDeparting(idStationDeparting,
+				.findRoutersListByStationIDDeparting(idStationDeparting,
 						timeDepartureMin, timeDepartureMax);
 		System.out.println("/nList Routers find by stationId departing");
 		for (Routes routesDeparting : listRoutesDeparting) {

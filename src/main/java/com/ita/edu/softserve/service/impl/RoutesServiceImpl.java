@@ -31,7 +31,7 @@ public class RoutesServiceImpl implements RoutesService {
 	 * 
 	 */
 	@Override
-	public List<Routes> findRoutersListByStationIdArriving(
+	public List<Routes> findRoutersListByStationIDArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax) {
 		return routesDao.findRoutersListByStationIdArriving(idStationArriving,
 				timeArrivalMin, timeArrivalMax);
@@ -50,7 +50,7 @@ public class RoutesServiceImpl implements RoutesService {
 	 * 
 	 */
 	@Override
-	public List<Routes> findRoutersListByStationIdDeparting(
+	public List<Routes> findRoutersListByStationIDDeparting(
 			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax) {
 		return routesDao.findRoutersListByStationIdDeparting(
 				idStationDeparting, timeDepartureMin, timeDepartureMax);
