@@ -1,4 +1,7 @@
-package com.ita.edu.softserve.dao;
+/**
+ * 
+ */
+package com.ita.edu.softserve.service;
 
 import java.util.List;
 import java.sql.Time;
@@ -6,23 +9,13 @@ import java.sql.Time;
 import com.ita.edu.softserve.entity.Routes;
 
 /**
- * 
- * @author iryna
+ * @author Lyubomyr
  * 
  */
-public interface RoutesDAO {
-	/**
-	 * Find Routes by routeCode
-	 * 
-	 * @param routeCode
-	 * @return
-	 */
-	Routes findByCode(String routeCode);
-
+public interface RoutesService {
 	public List<Routes> findRoutersListByStationIdArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 
 	public List<Routes> findRoutersListByStationIdDeparting(
-			int idStationDeparting, Time timeDepartureMin,
-			Time timeDepartureMax);
+			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax);
 }
