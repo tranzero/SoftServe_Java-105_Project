@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.service.AdminService;
-
+@Service
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private UsersDAOImpl userDao;

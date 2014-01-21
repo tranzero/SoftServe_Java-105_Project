@@ -6,6 +6,7 @@ package com.ita.edu.softserve.service.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
@@ -19,6 +20,7 @@ import com.ita.edu.softserve.service.LinesService;
  * @author MPS
  * 
  */
+@Service
 public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);

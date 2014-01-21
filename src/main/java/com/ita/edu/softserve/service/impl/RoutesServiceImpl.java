@@ -3,6 +3,8 @@ package com.ita.edu.softserve.service.impl;
 import java.util.List;
 import java.sql.Time;
 
+import org.springframework.stereotype.Service;
+
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.service.RoutesService;
@@ -11,6 +13,7 @@ import com.ita.edu.softserve.service.RoutesService;
  * @author Lyubomyr
  * 
  */
+@Service
 public class RoutesServiceImpl implements RoutesService {
 
 	private RoutesDAOImpl routesDao = new RoutesDAOImpl();
