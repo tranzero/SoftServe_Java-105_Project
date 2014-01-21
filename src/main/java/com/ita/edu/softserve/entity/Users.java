@@ -247,6 +247,16 @@ public class Users extends BaseEntity {
 		
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + userId;
+		return result;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -256,20 +266,10 @@ public class Users extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (passwd == null) {
-			if (other.passwd != null)
-				return false;
-		} else if (!passwd.equals(other.passwd))
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((passwd == null) ? 0 : passwd.hashCode());
-		return result;
-	}
 
 }

@@ -22,34 +22,12 @@ public class Routes extends BaseEntity {
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";
 	
+	/* Change SQL запити на HQL TASK :  Lyubomyr_Pentsko*/
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING = "Routes.findRoutersListByStationIdArriving";
-	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY =
-			"SELECT ROUTES.ROUTEID,ROUTES.LINEID,ROUTES.ROUTECODE,ROUTES.STARTTIME"
-			+ " FROM ("
-			+ " STATIONSONLINES"
-			+ " JOIN STOPS ON STOPS.STATIONONLINEID = STATIONSONLINES.STATIONONLINEID"
-			+ " AND STATIONSONLINES.STATIONID = ?idStationArriving"
-			+ " JOIN ROUTES ON STOPS.ROUTEID = ROUTES.ROUTEID"
-			+ " AND STOPS.ARRIVAL != CONVERT( \"00:00\", TIME )"
-			+ " AND TIME(SUBTIME(ADDTIME(NOW(),ADDTIME( ROUTES.STARTTIME, STOPS.ARRIVAL )), CURTIME()))"
-			+ " BETWEEN ?timeArrivalMin"
-			+ " AND ?timeArrivalMax"
-			+ " );";
-	
+	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY = " ";
+	/* Change SQL запити на HQL TASK :  Lyubomyr_Pentsko*/
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING= "Routes.findRoutersListByStationIdDeparting";
-	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY = 
-			"SELECT ROUTES.ROUTEID,ROUTES.LINEID,ROUTES.ROUTECODE,ROUTES.STARTTIME"
-			+ " FROM ("
-			+ " STATIONSONLINES"
-			+ " JOIN STOPS ON STOPS.STATIONONLINEID = STATIONSONLINES.STATIONONLINEID"
-			+ " AND STATIONSONLINES .STATIONID = ?idStationDeparting"
-			+ " JOIN ROUTES ON STOPS.ROUTEID = ROUTES.ROUTEID"
-			+ " AND (STOPS.DEPARTURE != CONVERT( \"00:00\", TIME )"
-			+ " OR STOPS.ARRIVAL = CONVERT( \"00:00\", TIME ))"
-			+ " AND TIME(SUBTIME(ADDTIME(NOW(),ADDTIME( ROUTES.STARTTIME, STOPS.DEPARTURE )), CURTIME()))"
-			+ " BETWEEN ?timeDepartureMin"
-			+ " AND ?timeDepartureMax"
-			+ " );";
+	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY = " ";
 
 	@Id
 	@Column(name = "ROUTEID")
