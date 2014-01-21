@@ -19,10 +19,10 @@ public interface RoutesDAO {
 	 */
 	Routes findByCode(String routeCode);
 
-	public List<Routes> findRoutersListByStationIDArriving(
+	public List<Routes> findRoutersListByStationIdArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 
-	public List<Routes> findRoutersListByStationIDDeparting(
+	public List<Routes> findRoutersListByStationIdDeparting(
 			int idStationDeparting, Time timeDepartureMin,
 			Time timeDepartureMax);
 }

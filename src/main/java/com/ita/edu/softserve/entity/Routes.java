@@ -22,7 +22,7 @@ public class Routes extends BaseEntity {
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";
 	
-	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING = "Routes.findRoutersListByStationIDArriving";
+	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING = "Routes.findRoutersListByStationIdArriving";
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY =
 			"SELECT ROUTES.ROUTEID,ROUTES.LINEID,ROUTES.ROUTECODE,ROUTES.STARTTIME"
 			+ " FROM ("
@@ -36,7 +36,7 @@ public class Routes extends BaseEntity {
 			+ " AND ?timeArrivalMax"
 			+ " );";
 	
-	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING= "Routes.findRoutersListByStationIDDeparting";
+	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING= "Routes.findRoutersListByStationIdDeparting";
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY = 
 			"SELECT ROUTES.ROUTEID,ROUTES.LINEID,ROUTES.ROUTECODE,ROUTES.STARTTIME"
 			+ " FROM ("
