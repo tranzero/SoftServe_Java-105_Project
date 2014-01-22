@@ -22,10 +22,9 @@ public class Routes extends BaseEntity {
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";
 	
-	/* Change SQL запити на HQL TASK :  Lyubomyr_Pentsko*/
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING = "Routes.findRoutersListByStationIdArriving";
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY = " ";
-	/* Change SQL запити на HQL TASK :  Lyubomyr_Pentsko*/
+
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING= "Routes.findRoutersListByStationIdDeparting";
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY = " ";
 
