@@ -3,15 +3,19 @@
  */
 package com.ita.edu.softserve.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
+import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
+import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.service.LinesService;
 
 /**
@@ -25,9 +29,10 @@ public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 	private LinesDAOImpl lineDao;
+	private StationsOnLineDAOImpl stlDao;
 
 	public LinesServiceImpl() {
-		this(new LinesDAOImpl());
+		this(new LinesDAOImpl()); 
 	}
 
 	public LinesServiceImpl(LinesDAOImpl lineDao) {
@@ -53,9 +58,14 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 	@Override
-	public List<Lines> getLinesByStation(String stationName) {
+	public List<Lines> getLinesByStation(Stations station) {
 
-		return lineDao.getLinesByStation(stationName);
+		List<StationsOnLine> stlList= stlDao.findByStationId(station.getStationId());
+		List<Lines> linesList = new ArrayList<Lines>();
+		for(StationsOnLine stl: stlList){
+			linesList.add(lineDao.findById(stl.getLineId().getLineId()));
+		}
+		return linesList;
 	}
 
 	/**

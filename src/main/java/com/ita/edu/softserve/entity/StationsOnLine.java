@@ -12,11 +12,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "STATIONSONLINE")
-@NamedQuery(name = StationsOnLine.FIND_BY_ID, query = StationsOnLine.FIND_BY_ID_QUERY)
+@NamedQueries({
+@NamedQuery(name = StationsOnLine.FIND_BY_ID, query = StationsOnLine.FIND_BY_ID_QUERY),
+@NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY)})
 public class StationsOnLine extends BaseEntity {
 
 	public static final String FIND_BY_ID = "StationsOnLine.findByID";
 	public static final String FIND_BY_ID_QUERY = "SELECT u FROM StationsOnLine u WHERE u.stationOnLineId = ?1";
+	public static final String FIND_BY_STATIONS_ID = "StationsOnLine.findByStationID";
+	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT u FROM StationsOnLine u WHERE u.stationId = ?1";
 
 	@Id
 	@Column(name = "STATIONONLINEID")

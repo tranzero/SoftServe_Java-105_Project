@@ -23,8 +23,10 @@ public class Main {
 	
 		ApplicationContext appContext = 
 		    	  new ClassPathXmlApplicationContext("/META-INF/spring/root-context.xml");		 
+
 		UsersDAO usersDao = (UsersDAO) appContext.getBean("usersDao");
 		Users users= usersDao.findByName("Lesniak");
 		System.out.println(users.getFirstName() + " " + users.getLastName());
+
 	}
 }
