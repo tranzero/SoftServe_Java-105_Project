@@ -62,7 +62,7 @@ public class TestStationServiceImpl {
 	 * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl#findAllStations()}
 	 */
 	@Test
-	public final void testFindAllStations() {
+	public final void testFindAllStationsEquals() {
 		List<Stations> listOfStations = new ArrayList<Stations>();
 
 		Stations station1 = mock(Stations.class);
