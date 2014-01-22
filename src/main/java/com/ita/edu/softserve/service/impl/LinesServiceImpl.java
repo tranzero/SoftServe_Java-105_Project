@@ -86,12 +86,14 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
-			String stationName2) {
+	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
+			Stations station2) {
 		/* here is stored station that we need to get from */
-		List<Stations> stations1 = stationsDao.findByStations(stationName1);
+		List<Stations> stations1 = stationsDao.findByStations(station1
+				.getStationName());
 		/* here is stored station that we need to get to */
-		List<Stations> stations2 = stationsDao.findByStations(stationName2);
+		List<Stations> stations2 = stationsDao.findByStations(station2
+				.getStationName());
 
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
 		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
