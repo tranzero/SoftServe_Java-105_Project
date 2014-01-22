@@ -38,7 +38,7 @@ public class LineServiceImplTests {
 		testList.add(lines);
 		testList.add(lines);
 		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
-		when(linesDaoImpl.getFullLines()).thenReturn(testList);
+		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
 		LinesServiceImpl lsi = new LinesServiceImpl(linesDaoImpl);
 		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
 	}
@@ -47,19 +47,9 @@ public class LineServiceImplTests {
 	public void getFullLinesWithEmptyListTest() {
 		List<Lines> testList = new ArrayList<Lines>();
 		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
-		when(linesDaoImpl.getFullLines()).thenReturn(testList);
+		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
 		LinesServiceImpl lsi = new LinesServiceImpl(linesDaoImpl);
 		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
-	}
-
-	@Test(expected = java.lang.NullPointerException.class)
-	public void getFullLinesWithErrorTest() {
-		List<Lines> ll = new ArrayList<Lines>();
-		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
-		when(linesDaoImpl.getFullLines()).thenReturn(null);
-		LinesServiceImpl lsi = new LinesServiceImpl(linesDaoImpl);
-		lsi.getFullLines();
-
 	}
 
 	/*

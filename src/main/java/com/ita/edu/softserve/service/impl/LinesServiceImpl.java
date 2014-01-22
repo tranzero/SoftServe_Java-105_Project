@@ -26,10 +26,11 @@ public class LinesServiceImpl implements LinesService {
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 	private LinesDAOImpl lineDao;
 
-	public LinesServiceImpl(){
-		this (new LinesDAOImpl());
-	} 
-	public LinesServiceImpl(LinesDAOImpl lineDao){
+	public LinesServiceImpl() {
+		this(new LinesDAOImpl());
+	}
+
+	public LinesServiceImpl(LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
 	}
 
@@ -39,13 +40,10 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getFullLines() throws NullPointerException{
-		List<Lines> linesList = lineDao.getFullLines();
-		if(linesList == null){
-				throw new NullPointerException("List shouldn't be null!");
-			} else {
-				return linesList;
-			}
+	public List<Lines> getFullLines() {
+		List<Lines> linesList = lineDao.getAllEntities();
+		return linesList;
+
 	}
 
 	/**
