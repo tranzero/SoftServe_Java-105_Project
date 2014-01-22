@@ -19,7 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 	
 		ApplicationContext appContext = 
-		    	  new ClassPathXmlApplicationContext("/META-INF/context.xml");		 
+		    	  new ClassPathXmlApplicationContext("/META-INF/spring/root-context.xml");		 
 		UserService user = (UserService) appContext.getBean("transactionManager");		
 		user.createUser("TheDarkLord", "Darth", "Vader", "darkforce@sith.com", "force"); 	
 	}

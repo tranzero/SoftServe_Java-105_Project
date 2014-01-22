@@ -20,9 +20,6 @@ public interface LinesDAO {
 	 */
 	public Lines findByName(String lineName);
 
-	public List<Lines> getLinesTwoStationsCertainOrder(
-			Stations station1, Stations station2);
 	
-	public List<Lines> getLinesByStation(String stationName);
 
 }
