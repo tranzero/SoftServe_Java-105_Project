@@ -17,7 +17,8 @@ public interface StationsDAO {
 	 * @param stationName
 	 * @return
 	 */
-	Stations findByStations(String stationName);
+	List<Stations> findByStations(String stationName);
+//	Stations findByStations(String stationName);
 
 	
 }
