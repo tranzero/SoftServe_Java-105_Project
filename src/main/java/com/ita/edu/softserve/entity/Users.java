@@ -35,7 +35,10 @@ public class Users extends BaseEntity {
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
+	private Integer userId;
+	
+	@Column(name = "USERNAME", nullable = false, length = 100)
+	private String userName;
 
 	@Column(name = "FIRSTNAME", nullable = true, length = 100)
 	private String firstName;
@@ -59,10 +62,9 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	public Users() {
-//		this.setRegDate();
-//		this.setUserId();
-
+	protected Users() {
+		this.setRegDate();
+		this.setUserId();
 	}
 
 	/**
@@ -75,8 +77,9 @@ public class Users extends BaseEntity {
 	public Users(String userName, String eMail, String password) {
 		this();
 		if (trueEnterValueOfFirstPart(userName, eMail, password)){
-		this.seteMail(eMail);
-		this.setPasswd(password);
+			this.setUserName(userName);
+			this.seteMail(eMail);
+			this.setPasswd(password);
 		}
 	}
 
@@ -104,7 +107,7 @@ public class Users extends BaseEntity {
 	/**
 	 * @return the userId
 	 */
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
@@ -113,7 +116,22 @@ public class Users extends BaseEntity {
 	 *            the userId to set
 	 */
 	private void setUserId() {
-		this.userId =(int) Integer.parseInt(UUID.randomUUID().toString()) ;
+		this.userId = (int) Integer.parseInt(UUID.randomUUID().toString()) ;
+	}
+
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName 
+	 * 				the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -217,6 +235,7 @@ public class Users extends BaseEntity {
 		}
 		
 	}
+	
 	private boolean trueEnterValueOfSecondPart( String firstName, 
 			String lastName){
 		if (firstName != "" && firstName != null && lastName != "" 
@@ -233,7 +252,8 @@ public class Users extends BaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + userId;
+		result = prime * result
+				+ ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 
@@ -247,7 +267,10 @@ public class Users extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (userId != other.userId)
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

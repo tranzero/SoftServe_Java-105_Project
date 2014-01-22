@@ -3,7 +3,7 @@
  */
 package com.ita.edu.softserve.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -31,16 +31,16 @@ public class Lines extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int lineId;
 
-	@Column(name = "LINENAME", length = 100)
+	@Column(name = "LINENAME", nullable = false, length = 100)
 	private String lineName;
 
 	/* Bi-directional one-to-many association to Routes */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private List<Routes> routes;
+	private Set<Routes> routes;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private List<StationsOnLine> stationsOnLines;
+	private Set<StationsOnLine> stationsOnLines;
 
 	/**
 	 * Default constructor
@@ -53,7 +53,9 @@ public class Lines extends BaseEntity {
 	 *            Constructor with parametr lineName
 	 */
 	public Lines(String lineName) {
-		this.lineName = lineName;
+		if (trueEnterValueOfLineName(lineName)) {
+			this.lineName = lineName;
+		}
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class Lines extends BaseEntity {
 	/**
 	 * @return the List of routes
 	 */
-	public List<Routes> getRoutes() {
+	public Set<Routes> getRoutes() {
 		return routes;
 	}
 
@@ -97,14 +99,14 @@ public class Lines extends BaseEntity {
 	 * @param routes
 	 *            to set
 	 */
-	public void setRoutes(List<Routes> routes) {
+	public void setRoutes(Set<Routes> routes) {
 		this.routes = routes;
 	}
 
 	/**
 	 * @return the List of stationsOnLines
 	 */
-	public List<StationsOnLine> getStationsOnLines() {
+	public Set<StationsOnLine> getStationsOnLines() {
 		return stationsOnLines;
 	}
 
@@ -112,8 +114,21 @@ public class Lines extends BaseEntity {
 	 * @param stationsOnLines
 	 *            to set
 	 */
-	public void setStationsOnLines(List<StationsOnLine> stationsOnLines) {
+	public void setStationsOnLines(Set<StationsOnLine> stationsOnLines) {
 		this.stationsOnLines = stationsOnLines;
+	}
+	
+	/**
+	 * Check lineName is not null
+	 * @param lineNameValue
+	 * @return true or false
+	 */
+	private boolean trueEnterValueOfLineName(String lineNameValue){
+		if (lineNameValue != "" && lineNameValue != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

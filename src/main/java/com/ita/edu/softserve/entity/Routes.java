@@ -1,7 +1,8 @@
 package com.ita.edu.softserve.entity;
 
 import java.sql.Time;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -52,7 +53,7 @@ public class Routes extends BaseEntity {
 	private Lines lineId;
 
 	@OneToMany(mappedBy = "routeId", fetch = FetchType.LAZY)
-	private List<Stops> stops;
+	private Set<Stops> stops = new HashSet<Stops>();
 
 	@Column(name = "ROUTECODE", length = 20)
 	private String routeCode;
@@ -99,7 +100,7 @@ public class Routes extends BaseEntity {
 	/**
 	 * @return the stops
 	 */
-	public List<Stops> getStops() {
+	public Set<Stops> getStops() {
 		return stops;
 	}
 
@@ -107,7 +108,7 @@ public class Routes extends BaseEntity {
 	 * @param stops
 	 *            the stops to set
 	 */
-	public void setStops(List<Stops> stops) {
+	public void setStops(Set<Stops> stops) {
 		this.stops = stops;
 	}
 
@@ -140,4 +141,28 @@ public class Routes extends BaseEntity {
 	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + routeId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Routes other = (Routes) obj;
+		if (routeId != other.routeId)
+			return false;
+		return true;
+	}
+	
+	
 }

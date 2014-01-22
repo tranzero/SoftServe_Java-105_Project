@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.entity;
 
-import java.util.Date;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,10 +40,10 @@ public class Stops extends BaseEntity {
 	private StationsOnLine stationOnLineId;
 
 	@Column(name = "ARRIVAL")
-	private Date arrival;
+	private Time arrival;
 
 	@Column(name = "DEPARTURE")
-	private Date departure;
+	private Time departure;
 
 	/**
 	 * Default Constructor
@@ -99,7 +99,7 @@ public class Stops extends BaseEntity {
 	/**
 	 * @return the arrival
 	 */
-	public Date getArrival() {
+	public Time getArrival() {
 		return arrival;
 	}
 
@@ -107,14 +107,14 @@ public class Stops extends BaseEntity {
 	 * @param arrival
 	 *            the arrival to set
 	 */
-	public void setArrival(Date arrival) {
+	public void setArrival(Time arrival) {
 		this.arrival = arrival;
 	}
 
 	/**
 	 * @return the departure
 	 */
-	public Date getDeparture() {
+	public Time getDeparture() {
 		return departure;
 	}
 
@@ -122,8 +122,30 @@ public class Stops extends BaseEntity {
 	 * @param departure
 	 *            the departure to set
 	 */
-	public void setDeparture(Date departure) {
+	public void setDeparture(Time departure) {
 		this.departure = departure;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + stopId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Stops other = (Stops) obj;
+		if (stopId != other.stopId)
+			return false;
+		return true;
 	}
 
 }

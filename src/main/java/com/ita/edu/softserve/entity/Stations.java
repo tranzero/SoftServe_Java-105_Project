@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -31,7 +31,7 @@ public class Stations extends BaseEntity {
 
 	/* Bi-directional one-to-many association to StationsOnLine */
 	@OneToMany(mappedBy = "stationId", fetch = FetchType.LAZY)
-	private List<StationsOnLine> stationsOnLines;
+	private Set<StationsOnLine> stationsOnLines;
 
 	/**
 	 * Default Constructor
@@ -97,7 +97,7 @@ public class Stations extends BaseEntity {
 	/**
 	 * @return the stationsOnLines
 	 */
-	public List<StationsOnLine> getStationsOnLines() {
+	public Set<StationsOnLine> getStationsOnLines() {
 		return stationsOnLines;
 	}
 
@@ -105,7 +105,7 @@ public class Stations extends BaseEntity {
 	 * @param stationsOnLines
 	 *            the stationsOnLines to set
 	 */
-	public void setStationsOnLines(List<StationsOnLine> stationsOnLines) {
+	public void setStationsOnLines(Set<StationsOnLine> stationsOnLines) {
 		this.stationsOnLines = stationsOnLines;
 	}
 

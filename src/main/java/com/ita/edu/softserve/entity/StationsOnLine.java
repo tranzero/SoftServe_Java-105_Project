@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -36,7 +37,7 @@ public class StationsOnLine extends BaseEntity {
 	private Stations stationId;
 
 	@OneToMany(mappedBy = "stationOnLineId", fetch = FetchType.LAZY)
-	private List<Stops> stops;
+	private Set<Stops> stops = new HashSet<Stops>();
 
 	@Column(name = "STATIONORDERNUM")
 	private int stationOrderNum;
@@ -95,7 +96,7 @@ public class StationsOnLine extends BaseEntity {
 	/**
 	 * @return the stops
 	 */
-	public List<Stops> getStops() {
+	public Set<Stops> getStops() {
 		return stops;
 	}
 
@@ -103,7 +104,7 @@ public class StationsOnLine extends BaseEntity {
 	 * @param stops
 	 *            the stops to set
 	 */
-	public void setStops(List<Stops> stops) {
+	public void setStops(Set<Stops> stops) {
 		this.stops = stops;
 	}
 
@@ -120,6 +121,28 @@ public class StationsOnLine extends BaseEntity {
 	 */
 	public void setStationOrderNum(int stationOrderNum) {
 		this.stationOrderNum = stationOrderNum;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + stationOnLineId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StationsOnLine other = (StationsOnLine) obj;
+		if (stationOnLineId != other.stationOnLineId)
+			return false;
+		return true;
 	}
 
 }
