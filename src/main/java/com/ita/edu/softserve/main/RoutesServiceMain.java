@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Lyubomyr
- *
+ * 
  */
 public class RoutesServiceMain {
 
@@ -25,8 +25,8 @@ public class RoutesServiceMain {
 		System.out
 				.println("Example: \"Find Routers List By StationId Arriving\"");
 		List<Routes> listRoutesArriving = routesService
-				.findRoutersListByStationIdArriving(5,
-						new Time(0, 0, 0), new Time(23, 59, 0));
+				.findRoutersListByStationIdArriving(5, new Time(0, 0, 0),
+						new Time(23, 59, 0));
 		System.out.println("List Routers find by stationId arriving");
 		for (Routes routesArriving : listRoutesArriving) {
 			System.out.println(routesArriving.getRouteId() + " "
@@ -37,8 +37,8 @@ public class RoutesServiceMain {
 		System.out
 				.println("Example: \"Find Routers List By StationId Departing\"");
 		List<Routes> listRoutesDeparting = routesService
-				.findRoutersListByStationIdDeparting(5,
-						new Time(0, 0, 0), new Time(23, 59, 0));
+				.findRoutersListByStationIdDeparting(5, new Time(0, 0, 0),
+						new Time(23, 59, 0));
 		System.out.println("/nList Routers find by stationId departing");
 		for (Routes routesDeparting : listRoutesDeparting) {
 			System.out.println(routesDeparting.getRouteId() + " "
@@ -48,7 +48,11 @@ public class RoutesServiceMain {
 	}
 
 	public static void main(String[] args) {
-		RoutesServiceMain routesServiceMain = new RoutesServiceMain();
-		routesServiceMain.printRoutesToConsole();
+		try {
+			RoutesServiceMain routesServiceMain = new RoutesServiceMain();
+			routesServiceMain.printRoutesToConsole();
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+		}
 	}
 }

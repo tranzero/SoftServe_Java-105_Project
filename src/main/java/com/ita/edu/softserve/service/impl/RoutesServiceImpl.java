@@ -2,12 +2,19 @@ package com.ita.edu.softserve.service.impl;
 
 import java.util.List;
 import java.sql.Time;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.service.RoutesService;
+
+import com.ita.edu.softserve.dao.impl.StopsDAOImpl;
+import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
+
+import com.ita.edu.softserve.entity.Stops;
+import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
  * @author Lyubomyr
@@ -41,8 +48,40 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"idStationArriving should be greater than zero");
 		}
-		return routesDao.findRoutersListByStationIdArriving(idStationArriving,
-				timeArrivalMin, timeArrivalMax);
+		if (timeArrivalMin.after(timeArrivalMax)) {
+			throw new IllegalArgumentException(
+					"timeArrivalMax should be greater or equals than timeArrivalMin");
+		}
+
+		List<Routes> routersListByStationArriving = new ArrayList<Routes>();
+		StopsDAOImpl stopsDao = new StopsDAOImpl();
+		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
+		for (Routes route : routesDao.getAllEntities()) {
+			for (Stops stop : stopsDao.getAllEntities()) {
+				if (route.getLineId().getLineId() == stop.getRouteId()
+						.getRouteId()) {
+					if ((stop.getArrival().equals(timeArrivalMin) || stop
+							.getArrival().after(timeArrivalMin))
+							&& (stop.getArrival().equals(timeArrivalMax) || stop
+									.getArrival().before(timeArrivalMax))) {
+						StationsOnLine stationOnLine = stationsOnLineDao
+								.findById(stop.getStationOnLineID()
+										.getStationOnLineId());
+						if (stationOnLine != null) {
+							if (idStationArriving == stationOnLine
+									.getStationId().getStationId()) {
+								routersListByStationArriving.add(route);
+							}
+						}
+					}
+				}
+			}
+		}
+		return routersListByStationArriving;
+
+		// return
+		// routesDao.findRoutersListByStationIdArriving(idStationArriving,
+		// timeArrivalMin, timeArrivalMax);
 	}
 
 	/**
@@ -65,7 +104,35 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"idStationDeparting should be greater than zero");
 		}
-		return routesDao.findRoutersListByStationIdDeparting(
-				idStationDeparting, timeDepartureMin, timeDepartureMax);
+
+		List<Routes> routersListByStationDeparting = new ArrayList<Routes>();
+		StopsDAOImpl stopsDao = new StopsDAOImpl();
+		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
+		for (Routes route : routesDao.getAllEntities()) {
+			for (Stops stop : stopsDao.getAllEntities()) {
+				if (route.getLineId().getLineId() == stop.getRouteId()
+						.getRouteId()) {
+					if ((stop.getDeparture().equals(timeDepartureMin) || stop
+							.getDeparture().after(timeDepartureMin))
+							&& (stop.getDeparture().equals(timeDepartureMax) || stop
+									.getDeparture().before(timeDepartureMax))) {
+						StationsOnLine stationOnLine = stationsOnLineDao
+								.findById(stop.getStationOnLineID()
+										.getStationOnLineId());
+						if (stationOnLine != null) {
+							if (idStationDeparting == stationOnLine
+									.getStationId().getStationId()) {
+								routersListByStationDeparting.add(route);
+							}
+						}
+					}
+				}
+			}
+		}
+		return routersListByStationDeparting;
+
+		// return
+		// routesDao.findRoutersListByStationIdDeparting(idStationDeparting,
+		// timeDepartureMin, timeDepartureMax);
 	}
 }
