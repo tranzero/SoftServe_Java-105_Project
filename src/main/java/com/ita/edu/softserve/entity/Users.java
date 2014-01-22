@@ -62,7 +62,7 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	protected Users() {
+	public Users() {
 		this.setRegDate();
 		this.setUserId();
 	}
@@ -224,7 +224,7 @@ public class Users extends BaseEntity {
 		this.role = role;
 	}
 
-	private boolean trueEnterValueOfFirstPart(String username,
+	public boolean trueEnterValueOfFirstPart(String username,
 											String eMail, String password){
 		if (username != "" && username != null && eMail != "" 
 				&& eMail != null && password != "" 
@@ -236,7 +236,7 @@ public class Users extends BaseEntity {
 		
 	}
 	
-	private boolean trueEnterValueOfSecondPart( String firstName, 
+	public boolean trueEnterValueOfSecondPart( String firstName, 
 			String lastName){
 		if (firstName != "" && firstName != null && lastName != "" 
 				&& lastName != null) {
