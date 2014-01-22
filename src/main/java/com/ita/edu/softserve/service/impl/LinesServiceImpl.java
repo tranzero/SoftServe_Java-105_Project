@@ -69,9 +69,10 @@ public class LinesServiceImpl implements LinesService {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-			Stations station2) {
-		return lineDao.getLinesTwoStationsCertainOrder(station1, station2);
+	public List<Lines> getLinesTwoStationsCertainOrder(String station1,
+			String station2) {
+		return null;
+//		return lineDao.getLinesTwoStationsCertainOrder(station1, station2);
 	}
 
 }

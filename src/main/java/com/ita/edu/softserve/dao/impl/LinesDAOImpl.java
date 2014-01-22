@@ -27,18 +27,6 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	}
 
 	
-	public List<Lines> getLinesTwoStationsCertainOrder(
-			Stations station1, Stations station2) {
-		Query query = entityManager
-				.createNamedQuery(Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER)
-				.setParameter("station1", station1)
-				.setParameter("station2", station2);
-		@SuppressWarnings("unchecked")
-		List<Lines> listOfLines = query.getResultList();
-
-		return listOfLines;
-	}
-	
 	/**
 	 * @param stationName
 	 * @return List of lines which has certain station
