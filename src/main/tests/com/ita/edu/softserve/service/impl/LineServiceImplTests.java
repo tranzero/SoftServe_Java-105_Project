@@ -16,7 +16,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
+import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
  * @author MPS
@@ -83,13 +86,14 @@ public class LineServiceImplTests {
          */
         
         @Test 
-        public void getLinesByStationTest(){
-                List<Lines> lines = new ArrayList<Lines>();
-                LinesDAOImpl linesDAO = mock(LinesDAOImpl.class);
-                when(linesDAO.getLinesByStation("stationName")).thenReturn(lines);
-                LinesServiceImpl LSImpl = new LinesServiceImpl(linesDAO);
-                assertTrue(Iterables.elementsEqual(LSImpl.getLinesByStation("stationName"),lines));
-                
-                
+    	public void getLinesByStationTest(){
+        	
+    		List<StationsOnLine> stlList = new ArrayList<StationsOnLine>();
+    		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
+    		when(stl.findByStationId(1)).thenReturn(stlList);
+    		LinesServiceImpl LSImpl = new LinesServiceImpl(stl);
+    		assertTrue(Iterables.elementsEqual(LSImpl.getLinesByStation(new Stations()),stlList));
+    		
+    		
         }
 }
