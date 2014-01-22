@@ -23,6 +23,8 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine> implement
 	protected Class<StationsOnLine> getEntityClass() {
 		return StationsOnLine.class;
 	}
+	
+	@Override
 	public List<StationsOnLine> findByStationId(int id){
 		Query query = entityManager.createNamedQuery( StationsOnLine.FIND_BY_STATIONS_ID).setParameter(1, id);
 		List<StationsOnLine> list = query.getResultList();
