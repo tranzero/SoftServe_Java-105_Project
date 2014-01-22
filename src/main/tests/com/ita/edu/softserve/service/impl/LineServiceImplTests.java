@@ -8,10 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -94,4 +91,15 @@ public class LineServiceImplTests {
 	 * //assertTrue(testList.containsAll(linesDaoImpl.getFullLines()));
 	 * //assertTrue(linesDaoImpl.getFullLines().containsAll(testList)); }
 	 */
+	
+	@Test 
+	public void getLinesByStationTest(){
+		List<Lines> lines = new ArrayList<Lines>();
+		LinesDAOImpl linesDAO = mock(LinesDAOImpl.class);
+		when(linesDAO.getLinesByStation("stationName")).thenReturn(lines);
+		LinesServiceImpl LSImpl = new LinesServiceImpl(linesDAO);
+		assertTrue(Iterables.elementsEqual(LSImpl.getLinesByStation("stationName"),lines));
+		
+		
+	}
 }
