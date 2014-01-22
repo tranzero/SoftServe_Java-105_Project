@@ -35,7 +35,12 @@ public class RoutesServiceImpl implements RoutesService {
 	 */
 	@Override
 	public List<Routes> findRoutersListByStationIdArriving(
-			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax) {
+			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax)
+			throws IllegalArgumentException {
+		if (idStationArriving < 1) {
+			throw new IllegalArgumentException(
+					"idStationArriving should be greater than zero");
+		}
 		return routesDao.findRoutersListByStationIdArriving(idStationArriving,
 				timeArrivalMin, timeArrivalMax);
 	}
@@ -54,7 +59,12 @@ public class RoutesServiceImpl implements RoutesService {
 	 */
 	@Override
 	public List<Routes> findRoutersListByStationIdDeparting(
-			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax) {
+			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax)
+			throws IllegalArgumentException {
+		if (idStationDeparting < 1) {
+			throw new IllegalArgumentException(
+					"idStationDeparting should be greater than zero");
+		}
 		return routesDao.findRoutersListByStationIdDeparting(
 				idStationDeparting, timeDepartureMin, timeDepartureMax);
 	}

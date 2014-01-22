@@ -1,10 +1,11 @@
 /**
  * 
  */
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.main;
 
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.service.RoutesService;
+import com.ita.edu.softserve.service.impl.RoutesServiceImpl;
 
 import java.sql.Time;
 import java.util.List;
@@ -18,16 +19,14 @@ public class RoutesServiceMain {
 	public RoutesServiceMain() {
 	}
 
+	@SuppressWarnings("deprecation")
 	public void printRoutesToConsole() {
 		RoutesService routesService = new RoutesServiceImpl();
 		System.out
 				.println("Example: \"Find Routers List By StationId Arriving\"");
-		int idStationArriving = 5;
-		Time timeArrivalMin = new Time(0, 0, 0);
-		Time timeArrivalMax = new Time(23, 59, 0);
 		List<Routes> listRoutesArriving = routesService
-				.findRoutersListByStationIdArriving(idStationArriving,
-						timeArrivalMin, timeArrivalMax);
+				.findRoutersListByStationIdArriving(5,
+						new Time(0, 0, 0), new Time(23, 59, 0));
 		System.out.println("List Routers find by stationId arriving");
 		for (Routes routesArriving : listRoutesArriving) {
 			System.out.println(routesArriving.getRouteId() + " "
@@ -37,12 +36,9 @@ public class RoutesServiceMain {
 
 		System.out
 				.println("Example: \"Find Routers List By StationId Departing\"");
-		int idStationDeparting = 5;
-		Time timeDepartureMin = new Time(0, 0, 0);
-		Time timeDepartureMax = new Time(23, 59, 0);
 		List<Routes> listRoutesDeparting = routesService
-				.findRoutersListByStationIdDeparting(idStationDeparting,
-						timeDepartureMin, timeDepartureMax);
+				.findRoutersListByStationIdDeparting(5,
+						new Time(0, 0, 0), new Time(23, 59, 0));
 		System.out.println("/nList Routers find by stationId departing");
 		for (Routes routesDeparting : listRoutesDeparting) {
 			System.out.println(routesDeparting.getRouteId() + " "

@@ -23,6 +23,5 @@ public interface RoutesDAO {
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 
 	public List<Routes> findRoutersListByStationIdDeparting(
-			int idStationDeparting, Time timeDepartureMin,
-			Time timeDepartureMax);
+			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax);
 }
