@@ -12,8 +12,9 @@ import javax.persistence.*;
 @Table(name = "ROUTES")
 @NamedQuery(name = Routes.FIND_BY_CODE, query = Routes.FIND_BY_CODE_QUERY)
 @NamedQueries({
-		@NamedQuery(name = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING, query = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY),
-		@NamedQuery(name = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING, query = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY) })
+	//	@NamedQuery(name = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING, query = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY),
+	//	@NamedQuery(name = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING, query = Routes.FIND_ROUTERS_LIST_BY_STATION_ID_DEPARTING_QUERY) 
+	})
 public class Routes extends BaseEntity {
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";

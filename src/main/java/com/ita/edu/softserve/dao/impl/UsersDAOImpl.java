@@ -14,7 +14,7 @@ import com.ita.edu.softserve.entity.Users;
  * class UsersDAOImpl
  * 
  */
-@Repository
+@Repository("usersDao")
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	
 

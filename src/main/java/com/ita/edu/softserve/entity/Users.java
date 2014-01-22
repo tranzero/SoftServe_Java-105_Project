@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *         The persistent class for the USERS database table.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY) })
@@ -29,7 +29,7 @@ public class Users extends BaseEntity {
 	public static final String FIND_BY_NAME = "Users.findByName";
 	// public static final String FIND_BY_NAME_QUERY =
 	// "SELECT u FROM Users u WHERE u.eMail = ?1";
-	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.username = ?1";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.lastName = ?1";
 	public static final String GET_ALL_USERS = "Users.getAllUsers";
 	public static final String GET_ALL_USERS_QUERY = "SELECT user FROM Users user";
 	@Id
@@ -46,9 +46,6 @@ public class Users extends BaseEntity {
 	@Column(name = "EMAIL", nullable = false, length = 100)
 	private String eMail;
 
-	@Column(name = "USERNAME", nullable = false, unique = true, length = 100)
-	private String username;
-
 	@Column(name = "PASSWD", nullable = false, length = 100)
 	private String passwd;
 
@@ -62,9 +59,9 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	protected Users() {
-		this.setRegDate();
-		this.setUserId();
+	public Users() {
+//		this.setRegDate();
+//		this.setUserId();
 
 	}
 
@@ -78,7 +75,6 @@ public class Users extends BaseEntity {
 	public Users(String userName, String eMail, String password) {
 		this();
 		if (trueEnterValueOfFirstPart(userName, eMail, password)){
-		this.setUsername(userName);
 		this.seteMail(eMail);
 		this.setPasswd(password);
 		}
@@ -163,21 +159,6 @@ public class Users extends BaseEntity {
 	 */
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
-	}
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username
-	 *            the username to set
-	 */
-	private void setUsername(String username) {
-		this.username = username;
 	}
 
 	/**

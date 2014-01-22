@@ -8,14 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.service.UserService;
-@Service
+
+import javax.persistence.RollbackException;
+@Service("userService")
 public class UserServiceImpl implements UserService {
 	private static final Logger LOGGER = Logger
 			.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UsersDAOImpl userDao;
 
-	@Transactional
+	@Transactional(noRollbackFor = RollbackException.class)
 	@Override
 	public boolean createUser(String username, String firstname,
 			String lastname, String email, String password) {
