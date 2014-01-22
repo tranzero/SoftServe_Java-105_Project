@@ -16,9 +16,7 @@ import javax.persistence.*;
 @Table(name = "LINES")
 @NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
 @NamedQueries({
-		@NamedQuery(name = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER, query = Lines.GET_LINES_TWO_STATIONS_CERTAIN_ORDER_QUERY),
-		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
-		@NamedQuery(name = Lines.GET_LINES_BY_STATION, query= Lines.GET_LINES_BY_STATION_QUERY)})
+		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY)})
 
 public class Lines extends BaseEntity {
 
@@ -27,14 +25,6 @@ public class Lines extends BaseEntity {
 	//Query to find all lines
 	public static final String GET_FULL_LINES = "Lines.findFullLines";
 	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
-
-	public static final String GET_LINES_TWO_STATIONS_CERTAIN_ORDER = "Lines.getLinesTwoStationsCertainOrder";
-	/* Here must be a real query?! ||| in progress%%% - Answer - YES */
-	static final String GET_LINES_TWO_STATIONS_CERTAIN_ORDER_QUERY = "SELECT ln FROM Lines ln";
-	public static final String GET_LINES_BY_STATION ="Lines.getLinesByStation";
-	/* Here must be HQL query*/
-	/* Заглушка, яку треба переписати */
-	public static final String GET_LINES_BY_STATION_QUERY = "SELECT ln FROM Lines ln";
 
 	@Id
 	@Column(name = "LINEID")

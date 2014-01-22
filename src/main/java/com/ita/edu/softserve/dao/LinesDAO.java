@@ -24,7 +24,5 @@ public interface LinesDAO {
 			Stations station1, Stations station2);
 	
 	public List<Lines> getLinesByStation(String stationName);
-	
-	public List<Lines> getFullLines();
 
 }

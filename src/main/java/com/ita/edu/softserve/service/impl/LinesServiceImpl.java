@@ -24,7 +24,15 @@ import com.ita.edu.softserve.service.LinesService;
 public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
-	private LinesDAOImpl lineDao = new LinesDAOImpl();
+	private LinesDAOImpl lineDao;
+
+	public LinesServiceImpl() {
+		this(new LinesDAOImpl());
+	}
+
+	public LinesServiceImpl(LinesDAOImpl lineDao) {
+		this.lineDao = lineDao;
+	}
 
 	/**
 	 * Return all Lines
@@ -33,33 +41,38 @@ public class LinesServiceImpl implements LinesService {
 	 */
 	@Override
 	public List<Lines> getFullLines() {
-		// TODO Auto-generated method stub
-		return lineDao.getFullLines();
+		List<Lines> linesList = lineDao.getAllEntities();
+		return linesList;
+
 	}
 
 	/**
 	 * 
-	 * @param stationName name of station
+	 * @param stationName
+	 *            name of station
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 	@Override
 	public List<Lines> getLinesByStation(String stationName) {
-		
+
 		return lineDao.getLinesByStation(stationName);
 	}
 
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
-	 * @param station1 - first station, departure
-	 * @param station2 - second station, arrival
+	 * @param station1
+	 *            - first station, departure
+	 * @param station2
+	 *            - second station, arrival
 	 * 
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-													   Stations station2) {
-		return lineDao.getLinesTwoStationsCertainOrder(station1, station2);
+	public List<Lines> getLinesTwoStationsCertainOrder(String station1,
+			String station2) {
+		return null;
+//		return lineDao.getLinesTwoStationsCertainOrder(station1, station2);
 	}
 
 }
