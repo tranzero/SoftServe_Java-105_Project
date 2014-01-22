@@ -17,8 +17,9 @@ import com.ita.edu.softserve.service.StationsService;
  */
 @Service
 public class StationsServiceImpl implements StationsService {
+	
 	/**
-	 * 
+	 * Class to get access to DAO layer.
 	 */
 	@Autowired
 	private StationsDAOImpl stationDao;

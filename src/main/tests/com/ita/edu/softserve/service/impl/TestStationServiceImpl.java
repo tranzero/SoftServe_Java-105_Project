@@ -22,10 +22,12 @@ import com.ita.edu.softserve.service.StationsService;
  * @author Роман
  */
 public class TestStationServiceImpl {
+	
 	/**
 	 * Mock object.
 	 */
 	private StationsDAOImpl stationsDaoImpl;
+	
 	/**
 	 * StationsService.
 	 */
