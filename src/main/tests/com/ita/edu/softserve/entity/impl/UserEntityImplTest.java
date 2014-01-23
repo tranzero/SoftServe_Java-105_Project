@@ -11,7 +11,8 @@ import com.ita.edu.softserve.entity.Users;
 
 /**
  * @author admin
- *
+ * 
+ * Test class for UsersEntityClass 
  */
 public class UserEntityImplTest {
 
