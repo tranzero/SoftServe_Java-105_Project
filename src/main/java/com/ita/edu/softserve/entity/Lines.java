@@ -3,6 +3,7 @@
  */
 package com.ita.edu.softserve.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -36,11 +37,11 @@ public class Lines extends BaseEntity {
 
 	/* Bi-directional one-to-many association to Routes */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private Set<Routes> routes;
+	private Set<Routes> routes = new HashSet<Routes>();
 
 	/* Bi-directional one-to-many association to StationsOnLine */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private Set<StationsOnLine> stationsOnLines;
+	private Set<StationsOnLine> stationsOnLines = new HashSet<StationsOnLine>();
 
 	/**
 	 * Default constructor

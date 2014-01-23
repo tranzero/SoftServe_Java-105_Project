@@ -1,8 +1,6 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Date;
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -64,7 +62,6 @@ public class Users extends BaseEntity {
 	 */
 	public Users() {
 		this.setRegDate();
-		this.setUserId();
 	}
 
 	/**
@@ -111,12 +108,13 @@ public class Users extends BaseEntity {
 		return userId;
 	}
 
+
 	/**
-	 * @param userId
-	 *            the userId to set
+	 * @param userId 
+	 * 			the userId to set
 	 */
-	private void setUserId() {
-		this.userId = (int) Integer.parseInt(UUID.randomUUID().toString()) ;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	/**

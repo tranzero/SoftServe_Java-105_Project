@@ -20,7 +20,7 @@ public class Routes extends BaseEntity {
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT u FROM Routes u WHERE u.routeCode = ?1";
-
+/*
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING = "Routes.findRoutersListByStationIdArriving";
 	public static final String FIND_ROUTERS_LIST_BY_STATION_ID_ARRIVING_QUERY = "SELECT r.routeId, r.lineId, r.routeCode, r.startTime"
 			+ " FROM ("
@@ -42,6 +42,7 @@ public class Routes extends BaseEntity {
 			+ " AND (stp.Departure != CONVERT( \"00:00\", TIME ) OR stp.Arrival = CONVERT( \"00:00\", TIME ))"
 			+ " AND TIME(SUBTIME(ADDTIME(NOW(),ADDTIME( r.StartTime, stp.Departure )), CURTIME()))"
 			+ " BETWEEN ?timeArrivalMin AND ?timeArrivalMax );";
+*/
 
 	@Id
 	@Column(name = "ROUTEID")
