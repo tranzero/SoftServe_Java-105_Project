@@ -35,7 +35,9 @@ public class LinesServiceImpl implements LinesService {
 	
 	@Autowired
 	private StationsOnLineDAOImpl stlDao;
-	
+
+	@Autowired
+	private StationsDAOImpl stationDao;
 
 
 	public LinesServiceImpl() {
@@ -53,6 +55,9 @@ public class LinesServiceImpl implements LinesService {
 	}
 	
 	public LinesServiceImpl(LinesDAOImpl lineDao) {
+		this.lineDao = lineDao;
+	}
+	public LinesServiceImpl(StationsDAOImpl statdao) {
 		this.lineDao = lineDao;
 	}
 
