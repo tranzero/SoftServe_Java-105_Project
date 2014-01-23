@@ -16,19 +16,20 @@ import com.ita.edu.softserve.entity.StationsOnLine;
  * 
  */
 @Repository
-public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine> implements
-		StationsOnLineDAO {
+public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
+		implements StationsOnLineDAO {
 
 	@Override
 	protected Class<StationsOnLine> getEntityClass() {
 		return StationsOnLine.class;
 	}
-	
+
 	@Override
-	public List<StationsOnLine> findByStationId(int id){
-		Query query = entityManager.createNamedQuery( StationsOnLine.FIND_BY_STATIONS_ID).setParameter(1, id);
+	public List<StationsOnLine> findByStationId(int id) {
+		Query query = entityManager.createNamedQuery(
+				StationsOnLine.FIND_BY_STATIONS_ID).setParameter(1, id);
 		List<StationsOnLine> list = query.getResultList();
 		return list;
-		
 	}
+
 }

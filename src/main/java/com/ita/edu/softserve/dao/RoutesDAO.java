@@ -11,6 +11,7 @@ import com.ita.edu.softserve.entity.Routes;
  * 
  */
 public interface RoutesDAO {
+
 	/**
 	 * Find Routes by routeCode
 	 * 
@@ -19,9 +20,25 @@ public interface RoutesDAO {
 	 */
 	Routes findByCode(String routeCode);
 
+	/**
+	 * Find Routes list by StationId arriving
+	 * 
+	 * @param idStationArriving
+	 * @param timeArrivalMin
+	 * @param timeArrivalMax
+	 * @return List<Routes>
+	 */
 	public List<Routes> findRoutersListByStationIdArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 
+	/**
+	 * Find Routes list by StationId departing
+	 * 
+	 * @param idStationDeparting
+	 * @param timeDepartureMin
+	 * @param timeDepartureMax
+	 * @return List<Routes>
+	 */
 	public List<Routes> findRoutersListByStationIdDeparting(
 			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax);
 }

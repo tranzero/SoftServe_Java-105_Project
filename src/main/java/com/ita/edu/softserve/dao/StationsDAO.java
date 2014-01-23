@@ -10,7 +10,7 @@ import com.ita.edu.softserve.entity.Stations;
  * 
  */
 public interface StationsDAO {
-	
+
 	/**
 	 * Find Stations by stationName
 	 * 
@@ -18,7 +18,6 @@ public interface StationsDAO {
 	 * @return
 	 */
 	List<Stations> findByStations(String stationName);
-//	Stations findByStations(String stationName);
+	// Stations findByStations(String stationName);
 
-	
 }

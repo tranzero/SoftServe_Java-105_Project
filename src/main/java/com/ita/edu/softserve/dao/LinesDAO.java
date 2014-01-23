@@ -16,10 +16,8 @@ public interface LinesDAO {
 	 * Find Lines by lineName
 	 * 
 	 * @param lineName
-	 * @return
+	 * @return Lines
 	 */
 	public Lines findByName(String lineName);
-
-	
 
 }

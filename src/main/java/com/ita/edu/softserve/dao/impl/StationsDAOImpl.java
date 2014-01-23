@@ -26,14 +26,12 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		return query.getResultList();
 	}
 
-/*
- 	@Override
-	public Stations findByStations(String stationName) {
-		Query query = entityManager.createNamedQuery(
-				Stations.FIND_BY_NAME_QUERY).setParameter(1, stationName);
-		return (Stations) query.getSingleResult();
-	}
-*/
+	/*
+	 * @Override public Stations findByStations(String stationName) { Query
+	 * query = entityManager.createNamedQuery(
+	 * Stations.FIND_BY_NAME_QUERY).setParameter(1, stationName); return
+	 * (Stations) query.getSingleResult(); }
+	 */
 	@Override
 	protected Class<Stations> getEntityClass() {
 

@@ -17,6 +17,4 @@ public interface UsersDAO {
 	 */
 	Users findByName(String name);
 
-
-
 }
