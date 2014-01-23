@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.StationsService;
 
 /**
  * Class under test
@@ -31,7 +30,7 @@ public class TestStationServiceImpl {
 	/**
 	 * StationsService.
 	 */
-	private StationsService stationServiceImpl;
+	private StationsServiceImpl stationServiceImpl;
 
 	/**
 	 * @throws java.lang.Exception
@@ -99,7 +98,7 @@ public class TestStationServiceImpl {
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public final void testFindAllStationsShouldThrowNullPointerException() {
-		when(stationsDaoImpl.getAllEntities()).thenReturn(null);
+		when(stationsDaoImpl.getAllEntities()).thenThrow(new NullPointerException());
 		stationServiceImpl.findAllStations();
 	}
 }
