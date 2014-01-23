@@ -26,6 +26,8 @@ public class Main {
 
 		UsersDAO usersDao = (UsersDAO) appContext.getBean("usersDao");
 		Users users= usersDao.findByName("Lesniak");
+		
+		System.out.println();
 		System.out.println(users.getFirstName() + " " + users.getLastName());
 
 	}
