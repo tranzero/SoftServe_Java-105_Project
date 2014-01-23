@@ -48,6 +48,14 @@ public class LinesServiceImpl implements LinesService {
 		this.stlDao = stlDao;
 	}
 
+	public LinesServiceImpl(StationsOnLineDAOImpl stlDao) {
+		this.stlDao = stlDao;
+	}
+	
+	public LinesServiceImpl(LinesDAOImpl lineDao) {
+		this.lineDao = lineDao;
+	}
+
 	
 	/**
 	 * Return all Lines
