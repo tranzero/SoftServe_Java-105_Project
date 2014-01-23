@@ -20,7 +20,7 @@ public interface LinesService {
 	
 	public List<Lines> getLinesByStation(Stations station);
 	
-	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
-													   String stationName2);
+	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
+													   Stations station2);
 
 }

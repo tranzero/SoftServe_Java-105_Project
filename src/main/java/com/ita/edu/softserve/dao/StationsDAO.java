@@ -10,14 +10,14 @@ import com.ita.edu.softserve.entity.Stations;
  * 
  */
 public interface StationsDAO {
-	
+
 	/**
 	 * Find Stations by stationName
 	 * 
 	 * @param stationName
 	 * @return
 	 */
-	Stations findByStations(String stationName);
+	List<Stations> findByStations(String stationName);
+	// Stations findByStations(String stationName);
 
-	
 }

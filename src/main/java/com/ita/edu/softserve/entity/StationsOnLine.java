@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "STATIONSONLINE")
+@Table(name = "stationsonlines")
 @NamedQueries({
 @NamedQuery(name = StationsOnLine.FIND_BY_ID, query = StationsOnLine.FIND_BY_ID_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY)})

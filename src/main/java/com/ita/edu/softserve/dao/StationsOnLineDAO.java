@@ -4,14 +4,19 @@ import java.util.List;
 
 import com.ita.edu.softserve.entity.StationsOnLine;
 
-
 /**
  * 
  * @author iryna
  * 
  */
 public interface StationsOnLineDAO {
-	
+
+	/**
+	 * Find by Station Id
+	 * 
+	 * @param id
+	 * @return List<StationsOnLine>
+	 */
 	public List<StationsOnLine> findByStationId(int id);
-	
+
 }

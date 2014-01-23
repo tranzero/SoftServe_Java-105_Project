@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.service.AdminService;
@@ -15,6 +16,16 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private UsersDAOImpl userDao;
 
+	public AdminServiceImpl() {
+	}
+
+	/**
+	 * Constructor with one argument.
+	 * @param stationDao
+	 */
+	public AdminServiceImpl(UsersDAOImpl userDao) {
+		this.userDao = userDao;
+	}
 	@Transactional
 	@Override
 	public void printAllUsers() {
