@@ -52,7 +52,6 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"timeArrivalMax should be greater or equals than timeArrivalMin");
 		}
-
 		List<Routes> routersListByStationArriving = new ArrayList<Routes>();
 		StopsDAOImpl stopsDao = new StopsDAOImpl();
 		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
