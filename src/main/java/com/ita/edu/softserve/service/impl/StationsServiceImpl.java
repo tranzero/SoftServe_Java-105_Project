@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.AbstractDAO;
+import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.service.StationsService;
@@ -15,14 +17,14 @@ import com.ita.edu.softserve.service.StationsService;
  * @author Роман
  * 
  */
-@Service
+@Service("stationsService")
 public class StationsServiceImpl implements StationsService {
 	
 	/**
 	 * Class to get access to DAO layer.
 	 */
 	@Autowired
-	private StationsDAOImpl stationDao;
+	private StationsDAO stationDao;
 
 	/**
 	 * Constructor without arguments.
@@ -46,7 +48,15 @@ public class StationsServiceImpl implements StationsService {
 	@Transactional
 	@Override
 	public List<Stations> findAllStations() {
-		return stationDao.getAllEntities();
+		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
+	}
+
+	public StationsDAO getStationDao() {
+		return stationDao;
+	}
+
+	public void setStationDao(StationsDAO stationDao) {
+		this.stationDao = stationDao;
 	}
 
 }
