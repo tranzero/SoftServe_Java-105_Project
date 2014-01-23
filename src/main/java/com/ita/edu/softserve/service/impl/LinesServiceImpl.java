@@ -45,6 +45,10 @@ public class LinesServiceImpl implements LinesService {
 		this.stlDao = stlDao;
 	}
 
+	public LinesServiceImpl(StationsDAOImpl stationsDao) {
+		this(new LinesDAOImpl());
+		this.stationsDao = stationsDao;
+	}
 	/**
 	 * Return all Lines
 	 * 
