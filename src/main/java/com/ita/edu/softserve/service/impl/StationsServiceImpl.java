@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.service.StationsService;
 
@@ -36,7 +35,7 @@ public class StationsServiceImpl implements StationsService {
 	 * Constructor with one argument.
 	 * @param stationDao
 	 */
-	public StationsServiceImpl(StationsDAOImpl stationDao) {
+	public StationsServiceImpl(StationsDAO stationDao) {
 		this.stationDao = stationDao;
 	}
 
@@ -50,13 +49,4 @@ public class StationsServiceImpl implements StationsService {
 	public List<Stations> findAllStations() {
 		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
 	}
-
-	public StationsDAO getStationDao() {
-		return stationDao;
-	}
-
-	public void setStationDao(StationsDAO stationDao) {
-		this.stationDao = stationDao;
-	}
-
 }
