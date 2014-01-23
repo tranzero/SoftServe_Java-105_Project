@@ -52,7 +52,6 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"timeArrivalMax should be greater or equals than timeArrivalMin");
 		}
-
 		List<Routes> routersListByStationArriving = new ArrayList<Routes>();
 		StopsDAOImpl stopsDao = new StopsDAOImpl();
 		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
@@ -104,7 +103,10 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"idStationDeparting should be greater than zero");
 		}
-
+		if (timeDepartureMin.after(timeDepartureMax)) {
+			throw new IllegalArgumentException(
+					"timeDepartureMax should be greater or equals than timeDepartureMin");
+		}
 		List<Routes> routersListByStationDeparting = new ArrayList<Routes>();
 		StopsDAOImpl stopsDao = new StopsDAOImpl();
 		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
