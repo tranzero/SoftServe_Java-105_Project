@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Stations;
  * @author iryna
  * 
  */
-@Repository
+@Repository ("stationsDao")
 public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		StationsDAO {
 

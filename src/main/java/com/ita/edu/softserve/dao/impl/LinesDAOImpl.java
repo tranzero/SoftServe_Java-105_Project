@@ -16,7 +16,7 @@ import com.ita.edu.softserve.entity.Stations;
  * @author iryna
  * 
  */
-@Repository
+@Repository ("linesDaoImpl")
 public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 
         @Override

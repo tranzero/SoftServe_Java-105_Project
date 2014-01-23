@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
@@ -24,31 +25,30 @@ import com.ita.edu.softserve.service.LinesService;
  * @author MPS
  * 
  */
-@Service
+@Service("linesService")
 public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
+	
+	@Autowired
 	private LinesDAOImpl lineDao;
+	
+	@Autowired
 	private StationsOnLineDAOImpl stlDao;
-	private StationsDAOImpl stationsDao;
+	
+
 
 	public LinesServiceImpl() {
-		this(new LinesDAOImpl());
 	}
 
-	public LinesServiceImpl(LinesDAOImpl lineDao) {
+
+
+	public LinesServiceImpl(StationsOnLineDAOImpl stlDao, LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
-	}
-
-	public LinesServiceImpl(StationsOnLineDAOImpl stlDao) {
-		this(new LinesDAOImpl());
 		this.stlDao = stlDao;
 	}
 
-	public LinesServiceImpl(StationsDAOImpl stationsDao) {
-		this(new LinesDAOImpl());
-		this.stationsDao = stationsDao;
-	}
+	
 	/**
 	 * Return all Lines
 	 * 
@@ -93,11 +93,11 @@ public class LinesServiceImpl implements LinesService {
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 			Stations station2) {
 		/* here is stored station that we need to get from */
-		List<Stations> stations1 = stationsDao.findByStations(station1
-				.getStationName());
+//		List<Stations> stations1 = stationsDao.findByStations(station1
+//				.getStationName());
 		/* here is stored station that we need to get to */
-		List<Stations> stations2 = stationsDao.findByStations(station2
-				.getStationName());
+//		List<Stations> stations2 = stationsDao.findByStations(station2
+//				.getStationName());
 
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
 		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
@@ -106,7 +106,7 @@ public class LinesServiceImpl implements LinesService {
 		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
-
+/*
 		for (int i = 0; i < stations1.size(); i++) {
 			StationsOnLine1.addAll(stlDao.findByStationId(stations1.get(i)
 					.getStationId()));
@@ -115,7 +115,10 @@ public class LinesServiceImpl implements LinesService {
 			StationsOnLine2.addAll(stlDao.findByStationId(stations2.get(i)
 					.getStationId()));
 		}
-
+*/		
+		StationsOnLine1.addAll(stlDao.findByStationId(station1.getStationId()));
+		StationsOnLine2.addAll(stlDao.findByStationId(station2.getStationId()));
+		
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId() == StationsOnLine1
