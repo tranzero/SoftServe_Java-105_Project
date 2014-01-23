@@ -107,7 +107,6 @@ public class RoutesServiceImpl implements RoutesService {
 			throw new IllegalArgumentException(
 					"timeDepartureMax should be greater or equals than timeDepartureMin");
 		}
-		
 		List<Routes> routersListByStationDeparting = new ArrayList<Routes>();
 		StopsDAOImpl stopsDao = new StopsDAOImpl();
 		StationsOnLineDAOImpl stationsOnLineDao = new StationsOnLineDAOImpl();
