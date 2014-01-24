@@ -20,7 +20,7 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
 		implements StationsOnLineDAO {
 
 	@Override
-	protected Class<StationsOnLine> getEntityClass() {
+	public Class<StationsOnLine> getEntityClass() {
 		return StationsOnLine.class;
 	}
 

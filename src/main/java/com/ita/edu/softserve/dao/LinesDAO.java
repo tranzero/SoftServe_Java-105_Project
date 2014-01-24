@@ -1,16 +1,14 @@
 package com.ita.edu.softserve.dao;
 
-import java.util.List;
-
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stations;
 
 /**
  * 
  * @author iryna
  * 
  */
-public interface LinesDAO {
+
+public interface LinesDAO extends AbstractDAOIface<Lines> {
 
 	/**
 	 * Find Lines by lineName

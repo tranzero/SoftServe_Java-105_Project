@@ -24,7 +24,7 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	}
 
 	@Override
-	protected Class<Users> getEntityClass() {
+	public Class<Users> getEntityClass() {
 		return Users.class;
 	}
 

@@ -17,25 +17,29 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UsersDAOImpl userDao;
 
-	@Transactional(noRollbackFor = RollbackException.class)
+	@Transactional
 	@Override
 	public boolean createUser(String username, String firstname,
 			String lastname, String email, String password) {
+		
 
 		try {
 
 			Users tempUser = new Users(username, firstname, lastname, email,
 					password);
-
-			if (userDao.findByName(username) == null) {
-
-				userDao.save(tempUser);
-				return true;
-
-			}
+			userDao.save(tempUser);
+			return true;
+			
+//			if (userDao.findByName(username) == null) {
+//
+//				userDao.save(tempUser);
+//				return true;
+//
+//			}
 
 		} catch (Exception e) {
 			LOGGER.error(e);
+			System.out.println(e);
 
 		}
 		return false;

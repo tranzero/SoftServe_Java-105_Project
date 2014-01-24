@@ -14,7 +14,7 @@ import javax.persistence.*;
  *         The persistent class for the lines database table.
  */
 @Entity
-@Table(name = "LINES")
+@Table(name = "lines")
 @NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY)})

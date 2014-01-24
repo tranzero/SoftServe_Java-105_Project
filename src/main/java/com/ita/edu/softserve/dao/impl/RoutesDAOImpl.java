@@ -1,10 +1,8 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.util.List;
 import java.sql.Time;
+import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -13,7 +11,6 @@ import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.Stations;
 
 /**
  * 
@@ -57,7 +54,7 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 	}
 
 	@Override
-	protected Class<Routes> getEntityClass() {
+	public Class<Routes> getEntityClass() {
 
 		return Routes.class;
 	}

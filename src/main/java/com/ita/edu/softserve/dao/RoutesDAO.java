@@ -1,7 +1,7 @@
 package com.ita.edu.softserve.dao;
 
-import java.util.List;
 import java.sql.Time;
+import java.util.List;
 
 import com.ita.edu.softserve.entity.Routes;
 
@@ -10,7 +10,7 @@ import com.ita.edu.softserve.entity.Routes;
  * @author iryna
  * 
  */
-public interface RoutesDAO {
+public interface RoutesDAO extends AbstractDAOIface<Routes>{
 
 	/**
 	 * Find Routes by routeCode

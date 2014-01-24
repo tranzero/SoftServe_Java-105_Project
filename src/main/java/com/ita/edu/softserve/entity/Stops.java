@@ -19,7 +19,7 @@ import javax.persistence.Table;
  *         The persistent class for the STOPS database table.
  */
 @Entity
-@Table(name = "STOPS")
+@Table(name = "stops")
 @NamedQuery(name = Stops.FIND_BY_ID, query = Stops.FIND_BY_ID_QUERY)
 public class Stops extends BaseEntity {
 

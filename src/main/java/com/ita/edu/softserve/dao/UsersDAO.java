@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.dao;
 
+
 import com.ita.edu.softserve.entity.Users;
 
 /**
@@ -7,7 +8,7 @@ import com.ita.edu.softserve.entity.Users;
  * interface UsersDAO
  * 
  */
-public interface UsersDAO {
+public interface UsersDAO extends AbstractDAOIface<Users>{
 
 	/**
 	 * Find Users by name

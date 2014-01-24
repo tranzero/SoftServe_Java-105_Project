@@ -1,7 +1,5 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.util.List;
-
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stations;
 
 /**
  * 
@@ -35,7 +32,7 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 
         
         @Override
-        protected Class<Lines> getEntityClass() {
+		public Class<Lines> getEntityClass() {
                 
                 return Lines.class;
         }

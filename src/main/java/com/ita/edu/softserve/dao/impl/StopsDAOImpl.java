@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Stops;
 public class StopsDAOImpl extends AbstractDAO<Stops> implements StopsDAO {
 
 	@Override
-	protected Class<Stops> getEntityClass() {
+	public Class<Stops> getEntityClass() {
 		return Stops.class;
 	}
 }

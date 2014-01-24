@@ -9,7 +9,7 @@ import com.ita.edu.softserve.entity.Stations;
  * @author iryna
  * 
  */
-public interface StationsDAO {
+public interface StationsDAO extends AbstractDAOIface<Stations>{
 
 	/**
 	 * Find Stations by stationName

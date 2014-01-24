@@ -33,7 +33,7 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 	 * (Stations) query.getSingleResult(); }
 	 */
 	@Override
-	protected Class<Stations> getEntityClass() {
+	public Class<Stations> getEntityClass() {
 
 		return Stations.class;
 	}
