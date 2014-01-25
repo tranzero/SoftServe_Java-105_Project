@@ -29,21 +29,18 @@ import com.ita.edu.softserve.service.LinesService;
 public class LinesServiceImpl implements LinesService {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
-	
+
 	@Autowired
 	private LinesDAOImpl lineDao;
-	
+
 	@Autowired
 	private StationsOnLineDAOImpl stlDao;
 
 	@Autowired
 	private StationsDAOImpl stationDao;
 
-
 	public LinesServiceImpl() {
 	}
-
-
 
 	public LinesServiceImpl(StationsOnLineDAOImpl stlDao, LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
@@ -53,15 +50,15 @@ public class LinesServiceImpl implements LinesService {
 	public LinesServiceImpl(StationsOnLineDAOImpl stlDao) {
 		this.stlDao = stlDao;
 	}
-	
+
 	public LinesServiceImpl(LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
 	}
-	public LinesServiceImpl(StationsDAOImpl statdao) {
-		this.lineDao = lineDao;
+
+	public LinesServiceImpl(StationsDAOImpl stationDao) {
+		this.stationDao = stationDao;
 	}
 
-	
 	/**
 	 * Return all Lines
 	 * 
@@ -105,37 +102,21 @@ public class LinesServiceImpl implements LinesService {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 			Stations station2) {
-		/* here is stored station that we need to get from */
-//		List<Stations> stations1 = stationsDao.findByStations(station1
-//				.getStationName());
-		/* here is stored station that we need to get to */
-//		List<Stations> stations2 = stationsDao.findByStations(station2
-//				.getStationName());
-
-		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
-		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
-
 		/* Pre-results are stored here */
 		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
+
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
-/*
-		for (int i = 0; i < stations1.size(); i++) {
-			StationsOnLine1.addAll(stlDao.findByStationId(stations1.get(i)
-					.getStationId()));
-		}
-		for (int i = 0; i < stations2.size(); i++) {
-			StationsOnLine2.addAll(stlDao.findByStationId(stations2.get(i)
-					.getStationId()));
-		}
-*/		
-		StationsOnLine1.addAll(stlDao.findByStationId(station1.getStationId()));
-		StationsOnLine2.addAll(stlDao.findByStationId(station2.getStationId()));
-		
+
+		List<StationsOnLine> StationsOnLine1 = stlDao.findByStationId(station1
+				.getStationId());
+		List<StationsOnLine> StationsOnLine2 = stlDao.findByStationId(station2
+				.getStationId());
+
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
-				if (StationsOnLine2.get(i).getLineId() == StationsOnLine1
-						.get(j).getLineId()) {
+				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
+						.get(j).getLineId().getLineId()) {
 					if (StationsOnLine2.get(i).getStationOrderNum() < StationsOnLine1
 							.get(j).getStationOrderNum()) {
 						StationsOnLine.add(StationsOnLine2.get(i));
