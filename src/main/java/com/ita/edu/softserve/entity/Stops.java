@@ -20,11 +20,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "stops")
-@NamedQuery(name = Stops.FIND_BY_ID, query = Stops.FIND_BY_ID_QUERY)
-public class Stops extends BaseEntity {
 
-	public static final String FIND_BY_ID = "Stops.findByID";
-	public static final String FIND_BY_ID_QUERY = "SELECT u FROM Stops u WHERE u.stopId = ?1";
+public class Stops extends BaseEntity {
 
 	@Id
 	@Column(name = "STOPID")

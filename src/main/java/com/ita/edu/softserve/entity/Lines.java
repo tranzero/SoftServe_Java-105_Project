@@ -30,7 +30,7 @@ public class Lines extends BaseEntity {
 	@Id
 	@Column(name = "LINEID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int lineId;
+	private Integer lineId;
 
 	@Column(name = "LINENAME", nullable = false, length = 100)
 	private String lineName;
@@ -62,7 +62,7 @@ public class Lines extends BaseEntity {
 	/**
 	 * @return the lineId
 	 */
-	public int getLineId() {
+	public Integer getLineId() {
 		return lineId;
 	}
 
@@ -70,7 +70,7 @@ public class Lines extends BaseEntity {
 	 * @param lineId
 	 *            to set
 	 */
-	public void setLineId(int lineId) {
+	public void setLineId(Integer lineId) {
 		this.lineId = lineId;
 	}
 
