@@ -27,19 +27,17 @@ public class UserServiceImpl implements UserService {
 
 			Users tempUser = new Users(username, firstname, lastname, email,
 					password);
+			
+			
+			if (userDao.findByName(username) == null) {
+				
 			userDao.save(tempUser);
 			return true;
-			
-//			if (userDao.findByName(username) == null) {
-//
-//				userDao.save(tempUser);
-//				return true;
-//
-//			}
+		}
 
 		} catch (Exception e) {
 			LOGGER.error(e);
-			System.out.println(e);
+			
 
 		}
 		return false;

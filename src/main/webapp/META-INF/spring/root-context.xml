@@ -40,8 +40,8 @@
 
 
 	<!-- @Component, @Service -->
-	<context:component-scan base-package="com.ita.edu.softserve.dao"></context:component-scan>
-	<context:component-scan base-package="com.ita.edu.softserve.dao.impl"></context:component-scan>
-	<context:component-scan base-package="com.ita.edu.softserve.service"></context:component-scan>
-	<context:component-scan base-package="com.ita.edu.softserve.service.impl"></context:component-scan>
+	<context:component-scan base-package="com.ita.edu.softserve.dao"/>
+	<context:component-scan base-package="com.ita.edu.softserve.dao.impl"/>
+	<context:component-scan base-package="com.ita.edu.softserve.service"/>
+	<context:component-scan base-package="com.ita.edu.softserve.service.impl"/>
 </beans>
