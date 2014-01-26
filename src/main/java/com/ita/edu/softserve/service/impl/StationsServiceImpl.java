@@ -13,12 +13,13 @@ import com.ita.edu.softserve.service.StationsService;
 
 /**
  * This is station service class.
- * @author Роман
+ * 
+ * @author Roman
  * 
  */
 @Service("stationsService")
 public class StationsServiceImpl implements StationsService {
-	
+
 	/**
 	 * Class to get access to DAO layer.
 	 */
@@ -33,6 +34,7 @@ public class StationsServiceImpl implements StationsService {
 
 	/**
 	 * Constructor with one argument.
+	 * 
 	 * @param stationDao
 	 */
 	public StationsServiceImpl(StationsDAO stationDao) {
@@ -40,13 +42,46 @@ public class StationsServiceImpl implements StationsService {
 	}
 
 	/**
-	 * Return list of all stations.
+	 * @return list of all stations.
 	 * 
 	 * @author Roman
 	 */
+	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
 	public List<Stations> findAllStations() {
 		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
+	}
+	
+	/**
+	 * @return Station found by ID.
+	 */
+	@Override
+	public Stations findStationsById(int id) {
+		return stationDao.findById(id);
+	}
+	/**
+	 *  Save Stations in database.
+	 */
+	@Override
+	public void saveStations(Stations... entities) {
+		stationDao.save(entities);
+	}
+	
+	/**
+	 *  Remove Stations from database.
+	 */
+	@Override
+	public void removeStations(Stations... entities) {
+		stationDao.remove(entities);
+	}
+	/**
+	 * Update database and get list of all stations.
+	 * 
+	 * @return list of all stations.
+	 */
+	@Override
+	public List<Stations> updateStations(Stations... entities) {
+		return stationDao.update(entities);
 	}
 }

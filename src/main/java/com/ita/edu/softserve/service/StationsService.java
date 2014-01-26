@@ -7,15 +7,32 @@ import com.ita.edu.softserve.entity.Stations;
 /**
  * Service interface for stations.
  * 
- * @author Роман
+ * @author Roman
  */
 public interface StationsService {
 
 	/**
 	 * Get list of all Stations.
-	 * 
-	 * @author Роман
 	 */
 	List<Stations> findAllStations();
+	
+	/**
+	 * Get Station by ID.
+	 */
+	Stations findStationsById(int id);
 
+	/**
+	 * Save entities
+	 */
+	void saveStations(Stations... entities);
+
+	/**
+	 * Remove entities
+	 */
+	void removeStations(Stations... entities);
+
+	/**
+	 * Update entities
+	 */
+	List<Stations> updateStations(Stations... entities);
 }
