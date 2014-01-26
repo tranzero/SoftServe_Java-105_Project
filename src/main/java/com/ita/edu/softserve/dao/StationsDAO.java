@@ -2,22 +2,28 @@ package com.ita.edu.softserve.dao;
 
 import java.util.List;
 
+import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
 
 /**
  * 
  * @author iryna
+ * @author Roman
  * 
  */
 public interface StationsDAO extends AbstractDAOIface<Stations>{
 
 	/**
 	 * Find Stations by stationName
-	 * 
-	 * @param stationName
-	 * @return
 	 */
 	List<Stations> findByStations(String stationName);
-	// Stations findByStations(String stationName);
+
+	Stations findById(int id);
+
+	void save(Stations... entities);
+
+	void remove(Stations... entities);
+
+	List<Stations> update(Stations[] entities);
 
 }
