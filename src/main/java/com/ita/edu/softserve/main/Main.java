@@ -27,7 +27,7 @@ public class Main implements MainIface {
 
 				for (Users user: userService.findAllUsers()){
 					
-					System.out.println(user.getFirstName());
+					System.out.println(user.getFirstName() + " " + user.getLastName());
 					
 				}
 		

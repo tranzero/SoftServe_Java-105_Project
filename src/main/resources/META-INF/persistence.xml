@@ -4,12 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="Java105" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!-- <class>com.ita.edu.softserve.entity.Lines</class> -->
-		<!-- <class>com.ita.edu.softserve.entity.Routes</class> -->
-		<!-- <class>com.ita.edu.softserve.entity.Stations</class> -->
-		<!-- <class>com.ita.edu.softserve.entity.StationsOnLine</class> -->
-		<!-- <class>com.ita.edu.softserve.entity.Stops</class> -->
-		<!-- <class>com.ita.edu.softserve.entity.Users</class> -->
+		
 
 		<properties>
 			<!-- MsSQL -->
