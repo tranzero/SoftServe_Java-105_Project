@@ -22,17 +22,17 @@ public interface StationsService {
 	Stations findStationsById(int id);
 
 	/**
-	 * Save entities
+	 * Save station
 	 */
-	void saveStations(Stations... entities);
+	void saveStations(Stations... station);
 
 	/**
-	 * Remove entities
+	 * Remove station
 	 */
-	void removeStations(Stations... entities);
+	void removeStations(Stations... station);
 
 	/**
-	 * Update entities
+	 * Update station
 	 */
-	List<Stations> updateStations(Stations... entities);
+	List<Stations> updateStations(Stations... station);
 }

@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class StationsServiceImpl implements StationsService {
 	 * Class to get access to DAO layer.
 	 */
 	@Autowired
-	private StationsDAO stationDao;
+	private StationsDAO stationDao; 
 
 	/**
 	 * Constructor without arguments.
@@ -64,16 +65,20 @@ public class StationsServiceImpl implements StationsService {
 	 *  Save Stations in database.
 	 */
 	@Override
-	public void saveStations(Stations... entities) {
-		stationDao.save(entities);
+	public void saveStations(Stations... station) {
+		
+		for (Stations stop: station)
+		stationDao.save(stop);
 	}
 	
 	/**
 	 *  Remove Stations from database.
 	 */
 	@Override
-	public void removeStations(Stations... entities) {
-		stationDao.remove(entities);
+	public void removeStations(Stations... station) {
+		
+		for (Stations stop: station)
+		stationDao.remove(stop);
 	}
 	/**
 	 * Update database and get list of all stations.
@@ -81,7 +86,12 @@ public class StationsServiceImpl implements StationsService {
 	 * @return list of all stations.
 	 */
 	@Override
-	public List<Stations> updateStations(Stations... entities) {
-		return stationDao.update(entities);
+	public List<Stations> updateStations(Stations... station) {
+		List<Stations> stationUpdateResult = new ArrayList<Stations>();
+		for (Stations stop : station) {
+			stationUpdateResult.add((Stations) stationDao.update(stop));
+		}
+		return stationUpdateResult;
+	
 	}
 }

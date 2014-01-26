@@ -24,6 +24,6 @@ public interface StationsDAO extends AbstractDAOIface<Stations>{
 
 	void remove(Stations... entities);
 
-	List<Stations> update(Stations[] entities);
+	List<Stations> update(Stations... entities);
 
 }
