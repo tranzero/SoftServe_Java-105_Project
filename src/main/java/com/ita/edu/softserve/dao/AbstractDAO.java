@@ -81,8 +81,8 @@ public abstract class AbstractDAO<E> extends BaseEntity implements AbstractDAOIf
 	 */
 	@SuppressWarnings("unchecked")
 	public List<E> getAllEntities() {
-		return entityManager.createQuery(("\"") +
-				"From " + getEntityClass().getCanonicalName() + ("\"")).getResultList();
+		return entityManager.createQuery(
+				"From " + getEntityClass().getCanonicalName()).getResultList();
 	}
 
 	/**

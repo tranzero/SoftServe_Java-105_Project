@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.service.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,12 @@ public class UserServiceImpl implements UserService {
 
 		}
 		return false;
+	}
+
+	@Override
+	public List<Users> findAllUsers() {
+		
+		return userDao.getAllEntities();
 	}
 
 }

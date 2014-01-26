@@ -6,31 +6,32 @@ package com.ita.edu.softserve.main;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.ita.edu.softserve.dao.UsersDAO;
+import com.ita.edu.softserve.entity.Post;
+import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.service.PostForMainPageService;
 import com.ita.edu.softserve.service.UserService;
 
 /**
  * @author Mik
  *
  */
-public class Main {
+public class Main implements MainIface {
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 	
-		ApplicationContext appContext = 
-		    	  new ClassPathXmlApplicationContext("/META-INF/spring/root-context.xml");		 
+		UserService userService = (UserService)appContext.getBean("userService");	 
 
-//		UsersDAO usersDao = (UsersDAO) appContext.getBean("usersDao");
-//		Users users= usersDao.findByName("Lesniak");
-//		
-//		System.out.println();
-//		System.out.println(users.getFirstName() + " " + users.getLastName());
+				for (Users user: userService.findAllUsers()){
+					
+					System.out.println(user.getFirstName());
+					
+				}
 		
-		UserService us = (UserService) appContext.getBean("userService");
-		boolean user = us.createUser("sdfgsdfs", "sdfgsdfs", "sdfgsdfs", "sdfgsdfs", "sdfgsdfs");
-		System.out.println(user);
 
+		
 	}
 }

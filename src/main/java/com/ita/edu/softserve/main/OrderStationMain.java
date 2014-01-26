@@ -10,11 +10,10 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.service.LinesService;
 import com.ita.edu.softserve.service.StationsService;
 
-public class OrderStationMain {
+public class OrderStationMain implements MainIface {
 
 	public static void main(String[] args) {
-		ApplicationContext appContext = 
-		    	  new ClassPathXmlApplicationContext("/META-INF/spring/root-context.xml");		 
+		
 		
 		LinesService lsImpl = (LinesService) appContext.getBean("linesService");
 		StationsService stationsDAOImpl = (StationsService) appContext
