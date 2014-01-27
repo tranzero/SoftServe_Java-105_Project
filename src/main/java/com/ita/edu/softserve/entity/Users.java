@@ -13,6 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.util.Assert;
 
 /**
@@ -245,11 +247,9 @@ public class Users extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
-		return result;
+		return new HashCodeBuilder()
+			.append(userName)
+			.hashCode();
 	}
 
 
@@ -262,13 +262,10 @@ public class Users extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		return true;
+		
+		return new EqualsBuilder()
+			.append(userName, other.userName)
+			.append(userId, other.userId)
+			.isEquals();
 	}
-
-
 }
