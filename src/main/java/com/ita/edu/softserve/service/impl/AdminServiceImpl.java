@@ -13,6 +13,7 @@ import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.service.AdminService;
 @Service
 public class AdminServiceImpl implements AdminService {
+	
 	@Autowired
 	private UsersDAOImpl userDao;
 
@@ -26,11 +27,11 @@ public class AdminServiceImpl implements AdminService {
 	public AdminServiceImpl(UsersDAOImpl userDao) {
 		this.userDao = userDao;
 	}
+	
 	@Transactional
 	@Override
 	public void printAllUsers() {
-		List<Users> usersList = new ArrayList<Users>();
-		usersList = userDao.getAllEntities();
+		List<Users> usersList = userDao.getAllEntities();
 		for (Users u : usersList) {
 			System.out.println("Users name" + u.getFirstName() + " "
 					+ u.getLastName());

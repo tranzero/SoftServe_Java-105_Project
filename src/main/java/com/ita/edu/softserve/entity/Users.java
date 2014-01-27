@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.springframework.util.Assert;
 
 /**
  * @author admin
@@ -34,7 +37,7 @@ public class Users extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
 	
-	@Column(name = "USERNAME", nullable = false, length = 100)
+	@Column(name = "USERNAME", nullable = false, updatable = false, length = 100)
 	private String userName;
 
 	@Column(name = "FIRSTNAME", nullable = true, length = 100)
@@ -59,7 +62,7 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	public Users() {
+	protected Users() {
 		this.setRegDate();
 	}
 
@@ -72,11 +75,10 @@ public class Users extends BaseEntity {
 	 */
 	public Users(String userName, String eMail, String password) {
 		this();
-		if (trueEnterValueOfFirstPart(userName, eMail, password)){
-			this.setUserName(userName);
-			this.seteMail(eMail);
-			this.setPasswd(password);
-		}
+		
+		this.setUserName(userName);
+		this.seteMail(eMail);
+		this.setPasswd(password);
 	}
 
 	/**
@@ -91,13 +93,8 @@ public class Users extends BaseEntity {
 	public Users(String userName, String firstName, String lastName,
 			String eMail, String password) {
 		this(userName, eMail, password);
-		if (trueEnterValueOfSecondPart(firstName, lastName)){
-			this.setFirstName(firstName);
-			this.setLastName(lastName);
-		} else {
-			System.exit(1);
-		}
-		
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
 	}
 
 	/**
@@ -127,7 +124,8 @@ public class Users extends BaseEntity {
 	 * @param userName 
 	 * 				the userName to set
 	 */
-	public void setUserName(String userName) {
+	private void setUserName(String userName) {
+		Assert.hasText(userName, "Username must not be empty!");
 		this.userName = userName;
 	}
 

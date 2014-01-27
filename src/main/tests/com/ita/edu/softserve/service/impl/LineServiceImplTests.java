@@ -8,12 +8,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
+import javax.sound.sampled.Line;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.util.Assert;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
@@ -22,7 +26,6 @@ import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.service.LinesService;
 
 /**
  * Class under test {@link com.ita.edu.softserve.service.impl.LinesServiceImpl}
@@ -87,13 +90,25 @@ public class LineServiceImplTests {
 	@Test
 	public void getLinesByStationTest() {
 
+		Lines line = Mockito.mock(Lines.class);
+		when(line.getLineId()).thenReturn(1);
+		
+		StationsOnLine stationOnLine = mock(StationsOnLine.class);
+		when(stationOnLine.getLineId()).thenReturn(line);
+		
 		List<StationsOnLine> stlList = new ArrayList<StationsOnLine>();
+		stlList.add(stationOnLine);
+		
 		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
-		when(stl.findByStationId(1)).thenReturn(stlList);
-		LinesServiceImpl LSImpl = new LinesServiceImpl(stl);
-		assertTrue(Iterables.elementsEqual(
-				LSImpl.getLinesByStation(new Stations()), stlList));
-
+		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
+		
+		LinesServiceImpl lineService = new LinesServiceImpl(stl);
+		List<Lines> actualLines = lineService.getLinesByStation(new Stations());
+		
+		Assert.notEmpty(actualLines);
+		
+		List<Lines> expectedLines = Collections.singletonList(line);
+		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
 	@Test

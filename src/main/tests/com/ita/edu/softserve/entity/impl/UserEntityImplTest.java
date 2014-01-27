@@ -5,6 +5,7 @@ package com.ita.edu.softserve.entity.impl;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ita.edu.softserve.entity.Users;
@@ -19,14 +20,9 @@ public class UserEntityImplTest {
 	/**
      * Test when method return <code>true</code>.
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMethodOfTrueEnterValueOfFirstPart() {
-
-        Users user = new Users();
-        boolean actual = user.trueEnterValueOfFirstPart("Ivan", "mail@gmail.com", "12345");
-        boolean expected = true;
-        assertEquals(expected, actual);
-        assertTrue(actual);
+       	new Users(null, "mail@gmail.com", "12345");
     }
 
     

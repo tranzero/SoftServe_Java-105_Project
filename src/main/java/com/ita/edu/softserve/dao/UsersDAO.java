@@ -11,7 +11,7 @@ import com.ita.edu.softserve.entity.Users;
 public interface UsersDAO extends AbstractDAOIface<Users>{
 
 	/**
-	 * Find Users by name
+	 * Finds Users by name
 	 * 
 	 * @param name
 	 * @return

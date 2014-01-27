@@ -84,7 +84,8 @@ public class LinesServiceImpl implements LinesService {
 				.getStationId());
 		List<Lines> linesList = new ArrayList<Lines>();
 		for (StationsOnLine stl : stlList) {
-			linesList.add(lineDao.findById(stl.getLineId().getLineId()));
+			//linesList.add(lineDao.findById(stl.getLineId().getLineId()));
+			linesList.add(stl.getLineId());
 		}
 		return linesList;
 	}

@@ -7,48 +7,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
+import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.service.UserService;
+import com.ita.edu.softserve.service.ManagerFactory;
+import com.ita.edu.softserve.service.UserManager;
 
-import javax.persistence.RollbackException;
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserManager {
 	private static final Logger LOGGER = Logger
 			.getLogger(UserServiceImpl.class);
 	@Autowired
-	private UsersDAOImpl userDao;
+	private UsersDAO userDao;
 
 	@Transactional
 	@Override
 	public boolean createUser(String username, String firstname,
 			String lastname, String email, String password) {
-		
 
 		try {
 
-			Users tempUser = new Users(username, firstname, lastname, email,
-					password);
-			
-			
 			if (userDao.findByName(username) == null) {
-				
-			userDao.save(tempUser);
-			return true;
-		}
+				Users tempUser = new Users(username, firstname, lastname,
+						email, password);
+
+				userDao.save(tempUser);
+				return true;
+			}
 
 		} catch (Exception e) {
 			LOGGER.error(e);
-			
-
+			throw e;
 		}
 		return false;
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public List<Users> findAllUsers() {
-		
+
 		return userDao.getAllEntities();
 	}
-
+	
+	public static UserManager getInstance() {
+		return ManagerFactory.getManager(UserManager.class); 
+	}
 }
