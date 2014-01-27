@@ -64,7 +64,7 @@ public class Users extends BaseEntity {
 	/**
 	 * Default Constructor
 	 */
-	protected Users() {
+	public Users() {
 		this.setRegDate();
 	}
 

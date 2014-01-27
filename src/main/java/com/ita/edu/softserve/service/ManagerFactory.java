@@ -14,7 +14,7 @@ public final class ManagerFactory {
 		return appContext;
 	}
 	
-	public static <S extends BaseService> S getManager(Class<S> clazz) {
+	public static <S extends BaseManager> S getManager(Class<S> clazz) {
 		return (S) getApplicationContext().getBean(clazz);
 	}
 	

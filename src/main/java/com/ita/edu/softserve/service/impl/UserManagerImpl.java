@@ -13,9 +13,9 @@ import com.ita.edu.softserve.service.ManagerFactory;
 import com.ita.edu.softserve.service.UserManager;
 
 @Service("userService")
-public class UserServiceImpl implements UserManager {
+public class UserManagerImpl implements UserManager {
 	private static final Logger LOGGER = Logger
-			.getLogger(UserServiceImpl.class);
+			.getLogger(UserManagerImpl.class);
 	@Autowired
 	private UsersDAO userDao;
 

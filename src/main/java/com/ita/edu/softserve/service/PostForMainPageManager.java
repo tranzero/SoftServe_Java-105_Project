@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ita.edu.softserve.entity.Post;
 
 @Service
-public interface PostForMainPageService {
+public interface PostForMainPageManager extends BaseManager {
 	
 	public List<Post> findPostList();
 

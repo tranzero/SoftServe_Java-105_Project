@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.ita.edu.softserve.dao.PostDAO;
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.service.PostForMainPageService;
+import com.ita.edu.softserve.service.ManagerFactory;
+import com.ita.edu.softserve.service.PostForMainPageManager;
+import com.ita.edu.softserve.service.UserManager;
 
 @Service("postForMainPageService")
-public class PostForMainPageServiceImpl implements PostForMainPageService {
+public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	
 	@Autowired
 	PostDAOImpl postDao;
@@ -19,6 +21,9 @@ public class PostForMainPageServiceImpl implements PostForMainPageService {
 	@Override
 	public List<Post> findPostList() {
 		return postDao.getAllEntities();
+	}
+	public static PostForMainPageManager getInstance() {
+		return ManagerFactory.getManager(PostForMainPageManager.class); 
 	}
 
 }
