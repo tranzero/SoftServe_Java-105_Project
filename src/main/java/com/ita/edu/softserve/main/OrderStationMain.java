@@ -2,23 +2,31 @@ package com.ita.edu.softserve.main;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+
 import com.ita.edu.softserve.service.LinesManager;
 import com.ita.edu.softserve.service.StationsManager;
 import com.ita.edu.softserve.service.impl.LinesManagerImpl;
 import com.ita.edu.softserve.service.impl.StationsManagerImpl;
+
+import com.ita.edu.softserve.service.LinesService;
+import com.ita.edu.softserve.service.StationsManager;
+
 
 public class OrderStationMain{
 
 	public static void main(String[] args) {
 		
 		
+
 		LinesManager lsImpl = (LinesManager) LinesManagerImpl.getInstance();
 		StationsManager stationsDAOImpl = (StationsManager) StationsManagerImpl.getInstance();
+
+		LinesService lsImpl = (LinesService) appContext.getBean("linesService");
+		StationsManager stationsDAOImpl = (StationsManager) appContext
+				.getBean("stationsService");
+
 
 		List<Stations> stationsList = stationsDAOImpl.findAllStations();
 		Stations station1 = stationsList.get(4);
