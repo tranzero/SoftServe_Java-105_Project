@@ -5,34 +5,36 @@ import java.util.List;
 import com.ita.edu.softserve.entity.Stations;
 
 /**
- * Service interface for stations.
+ * Manager interface for stations.
  * 
  * @author Roman
  */
-public interface StationsService {
+public interface StationsManager {
+	
+	List<Stations> findByStations(String stationName);
 
 	/**
-	 * Get list of all Stations.
+	 * Gets list of all Stations.
 	 */
 	List<Stations> findAllStations();
 	
 	/**
-	 * Get Station by ID.
+	 * Gets Station by ID.
 	 */
 	Stations findStationsById(int id);
 
 	/**
-	 * Save station
+	 * Saves station.
 	 */
 	void saveStations(Stations... station);
 
 	/**
-	 * Remove station
+	 * Removes station.
 	 */
 	void removeStations(Stations... station);
 
 	/**
-	 * Update station
+	 * Updates station.
 	 */
 	List<Stations> updateStations(Stations... station);
 }

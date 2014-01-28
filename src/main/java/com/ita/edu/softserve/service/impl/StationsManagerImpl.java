@@ -7,81 +7,81 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.StationsManager;
 
 /**
- * This is station service class.
+ * This is station manager class.
  * 
  * @author Roman
  * 
  */
-@Service("stationsService")
-public class StationsServiceImpl implements StationsService {
+@Service("stationsManager")
+public class StationsManagerImpl implements StationsManager {
 
 	/**
-	 * Class to get access to DAO layer.
+	 * Object to get access to DAO layer.
 	 */
 	@Autowired
-	private StationsDAO stationDao; 
+	private StationsDAO stationDao;
 
 	/**
 	 * Constructor without arguments.
 	 */
-	public StationsServiceImpl() {
-	}
-
-	/**
-	 * Constructor with one argument.
-	 * 
-	 * @param stationDao
-	 */
-	public StationsServiceImpl(StationsDAO stationDao) {
-		this.stationDao = stationDao;
+	public StationsManagerImpl() {
 	}
 
 	/**
 	 * @return list of all stations.
-	 * 
-	 * @author Roman
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stations> findByStations(String stationName) {
+
+		return stationDao.findByStations(stationName);
+	}
+
+	/**
+	 * @return list of all stations.
+	 */
 	@Transactional
 	@Override
 	public List<Stations> findAllStations() {
-		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
+
+		return stationDao.getAllEntities();
 	}
-	
+
 	/**
 	 * @return Station found by ID.
 	 */
 	@Override
 	public Stations findStationsById(int id) {
+
 		return stationDao.findById(id);
 	}
+
 	/**
-	 *  Save Stations in database.
+	 * Saves Stations in database.
 	 */
 	@Override
 	public void saveStations(Stations... station) {
-		
-		for (Stations stop: station)
-		stationDao.save(stop);
+
+		for (Stations stop : station)
+			stationDao.save(stop);
 	}
-	
+
 	/**
-	 *  Remove Stations from database.
+	 * Removes Stations from database.
 	 */
 	@Override
 	public void removeStations(Stations... station) {
-		
-		for (Stations stop: station)
-		stationDao.remove(stop);
+
+		for (Stations stop : station)
+			stationDao.remove(stop);
 	}
+
 	/**
-	 * Update database and get list of all stations.
+	 * Updates database and get list of all stations.
 	 * 
 	 * @return list of all stations.
 	 */
@@ -91,7 +91,7 @@ public class StationsServiceImpl implements StationsService {
 		for (Stations stop : station) {
 			stationUpdateResult.add((Stations) stationDao.update(stop));
 		}
+
 		return stationUpdateResult;
-	
 	}
 }

@@ -2,21 +2,18 @@ package com.ita.edu.softserve.main;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.StationsManager;
 
 public class StationServiceMain implements MainIface {
 
 	public static void main(String[] args) {
 		
-		StationsService stationsDAOImpl = (StationsService) appContext
-				.getBean("stationsService");
+		StationsManager stationsManager = (StationsManager) appContext
+				.getBean("stationsManager");
 
-		List<Stations> stationList = stationsDAOImpl.findAllStations();
-		System.out.println("CTATION CODE " + " CTATION NAME");
+		List<Stations> stationList = stationsManager.findAllStations();
+		System.out.println("STATION CODE " + " STATION NAME");
 		for (Stations station : stationList) {
 			System.out.println(station.getStationCode() + " "
 					+ station.getStationName());
