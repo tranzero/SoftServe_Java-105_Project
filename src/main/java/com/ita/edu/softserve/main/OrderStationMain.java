@@ -7,17 +7,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.LinesService;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.LinesManager;
+import com.ita.edu.softserve.service.StationsManager;
+import com.ita.edu.softserve.service.impl.LinesManagerImpl;
+import com.ita.edu.softserve.service.impl.StationsManagerImpl;
 
-public class OrderStationMain implements MainIface {
+public class OrderStationMain{
 
 	public static void main(String[] args) {
 		
 		
-		LinesService lsImpl = (LinesService) appContext.getBean("linesService");
-		StationsService stationsDAOImpl = (StationsService) appContext
-				.getBean("stationsService");
+		LinesManager lsImpl = (LinesManager) LinesManagerImpl.getInstance();
+		StationsManager stationsDAOImpl = (StationsManager) StationsManagerImpl.getInstance();
 
 		List<Stations> stationsList = stationsDAOImpl.findAllStations();
 		Stations station1 = stationsList.get(4);

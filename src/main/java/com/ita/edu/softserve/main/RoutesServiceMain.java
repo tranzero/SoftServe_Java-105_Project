@@ -4,8 +4,8 @@
 package com.ita.edu.softserve.main;
 
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.service.RoutesService;
-import com.ita.edu.softserve.service.impl.RoutesServiceImpl;
+import com.ita.edu.softserve.service.RoutesManager;
+import com.ita.edu.softserve.service.impl.RoutesManagerImpl;
 
 import java.sql.Time;
 import java.util.List;
@@ -21,7 +21,7 @@ public class RoutesServiceMain {
 
 	@SuppressWarnings("deprecation")
 	public void printRoutesToConsole() {
-		RoutesService routesService = new RoutesServiceImpl();
+		RoutesManager routesService = new RoutesManagerImpl();
 		System.out
 				.println("Example: \"Find Routers List By StationId Arriving\"");
 		List<Routes> listRoutesArriving = routesService

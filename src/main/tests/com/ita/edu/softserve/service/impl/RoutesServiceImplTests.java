@@ -7,8 +7,8 @@ import java.sql.Time;
 
 import org.junit.Test;
 
-import com.ita.edu.softserve.service.RoutesService;
-import com.ita.edu.softserve.service.impl.RoutesServiceImpl;
+import com.ita.edu.softserve.service.RoutesManager;
+import com.ita.edu.softserve.service.impl.RoutesManagerImpl;
 
 /**
  * @author Lyubomyr
@@ -19,7 +19,7 @@ public class RoutesServiceImplTests {
 	@SuppressWarnings("deprecation")
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindRoutersListByStationIdArrivingExceptionIsThrownIncorectId() {
-		RoutesService routesServiceArriving = new RoutesServiceImpl();
+		RoutesManager routesServiceArriving = new RoutesManagerImpl();
 		routesServiceArriving.findRoutersListByStationIdArriving(-1, new Time(
 				0, 0, 0), new Time(23, 59, 0));
 	}
@@ -27,7 +27,7 @@ public class RoutesServiceImplTests {
 	@SuppressWarnings("deprecation")
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindRoutersListByStationIdDepartingExceptionIsThrownIncorectId() {
-		RoutesService routesServiceDeparting = new RoutesServiceImpl();
+		RoutesManager routesServiceDeparting = new RoutesManagerImpl();
 		routesServiceDeparting.findRoutersListByStationIdDeparting(-1,
 				new Time(0, 0, 0), new Time(23, 59, 0));
 	}
@@ -35,7 +35,7 @@ public class RoutesServiceImplTests {
 	@SuppressWarnings("deprecation")
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindRoutersListByStationIdArrivingExceptionIsThrownIncorectTime() {
-		RoutesService routesServiceArriving = new RoutesServiceImpl();
+		RoutesManager routesServiceArriving = new RoutesManagerImpl();
 		routesServiceArriving.findRoutersListByStationIdArriving(-1, new Time(
 				23, 59, 0), new Time(0, 0, 0));
 	}
@@ -43,7 +43,7 @@ public class RoutesServiceImplTests {
 	@SuppressWarnings("deprecation")
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindRoutersListByStationIdDepartingExceptionIsThrownIncorectTime() {
-		RoutesService routesServiceDeparting = new RoutesServiceImpl();
+		RoutesManager routesServiceDeparting = new RoutesManagerImpl();
 		routesServiceDeparting.findRoutersListByStationIdDeparting(5, new Time(
 				23, 59, 0), new Time(0, 0, 0));
 	}

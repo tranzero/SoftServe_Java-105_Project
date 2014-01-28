@@ -12,7 +12,7 @@ import com.ita.edu.softserve.entity.Routes;
  * @author Lyubomyr
  * 
  */
-public interface RoutesService {
+public interface RoutesManager extends BaseManager  {
 	public List<Routes> findRoutersListByStationIdArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 

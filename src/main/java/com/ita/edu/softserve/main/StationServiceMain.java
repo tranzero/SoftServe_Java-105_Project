@@ -6,14 +6,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.StationsManager;
+import com.ita.edu.softserve.service.impl.StationsManagerImpl;
 
-public class StationServiceMain implements MainIface {
+public class StationServiceMain {
 
 	public static void main(String[] args) {
 		
-		StationsService stationsDAOImpl = (StationsService) appContext
-				.getBean("stationsService");
+		StationsManager stationsDAOImpl = (StationsManager) StationsManagerImpl.getInstance();
 
 		List<Stations> stationList = stationsDAOImpl.findAllStations();
 		System.out.println("CTATION CODE " + " CTATION NAME");

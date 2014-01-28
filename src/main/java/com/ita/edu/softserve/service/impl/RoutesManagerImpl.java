@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.service.RoutesService;
-
+import com.ita.edu.softserve.service.ManagerFactory;
+import com.ita.edu.softserve.service.RoutesManager;
+import com.ita.edu.softserve.service.StationsManager;
 import com.ita.edu.softserve.dao.impl.StopsDAOImpl;
 import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
-
 import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
@@ -21,11 +21,11 @@ import com.ita.edu.softserve.entity.StationsOnLine;
  * 
  */
 @Service
-public class RoutesServiceImpl implements RoutesService {
+public class RoutesManagerImpl implements RoutesManager {
 
         private RoutesDAOImpl routesDao = new RoutesDAOImpl();
 
-        public RoutesServiceImpl() {
+        public RoutesManagerImpl() {
         }
 
         /**
@@ -137,4 +137,7 @@ public class RoutesServiceImpl implements RoutesService {
                 // routesDao.findRoutersListByStationIdDeparting(idStationDeparting,
                 // timeDepartureMin, timeDepartureMax);
         }
+        public static RoutesManager getInstance() {
+    		return ManagerFactory.getManager(RoutesManager.class); 
+    	}
 }

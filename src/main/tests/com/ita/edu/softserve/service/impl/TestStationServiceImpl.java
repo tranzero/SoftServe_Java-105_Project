@@ -16,7 +16,7 @@ import com.ita.edu.softserve.entity.Stations;
 
 /**
  * Class under test
- * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl}
+ * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl}
  * 
  * @author Роман
  */
@@ -30,7 +30,7 @@ public class TestStationServiceImpl {
 	/**
 	 * StationsService.
 	 */
-	private StationsServiceImpl stationServiceImpl;
+	private StationsManagerImpl stationServiceImpl;
 
 	/**
 	 * @throws java.lang.Exception
@@ -38,12 +38,12 @@ public class TestStationServiceImpl {
 	@Before
 	public final void setUp() {
 		stationsDaoImpl = mock(StationsDAOImpl.class);
-		stationServiceImpl = new StationsServiceImpl(stationsDaoImpl);
+		stationServiceImpl = new StationsManagerImpl(stationsDaoImpl);
 	}
 
 	/**
 	 * Test whether method do not return empty list. Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test
 	public final void testFindAllStationsIsEmpty() {
@@ -58,7 +58,7 @@ public class TestStationServiceImpl {
 
 	/**
 	 * Test if two list is equals. Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test
 	public final void testFindAllStationsEquals() {
@@ -79,7 +79,7 @@ public class TestStationServiceImpl {
 
 	/**
 	 * Method under test.
-	 * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test
 	public final void testFindAllStationsEmptyList() {
@@ -94,7 +94,7 @@ public class TestStationServiceImpl {
 	/**
 	 * Test method for Null.<br/>
 	 * Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsServiceImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public final void testFindAllStationsShouldThrowNullPointerException() {

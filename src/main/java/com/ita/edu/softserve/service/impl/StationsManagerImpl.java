@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.ManagerFactory;
+import com.ita.edu.softserve.service.StationsManager;
 
 /**
  * This is station service class.
@@ -19,7 +20,7 @@ import com.ita.edu.softserve.service.StationsService;
  * 
  */
 @Service("stationsService")
-public class StationsServiceImpl implements StationsService {
+public class StationsManagerImpl implements StationsManager {
 
 	/**
 	 * Class to get access to DAO layer.
@@ -30,7 +31,7 @@ public class StationsServiceImpl implements StationsService {
 	/**
 	 * Constructor without arguments.
 	 */
-	public StationsServiceImpl() {
+	public StationsManagerImpl() {
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class StationsServiceImpl implements StationsService {
 	 * 
 	 * @param stationDao
 	 */
-	public StationsServiceImpl(StationsDAO stationDao) {
+	public StationsManagerImpl(StationsDAO stationDao) {
 		this.stationDao = stationDao;
 	}
 
@@ -93,5 +94,8 @@ public class StationsServiceImpl implements StationsService {
 		}
 		return stationUpdateResult;
 	
+	}
+	public static StationsManager getInstance() {
+		return ManagerFactory.getManager(StationsManager.class); 
 	}
 }

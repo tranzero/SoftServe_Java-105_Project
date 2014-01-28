@@ -14,7 +14,7 @@ import com.ita.edu.softserve.entity.Stations;
  * @author MPS
  * 
  */
-public interface LinesService {
+public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getFullLines();
 	

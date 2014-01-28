@@ -28,7 +28,7 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
- * Class under test {@link com.ita.edu.softserve.service.impl.LinesServiceImpl}
+ * Class under test {@link com.ita.edu.softserve.service.impl.LinesManagerImpl}
  * 
  * @author MPS
  * 
@@ -44,7 +44,7 @@ public class LineServiceImplTests {
 		testList.add(lines);
 		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
 		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
-		LinesServiceImpl lsi = new LinesServiceImpl(linesDaoImpl);
+		LinesManagerImpl lsi = new LinesManagerImpl(linesDaoImpl);
 		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
 	}
 
@@ -53,7 +53,7 @@ public class LineServiceImplTests {
 		List<Lines> testList = new ArrayList<Lines>();
 		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
 		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
-		LinesServiceImpl lsi = new LinesServiceImpl(linesDaoImpl);
+		LinesManagerImpl lsi = new LinesManagerImpl(linesDaoImpl);
 		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
 	}
 
@@ -102,7 +102,7 @@ public class LineServiceImplTests {
 		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
 		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
 		
-		LinesServiceImpl lineService = new LinesServiceImpl(stl);
+		LinesManagerImpl lineService = new LinesManagerImpl(stl);
 		List<Lines> actualLines = lineService.getLinesByStation(new Stations());
 		
 		Assert.notEmpty(actualLines);
@@ -116,7 +116,7 @@ public class LineServiceImplTests {
 
 		List<Stations> stations = new ArrayList<Stations>();
 		StationsDAOImpl stationsDAO = mock(StationsDAOImpl.class);
-		LinesServiceImpl lsImpl = new LinesServiceImpl(stationsDAO);
+		LinesManagerImpl lsImpl = new LinesManagerImpl(stationsDAO);
 
 		when(stationsDAO.findByStations("Pisochne")).thenReturn(stations);
 
@@ -130,7 +130,7 @@ public class LineServiceImplTests {
 
 		List<Stations> stations = new ArrayList<Stations>();
 		StationsDAOImpl stationsDAO = mock(StationsDAOImpl.class);
-		LinesServiceImpl lsImpl = new LinesServiceImpl(stationsDAO);
+		LinesManagerImpl lsImpl = new LinesManagerImpl(stationsDAO);
 
 		when(stationsDAO.findByStations(null)).thenReturn(null);
 

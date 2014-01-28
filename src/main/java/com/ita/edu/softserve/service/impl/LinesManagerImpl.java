@@ -17,7 +17,9 @@ import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.service.LinesService;
+import com.ita.edu.softserve.service.LinesManager;
+import com.ita.edu.softserve.service.ManagerFactory;
+import com.ita.edu.softserve.service.StationsManager;
 
 /**
  * 
@@ -26,7 +28,7 @@ import com.ita.edu.softserve.service.LinesService;
  * 
  */
 @Service("linesService")
-public class LinesServiceImpl implements LinesService {
+public class LinesManagerImpl implements LinesManager {
 
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 
@@ -39,23 +41,23 @@ public class LinesServiceImpl implements LinesService {
 	@Autowired
 	private StationsDAOImpl stationDao;
 
-	public LinesServiceImpl() {
+	public LinesManagerImpl() {
 	}
 
-	public LinesServiceImpl(StationsOnLineDAOImpl stlDao, LinesDAOImpl lineDao) {
+	public LinesManagerImpl(StationsOnLineDAOImpl stlDao, LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
 		this.stlDao = stlDao;
 	}
 
-	public LinesServiceImpl(StationsOnLineDAOImpl stlDao) {
+	public LinesManagerImpl(StationsOnLineDAOImpl stlDao) {
 		this.stlDao = stlDao;
 	}
 
-	public LinesServiceImpl(LinesDAOImpl lineDao) {
+	public LinesManagerImpl(LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
 	}
 
-	public LinesServiceImpl(StationsDAOImpl stationDao) {
+	public LinesManagerImpl(StationsDAOImpl stationDao) {
 		this.stationDao = stationDao;
 	}
 
@@ -132,6 +134,10 @@ public class LinesServiceImpl implements LinesService {
 		}
 
 		return lines;
+	}
+	
+	public static LinesManager getInstance() {
+		return ManagerFactory.getManager(LinesManager.class); 
 	}
 
 }

@@ -9,7 +9,7 @@ import com.ita.edu.softserve.entity.Stations;
  * 
  * @author Roman
  */
-public interface StationsService {
+public interface StationsManager extends BaseManager  {
 
 	/**
 	 * Get list of all Stations.
