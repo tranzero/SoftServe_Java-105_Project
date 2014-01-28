@@ -68,8 +68,7 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public List<Lines> getFullLines() {
-		List<Lines> linesList = lineDao.getAllEntities();
-		return linesList;
+		return lineDao.getAllEntities();
 
 	}
 
