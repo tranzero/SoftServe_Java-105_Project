@@ -2,13 +2,10 @@ package com.ita.edu.softserve.main;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.service.LinesService;
-import com.ita.edu.softserve.service.StationsService;
+import com.ita.edu.softserve.service.StationsManager;
 
 public class OrderStationMain implements MainIface {
 
@@ -16,7 +13,7 @@ public class OrderStationMain implements MainIface {
 		
 		
 		LinesService lsImpl = (LinesService) appContext.getBean("linesService");
-		StationsService stationsDAOImpl = (StationsService) appContext
+		StationsManager stationsDAOImpl = (StationsManager) appContext
 				.getBean("stationsService");
 
 		List<Stations> stationsList = stationsDAOImpl.findAllStations();
