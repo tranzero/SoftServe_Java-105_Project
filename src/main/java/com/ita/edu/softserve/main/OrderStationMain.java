@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.LinesManager;
-import com.ita.edu.softserve.service.StationsManager;
-import com.ita.edu.softserve.service.impl.LinesManagerImpl;
-import com.ita.edu.softserve.service.impl.StationsManagerImpl;
+import com.ita.edu.softserve.manager.LinesManager;
+import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
+import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
 
 public class OrderStationMain {
 

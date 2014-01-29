@@ -26,9 +26,10 @@ import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 
 /**
- * Class under test {@link com.ita.edu.softserve.service.impl.LinesManagerImpl}
+ * Class under test {@link com.ita.edu.softserve.manager.impl.LinesManagerImpl}
  * 
  * @author MPS
  * 

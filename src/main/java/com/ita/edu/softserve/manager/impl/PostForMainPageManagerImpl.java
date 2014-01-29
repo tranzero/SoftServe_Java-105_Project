@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.ita.edu.softserve.dao.PostDAO;
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.service.ManagerFactory;
-import com.ita.edu.softserve.service.PostForMainPageManager;
-import com.ita.edu.softserve.service.UserManager;
+import com.ita.edu.softserve.manager.ManagerFactory;
+import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.UserManager;
 
 @Service("postForMainPageService")
 public class PostForMainPageManagerImpl implements PostForMainPageManager {

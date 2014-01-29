@@ -4,8 +4,8 @@
 package com.ita.edu.softserve.main;
 
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.service.RoutesManager;
-import com.ita.edu.softserve.service.impl.RoutesManagerImpl;
+import com.ita.edu.softserve.manager.RoutesManager;
+import com.ita.edu.softserve.manager.impl.RoutesManagerImpl;
 
 import java.sql.Time;
 import java.util.List;

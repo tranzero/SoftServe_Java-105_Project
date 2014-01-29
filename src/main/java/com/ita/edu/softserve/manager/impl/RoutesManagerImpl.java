@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 import java.sql.Time;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.service.ManagerFactory;
-import com.ita.edu.softserve.service.RoutesManager;
-import com.ita.edu.softserve.service.StationsManager;
+import com.ita.edu.softserve.manager.ManagerFactory;
+import com.ita.edu.softserve.manager.RoutesManager;
+import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.dao.impl.StopsDAOImpl;
 import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Stops;

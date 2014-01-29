@@ -2,6 +2,7 @@ package com.ita.edu.softserve.service.impl;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 /**
@@ -11,11 +12,13 @@ import static org.mockito.Mockito.when;
  * @author nvrubl
  */
 
+
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
-import com.ita.edu.softserve.service.AdminService;
+import com.ita.edu.softserve.manager.AdminService;
+import com.ita.edu.softserve.manager.impl.AdminServiceImpl;
 
 /**
- * Class under test {@link com.ita.edu.softserve.service.impl.AdminServiceImpl}
+ * Class under test {@link com.ita.edu.softserve.manager.impl.AdminServiceImpl}
  * 
  * @author nvrubl
  */
@@ -43,7 +46,7 @@ public class AdminServiceImplTests {
 	/**
 	 * Test method for Null.<br/>
 	 * Method under test
-	 * {@link com.ita.edu.softserve.service.impl.AdminServiceImpl#printAllUsers()}
+	 * {@link com.ita.edu.softserve.manager.impl.AdminServiceImpl#printAllUsers()}
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public final void testFindAllStationsShouldThrowNullPointerException() {

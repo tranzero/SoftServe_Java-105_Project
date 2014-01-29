@@ -5,4 +5,4 @@
  * @author Roman
  *
  */
-package com.ita.edu.softserve.service;
+package com.ita.edu.softserve.manager;

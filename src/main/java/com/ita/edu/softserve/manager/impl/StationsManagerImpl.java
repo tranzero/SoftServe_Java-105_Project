@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.service.ManagerFactory;
-import com.ita.edu.softserve.service.StationsManager;
+import com.ita.edu.softserve.manager.ManagerFactory;
+import com.ita.edu.softserve.manager.StationsManager;
 
 /**
  * This is station service class.

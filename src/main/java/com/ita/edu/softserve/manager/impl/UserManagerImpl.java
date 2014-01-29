@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.service.ManagerFactory;
-import com.ita.edu.softserve.service.UserManager;
+import com.ita.edu.softserve.manager.ManagerFactory;
+import com.ita.edu.softserve.manager.UserManager;
 
 @Service("userService")
 public class UserManagerImpl implements UserManager {

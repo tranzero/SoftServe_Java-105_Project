@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.service.TransportsManager;
+import com.ita.edu.softserve.manager.TransportsManager;
 
 /**
  * This is transports manager class.

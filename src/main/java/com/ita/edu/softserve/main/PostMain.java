@@ -1,8 +1,8 @@
 package com.ita.edu.softserve.main;
 
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.service.PostForMainPageManager;
-import com.ita.edu.softserve.service.impl.PostForMainPageManagerImpl;
+import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl;
 
 public class PostMain {
 	

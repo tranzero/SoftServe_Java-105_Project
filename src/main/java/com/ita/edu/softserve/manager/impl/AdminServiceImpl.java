@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.service.AdminService;
+import com.ita.edu.softserve.manager.AdminService;
 @Service
 public class AdminServiceImpl implements AdminService {
 	

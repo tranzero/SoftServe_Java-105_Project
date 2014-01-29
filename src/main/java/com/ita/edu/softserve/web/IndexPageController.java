@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ita.edu.softserve.service.PostForMainPageManager;
-import com.ita.edu.softserve.service.impl.PostForMainPageManagerImpl;
+import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl;
 
 @Controller
 public class IndexPageController {

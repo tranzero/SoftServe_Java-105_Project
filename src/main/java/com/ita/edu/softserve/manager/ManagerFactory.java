@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service;
+package com.ita.edu.softserve.manager;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

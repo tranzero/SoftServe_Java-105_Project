@@ -7,8 +7,8 @@ import java.sql.Time;
 
 import org.junit.Test;
 
-import com.ita.edu.softserve.service.RoutesManager;
-import com.ita.edu.softserve.service.impl.RoutesManagerImpl;
+import com.ita.edu.softserve.manager.RoutesManager;
+import com.ita.edu.softserve.manager.impl.RoutesManagerImpl;
 
 /**
  * @author Lyubomyr

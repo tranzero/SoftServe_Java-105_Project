@@ -1,8 +1,8 @@
 package com.ita.edu.softserve.main;
 
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.service.LinesManager;
-import com.ita.edu.softserve.service.impl.LinesManagerImpl;
+import com.ita.edu.softserve.manager.LinesManager;
+import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 
 public class LinesServiceMain {
 

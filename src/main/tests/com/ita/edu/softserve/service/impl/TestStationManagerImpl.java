@@ -14,10 +14,11 @@ import org.junit.Test;
 
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
 
 /**
  * Class under test
- * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl}
+ * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl}
  * 
  * @author Roman
  */
@@ -56,7 +57,7 @@ public class TestStationManagerImpl {
 
 	/**
 	 * Test whether method do not return empty list. Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
 	 * 
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException
@@ -81,7 +82,7 @@ public class TestStationManagerImpl {
 
 	/**
 	 * Test if two list is equals. Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test
 	public final void testFindAllStationsEquals() {
@@ -102,7 +103,7 @@ public class TestStationManagerImpl {
 
 	/**
 	 * Method under test.
-	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test
 	public final void testFindAllStationsEmptyList() {
@@ -117,7 +118,7 @@ public class TestStationManagerImpl {
 	/**
 	 * Test method for Null.<br/>
 	 * Method under test
-	 * {@link com.ita.edu.softserve.service.impl.StationsManagerImpl#findAllStations()}
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public final void testFindAllStationsShouldThrowNullPointerException() {
