@@ -57,36 +57,6 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
 	}
 
-	/*
-	 * @Test public void getLinesByStationTest() {
-	 * 
-	 * List<StationsOnLine> stationsOnLines = new ArrayList<StationsOnLine>();
-	 * StationsOnLine son = mock(StationsOnLine.class);
-	 * 
-	 * Stations st = mock(Stations.class);
-	 * st.setStationsOnLines(stationsOnLines); st.setStationName("Struy");
-	 * 
-	 * Stations st1 = mock(Stations.class);
-	 * st.setStationsOnLines(stationsOnLines); st.setStationName("Lviv");
-	 * 
-	 * 
-	 * ///////////////LINES/////////////// List<Lines> testList = new
-	 * ArrayList<Lines>();
-	 * 
-	 * Lines lines = mock(Lines.class);
-	 * lines.setStationsOnLines(stationsOnLines); lines.setLineId(11);
-	 * 
-	 * Lines lines1 = mock(Lines.class);
-	 * lines.setStationsOnLines(stationsOnLines); lines.setLineId(12);
-	 * 
-	 * testList.add(lines); testList.add(lines1); //testList.add(lines);
-	 * //testList.add(lines); //LinesDAOImpl linesDaoImpl =
-	 * mock(LinesDAOImpl.class);
-	 * //when(linesDaoImpl.getLinesByStation("Struy")).thenReturn(testList);
-	 * //assertTrue(testList.containsAll(linesDaoImpl.getFullLines()));
-	 * //assertTrue(linesDaoImpl.getFullLines().containsAll(testList)); }
-	 */
-
 	@Test
 	public void getLinesByStationTest() {
 
@@ -111,32 +81,151 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
+	/*
+	 * Test for method {@link
+	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
+	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
+	 */
 	@Test
 	public final void LinesTwoStationsCertainOrderTest() {
 
-		List<Stations> stations = new ArrayList<Stations>();
-		StationsDAOImpl stationsDAO = mock(StationsDAOImpl.class);
-		LinesManagerImpl lsImpl = new LinesManagerImpl(stationsDAO);
+		Lines line = Mockito.mock(Lines.class);
+		when(line.getLineId()).thenReturn(1);
 
-		when(stationsDAO.findByStations("Pisochne")).thenReturn(stations);
+		StationsOnLine stationOnLine1 = mock(StationsOnLine.class);
+		when(stationOnLine1.getLineId()).thenReturn(line);
 
-		assertTrue(Iterables.elementsEqual(
-				lsImpl.getLinesTwoStationsCertainOrder(new Stations(),
-						new Stations()), stations));
+		StationsOnLine stationOnLine2 = mock(StationsOnLine.class);
+		when(stationOnLine2.getLineId()).thenReturn(line);
+
+		List<StationsOnLine> stlList1 = new ArrayList<StationsOnLine>();
+		stlList1.add(stationOnLine1);
+		// gt int
+		when(stlList1.get(0).getStationOrderNum()).thenReturn(30);
+
+		List<StationsOnLine> stlList2 = new ArrayList<StationsOnLine>();
+		stlList2.add(stationOnLine2);
+		// lt int
+		when(stlList2.get(0).getStationOrderNum()).thenReturn(20);
+
+		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
+		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList1)
+				.thenReturn(stlList2);
+
+		LinesManagerImpl lineService = new LinesManagerImpl(stl);
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
+				new Stations(), new Stations());
+
+		Assert.notEmpty(actualLines);
+
+		List<Lines> expectedLines = Collections.singletonList(line);
+		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
-	
-	@Test(expected = java.lang.NullPointerException.class)
-	public final void LinesTwoStationsCertainOrderIfNullTest() {
 
-		List<Stations> stations = new ArrayList<Stations>();
-		StationsDAOImpl stationsDAO = mock(StationsDAOImpl.class);
-		LinesManagerImpl lsImpl = new LinesManagerImpl(stationsDAO);
+	/*
+	 * Test for method: empty List {@link
+	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
+	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
+	 */
+	@Test
+	public final void LinesTwoStationsCertainOrderEmptyListTest() {
 
-		when(stationsDAO.findByStations(null)).thenReturn(null);
+		Lines line = Mockito.mock(Lines.class);
+		when(line.getLineId()).thenReturn(1);
 
-		assertTrue(Iterables.elementsEqual(
-				lsImpl.getLinesTwoStationsCertainOrder(new Stations(),
-						new Stations()), stations));
+		StationsOnLine stationOnLine1 = mock(StationsOnLine.class);
+		when(stationOnLine1.getLineId()).thenReturn(line);
+
+		StationsOnLine stationOnLine2 = mock(StationsOnLine.class);
+		when(stationOnLine2.getLineId()).thenReturn(line);
+
+		List<StationsOnLine> stlList1 = new ArrayList<StationsOnLine>();
+		stlList1.add(stationOnLine1);
+		// lt int
+		when(stlList1.get(0).getStationOrderNum()).thenReturn(10);
+
+		List<StationsOnLine> stlList2 = new ArrayList<StationsOnLine>();
+		stlList2.add(stationOnLine2);
+		// gt int
+		when(stlList2.get(0).getStationOrderNum()).thenReturn(20);
+
+		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
+		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList1)
+				.thenReturn(stlList2);
+
+		LinesManagerImpl lineService = new LinesManagerImpl(stl);
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
+				new Stations(), new Stations());
+
+		List<Lines> expectedLines = new ArrayList<Lines>();
+		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
+	}
+
+	/*
+	 * Test for method: Test if different lines in two Lists {@link
+	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
+	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
+	 */
+	@Test
+	public final void LinesTwoStationsCertainOrderIfDifferentLinesTest() {
+
+		Lines line1 = Mockito.mock(Lines.class);
+		when(line1.getLineId()).thenReturn(1);
+
+		Lines line2 = Mockito.mock(Lines.class);
+		when(line2.getLineId()).thenReturn(2);
+
+		StationsOnLine stationOnLine1 = mock(StationsOnLine.class);
+		when(stationOnLine1.getLineId()).thenReturn(line1);
+
+		StationsOnLine stationOnLine2 = mock(StationsOnLine.class);
+		when(stationOnLine2.getLineId()).thenReturn(line2);
+
+		List<StationsOnLine> stlList1 = new ArrayList<StationsOnLine>();
+		stlList1.add(stationOnLine1);
+
+		List<StationsOnLine> stlList2 = new ArrayList<StationsOnLine>();
+		stlList2.add(stationOnLine2);
+
+		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
+		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList1)
+				.thenReturn(stlList2);
+
+		LinesManagerImpl lineService = new LinesManagerImpl(stl);
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
+				new Stations(), new Stations());
+
+		List<Lines> expectedLines = new ArrayList<Lines>();
+		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
+	}
+
+	/*
+	 * Test for method: Test if two Stations are the same {@link
+	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
+	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
+	 */
+	@Test
+	public final void LinesTwoStationsCertainOrderEqualsListsTest() {
+
+		Lines line = Mockito.mock(Lines.class);
+		when(line.getLineId()).thenReturn(1);
+
+		StationsOnLine stationOnLine = mock(StationsOnLine.class);
+		when(stationOnLine.getLineId()).thenReturn(line);
+
+		List<StationsOnLine> stlList = new ArrayList<StationsOnLine>();
+		stlList.add(stationOnLine);
+		when(stlList.get(0).getStationOrderNum()).thenReturn(30);
+
+		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
+		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
+
+		LinesManagerImpl lineService = new LinesManagerImpl(stl);
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
+				new Stations(), new Stations());
+
+		List<Lines> expectedLines = new ArrayList<Lines>();
+		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
 }

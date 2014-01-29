@@ -18,7 +18,9 @@ public class StationsOnLine extends BaseEntity {
 
 
 	public static final String FIND_BY_STATIONS_ID = "StationsOnLine.findByStationID";
-	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT u FROM StationsOnLine u WHERE u.stationId = ?1";
+//	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT u FROM StationsOnLine u WHERE u.stationId = ?1";
+//	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl INNER JOIN stl.stationId s WHERE s.stationId = ?1";
+	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl WHERE stl.stationId.stationId = ?1";
 
 	@Id
 	@Column(name = "STATIONONLINEID")

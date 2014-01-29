@@ -68,8 +68,7 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public List<Lines> getFullLines() {
-		List<Lines> linesList = lineDao.getAllEntities();
-		return linesList;
+		return lineDao.getAllEntities();
 
 	}
 
@@ -105,9 +104,6 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 			Stations station2) {
-		/* Pre-results are stored here */
-		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
-
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
 
@@ -122,15 +118,10 @@ public class LinesManagerImpl implements LinesManager {
 						.get(j).getLineId().getLineId()) {
 					if (StationsOnLine2.get(i).getStationOrderNum() < StationsOnLine1
 							.get(j).getStationOrderNum()) {
-						StationsOnLine.add(StationsOnLine2.get(i));
+						lines.add(StationsOnLine2.get(i).getLineId());
 					}
 				}
 			}
-		}
-
-		for (int i = 0; i < StationsOnLine.size(); i++) {
-			lines.add(lineDao.findById(StationsOnLine.get(i).getLineId()
-					.getLineId()));
 		}
 
 		return lines;
