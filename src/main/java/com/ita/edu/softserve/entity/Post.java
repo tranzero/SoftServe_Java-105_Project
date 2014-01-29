@@ -39,6 +39,13 @@ public class Post extends BaseEntity{
 		}
 	}
 
+	/**
+	 * @return the postId
+	 */
+	public Integer getPostId() {
+		return postId;
+	}
+
 	public String getTitle() {
 		return title;
 	}
