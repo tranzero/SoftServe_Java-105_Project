@@ -1,30 +1,29 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.manager.AdminService;
+import com.ita.edu.softserve.manager.AdminManager;
+
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminManagerImpl implements AdminManager {
 	
 	@Autowired
 	private UsersDAOImpl userDao;
 
-	public AdminServiceImpl() {
+	public AdminManagerImpl() {
 	}
 
 	/**
 	 * Constructor with one argument.
 	 * @param stationDao
 	 */
-	public AdminServiceImpl(UsersDAOImpl userDao) {
+	public AdminManagerImpl(UsersDAOImpl userDao) {
 		this.userDao = userDao;
 	}
 	
