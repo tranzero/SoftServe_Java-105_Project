@@ -173,6 +173,7 @@ public class Users extends BaseEntity {
 	 *            the eMail to set
 	 */
 	public void seteMail(String eMail) {
+		Assert.hasText(eMail, "Email adress must not be empty!");
 		this.eMail = eMail;
 	}
 
@@ -188,6 +189,7 @@ public class Users extends BaseEntity {
 	 *            the passwd to set
 	 */
 	public void setPasswd(String passwd) {
+		Assert.hasText(passwd, "Password must not be empty!");
 		this.passwd = passwd;
 	}
 
@@ -219,29 +221,6 @@ public class Users extends BaseEntity {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public boolean trueEnterValueOfFirstPart(String username,
-											String eMail, String password){
-		if (username != "" && username != null && eMail != "" 
-				&& eMail != null && password != "" 
-				&& password != null) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	public boolean trueEnterValueOfSecondPart( String firstName, 
-			String lastName){
-		if (firstName != "" && firstName != null && lastName != "" 
-				&& lastName != null) {
-			return true;
-		} else {
-			return false;
-		}
-		
 	}
 
 
