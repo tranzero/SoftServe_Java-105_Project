@@ -35,10 +35,10 @@ public class Transports extends BaseEntity {
 	private int transportId;
 
 	@Column(name = "TRANSPORTCODE", nullable = false, length = 20)
-	private String code;
+	private String transportCode;
 
 	@Column(name = "STARTTIME", nullable = false)
-	private Time starttime;
+	private Time startTime;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROUTEID")
@@ -48,44 +48,43 @@ public class Transports extends BaseEntity {
 		super();
 	}
 
-	public Transports(int transportid, String code, Time starttime, int route) {
+	public Transports(int transportId, String transportCode, Time startTime) {
 		this();
-		this.transportId = transportid;
-		this.code = code;
-		this.starttime = starttime;
-		// this.route = route;
+		this.transportId = transportId;
+		this.transportCode = transportCode;
+		this.startTime = startTime;
 	}
 
-	public int getTransportid() {
-		return this.transportId;
+	public int getTransportId() {
+		return transportId;
 	}
 
-	public void setTransportid(int transportid) {
-		this.transportId = transportid;
+	public void setTransportId(int transportId) {
+		this.transportId = transportId;
 	}
 
-	public String getCode() {
-		return this.code;
+	public String getTransportCode() {
+		return transportCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setTransportCode(String transportCode) {
+		this.transportCode = transportCode;
 	}
 
-	public Time getStarttime() {
-		return this.starttime;
+	public Time getStartTime() {
+		return startTime;
 	}
 
-	public void setStarttime(Time starttime) {
-		this.starttime = starttime;
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
 	}
 
 	public Routes getRoutes() {
 		return routes;
 	}
 
-	public void setRoutes(Routes param) {
-		this.routes = param;
+	public void setRoutes(Routes routes) {
+		this.routes = routes;
 	}
 
 	@Override
