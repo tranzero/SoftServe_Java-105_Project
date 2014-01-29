@@ -21,8 +21,7 @@ public class StationsController {
 	@RequestMapping(value = "/station", method = RequestMethod.GET)
 	public String addStations(Map<String, Object> modelMap) {
 		
-		List<Stations> list = stationsManager.findAllStations();
-		modelMap.put("stationsList", list);
+		modelMap.put("stationsList", stationsManager.findAllStations());
 		
 		return "stations";
 	}

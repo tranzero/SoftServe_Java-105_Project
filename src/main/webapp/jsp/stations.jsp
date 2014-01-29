@@ -15,7 +15,7 @@
 			<td>Station Name</td>
 
 		</tr>
-				<c:forEach items="${stationsList}" var="station">
+				<c:forEach var="station" items="${stationsList}">
 					<tr>
 						<td>${station.getStationId()}</td>
 						<td>${station.getStationCode()}</td>
