@@ -11,6 +11,7 @@
 <table class='table'>
 	<thead>
 	<tr>
+	<th>number</th>
 	<th>News name</th>
 	<th>News Description</th>
 	<th>Date updated</th>
@@ -19,6 +20,7 @@
 	<tbody>
 	<c:forEach var="News" items="${newsList}">
 		<tr>
+			<td>${News.getPostId()}</td>
 			<td>${News.getTitle()}</td>
 			<td>${News.getDescription()}</td>
 			<td>${News.getDate()}</td>
