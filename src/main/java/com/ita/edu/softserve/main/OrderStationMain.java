@@ -26,8 +26,8 @@ public class OrderStationMain {
 		System.out.println("TO:   " + station2.getStationName());
 		// List<Lines> lines = lsImpl.getFullLines();
 		// List<Lines> lines = lsImpl.getLinesByStation(station1);
-		List<Lines> lines = lsImpl.getLinesTwoStationsCertainOrder(station1,
-				station2);
+		List<Lines> lines = lsImpl.getLinesTwoStationsCertainOrder(
+				station1.getStationName(), station2.getStationName());
 		for (Lines line : lines) {
 			System.out.println(line.getLineId() + " " + line.getLineName());
 		}
@@ -37,7 +37,8 @@ public class OrderStationMain {
 		System.out.println("***********************************");
 		System.out.println("FROM: " + station1.getStationName());
 		System.out.println("TO:   " + station2.getStationName());
-		lines = lsImpl.getLinesTwoStationsCertainOrder(station1, station2);
+		lines = lsImpl.getLinesTwoStationsCertainOrder(
+				station1.getStationName(), station2.getStationName());
 		for (Lines line : lines) {
 			System.out.println(line.getLineId() + " " + line.getLineName());
 		}

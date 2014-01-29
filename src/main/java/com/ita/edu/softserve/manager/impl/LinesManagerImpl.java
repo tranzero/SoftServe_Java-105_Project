@@ -103,13 +103,13 @@ public class LinesManagerImpl implements LinesManager {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-			Stations station2) {
+	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+			String stationName2) {
 		/* Pre-results are stored here */
 		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
 		
-		station1 = (Stations) stationDao.findByStations(station1.getStationName()).get(0);
-		station2 = (Stations) stationDao.findByStations(station2.getStationName()).get(0);
+		Stations station1 = (Stations) stationDao.findByStations(stationName1);
+		Stations station2 = (Stations) stationDao.findByStations(stationName2);
 		
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
@@ -128,13 +128,6 @@ public class LinesManagerImpl implements LinesManager {
 				StationsOnLine2.add(stationOnLine);
 			} 
 		}
-		
-		/* Method findByStationId doesn't work, so we will do this in other way*/ 
-//		List<StationsOnLine> StationsOnLine1 = stlDao.findByStationId(station1
-//				.getStationId());
-//		List<StationsOnLine> StationsOnLine2 = stlDao.findByStationId(station2
-//				.getStationId());
-		/*//////////////////////////////////////////////////////////////////// */
 		
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {

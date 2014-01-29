@@ -20,7 +20,7 @@ public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getLinesByStation(Stations station);
 	
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-			Stations station2);
+	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+			String stationName2);
 
 }

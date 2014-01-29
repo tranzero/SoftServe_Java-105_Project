@@ -82,6 +82,12 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
+	
+	/***************************************/
+	/*
+	 * THIS SECTION WILL BE CHANGED SOON
+	 */
+	/***************************************/
 	/*
 	 * Test for method {@link
 	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
@@ -114,8 +120,8 @@ public class LineServiceImplTests {
 				.thenReturn(stlList2);
 
 		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
-				new Stations(), new Stations());
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder("","");
+//				new Stations(), new Stations());
 
 		Assert.notEmpty(actualLines);
 
@@ -155,8 +161,8 @@ public class LineServiceImplTests {
 				.thenReturn(stlList2);
 
 		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
-				new Stations(), new Stations());
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder("","");
+//				new Stations(), new Stations());
 
 		List<Lines> expectedLines = new ArrayList<Lines>();
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
@@ -193,8 +199,8 @@ public class LineServiceImplTests {
 				.thenReturn(stlList2);
 
 		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
-				new Stations(), new Stations());
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder("","");
+//				new Stations(), new Stations());
 
 		List<Lines> expectedLines = new ArrayList<Lines>();
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
@@ -222,8 +228,8 @@ public class LineServiceImplTests {
 		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
 
 		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder(
-				new Stations(), new Stations());
+		List<Lines> actualLines = lineService.getLinesTwoStationsCertainOrder("stationName1","stationName2");
+//				new Stations(), new Stations());
 
 		List<Lines> expectedLines = new ArrayList<Lines>();
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));

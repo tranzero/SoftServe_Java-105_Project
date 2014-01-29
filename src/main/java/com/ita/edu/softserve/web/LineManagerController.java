@@ -32,11 +32,8 @@ public class LineManagerController {
 		LinesManager linesManager = (LinesManager) LinesManagerImpl
 				.getInstance();
 
-		Stations station1 = new Stations("", stationName1);
-		Stations station2 = new Stations("", stationName2); 
-
 		model.put("LinesList", linesManager.getLinesTwoStationsCertainOrder(
-				station1, station2));
+				stationName1, stationName2));
 		
 		return "getLinesByTwoStations";
 	}
