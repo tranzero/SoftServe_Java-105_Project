@@ -1,2 +1,1 @@
-<%-- <jsp:forward page="index.jsp"></jsp:forward> --%>
-Welcome, Dude!
+<jsp:forward page="/index"></jsp:forward>

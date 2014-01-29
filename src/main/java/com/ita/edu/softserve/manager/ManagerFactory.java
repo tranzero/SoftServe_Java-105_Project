@@ -7,7 +7,7 @@ public final class ManagerFactory {
 	private ManagerFactory() { }
 
 	private final static ApplicationContext appContext = 
-	    	  new ClassPathXmlApplicationContext("/META-INF/spring/root-context.xml");
+	    	  new ClassPathXmlApplicationContext("/WEB-INF/spring/root-context.xml");
 	
 	private static ApplicationContext getApplicationContext()
 	{

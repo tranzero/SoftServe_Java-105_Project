@@ -11,9 +11,8 @@
 <table class='table'>
 	<thead>
 	<tr>
-	<th>Source name</th>
-	<th>Source url</th>
-	<th>List type</th>
+	<th>News name</th>
+	<th>News Description</th>
 	<th>Date updated</th>
 	</tr>
 	</thead>
