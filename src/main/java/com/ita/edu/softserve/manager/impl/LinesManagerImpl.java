@@ -80,10 +80,9 @@ public class LinesManagerImpl implements LinesManager {
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 	@Override
-	public List<Lines> getLinesByStation(Stations station) {
-
-		List<StationsOnLine> stlList = stlDao.findByStationId(station
-				.getStationId());
+	public List<Lines> getLinesByStation(String stationName) {
+		Stations station =stationDao.findByStations(stationName).get(0);
+		List<StationsOnLine> stlList = stlDao.findByStationId(station.getStationId());
 		List<Lines> linesList = new ArrayList<Lines>();
 		for (StationsOnLine stl : stlList) {
 			//linesList.add(lineDao.findById(stl.getLineId().getLineId()));
@@ -91,7 +90,7 @@ public class LinesManagerImpl implements LinesManager {
 		}
 		return linesList;
 	}
-
+ 
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
