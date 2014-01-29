@@ -14,11 +14,11 @@ import static org.mockito.Mockito.when;
 
 
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
-import com.ita.edu.softserve.manager.AdminService;
-import com.ita.edu.softserve.manager.impl.AdminServiceImpl;
+import com.ita.edu.softserve.manager.AdminManager;
+import com.ita.edu.softserve.manager.impl.AdminManagerImpl;
 
 /**
- * Class under test {@link com.ita.edu.softserve.manager.impl.AdminServiceImpl}
+ * Class under test {@link com.ita.edu.softserve.manager.impl.AdminManagerImpl}
  * 
  * @author nvrubl
  */
@@ -32,7 +32,7 @@ public class AdminServiceImplTests {
 	/**
 	 * Admin Service.
 	 */
-	private AdminService adminServiceImpl;
+	private AdminManager adminServiceImpl;
 
 	/**
 	 * @throws java.lang.Exception
@@ -40,13 +40,13 @@ public class AdminServiceImplTests {
 	@Before
 	public final void setUp() {
 		usersDaoImpl = mock(UsersDAOImpl.class);
-		adminServiceImpl = new AdminServiceImpl(usersDaoImpl);
+		adminServiceImpl = new AdminManagerImpl(usersDaoImpl);
 	}
 
 	/**
 	 * Test method for Null.<br/>
 	 * Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.AdminServiceImpl#printAllUsers()}
+	 * {@link com.ita.edu.softserve.manager.impl.AdminManagerImpl#printAllUsers()}
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public final void testFindAllStationsShouldThrowNullPointerException() {

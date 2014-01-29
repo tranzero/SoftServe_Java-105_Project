@@ -6,7 +6,7 @@ package com.ita.edu.softserve.manager;
  * @author Mik 
  * 
  */
-public interface AdminService {
+public interface AdminManager extends BaseManager {
 	
 	/**
 	 * Print all users
