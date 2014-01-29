@@ -14,19 +14,19 @@ import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 @Controller
 public class LineManagerController {
 
-	@RequestMapping(value = "/getLinesByTwoStations", method = RequestMethod.GET)
+	@RequestMapping(value = "/lines", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
-		return "getLinesByTwoStations";
+		return "lines";
 	}
 	
-	@RequestMapping(value = "/getLinesByTwoStationsFind", method = RequestMethod.GET)
+	@RequestMapping(value = "/linesFind", method = RequestMethod.GET)
 	public String getLinesByTwoStations(
 			@RequestParam("stationName1") String stationName1,
 			@RequestParam("stationName2") String stationName2,
 			Map<String, Object> model) {
 		
 		if (stationName1.equals("") || stationName2.equals("")) {
-			return "getLinesByTwoStations";
+			return "lines";
 		}
 		
 		LinesManager linesManager = (LinesManager) LinesManagerImpl
@@ -35,7 +35,7 @@ public class LineManagerController {
 		model.put("LinesList", linesManager.getLinesTwoStationsCertainOrder(
 				stationName1, stationName2));
 		
-		return "getLinesByTwoStations";
+		return "lines";
 	}
 	
 }

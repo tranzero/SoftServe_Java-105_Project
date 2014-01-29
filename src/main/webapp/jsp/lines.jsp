@@ -12,7 +12,7 @@
 	<h1>
 		get Lines by two Stations
 	</h1>
-	<form action="getLinesByTwoStationsFind" method="get">
+	<form action="linesFind" method="get">
 		From: <input type="text" name="stationName1" />&nbsp;&nbsp;&nbsp;
 		To: <input type="text" name="stationName2" />
 		<input type="submit" name="submit" value ="Find" />
