@@ -105,11 +105,8 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
 			String stationName2) {
-		/* Pre-results are stored here */
-		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
-		
-		Stations station1 = (Stations) stationDao.findByStations(stationName1);
-		Stations station2 = (Stations) stationDao.findByStations(stationName2);
+		Stations station1 = (Stations) stationDao.findByStations(stationName1).get(0);
+		Stations station2 = (Stations) stationDao.findByStations(stationName2).get(0);
 		
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
