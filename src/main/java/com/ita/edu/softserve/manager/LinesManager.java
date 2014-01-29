@@ -21,6 +21,6 @@ public interface LinesManager extends BaseManager {
 	public List<Lines> getLinesByStation(Stations station);
 	
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-													   Stations station2);
+			Stations station2);
 
 }

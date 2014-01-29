@@ -1,0 +1,44 @@
+package com.ita.edu.softserve.web;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.manager.LinesManager;
+import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
+
+@Controller
+public class LineManagerController {
+
+	@RequestMapping(value = "/getLinesByTwoStations", method = RequestMethod.GET)
+	public String getLinesByTwoStations(Map<String, Object> model) {
+		return "getLinesByTwoStations";
+	}
+	
+	@RequestMapping(value = "/getLinesByTwoStationsFind", method = RequestMethod.GET)
+	public String getLinesByTwoStations(
+			@RequestParam("stationName1") String stationName1,
+			@RequestParam("stationName2") String stationName2,
+			Map<String, Object> model) {
+		
+		if (stationName1.equals("") || stationName2.equals("")) {
+			return "getLinesByTwoStations";
+		}
+		
+		LinesManager linesManager = (LinesManager) LinesManagerImpl
+				.getInstance();
+
+		Stations station1 = new Stations("", stationName1);
+		Stations station2 = new Stations("", stationName2); 
+
+		model.put("LinesList", linesManager.getLinesTwoStationsCertainOrder(
+				station1, station2));
+		
+		return "getLinesByTwoStations";
+	}
+	
+}

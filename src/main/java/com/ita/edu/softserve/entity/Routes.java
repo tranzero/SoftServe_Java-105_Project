@@ -66,7 +66,7 @@ public class Routes extends BaseEntity {
 	private Lines lineId;
 
 	@OneToMany(mappedBy = "routeId", fetch = FetchType.LAZY)
-	private Set<Stops> stops = new HashSet<Stops>();
+	private Set<Stops> stops;
 
 	@Column(name = "ROUTECODE", length = 20)
 	private String routeCode;

@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ita.edu.softserve.dao.LinesDAO;
+import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
@@ -19,7 +21,6 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
-import com.ita.edu.softserve.manager.StationsManager;
 
 /**
  * 
@@ -33,13 +34,13 @@ public class LinesManagerImpl implements LinesManager {
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 
 	@Autowired
-	private LinesDAOImpl lineDao;
+	private LinesDAO lineDao;
 
 	@Autowired
-	private StationsOnLineDAOImpl stlDao;
+	private StationsOnLineDAO stlDao;
 
 	@Autowired
-	private StationsDAOImpl stationDao;
+	private StationsDAO stationDao;
 
 	public LinesManagerImpl() {
 	}
@@ -104,14 +105,37 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
 			Stations station2) {
+		/* Pre-results are stored here */
+		List<StationsOnLine> StationsOnLine = new ArrayList<StationsOnLine>();
+		
+		station1 = (Stations) stationDao.findByStations(station1.getStationName()).get(0);
+		station2 = (Stations) stationDao.findByStations(station2.getStationName()).get(0);
+		
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
 
-		List<StationsOnLine> StationsOnLine1 = stlDao.findByStationId(station1
-				.getStationId());
-		List<StationsOnLine> StationsOnLine2 = stlDao.findByStationId(station2
-				.getStationId());
-
+		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
+		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
+		
+		List<StationsOnLine> stOnLine = stlDao.getAllEntities();
+		
+		for (StationsOnLine stationOnLine : stOnLine) {
+			if (stationOnLine.getStationId().getStationId() == station1.
+					getStationId()) {
+				StationsOnLine1.add(stationOnLine);
+			} else if (stationOnLine.getStationId().getStationId() == station2.
+					getStationId()) {
+				StationsOnLine2.add(stationOnLine);
+			} 
+		}
+		
+		/* Method findByStationId doesn't work, so we will do this in other way*/ 
+//		List<StationsOnLine> StationsOnLine1 = stlDao.findByStationId(station1
+//				.getStationId());
+//		List<StationsOnLine> StationsOnLine2 = stlDao.findByStationId(station2
+//				.getStationId());
+		/*//////////////////////////////////////////////////////////////////// */
+		
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1

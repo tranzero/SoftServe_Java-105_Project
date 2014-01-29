@@ -36,7 +36,7 @@ public class StationsOnLine extends BaseEntity {
 	private Stations stationId;
 
 	@OneToMany(mappedBy = "stationOnLineId", fetch = FetchType.LAZY)
-	private Set<Stops> stops = new HashSet<Stops>();
+	private Set<Stops> stops;
 
 	@Column(name = "STATIONORDERNUM")
 	private int stationOrderNum;
