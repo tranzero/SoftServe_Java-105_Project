@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ita.edu.softserve.manager.UserManager;
 
 /**
- * class UserController
+ * UserController
  * 
  * @author iryna
  * 
