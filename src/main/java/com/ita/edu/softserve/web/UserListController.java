@@ -21,10 +21,18 @@ public class UserListController {
  private UserManager users;
  
  @RequestMapping(value = "userlist", method = RequestMethod.GET)
- public String index(Map<String, Object> modelMap){
-  
+ public String getAllUser(Map<String, Object> modelMap){  
   modelMap.put("userList", users.findAllUsers());
   return "userlist";
  }
+ 
+ 
+ @RequestMapping(value = "editUser", method = RequestMethod.POST)
+ public String editUser(Map<String, Object> modelMap){  
+	 
+  modelMap.put("userList", users.findAllUsers());
+  return "editUser";
+ }
+ 
 
 }

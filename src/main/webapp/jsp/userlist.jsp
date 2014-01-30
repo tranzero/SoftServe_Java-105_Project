@@ -30,7 +30,7 @@
 					<td>${Users.getLastName() }</td>
 					<td>${Users.geteMail() }
 				</tr>
-				<td><a href="editUser.jsp">EDIT this USER</a></br></td>
+				<td><a href="editUser">EDIT this USER</a></br></td>
 
 				</tr>
 			</c:forEach>
