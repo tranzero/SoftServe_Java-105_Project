@@ -9,11 +9,8 @@
 </head>
 <body>
 	<h1>Edit User</h1>
+	<hr />
 
-	<form action="">
-	
-	
-	
-	</form>
+	<form action=""></form>
 </body>
 </html>
