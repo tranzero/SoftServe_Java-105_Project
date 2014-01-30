@@ -74,7 +74,7 @@ public class LineServiceImplTests {
 		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
 		
 		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesByStation(new Stations());
+		List<Lines> actualLines = lineService.getLinesByStation("");
 		
 		Assert.notEmpty(actualLines);
 		

@@ -26,7 +26,8 @@ import org.springframework.util.Assert;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
-		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY) })
+		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY), 
+		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY)  })
 public class Users extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
@@ -34,6 +35,10 @@ public class Users extends BaseEntity {
 	
 	public static final String GET_ALL_USERS = "Users.getAllUsers";
 	public static final String GET_ALL_USERS_QUERY = "SELECT user FROM Users user";
+	
+	public static final String GET_COUNT_ALL_USERS = "Users.getCountAllUsers";
+	public static final String GET_COUNT_ALL_USERS_QUERY = "SELECT COUNT(user) FROM Users user";
+	
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
