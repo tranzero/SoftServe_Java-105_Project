@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.AdminManager;
+import com.ita.edu.softserve.manager.ManagerFactory;
 
-@Service
+@Service("adminManager")
 public class AdminManagerImpl implements AdminManager {
 	
 	@Autowired
@@ -46,5 +47,9 @@ public class AdminManagerImpl implements AdminManager {
 		Long countUsers = userDao.getCountAllUsers();		
 		System.out.println("Number of users: " + countUsers);
 		return countUsers;
+	}
+	
+	public static AdminManager getInstance() {
+		return ManagerFactory.getManager(AdminManager.class); 
 	}
 }
