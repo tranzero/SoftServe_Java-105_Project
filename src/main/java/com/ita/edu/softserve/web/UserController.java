@@ -29,11 +29,11 @@ public class UserController {
 	 }
 	 
 	 
-	 @RequestMapping(value = "edituser", method = RequestMethod.GET)
+	 @RequestMapping(value = "userEdit", method = RequestMethod.GET)
 	 public String editUser(Map<String, Object> modelMap){  
 		 
 	  modelMap.put("userList", users.findAllUsers());
-	  return "edituser";
+	  return "userEdit";
 	 }
 	 
 
