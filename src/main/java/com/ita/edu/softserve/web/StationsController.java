@@ -15,7 +15,7 @@ public class StationsController {
 	@Autowired
 	private StationsManager stationsManager;
 	
-	@RequestMapping(value = "/station", method = RequestMethod.GET)
+	@RequestMapping(value = "/stations", method = RequestMethod.GET)
 	public String addStations(Map<String, Object> modelMap) {
 		
 		modelMap.put("stationsList", stationsManager.findAllStations());

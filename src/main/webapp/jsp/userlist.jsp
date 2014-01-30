@@ -29,8 +29,7 @@
 					<td>${Users.getFirstName()}</td>
 					<td>${Users.getLastName() }</td>
 					<td>${Users.geteMail() }
-				</tr>
-				<td><a href="editUser">EDIT this USER</a></br></td>
+					<a href="edituser">EDIT this USER</a><br></td>
 
 				</tr>
 			</c:forEach>

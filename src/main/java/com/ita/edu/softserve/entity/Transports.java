@@ -104,8 +104,6 @@ public class Transports extends BaseEntity {
                         return false;
                 Transports other = (Transports) obj;
 
-                return new EqualsBuilder().append(transportId, other.transportId)
-                // .append(code, other.code)
-                                .isEquals();
+                return new EqualsBuilder().append(transportId, other.transportId).isEquals();
         }
 }
