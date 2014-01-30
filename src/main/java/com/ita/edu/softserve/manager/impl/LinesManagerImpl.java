@@ -119,7 +119,7 @@ public class LinesManagerImpl implements LinesManager {
 			station1 = (Stations) stationDao.findByStations(stationName1).get(0);
 			station2 = (Stations) stationDao.findByStations(stationName2).get(0);
 		} catch(Exception e) {
-			System.out.println("asdfadsfasdf");
+			System.out.println("" + e.getMessage());
 			return null;
 		}
 		
