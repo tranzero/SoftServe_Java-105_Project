@@ -21,5 +21,12 @@ public class IndexPageController {
 		modelMap.put("newsList", posts.findPostList());
 		return "index";
 	}
+	
+	@RequestMapping(value = "/indexwithdiv", method = RequestMethod.GET)
+	public String indexwithdiv(Map<String, Object> modelMap) {
+
+		modelMap.put("newsList", posts.findPostList());
+		return "indexwithdiv";
+	}
 
 }

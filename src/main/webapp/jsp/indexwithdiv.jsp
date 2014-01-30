@@ -8,28 +8,18 @@
 <title>Main Page With Funny News</title>
 </head>
 <body>
-<div>
-<table>
-	<thead>
-	<tr>
-	<th>number</th>
-	<th>News name</th>
-	<th>News Description</th>
-	<th>Date updated</th>
-	</tr>
-	</thead>
-	<tbody>
-	<c:forEach var="News" items="${newsList}">
-		<tr>
-			<td>${News.getPostId()}</td>
-			<td>${News.getTitle()}</td>
-			<td>${News.getDescription()}</td>
-			<td>${News.getDate()}</td>
-			
-		</tr>
+
+
+<c:forEach var="News" items="${newsList}">
+		<div>
+		<p>News Title</p>
+		<p>${News.getTitle()}</p>	
+		<p>News Description</p>
+		<p>${News.getDescription()}</p>	
+		<p>News Date update</p>
+		<p>${News.getDate()}</p>		
+		</div>
+		<br>
 	</c:forEach>
-	</tbody>
-</table>
-</div>
 </body>
 </html>
