@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ita.edu.softserve.dao.LinesDAO;
+import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
@@ -19,7 +21,6 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
-import com.ita.edu.softserve.manager.StationsManager;
 
 /**
  * 
@@ -33,13 +34,13 @@ public class LinesManagerImpl implements LinesManager {
 	private static final Logger LOGGER = Logger.getLogger(Lines.class);
 
 	@Autowired
-	private LinesDAOImpl lineDao;
+	private LinesDAO lineDao;
 
 	@Autowired
-	private StationsOnLineDAOImpl stlDao;
+	private StationsOnLineDAO stlDao;
 
 	@Autowired
-	private StationsDAOImpl stationDao;
+	private StationsDAO stationDao;
 
 	public LinesManagerImpl() {
 	}
@@ -79,10 +80,9 @@ public class LinesManagerImpl implements LinesManager {
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 	@Override
-	public List<Lines> getLinesByStation(Stations station) {
-
-		List<StationsOnLine> stlList = stlDao.findByStationId(station
-				.getStationId());
+	public List<Lines> getLinesByStation(String stationName) {
+		Stations station =stationDao.findByStations(stationName).get(0);
+		List<StationsOnLine> stlList = stlDao.findByStationId(station.getStationId());
 		List<Lines> linesList = new ArrayList<Lines>();
 		for (StationsOnLine stl : stlList) {
 			//linesList.add(lineDao.findById(stl.getLineId().getLineId()));
@@ -90,7 +90,7 @@ public class LinesManagerImpl implements LinesManager {
 		}
 		return linesList;
 	}
-
+ 
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
@@ -102,16 +102,39 @@ public class LinesManagerImpl implements LinesManager {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-			Stations station2) {
+	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+			String stationName2) {
+		Stations station1;
+		Stations station2;
+		
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
-
-		List<StationsOnLine> StationsOnLine1 = stlDao.findByStationId(station1
-				.getStationId());
-		List<StationsOnLine> StationsOnLine2 = stlDao.findByStationId(station2
-				.getStationId());
-
+		
+		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
+		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
+		
+		List<StationsOnLine> stOnLine;
+		
+		try {
+			station1 = (Stations) stationDao.findByStations(stationName1).get(0);
+			station2 = (Stations) stationDao.findByStations(stationName2).get(0);
+		} catch(Exception e) {
+			System.out.println("" + e.getMessage());
+			return null;
+		}
+		
+		stOnLine = stlDao.getAllEntities();
+		
+		for (StationsOnLine stationOnLine : stOnLine) {
+			if (stationOnLine.getStationId().getStationId() == station1.
+					getStationId()) {
+				StationsOnLine1.add(stationOnLine);
+			} else if (stationOnLine.getStationId().getStationId() == station2.
+					getStationId()) {
+				StationsOnLine2.add(stationOnLine);
+			} 
+		}
+		
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1

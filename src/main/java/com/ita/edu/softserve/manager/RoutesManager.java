@@ -6,6 +6,7 @@ package com.ita.edu.softserve.manager;
 import java.util.List;
 import java.sql.Time;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 
 /**
@@ -13,6 +14,7 @@ import com.ita.edu.softserve.entity.Routes;
  * 
  */
 public interface RoutesManager extends BaseManager  {
+	
 	public List<Routes> findRoutersListByStationIdArriving(
 			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax);
 

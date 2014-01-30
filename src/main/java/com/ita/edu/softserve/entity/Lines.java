@@ -14,7 +14,7 @@ import javax.persistence.*;
  *         The persistent class for the lines database table.
  */
 @Entity
-@Table(name = "lines")
+@Table(name = "`lines`")
 @NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY)})
@@ -37,11 +37,11 @@ public class Lines extends BaseEntity {
 
 	/* Bi-directional one-to-many association to Routes */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private Set<Routes> routes = new HashSet<Routes>();
+	private Set<Routes> routes;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
 	@OneToMany(mappedBy = "lineId", fetch = FetchType.LAZY)
-	private Set<StationsOnLine> stationsOnLines = new HashSet<StationsOnLine>();
+	private Set<StationsOnLine> stationsOnLines;
 
 	/**
 	 * Default constructor

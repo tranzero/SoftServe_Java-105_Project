@@ -32,7 +32,7 @@ public class Stations extends BaseEntity {
 
 	/* Bi-directional one-to-many association to StationsOnLine */
 	@OneToMany(mappedBy = "stationId", fetch = FetchType.LAZY)
-	private Set<StationsOnLine> stationsOnLines = new HashSet<StationsOnLine>();
+	private Set<StationsOnLine> stationsOnLines;
 
 	/**
 	 * Default Constructor

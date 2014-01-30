@@ -24,6 +24,12 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	}
 
 	@Override
+	public Long getCountAllUsers() {
+		Query query = entityManager.createNamedQuery(Users.GET_COUNT_ALL_USERS);				
+		return (Long) query.getSingleResult();
+	}	
+	
+	@Override
 	public Class<Users> getEntityClass() {
 		return Users.class;
 	}

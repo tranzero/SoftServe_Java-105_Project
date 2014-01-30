@@ -1,0 +1,226 @@
+body {
+	background: url("../images/img01.png") repeat scroll 0 0 #f9f6e7;
+	font-family: "Lato", Times, "Times New Roman", serif;
+	font-size: 1em;
+	padding: 60px;
+	padding-top: 0px;
+	font-weight: 200;
+	letter-spacing: -0.02em;
+	color: #343434;
+}
+
+table {
+	width: 80%;
+	border-collapse: collapse;
+	border-size: 1px;
+}
+
+table tr {
+	border-bottom: 1px solid #CCC;
+	background-color: #f7f2f2;
+}
+
+table tr:nth-child(odd) td {
+	background-color: #ddd;
+}
+
+table tr:nth-child(even) td {
+	background-color: #aaa;
+}
+
+#generate:after {
+	counter-increment: n;
+	content: counter(n);
+}
+
+header {
+	background: url("images/img01.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+section {
+	padding-top: 100px;
+}
+
+h1.logo {
+	color: #474747;
+	display: block;
+	font-size: 2.4em;
+	font-weight: bold;
+	outline: 0 none;
+	padding: 1em 0 0;
+	text-decoration: none;
+	text-transform: none;
+	position: fixed;
+	top: 0px;
+	left: 20px;
+	width: 200px;
+	text-align: center;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: yellow;
+	/* Rotate */
+	transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg); /* IE 9 */
+	-webkit-transform: rotate(-10deg); /* Safari and Chrome */
+}
+
+#menu {
+	overflow: hidden;
+	height: 4.5em;
+	background: #181818;
+	border-radius: 5px 5px 0px 0px;
+}
+
+#menu ul {
+	text-align: center;
+}
+
+#menu li {
+	display: inline-block;
+	padding: 0em 1.5em;
+	line-height: 4.5em;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	margin-right: 0.12em;
+	padding: 0em 1em;
+	text-decoration: none;
+	text-transform: none;
+	font-size: 1.25em;
+	color: #AAAAAA;
+	outline: 0;
+}
+
+#menu .current_page_item {
+	color: #FFFFFF;
+}
+
+#menu .current_page_item a {
+	background: #359BED;
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	
+}
+
+.site-nav {
+	background: #272727;
+	color: #fff;
+}
+
+.site-nav a {
+	display: block;
+	color: #fff;
+	padding: 0.75em;
+	text-decoration: none;
+	border-top: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.site-nav a:first-child {
+	border-top: 0;
+}
+
+.site-nav a:last-child {
+	border-bottom: 0;
+}
+
+.button {
+	background: none repeat scroll 0 0 #E3E3E3;
+	font-weight: bold;
+	border: 1px solid #BBBBBB;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 0 1px 1px #F6F6F6 inset;
+	color: #333333;
+	font: bold 12px;
+	margin: 0 5px;
+	padding: 8px 0 9px;
+	text-align: center;
+	text-shadow: 0 1px 0 #FFFFFF;
+	width: 150px;
+}
+
+.button:hover {
+	background: none repeat scroll 0 0 #D9D9D9;
+	box-shadow: 0 0 1px 1px #EAEAEA inset;
+	color: #222222;
+	cursor: pointer;
+}
+
+.button:active {
+	background: none repeat scroll 0 0 #D0D0D0;
+	box-shadow: 0 0 1px 1px #E3E3E3 inset;
+	color: #000000;
+}
+
+input[type="text"]{
+    
+    padding: 5px;   
+    border: 1px solid #DDDDDD;
+    
+    /*Applying CSS3 gradient*/
+    background: -moz-linear-gradient(center top , #FFFFFF,  #EEEEEE 1px, #FFFFFF 20px);    
+    background: -webkit-gradient(linear, left top, left 20, from(#FFFFFF), color-stop(5%, #EEEEEE) to(#FFFFFF));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FBFBFB', endColorstr='#FFFFFF');
+    
+    /*Applying CSS 3radius*/   
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    
+    /*Applying CSS3 box shadow*/
+    -moz-box-shadow: 0 0 2px #DDDDDD;
+    -webkit-box-shadow: 0 0 2px #DDDDDD;
+    box-shadow: 0 0 2px #DDDDDD;
+
+}
+input[type="text"]:hover
+{
+    border:1px solid #cccccc;
+}
+input[type="text"]:focus
+{
+    box-shadow:0 0 2px #FFFE00;
+}
+
+/*-- Pagination --*/
+.pagination{
+	clear: both;
+	overflow: hidden;
+	margin: 30px 0;	
+}
+
+.pagination a:hover{
+	color: #FFFFFF;
+	background: #359BED;
+}
+
+.pagination  .page-numbers {
+	background: #EEEEEE;
+	display: inline-block;	
+	margin-right:3px;
+	margin-bottom: 8px;
+	padding: 5px 12px;
+}
+
+.pagination .current {
+	background: #359BED;
+	color: #ffffff;
+}
+
+a, a:link, a:active {
+	color: #464646;
+	-moz-transition:  color 0.3s linear 0s;
+	-webkit-transition:  color 0.3s linear 0s;
+	transition:  color 0.3s linear 0s;	
+	text-decoration:none;
+}
+a:visited {
+	color: #464646;
+} 
+
+a:hover{
+	color: #359BED;
+}

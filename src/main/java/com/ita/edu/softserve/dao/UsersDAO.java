@@ -18,4 +18,9 @@ public interface UsersDAO extends AbstractDAOIface<Users>{
 	 */
 	Users findByName(String name);
 
+	/**
+	 * Finds the number of Users	 * 
+	 * @return
+	 */
+	Long getCountAllUsers();
 }

@@ -12,15 +12,16 @@ import com.ita.edu.softserve.entity.Stations;
  * 
  * @author yuraloga
  * @author MPS
+ * @author pankivanastasiia
  * 
  */
-public interface LinesManager extends BaseManager {
+public interface LinesManager extends BaseManager { 
 	
 	public List<Lines> getFullLines();
 	
-	public List<Lines> getLinesByStation(Stations station);
+	public List<Lines> getLinesByStation(String stationName);
 	
-	public List<Lines> getLinesTwoStationsCertainOrder(Stations station1,
-													   Stations station2);
+	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+			String stationName2);
 
 }

@@ -26,7 +26,8 @@ import org.springframework.util.Assert;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
-		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY) })
+		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY), 
+		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY)  })
 public class Users extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
@@ -34,6 +35,10 @@ public class Users extends BaseEntity {
 	
 	public static final String GET_ALL_USERS = "Users.getAllUsers";
 	public static final String GET_ALL_USERS_QUERY = "SELECT user FROM Users user";
+	
+	public static final String GET_COUNT_ALL_USERS = "Users.getCountAllUsers";
+	public static final String GET_COUNT_ALL_USERS_QUERY = "SELECT COUNT(user) FROM Users user";
+	
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -173,6 +178,7 @@ public class Users extends BaseEntity {
 	 *            the eMail to set
 	 */
 	public void seteMail(String eMail) {
+		Assert.hasText(eMail, "Email adress must not be empty!");
 		this.eMail = eMail;
 	}
 
@@ -188,6 +194,7 @@ public class Users extends BaseEntity {
 	 *            the passwd to set
 	 */
 	public void setPasswd(String passwd) {
+		Assert.hasText(passwd, "Password must not be empty!");
 		this.passwd = passwd;
 	}
 
@@ -219,29 +226,6 @@ public class Users extends BaseEntity {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public boolean trueEnterValueOfFirstPart(String username,
-											String eMail, String password){
-		if (username != "" && username != null && eMail != "" 
-				&& eMail != null && password != "" 
-				&& password != null) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	public boolean trueEnterValueOfSecondPart( String firstName, 
-			String lastName){
-		if (firstName != "" && firstName != null && lastName != "" 
-				&& lastName != null) {
-			return true;
-		} else {
-			return false;
-		}
-		
 	}
 
 
