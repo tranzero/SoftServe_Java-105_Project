@@ -16,6 +16,8 @@ import com.ita.edu.softserve.entity.Routes;
  * 
  * @author iryna
  * 
+ * class RoutesDAOImpl
+ * 
  */
 @Repository
 public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
