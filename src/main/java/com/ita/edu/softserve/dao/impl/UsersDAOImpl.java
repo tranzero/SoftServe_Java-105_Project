@@ -34,4 +34,10 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 		return Users.class;
 	}
 
+	@Override
+	public Users findByUsername(String username) {
+		Query  query =entityManager.createNamedQuery(Users.FIND_BY_USERNAME).setParameter(1, username);
+		return (Users)query.getSingleResult();
+	}
+
 }
