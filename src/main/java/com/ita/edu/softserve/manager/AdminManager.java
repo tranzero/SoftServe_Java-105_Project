@@ -14,6 +14,6 @@ public interface AdminManager extends BaseManager {
 	public void printAllUsers();
 
 	/** Prints the number of all users */	 
-	public Integer countAllUsers();
+	public Long countAllUsers();
 
 }

@@ -40,11 +40,11 @@ public class AdminManagerImpl implements AdminManager {
 	/**
 	 * Returns the number of all users 
 	 */
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
-	public Integer countAllUsers() {		
-		int countUsers = userDao.getAllEntities().size();		
-		System.out.println("Number of users:" + countUsers);
+	public Long countAllUsers() {		
+		Long countUsers = userDao.getCountAllUsers();		
+		System.out.println("Number of users: " + countUsers);
 		return countUsers;
 	}
 }
