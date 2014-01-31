@@ -72,4 +72,11 @@ public class UserManagerImpl implements UserManager {
 
 	}
 
+	// removeUser
+	@Override
+	@Transactional
+	public void removeUser(Integer id) {
+		userDao.remove(userDao.findById(id));
+	}
+
 }

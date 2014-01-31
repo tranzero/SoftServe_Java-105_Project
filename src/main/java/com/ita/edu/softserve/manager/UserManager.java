@@ -15,5 +15,7 @@ public interface UserManager extends BaseManager {
 	public List<Users> findAllUsers();
 	
 	public void editUser (String usname);
+	
+	public void removeUser(Integer id);
 
 }
