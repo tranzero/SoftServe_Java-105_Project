@@ -24,4 +24,14 @@
 		<beans:property name="prefix" value="jsp/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<!-- Configure Apache Tiles for the view -->
+	<beans:bean id = "tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name = "definitions" value = "/WEB-INF/tiles/tiles-templates.xml"/>
+		<beans:property name = "preparerFactoryClass" value = "org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
+	</beans:bean>
+	<beans:bean id = "tilesViewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+	</beans:bean>
+	
 </beans:beans>
