@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <!-- Templates -->
+	<definition name = "base-template" template = "/jsp/templates/base-template.jsp">
+		<put-attribute name="title" value="Default title"/>
+		<put-attribute name = "header" value = "/jsp/templates/header.jsp" />
+		<put-attribute name = "navigation" value = "/jsp/templates/navigation.jsp" />
+		<put-attribute name = "content" value = ""/>
+		<put-attribute name = "footer" value = "/jsp/templates/footer.jsp"/>
+	</definition>
+</tiles-definitions>
