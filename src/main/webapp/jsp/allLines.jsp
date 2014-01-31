@@ -8,19 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>Show All Lines</h1>
 	<%
 		int i = 0;
 	%>
-	<table>
+	<table border="1">
 		<tr>
-			<td>Number</td>
-			<td>Line Name</td>
-
+			<td align="center">Number</td>
+			<td align="center">Line Name</td>
 		</tr>
 		<c:forEach var="line" items="${linesList}">
 			<tr>
-				<td><%=++i%></td>
-				<td>${line.getLineName()}</td>
+				<td align="center"><%=++i%></td>
+				<td align="center">${line.getLineName()}</td>
 			</tr>
 		</c:forEach>
 	</table>
