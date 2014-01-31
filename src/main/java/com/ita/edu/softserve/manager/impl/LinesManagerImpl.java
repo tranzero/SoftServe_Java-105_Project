@@ -6,9 +6,12 @@ package com.ita.edu.softserve.manager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
@@ -81,16 +84,17 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public List<Lines> getLinesByStation(String stationName) {
-		Stations station =stationDao.findByStations(stationName).get(0);
-		List<StationsOnLine> stlList = stlDao.findByStationId(station.getStationId());
+		Stations station = stationDao.findByStations(stationName).get(0);
+		List<StationsOnLine> stlList = stlDao.findByStationId(station
+				.getStationId());
 		List<Lines> linesList = new ArrayList<Lines>();
 		for (StationsOnLine stl : stlList) {
-			//linesList.add(lineDao.findById(stl.getLineId().getLineId()));
+			// linesList.add(lineDao.findById(stl.getLineId().getLineId()));
 			linesList.add(stl.getLineId());
 		}
 		return linesList;
 	}
- 
+
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
@@ -106,35 +110,37 @@ public class LinesManagerImpl implements LinesManager {
 			String stationName2) {
 		Stations station1;
 		Stations station2;
-		
+
 		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
-		
+
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
 		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
-		
+
 		List<StationsOnLine> stOnLine;
-		
+
 		try {
-			station1 = (Stations) stationDao.findByStations(stationName1).get(0);
-			station2 = (Stations) stationDao.findByStations(stationName2).get(0);
-		} catch(Exception e) {
+			station1 = (Stations) stationDao.findByStations(stationName1)
+					.get(0);
+			station2 = (Stations) stationDao.findByStations(stationName2)
+					.get(0);
+		} catch (Exception e) {
 			System.out.println("" + e.getMessage());
 			return null;
 		}
-		
+
 		stOnLine = stlDao.getAllEntities();
-		
+
 		for (StationsOnLine stationOnLine : stOnLine) {
-			if (stationOnLine.getStationId().getStationId() == station1.
-					getStationId()) {
+			if (stationOnLine.getStationId().getStationId() == station1
+					.getStationId()) {
 				StationsOnLine1.add(stationOnLine);
-			} else if (stationOnLine.getStationId().getStationId() == station2.
-					getStationId()) {
+			} else if (stationOnLine.getStationId().getStationId() == station2
+					.getStationId()) {
 				StationsOnLine2.add(stationOnLine);
-			} 
+			}
 		}
-		
+
 		for (int i = 0; i < StationsOnLine2.size(); i++) {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
@@ -149,9 +155,46 @@ public class LinesManagerImpl implements LinesManager {
 
 		return lines;
 	}
-	
+
 	public static LinesManager getInstance() {
-		return ManagerFactory.getManager(LinesManager.class); 
+		return ManagerFactory.getManager(LinesManager.class);
+	}
+
+	@Transactional
+	@Override
+	public void createLine(String lineName) {
+		Lines line = null;
+		try {
+			line = lineDao.findByName(lineName);
+		} catch (NoResultException e) {
+		}
+		if (line == null) {
+			line = new Lines(lineName);
+			lineDao.save(line);
+		}
+	}
+	@Transactional
+	@Override
+	public void editLine(String lineName, String newLineName) {
+		Lines line = null;
+		try {
+			line = (Lines) lineDao.findByName(lineName);
+			line.setLineName(newLineName);
+			lineDao.update(line);
+		} catch (NoResultException e) {
+			LOGGER.error("No such line!", e);
+		}
+	}
+	@Transactional
+	@Override
+	public void deleteLine(String lineName) {
+		Lines line = null;
+		try {
+			line = (Lines) lineDao.findByName(lineName);
+			lineDao.remove(line);
+		} catch (NoResultException e) {
+			LOGGER.error("No such line!", e);
+		}
 	}
 
 }
