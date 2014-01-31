@@ -10,16 +10,17 @@
 <body>
 	<table border="1">
 		<tr>
-			<td>Transport Id</td>
 			<td>Transport Code</td>
 			<td>Start Time</td>
+			<td>Route Code</td>
+			<td>Line Name</td>
 		</tr>
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>
-				<td>${transport.getTransportId()}</td>
 				<td>${transport.getTransportCode()}</td>
 				<td>${transport.getStartTime()}</td>
-			</tr>
+				<td>${transport.getRoutes().getRouteCode()}</td>
+				<td>${transport.getRoutes().getLineId().getLineName()}</td>
 		</c:forEach>
 	</table>
 </body>
