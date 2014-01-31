@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -78,5 +79,22 @@ public class UserManagerImpl implements UserManager {
 	public void removeUser(Integer id) {
 		userDao.remove(userDao.findById(id));
 	}
+
+	// update user
+	
+	
+	/**
+	 * Update database and get list of all users
+	 */
+	@Override
+	public List<Users> updateUsers(Users... userr) {
+		List<Users> userUpdateResult = new ArrayList<Users>();
+		for (Users user : userr) {
+			userUpdateResult.add((Users)userDao.update(user));
+			
+		}
+		return userUpdateResult;
+	}
+
 
 }

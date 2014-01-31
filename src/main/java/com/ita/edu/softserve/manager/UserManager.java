@@ -18,4 +18,10 @@ public interface UserManager extends BaseManager {
 	
 	public void removeUser(Integer id);
 
+	/**
+	 * Update user
+	 */
+	public List<Users> updateUsers(Users... user);
+
+
 }

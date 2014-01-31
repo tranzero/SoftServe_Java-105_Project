@@ -29,21 +29,22 @@ public class UserController {
 		return "userlist";
 	}
 
+	// no updateUsers
 	@RequestMapping(value = "userEdit", method = RequestMethod.GET)
-	public String editUser(@RequestParam("usname1") String usname,
-			Map<String, Object> modelMap) {
-		modelMap.put("userList", usersmanage.findAllUsers());
+	public String updateUser(Map<String, Object> modelMap) {
+		// @requestParam
+		modelMap.put("userList", usersmanage.updateUsers());
 		return "userEdit";
-
 	}
 
 	@RequestMapping(value = "userEdit1", method = RequestMethod.GET)
-	public String editUser1(Map<String, Object> modelMap) {
+	public String editUser(Map<String, Object> modelMap) {
 
 		modelMap.put("userList", usersmanage.findAllUsers());
 		return "userEdit";
 	}
 
+	// delete user
 	@RequestMapping("/userdel/{userr}")
 	public String deleteUser(@PathVariable("userr") Integer userId) {
 		usersmanage.removeUser(userId);
