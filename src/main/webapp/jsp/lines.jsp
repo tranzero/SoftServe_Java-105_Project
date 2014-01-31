@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=uft-8">
@@ -13,6 +13,7 @@
 <body>
 	<%-- temporary --%>
 	<header>
+	
 	<div id="menu">
 		<nav class="site-nav">
 		<ul>
@@ -24,7 +25,8 @@
 		</ul>
 		</nav>
 	</div>
-	</header>
+	</header>-->
+	<div id="context">
 	<section>
 	<h1 class="logo">Lines Service</h1>
 	<%-- end temporary --%>
@@ -50,14 +52,16 @@
 		<hr />
 	</c:if> <%-- Results end --%>
 	<%-- temporary --%>
-	<div class="pagination">
+	<!-- <div class="pagination">
 		<span class="page-numbers current">1</span>
 		<a href="" class="page-numbers">2</a>
 		<a href="" class="page-numbers">3</a>
 		<a href="" class="page-numbers">4</a>
 		<a href="" class="next page-numbers">Next »</a>
-	</div>
+	</div>-->
 	<%-- end temporary --%>
 	</section>
+	<div>
+	<!--  
 </body>
-</html>
+</html>-->

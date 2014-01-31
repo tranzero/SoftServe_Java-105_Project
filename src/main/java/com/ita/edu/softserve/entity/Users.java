@@ -26,24 +26,28 @@ import org.springframework.util.Assert;
 @Table(name = "users")
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
-		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY), 
-		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY)  })
+		@NamedQuery(name = Users.FIND_BY_USERNAME, query = Users.FIND_BY_USERNAME_QUERY),
+		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY),
+		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY) })
 public class Users extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.lastName = ?1";
-	
+
+	public static final String FIND_BY_USERNAME = "Users.findByUsername";
+	public static final String FIND_BY_USERNAME_QUERY = "SELECT u FROM Users u WHERE u.userName =?1";
+
 	public static final String GET_ALL_USERS = "Users.getAllUsers";
 	public static final String GET_ALL_USERS_QUERY = "SELECT user FROM Users user";
-	
+
 	public static final String GET_COUNT_ALL_USERS = "Users.getCountAllUsers";
 	public static final String GET_COUNT_ALL_USERS_QUERY = "SELECT COUNT(user) FROM Users user";
-	
+
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
-	
+
 	@Column(name = "USERNAME", nullable = false, updatable = false, length = 100)
 	private String userName;
 
@@ -82,7 +86,7 @@ public class Users extends BaseEntity {
 	 */
 	public Users(String userName, String eMail, String password) {
 		this();
-		
+
 		this.setUserName(userName);
 		this.seteMail(eMail);
 		this.setPasswd(password);
@@ -111,10 +115,9 @@ public class Users extends BaseEntity {
 		return userId;
 	}
 
-
 	/**
-	 * @param userId 
-	 * 			the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -128,8 +131,8 @@ public class Users extends BaseEntity {
 	}
 
 	/**
-	 * @param userName 
-	 * 				the userName to set
+	 * @param userName
+	 *            the userName to set
 	 */
 	private void setUserName(String userName) {
 		Assert.hasText(userName, "Username must not be empty!");
@@ -228,14 +231,10 @@ public class Users extends BaseEntity {
 		this.role = role;
 	}
 
-
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder()
-			.append(userName)
-			.hashCode();
+		return new HashCodeBuilder().append(userName).hashCode();
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -246,10 +245,8 @@ public class Users extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		
-		return new EqualsBuilder()
-			.append(userName, other.userName)
-			.append(userId, other.userId)
-			.isEquals();
+
+		return new EqualsBuilder().append(userName, other.userName)
+				.append(userId, other.userId).isEquals();
 	}
 }

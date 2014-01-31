@@ -2,6 +2,8 @@ package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.ita.edu.softserve.manager.UserManager;
 
 @Service("userService")
 public class UserManagerImpl implements UserManager {
+
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
 	@Autowired
@@ -41,14 +44,32 @@ public class UserManagerImpl implements UserManager {
 		return false;
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	@Override
 	public List<Users> findAllUsers() {
 
 		return userDao.getAllEntities();
 	}
-	
+
 	public static UserManager getInstance() {
-		return ManagerFactory.getManager(UserManager.class); 
+		return ManagerFactory.getManager(UserManager.class);
 	}
+
+	// no all
+	@Override
+	public void editUser(String usname) {
+		Users user1 = null;
+		try {
+			user1 = (Users) userDao.findByUsername(usname);
+
+		} catch (Exception e) {
+			System.out.println("" + e.getMessage());
+
+		} finally {
+
+		}
+		userDao.save(user1);
+
+	}
+
 }
