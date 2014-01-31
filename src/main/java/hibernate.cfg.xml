@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		<property name="eclipse.connection.profile">
+			SoftServe_Java-105_Project
+		</property>
+
+		<!-- <property name="connection.url">jdbc:sqlserver://localhost\SQLEXPRESS2; 
+			DatabaseName=_105_Java</property> <property name="connection.username">105-Java</property> 
+			<property name="connection.password">105-Java</property> <property name="hbm2ddl.auto">update</property 
+			> <property name="connection.driver_class"> com.microsoft.sqlserver.jdbc.SQLServerDriver 
+			</property> <property name="dialect"> org.hibernate.dialect.SQLServerDialect 
+			</property> -->
+		<property name="connection.url">jdbc:mysql://localhost:3306/test</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.username">105-java</property>
+		<property name="connection.password">105-java</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- <mapping class="com.ita.edu.softserve.entity.Lines" /> -->
+		<!-- <mapping class="com.ita.edu.softserve.entity.Routes" /> -->
+		<!-- <mapping class="com.ita.edu.softserve.entity.Stations" /> -->
+		<!-- <mapping class="com.ita.edu.softserve.entity.StationsOnLine" /> -->
+		<!-- <mapping class="com.ita.edu.softserve.entity.entity.Stops" /> -->
+		<!-- <mapping class="com.ita.edu.softserve.entity.Users" /> -->
+
+	</session-factory>
+</hibernate-configuration>
