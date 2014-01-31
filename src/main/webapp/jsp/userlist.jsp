@@ -25,7 +25,7 @@
 			<tr>
 				<th>Num</th>
 				<th>Username</th>
-				<th>Firsth name</th>
+				<th>First name</th>
 				<th>Last name</th>
 				<th>Email</th>
 

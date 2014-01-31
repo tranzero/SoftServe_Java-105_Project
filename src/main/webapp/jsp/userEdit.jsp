@@ -10,6 +10,8 @@
 <body>
 	<h1>Edit User</h1>
 	<hr />
+	
+	<hr>
 
 	<form action=""></form>
 </body>
