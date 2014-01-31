@@ -11,4 +11,17 @@
 		<put-attribute name = "content" value = ""/>
 		<put-attribute name = "footer" value = "/jsp/templates/footer.jsp"/>
 	</definition>
+	<definition name = "main" extends = "base-template">
+		<put-attribute name = "title" value = "View: main"/>
+		<put-attribute name = "content" value = "/jsp/templates/layouts/main.jsp"/>
+	</definition>
+	<!-- 
+	<definition name = "info" extends = "base-template" >
+		<put-attribute name = "title" value = "View: info"/>
+		<put-attribute name = "content" value = "/jsp/templates/layouts/info.jsp"/>
+	</definition> -->
+	<definition name="*" extends="base-template">
+		<put-attribute name = "title" value = "View: {1}"/>		
+		<put-attribute name = "content" value = "/jsp/{1}.jsp"/>
+	</definition>		
 </tiles-definitions>
