@@ -40,14 +40,15 @@
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
 					<td>${user.geteMail() }
-				</tr>
-				<td><a href="userEdit">EDIT this USER</a></br></td>
+					<td><a href="userEdit">EDIT</a></br></td>
+					<td><a href="userdel/${user.userId}">DELETE</a></br></td>
+
 
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<hr />
-	</div>
+</div>
 <!-- </body> -->
 <!-- </html> -->

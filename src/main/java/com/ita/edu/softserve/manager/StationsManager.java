@@ -29,7 +29,7 @@ public interface StationsManager extends BaseManager  {
 	/**
 	 * Remove station
 	 */
-	void removeStations(Stations... station);
+	void removeStations(Integer stationId);
 
 	/**
 	 * Update station

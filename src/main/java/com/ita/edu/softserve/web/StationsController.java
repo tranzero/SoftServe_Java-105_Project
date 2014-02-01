@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,7 +20,12 @@ public class StationsController {
 	public String addStations(Map<String, Object> modelMap) {
 		
 		modelMap.put("stationsList", stationsManager.findAllStations());
-		
 		return "stations";
 	}
+	
+	@RequestMapping("/delete/{stationId}")
+	public String deleteStation(@PathVariable("stationId") Integer stationId) {
+		stationsManager.removeStations(stationId);
+	    return "redirect:/stations";
+	}     
 }

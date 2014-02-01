@@ -3,11 +3,13 @@ package com.ita.edu.softserve.manager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.ManagerFactory;
@@ -21,6 +23,8 @@ import com.ita.edu.softserve.manager.StationsManager;
  */
 @Service("stationsService")
 public class StationsManagerImpl implements StationsManager {
+
+	private static final Logger LOGGER = Logger.getLogger(Stations.class);
 
 	/**
 	 * Class to get access to DAO layer.
@@ -37,13 +41,11 @@ public class StationsManagerImpl implements StationsManager {
 	/**
 	 * @return list of all stations.
 	 * 
-	 * @author Roman
 	 */
-	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
 	public List<Stations> findAllStations() {
-		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
+		return stationDao.getAllEntities();
 	}
 
 	/**
@@ -60,25 +62,30 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Transactional
 	@Override
-	public void saveStations(Stations... station) {
+	public void saveStations(Stations... stations) {
 
-		for (Stations stop : station)
-			stationDao.save(stop);
+		for (Stations station : stations)
+			stationDao.save(station);
 	}
 
 	/**
-	 * Remove Stations from database.
+	 * Remove Stations by Id from database.
 	 */
 	@Transactional
 	@Override
-	public void removeStations(Stations... station) {
+	public void removeStations(Integer stationId) {
 
-		for (Stations stop : station)
-			stationDao.remove(stop);
+		Stations station = null;
+		try {
+			station = (Stations) stationDao.findById(stationId);
+			stationDao.remove(station);
+		} catch (NoResultException e) {
+			LOGGER.error("No such station!", e);
+		}
 	}
 
 	/**
-	 * Update database and get list of all stations.
+	 * Update Stations table in DB and get list of all stations.
 	 * 
 	 * @return list of all stations.
 	 */
@@ -86,11 +93,11 @@ public class StationsManagerImpl implements StationsManager {
 	@Override
 	public List<Stations> updateStations(Stations... stations) {
 		List<Stations> stationUpdateResult = new ArrayList<Stations>();
+		
 		for (Stations station : stations) {
 			stationUpdateResult.add((Stations) stationDao.update(station));
 		}
 		return stationUpdateResult;
-
 	}
 
 	public static StationsManager getInstance() {

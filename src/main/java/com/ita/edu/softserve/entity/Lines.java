@@ -15,9 +15,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "`lines`")
-@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)
+
 @NamedQueries({
-		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY)})
+		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)})
 
 public class Lines extends BaseEntity {
 
@@ -28,7 +29,7 @@ public class Lines extends BaseEntity {
 	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
 
 	@Id
-	@Column(name = "LINEID")
+	@Column(name = "LINEID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer lineId;
 

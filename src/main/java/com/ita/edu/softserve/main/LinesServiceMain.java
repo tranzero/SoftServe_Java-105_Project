@@ -11,9 +11,31 @@ public class LinesServiceMain {
 		
 		for(Lines line: lm.getFullLines()){
 			System.out.println(line.getLineName());
-			
 		}
-
+		System.out.println("");
+		
+		lm.createLine("MyNewLine1");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("");	
+		
+		lm.createLine("MyNewLine2");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("");
+		
+		lm.editLine("MyNewLine2", "MyNewLine3");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("");
+		
+		lm.deleteLine("MyNewLine1");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("");
 	}
-
 }
