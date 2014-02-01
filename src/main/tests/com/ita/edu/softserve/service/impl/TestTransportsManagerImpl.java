@@ -1,6 +1,8 @@
 package com.ita.edu.softserve.service.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -11,8 +13,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
@@ -123,5 +127,31 @@ public class TestTransportsManagerImpl {
 				new NullPointerException());
 
 		transportsManagerImpl.getAllTransports();
+	}
+	
+	/**
+	 * Test the methods for Equals.
+	 */
+	@Test
+	public final void testFindTransportsByIdForEquals() {
+		Transports actualTransport = mock(Transports.class);
+
+		when(mockTransportsDaoImpl.findById(Mockito.anyInt())).thenReturn(
+				actualTransport);
+		Transports expectedTransport = transportsManagerImpl.findTransportsById(7);
+
+		assertEquals(expectedTransport, actualTransport);
+	}
+
+	/**
+	 * Test the methods for <code>null</code>.
+	 */
+	@Test
+	public final void testFindTransportsByIdForNull() {
+		when(mockTransportsDaoImpl.findById(Mockito.anyInt())).thenReturn(null);
+
+		Transports expectedTransport = transportsManagerImpl.findTransportsById(3);
+
+		assertNull(expectedTransport);
 	}
 }
