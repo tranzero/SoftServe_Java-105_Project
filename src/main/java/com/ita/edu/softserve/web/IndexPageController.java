@@ -55,11 +55,23 @@ public class IndexPageController {
 		}
 	
 	@RequestMapping(value = "/editnews/{editnews}", method = RequestMethod.GET)
-		public String editNews(@PathVariable("editnews") Integer postId, Post post){
-	        post = posts.findNews(postId);
-			
+		public String editNews(@PathVariable("editnews") Integer postId, Map<String, Object> modelMap){
+	        
+			Post post = posts.findNews(postId);
+	        modelMap.put("post", post);			
 			return "editnews";
 	}
 	
+	@RequestMapping(value = "/editnews/{editnews}", method = RequestMethod.POST)
+	public String updateNewsToBD( 
+			@PathVariable("editnews") Integer newsId,
+			@ModelAttribute("newsTitle") String newsTitle,
+			@ModelAttribute("newsDescription") String newsDescription)
+	{
+			posts.updateNews(newsId, newsTitle, newsDescription);
+			
+		
+		return "redirect:/index";
+	}
 
 }

@@ -42,10 +42,24 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		Post temp = postDao.findById(id);
 		postDao.remove(temp);
 	}
+	
+	@Transactional
 	@Override
 	public Post findNews(Integer postId) {
 		
 		return postDao.findById(postId);
+	}
+	
+	@Transactional
+	@Override
+	public void updateNews(Integer newsId, String newsTitle,
+			String newsDescription) {
+		Post post = postDao.findById(newsId);
+		
+		post.setTitle(newsTitle);
+		post.setDescription(newsDescription);
+		postDao.update(post);
+		
 	}
 	
 	

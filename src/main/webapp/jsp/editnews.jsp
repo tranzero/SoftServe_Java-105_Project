@@ -4,10 +4,11 @@
 <div id = "context">
 	
 	
-	<form id="addnews" method="post" name="addnews">
+	<form id="editnews" method="post" name="editnews">
+		<input id="idTitle" type="hidden" name="idTitle" size="20" maxlength="100" value = "${post.getPostId()}">
 		<div>
 		<p>Edit the Title of News that you want change News:</p>
-		${post.getTitle()}
+		
 		<input id="newsTitle" type="text" name="newsTitle" size="20" maxlength="100" value = "${post.getTitle()}">
 		<p>Edit the Description of News that you want change News:</p>
 
