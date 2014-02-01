@@ -26,21 +26,12 @@ public class StationsManagerImpl implements StationsManager {
 	 * Class to get access to DAO layer.
 	 */
 	@Autowired
-	private StationsDAO stationDao; 
+	private StationsDAO stationDao;
 
 	/**
 	 * Constructor without arguments.
 	 */
 	public StationsManagerImpl() {
-	}
-
-	/**
-	 * Constructor with one argument.
-	 * 
-	 * @param stationDao
-	 */
-	public StationsManagerImpl(StationsDAO stationDao) {
-		this.stationDao = stationDao;
 	}
 
 	/**
@@ -54,38 +45,44 @@ public class StationsManagerImpl implements StationsManager {
 	public List<Stations> findAllStations() {
 		return ((AbstractDAO<Stations>) stationDao).getAllEntities();
 	}
-	
+
 	/**
 	 * @return Station found by ID.
 	 */
+	@Transactional
 	@Override
 	public Stations findStationsById(int id) {
 		return stationDao.findById(id);
 	}
+
 	/**
-	 *  Save Stations in database.
+	 * Save Stations in database.
 	 */
+	@Transactional
 	@Override
 	public void saveStations(Stations... station) {
-		
-		for (Stations stop: station)
-		stationDao.save(stop);
+
+		for (Stations stop : station)
+			stationDao.save(stop);
 	}
-	
+
 	/**
-	 *  Remove Stations from database.
+	 * Remove Stations from database.
 	 */
+	@Transactional
 	@Override
 	public void removeStations(Stations... station) {
-		
-		for (Stations stop: station)
-		stationDao.remove(stop);
+
+		for (Stations stop : station)
+			stationDao.remove(stop);
 	}
+
 	/**
 	 * Update database and get list of all stations.
 	 * 
 	 * @return list of all stations.
 	 */
+	@Transactional
 	@Override
 	public List<Stations> updateStations(Stations... station) {
 		List<Stations> stationUpdateResult = new ArrayList<Stations>();
@@ -93,9 +90,10 @@ public class StationsManagerImpl implements StationsManager {
 			stationUpdateResult.add((Stations) stationDao.update(stop));
 		}
 		return stationUpdateResult;
-	
+
 	}
+
 	public static StationsManager getInstance() {
-		return ManagerFactory.getManager(StationsManager.class); 
+		return ManagerFactory.getManager(StationsManager.class);
 	}
 }
