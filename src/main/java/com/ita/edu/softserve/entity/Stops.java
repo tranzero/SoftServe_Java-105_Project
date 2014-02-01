@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * @author admin
  * 
@@ -125,10 +128,7 @@ public class Stops extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + stopId;
-		return result;
+		return new HashCodeBuilder().append(stopId).hashCode();
 	}
 
 	@Override
@@ -140,9 +140,7 @@ public class Stops extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Stops other = (Stops) obj;
-		if (stopId != other.stopId)
-			return false;
-		return true;
+		return new EqualsBuilder().append(stopId, other.stopId).isEquals();
 	}
 
 }
