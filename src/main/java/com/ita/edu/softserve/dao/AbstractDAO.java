@@ -35,12 +35,13 @@ public abstract class AbstractDAO<E> extends BaseEntity implements AbstractDAOIf
 	 * 
 	 * @param entities
 	 */
-	@SuppressWarnings("unchecked")
+	
 	public void save(E... entities) {
 
 		for (E entity : entities) {
 			
 			entityManager.persist(entity);
+			
 			
 		
 		}

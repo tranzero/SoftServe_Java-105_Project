@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.entity;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,15 +25,17 @@ public class Post extends BaseEntity{
 	@Column(name = "DESCRIPTION", nullable = false, length = 1000)
 	private String description;
 	
-	@Column(name = "DATE", nullable = true)
+	@Column(name = "DATE", nullable = false)
 	private Date date;
 	
 	public Post(){
 		this.setDate();
+		
 	}
 	
 	public Post(String title, String description)
 	{
+		
 		this();
 		if (notEmpty(title, description)){
 			this.setTitle(title);

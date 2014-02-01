@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id=context>
+<a href='addnews'><input id="addnews" type="button" name="addnewsr" value="ADD News"></a>
 <table>
 	<thead>
 	<tr>

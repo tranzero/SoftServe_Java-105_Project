@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,6 +28,21 @@ public class IndexPageController {
 
 		modelMap.put("newsList", posts.findPostList());
 		return "indexwithdiv";
+	}
+	
+	@RequestMapping(value = "/addnews", method = RequestMethod.GET)
+	public String addNews(){
+		return "addnews";
+	}
+	
+	@RequestMapping(value = "/addnews", method = RequestMethod.POST)
+	public String addNewsToBD( 
+			@ModelAttribute("newsTitle") String newsTitle,
+			@ModelAttribute("newsDescription") String newsDescription,
+			Map<String, Object> modelMap){
+			posts.createNews(newsTitle, newsDescription);
+		
+		return "redirect:/index";
 	}
 
 }

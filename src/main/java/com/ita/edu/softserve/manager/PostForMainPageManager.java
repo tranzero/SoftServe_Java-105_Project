@@ -11,4 +11,6 @@ public interface PostForMainPageManager extends BaseManager {
 	
 	public List<Post> findPostList();
 
+	public void createNews(String newsTitle, String newsDescription);
+
 }
