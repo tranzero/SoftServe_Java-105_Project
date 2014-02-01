@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
@@ -20,7 +18,7 @@ import com.ita.edu.softserve.manager.StationsManager;
 /**
  * This is station service class.
  * 
- * @author admin
+ * @author Roman
  * 
  */
 @Service("stationsService")
@@ -38,15 +36,6 @@ public class StationsManagerImpl implements StationsManager {
 	 * Constructor without arguments.
 	 */
 	public StationsManagerImpl() {
-	}
-
-	/**
-	 * Constructor with one argument.
-	 * 
-	 * @param stationDao
-	 */
-	public StationsManagerImpl(StationsDAO stationDao) {
-		this.stationDao = stationDao;
 	}
 
 	/**
@@ -73,10 +62,10 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Transactional
 	@Override
-	public void saveStations(Stations... station) {
+	public void saveStations(Stations... stations) {
 
-		for (Stations stations : station)
-			stationDao.save(stations);
+		for (Stations station : stations)
+			stationDao.save(station);
 	}
 
 	/**
@@ -102,11 +91,11 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Transactional
 	@Override
-	public List<Stations> updateStations(Stations... station) {
-
+	public List<Stations> updateStations(Stations... stations) {
 		List<Stations> stationUpdateResult = new ArrayList<Stations>();
-		for (Stations stations : station) {
-			stationUpdateResult.add((Stations) stationDao.update(stations));
+		
+		for (Stations station : stations) {
+			stationUpdateResult.add((Stations) stationDao.update(station));
 		}
 		return stationUpdateResult;
 	}
