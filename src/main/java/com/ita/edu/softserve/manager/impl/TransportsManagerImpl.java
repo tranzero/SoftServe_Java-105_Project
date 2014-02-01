@@ -23,7 +23,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * Object to get access to DAO layer.
 	 */
 	@Autowired
-	public TransportsDao tripsDao;
+	public TransportsDao transportsDao;
 
 	/**
 	 * Constructor without arguments.
@@ -39,7 +39,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public Transports findTransportsById(int id) {
-		return tripsDao.findById(id);
+		return transportsDao.findById(id);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public void saveTransports(Transports... entities) {
-		tripsDao.save(entities);
+		transportsDao.save(entities);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public void removeTransports(Transports... entities) {
-		tripsDao.remove(entities);
+		transportsDao.remove(entities);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public List<Transports> updateTransports(Transports... entities) {
-		return tripsDao.update(entities);
+		return transportsDao.update(entities);
 	}
 
 	/**
@@ -79,6 +79,6 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public List<Transports> getAllTransports() {
-		return tripsDao.getAllEntities();
+		return transportsDao.getAllEntities();
 	}
 }

@@ -84,10 +84,10 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Transactional
 	@Override
-	public List<Stations> updateStations(Stations... station) {
+	public List<Stations> updateStations(Stations... stations) {
 		List<Stations> stationUpdateResult = new ArrayList<Stations>();
-		for (Stations stop : station) {
-			stationUpdateResult.add((Stations) stationDao.update(stop));
+		for (Stations station : stations) {
+			stationUpdateResult.add((Stations) stationDao.update(station));
 		}
 		return stationUpdateResult;
 
