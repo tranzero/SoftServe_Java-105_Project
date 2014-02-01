@@ -4,5 +4,5 @@ import com.ita.edu.softserve.entity.Post;
 
 public interface PostDAO extends AbstractDAOIface<Post>{
 	
-
+	
 }

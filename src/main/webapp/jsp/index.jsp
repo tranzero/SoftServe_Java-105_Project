@@ -20,7 +20,7 @@
 			<td>${News.getTitle()}</td>
 			<td>${News.getDescription()}</td>
 			<td>${News.getDate()}</td>
-			
+			<td><a href='delnews/${News.getPostId()}'><input id="delnews" type="button" name="delnewsr" value="DELETE News"></a></td>
 		</tr>
 	</c:forEach>
 	</tbody>

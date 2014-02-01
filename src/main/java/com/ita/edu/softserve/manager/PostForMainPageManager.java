@@ -13,4 +13,6 @@ public interface PostForMainPageManager extends BaseManager {
 
 	public void createNews(String newsTitle, String newsDescription);
 
+	public void removeNews(Integer id);
+
 }

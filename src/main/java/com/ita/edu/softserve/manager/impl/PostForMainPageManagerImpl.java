@@ -34,5 +34,14 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		
 		
 	}
-
+	
+	@Transactional
+	@Override
+	public void removeNews(Integer id) {
+		
+		Post temp = postDao.findById(id);
+		postDao.remove(temp);
+	}
+	
+	
 }
