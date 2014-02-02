@@ -18,6 +18,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * @author admin _ The persistent class for the ROUTES database table.
  */
@@ -134,10 +137,7 @@ public class Routes extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + routeId;
-		return result;
+		return new HashCodeBuilder().append(routeId).hashCode();
 	}
 
 	@Override
@@ -149,9 +149,7 @@ public class Routes extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Routes other = (Routes) obj;
-		if (routeId != other.routeId)
-			return false;
-		return true;
+		return new EqualsBuilder().append(routeId, other.routeId).isEquals();
 	}
 	
 	

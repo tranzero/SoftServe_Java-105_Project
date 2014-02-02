@@ -3,10 +3,12 @@
  */
 package com.ita.edu.softserve.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author admin
@@ -15,16 +17,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "`lines`")
-
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
-		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY)})
-
+		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY) })
 public class Lines extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Lines u WHERE u.lineName = ?1";
-	//Query to find all lines
+	// Query to find all lines
 	public static final String GET_FULL_LINES = "Lines.findFullLines";
 	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
 
@@ -119,13 +119,14 @@ public class Lines extends BaseEntity {
 	public void setStationsOnLines(Set<StationsOnLine> stationsOnLines) {
 		this.stationsOnLines = stationsOnLines;
 	}
-	
+
 	/**
 	 * Check lineName is not null
+	 * 
 	 * @param lineNameValue
 	 * @return true or false
 	 */
-	private boolean trueEnterValueOfLineName(String lineNameValue){
+	private boolean trueEnterValueOfLineName(String lineNameValue) {
 		if (lineNameValue != "" && lineNameValue != null) {
 			return true;
 		} else {
@@ -135,11 +136,7 @@ public class Lines extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((lineName == null) ? 0 : lineName.hashCode());
-		return result;
+		return new HashCodeBuilder().append(lineName).hashCode();
 	}
 
 	@Override
@@ -151,12 +148,7 @@ public class Lines extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Lines other = (Lines) obj;
-		if (lineName == null) {
-			if (other.lineName != null)
-				return false;
-		} else if (!lineName.equals(other.lineName))
-			return false;
-		return true;
+		return new EqualsBuilder().append(lineName, other.lineName).isEquals();
 	}
 
 }

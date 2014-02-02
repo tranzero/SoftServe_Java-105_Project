@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.service.impl;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
@@ -53,31 +55,6 @@ public class TestStationManagerImpl {
 		fild.setAccessible(true);
 		fild.set(stationsManagerImpl, mockStationsDAOImpl);
 
-	}
-
-	/**
-	 * Test whether method do not return empty list. Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 */
-	@Test
-	public final void testFindAllStationsIsEmpty() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
-
-		List<Stations> listOfStations = new ArrayList<Stations>();
-
-		Stations station = mock(Stations.class);
-		listOfStations.add(station);
-
-		when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
-
-		List<Stations> stationList = stationsManagerImpl.findAllStations();
-
-		assertFalse(stationList.isEmpty());
 	}
 
 	/**
@@ -125,5 +102,31 @@ public class TestStationManagerImpl {
 		when(mockStationsDAOImpl.getAllEntities()).thenThrow(
 				new NullPointerException());
 		stationsManagerImpl.findAllStations();
+	}
+
+	/**
+	 * Test the methods for Equals.
+	 */
+	@Test
+	public final void testFindStationsByIdForEquals() {
+		Stations actualStation = mock(Stations.class);
+
+		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(
+				actualStation);
+		Stations expectedStation = stationsManagerImpl.findStationsById(5);
+
+		assertEquals(expectedStation, actualStation);
+	}
+
+	/**
+	 * Test the methods for <code>null</code>.
+	 */
+	@Test
+	public final void testFindStationsByIdForNull() {
+		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(null);
+
+		Stations expectedStation = stationsManagerImpl.findStationsById(9);
+
+		assertNull(expectedStation);
 	}
 }

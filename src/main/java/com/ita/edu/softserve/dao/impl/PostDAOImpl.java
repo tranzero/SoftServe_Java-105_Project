@@ -15,4 +15,5 @@ public class PostDAOImpl extends AbstractDAO<Post> implements PostDAO{
 		return Post.class;
 	}
 
+	
 }

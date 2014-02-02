@@ -56,6 +56,17 @@
         USERNAME varchar(100) not null,
         primary key (USERID)
     );
+    
+    CREATE TABLE `transports` (
+        `TRANSPORTID` int(10) auto_increment NOT NULL PRIMARY KEY,
+        `ROUTEID` int(10) unsigned NOT NULL,
+        `TRANSPORTCODE` varchar(20) NOT NULL,
+        `STARTTIME` time NOT NULL,
+        KEY `ROUTEID` (`ROUTEID`),
+        CONSTRAINT `ROUTES_ROUTEID_fk`
+        FOREIGN KEY (`ROUTEID`)
+        REFERENCES `routes` (`ROUTEID`) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
     alter table routes 
         add index FKC8DB974A5BB2AAE9 (LINEID), 

@@ -61,7 +61,7 @@
 	</div>-->
 	<%-- end temporary --%>
 	</section>
-	<div>
+	</div>
 	<!--  
 </body>
 </html>-->

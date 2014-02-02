@@ -10,14 +10,7 @@
 <!-- <body> -->
 <div id="context">
 	<h1>List of Users</h1>
-	<hr />
-
-	<form action="userToEdit" method="get">
-		Input Username to Edit User <br>Username: <input type="text"
-			name="usToEdit" /> <input class="button" type="submit" name="submit"
-			value="Edit" /> <input class="button" type="submit" name="submit"
-			value="Delete" />
-	</form>
+	
 
 	<hr />
 

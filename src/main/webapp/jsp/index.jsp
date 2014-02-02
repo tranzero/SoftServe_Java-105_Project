@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id=context>
+<a href='addnews'><input id="addnews" type="button" name="addnewsr" value="ADD News"></a>
 <table>
 	<thead>
 	<tr>
@@ -19,7 +20,8 @@
 			<td>${News.getTitle()}</td>
 			<td>${News.getDescription()}</td>
 			<td>${News.getDate()}</td>
-			
+			<td><a href='editnews/${News.getPostId()}'><input id="editnews" type="button" name="editnews" value="EDIT News"></a></td>
+			<td><a href='delnews/${News.getPostId()}'><input id="delnews" type="button" name="delnewsr" value="DELETE News"></a></td>
 		</tr>
 	</c:forEach>
 	</tbody>

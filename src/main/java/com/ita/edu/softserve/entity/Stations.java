@@ -1,9 +1,11 @@
 package com.ita.edu.softserve.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @author admin
@@ -112,11 +114,7 @@ public class Stations extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((stationName == null) ? 0 : stationName.hashCode());
-		return result;
+		return new HashCodeBuilder().append(stationName).hashCode();
 	}
 
 	@Override
@@ -128,12 +126,7 @@ public class Stations extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Stations other = (Stations) obj;
-		if (stationName == null) {
-			if (other.stationName != null)
-				return false;
-		} else if (!stationName.equals(other.stationName))
-			return false;
-		return true;
+		return new EqualsBuilder().append(stationName, other.stationName).isEquals();
 	}
 
 }
