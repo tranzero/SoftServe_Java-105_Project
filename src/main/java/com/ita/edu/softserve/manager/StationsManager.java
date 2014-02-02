@@ -32,7 +32,12 @@ public interface StationsManager extends BaseManager  {
 	void removeStations(Integer stationId);
 
 	/**
-	 * Update station
+	 * Update stations
 	 */
 	List<Stations> updateStations(Stations... station);
+
+	/**
+	 * Update exact station by Id
+	 */
+	void updateStation(Integer stationId, String stationCode, String stationName);
 }
