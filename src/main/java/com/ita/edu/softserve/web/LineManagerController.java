@@ -47,5 +47,17 @@ public class LineManagerController {
 
 		return "lines";
 	}
+	@RequestMapping(value = "/linesbystation", method = RequestMethod.GET)
+	public String linesByStation(Map<String, Object> modelMap) {
+		return "linesbystation";
+	}
+	@RequestMapping(value = "/findlinesbyStation", method = RequestMethod.GET)
+	public String linesByStation(@RequestParam("stationname") String stationName,Map<String, Object> modelMap) {
+		if(stationName.equalsIgnoreCase("")){
+			return "linesbystation";
+		}
+		modelMap.put("linesbystationlist", linesManager.getLinesByStation(stationName));
+		return "linesbystation";
+	}
 
 }
