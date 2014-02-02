@@ -4,11 +4,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.entity.Role;
+import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 
 /**
@@ -29,20 +31,32 @@ public class UserController {
 		return "userlist";
 	}
 
-	// no updateUsers
-	@RequestMapping(value = "userEdit", method = RequestMethod.GET)
-	public String updateUser(Map<String, Object> modelMap) {
-		// @requestParam
-		modelMap.put("userList", usersmanage.updateUsers());
+	
+	@RequestMapping(value ="/userEdit/{user}", method =RequestMethod.GET)
+	public String editUser(@PathVariable("user") Integer usId,Map<String,Object> modelMap){
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
 		return "userEdit";
 	}
-
-	@RequestMapping(value = "userEdit1", method = RequestMethod.GET)
-	public String editUser(Map<String, Object> modelMap) {
-
-		modelMap.put("userList", usersmanage.findAllUsers());
-		return "userEdit";
+	
+	
+	
+	//update user
+	@RequestMapping(value="/userEdit/{userToEdit}",method =RequestMethod.POST)
+	public String updateUserToDB(@PathVariable("userToEdit")Integer userId,
+			@ModelAttribute("firstName")String firstName,
+			@ModelAttribute("lastName")String lastName,
+			@ModelAttribute("eMail")String eMail,
+			@ModelAttribute("passwd")String passwd,
+			@ModelAttribute("role")Role role			
+						
+			){
+		
+		usersmanage.updateUser(userId,  firstName, lastName, eMail, passwd,  role);
+		return "redirect:/userEdit";
 	}
+
+	
 
 	// delete user
 	@RequestMapping("/userdel/{userr}")

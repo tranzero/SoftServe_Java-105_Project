@@ -33,7 +33,7 @@
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
 					<td>${user.geteMail() }
-					<td><a href="userEdit">EDIT</a></br></td>
+					<td><a href="userEdit/${user.userId}">EDIT</a></br></td>
 					<td><a href="userdel/${user.userId}">DELETE</a></br></td>
 
 

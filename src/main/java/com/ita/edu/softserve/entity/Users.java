@@ -66,6 +66,10 @@ public class Users extends BaseEntity {
 	@Column(name = "REGDATE", nullable = true)
 	private Date regDate;
 
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "enum('REGUSER','MANAGER', 'ADMIN')")
 	private Role role;

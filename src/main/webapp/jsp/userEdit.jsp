@@ -11,10 +11,44 @@
 <div id="context">
 	<h1>Edit User</h1>
 	<hr />
-	
+
 	<hr>
 
-	<form action=""></form>
-	</div>
+	<form id="userEdit" method="post" name="useEdit">
+		<input id="userId" type="hidden" name="userId"
+			value="${user.getUserId()}">
+
+		<div>
+			<p>FirstName:</p>
+			<input id="userFirstName" type="text" name="userFirstName"
+				value="${user.getFirstName()}">
+
+			<p>LastName</p>
+			<input id="lastName" type="text" name="lastName"
+				value="${user.getLastName()}">
+
+			<p>Email</p>
+			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
+
+
+
+			<p>Password</p>
+			<input id="Passwd" type="text" name="Passwd"
+				value="${user.getPasswd()}">
+
+			<p>Role</p>
+			<input id="Role" type="text" name="Role" value="${user.getRole()}">
+
+
+			<p>
+				<input type="submit" value="Update USER" form="text">
+			</p>
+			<br>
+
+		</div>
+
+
+	</form>
+</div>
 <!-- </body> -->
 <!-- </html> -->
