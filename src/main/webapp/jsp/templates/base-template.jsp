@@ -10,11 +10,11 @@
 </title>
 </head>
 <body>
-	<div>
+	<div class="headerStyle">
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div> <tiles:insertAttribute name="navigation"/> </div>
-<div> <tiles:insertAttribute name="content"/> </div>
-<div> <tiles:insertAttribute name="footer"/> </div>
+	<div class="navigationStyle"> <tiles:insertAttribute name="navigation"/> </div>
+<div class="contentStyle"> <tiles:insertAttribute name="content"/> </div>
+<div class=footerStyle> <tiles:insertAttribute name="footer"/> </div>
 </body>
 </html>
