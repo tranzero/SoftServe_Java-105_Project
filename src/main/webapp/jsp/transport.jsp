@@ -8,7 +8,10 @@
 <!-- <title>Insert title here</title> -->
 <!-- </head> -->
 <!-- <body> -->
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
+	type="text/css" />
 <div id="context">
+
 	<table border="1">
 		<tr>
 			<td>Transport Code</td>
