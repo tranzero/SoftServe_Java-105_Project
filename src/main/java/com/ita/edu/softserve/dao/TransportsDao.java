@@ -7,4 +7,9 @@ import com.ita.edu.softserve.entity.Transports;
  */
 public interface TransportsDao extends AbstractDAOIface<Transports> {
 
+	/**
+	 * Find Transports by route id
+	 */
+	Transports findByRouteId(int id);
+
 }

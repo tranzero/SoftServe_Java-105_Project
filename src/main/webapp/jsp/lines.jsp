@@ -26,42 +26,47 @@
 		</nav>
 	</div>
 	</header>-->
-	<div id="context">
+<div id="context">
+	<link href="<c:url value="/resources/css/style.css" />"
+		rel="stylesheet" type="text/css" />
 	<section>
-	<h1 class="logo">Lines Service</h1>
-	<%-- end temporary --%>
-	<form action="linesFind" method="get">
-		From: <input type="text" name="stationName1" placeholder='Pisochne' />&nbsp;&nbsp;&nbsp;
-		To: <input type="text" name="stationName2" placeholder='Sknyliv' /> 
-		<input class="button" type="submit" name="submit" value="Find" />
-	</form>
-	<%-- Results --%> <c:if test="${!empty LinesList}">
-		<hr />
-		<table>
-			<c:forEach var="lines" items="${LinesList}">
-				<tr>
-					<td id="generate"></td>
-					<td>${lines.getLineName()}</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<hr />
-	</c:if> <c:if test="${empty LinesList}">
-		<hr />
-		<h3>Sorry. No results was found</h3>
-		<hr />
-	</c:if> <%-- Results end --%>
-	<%-- temporary --%>
-	<!-- <div class="pagination">
+		<!-- 	<h1 class="logo">Lines Service</h1>  -->
+		<%-- end temporary --%>
+		<form action="linesFind" method="get">
+			From: <input type="text" name="stationName1" placeholder='Pisochne' />&nbsp;&nbsp;&nbsp;
+			To: <input type="text" name="stationName2" placeholder='Sknyliv' />
+			<input class="button" type="submit" name="submit" value="Find" />
+		</form>
+		<%-- Results --%>
+		<c:if test="${!empty LinesList}">
+			<hr />
+			<table>
+				<c:forEach var="lines" items="${LinesList}">
+					<tr>
+						<td id="generate"></td>
+						<td>${lines.getLineName()}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<hr />
+		</c:if>
+		<c:if test="${empty LinesList}">
+			<hr />
+			<h3>Sorry. No results was found</h3>
+			<hr />
+		</c:if>
+		<%-- Results end --%>
+		<%-- temporary --%>
+		<!-- <div class="pagination">
 		<span class="page-numbers current">1</span>
 		<a href="" class="page-numbers">2</a>
 		<a href="" class="page-numbers">3</a>
 		<a href="" class="page-numbers">4</a>
 		<a href="" class="next page-numbers">Next »</a>
 	</div>-->
-	<%-- end temporary --%>
+		<%-- end temporary --%>
 	</section>
-	</div>
-	<!--  
+</div>
+<!--  
 </body>
 </html>-->

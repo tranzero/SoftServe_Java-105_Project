@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.manager.TransportsManager;
 
@@ -22,4 +23,26 @@ public class TransportController {
 
 		return "transport";
 	}
+	
+	@RequestMapping(value = "/transportTravel", method = RequestMethod.GET)
+	public String getLinesByTwoStations(Map<String, Object> model) {
+		return "transportTravel";
+	}
+
+	@RequestMapping(value = "/transportTravelFind", method = RequestMethod.GET)
+	public String getLinesByTwoStations(
+			@RequestParam("stationName1") String stationName1,
+			@RequestParam("stationName2") String stationName2,
+			Map<String, Object> model) {
+
+		if (stationName1.equals("") || stationName2.equals("")) {
+			return "transportTravel";
+		}
+
+		model.put("TransportList",transportsManager.getTransportByTwoStations(
+				stationName1, stationName2));
+
+		return "transportTravel";
+	}
+
 }

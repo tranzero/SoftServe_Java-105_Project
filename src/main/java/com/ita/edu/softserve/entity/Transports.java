@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -23,11 +24,17 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 @Entity
 @Table(name = "transports")
-@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY)
+@NamedQueries({
+	@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
+	@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY)
+})
 public class Transports extends BaseEntity {
 
 	static final String TRANSPORTS_FIND_ALL = "Transports.findAll";
 	static final String TRANSPORTS_FIND_ALL_QUERY = "SELECT t FROM Transports t";
+
+	public static final String FIND_BY_ROUTEID = "Transport.findByRouteId";
+	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 
 	@Id
 	@Column(name = "TRANSPORTID", nullable = false)

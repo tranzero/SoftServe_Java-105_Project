@@ -2,19 +2,22 @@ package com.ita.edu.softserve.main;
 
 import java.util.List;
 
-import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
+import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
 public class OrderStationMain {
 
 	public static void main(String[] args) {
 
 		LinesManager lsImpl = (LinesManager) LinesManagerImpl.getInstance();
+		TransportsManager trImpl = (TransportsManager) TransportsManagerImpl.getInstance();
 		StationsManager stationsDAOImpl = (StationsManager) StationsManagerImpl
 				.getInstance();
 
@@ -41,6 +44,16 @@ public class OrderStationMain {
 				station1.getStationName(), station2.getStationName());
 		for (Lines line : lines) {
 			System.out.println(line.getLineId() + " " + line.getLineName());
+		}
+		
+		station1 = stationsList.get(3);
+		station2 = stationsList.get(13);
+		System.out.println("***********************************");
+		System.out.println("FROM: " + station1.getStationName());
+		System.out.println("TO:   " + station2.getStationName());
+		List<Transports> t = trImpl.getTransportByTwoStations(station1.getStationName(), station2.getStationName());
+		for (Transports tr : t) {
+			System.out.println(tr.getTransportCode() + " " + tr.getStartTime());
 		}
 	}
 

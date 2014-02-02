@@ -35,4 +35,12 @@ public interface TransportsManager extends BaseManager {
 	 * Gets all transports.
 	 */
 	List<Transports> getAllTransports();
+
+	/**
+	 * Get transport by two stations
+	 * in certain order
+	 */
+	public List<Transports> getTransportByTwoStations(String stationName1,
+			String stationName2);
+
 }
