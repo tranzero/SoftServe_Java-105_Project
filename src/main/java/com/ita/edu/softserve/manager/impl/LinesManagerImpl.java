@@ -173,6 +173,7 @@ public class LinesManagerImpl implements LinesManager {
 			lineDao.save(line);
 		}
 	}
+
 	@Transactional
 	@Override
 	public void editLine(String lineName, String newLineName) {
@@ -185,6 +186,7 @@ public class LinesManagerImpl implements LinesManager {
 			LOGGER.error("No such line!", e);
 		}
 	}
+
 	@Transactional
 	@Override
 	public void deleteLine(String lineName) {
