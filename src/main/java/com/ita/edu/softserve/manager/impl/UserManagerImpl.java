@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.UsersDAO;
+import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
@@ -20,6 +22,7 @@ public class UserManagerImpl implements UserManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
+
 	@Autowired
 	private UsersDAO userDao;
 
@@ -48,7 +51,6 @@ public class UserManagerImpl implements UserManager {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Users> findAllUsers() {
-
 		return userDao.getAllEntities();
 	}
 
@@ -57,6 +59,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	// no all
+	@Transactional
 	@Override
 	public void editUser(String usname) {
 		Users user1 = null;
@@ -70,31 +73,44 @@ public class UserManagerImpl implements UserManager {
 
 		}
 		userDao.save(user1);
-
 	}
 
-	// removeUser
+	/**
+	 * Delete user of DB
+	 */
 	@Override
 	@Transactional
 	public void removeUser(Integer id) {
 		userDao.remove(userDao.findById(id));
 	}
 
-	// update user
-	
-	
 	/**
-	 * Update database and get list of all users
+	 * Find user by id
 	 */
 	@Override
-	public List<Users> updateUsers(Users... userr) {
-		List<Users> userUpdateResult = new ArrayList<Users>();
-		for (Users user : userr) {
-			userUpdateResult.add((Users)userDao.update(user));
-			
-		}
-		return userUpdateResult;
+	@Transactional
+	public Users findUser(Integer id) {
+		return userDao.findById(id);
 	}
 
+	@Override
+	@Transactional
+	public void updateUser(Integer userId,  String firstName,
+			String lastName, String eMail, String passwd, 
+			Role role) {
+
+		Users userr = userDao.findById(userId);
+
+		userr.setFirstName(firstName);
+		userr.setLastName(lastName);
+		userr.seteMail(eMail);
+
+		
+		userr.setPasswd(passwd);
+		userr.setRole(role);
+
+		userDao.update(userr);
+
+	}
 
 }
