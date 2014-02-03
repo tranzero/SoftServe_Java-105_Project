@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
+import com.ita.edu.softserve.dao.StationsOnLineDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 
@@ -31,6 +35,12 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Autowired
 	private StationsDAO stationDao;
+	
+	@Autowired
+	private LinesDAO lineDao;
+
+	@Autowired
+	private StationsOnLineDAO stlDao;
 
 	/**
 	 * Constructor without arguments.
@@ -128,8 +138,30 @@ public class StationsManagerImpl implements StationsManager {
 		stationDao.update(station);
 
 	}
+	
+	public Stations findByStationName(String stationName) {
+		Stations station = null;
+		try {
+			 station = stationDao.findByName(stationName);
+		} catch (NoResultException e) {
+			LOGGER.error("No such station!", e);
+		}
+		return station;
+	} 
 
 	public static StationsManager getInstance() {
 		return ManagerFactory.getManager(StationsManager.class);
+		}
+	
+	public List<Stations> getStationsOnCertainLine(String lineName){
+			Lines line =lineDao.findByName(lineName);
+			List<StationsOnLine> stlList = stlDao.findByLineId(line.getLineId());
+			List<Stations> stationsList = new ArrayList<Stations>();
+			for (StationsOnLine stl : stlList){
+				stationsList.add(stl.getStationId());
+			}
+			return stationsList;
+		
+		
 	}
 }

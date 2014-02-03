@@ -24,6 +24,26 @@ public class LinesServiceMain {
 		for(Lines line: lm.getFullLines()){
 			System.out.println(line.getLineName());			
 		}
+		lm.createLine("MyNewLine4");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("Створив лінію MyNewLine1 і поверув всі лінії");	
+		
+		lm.createLine("MyNewLine5");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		lm.createLine("MyNewLine6");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
+		System.out.println("Створив лінію MyNewLine1 і поверув всі лінії");	
+		
+		lm.createLine("MyNewLine7");
+		for(Lines line: lm.getFullLines()){
+			System.out.println(line.getLineName());			
+		}
 		System.out.println("Створив лінію MyNewLine2 і поверув всі лінії");
 		
 		lm.updateLine("MyNewLine2", "MyNewLine3");

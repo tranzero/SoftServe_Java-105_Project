@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!--  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,6 +34,7 @@
 	<section>
 		<!-- 	<h1 class="logo">Lines Service</h1>  -->
 		<%-- end temporary --%>
+		<spring:message code="label.title"/>
 		<form action="linesFind" method="get">
 			From: <input type="text" name="stationName1" placeholder='Pisochne' />&nbsp;&nbsp;&nbsp;
 			To: <input type="text" name="stationName2" placeholder='Sknyliv' />

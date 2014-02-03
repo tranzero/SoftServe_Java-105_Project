@@ -10,6 +10,14 @@
 <!-- <body> -->
 <div id="context">
 	<h1>Add Lines</h1>
+	<form action="addLines" method="post" name="new">
+		Name of line: <br> <input id="name" type="text" name="name">
+		<br> Choose the stations on line:<br>
+		<c:forEach var="stations" items="${stationsList}">
+			<input type="checkbox" value="${stations.getStationName()}">${stations.getStationName()}<br>
+		</c:forEach>
+		<input type="submit" value="Add Line" form="new">
+	</form>
 </div>
 <!-- </body> -->
 <!-- </html> -->

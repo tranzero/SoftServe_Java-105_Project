@@ -111,6 +111,23 @@ public class Users extends BaseEntity {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 	}
+	/**
+	 * Constructor with parametrs:
+	 * 
+	 * @param username
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param password
+	 * @param role
+	 */
+	public Users(String userName, String firstName, String lastName,
+			String eMail, String password, Role role) {
+		this(userName, eMail, password);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setRole(role);
+	}
 
 	/**
 	 * @return the userId

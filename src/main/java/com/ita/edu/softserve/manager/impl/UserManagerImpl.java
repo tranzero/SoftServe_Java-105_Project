@@ -1,6 +1,9 @@
 package com.ita.edu.softserve.manager.impl;
 
+
 import java.util.List;
+
+import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +28,20 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	@Override
 	public boolean createUser(String username, String firstname,
-			String lastname, String email, String password) {
-
+			String lastname, String email, String password, Role role) {
+		Users tempUser = null;
 		try {
-
-			if (userDao.findByName(username) == null) {
-				Users tempUser = new Users(username, firstname, lastname,
-						email, password);
-
-				userDao.save(tempUser);
-				return true;
-			}
-
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw e;
+			tempUser = (Users) userDao.findByUsername(username);
+		} catch (NoResultException nr) {
 		}
+		if (tempUser==null) {
+			tempUser = new Users(username, firstname, lastname, email,
+					password, role);
+			userDao.save(tempUser);	
+			System.out.println("Successfully registered!");
+			return true;
+			
+		} 
 		return false;
 	}
 
@@ -91,9 +92,8 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	@Transactional
-	public void updateUser(Integer userId,  String firstName,
-			String lastName, String eMail, String passwd, 
-			Role role) {
+	public void updateUser(Integer userId, String firstName, String lastName,
+			String eMail, String passwd, Role role) {
 
 		Users userr = userDao.findById(userId);
 
@@ -101,7 +101,6 @@ public class UserManagerImpl implements UserManager {
 		userr.setLastName(lastName);
 		userr.seteMail(eMail);
 
-		
 		userr.setPasswd(passwd);
 		userr.setRole(role);
 
