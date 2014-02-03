@@ -17,6 +17,14 @@ public class IndexPageController {
 
 	@Autowired
 	private PostForMainPageManager posts;
+	
+	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
+	public String mainPage(Map<String, Object> modelMap) {
+
+		modelMap.put("newsList", posts.findPostList());
+		return "mainpage";
+	}
+
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
