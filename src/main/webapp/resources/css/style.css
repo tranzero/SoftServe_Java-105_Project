@@ -276,3 +276,22 @@ a:visited {
 a:hover{
 	color: #359BED;
 }
+
+.flag {
+	padding-right:4px;
+	width: 16px;
+	height: 11px;
+	background:url("../images/flags.png") no-repeat
+}
+
+.flag.flag-en {background-position: -16px 0}
+.flag.flag-ua {background-position: 0 -11px}
+
+#language {
+	display: inline-block;
+	float: right;
+}
+#language ul{
+	list-style-type: none;
+}
+
