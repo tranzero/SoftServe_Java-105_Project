@@ -47,5 +47,7 @@ public interface StationsManager extends BaseManager {
 	 * Update exact station by Id
 	 */
 	void editStation(Integer stationId, String stationCode, String stationName);
+	
+	public List<Stations> getStationsOnCertainLine(String lineName);
 
 }

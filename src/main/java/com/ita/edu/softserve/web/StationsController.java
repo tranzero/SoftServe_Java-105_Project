@@ -67,5 +67,13 @@ public class StationsController {
 
 		return "redirect:/stations";
 	}
+	@RequestMapping(value="stationsoncertainline/{line}", method = RequestMethod.GET)
+	public String stationsOnCertainLine(@PathVariable("line") String lineName, Map<String,Object>modelMap){
+		modelMap.put("stationsonlinelist", stationsManager.getStationsOnCertainLine(lineName));
+		return "stationsoncertainline";
+	}
+	
+	
+	
 
 }
