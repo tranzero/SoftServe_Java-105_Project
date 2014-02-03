@@ -11,7 +11,7 @@ import com.ita.edu.softserve.entity.Users;
 public interface UserManager extends BaseManager {
 
 	public boolean createUser(String username, String firstname,
-			String lastname, String email, String password);
+			String lastname, String email, String password, Role role);
 
 	/**
 	 * Find All users
