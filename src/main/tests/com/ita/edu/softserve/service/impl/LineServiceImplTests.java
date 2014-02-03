@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.sound.sampled.Line;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -21,10 +19,8 @@ import org.springframework.util.Assert;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
-import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 

@@ -5,7 +5,6 @@ package com.ita.edu.softserve.entity.impl;
 
 import org.junit.Test;
 
-import com.ibm.icu.impl.Assert;
 import com.ita.edu.softserve.entity.Users;
 
 /**
