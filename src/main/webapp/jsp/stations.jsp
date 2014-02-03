@@ -14,6 +14,8 @@
 		<%
 			int i = 0;
 		%>
+		<a class="button" href="addStation">Add Station</a>
+
 		<table border="1">
 		<thead>
 			<tr>
