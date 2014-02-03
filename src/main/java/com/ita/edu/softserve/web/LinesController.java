@@ -13,7 +13,7 @@ import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationsManager;
 
 @Controller
-public class LineManagerController {
+public class LinesController {
 
 	@Autowired
 	private LinesManager linesManager;
