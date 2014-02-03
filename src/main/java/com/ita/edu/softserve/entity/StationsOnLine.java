@@ -16,7 +16,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "stationsonlines")
-@NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY)
+@NamedQueries({
+@NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY),
+@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY)})
 public class StationsOnLine extends BaseEntity {
 
 
@@ -24,7 +26,8 @@ public class StationsOnLine extends BaseEntity {
 //	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT u FROM StationsOnLine u WHERE u.stationId = ?1";
 //	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl INNER JOIN stl.stationId s WHERE s.stationId = ?1";
 	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl WHERE stl.stationId.stationId = ?1";
-
+	public static final String FIND_BY_LINE_ID = "StationsOnLine.findByLineID";
+	public static final String FIND_BY_LINE_ID_QUERY="SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
 	@Id
 	@Column(name = "STATIONONLINEID")
 	@GeneratedValue(strategy = GenerationType.AUTO)

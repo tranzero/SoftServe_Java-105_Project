@@ -18,5 +18,6 @@ public interface StationsOnLineDAO extends AbstractDAOIface<StationsOnLine>{
 	 * @return List<StationsOnLine>
 	 */
 	public List<StationsOnLine> findByStationId(int id);
+	public List<StationsOnLine> findByLineId(int id);
 
 }
