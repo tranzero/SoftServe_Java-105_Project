@@ -177,11 +177,11 @@ public class TransportsManagerImpl implements TransportsManager {
 			calendar.setTime(date);
 			secs += calendar.get(Calendar.SECOND);
 			mins += calendar.get(Calendar.MINUTE);
-			hrs += calendar.get(Calendar.HOUR);
+			hrs += calendar.get(Calendar.HOUR_OF_DAY);
 		}
 		calendar.set(0, 0, 0, hrs, mins, secs);
 		
-		return new Time(calendar.get(Calendar.HOUR),
+		return new Time(calendar.get(Calendar.HOUR_OF_DAY),
 				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 	}
 
