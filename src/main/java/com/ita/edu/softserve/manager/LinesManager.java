@@ -22,9 +22,10 @@ public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
 			String stationName2);
+	
 	public void createLine(String lineName);
 	
-	public void editLine(String lineName, String newLineName);
-	
 	public void deleteLine(String lineName);
+
+	void updateLine(String lineName, String newLineName);
 }
