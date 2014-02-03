@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 
 /**
@@ -27,6 +28,13 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		
 		return query.getResultList();
 	}
+	
+	@Override
+    public Stations findByName(String stationName) {
+            Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+                            .setParameter(1, stationName);
+            return (Stations) query.getSingleResult();
+    }
 
 	/*
 	 * @Override public Stations findByStations(String stationName) { Query
