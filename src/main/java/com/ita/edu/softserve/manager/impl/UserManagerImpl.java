@@ -1,10 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

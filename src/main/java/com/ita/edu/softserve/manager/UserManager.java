@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.manager;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;

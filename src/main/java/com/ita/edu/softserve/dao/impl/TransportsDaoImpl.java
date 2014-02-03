@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 
 /**

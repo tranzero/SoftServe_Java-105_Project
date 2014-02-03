@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.StationsManager;
 
 @Controller

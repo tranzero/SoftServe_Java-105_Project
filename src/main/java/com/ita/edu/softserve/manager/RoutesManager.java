@@ -3,10 +3,9 @@
  */
 package com.ita.edu.softserve.manager;
 
-import java.util.List;
 import java.sql.Time;
+import java.util.List;
 
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 
 /**

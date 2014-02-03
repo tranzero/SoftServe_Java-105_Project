@@ -3,15 +3,13 @@ package com.ita.edu.softserve.web;
 import java.sql.Time;
 import java.util.Map;
 
-import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.manager.RoutesManager;
-import com.ita.edu.softserve.manager.impl.RoutesManagerImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ita.edu.softserve.manager.RoutesManager;
 
 
 @Controller

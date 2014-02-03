@@ -1,28 +1,22 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.util.List;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.dao.RoutesDAO;
-import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.dao.LinesDAO;
+import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
-import com.ita.edu.softserve.manager.StationsManager;
-import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
-import com.ita.edu.softserve.dao.impl.StopsDAOImpl;
-import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
-import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stops;
-import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
  * @author Lyubomyr

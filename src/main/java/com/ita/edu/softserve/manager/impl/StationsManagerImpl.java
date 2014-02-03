@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 

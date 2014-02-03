@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.LinesManager;
-import com.ita.edu.softserve.manager.PostForMainPageManager;
-import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 
 @Controller
 public class LineManagerController {

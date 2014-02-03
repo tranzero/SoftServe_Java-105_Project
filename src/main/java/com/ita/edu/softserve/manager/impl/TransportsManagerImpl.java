@@ -1,7 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +18,6 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 
