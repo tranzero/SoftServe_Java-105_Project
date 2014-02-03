@@ -9,5 +9,7 @@ import com.ita.edu.softserve.entity.Stops;
  * 
  */
 public interface StopsDAO extends AbstractDAOIface<Stops>{
-
+	
+	Stops findByStationsOnLineId(int id);
+	
 }

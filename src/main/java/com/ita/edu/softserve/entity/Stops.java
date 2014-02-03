@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,8 +24,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 @Entity
 @Table(name = "stops")
-
+@NamedQueries({
+	@NamedQuery(name = Stops.FIND_BY_STATIONONLINEID, query = Stops.FIND_BY_STATIONONLINEID_QUERY)
+})
 public class Stops extends BaseEntity {
+
+	public static final String FIND_BY_STATIONONLINEID = "Stops.findByStationOnLineId";
+	public static final String FIND_BY_STATIONONLINEID_QUERY = "SELECT s FROM Stops s WHERE s.stationOnLineId.stationOnLineId = ?1";
 
 	@Id
 	@Column(name = "STOPID")

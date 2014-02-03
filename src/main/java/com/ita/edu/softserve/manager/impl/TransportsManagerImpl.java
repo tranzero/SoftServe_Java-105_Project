@@ -114,8 +114,8 @@ public class TransportsManagerImpl implements TransportsManager {
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
 		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
 
-		Stops stop1;
-		Stops stop2;
+		Stops stop1 = null;
+		Stops stop2 = null;
 
 		int index = 0;
 
@@ -138,10 +138,14 @@ public class TransportsManagerImpl implements TransportsManager {
 						.get(j).getLineId().getLineId()) {
 					if (StationsOnLine2.get(i).getStationOrderNum() < StationsOnLine1
 							.get(j).getStationOrderNum()) {
-						stop1 = stopsDao.findById(StationsOnLine2.get(i)
-								.getStationOnLineId());
-						stop2 = stopsDao.findById(StationsOnLine2.get(i)
-								.getStationOnLineId());
+						try{
+							stop1 = stopsDao.findByStationsOnLineId(StationsOnLine1.get(i)
+									.getStationOnLineId());
+							stop2 = stopsDao.findByStationsOnLineId(StationsOnLine2.get(i)
+									.getStationOnLineId());
+						} catch (Exception e) {
+							System.out.println("" + e.getMessage());
+						}
 						if ((stop1 != null) && (stop2 != null)) {
 							transport.add(transportsDao.findByRouteId(stop1
 									.getRouteId().getRouteId()));
@@ -150,6 +154,8 @@ public class TransportsManagerImpl implements TransportsManager {
 											.get(index).getStartTime(), stop1
 											.getDeparture()));
 							index++;
+						} else {
+							return null;
 						}
 					}
 				}
