@@ -16,7 +16,7 @@
 				<option value= "${line.getLineName()}">${line.getLineName()}</option>
 			</c:forEach>
 		</select>
-		<input type="submit" value="button" form="remove">
+		<input type="submit" value="Remove" form="remove">
 	</form>
 </div>
 <!-- </body> -->

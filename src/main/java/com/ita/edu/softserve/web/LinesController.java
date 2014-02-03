@@ -29,7 +29,6 @@ public class LinesController {
 	@RequestMapping(value = "/removeLines", method = RequestMethod.POST)
 	public String remove(@ModelAttribute("lineName") String lineName,
 			Map<String, Object> modelMap) {
-		//System.out.println(lineName);
 		linesManager.deleteLine(lineName);
 		modelMap.put("linesList", linesManager.getFullLines());
 		return "removeLines";
@@ -40,18 +39,16 @@ public class LinesController {
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "addLines";
 	}
-	
 	//Not Finished
-	@RequestMapping(value="/newLine", method= RequestMethod.POST)
-	public String addNewLine(){
-		return "addlines";
+	@RequestMapping(value="/addLines", method = RequestMethod.POST)
+	public String addNewLine(@ModelAttribute("name") String name){
+		linesManager.createLine(name);
+		return "addLines";
 	}
 
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
 	public String allLines(Map<String, Object> modelMap) {
-
 		modelMap.put("linesList", linesManager.getFullLines());
-
 		return "allLines";
 	}
 
