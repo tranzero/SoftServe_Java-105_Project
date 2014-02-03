@@ -7,7 +7,6 @@
 <table>
 	<thead>
 	<tr>
-	<th>number</th>
 	<th>News name</th>
 	<th>News Description</th>
 	<th>Date updated</th>
@@ -16,9 +15,10 @@
 	<tbody>
 	<c:forEach var="News" items="${newsList}">
 		<tr>
-			<td>${News.getPostId()}</td>
 			<td>${News.getTitle()}</td>
-			<td>${News.getDescription()}</td>
+			<td>${News.getDescription()}
+				<a href="detailsnews/${News.getPostId()}">Details...</a>
+			</td>
 			<td>${News.getDate()}</td>
 			<td><a href='editnews/${News.getPostId()}'><input id="editnews" type="button" name="editnews" value="EDIT News"></a></td>
 			<td><a href='delnews/${News.getPostId()}'><input id="delnews" type="button" name="delnewsr" value="DELETE News"></a></td>
