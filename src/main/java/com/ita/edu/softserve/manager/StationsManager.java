@@ -48,6 +48,11 @@ public interface StationsManager extends BaseManager {
 	 */
 	void editStation(Integer stationId, String stationCode, String stationName);
 	
+	/**
+	 * Find station by its Name 
+	 */
+	public Stations findByStationName(String stationName); 
+	
 	public List<Stations> getStationsOnCertainLine(String lineName);
 
 }

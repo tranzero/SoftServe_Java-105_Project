@@ -138,6 +138,16 @@ public class StationsManagerImpl implements StationsManager {
 		stationDao.update(station);
 
 	}
+	
+	public Stations findByStationName(String stationName) {
+		Stations station = null;
+		try {
+			 station = stationDao.findByName(stationName);
+		} catch (NoResultException e) {
+			LOGGER.error("No such station!", e);
+		}
+		return station;
+	} 
 
 	public static StationsManager getInstance() {
 		return ManagerFactory.getManager(StationsManager.class);
