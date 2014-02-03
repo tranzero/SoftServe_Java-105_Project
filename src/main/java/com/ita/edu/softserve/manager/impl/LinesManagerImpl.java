@@ -64,6 +64,16 @@ public class LinesManagerImpl implements LinesManager {
 	public LinesManagerImpl(StationsDAOImpl stationDao) {
 		this.stationDao = stationDao;
 	}
+	
+	public Lines findByLineName(String lineName) {
+		Lines line = null;
+		try {
+			line = lineDao.findByName(lineName);
+		} catch (NoResultException e) {
+			LOGGER.error("No such line!", e);
+		}
+		return line;
+	} 
 
 	/**
 	 * Return all Lines
