@@ -40,4 +40,8 @@ public interface StationsManager extends BaseManager  {
 	 * Update exact station by Id
 	 */
 	void updateStation(Integer stationId, String stationCode, String stationName);
+	/**
+	 * Return all stations in certain line
+	 */
+	List<Stations> getStationsOnCertainLine(String lineName);
 }

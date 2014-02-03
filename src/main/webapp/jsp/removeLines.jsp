@@ -9,22 +9,7 @@
 <!-- </head> -->
 <!-- <body> -->
 <div id="context">
-	<h1>All Lines</h1>
-	<%
-		int i = 0;
-	%>
-	<table border="1">
-		<tr>
-			<td align="center">Number</td>
-			<td align="center">Line Name</td>
-		</tr>
-		<c:forEach var="line" items="${linesList}">
-			<tr>
-				<td align="center"><%=++i%></td>
-				<td align="center">${line.getLineName()}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<h1>Remove Lines</h1>
 </div>
 <!-- </body> -->
 <!-- </html> -->

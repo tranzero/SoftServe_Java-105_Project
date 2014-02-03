@@ -10,6 +10,9 @@
 <!-- <body> -->
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
 <div id="context">
+	<%
+			int i = 0;
+		%>
 <h1 >Lines Search</h1>
 <form action="findlinesbyStation" method="get">
 		Enter station name : <input type="text" name="stationname" />
@@ -20,8 +23,9 @@
 		<table>
 			<c:forEach var="lines" items="${linesbystationlist}">
 				<tr>
-					<!-- <td id="generate"></td> -->
+					<td><%=++i%></td>
 					<td>${lines.getLineName()}</td>
+					<td><a href="stationsoncertainline/${lines.getLineName()}">Show stations</a></td>
 				</tr>
 			</c:forEach>
 		</table>

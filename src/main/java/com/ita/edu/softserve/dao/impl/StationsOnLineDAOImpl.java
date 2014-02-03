@@ -31,5 +31,11 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
 		List<StationsOnLine> list = query.getResultList();
 		return list;
 	}
+	@Override
+	public List<StationsOnLine> findByLineId(int id){
+		Query query = entityManager.createNamedQuery(StationsOnLine.FIND_BY_LINE_ID).setParameter(1, id);
+		List<StationsOnLine> list = query.getResultList();
+		return list;
+	}
 
 }

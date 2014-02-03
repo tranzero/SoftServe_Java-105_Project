@@ -28,7 +28,7 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 /**
  * 
  * @author yuraloga
- * @author MPS
+ * @author MatyashPetro
  * 
  */
 @Service("linesService")
@@ -176,12 +176,18 @@ public class LinesManagerImpl implements LinesManager {
 
 	@Transactional
 	@Override
-	public void editLine(String lineName, String newLineName) {
+	public void updateLine(String lineName, String newLineName) {
 		Lines line = null;
 		try {
-			line = (Lines) lineDao.findByName(lineName);
-			line.setLineName(newLineName);
-			lineDao.update(line);
+			line = lineDao.findByName(lineName);
+			try {
+				lineDao.findByName(newLineName);
+				LOGGER.error("Such line \"" + newLineName
+						+ "\" is already exist");
+			} catch (NoResultException e) {
+				line.setLineName(newLineName);
+				lineDao.update(line);
+			}
 		} catch (NoResultException e) {
 			LOGGER.error("No such line!", e);
 		}
@@ -192,7 +198,7 @@ public class LinesManagerImpl implements LinesManager {
 	public void deleteLine(String lineName) {
 		Lines line = null;
 		try {
-			line = (Lines) lineDao.findByName(lineName);
+			line = lineDao.findByName(lineName);
 			lineDao.remove(line);
 		} catch (NoResultException e) {
 			LOGGER.error("No such line!", e);
