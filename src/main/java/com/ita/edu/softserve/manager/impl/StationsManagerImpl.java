@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.ManagerFactory;
@@ -37,6 +39,9 @@ public class StationsManagerImpl implements StationsManager {
 
 	@Autowired
 	private StationsOnLineDAO stlDao;
+	
+	@Autowired
+	private LinesDAO lineDao;
 
 	/**
 	 * Constructor without arguments.
@@ -125,8 +130,9 @@ public class StationsManagerImpl implements StationsManager {
 		return ManagerFactory.getManager(StationsManager.class);
 		
 	}
-	public List<Stations> getStationsOnLine(int lineId){
-		List<StationsOnLine> stlList = stlDao.findByLineId(lineId);
+	public List<Stations> getStationsOnCertainLine(String lineName){
+		Lines line =lineDao.findByName(lineName);
+		List<StationsOnLine> stlList = stlDao.findByLineId(line.getLineId());
 		List<Stations> stationsList = new ArrayList<Stations>();
 		for (StationsOnLine stl : stlList){
 			stationsList.add(stl.getStationId());

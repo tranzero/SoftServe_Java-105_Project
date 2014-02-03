@@ -43,5 +43,5 @@ public interface StationsManager extends BaseManager  {
 	/**
 	 * Return all stations in certain line
 	 */
-	List<Stations> getStationsOnLine(int lineId);
+	List<Stations> getStationsOnCertainLine(String lineName);
 }
