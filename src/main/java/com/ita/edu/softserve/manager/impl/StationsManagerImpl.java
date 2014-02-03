@@ -10,19 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 
 /**
  * This is station service class.
  * 
- * @author Roman
+ * @author admin
  * 
  */
 @Service("stationsService")
@@ -35,13 +31,6 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Autowired
 	private StationsDAO stationDao;
-	
-
-	@Autowired
-	private StationsOnLineDAO stlDao;
-	
-	@Autowired
-	private LinesDAO lineDao;
 
 	/**
 	 * Constructor without arguments.
@@ -66,6 +55,21 @@ public class StationsManagerImpl implements StationsManager {
 	@Override
 	public Stations findStationsById(int id) {
 		return stationDao.findById(id);
+	}
+
+	/**
+	 * Save Station in database using parametrs.
+	 * 
+	 * @param stationCode
+	 * 
+	 * @param stationName
+	 */
+	@Transactional
+	@Override
+	public void createStation(String stationCode, String stationName) {
+
+		Stations station = new Stations(stationCode, stationName);
+		stationDao.save(station);
 	}
 
 	/**
@@ -104,21 +108,20 @@ public class StationsManagerImpl implements StationsManager {
 	@Override
 	public List<Stations> updateStations(Stations... stations) {
 		List<Stations> stationUpdateResult = new ArrayList<Stations>();
-		
+
 		for (Stations station : stations) {
 			stationUpdateResult.add((Stations) stationDao.update(station));
 		}
 		return stationUpdateResult;
 	}
-	
-	
+
 	@Override
 	@Transactional
-	public void updateStation(Integer stationId,  String stationCode,
+	public void editStation(Integer stationId, String stationCode,
 			String stationName) {
 
 		Stations station = stationDao.findById(stationId);
-		
+
 		station.setStationCode(stationCode);
 		station.setStationName(stationName);
 
@@ -128,15 +131,5 @@ public class StationsManagerImpl implements StationsManager {
 
 	public static StationsManager getInstance() {
 		return ManagerFactory.getManager(StationsManager.class);
-		
-	}
-	public List<Stations> getStationsOnCertainLine(String lineName){
-		Lines line =lineDao.findByName(lineName);
-		List<StationsOnLine> stlList = stlDao.findByLineId(line.getLineId());
-		List<Stations> stationsList = new ArrayList<Stations>();
-		for (StationsOnLine stl : stlList){
-			stationsList.add(stl.getStationId());
-		}
-		return stationsList;
 	}
 }

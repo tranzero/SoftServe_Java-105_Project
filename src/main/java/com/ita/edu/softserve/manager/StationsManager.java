@@ -7,19 +7,26 @@ import com.ita.edu.softserve.entity.Stations;
 /**
  * Service interface for stations.
  * 
- * @author Roman
+ * @author admin
  */
-public interface StationsManager extends BaseManager  {
+public interface StationsManager extends BaseManager {
 
 	/**
 	 * Get list of all Stations.
 	 */
 	List<Stations> findAllStations();
-	
+
 	/**
 	 * Get Station by ID.
 	 */
 	Stations findStationsById(int id);
+
+	/**
+	 * 
+	 * Save station by parametrs
+	 * 
+	 */
+	void createStation(String stationCode, String stationName);
 
 	/**
 	 * Save station
@@ -39,9 +46,6 @@ public interface StationsManager extends BaseManager  {
 	/**
 	 * Update exact station by Id
 	 */
-	void updateStation(Integer stationId, String stationCode, String stationName);
-	/**
-	 * Return all stations in certain line
-	 */
-	List<Stations> getStationsOnCertainLine(String lineName);
+	void editStation(Integer stationId, String stationCode, String stationName);
+
 }
