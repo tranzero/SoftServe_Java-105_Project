@@ -45,6 +45,7 @@
 					<tr>
 						<td id="generate"></td>
 						<td>${lines.getLineName()}</td>
+						<td><a href="stationsoncertainline/${lines.getLineName()}">Show stations</a></td>
 					</tr>
 				</c:forEach>
 			</table>
