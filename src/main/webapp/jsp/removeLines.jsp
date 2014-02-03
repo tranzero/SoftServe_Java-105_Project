@@ -10,6 +10,14 @@
 <!-- <body> -->
 <div id="context">
 	<h1>Remove Lines</h1>
+	<form action="removeLines" method="post" name="remove">
+		<select id="lineName" name="lineName">
+			<c:forEach var="line" items="${linesList}">
+				<option value= "${line.getLineName()}">${line.getLineName()}</option>
+			</c:forEach>
+		</select>
+		<input type="submit" value="button" form="remove">
+	</form>
 </div>
 <!-- </body> -->
 <!-- </html> -->
