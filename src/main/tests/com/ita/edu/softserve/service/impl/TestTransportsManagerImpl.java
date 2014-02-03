@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
