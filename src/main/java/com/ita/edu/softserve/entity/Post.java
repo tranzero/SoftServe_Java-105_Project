@@ -30,13 +30,14 @@ public class Post extends BaseEntity{
 		this.setDate();
 	}
 	
-	public Post(String title, String description)
+	public Post(String title, String description) throws IllegalArgumentException
 	{
 		this();
-		if (notEmpty(title, description)){
-			this.setTitle(title);
-			this.setDescription(description);
-		}
+		org.apache.commons.lang.Validate.notEmpty(title);
+		org.apache.commons.lang.Validate.notEmpty(description);
+		this.setTitle(title);
+		this.setDescription(description);
+
 	}
 
 	/**
@@ -70,13 +71,6 @@ public class Post extends BaseEntity{
 		this.date = new Date();
 	}
 	
-	private boolean notEmpty(String title, String description){
-		
-		if (title != null && title !="" && description != null && description != ""){
-			return true;
-		}
-		return false;
-		
-	}
+
 
 }
