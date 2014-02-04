@@ -35,36 +35,6 @@ table tr:nth-child(even) td {
 
 #header h1 { margin: 0; }
 
-#navigation
-{
-	float: left;
-	width: 100%;
-}
-
-#navigation ul
-{
-	margin: 0;
-	padding: 0;
-}
-
-#navigation ul li
-{
-	list-style-type: none;
-	display: inline;
-}
-
-#navigation li a
-{
-	display: block;
-	float: left;
-	padding: 5px 10px;
-	color: #fff;
-	text-decoration: none;
-	border-right: 1px solid #fff;
-}
-
-#navigation li a:hover { background: #383; }
-
 #context
 {
 	float: left;
@@ -116,68 +86,6 @@ h1.logo {
 	-webkit-transform: rotate(-10deg); /* Safari and Chrome */
 }
 
-#menu {
-	overflow: hidden;
-	height: 4.5em;
-	background: #181818;
-	border-radius: 5px 5px 0px 0px;
-}
-
-#menu ul {
-	text-align: center;
-}
-
-#menu li {
-	display: inline-block;
-	padding: 0em 1.5em;
-	line-height: 4.5em;
-}
-
-#menu a {
-	display: block;
-	float: left;
-	margin-right: 0.12em;
-	padding: 0em 1em;
-	text-decoration: none;
-	text-transform: none;
-	font-size: 1.25em;
-	color: #AAAAAA;
-	outline: 0;
-}
-
-#menu .current_page_item {
-	color: #FFFFFF;
-}
-
-#menu .current_page_item a {
-	background: #359BED;
-	color: #FFFFFF;
-}
-
-#menu a:hover {
-	
-}
-
-.site-nav {
-	background: #272727;
-	color: #fff;
-}
-
-.site-nav a {
-	display: block;
-	color: #fff;
-	padding: 0.75em;
-	text-decoration: none;
-	border-top: solid 1px rgba(255, 255, 255, 0.1);
-}
-
-.site-nav a:first-child {
-	border-top: 0;
-}
-
-.site-nav a:last-child {
-	border-bottom: 0;
-}
 
 .button {
 	background: none repeat scroll 0 0 #E3E3E3;
@@ -262,21 +170,6 @@ input[type="text"]:focus
 	color: #ffffff;
 }
 
-a, a:link, a:active {
-	color: #464646;
-	-moz-transition:  color 0.3s linear 0s;
-	-webkit-transition:  color 0.3s linear 0s;
-	transition:  color 0.3s linear 0s;	
-	text-decoration:none;
-}
-a:visited {
-	color: #464646;
-} 
-
-a:hover{
-	color: #359BED;
-}
-
 .flag {
 	padding-right:4px;
 	width: 16px;
@@ -295,3 +188,18 @@ a:hover{
 	list-style-type: none;
 }
 
+
+a, a:link, a:active {
+	color: #464646;
+	-moz-transition:  color 0.3s linear 0s;
+	-webkit-transition:  color 0.3s linear 0s;
+	transition:  color 0.3s linear 0s;	
+	text-decoration:none;
+}
+a:visited {
+	color: #464646;
+} 
+
+a:hover{
+	color: #359BED;
+}

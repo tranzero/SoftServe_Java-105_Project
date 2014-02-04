@@ -9,6 +9,7 @@
 <tiles:getAsString name="title"/>
 </title>
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div class="headerStyle">
