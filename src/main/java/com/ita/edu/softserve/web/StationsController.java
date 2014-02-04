@@ -54,16 +54,20 @@ public class StationsController {
 	}
 
 	@RequestMapping(value = "/addStation", method = RequestMethod.GET)
-	public String addStation() {
+	public String addStations() {
 		return "addStation";
 	}
 
-	@RequestMapping(value = "/addStation", method = RequestMethod.POST)
+	@RequestMapping(value = "addStation", method = RequestMethod.POST)
 	public String addStationToBD(
 			@ModelAttribute("stationCode") String stationCode,
 			@ModelAttribute("stationName") String stationName,
 			Map<String, Object> modelMap) {
-		stationsManager.createStation(stationCode, stationName);
+		Stations station = new Stations();
+		station.setStationId(30);
+		station.setStationCode(stationCode);
+		station.setStationName(stationName);
+		stationsManager.saveStations(station);
 
 		return "redirect:/stations";
 	}

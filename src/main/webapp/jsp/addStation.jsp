@@ -14,7 +14,7 @@
 
 	<hr>
 
-	<form id="addstation" method="post" name="addstation">
+	<form id="addStation" method="post" name="/addStation" action="addStation">
 		<div>
 			<p>StationCode:</p>
 			<input id="stationCode" type="text" name="stationCode" size="20"

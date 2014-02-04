@@ -2,11 +2,10 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link href="<c:url value="/resources/css/style.css" />"
+		rel="stylesheet" type="text/css" />
 	<div id="context">
-		<%
-			int i = 0;
-		%>
-		<a class="button" href="addStation">Add Station</a>
+		<a href="addStation">Add Station</a>
 
 		<table border="1">
 		<thead>
@@ -20,7 +19,7 @@
 			<tbody>
 			<c:forEach var="station" items="${stationsList}">
 				<tr>
-					<td align="center"><%=++i%></td>
+					<td id="generate"></td>
 					<td align="center">${station.getStationCode()}</td>
 					<td align="center">${station.getStationName()}</td>
 					<td align="center"><a href="stationEdit/${station.getStationId()}">Edit</a>  
