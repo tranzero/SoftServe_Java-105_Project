@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <!-- <html> -->
 <!-- <head> -->
@@ -10,12 +12,12 @@
 <!-- <body> -->
 <div id="context">
 
-	<table border="1">
+	<table>
 		<tr>
-			<td>Transport Code</td>
-			<td>Start Time</td>
-			<td>Route Code</td>
-			<td>Line Name</td>
+			<th><spring:message code="label.transport.transportcode"/></th>
+			<th><spring:message code="label.transport.starttime"/></th>
+			<th><spring:message code="label.routes.routecode"/></th>
+			<th><spring:message code="label.lines.linename"/></th>
 		</tr>
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>
