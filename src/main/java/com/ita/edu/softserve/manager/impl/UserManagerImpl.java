@@ -108,4 +108,11 @@ public class UserManagerImpl implements UserManager {
 
 	}
 
+	/**
+	 * Find user by username
+	 */
+	@Override
+	public Users findByUsername(String username) {		
+		return (Users) userDao.findByUsername(username);
+	}
 }
