@@ -30,18 +30,23 @@
 			<p>Email</p>
 			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
 
-
-
 			<p>Password</p>
 			<input id="Passwd" type="text" name="Passwd"
 				value="${user.getPasswd()}">
 
 			<p>Role</p>
-			<input id="Role" type="text" name="Role" value="${user.getRole()}">
+			<select>
+				<c:forEach var="user" items="user">
+					<option selected value="${user.getRole()}">${user.getRole()}</option>
+					<option value="${Role.REGUSER}">REGUSER</option>
+					<option value="ADMIN">ADMIN</option>
+					<option value="MANAGER">MANAGER</option>
+				</c:forEach>
+			</select>
 
 
 			<p>
-				<input type="submit" value="Update USER" form="text">
+				<input type="submit" value="Update USER">
 			</p>
 			<br>
 
