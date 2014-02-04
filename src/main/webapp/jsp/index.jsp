@@ -9,7 +9,7 @@
 	<tr>
 	<th>News name</th>
 	<th>News Description</th>
-	<th>Date updated</th>
+	<th>Publishing Date</th>
 	</tr>
 	</thead>
 	<tbody>

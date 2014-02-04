@@ -18,7 +18,7 @@ public class IndexPageController {
 
 	@Autowired
 	private PostForMainPageManager posts;
-	
+
 	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
 
@@ -30,7 +30,6 @@ public class IndexPageController {
 		}
 		return "mainpage";
 	}
-
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
@@ -87,6 +86,12 @@ public class IndexPageController {
 
 	}
 
+	@RequestMapping(value = "/editnews/index", method = RequestMethod.GET)
+	public String cancelAction() {
+
+		return "redirect:/index";
+	}
+
 	@RequestMapping(value = "editnews/{editnews}", method = RequestMethod.GET)
 	public String editNews(@PathVariable("editnews") Integer postId,
 			Map<String, Object> modelMap) {
@@ -94,8 +99,8 @@ public class IndexPageController {
 		Post post;
 		try {
 			post = posts.findNews(postId);
-		
-		modelMap.put("post", post);
+
+			modelMap.put("post", post);
 		} catch (PostManagerExeption e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,8 +129,8 @@ public class IndexPageController {
 		Post post;
 		try {
 			post = posts.findNews(postId);
-		
-		modelMap.put("News", post);
+
+			modelMap.put("News", post);
 		} catch (PostManagerExeption e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
