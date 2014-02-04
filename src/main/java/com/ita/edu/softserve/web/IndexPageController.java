@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ita.edu.softserve.entity.Post;
+import com.ita.edu.softserve.exception.PostManagerExeption;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 
 @Controller
@@ -21,7 +22,12 @@ public class IndexPageController {
 	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
 
-		modelMap.put("newsList", posts.findPostList());
+		try {
+			modelMap.put("newsList", posts.findPostList());
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "mainpage";
 	}
 
@@ -29,14 +35,24 @@ public class IndexPageController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
 
-		modelMap.put("newsList", posts.findPostList());
+		try {
+			modelMap.put("newsList", posts.findPostList());
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "index";
 	}
 
 	@RequestMapping(value = "/indexwithdiv", method = RequestMethod.GET)
 	public String indexwithdiv(Map<String, Object> modelMap) {
 
-		modelMap.put("newsList", posts.findPostList());
+		try {
+			modelMap.put("newsList", posts.findPostList());
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "indexwithdiv";
 	}
 
@@ -49,14 +65,24 @@ public class IndexPageController {
 	public String addNewsToBD(@ModelAttribute("newsTitle") String newsTitle,
 			@ModelAttribute("newsDescription") String newsDescription,
 			Map<String, Object> modelMap) {
-		posts.createNews(newsTitle, newsDescription);
+		try {
+			posts.createNews(newsTitle, newsDescription);
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/delnews/{delnews}", method = RequestMethod.GET)
 	public String delNews(@PathVariable("delnews") Integer postId) {
-		posts.removeNews(postId);
+		try {
+			posts.removeNews(postId);
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/index";
 
 	}
@@ -65,8 +91,15 @@ public class IndexPageController {
 	public String editNews(@PathVariable("editnews") Integer postId,
 			Map<String, Object> modelMap) {
 
-		Post post = posts.findNews(postId);
+		Post post;
+		try {
+			post = posts.findNews(postId);
+		
 		modelMap.put("post", post);
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "editnews";
 	}
 
@@ -74,7 +107,12 @@ public class IndexPageController {
 	public String updateNewsToBD(@PathVariable("editnews") Integer newsId,
 			@ModelAttribute("newsTitle") String newsTitle,
 			@ModelAttribute("newsDescription") String newsDescription) {
-		posts.updateNews(newsId, newsTitle, newsDescription);
+		try {
+			posts.updateNews(newsId, newsTitle, newsDescription);
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "redirect:/index";
 	}
@@ -83,8 +121,15 @@ public class IndexPageController {
 	public String detailsNews(@PathVariable("detailsId") Integer postId,
 			Map<String, Object> modelMap) {
 
-		Post post = posts.findNews(postId);
+		Post post;
+		try {
+			post = posts.findNews(postId);
+		
 		modelMap.put("News", post);
+		} catch (PostManagerExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "detailsnews";
 	}
 
