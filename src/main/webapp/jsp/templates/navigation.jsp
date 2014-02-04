@@ -4,7 +4,31 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div id = "navigation" >
 <h2><spring:message code="label.navigation.title"/>[WIP]</h2>
-
+<nav id="navigation">
+	<ul>
+		<li><a href="mainpage"><spring:message code="label.navigation.news"/></a></li>
+		<li><spring:message code="label.navigation.timetable"/></li>
+		<ul>
+			<li><a href="stations"><spring:message code="label.navigation.stations"/></a></li>
+			<li><a href="routes"><spring:message code="label.navigation.routes"/></a></li>
+			<li><a href="transport"><spring:message code="label.navigation.transport"/></a></li>
+			<li><a href="transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
+		</ul>
+		<li><spring:message code="label.navigation.orders"/></li>
+		<li><spring:message code="label.navigation.editing"/></li>
+		<ul>
+			<li><a href="addnews"><spring:message code="label.navigation.addnews"/></a></li>
+			<li><a href="addStation"><spring:message code="label.navigation.addStation"/></a></li>
+			<li><a href="addLines"><spring:message code="label.navigation.addLines"/></a></li>
+			<li><a href="linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
+		</ul>
+		<li><spring:message code="label.navigation.users"/></li>
+		<ul>
+			<li><a href="userlist"><spring:message code="label.navigation.userlist"/></a></li>
+		</ul>
+	<ul>
+</nav>
+<%--
 <span class = "navigationPoint"><a href="mainpage"><spring:message code="label.navigation.news"/></a></span>
 
 <nav class="navigationGroup">
@@ -30,6 +54,6 @@
 	<span class="navigationHeader"><spring:message code="label.navigation.users"/></span>
 	<span class = "navigationPoint"><a href="userlist"><spring:message code="label.navigation.userlist"/></a></span>
 </nav>
-
+--%>
 
 </div>
