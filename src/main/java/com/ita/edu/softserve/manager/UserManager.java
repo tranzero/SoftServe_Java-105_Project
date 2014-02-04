@@ -47,5 +47,13 @@ public interface UserManager extends BaseManager {
 	 * @param id
 	 */
 	public void removeUser(Integer id);
+	
+	/**
+	 * Find a user by username
+	 * 
+	 * @param id
+	 * @return user
+	 */
+	public Users findByUsername(String username);
 
 }
