@@ -8,7 +8,6 @@
 <!-- <title>Find lines by certain Station</title> -->
 <!-- </head> -->
 <!-- <body> -->
-<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
 <div id="context">
 	<%
 			int i = 0;
