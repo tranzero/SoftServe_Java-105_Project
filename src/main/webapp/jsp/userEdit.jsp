@@ -37,7 +37,20 @@
 				value="${user.getPasswd()}">
 
 			<p>Role</p>
-			<input id="Role" type="text" name="Role" value="${user.getRole()}">
+			<select>
+				<c:forEach var="user" items="user">
+					<option selected value="${user.getRole()}">${user.getRole()}</option>
+					<option value="${Role.REGUSER}">REGUSER</option>
+					<option value="ADMIN">ADMIN</option>
+					<option value="MANAGER">MANAGER</option>
+				</c:forEach>
+			</select>
+
+
+			<p>
+				<input type="submit" value="Update USER">
+			</p>
+			<br>
 
 
 			<p>
