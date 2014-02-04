@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
-	type="text/css" />
 <div id="context">
 	<section>
 		<form action="transportTravelFind" method="get">
-			From: <input type="text" name="stationName1" placeholder='Stryy' />&nbsp;&nbsp;&nbsp;
-			To: <input type="text" name="stationName2" placeholder='Semenivka' />
+			From: <input type="text" name="stationName1" />&nbsp;&nbsp;&nbsp;
+			To: <input type="text" name="stationName2"/>
 			<input class="button" type="submit" name="submit" value="Find" />
 		</form>
 		<%-- Results --%>
