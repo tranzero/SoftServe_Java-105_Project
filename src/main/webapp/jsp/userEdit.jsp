@@ -30,8 +30,6 @@
 			<p>Email</p>
 			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
 
-
-
 			<p>Password</p>
 			<input id="Passwd" type="text" name="Passwd"
 				value="${user.getPasswd()}">
@@ -49,12 +47,6 @@
 
 			<p>
 				<input type="submit" value="Update USER">
-			</p>
-			<br>
-
-
-			<p>
-				<input type="submit" value="Update USER" form="text">
 			</p>
 			<br>
 
