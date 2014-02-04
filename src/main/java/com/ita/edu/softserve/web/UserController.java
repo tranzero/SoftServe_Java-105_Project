@@ -38,7 +38,7 @@ public class UserController {
 	}
 
 	/**
-	 * Edit a user
+	 * Update user
 	 * 
 	 * @param usId
 	 * @param modelMap
