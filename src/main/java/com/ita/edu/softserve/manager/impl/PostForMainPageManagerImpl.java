@@ -1,7 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
 
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -106,6 +105,20 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager  {
 					"Could not get post list count", e);
 		}
 	}
+	
+	@Override
+	public List<Post> getPostForPage(int from, int count)
+			throws PostManagerExeption {
+		try {
+			return postDao.getPostForOnePage(from, count);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new PostManagerExeption(
+					"Could not get post for one page",
+					e);
+		}
+	}
+
 	
 	public static PostForMainPageManager getInstance() {
 		return ManagerFactory.getManager(PostForMainPageManager.class); 

@@ -103,4 +103,10 @@ public abstract class AbstractDAO<E> extends BaseEntity implements AbstractDAOIf
             return null;
         }
     }
+	
+	@SuppressWarnings("unchecked")
+    public List<? extends BaseEntity> getRange(int from, int count, Query query) {
+        query = query.setFirstResult(from).setMaxResults(count);
+        return query.getResultList();
+    }
 }

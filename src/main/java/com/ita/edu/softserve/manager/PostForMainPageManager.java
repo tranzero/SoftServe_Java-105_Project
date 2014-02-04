@@ -22,4 +22,6 @@ public interface PostForMainPageManager extends BaseManager {
 			String newsDescription) throws PostManagerExeption;
 	public long getPostListCount() throws PostManagerExeption;
 
+	public List<Post> getPostForPage(int from, int count) throws PostManagerExeption;
+
 }
