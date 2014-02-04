@@ -17,6 +17,7 @@ public class LinesController {
 
 	@Autowired
 	private LinesManager linesManager;
+	
 	@Autowired
 	private StationsManager stationsManager;
 
@@ -52,25 +53,25 @@ public class LinesController {
 		return "allLines";
 	}
 
-	@RequestMapping(value = "/lines", method = RequestMethod.GET)
+	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
-		return "lines";
+		return "linesbytwostations";
 	}
 
-	@RequestMapping(value = "/linesFind", method = RequestMethod.GET)
+	@RequestMapping(value = "/linesbytwostationsFind", method = RequestMethod.GET)
 	public String getLinesByTwoStations(
 			@RequestParam("stationName1") String stationName1,
 			@RequestParam("stationName2") String stationName2,
 			Map<String, Object> model) {
 
 		if (stationName1.equals("") || stationName2.equals("")) {
-			return "lines";
+			return "linesbytwostations";
 		}
 
 		model.put("LinesList", linesManager.getLinesTwoStationsCertainOrder(
 				stationName1, stationName2));
 
-		return "lines";
+		return "linesbytwostations";
 	}
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.GET)
