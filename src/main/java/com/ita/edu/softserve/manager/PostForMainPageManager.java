@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.entity.Post;
+import com.ita.edu.softserve.exception.PostManagerExeption;
 
 @Service
 public interface PostForMainPageManager extends BaseManager {
@@ -19,5 +20,6 @@ public interface PostForMainPageManager extends BaseManager {
 
 	public void updateNews(Integer newsId, String newsTitle,
 			String newsDescription);
+	public long getPostListCount() throws PostManagerExeption;
 
 }

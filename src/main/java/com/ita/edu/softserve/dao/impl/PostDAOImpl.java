@@ -1,5 +1,9 @@
 package com.ita.edu.softserve.dao.impl;
 
+
+
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
@@ -13,6 +17,11 @@ public class PostDAOImpl extends AbstractDAO<Post> implements PostDAO{
 	public Class<Post> getEntityClass() {
 		
 		return Post.class;
+	}
+
+	public long getPostListCount() {
+		return (long) find((Query)entityManager
+					.createNamedQuery(Post.FIND_POST_LIST_COUNT));
 	}
 
 	
