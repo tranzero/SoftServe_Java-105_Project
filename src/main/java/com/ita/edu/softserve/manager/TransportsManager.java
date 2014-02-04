@@ -3,6 +3,7 @@ package com.ita.edu.softserve.manager;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
  * @author Roman
@@ -38,7 +39,7 @@ public interface TransportsManager extends BaseManager {
 	 * Get transport by two stations
 	 * in certain order
 	 */
-	public List<Transports> getTransportByTwoStations(String stationName1,
+	public List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2);
 
 }
