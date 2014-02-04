@@ -5,8 +5,8 @@
 <link href="<c:url value="/resources/css/style.css" />"
 		rel="stylesheet" type="text/css" />
 	<div id="context">
-		<a href="addStation">Add Station</a>
-
+	
+<a class="button" href="addStation">Add Station</a>
 		<table border="1">
 		<thead>
 			<tr>
