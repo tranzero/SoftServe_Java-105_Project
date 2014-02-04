@@ -1,10 +1,13 @@
 package com.ita.edu.softserve.dao;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.ita.edu.softserve.entity.BaseEntity;
 
@@ -92,4 +95,12 @@ public abstract class AbstractDAO<E> extends BaseEntity implements AbstractDAOIf
 	 * @return Class<E>
 	 */
 	public abstract Class<E> getEntityClass();
+	
+	public Object find(Query query) {
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

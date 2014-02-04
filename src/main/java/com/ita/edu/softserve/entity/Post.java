@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.entity;
 
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,11 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "posts")
+
+	
+@NamedQueries(value = { @NamedQuery(name = Post.FIND_POST_LIST_COUNT, query = Post.FIND_POST_LIST_COUNT_QUERY)})
+	
+
 public class Post extends BaseEntity{
+	public static final String FIND_POST_LIST_COUNT = "Post.findPostListCount";
+    public static final String FIND_POST_LIST_COUNT_QUERY = "SELECT COUNT (news.postId) from Post news";
+	
 	@Id
 	@Column(name = "POSTID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
