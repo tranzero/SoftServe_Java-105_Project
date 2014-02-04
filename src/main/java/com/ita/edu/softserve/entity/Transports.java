@@ -39,7 +39,7 @@ public class Transports extends BaseEntity {
 	@Id
 	@Column(name = "TRANSPORTID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int transportId;
+	private Integer transportId;
 
 	@Column(name = "TRANSPORTCODE", nullable = false, length = 20)
 	private String transportCode;
@@ -55,18 +55,18 @@ public class Transports extends BaseEntity {
 		super();
 	}
 
-	public Transports(int transportId, String transportCode, Time startTime) {
+	public Transports(Integer transportId, String transportCode, Time startTime) {
 		this();
 		this.transportId = transportId;
 		this.transportCode = transportCode;
 		this.startTime = startTime;
 	}
 
-	public int getTransportId() {
+	public Integer getTransportId() {
 		return transportId;
 	}
 
-	public void setTransportId(int transportId) {
+	public void setTransportId(Integer transportId) {
 		this.transportId = transportId;
 	}
 
