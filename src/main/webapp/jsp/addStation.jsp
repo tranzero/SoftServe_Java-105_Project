@@ -9,7 +9,7 @@
 <!-- </head> -->
 <!-- <body> -->
 <div id="context">
-	<h1>Add New Station</h1>
+	<h1 style="text-align: center">Add New Station</h1>
 	<hr />
 
 	<hr>

@@ -9,7 +9,7 @@
 <!-- </head> -->
 <!-- <body> -->
 <div id="context">
-	<h1>Edit Station</h1>
+	<h1 style="text-align: center">Edit Station</h1>
 	<hr />
 
 	<hr>
@@ -30,7 +30,7 @@
 
 			<p>
 				<input type="submit" value="Update Station"> 
-				<input type="button" value="Cancel" onclick="window.location='stations';">
+				<input type="button" value="Cancel" onclick="window.location='/SoftServe_Java-105/stations';">
 			</p>
 			<br>
 
