@@ -14,7 +14,8 @@
 
 	<hr>
 
-	<form id="addStation" method="post" name="/addStation" action="addstat" style="text-align:center">
+	<form id="addStation" method="post" name="/addStation" action="addstat"
+		style="text-align: center">
 		<div>
 			<p>StationCode:</p>
 			<input id="stationCode" type="text" name="stationCode">
@@ -22,7 +23,8 @@
 			<p>StationName:</p>
 			<input id="stationName" type="text" name="stationName"> <br>
 			<p>
-				<input type="submit" value="ADD NEW STATION">
+				<input type="submit" value="Add Station"> 
+				<input type="button" value="Cancel" onclick="window.location='stations';">
 			</p>
 		</div>
 	</form>
