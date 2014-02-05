@@ -11,6 +11,14 @@
 <link href="<c:url value="/resources/css/layout.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" type="text/css" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="resources/css/paging.css">
+<script src="resources/js/jquery.bootpag.js"></script>
+<script src="resources/js/initPaging.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
