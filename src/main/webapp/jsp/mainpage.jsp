@@ -4,8 +4,7 @@
 <%@ page session="true"%>
 
 <link rel="stylesheet" href="resources/css/paging.css">
-<script src="resources/js/jquery.bootpag.js"></script>
-<script src="resources/js/initPaging.js"></script>
+
 <script>
 function onPagingEvent(event, num, resultsPerPage){
 	var elementSelectorForResult = "div#newscontent";
@@ -13,7 +12,7 @@ function onPagingEvent(event, num, resultsPerPage){
 		async : false,
 		beforeSend : function(){$(elementSelectorForResult).html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
 		type: "POST",
-		url: "/mainpagepost",
+		url: "mainpage",
 		data: { pageNumber: num - 1, resultsPerPage: resultsPerPage }
 		})
 		.done(function( msg ) {
@@ -28,14 +27,14 @@ $(document).ready(function(){
 	initPageWithPaging(maxPageCount, sizeOfPaging, onPagingEvent);
 });
 </script>
-<div id = "content">
+
 <div id="newscontent">
 		<h1>
 			News
 		</h1>
 		
-	<div id="pagecontent"></div>
-	<div id="pagination"></div>	
+	
 		
 </div>
-</div>
+<div id="pagecontent"></div>
+	<div id="pagination"></div>	

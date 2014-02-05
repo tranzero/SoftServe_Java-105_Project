@@ -36,7 +36,7 @@ function showOldestBlackListIpAddresses() {
 										'<img src="resources/images/loading.gif" style="width:100; height:28;">');
 						$.ajax({
 							type : "POST",
-							url : "/mainpagepost",
+							url : "/mainpage",
 							data : {
 								pageNumber : "0",
 								resultsPerPage : "10"
@@ -62,7 +62,7 @@ function showOldestBlackListIpAddresses() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpagepost",
+																url : "/mainpage",
 																data : {
 																	pageNumber : prevPageNumber,
 																	resultsPerPage : prevResultsPerPage
@@ -95,7 +95,7 @@ function showOldestBlackListIpAddresses() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpagepost",
+																url : "/mainpage",
 																data : {
 																	pageNumber : nextPageNumber,
 																	resultsPerPage : nextResultsPerPage

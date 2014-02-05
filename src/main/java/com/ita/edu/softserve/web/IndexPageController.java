@@ -49,9 +49,9 @@ public class IndexPageController {
 		
 	}
 	
-	@RequestMapping(value = "/mainpagepost", method = RequestMethod.POST)
-	public String mainPagePost(@RequestParam int pageNumber,
-			@RequestParam int resultsPerPage, Map<String, Object> modelMap) {
+	@RequestMapping(value = "/mainpage", method = RequestMethod.POST)
+	public String mainPagePost(@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("resultsPerPage") int resultsPerPage, Map<String, Object> modelMap) {
 
 		
 		try {
