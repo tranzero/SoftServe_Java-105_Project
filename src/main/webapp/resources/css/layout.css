@@ -9,7 +9,7 @@ html {
 
 body {
 	height: 100%;
-	min-width: 1100px;
+	min-width: 980px;
 	max-width: 1400px;
 	margin: 0 auto;
 	min-height: 100%;
@@ -20,7 +20,8 @@ body {
 /* Header */
 header {
 	display:block;
-	height: 120px;
+	height: 140px;
+	background-color:#999;
 }
 
 header > div#logo {
@@ -28,6 +29,7 @@ header > div#logo {
 	display:block;	
 	float:left;
 }
+
 header > div#language {
 	display:block;	
 	float:right;
@@ -36,33 +38,29 @@ header > div#language {
 }
 
 nav {
-        background: none repeat scroll 0 0 #434343;
-	min-width: 1100px;
-	max-width: 1400px;
-	height:44px;
+	background-color: #999;
+	height:44px;       
 }
 
 /* Context */
-#context {
+section#content {
         margin-left:auto;
         margin-right:auto;
-	padding: 0 0 100px;
-	padding-top:40px;
-	width:80%;
+	padding: 40px 0 100px 40px;
+	width:980px;
 	min-height:400px;
+	background-color: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
 /* Footer */
 footer {
         font-size: 0.7em;
-        background: none repeat scroll 0 0 #333;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url("../images/bg-footer-noise.jpg");
-        background-repeat: repeat-x, repeat;
-        background-size: 100px 15px, 140px 140px;
         color: #777777;
+        margin-left:auto;
+        margin-right:auto;
 	padding:40px;
-	min-width: 1100px;
-	max-width: 1400px;
+	width:980px;
 	height: 40px;
 }
 
