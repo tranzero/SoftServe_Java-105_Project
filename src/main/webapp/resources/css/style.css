@@ -8,6 +8,7 @@ body {
 }
 
 table {
+	counter-reset: n;
 	width: 80%;
 	border-collapse: collapse;
 	border-size: 1px;
