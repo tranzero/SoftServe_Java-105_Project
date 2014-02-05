@@ -60,7 +60,7 @@ public class Users extends BaseEntity {
 	@Column(name = "EMAIL", nullable = false,updatable = true, length = 100)
 	private String eMail;
 
-	@Column(name = "PASSWD", nullable = true,updatable = true, length = 100)
+	@Column(name = "PASSWD", nullable = false,updatable = true, length = 100)
 	private String passwd;
 
 	@Column(name = "REGDATE", nullable = true)

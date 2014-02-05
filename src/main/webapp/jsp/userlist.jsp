@@ -41,7 +41,10 @@
 							id="userEdit2" type="button" name="userEdit2" value="EDIT2"></a></br></td>
 
 
-					<td><a href="userdel/${user.getUserId()}">DELETE</a></br>
+					<td><a href="userdel/${user.getUserId()}">
+					 <input
+							id="userdel" type="button" name="userdel" value="DELETE">
+					</a></br>
 					</td>
 
 
