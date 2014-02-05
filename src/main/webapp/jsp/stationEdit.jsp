@@ -14,7 +14,8 @@
 
 	<hr>
 
-	<form id="stationEdit" method="post" name="statEdit" style="text-align:center">
+	<form id="stationEdit" method="post" name="statEdit"
+		style="text-align: center">
 		<input id="stationId" type="hidden" name="stationId"
 			value="${station.getStationId()}">
 
@@ -28,12 +29,12 @@
 				value="${station.getStationName()}">
 
 			<p>
-				<input type="submit" value="Update Station" form="text">
+				<input type="submit" value="Update Station"> 
+				<input type="button" value="Cancel" onclick="window.location='stations';">
 			</p>
 			<br>
 
 		</div>
-
 
 	</form>
 </div>

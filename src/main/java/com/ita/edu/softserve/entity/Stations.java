@@ -22,14 +22,14 @@ public class Stations extends BaseEntity {
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
 
 	@Id
-	@Column(name = "STATIONID")
+	@Column(name = "STATIONID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer stationId;
 
-	@Column(name = "STATIONCODE", unique = true)
+	@Column(name = "STATIONCODE", unique = true, nullable = false)
 	private String stationCode;
 
-	@Column(name = "STATIONNAME", length = 100)
+	@Column(name = "STATIONNAME", length = 100, nullable = false)
 	private String stationName;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
