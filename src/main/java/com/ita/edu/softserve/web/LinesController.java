@@ -33,9 +33,23 @@ public class LinesController {
 		return "updateLines";
 	}
 	
+	@RequestMapping(value = "/addStationToLine", method = RequestMethod.GET)
+	public String addStationToLine(Map<String, Object> modelMap) {
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "addStationToLine";
+	}
+
 	@RequestMapping(value = "updateLines/{updateLines}", method = RequestMethod.GET)
-	public String update(@PathVariable("updateLines") String lineName){		
+	public String update(@PathVariable("updateLines") String lineName,
+			Map<String, Object> modelMap) {
+		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));
 		return "updateLine";
+	}
+
+	@RequestMapping(value = "removeStationOnLine/{removeStationOnLine}", method = RequestMethod.GET)
+	public String removeStation(
+			@PathVariable("removeStationOnLine") String stationName) {
+		return "redirect:/updateLine";
 	}
 
 	@RequestMapping(value = "removeLines/{removeLines}", method = RequestMethod.GET)

@@ -10,7 +10,21 @@
 <!-- <body> -->
 <div id="context">
 	<h1>Update Lines</h1>
-	Name of the line: <input type="text" name="lineName", value="${updateLines}">
+	Name of the line: <input type="text" name="lineName"
+		value="${updateLines}"><br>
+	<table>
+		<tr>
+			<td align="center">Stations:</td>
+			<td align="center"></td>
+		</tr>
+		<c:forEach var="station" items="${stationsList}">
+			<tr>
+				<td align="center">${station.getStationName()}</td>
+				<td align="center"><a href="removeStationOnLine/${station.getStationName()}/${updateLines}">delete </a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<a class="button" href="addStationToLine">Add Station To Line</a>
 </div>
 <!-- </body> -->
 <!-- </html> -->
