@@ -6,27 +6,27 @@
 <h2><spring:message code="label.navigation.title"/>[WIP]</h2> --%>
 <nav id="navigation">
 	<ul class="menu">
-		<li><a href="mainpage"><spring:message code="label.navigation.news"/></a></li>
+		<li><a href="/SoftServe_Java-105/mainpage"><spring:message code="label.navigation.news"/></a></li>
 		<li><spring:message code="label.navigation.timetable"/>
 		<ul class="submenu">
-			<li><a href="stations"><spring:message code="label.navigation.stations"/></a></li>
-			<li><a href="routes"><spring:message code="label.navigation.routes"/></a></li>
-			<li><a href="transport"><spring:message code="label.navigation.transport"/></a></li>
-			<li><a href="transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
+			<li><a href="/SoftServe_Java-105/stations"><spring:message code="label.navigation.stations"/></a></li>
+			<li><a href="/SoftServe_Java-105/routes"><spring:message code="label.navigation.routes"/></a></li>
+			<li><a href="/SoftServe_Java-105/transport"><spring:message code="label.navigation.transport"/></a></li>
+			<li><a href="/SoftServe_Java-105/transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
 		</ul>
 		</li>
 		<li><spring:message code="label.navigation.orders"/></li>
 		<li><spring:message code="label.navigation.editing"/>
 		<ul class="submenu">
-			<li><a href="addnews"><spring:message code="label.navigation.addnews"/></a></li>
-			<li><a href="addStation"><spring:message code="label.navigation.addStation"/></a></li>
-			<li><a href="addLines"><spring:message code="label.navigation.addLines"/></a></li>
-			<li><a href="linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
+			<li><a href="/SoftServe_Java-105/addnews"><spring:message code="label.navigation.addnews"/></a></li>
+			<li><a href="/SoftServe_Java-105/addStation"><spring:message code="label.navigation.addStation"/></a></li>
+			<li><a href="/SoftServe_Java-105/addLines"><spring:message code="label.navigation.addLines"/></a></li>
+			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 		</ul>
 		</li>
 		<li><spring:message code="label.navigation.users"/>
 		<ul class="submenu">
-			<li><a href="userlist"><spring:message code="label.navigation.userlist"/></a></li>
+			<li><a href="/SoftServe_Java-105/userlist"><spring:message code="label.navigation.userlist"/></a></li>
 		</ul>
 		</li>
 	</ul>
