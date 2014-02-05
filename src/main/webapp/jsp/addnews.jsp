@@ -12,7 +12,7 @@
 		<p>Enter the Description of News that you want add News:</p>
 
 		<textarea name="newsDescription" id="newsDescription"></textarea>
-		<p><input type="submit" value="ADD NEWS">    <a href='index'><input id="cancelnews" type="button" name="cancelnews" value="CANCEL"></a> </p>
+		<p><input type="submit" value="ADD NEWS">    <a href='managenews'><input id="cancelnews" type="button" name="cancelnews" value="CANCEL"></a> </p>
 		<br>
 		</div>
 	</form>

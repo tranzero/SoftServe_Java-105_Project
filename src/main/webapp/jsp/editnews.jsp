@@ -14,7 +14,7 @@
 		<p>Edit the Description of News that you want change News:</p>
 
 		<textarea name="newsDescription" id="newsDescription">${post.getDescription()}</textarea>
-		<p><input type="submit" value="Update NEWS"> <a href='index'><input id="cancelnews" type="button" name="cancelnews" value="CANCEL"></a></p>
+		<p><input type="submit" value="Update NEWS"> <a href='managenews'><input id="cancelnews" type="button" name="cancelnews" value="CANCEL"></a></p>
 		<br>
 		</div>
 	</form>
