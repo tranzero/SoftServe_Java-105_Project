@@ -5,17 +5,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <section id="content">
-	<a href="formTransport.htm">Add transport</a>
 	<table>
 		<tr>
-			<th><spring:message code="label.transport.transportcode" /></th>
-			<th><spring:message code="label.transport.starttime" /></th>
-			<th><spring:message code="label.routes.routecode" /></th>
-			<th><spring:message code="label.lines.linename" /></th>
-			<th>Seatclass1</th>
-			<th>Seatclass2</th>
-			<th>Seatclass3</th>
-			<th>Price</th>
+			<th><spring:message code="label.transport.transportcode"/></th>
+			<th><spring:message code="label.transport.starttime"/></th>
+			<th><spring:message code="label.routes.routecode"/></th>
+			<th><spring:message code="label.lines.linename"/></th>
+			<th><spring:message code="label.transport.seatclass1"/></th>
+			<th><spring:message code="label.transport.seatclass2"/></th>
+			<th><spring:message code="label.transport.seatclass3"/></th>
+			<th><spring:message code="label.transport.genprice"/></th>
 		</tr>
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>

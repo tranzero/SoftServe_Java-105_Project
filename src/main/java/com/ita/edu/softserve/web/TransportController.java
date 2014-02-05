@@ -75,11 +75,11 @@ public class TransportController {
 		Transports transport = transportsManager
 				.createTransport(transportCode, startTime, routes, seatclass1,
 						seatclass2, seatclass3, genprice);
-		try {
+//		try {
 			transportsManager.saveOrUpdateTransport(transport);
-		} catch (Exception e) {
-			LOGGER.error(e);
-		}
+//		} catch (Exception e) {
+//			LOGGER.error(e);
+//		}
 		return "redirect:/transport";
 	}
 
