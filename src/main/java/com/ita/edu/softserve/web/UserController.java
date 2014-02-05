@@ -88,10 +88,10 @@ public class UserController {
 	//--2
 	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
-			@ModelAttribute("firstName") String firstName,
+			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("eMail") String eMail,
-			@ModelAttribute("passwd") String passwd
+			@ModelAttribute("Passwd") String passwd
 
 	) {
 		usersmanage.updateUser2(userId, firstName, lastName, eMail, passwd);
