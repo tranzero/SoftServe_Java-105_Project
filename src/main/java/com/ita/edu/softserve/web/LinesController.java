@@ -37,22 +37,10 @@ public class LinesController {
 	
 	@RequestMapping(value="/addLines", method= RequestMethod.GET)
 	public String addLines(Map<String, Object> modelMap){
-		modelMap.put("stationsList", stationsManager.findAllStations());
-		return "addLines";
-	}
-	//Not Finished
-	@RequestMapping(value="/addLines", method = RequestMethod.POST)
-	public String addNewLine(@ModelAttribute("name") String name){
-		linesManager.createLine(name);
-		return "addLines";
-	}
-
-	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
-	public String allLines(Map<String, Object> modelMap) {
 		modelMap.put("linesList", linesManager.getFullLines());
-		return "allLines";
+		return "addLines";
 	}
-
+	
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";
