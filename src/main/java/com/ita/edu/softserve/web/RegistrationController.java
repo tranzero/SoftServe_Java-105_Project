@@ -18,7 +18,7 @@ public class RegistrationController {
 	private UserManager usersManager;
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String registerUser(	Map<String, Object> model) {
+	public String register(	Map<String, Object> model) {
 		return "registration";
 	}
 	
@@ -29,10 +29,20 @@ public class RegistrationController {
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			Map<String, Object> model) {
-		usersManager.createUser(userName, firstName, lastName, email, password, Role.REGUSER);
-		return "redirect:/index";
+		try {
+			usersManager.createUser(userName, firstName, lastName, email, password, Role.REGUSER);
+		}
+		catch (IllegalArgumentException iae) {
+			return "redirect:/regError";
+		}
+		return "redirect:/mainpage";
 
 	}
+	@RequestMapping(value="/regError", method = RequestMethod.GET)
+	public String regError( Map<String, Object> model) {
+		return "regError";
+	}
+	
 }
 
 	
