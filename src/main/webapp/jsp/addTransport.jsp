@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div id="context">
+<section id="content">
 	<h2>Transport adding</h2>
 
 	<form action="addTransport.htm" " method="post" name="transport">
@@ -68,4 +68,4 @@
 			</tr>
 		</table>
 	</form:form> --%>
-</div>
+</section>

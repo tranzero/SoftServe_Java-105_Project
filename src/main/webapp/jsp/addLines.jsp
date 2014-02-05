@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id="context">
+<section id="content">
 	<h1>All Lines</h1>
 	<%
 		int i = 0;
@@ -22,4 +22,4 @@
 			</tr>
 		</c:forEach>
 	</table>
-</div>
+</section>

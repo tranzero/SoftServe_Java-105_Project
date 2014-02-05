@@ -9,7 +9,7 @@
 	}
 </script>
 
-<div id="context">
+<section id="content">
 	<table border="1">
 		<thead>
 			<tr >
@@ -37,4 +37,4 @@
 			</c:forEach>
 		</tbody>
 	</table>
-</div>
+</section>

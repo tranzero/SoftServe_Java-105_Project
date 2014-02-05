@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id="context">
+<section id="content">
 		<div>
 		<p>News Title</p>
 		<p>${News.getTitle()}</p>	
@@ -13,5 +13,4 @@
 		</div>
 		<br>
 	
-	</div>
-	
+</section>	

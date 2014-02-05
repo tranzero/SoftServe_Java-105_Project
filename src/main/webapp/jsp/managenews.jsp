@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id=context>
+<section id="content">
 <a href='addnews'><input id="addnews" type="button" name="addnewsr" value="ADD News"></a>
 <table>
 	<thead>
@@ -26,4 +26,4 @@
 	</c:forEach>
 	</tbody>
 </table>
-</div>
+</section>
