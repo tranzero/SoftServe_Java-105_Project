@@ -11,7 +11,6 @@
 <div id="context">
 	<h1>List of Users</h1>
 
-
 	<hr />
 
 	<table class='table'>
@@ -22,6 +21,9 @@
 				<th>First name</th>
 				<th>Last name</th>
 				<th>Email</th>
+				<th>Password</th>
+				<th>Role</th>
+				<th>Date of Regist</th>
 
 			</tr>
 		</thead>
@@ -32,21 +34,22 @@
 					<td>${user.getUserName() }</td>
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
-					<td>${user.geteMail() }
+					<td>${user.geteMail() }</td>
+					<td>${user.getPasswd()}</td>
+					<td>${user.getRole()}</td>
+					<td>${user.getRegDate()}</td>
+
 					<td><a href="userEdit/${user.getUserId()}"> <input
-							id="userEdit" type="button" name="userEdit" value="EDIT User"></a></br>
-							</td>
+							id="userEdit" type="button" name="userEdit" value="EDIT User">
+					</a></br></td>
 
 					<td><a href="userEdit2/${user.getUserId()}"> <input
-							id="userEdit2" type="button" name="userEdit2" value="EDIT2"></a></br></td>
+							id="userEdit2" type="button" name="userEdit2" value="EDIT2">
+					</a></br></td>
 
-
-					<td><a href="userdel/${user.getUserId()}">
-					 <input
+					<td><a href="userdel/${user.getUserId()}"> <input
 							id="userdel" type="button" name="userdel" value="DELETE">
-					</a></br>
-					</td>
-
+					</a></br></td>
 
 				</tr>
 			</c:forEach>
