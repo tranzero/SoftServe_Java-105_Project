@@ -21,24 +21,24 @@ public class LinesController {
 	@Autowired
 	private StationsManager stationsManager;
 
-	@RequestMapping(value = "/removeLines", method = RequestMethod.GET)
-	public String removeLine(Map<String, Object> modelMap) {
-		modelMap.put("linesList", linesManager.getFullLines());
-		return "removeLines";
-	}
-
 	@RequestMapping(value = "/removeLines", method = RequestMethod.POST)
 	public String remove(@ModelAttribute("lineName") String lineName,
 			Map<String, Object> modelMap) {
 		linesManager.deleteLine(lineName);
 		modelMap.put("linesList", linesManager.getFullLines());
-		return "removeLines";
+		return "addLines";
 	}
 	
-	@RequestMapping(value="/addLines", method= RequestMethod.GET)
+	@RequestMapping(value="/addLines", method = RequestMethod.GET)
 	public String addLines(Map<String, Object> modelMap){
 		modelMap.put("linesList", linesManager.getFullLines());
 		return "addLines";
+	}
+	
+	@RequestMapping(value="/addNewLine", method = RequestMethod.GET)
+	public String addNewLine(Map<String, Object> modelMap){
+		
+		return "updateLines";
 	}
 	
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)

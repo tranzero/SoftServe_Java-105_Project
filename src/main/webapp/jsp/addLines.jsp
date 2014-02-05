@@ -13,6 +13,7 @@
 	<%
 		int i = 0;
 	%>
+	<a class="button" href="addNewLine">Add Line</a>
 	<table border="1">
 		<tr>
 			<td align="center">Number</td>
