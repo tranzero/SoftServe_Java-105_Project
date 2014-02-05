@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `lines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lines` (
-  `LINEID` int(10) unsigned NOT NULL,
+  `LINEID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `LINENAME` varchar(100) NOT NULL,
   PRIMARY KEY (`LINEID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
