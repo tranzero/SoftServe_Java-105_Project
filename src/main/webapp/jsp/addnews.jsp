@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset= UTF 8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div id = "context">
+<section id="content">
 	
 	
 	<form id="addnews" method="post" name="/addnews" action="addnews">
@@ -17,4 +17,4 @@
 		</div>
 	</form>
 
-</div>
+</section>

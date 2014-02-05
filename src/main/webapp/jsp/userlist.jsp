@@ -8,7 +8,7 @@
 <!-- <title>Main Page With Funny Users</title> -->
 <!-- </head> -->
 <!-- <body> -->
-<div id="context">
+<section id="content">
 	<h1>List of Users</h1>
 
 	<hr />
@@ -56,6 +56,6 @@
 		</tbody>
 	</table>
 	<hr />
-</div>
+</section>
 <!-- </body> -->
 <!-- </html> -->

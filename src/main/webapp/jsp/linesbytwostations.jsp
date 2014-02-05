@@ -3,8 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<div id="context">
-	<section>
+<section id="content">
 		<form:form action="linesbytwostationsFind" method="get">
 <%--		        <form:label path="stationName1">From:</form:label>
 		        <form:input path="stationName1" />
@@ -34,5 +33,4 @@
 			<h3>Sorry. No results was found</h3>
 			<hr />
 		</c:if>
-	</section>
-</div>
+</section>

@@ -9,7 +9,7 @@
 </head>
 
 <body>-->
-<div id = "context">
+<section id="content">
 <div id="routesPage">
 	<div id="routesMenu">
 	
@@ -45,6 +45,6 @@
 
 
 </div>
-</div><!-- 
+</section><!-- 
 </body>
 </html> -->

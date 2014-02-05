@@ -9,7 +9,7 @@
 <!-- <title>Find lines by certain Station</title> -->
 <!-- </head> -->
 <!-- <body> -->
-<div id="context">
+<section id="content">
 	<%
 			int i = 0;
 		%>
@@ -31,6 +31,6 @@
 		</table>
 		<hr />
 	</c:if>
-		</div>
+</section>
 <!-- </body> -->
 <!-- </html> -->

@@ -8,7 +8,7 @@
 <!-- <title>Insert title here</title> -->
 <!-- </head> -->
 <!-- <body> -->
-<div id="context">
+<section id="content">
 	<h1 style="text-align: center">Edit Station</h1>
 	<hr />
 
@@ -37,6 +37,6 @@
 		</div>
 
 	</form>
-</div>
+</section>
 <!-- </body> -->
 <!-- </html> -->

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<div id="context">
+<section id="content">
 	<section>
 		<form:form action="transportTravelFind" method="get">
 			From: <input type="text" name="stationName1" />&nbsp;&nbsp;&nbsp;
@@ -41,4 +41,4 @@
 			<hr />
 		</c:if>
 	</section>
-</div>
+</section>

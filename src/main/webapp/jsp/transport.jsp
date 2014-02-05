@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div id="context">
+<section id="content">
 	<a href="formTransport.htm">Add transport</a>
 	<table>
 		<tr>
@@ -29,4 +29,4 @@
 				<td align="center">${transport.getGenPrice()}</td>
 		</c:forEach>
 	</table>
-</div>
+</section>

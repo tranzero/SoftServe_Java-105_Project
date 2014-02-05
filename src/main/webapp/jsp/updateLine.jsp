@@ -8,7 +8,7 @@
 <!-- <title>Insert title here</title> -->
 <!-- </head> -->
 <!-- <body> -->
-<div id="context">
+<section id="content">
 	<h1>Update Lines</h1>
 	Name of the line: <input type="text" name="lineName"
 		value="${updateLines}"><br>
@@ -25,6 +25,6 @@
 		</c:forEach>
 	</table>
 	<a class="button" href="addStationToLine">Add Station To Line</a>
-</div>
+</section>
 <!-- </body> -->
 <!-- </html> -->
