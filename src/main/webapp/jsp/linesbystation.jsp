@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <!-- <html> -->
 <!-- <head> -->
@@ -13,10 +14,10 @@
 			int i = 0;
 		%>
 <h1 >Lines Search</h1>
-<form action="findlinesbyStation" method="get">
+<form:form action="findlinesbyStation" method="get">
 		Enter station name : <input type="text" name="stationname" />
 		<input class="button" type="submit" name="submit" value="Find" />
-	</form>
+	</form:form>
 	 <c:if test="${!empty linesbystationlist}">
 		<hr />
 		<table>
