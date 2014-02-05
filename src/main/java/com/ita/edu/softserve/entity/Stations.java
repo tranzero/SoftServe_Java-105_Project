@@ -24,12 +24,12 @@ public class Stations extends BaseEntity {
 	@Id
 	@Column(name = "STATIONID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int stationId;
+	private Integer stationId;
 
-	@Column(name = "STATIONCODE", unique = true, nullable = false)
+	@Column(name = "STATIONCODE", unique = true)
 	private String stationCode;
 
-	@Column(name = "STATIONNAME", length = 100, nullable = false)
+	@Column(name = "STATIONNAME", length = 100)
 	private String stationName;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
@@ -48,14 +48,17 @@ public class Stations extends BaseEntity {
 	 *            Constructor with parametrs stationCode, stationName.
 	 */
 	public Stations(String stationCode, String stationName) {
-		this.stationCode = stationCode;
-		this.stationName = stationName;
+		this();
+		org.apache.commons.lang.Validate.notEmpty(stationCode);
+		org.apache.commons.lang.Validate.notEmpty(stationName);
+		this.setStationCode(stationCode);
+		this.setStationName(stationName);
 	}
 
 	/**
 	 * @return the stationId
 	 */
-	public int getStationId() {
+	public Integer getStationId() {
 		return stationId;
 	}
 
@@ -63,7 +66,7 @@ public class Stations extends BaseEntity {
 	 * @param stationId
 	 *            the stationId to set
 	 */
-	public void setStationId(int stationId) {
+	public void setStationId(Integer stationId) {
 		this.stationId = stationId;
 	}
 

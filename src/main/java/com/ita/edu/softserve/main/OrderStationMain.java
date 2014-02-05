@@ -45,16 +45,6 @@ public class OrderStationMain {
 		for (Lines line : lines) {
 			System.out.println(line.getLineId() + " " + line.getLineName());
 		}
-		
-		station1 = stationsList.get(3);
-		station2 = stationsList.get(13);
-		System.out.println("***********************************");
-		System.out.println("FROM: " + station1.getStationName());
-		System.out.println("TO:   " + station2.getStationName());
-		List<Transports> t = trImpl.getTransportByTwoStations(station1.getStationName(), station2.getStationName());
-		for (Transports tr : t) {
-			System.out.println(tr.getTransportCode() + " " + tr.getStartTime());
-		}
 	}
 
 }

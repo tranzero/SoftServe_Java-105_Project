@@ -14,17 +14,15 @@
 
 	<hr>
 
-	<form id="addstation" method="post" name="addstation">
+	<form id="addStation" method="post" name="/addStation" action="addstat" style="text-align:center">
 		<div>
 			<p>StationCode:</p>
-			<input id="stationCode" type="text" name="stationCode" size="20"
-				maxlength="100" value="">
+			<input id="stationCode" type="text" name="stationCode">
 
 			<p>StationName:</p>
-			<input id="stationName" type="text" name="stationName" size="20"
-				maxlength="100" value=""> <br>
+			<input id="stationName" type="text" name="stationName"> <br>
 			<p>
-				<input type="submit" value="ADD NEW STATION" form="text">
+				<input type="submit" value="ADD NEW STATION">
 			</p>
 		</div>
 	</form>

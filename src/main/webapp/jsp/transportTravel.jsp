@@ -9,29 +9,31 @@
 			<input class="button" type="submit" name="submit" value="Find" />
 		</form>
 		<%-- Results --%>
-		<c:if test="${!empty TransportList}">
+		<c:if test="${!empty TransportTravelList}">
 			<hr />
 			<table>
 				<tr>
 					<td>Number</td>
 					<td>Station / Stop</td>
 					<td>Transport Number</td>
-					<td>Departure time</td>
+					<td>Departure / Arrival time</td>
+					<td>Duration</td>
 				</tr>
-				<c:forEach var="transport" items="${TransportList}">
+				<c:forEach var="transport" items="${TransportTravelList}">
 					<tr>
 						<td id="generate"></td>
 						<td><c:out value="${param.stationName1}"></c:out> - <c:out
 								value="${param.stationName2}"></c:out></td>
 						<%--=request.getParameter("stationName1")--%>
-						<td>${transport.getTransportCode()}</td>
-						<td>${transport.getStartTime()}</td>
+						<td>${transport.getTransport().getTransportCode()}</td>
+						<td>dep ${transport.getDepartureTime()}<br />arr ${transport.getArrivalTime()}</td>
+						<td>${transport.getDuration()}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty TransportList}">
+		<c:if test="${empty TransportTravelList}">
 			<hr />
 			<h3>Sorry. No results was found</h3>
 			<hr />

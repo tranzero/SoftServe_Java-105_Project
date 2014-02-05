@@ -16,12 +16,18 @@ import javax.persistence.Table;
 @Table(name = "posts")
 
 	
-@NamedQueries(value = { @NamedQuery(name = Post.FIND_POST_LIST_COUNT, query = Post.FIND_POST_LIST_COUNT_QUERY)})
+@NamedQueries(value = { 
+		@NamedQuery(name = Post.FIND_POST_LIST_COUNT, query = Post.FIND_POST_LIST_COUNT_QUERY),
+		@NamedQuery(name = Post.FIND_POST_LIST_FOR_PAGING, query = Post.FIND_POST_LIST_FOR_PAGING_QUERY)
+		})
 	
 
 public class Post extends BaseEntity{
 	public static final String FIND_POST_LIST_COUNT = "Post.findPostListCount";
     public static final String FIND_POST_LIST_COUNT_QUERY = "SELECT COUNT (news.postId) from Post news";
+    
+    public static final String FIND_POST_LIST_FOR_PAGING = "Post.findPostListForPaging";
+    public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.title";
 	
 	@Id
 	@Column(name = "POSTID", nullable = false)

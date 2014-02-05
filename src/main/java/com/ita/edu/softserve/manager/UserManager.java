@@ -29,13 +29,6 @@ public interface UserManager extends BaseManager {
 	public Users findUser(Integer id);
 
 	/**
-	 * Edit user
-	 * 
-	 * @param usname
-	 */
-	public void editUser(String usname);
-
-	/**
 	 * Update user
 	 */
 	public void updateUser(Integer userId, String firstName, String lastName,
@@ -47,5 +40,13 @@ public interface UserManager extends BaseManager {
 	 * @param id
 	 */
 	public void removeUser(Integer id);
+
+	/**
+	 * Find a user by username
+	 * 
+	 * @param id
+	 * @return user
+	 */
+	public Users findByUsername(String username);
 
 }

@@ -155,7 +155,7 @@ public class LinesManagerImpl implements LinesManager {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
 						.get(j).getLineId().getLineId()) {
-					if (StationsOnLine2.get(i).getStationOrderNum() < StationsOnLine1
+					if (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
 							.get(j).getStationOrderNum()) {
 						lines.add(StationsOnLine2.get(i).getLineId());
 					}

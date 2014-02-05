@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.manager.impl;
 
-
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -25,6 +24,13 @@ public class UserManagerImpl implements UserManager {
 	@Autowired
 	private UsersDAO userDao;
 
+	public static UserManager getInstance() {
+		return ManagerFactory.getManager(UserManager.class);
+	}
+
+	/**
+	 * Create new user
+	 */
 	@Transactional
 	@Override
 	public boolean createUser(String username, String firstname,
@@ -34,51 +40,24 @@ public class UserManagerImpl implements UserManager {
 			tempUser = (Users) userDao.findByUsername(username);
 		} catch (NoResultException nr) {
 		}
-		if (tempUser==null) {
+		if (tempUser == null) {
 			tempUser = new Users(username, firstname, lastname, email,
 					password, role);
-			userDao.save(tempUser);	
+			userDao.save(tempUser);
 			System.out.println("Successfully registered!");
 			return true;
-			
-		} 
+
+		}
 		return false;
 	}
 
+	/**
+	 * Find all users
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Users> findAllUsers() {
 		return userDao.getAllEntities();
-	}
-
-	public static UserManager getInstance() {
-		return ManagerFactory.getManager(UserManager.class);
-	}
-
-	// no all
-	@Transactional
-	@Override
-	public void editUser(String usname) {
-		Users user1 = null;
-		try {
-			user1 = (Users) userDao.findByUsername(usname);
-
-		} catch (Exception e) {
-			System.out.println("" + e.getMessage());
-
-		} finally {
-
-		}
-		userDao.save(user1);
-	}
-
-	/**
-	 * Delete user of DB
-	 */
-	@Override
-	@Transactional
-	public void removeUser(Integer id) {
-		userDao.remove(userDao.findById(id));
 	}
 
 	/**
@@ -90,6 +69,9 @@ public class UserManagerImpl implements UserManager {
 		return userDao.findById(id);
 	}
 
+	/**
+	 * Update user (for userEdit.jsp)
+	 */
 	@Override
 	@Transactional
 	public void updateUser(Integer userId, String firstName, String lastName,
@@ -106,6 +88,24 @@ public class UserManagerImpl implements UserManager {
 
 		userDao.update(userr);
 
+	}
+
+	/**
+	 * Delete user of DB
+	 */
+	@Override
+	@Transactional
+	public void removeUser(Integer id) {
+		userDao.remove(userDao.findById(id));
+	}
+
+	/**
+	 * Find user by username
+	 */
+	@Override
+	@Transactional
+	public Users findByUsername(String username) {
+		return (Users) userDao.findByUsername(username);
 	}
 
 }
