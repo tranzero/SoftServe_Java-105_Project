@@ -34,14 +34,16 @@ public interface TransportsManager extends BaseManager {
 	 * Gets all transports.
 	 */
 	List<Transports> getAllTransports();
-	
+
 	void saveOrUpdateTransport(final Transports entity);
 
 	/**
 	 * Saves new transport into database.
 	 */
-	Transports createTransport(String transportCode, String startTime, String routes);
-	
+	public Transports createTransport(String transportCode, String startTime,
+			String route, String seatclass1, String seatclass2,
+			String seatclass3, String genprice);
+
 	/**
 	 * Get transport by two stations in certain order
 	 */

@@ -51,6 +51,18 @@ public class Transports extends BaseEntity {
 	@JoinColumn(name = "ROUTEID")
 	private Routes routes;
 
+	@Column(name = "SEATCLASS1", nullable = false)
+	private int seatclass1;
+	
+	@Column(name = "SEATCLASS2", nullable = false)
+	private int seatclass2;
+	
+	@Column(name = "SEATCLASS3", nullable = false)
+	private int seatclass3;
+	
+	@Column(name = "GENPRICE", nullable = false)
+	private double genPrice;
+
 	public Transports() {
 		super();
 	}
@@ -61,7 +73,19 @@ public class Transports extends BaseEntity {
 		this.startTime = startTime;
 		this.routes = routes;
 	}
-
+	
+	public Transports(String transportCode, Time startTime, Routes routes,
+			int seatclass1, int seatclass2, int seatclass3, double genprice) {
+		super();
+		this.transportCode = transportCode;
+		this.startTime = startTime;
+		this.routes = routes;
+		this.seatclass1 = seatclass1;
+		this.seatclass2 = seatclass2;
+		this.seatclass3 = seatclass3;
+		this.genPrice = genprice;
+	}
+	
 	public Integer getTransportId() {
 		return transportId;
 	}
@@ -92,6 +116,38 @@ public class Transports extends BaseEntity {
 
 	public void setRoutes(Routes routes) {
 		this.routes = routes;
+	}
+
+	public int getSeatclass1() {
+		return seatclass1;
+	}
+
+	public void setSeatclass1(int seatclass1) {
+		this.seatclass1 = seatclass1;
+	}
+
+	public int getSeatclass2() {
+		return seatclass2;
+	}
+
+	public void setSeatclass2(int seatclass2) {
+		this.seatclass2 = seatclass2;
+	}
+
+	public int getSeatclass3() {
+		return seatclass3;
+	}
+
+	public void setSeatclass3(int seatclass3) {
+		this.seatclass3 = seatclass3;
+	}
+
+	public double getGenPrice() {
+		return genPrice;
+	}
+
+	public void setGenPrice(double genprice) {
+		this.genPrice = genprice;
 	}
 
 	@Override

@@ -117,10 +117,16 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public Transports createTransport(String transportCode, String startTime,
-			String route) {
+			String route, String seatclass1, String seatclass2,
+			String seatclass3, String genprice) {
 
 		Transports transport = new Transports(transportCode,
-				timeParse(startTime),routesDao.findById(new Integer(route)));
+				timeParse(startTime), routesDao.findById(new Integer(route)));
+
+		transport.setSeatclass1(new Integer(seatclass1));
+		transport.setSeatclass2(new Integer(seatclass2));
+		transport.setSeatclass3(new Integer(seatclass3));
+		transport.setGenPrice(new Double(genprice));
 
 		transportsDao.save(transport);
 

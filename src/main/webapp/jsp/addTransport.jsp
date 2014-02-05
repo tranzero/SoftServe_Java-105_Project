@@ -27,11 +27,27 @@
 				<td>Routes ID</td>
 				<td><input type="text" name="routes"></td>
 			</tr>
+			<tr>
+				<td>seatclass1</td>
+				<td><input type="text" name="seatclass1"></td>
+			</tr>
+			<tr>
+				<td>seatclass2</td>
+				<td><input type="text" name="seatclass2"></td>
+			</tr>
+			<tr>
+				<td>seatclass3</td>
+				<td><input type="text" name="seatclass3"></td>
+			</tr>
+			<tr>
+				<td>genprice</td>
+				<td><input type="text" name="genprice"></td>
+			</tr>
 		</table>
 		<input type="submit" value="Add Transport">
 	</form>
 
-<%-- 		 <form:form method="POST" action="addTransport.htm"	commandName="transport">
+	<%-- 		 <form:form method="POST" action="addTransport.htm"	commandName="transport">
 		<table>
 			<tr>
 				<td><form:label path="transportId">Transport ID</form:label></td>
