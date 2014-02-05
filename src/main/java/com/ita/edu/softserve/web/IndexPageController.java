@@ -49,7 +49,7 @@ public class IndexPageController {
 		
 	}
 	
-	@RequestMapping(value = "/mainpage", method = RequestMethod.POST)
+	@RequestMapping(value = "/mainpagepost", method = RequestMethod.POST)
 	public String mainPagePost(@RequestParam("pageNumber") int pageNumber,
 			@RequestParam("resultsPerPage") int resultsPerPage, Map<String, Object> modelMap) {
 

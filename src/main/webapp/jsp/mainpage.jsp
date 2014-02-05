@@ -12,7 +12,7 @@ function onPagingEvent(event, num, resultsPerPage){
 		async : false,
 		beforeSend : function(){$(elementSelectorForResult).html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
 		type: "POST",
-		url: "mainpage",
+		url: "mainpagepost",
 		data: { pageNumber: num - 1, resultsPerPage: resultsPerPage }
 		})
 		.done(function( msg ) {
@@ -27,14 +27,8 @@ $(document).ready(function(){
 	initPageWithPaging(maxPageCount, sizeOfPaging, onPagingEvent);
 });
 </script>
-
-<div id="newscontent">
-		<h1>
-			News
-		</h1>
-		
-	
-		
-</div>
+<div id = "content">
+<div id="newscontent"></div>
 <div id="pagecontent"></div>
 	<div id="pagination"></div>	
+</div>

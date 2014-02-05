@@ -27,7 +27,7 @@ function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 	$("li[data-lp='1']").trigger("click");
 	$("li[data-lp='1']").addClass('disabled');
 };
-function showOldestBlackListIpAddresses() {
+function showNews() {
 	$(document)
 			.ready(
 					function() {
@@ -36,7 +36,7 @@ function showOldestBlackListIpAddresses() {
 										'<img src="resources/images/loading.gif" style="width:100; height:28;">');
 						$.ajax({
 							type : "POST",
-							url : "/mainpage",
+							url : "/mainpagepost",
 							data : {
 								pageNumber : "0",
 								resultsPerPage : "10"
@@ -62,7 +62,7 @@ function showOldestBlackListIpAddresses() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpage",
+																url : "/mainpagepost",
 																data : {
 																	pageNumber : prevPageNumber,
 																	resultsPerPage : prevResultsPerPage
@@ -95,7 +95,7 @@ function showOldestBlackListIpAddresses() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpage",
+																url : "/mainpagepost",
 																data : {
 																	pageNumber : nextPageNumber,
 																	resultsPerPage : nextResultsPerPage
