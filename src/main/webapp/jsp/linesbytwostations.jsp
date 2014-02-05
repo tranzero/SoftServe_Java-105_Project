@@ -5,11 +5,16 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div id="context">
 	<section>
-		<form action="linesbytwostationsFind" method="get">
+		<form:form action="linesbytwostationsFind" method="get">
+<%--		        <form:label path="stationName1">From:</form:label>
+		        <form:input path="stationName1" />
+		        <form:label path="stationName2">To:</form:label>
+		        <form:input path="stationName2" />
+		        --%>
 			From: <input type="text" name="stationName1" placeholder='Pisochne' />&nbsp;&nbsp;&nbsp;
 			To: <input type="text" name="stationName2" placeholder='Sknyliv' />
 			<input class="button" type="submit" name="submit" value="Find" />
-		</form>
+		</form:form>
 		<%-- Results --%>
 		<c:if test="${!empty LinesList}">
 			<hr />

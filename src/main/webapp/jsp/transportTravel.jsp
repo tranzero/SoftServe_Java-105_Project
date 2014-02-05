@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div id="context">
 	<section>
-		<form action="transportTravelFind" method="get">
+		<form:form action="transportTravelFind" method="get">
 			From: <input type="text" name="stationName1" />&nbsp;&nbsp;&nbsp;
 			To: <input type="text" name="stationName2"/>
 			<input class="button" type="submit" name="submit" value="Find" />
-		</form>
+		</form:form>
 		<%-- Results --%>
 		<c:if test="${!empty TransportTravelList}">
 			<hr />
