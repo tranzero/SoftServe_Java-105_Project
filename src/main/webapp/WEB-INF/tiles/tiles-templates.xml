@@ -11,6 +11,19 @@
 		<put-attribute name = "content" value = ""/>
 		<put-attribute name = "footer" value = "/jsp/templates/footer.jsp"/>
 	</definition>
+	<definition name="ajax" template="/jsp/templates/ajaxLayout.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	<definition name="mainpage" extends="base-template">
+		<put-attribute name = "title" value = "View: News"/>	
+		<put-attribute name="content" value="/jsp/mainpage.jsp" />
+	</definition>
+	<definition name="mainpagepost" extends="ajax">
+		<put-attribute name = "title" value = "View: News"/>
+		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />
+	</definition>
+	
+	
 	<!--  <definition name = "index" extends = "base-template">
 		<put-attribute name = "title" value = ""/>
 		<put-attribute name = "content" value = "/jsp/index.jsp"/>
