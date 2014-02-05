@@ -11,5 +11,6 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 * Find Transports by route id
 	 */
 	Transports findByRouteId(int id);
-
+	
+	void saveOrUpdate(final Transports entity);
 }

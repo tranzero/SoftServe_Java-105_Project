@@ -35,11 +35,18 @@ public interface TransportsManager extends BaseManager {
 	 */
 	List<Transports> getAllTransports();
 
-	/**
-	 * Get transport by two stations
-	 * in certain order
-	 */
-	public List<TransportTravel> getTransportByTwoStations(String stationName1,
-			String stationName2);
+	void saveOrUpdateTransport(final Transports entity);
 
+	/**
+	 * Saves new transport into database.
+	 */
+	public Transports createTransport(String transportCode, String startTime,
+			String route, String seatclass1, String seatclass2,
+			String seatclass3, String genprice);
+
+	/**
+	 * Get transport by two stations in certain order
+	 */
+	List<TransportTravel> getTransportByTwoStations(String stationName1,
+			String stationName2);
 }

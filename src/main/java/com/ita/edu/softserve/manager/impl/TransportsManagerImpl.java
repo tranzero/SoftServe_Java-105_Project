@@ -1,15 +1,19 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.StopsDAO;
@@ -29,6 +33,8 @@ import com.ita.edu.softserve.manager.TransportsManager;
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
+	private static final Logger LOGGER = Logger
+			.getLogger(TransportsManagerImpl.class);
 
 	/**
 	 * Object to get access to DAO layer.
@@ -45,6 +51,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Autowired
 	private StopsDAO stopsDao;
 
+	@Autowired
+	private RoutesDAO routesDao;
+
 	/**
 	 * Constructor without arguments.
 	 */
@@ -56,7 +65,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * @return transport found by Id.
 	 * 
 	 */
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
 		return transportsDao.findById(id);
@@ -65,7 +74,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Saves Transports in database.
 	 */
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
 	public void saveTransports(Transports... entities) {
 		transportsDao.save(entities);
@@ -100,6 +109,34 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public List<Transports> getAllTransports() {
 		return transportsDao.getAllEntities();
+	}
+
+	/**
+	 * Saves Transport object and save it to database.
+	 */
+	@Transactional
+	@Override
+	public Transports createTransport(String transportCode, String startTime,
+			String route, String seatclass1, String seatclass2,
+			String seatclass3, String genprice) {
+
+		Transports transport = new Transports(transportCode,
+				timeParse(startTime), routesDao.findById(new Integer(route)));
+
+		transport.setSeatclass1(new Integer(seatclass1));
+		transport.setSeatclass2(new Integer(seatclass2));
+		transport.setSeatclass3(new Integer(seatclass3));
+		transport.setGenPrice(new Double(genprice));
+
+		transportsDao.save(transport);
+
+		return transport;
+	}
+
+	@Transactional
+	@Override
+	public void saveOrUpdateTransport(Transports entity) {
+		transportsDao.saveOrUpdate(entity);
 	}
 
 	@Override
@@ -176,4 +213,20 @@ public class TransportsManagerImpl implements TransportsManager {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}
 
+	/**
+	 * Parses time representing in string into sql time.
+	 */
+	private static Time timeParse(String time) {
+
+		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		Date date = null;
+
+		try {
+			date = sdf.parse(time);
+		} catch (ParseException e) {
+			LOGGER.error(e.toString());
+		}
+
+		return new Time(date.getTime());
+	}
 }
