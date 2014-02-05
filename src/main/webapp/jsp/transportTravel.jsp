@@ -33,7 +33,7 @@
 			</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty TransportTravelList}">
+		<c:if test="${empty TransportTravelList && not empty param.stationName1 && not empty param.stationName2}">
 			<hr />
 			<h3>Sorry. No results was found</h3>
 			<hr />
