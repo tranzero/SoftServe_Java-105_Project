@@ -1,9 +1,11 @@
 package com.ita.edu.softserve.entity;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,8 +51,8 @@ public class Routes extends BaseEntity {
 	@Column(name = "STARTTIME")
 	private Time startTime;
 	
-	@OneToMany(mappedBy = "routes", fetch = FetchType.LAZY)
-	private List<Transports> transports;
+	@OneToMany(mappedBy = "routes", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private List<Transports> transports = new ArrayList<Transports>();;
 	
 	/**
 	 * Default Constructor
