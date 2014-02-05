@@ -2,8 +2,6 @@ body {
 	background: url("../images/img01.png") repeat scroll 0 0 #f9f6e7;
 	font-family: Times, "Times New Roman", serif;
 	font-size: 1em;
-	padding: 60px;
-	padding-top: 0px;
 	font-weight: 200;
 	letter-spacing: -0.02em;
 	color: #343434;
@@ -27,64 +25,15 @@ table tr:nth-child(odd) td {
 table tr:nth-child(even) td {
 	background-color: #aaa;
 }
-/* layout */
-#header
-{
-	padding: 20px;
-}
 
-#header h1 { margin: 0; }
 
-#context
-{
-	float: left;
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
-	display: block;
-}
 
-#footer
-{
-	clear: left;
-	padding: 20px;
-	height: 1%;
-}
 /* layout end */
 #generate:after {
 	counter-increment: n;
 	content: counter(n);
 }
 
-header {
-}
-
-section {
-	padding-top: 20px;
-}
-
-h1.logo {
-	color: #474747;
-	display: block;
-	font-size: 2.4em;
-	font-weight: bold;
-	outline: 0 none;
-	padding: 1em 0 0;
-	text-decoration: none;
-	text-transform: none;
-	position: fixed;
-	top: 0px;
-	left: 20px;
-	width: 200px;
-	text-align: center;
-	padding: 10px;
-	border-radius: 10px;
-	background-color: yellow;
-	/* Rotate */
-	transform: rotate(-10deg);
-	-ms-transform: rotate(-10deg); /* IE 9 */
-	-webkit-transform: rotate(-10deg); /* Safari and Chrome */
-}
 
 
 .button {
@@ -180,14 +129,9 @@ input[type="text"]:focus
 .flag.flag-en {background-position: -16px 0}
 .flag.flag-ua {background-position: 0 -11px}
 
-#language {
-	display: inline-block;
-	float: right;
-}
 #language ul{
 	list-style-type: none;
 }
-
 
 a, a:link, a:active {
 	color: #464646;
@@ -203,3 +147,4 @@ a:visited {
 a:hover{
 	color: #359BED;
 }
+

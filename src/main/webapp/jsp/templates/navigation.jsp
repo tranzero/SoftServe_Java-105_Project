@@ -2,8 +2,8 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<div id = "navigation" >
-<h2><spring:message code="label.navigation.title"/>[WIP]</h2>
+<%--<div id = "navigation" >
+<h2><spring:message code="label.navigation.title"/>[WIP]</h2> --%>
 <nav id="navigation">
 	<ul class="menu">
 		<li><a href="mainpage"><spring:message code="label.navigation.news"/></a></li>
@@ -59,4 +59,4 @@
 </nav>
 --%>
 
-</div>
+<%-- </div> --%>
