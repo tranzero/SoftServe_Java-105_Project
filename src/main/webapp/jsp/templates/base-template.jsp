@@ -8,15 +8,22 @@
 <title>
 <tiles:getAsString name="title"/>
 </title>
+<link href="<c:url value="/resources/css/layout.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
+	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="navigation"/>
+	<tiles:insertAttribute name="content"/>
+	<tiles:insertAttribute name="footer"/>
+<%--
 	<div class="headerStyle">
 		<tiles:insertAttribute name="header" />
 	</div>
 	<div class="navigationStyle"> <tiles:insertAttribute name="navigation"/> </div>
 <div class="contentStyle"> <tiles:insertAttribute name="content"/> </div>
 <div class=footerStyle> <tiles:insertAttribute name="footer"/> </div>
+--%>
 </body>
 </html>

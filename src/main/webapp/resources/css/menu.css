@@ -9,13 +9,12 @@
 .menu {
     font-size: 1.25em;
     height: 58px;
-    width: 100%;
 }
 .menu li {
     background: none repeat scroll 0 0 #333333;
     border-bottom: 2px solid #181818;
     border-top: 2px solid #303030;
-    min-width: 160px;
+    min-width: 140px;
 }
 .menu > li {
     display: block;
