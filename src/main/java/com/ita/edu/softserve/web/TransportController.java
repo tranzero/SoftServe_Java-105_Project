@@ -100,7 +100,7 @@ public class TransportController {
 			return "transportTravel";
 		}
 
-		model.put("TransportList", transportsManager.getTransportByTwoStations(
+		model.put("TransportTravelList", transportsManager.getTransportByTwoStations(
 				stationName1, stationName2));
 
 		return "transportTravel";
