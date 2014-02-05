@@ -37,8 +37,8 @@ public class Transports extends BaseEntity {
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 
 	@Id
-	@Column(name = "TRANSPORTID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "TRANSPORTID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer transportId;
 
 	@Column(name = "TRANSPORTCODE", nullable = false, length = 20)
@@ -55,11 +55,11 @@ public class Transports extends BaseEntity {
 		super();
 	}
 
-	public Transports(Integer transportId, String transportCode, Time startTime) {
+	public Transports(String transportCode, Time startTime, Routes routes) {
 		this();
-		this.transportId = transportId;
 		this.transportCode = transportCode;
 		this.startTime = startTime;
+		this.routes = routes;
 	}
 
 	public Integer getTransportId() {
