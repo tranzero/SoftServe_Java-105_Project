@@ -190,13 +190,19 @@ DROP TABLE IF EXISTS `transports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transports` (
-  `TRANSPORTID` int(10) unsigned NOT NULL,
+  `TRANSPORTID` int(10) AUTO_INCREMENT NOT NULL,
   `ROUTEID` int(10) unsigned NOT NULL,
   `TRANSPORTCODE` varchar(20) NOT NULL,
   `STARTTIME` time NOT NULL,
+  `SEATCLASS1` int(10) NOT NULL,
+  `SEATCLASS2` int(10) NOT NULL,
+  `SEATCLASS3` int(10) NOT NULL,
+  `GENPRICE` decimal(7,2) NOT NULL,
   PRIMARY KEY (`TRANSPORTID`),
   KEY `ROUTEID` (`ROUTEID`),
-  CONSTRAINT `ROUTES_ROUTEID_fk` FOREIGN KEY (`ROUTEID`) REFERENCES `routes` (`ROUTEID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ROUTES_ROUTEID_fk` 
+  FOREIGN KEY (`ROUTEID`) 
+  REFERENCES `routes` (`ROUTEID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

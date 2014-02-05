@@ -124,9 +124,16 @@ public class Users extends BaseEntity {
 	 */
 	public Users(String userName, String firstName, String lastName,
 			String eMail, String password, Role role) {
-		this(userName, eMail, password);
+		org.apache.commons.lang.Validate.notEmpty(userName);
+		org.apache.commons.lang.Validate.notEmpty(firstName);
+		org.apache.commons.lang.Validate.notEmpty(lastName);
+		org.apache.commons.lang.Validate.notEmpty(eMail);
+		org.apache.commons.lang.Validate.notEmpty(password);
+		this.setUserName(userName);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
+		this.seteMail(eMail);
+		this.setPasswd(password);
 		this.setRole(role);
 	}
 

@@ -5,7 +5,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div id="context">
 	<section>
-		<spring:message code="label.title"/>
 		<form action="linesbytwostationsFind" method="get">
 			From: <input type="text" name="stationName1" placeholder='Pisochne' />&nbsp;&nbsp;&nbsp;
 			To: <input type="text" name="stationName2" placeholder='Sknyliv' />
@@ -25,7 +24,7 @@
 			</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty LinesList}">
+		<c:if test="${empty LinesList && not empty param.stationName1 && not empty param.stationName2}">
 			<hr />
 			<h3>Sorry. No results was found</h3>
 			<hr />

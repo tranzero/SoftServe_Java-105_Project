@@ -12,19 +12,29 @@ import com.ita.edu.softserve.entity.Transports;
  * @author Roman
  */
 @Repository("transportsDao")
-public class TransportsDaoImpl extends AbstractDAO<Transports> implements TransportsDao{
-	
+public class TransportsDaoImpl extends AbstractDAO<Transports> implements
+		TransportsDao {
+
 	@Override
 	public Class<Transports> getEntityClass() {
 		return Transports.class;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Transports findByRouteId(int id) {
-		Query query = entityManager.createNamedQuery(
-				Transports.FIND_BY_ROUTEID).setParameter(1, id);
-		
+		Query query = entityManager
+				.createNamedQuery(Transports.FIND_BY_ROUTEID).setParameter(1,
+						id);
+
 		return (Transports) query.getSingleResult();
+	}
+	
+	public void saveOrUpdate(final Transports entity) { 
+	    if (entity.getTransportId() == null) { 
+	        entityManager.persist(entity); 
+	        entityManager.refresh(entity); 
+	    } else { 
+	    	entityManager.merge(entity); 
+	    } 
 	}
 }
