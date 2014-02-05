@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.StationsManager;
@@ -54,19 +55,20 @@ public class StationsController {
 	}
 
 	@RequestMapping(value = "/addStation", method = RequestMethod.GET)
-	public String addStation() {
+	public String addStations() {
 		return "addStation";
 	}
 
-	@RequestMapping(value = "/addStation", method = RequestMethod.POST)
+	@RequestMapping(value = "/addstat", method = RequestMethod.POST)
 	public String addStationToBD(
-			@ModelAttribute("stationCode") String stationCode,
-			@ModelAttribute("stationName") String stationName,
+			@RequestParam("stationCode") String stationCode,
+			@RequestParam("stationName") String stationName,
 			Map<String, Object> modelMap) {
-		stationsManager.createStation(stationCode, stationName);
 
+		stationsManager.createStation(stationCode, stationName);
 		return "redirect:/stations";
 	}
+	
 	
 	@RequestMapping(value="stationsoncertainline/{line}", method = RequestMethod.GET)
 	public String stationsOnCertainLine(@PathVariable("line") String lineName, Map<String,Object>modelMap){

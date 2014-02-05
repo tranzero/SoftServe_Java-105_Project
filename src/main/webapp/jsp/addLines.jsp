@@ -9,15 +9,25 @@
 <!-- </head> -->
 <!-- <body> -->
 <div id="context">
-	<h1>Add Lines</h1>
-	<form action="addLines" method="post" name="new">
-		Name of line: <br> <input id="name" type="text" name="name">
-		<br> Choose the stations on line:<br>
-		<c:forEach var="stations" items="${stationsList}">
-			<input type="checkbox" value="${stations.getStationName()}">${stations.getStationName()}<br>
+	<h1>All Lines</h1>
+	<%
+		int i = 0;
+	%>
+	<a class="button" href="addNewLine">Add Line</a>
+	<table border="1">
+		<tr>
+			<td align="center">Line Name</td>
+			<td align="center"></td>
+			<td align="center"></td>
+		</tr>
+		<c:forEach var="line" items="${linesList}">
+			<tr>
+				<td align="center">${line.getLineName()}</td>
+				<td align="center"><a href="updateLines/${line.getLineName()}">edit</a></td>
+				<td align="center"><a href="removeLines/${line.getLineName()}">delete</a></td>
+			</tr>
 		</c:forEach>
-		<input type="submit" value="Add Line" form="new">
-	</form>
+	</table>
 </div>
 <!-- </body> -->
 <!-- </html> -->

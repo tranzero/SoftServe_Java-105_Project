@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.exception;
 
-public class DBException extends EntityExceptions{
+public class DBException extends BaseExceptions{
 	private static final long serialVersionUID = -2943018141412512379L;
 
     public DBException() {

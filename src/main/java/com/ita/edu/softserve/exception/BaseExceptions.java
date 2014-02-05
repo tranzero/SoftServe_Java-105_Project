@@ -7,19 +7,19 @@ import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 
-public class EntityExceptions extends Exception {
+public class BaseExceptions extends Exception {
 	private static final long serialVersionUID = -3873888718676301070L;
     private static final Logger logger = Logger.getLogger("errorLog");
 
     private String msg;
 
-    public EntityExceptions() {
+    public BaseExceptions() {
 	StringWriter trace = new StringWriter();
 	printStackTrace(new PrintWriter(trace));
 	logger.error(trace.toString());
     }
 
-    public EntityExceptions(String msg) {
+    public BaseExceptions(String msg) {
 	super(msg);
 	StringWriter trace = new StringWriter();
 	printStackTrace(new PrintWriter(trace));
@@ -27,7 +27,7 @@ public class EntityExceptions extends Exception {
 	this.msg = msg;
     }
 
-    public EntityExceptions(String msg, Exception e) {
+    public BaseExceptions(String msg, Exception e) {
 	super(msg, e);
 	StringWriter trace = new StringWriter();
 	printStackTrace(new PrintWriter(trace));

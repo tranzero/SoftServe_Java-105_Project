@@ -27,5 +27,7 @@
 	 <definition name="*" extends="base-template">
 		<put-attribute name = "title" value = "View: {1}"/>		
 		<put-attribute name = "content" value = "/jsp/{1}.jsp"/>
-	</definition>		
+	</definition>
+	
+	
 </tiles-definitions>
