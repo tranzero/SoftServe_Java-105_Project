@@ -116,7 +116,7 @@ public class LinesManagerImpl implements LinesManager {
 	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
-	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2) {
 		Stations station1;
 		Stations station2;

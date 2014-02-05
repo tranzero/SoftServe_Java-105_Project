@@ -22,7 +22,7 @@ public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getLinesByStation(String stationName);
 	
-	public List<Lines> getLinesTwoStationsCertainOrder(String stationName1,
+	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2);
 	
 	public void createLine(String lineName);

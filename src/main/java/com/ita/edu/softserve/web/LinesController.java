@@ -75,7 +75,7 @@ public class LinesController {
 			return "linesbytwostations";
 		}
 
-		model.put("LinesList", linesManager.getLinesTwoStationsCertainOrder(
+		model.put("LinesList", linesManager.getLinesByTwoStations(
 				stationName1, stationName2));
 
 		return "linesbytwostations";
