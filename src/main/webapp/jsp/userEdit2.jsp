@@ -9,12 +9,12 @@
 <!-- </head> -->
 <!-- <body> -->
 <div id="context">
-	<h1>Edit User</h1>
+	<h1>Edit2 User</h1>
 	<hr />
 
 	<hr>
 
-	<form id="userEdit" method="post" name="/userEdit">
+	<form id="userEdit2" method="post" name="/userEdit2">
 		<input id="userId" type="hidden" name="userId"
 			value="${user.getUserId()}">
 
@@ -34,19 +34,11 @@
 			<input id="Passwd" type="text" name="Passwd"
 				value="${user.getPasswd()}">
 
-			<p>Role</p>
-			<select>
-				<c:forEach var="user" items="user">
-					<option selected value="${user.getRole()}">${user.getRole()}</option>
-					<option value="${Role.REGUSER}">REGUSER</option>
-					<option value="ADMIN">ADMIN</option>
-					<option value="MANAGER">MANAGER</option>
-				</c:forEach>
-			</select>
+			
 
 
 			<p>
-				<input type="submit" value="Update USER">
+				<input type="submit" value="USER Update --2">
 			</p>
 			<br>
 

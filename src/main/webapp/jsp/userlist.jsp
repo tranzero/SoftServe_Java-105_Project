@@ -10,7 +10,7 @@
 <!-- <body> -->
 <div id="context">
 	<h1>List of Users</h1>
-	
+
 
 	<hr />
 
@@ -33,8 +33,16 @@
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
 					<td>${user.geteMail() }
-					<td><a href="userEdit/${user.userId}">EDIT</a></br></td>
-					<td><a href="userdel/${user.userId}">DELETE</a></br></td>
+					<td><a href="userEdit/${user.getUserId()}"> <input
+							id="userEdit" type="button" name="userEdit" value="EDIT User"></a></br>
+							</td>
+
+					<td><a href="userEdit2/${user.getUserId()}"> <input
+							id="userEdit2" type="button" name="userEdit2" value="EDIT2"></a></br></td>
+
+
+					<td><a href="userdel/${user.getUserId()}">DELETE</a></br>
+					</td>
 
 
 				</tr>
