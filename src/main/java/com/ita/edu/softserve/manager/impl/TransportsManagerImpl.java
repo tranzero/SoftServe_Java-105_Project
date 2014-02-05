@@ -193,10 +193,11 @@ public class TransportsManagerImpl implements TransportsManager {
 									transport.getStartTime(),
 									stop1.getDeparture()));
 							trTravel.setArrivalTime(TransportTravel.sumTimes(
-									trTravel.getDepartureTime(),
+									transport.getStartTime(),
 									stop2.getArrival()));
 
-							trTravel.setDuration(stop2.getArrival());
+							trTravel.setDuration(TransportTravel.subtractTimes(stop2.getArrival(), stop1.getDeparture()));
+							trTravel.setDuration(TransportTravel.subtractTimes(trTravel.getArrivalTime(), trTravel.getDepartureTime()));
 							transportTravel.add(trTravel);
 						} else {
 							return null;
