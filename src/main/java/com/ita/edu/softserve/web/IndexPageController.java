@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.exception.PostManagerExeption;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.utils.ExceptionUtil;
 
 @Controller
 public class IndexPageController {
@@ -25,34 +26,24 @@ public class IndexPageController {
 		try {
 			modelMap.put("newsList", posts.findPostList());
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
 		return "mainpage";
 	}
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/managenews", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
 
 		try {
 			modelMap.put("newsList", posts.findPostList());
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
-		return "index";
-	}
-
-	@RequestMapping(value = "/indexwithdiv", method = RequestMethod.GET)
-	public String indexwithdiv(Map<String, Object> modelMap) {
-
-		try {
-			modelMap.put("newsList", posts.findPostList());
-		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "indexwithdiv";
+		return "managenews";
 	}
 
 	@RequestMapping(value = "/addnews", method = RequestMethod.GET)
@@ -67,29 +58,30 @@ public class IndexPageController {
 		try {
 			posts.createNews(newsTitle, newsDescription);
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
 
-		return "redirect:/index";
+		return "redirect:/managenews";
 	}
 
 	@RequestMapping(value = "/delnews/{delnews}", method = RequestMethod.GET)
-	public String delNews(@PathVariable("delnews") Integer postId) {
+	public String delNews(@PathVariable("delnews") Integer postId, Map<String, Object> map) {
 		try {
 			posts.removeNews(postId);
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			map.put("incorrectMsg", "Incorrect News!");
+			return "result";
 		}
-		return "redirect:/index";
+		return "redirect:/managenews";
 
 	}
 
-	@RequestMapping(value = "/editnews/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/editnews/managenews", method = RequestMethod.GET)
 	public String cancelAction() {
 
-		return "redirect:/index";
+		return "redirect:/managenews";
 	}
 
 	@RequestMapping(value = "editnews/{editnews}", method = RequestMethod.GET)
@@ -102,8 +94,9 @@ public class IndexPageController {
 
 			modelMap.put("post", post);
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
 		return "editnews";
 	}
@@ -111,15 +104,16 @@ public class IndexPageController {
 	@RequestMapping(value = "editnews/{editnews}", method = RequestMethod.POST)
 	public String updateNewsToBD(@PathVariable("editnews") Integer newsId,
 			@ModelAttribute("newsTitle") String newsTitle,
-			@ModelAttribute("newsDescription") String newsDescription) {
+			@ModelAttribute("newsDescription") String newsDescription, Map<String, Object> modelMap) {
 		try {
 			posts.updateNews(newsId, newsTitle, newsDescription);
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
 
-		return "redirect:/index";
+		return "redirect:/managenews";
 	}
 
 	@RequestMapping(value = "/detailsnews/{detailsId}", method = RequestMethod.GET)
@@ -132,10 +126,17 @@ public class IndexPageController {
 
 			modelMap.put("News", post);
 		} catch (PostManagerExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
 		return "detailsnews";
 	}
-
+	
+	@RequestMapping(value = "/result", method = RequestMethod.GET)
+	public String result( Map<String, Object> modelMap) {
+		return "result";
+	}
+	
+	
 }
