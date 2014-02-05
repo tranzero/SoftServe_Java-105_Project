@@ -74,7 +74,28 @@ public class UserController {
 	) {
 		usersmanage
 				.updateUser(userId, firstName, lastName, eMail, passwd, role);
-		return "redirect:/userEdit";
+		return "redirect:/userlist";
+	}
+
+	// updateUserToDB2
+	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
+	public String editUser2(@PathVariable("user") Integer usId,
+			Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
+		return "userEdit2";
+	}
+	//--2
+	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
+	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
+			@ModelAttribute("userFirstName") String firstName,
+			@ModelAttribute("lastName") String lastName,
+			@ModelAttribute("eMail") String eMail,
+			@ModelAttribute("Passwd") String passwd
+
+	) {
+		usersmanage.updateUser2(userId, firstName, lastName, eMail, passwd);
+		return "redirect:/userlist";
 	}
 
 	/**

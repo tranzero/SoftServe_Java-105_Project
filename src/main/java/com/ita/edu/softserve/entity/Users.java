@@ -51,16 +51,16 @@ public class Users extends BaseEntity {
 	@Column(name = "USERNAME", nullable = false, updatable = false, length = 100)
 	private String userName;
 
-	@Column(name = "FIRSTNAME", nullable = true, length = 100)
+	@Column(name = "FIRSTNAME", nullable = true, updatable = true, length = 100)
 	private String firstName;
 
-	@Column(name = "LASTNAME", nullable = true, length = 100)
+	@Column(name = "LASTNAME", nullable = true,updatable = true, length = 100)
 	private String lastName;
 
-	@Column(name = "EMAIL", nullable = false, length = 100)
+	@Column(name = "EMAIL", nullable = false,updatable = true, length = 100)
 	private String eMail;
 
-	@Column(name = "PASSWD", nullable = false, length = 100)
+	@Column(name = "PASSWD", nullable = false,updatable = true, length = 100)
 	private String passwd;
 
 	@Column(name = "REGDATE", nullable = true)
@@ -111,6 +111,7 @@ public class Users extends BaseEntity {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 	}
+
 	/**
 	 * Constructor with parametrs:
 	 * 
@@ -225,7 +226,7 @@ public class Users extends BaseEntity {
 	 *            the passwd to set
 	 */
 	public void setPasswd(String passwd) {
-		Assert.hasText(passwd, "Password must not be empty!");
+		// Assert.hasText(passwd, "Password must not be empty!");
 		this.passwd = passwd;
 	}
 

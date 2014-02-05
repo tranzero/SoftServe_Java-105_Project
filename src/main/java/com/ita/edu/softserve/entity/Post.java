@@ -27,7 +27,9 @@ public class Post extends BaseEntity{
     public static final String FIND_POST_LIST_COUNT_QUERY = "SELECT COUNT (news.postId) from Post news";
     
     public static final String FIND_POST_LIST_FOR_PAGING = "Post.findPostListForPaging";
-    public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.title";
+    public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.postId";
+//    public static final String FIND_POST_LIST_FOR_PAGING = "Post.findPostListForPaging";
+//    public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.title";
 	
 	@Id
 	@Column(name = "POSTID", nullable = false)

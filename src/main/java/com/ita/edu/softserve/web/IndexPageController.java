@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.web;
 
+
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.exception.PostManagerExeption;
+import com.ita.edu.softserve.manager.PaginationManager;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
 
@@ -18,21 +22,62 @@ import com.ita.edu.softserve.utils.ExceptionUtil;
 public class IndexPageController {
 
 	@Autowired
+	PaginationManager pageMan;
+	
+	@Autowired
 	private PostForMainPageManager posts;
 
 	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
 
+		modelMap.put("pageNumber", pageMan.getDefaultPageNumber());
+		modelMap.put("resultsPerPage", pageMan.getDefaultResultPerPage());
+		modelMap.put("sizeOfPaging", pageMan.getDefaultPageCount());
 		try {
-			modelMap.put("newsList", posts.findPostList());
+			int maxPageCount = pageMan.getMaxPageCount(pageMan.getDefaultResultPerPage(), posts.getPostListCount());
+			
+	//		modelMap.put("newsList", posts.findPostList());
+			
+			modelMap.put("maxPageCount", maxPageCount);
+			return "mainpage";
+			
 		} catch (PostManagerExeption e) {
 			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
 			modelMap.put("errorMsg", e.getMessage());
 			return "result";
 		}
-		return "mainpage";
+		
 	}
+	
+	@RequestMapping(value = "/mainpagepost", method = RequestMethod.POST)
+	public String mainPagePost(@RequestParam int pageNumber,
+			@RequestParam int resultsPerPage, Map<String, Object> modelMap) {
 
+		
+		try {
+			
+			int maxPageCount = 0;
+			long resultCount = 0;
+			
+			resultCount = posts.getPostListCount();
+			modelMap.put("maxResultCount", resultCount);
+			maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
+			modelMap.put("maxPageCount", maxPageCount);
+			int currentPagingPosition = pageMan.getCurrentPagingPosition(pageNumber, resultsPerPage);
+			modelMap.put("pageNumber", pageNumber);
+			modelMap.put("resultsPerPage", resultsPerPage);
+			modelMap.put("newsList", posts.getPostForPage(currentPagingPosition, resultsPerPage));
+			
+			
+			return "mainpagepost";
+			
+		} catch (PostManagerExeption e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		
+	}
 	@RequestMapping(value = "/managenews", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
 
