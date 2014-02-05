@@ -33,6 +33,9 @@ public interface UserManager extends BaseManager {
 	 */
 	public void updateUser(Integer userId, String firstName, String lastName,
 			String eMail, String passwd, Role role);
+	
+	public void updateUser2(Integer userId, String firstName, String lastName,
+			String eMail, String passwd);
 
 	/**
 	 * Delete user

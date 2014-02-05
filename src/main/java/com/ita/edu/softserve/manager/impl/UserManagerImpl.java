@@ -89,6 +89,23 @@ public class UserManagerImpl implements UserManager {
 		userDao.update(userr);
 
 	}
+	
+	//updateUser2 bez role
+	@Transactional
+	public void updateUser2(Integer userId, String firstName, String lastName,
+			String eMail, String passwd) {
+
+		Users userr = userDao.findById(userId);
+
+		userr.setFirstName(firstName);
+		userr.setLastName(lastName);
+		userr.seteMail(eMail);
+
+		userr.setPasswd(passwd);		
+
+		userDao.update(userr);
+
+	}
 
 	/**
 	 * Delete user of DB

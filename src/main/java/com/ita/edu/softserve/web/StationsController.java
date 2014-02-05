@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.exception.PostManagerExeption;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.utils.ExceptionUtil;
 
 @Controller
 public class StationsController {
@@ -19,13 +21,21 @@ public class StationsController {
 	@Autowired
 	private StationsManager stationsManager;
 
+	@RequestMapping(value = "/stationsForUsers", method = RequestMethod.GET)
+	public String listStations(Map<String, Object> modelMap) {
+
+		modelMap.put("stationsList", stationsManager.findAllStations());
+	
+		return "stationsForUsers";
+	}
+	
 	@RequestMapping(value = "/stations", method = RequestMethod.GET)
-	public String addStations(Map<String, Object> modelMap) {
+	public String manageStations(Map<String, Object> modelMap) {
 
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "stations";
 	}
-
+	
 	@RequestMapping("/delete/{stationId}")
 	public String deleteStation(@PathVariable("stationId") Integer stationId) {
 		stationsManager.removeStations(stationId);
