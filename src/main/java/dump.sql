@@ -104,11 +104,12 @@ DROP TABLE IF EXISTS `stations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `stations` (
-  `STATIONID` int(11) unsigned NOT NULL,
+  `STATIONID` int(11) NOT NULL AUTO_INCREMENT,
   `STATIONCODE` varchar(20) NOT NULL,
   `STATIONNAME` varchar(100) NOT NULL,
-  PRIMARY KEY (`STATIONID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`STATIONID`),
+  UNIQUE KEY `STATIONID_UNIQUE` (`STATIONID`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +132,7 @@ DROP TABLE IF EXISTS `stationsonlines`;
 CREATE TABLE `stationsonlines` (
   `STATIONONLINEID` int(10) unsigned NOT NULL,
   `LINEID` int(10) unsigned NOT NULL,
-  `STATIONID` int(10) unsigned NOT NULL,
+  `STATIONID` int(11) NOT NULL AUTO_INCREMENT,
   `STATIONORDERNUM` int(10) unsigned NOT NULL,
   PRIMARY KEY (`STATIONONLINEID`),
   KEY `LINEID` (`LINEID`),
