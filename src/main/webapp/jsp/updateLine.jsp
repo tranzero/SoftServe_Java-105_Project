@@ -10,7 +10,7 @@
 <!-- <body> -->
 <div id="context">
 	<h1>Update Lines</h1>
-	Name of the line: <input type="text" name="lineName">
+	Name of the line: <input type="text" name="lineName", value="${updateLines}">
 </div>
 <!-- </body> -->
 <!-- </html> -->

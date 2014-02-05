@@ -16,13 +16,15 @@
 	<a class="button" href="addNewLine">Add Line</a>
 	<table border="1">
 		<tr>
-			<td align="center">Number</td>
 			<td align="center">Line Name</td>
+			<td align="center"></td>
+			<td align="center"></td>
 		</tr>
 		<c:forEach var="line" items="${linesList}">
 			<tr>
-				<td align="center"><%=++i%></td>
 				<td align="center">${line.getLineName()}</td>
+				<td align="center"><a href="updateLines/${line.getLineName()}">edit</a></td>
+				<td align="center"><a href="removeLines/${line.getLineName()}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

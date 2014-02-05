@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,30 +18,34 @@ public class LinesController {
 
 	@Autowired
 	private LinesManager linesManager;
-	
+
 	@Autowired
 	private StationsManager stationsManager;
 
-	@RequestMapping(value = "/removeLines", method = RequestMethod.POST)
-	public String remove(@ModelAttribute("lineName") String lineName,
-			Map<String, Object> modelMap) {
-		linesManager.deleteLine(lineName);
+	@RequestMapping(value = "/addLines", method = RequestMethod.GET)
+	public String addLines(Map<String, Object> modelMap) {
 		modelMap.put("linesList", linesManager.getFullLines());
 		return "addLines";
 	}
-	
-	@RequestMapping(value="/addLines", method = RequestMethod.GET)
-	public String addLines(Map<String, Object> modelMap){
-		modelMap.put("linesList", linesManager.getFullLines());
-		return "addLines";
-	}
-	
-	@RequestMapping(value="/addNewLine", method = RequestMethod.GET)
-	public String addNewLine(Map<String, Object> modelMap){
-		
+
+	@RequestMapping(value = "/addNewLine", method = RequestMethod.GET)
+	public String addNewLine(Map<String, Object> modelMap) {
 		return "updateLines";
 	}
 	
+	@RequestMapping(value = "updateLines/{updateLines}", method = RequestMethod.GET)
+	public String update(@PathVariable("updateLines") String lineName){		
+		return "updateLine";
+	}
+
+	@RequestMapping(value = "removeLines/{removeLines}", method = RequestMethod.GET)
+	public String remove(@PathVariable("removeLines") String lineName,
+			Map<String, Object> modelMap) {
+		linesManager.deleteLine(lineName);
+		modelMap.put("linesList", linesManager.getFullLines());
+		return "redirect:/addLines";
+	}
+
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";
