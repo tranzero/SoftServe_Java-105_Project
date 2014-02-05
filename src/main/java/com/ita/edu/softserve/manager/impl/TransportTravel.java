@@ -84,4 +84,34 @@ public class TransportTravel {
 				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 	}
 
+	/*
+	 * Subtract two Times
+	 */
+	public static Time subtractTimes(Time time1, Time time2) {
+		int secs = 0;
+		int mins = 0;
+		int hrs = 0;
+		
+		Calendar calendar = Calendar.getInstance();
+		
+		Date date1 = new Date(time1.getTime());
+		Date date2 = new Date(time2.getTime());
+		calendar.setTime(date1);
+
+		secs = calendar.get(Calendar.SECOND);
+		mins = calendar.get(Calendar.MINUTE);
+		hrs = calendar.get(Calendar.HOUR_OF_DAY);
+
+		calendar.setTime(date2);
+		
+		secs -= calendar.get(Calendar.SECOND);
+		mins -= calendar.get(Calendar.MINUTE);
+		hrs -= calendar.get(Calendar.HOUR_OF_DAY);
+		
+		calendar.set(0, 0, 0, hrs, mins, secs);
+		
+		return new Time(calendar.get(Calendar.HOUR_OF_DAY),
+				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+	}
+
 }

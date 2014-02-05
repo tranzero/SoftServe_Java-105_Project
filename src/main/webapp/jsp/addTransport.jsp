@@ -4,8 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
-	type="text/css" />
 <div id="context">
 	<h2>Transport adding</h2>
 
