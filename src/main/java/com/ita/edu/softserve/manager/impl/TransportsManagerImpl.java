@@ -1,19 +1,25 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Stops;
@@ -29,6 +35,8 @@ import com.ita.edu.softserve.manager.TransportsManager;
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
+	private static final Logger LOGGER = Logger
+			.getLogger(TransportsManagerImpl.class);
 
 	/**
 	 * Object to get access to DAO layer.
@@ -45,6 +53,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Autowired
 	private StopsDAO stopsDao;
 
+	@Autowired
+	private RoutesDAO routesDao;
+
 	/**
 	 * Constructor without arguments.
 	 */
@@ -56,7 +67,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * @return transport found by Id.
 	 * 
 	 */
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
 		return transportsDao.findById(id);
@@ -65,7 +76,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Saves Transports in database.
 	 */
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
 	public void saveTransports(Transports... entities) {
 		transportsDao.save(entities);
@@ -102,20 +113,44 @@ public class TransportsManagerImpl implements TransportsManager {
 		return transportsDao.getAllEntities();
 	}
 
+	/**
+	 * Saves Transport object and save it to database.
+	 */
+	@Transactional
 	@Override
-	public List<TransportTravel> getTransportByTwoStations(String stationName1,
+	public Transports createTransport(String transportCode, String startTime,
+			String route) {
+
+		Transports transport = new Transports(transportCode,
+				timeParse(startTime),routesDao.findById(new Integer(route)));
+
+		transportsDao.save(transport);
+
+		return transport;
+	}
+
+	@Transactional
+	@Override
+	public void saveOrUpdateTransport(Transports entity) {
+		transportsDao.saveOrUpdate(entity);
+	}
+
+	@Override
+	public List<Transports> getTransportByTwoStations(String stationName1,
 			String stationName2) {
 		Stations station1;
 		Stations station2;
 
 		/* Results are stored here */
-		List<TransportTravel> transportTravel = new ArrayList<TransportTravel>();
+		List<Transports> transport = new ArrayList<Transports>();
 
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
 		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
 
 		Stops stop1 = null;
 		Stops stop2 = null;
+
+		int index = 0;
 
 		try {
 			station1 = (Stations) stationDao.findByStations(stationName1)
@@ -134,7 +169,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			for (int j = 0; j < StationsOnLine1.size(); j++) {
 				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
 						.get(j).getLineId().getLineId()) {
-					if (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
+					if (StationsOnLine2.get(i).getStationOrderNum() < StationsOnLine1
 							.get(j).getStationOrderNum()) {
 						try {
 							stop1 = stopsDao
@@ -147,20 +182,13 @@ public class TransportsManagerImpl implements TransportsManager {
 							System.out.println("" + e.getMessage());
 						}
 						if ((stop1 != null) && (stop2 != null)) {
-							Transports transport = transportsDao
-									.findByRouteId(stop1.getRouteId()
-											.getRouteId());
-							TransportTravel trTravel = new TransportTravel(
-									transport);
-							trTravel.setDepartureTime(TransportTravel.sumTimes(
-									transport.getStartTime(),
-									stop1.getDeparture()));
-							trTravel.setArrivalTime(TransportTravel.sumTimes(
-									trTravel.getDepartureTime(),
-									stop2.getArrival()));
-
-							trTravel.setDuration(stop2.getArrival());
-							transportTravel.add(trTravel);
+							transport.add(transportsDao.findByRouteId(stop1
+									.getRouteId().getRouteId()));
+							transport.get(index).setStartTime(
+									TransportsManagerImpl.sumDates(transport
+											.get(index).getStartTime(), stop1
+											.getDeparture()));
+							index++;
 						} else {
 							return null;
 						}
@@ -169,11 +197,47 @@ public class TransportsManagerImpl implements TransportsManager {
 			}
 		}
 
-		return transportTravel;
+		return transport;
+	}
+
+	private static Time sumDates(Time... time) {
+		int secs = 0;
+		int mins = 0;
+		int hrs = 0;
+
+		Calendar calendar = Calendar.getInstance();
+
+		for (int i = 0; i < time.length; i++) {
+			Date date = new Date(time[i].getTime());
+			calendar.setTime(date);
+			secs += calendar.get(Calendar.SECOND);
+			mins += calendar.get(Calendar.MINUTE);
+			hrs += calendar.get(Calendar.HOUR_OF_DAY);
+		}
+		calendar.set(0, 0, 0, hrs, mins, secs);
+
+		return new Time(calendar.get(Calendar.HOUR_OF_DAY),
+				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 	}
 
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}
 
+	/**
+	 * Parses time representing in string into sql time.
+	 */
+	private static Time timeParse(String time) {
+
+		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		Date date = null;
+
+		try {
+			date = sdf.parse(time);
+		} catch (ParseException e) {
+			LOGGER.error(e.toString());
+		}
+
+		return new Time(date.getTime());
+	}
 }
