@@ -106,9 +106,9 @@ public class LinesManagerImpl implements LinesManager {
 	}
 	@Override
 	public int getLinesByStationCount(String stationName){
-		List <Lines> list = getLinesByStation(stationName);
-		int quantity = list.size();
-		return quantity;
+		Stations station = stationDao.findByStations(stationName).get(0);
+		return stlDao.getLinesByStationCount(station
+				.getStationId());
 	}
 
 	/**
