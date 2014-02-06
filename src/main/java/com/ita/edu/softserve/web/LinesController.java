@@ -29,43 +29,46 @@ public class LinesController {
 	}
 
 	@RequestMapping(value = "/addnewline")
-	public String addNewLine(/*Map<String, Object> modelMap*/){
+	public String addNewLine(/* Map<String, Object> modelMap */) {
 		return "editLine";
 	}
-	
+
 	@RequestMapping(value = "/addnewstations")
-	public String addNewStations(Map<String, Object> modelMap){
+	public String addNewStations(Map<String, Object> modelMap) {
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "allStationsEditLine";
 	}
-	
+
 	@RequestMapping(value = "/updateline/addnewstations")
-	public String addNewStation(Map<String, Object> modelMap){
+	public String addNewStation(Map<String, Object> modelMap) {
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "allStationsEditLine";
 	}
-	
+
 	@RequestMapping(value = "/removeline/{remove}")
-	public String removeLine(@PathVariable("remove") String lineName, Map<String, Object> modelMap){
-		linesManager.deleteLine(lineName);		
+	public String removeLine(@PathVariable("remove") String lineName,
+			Map<String, Object> modelMap) {
+		linesManager.deleteLine(lineName);
 		return "redirect:/addLines";
 	}
-	
+
 	@RequestMapping(value = "/updateline/{update}")
-	public String updateLine(@PathVariable("update") String lineName, Map<String, Object> modelMap){
-		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));		
+	public String updateLine(@PathVariable("update") String lineName,
+			Map<String, Object> modelMap) {
+		modelMap.put("stationsList",
+				stationsManager.getStationsOnCertainLine(lineName));
 		return "editLine";
 	}
-	
-	@RequestMapping(value = "/updateline/removestation/{removest}")
-	public String removeSt(@PathVariable("removest") Integer stationId){
-		System.out.println(stationId);
+
+	@RequestMapping(value = "/updateline/removestation/{removest}/{update}")
+	public String removeSt(@PathVariable("removest") Integer stationId,
+			@PathVariable("update") String stationName,
+			Map<String, Object> modelMap) {
 		stationsManager.removeStations(stationId);
-		return "redirect:/addLines";
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "redirect:/updateline/" + stationName;
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";
@@ -81,8 +84,8 @@ public class LinesController {
 			return "linesbytwostations";
 		}
 
-		model.put("LinesList", linesManager.getLinesByTwoStations(
-				stationName1, stationName2));
+		model.put("LinesList",
+				linesManager.getLinesByTwoStations(stationName1, stationName2));
 
 		return "linesbytwostations";
 	}

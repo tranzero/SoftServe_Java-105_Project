@@ -16,7 +16,7 @@
 				<td align="center">${station.getStationCode()}</td>
 				<td align="center">${station.getStationName()}</td>
 				<td align="center"><a
-					href="removestation/${station.getStationId()}">delete</a></td>
+					href="removestation/${station.getStationId()}/${update}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

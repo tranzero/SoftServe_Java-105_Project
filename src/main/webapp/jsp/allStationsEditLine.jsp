@@ -18,4 +18,5 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<a class="button" href="confirmaddstations">OK</a>
 </section>
