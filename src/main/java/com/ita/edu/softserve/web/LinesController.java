@@ -28,6 +28,32 @@ public class LinesController {
 		return "addLines";
 	}
 
+	@RequestMapping(value = "/addnewline")
+	public String addNewLine(/*Map<String, Object> modelMap*/){
+		return "editLine";
+	}
+	
+	@RequestMapping(value = "/removeline/{remove}")
+	public String removeLine(@PathVariable("remove") String lineName, Map<String, Object> modelMap){
+		linesManager.deleteLine(lineName);		
+		return "redirect:/addLines";
+	}
+	
+	@RequestMapping(value = "/updateline/{update}")
+	public String updateLine(@PathVariable("update") String lineName, Map<String, Object> modelMap){
+		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));		
+		return "editLine";
+	}
+	
+	@RequestMapping(value = "/updateline/removestation/{removest}")
+	public String removeSt(@PathVariable("removest") Integer stationId){
+		System.out.println(stationId);
+		stationsManager.removeStations(stationId);
+		return "redirect:/addLines";
+	}
+	
+	
+	
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";
