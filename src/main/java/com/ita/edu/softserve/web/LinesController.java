@@ -33,6 +33,18 @@ public class LinesController {
 		return "editLine";
 	}
 	
+	@RequestMapping(value = "/addnewstations")
+	public String addNewStations(Map<String, Object> modelMap){
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "allStationsEditLine";
+	}
+	
+	@RequestMapping(value = "/updateline/addnewstations")
+	public String addNewStation(Map<String, Object> modelMap){
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "allStationsEditLine";
+	}
+	
 	@RequestMapping(value = "/removeline/{remove}")
 	public String removeLine(@PathVariable("remove") String lineName, Map<String, Object> modelMap){
 		linesManager.deleteLine(lineName);		

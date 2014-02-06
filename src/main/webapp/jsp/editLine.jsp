@@ -20,5 +20,5 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a class="button" href="addnewstations">Add Line</a>
+	<a class="button" href="addnewstations">Add Stations</a>
 </section>
