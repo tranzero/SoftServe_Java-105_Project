@@ -38,7 +38,7 @@
 				<td><input type="text" name="genprice"></td>
 			</tr>
 		</table>
-		<input type="submit" value="Add Transport">
+		<input type="submit" value="<spring:message code="label.navigation.addTransport"/>">
 	</form>
 
 <%-- 	<form:form method="POST" action="addTransport.htm"

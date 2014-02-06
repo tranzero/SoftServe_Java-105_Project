@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
-
+import static com.ita.edu.softserve.utils.ParseUtil.*;
 /**
  * This is transports manager class.
  * 
@@ -83,10 +85,26 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Removes Transports from database.
 	 */
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
 	public void removeTransports(Transports... entities) {
 		transportsDao.remove(entities);
+	}
+
+	/**
+	 * Removes Transport by Id from database.
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void removeTransportById(Integer transportId) {
+		Transports transport = null;
+
+		try {
+			transport = (Transports) transportsDao.findById(transportId);
+			transportsDao.remove(transport);
+		} catch (NoResultException e) {
+			LOGGER.error("No such transport!", e);
+		}
 	}
 
 	/**
@@ -112,31 +130,42 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves Transport object and save it to database.
+	 * Saves Transport object or updates it to database.
 	 */
 	@Transactional
 	@Override
-	public Transports createTransport(String transportCode, String startTime,
-			String route, String seatclass1, String seatclass2,
+	public void saveOrUpdateTransport(String transportCode, String startTime,
+			String routes, String seatclass1, String seatclass2,
 			String seatclass3, String genprice) {
 
 		Transports transport = new Transports(transportCode,
-				timeParse(startTime), routesDao.findById(new Integer(route)));
+				timeParse(startTime), routesDao.findByCode(routes),
+				new Integer(seatclass1), new Integer(seatclass2), new Integer(
+						seatclass3), new Double(genprice));
 
+		transportsDao.saveOrUpdate(transport);
+	}
+
+	/**
+	 * Edits Transport object.
+	 */
+	@Transactional
+	@Override
+	public void editTransport(Integer transportId, String transportCode, String startTime,
+			String routes, String seatclass1, String seatclass2,
+			String seatclass3, String genprice) {
+		
+		Transports transport = transportsDao.findById(transportId);
+
+		transport.setTransportCode(transportCode);
+		transport.setStartTime(timeParse(startTime));
+		transport.setRoutes(routesDao.findByCode(routes));
 		transport.setSeatclass1(new Integer(seatclass1));
 		transport.setSeatclass2(new Integer(seatclass2));
 		transport.setSeatclass3(new Integer(seatclass3));
 		transport.setGenPrice(new Double(genprice));
 
-		transportsDao.save(transport);
-
-		return transport;
-	}
-
-	@Transactional
-	@Override
-	public void saveOrUpdateTransport(Transports entity) {
-		transportsDao.saveOrUpdate(entity);
+		transportsDao.update(transport);
 	}
 
 	@Override
@@ -196,8 +225,11 @@ public class TransportsManagerImpl implements TransportsManager {
 									transport.getStartTime(),
 									stop2.getArrival()));
 
-							trTravel.setDuration(TransportTravel.subtractTimes(stop2.getArrival(), stop1.getDeparture()));
-							trTravel.setDuration(TransportTravel.subtractTimes(trTravel.getArrivalTime(), trTravel.getDepartureTime()));
+							trTravel.setDuration(TransportTravel.subtractTimes(
+									stop2.getArrival(), stop1.getDeparture()));
+							trTravel.setDuration(TransportTravel.subtractTimes(
+									trTravel.getArrivalTime(),
+									trTravel.getDepartureTime()));
 							transportTravel.add(trTravel);
 						} else {
 							return null;
@@ -212,22 +244,5 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
-	}
-
-	/**
-	 * Parses time representing in string into sql time.
-	 */
-	private static Time timeParse(String time) {
-
-		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-		Date date = null;
-
-		try {
-			date = sdf.parse(time);
-		} catch (ParseException e) {
-			LOGGER.error(e.toString());
-		}
-
-		return new Time(date.getTime());
 	}
 }
