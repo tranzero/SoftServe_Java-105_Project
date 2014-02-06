@@ -24,18 +24,23 @@ public final class ParseUtil {
 
 	/**
 	 * Parses time representing in string into sql time.
-	 * 
-	 * @return time sql time object.
+	 * @param time
+	 *            string object.
+	 * @return sql time object.
 	 */
 	public static Time timeParse(final String time) {
-
+		if (time == null) {
+			LOGGER.error("The param time is null");
+			return null;
+		}
+		
 		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		Date date = null;
 
 		try {
 			date = sdf.parse(time);
 		} catch (ParseException e) {
-			LOGGER.error(e.toString());
+			LOGGER.error(e);
 		}
 
 		return new Time(date.getTime());
