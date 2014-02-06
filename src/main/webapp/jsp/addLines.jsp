@@ -14,7 +14,7 @@
 		<c:forEach var="line" items="${linesList}">
 			<tr>
 				<td align="center">${line.getLineName()}</td>
-				<td align="center"><a href="updateline/${line.getLineName()}">edit</a></td>
+				<td align="center"><a href="updateline/${line.getLineName()}/${line.getLineId()}">edit</a></td>
 				<td align="center"><a href="removeline/${line.getLineName()}">delete</a></td>
 			</tr>
 		</c:forEach>

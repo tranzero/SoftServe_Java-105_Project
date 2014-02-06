@@ -18,8 +18,11 @@ public interface StationsOnLineDAO extends AbstractDAOIface<StationsOnLine>{
 	 * @return List<StationsOnLine>
 	 */
 	public List<StationsOnLine> findByStationId(int id);
+	
 	public List<StationsOnLine> findByLineId(int id);
+	
 	public int getLinesByStationCount(int id);
+	
 	public List<StationsOnLine> getLinesByStationForOnePage (int from, int count,int id);
 
 	/**
@@ -34,4 +37,6 @@ public interface StationsOnLineDAO extends AbstractDAOIface<StationsOnLine>{
 	 */
 	public List<StationsOnLine> findByTwoStations(String stationName1,
 			String stationName2);
+	
+	public StationsOnLine findByStationIdAndLineId(Integer stationId, Integer lineId);
 }

@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.List;
+
 import com.ita.edu.softserve.entity.Lines;
 
 /**
@@ -17,5 +19,6 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 * @return Lines
 	 */
 	public Lines findByName(String lineName);
+	public List<Lines> getLinesByStationName(String stationName);
 
 }

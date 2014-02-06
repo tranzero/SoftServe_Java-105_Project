@@ -6,6 +6,13 @@
 	<div id="logo">
 		<h1><spring:message code="label.header.title"/>[WIP]</h1>
 	</div>
+	<div id="login">
+		<ul>
+			<li><a href="">Login</a></li>
+			<li>|</li>
+			<li><a href="">Register</a></li>
+		</ul>
+	</div>
 	<div id="language">
 		<ul>
 			<li><img class="flag flag-ua" /><a href="?lang=ua">ua</a></li>

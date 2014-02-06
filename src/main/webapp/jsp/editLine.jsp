@@ -4,7 +4,7 @@
 
 <section id="content">
 	<h1>Edit/Create Line</h1>
-	Line name: <input type="text" value="${update}">
+	Line name: <input type="text" value="${lineName}">
 	<table>
 		<tr>
 			<td align="center">Station Code</td>
@@ -16,7 +16,7 @@
 				<td align="center">${station.getStationCode()}</td>
 				<td align="center">${station.getStationName()}</td>
 				<td align="center"><a
-					href="removestation/${station.getStationId()}/${update}">delete</a></td>
+					href="removestation/${station.getStationId()}/${lineId}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
