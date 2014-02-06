@@ -164,8 +164,7 @@ public class LinesManagerImpl implements LinesManager {
 		} catch (NoResultException e) {
 		}
 		if (line == null) {
-			line = new Lines(lineName);
-			lineDao.save(line);
+			lineDao.save(new Lines(lineName));
 		}
 	}
 

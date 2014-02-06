@@ -60,8 +60,6 @@ public class LinesController {
 	public String updateLine(@PathVariable("lineName") String lineName,
 			@PathVariable("lineId") Integer lineId, 
 			Map<String, Object> modelMap) {
-		System.out.println(lineId);
-		System.out.println(lineName);
 		modelMap.put("stationsList",
 				stationsManager.getStationsOnCertainLine(lineName));
 		return "editLine";
@@ -72,8 +70,6 @@ public class LinesController {
 			@PathVariable("lineName") String lineName,
 			@PathVariable("lineId") Integer lineId, 
 			Map<String, Object> modelMap) {
-		System.out.println(lineId);
-		System.out.println(stationId);
 		stationOnLineManager.removeStation(stationId, lineId);
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "redirect:/updateline/" + lineName + "/" + lineId;
