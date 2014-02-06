@@ -104,6 +104,12 @@ public class LinesManagerImpl implements LinesManager {
 		}
 		return linesList;
 	}
+	@Override
+	public int getLinesByStationCount(String stationName){
+		List <Lines> list = getLinesByStation(stationName);
+		int quantity = list.size();
+		return quantity;
+	}
 
 	/**
 	 * Return Lines that includes two stations in certain order

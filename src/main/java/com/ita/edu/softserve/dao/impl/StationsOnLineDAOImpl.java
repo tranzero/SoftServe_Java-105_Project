@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
+import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
@@ -38,4 +39,10 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
 		return list;
 	}
 
+	@Override
+	public int getLinesByStationCount(int id) {
+		
+		return (int)find((Query)entityManager
+				.createNamedQuery(StationsOnLine.GET_LINES_BY_STATION_COUNT).setParameter(1, id));
+	}
 }
