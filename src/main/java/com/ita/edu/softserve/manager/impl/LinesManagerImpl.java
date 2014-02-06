@@ -135,51 +135,14 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2) {
-		Stations station1;
-		Stations station2;
-
-		/* Results are stored here */
 		List<Lines> lines = new ArrayList<Lines>();
-
-		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
-		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
-
-		List<StationsOnLine> stOnLine;
-
-		try {
-			station1 = (Stations) stationDao.findByStations(stationName1)
-					.get(0);
-			station2 = (Stations) stationDao.findByStations(stationName2)
-					.get(0);
-		} catch (Exception e) {
-			System.out.println("" + e.getMessage());
-			return null;
+		
+		List<StationsOnLine> stOnLineList = stlDao.findByTwoStations(stationName1, stationName2);
+		
+		for (StationsOnLine stOnline : stOnLineList) {
+			lines.add(stOnline.getLineId());
 		}
-
-		stOnLine = stlDao.getAllEntities();
-
-		for (StationsOnLine stationOnLine : stOnLine) {
-			if (stationOnLine.getStationId().getStationId() == station1
-					.getStationId()) {
-				StationsOnLine1.add(stationOnLine);
-			} else if (stationOnLine.getStationId().getStationId() == station2
-					.getStationId()) {
-				StationsOnLine2.add(stationOnLine);
-			}
-		}
-
-		for (int i = 0; i < StationsOnLine2.size(); i++) {
-			for (int j = 0; j < StationsOnLine1.size(); j++) {
-				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
-						.get(j).getLineId().getLineId()) {
-					if (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
-							.get(j).getStationOrderNum()) {
-						lines.add(StationsOnLine2.get(i).getLineId());
-					}
-				}
-			}
-		}
-
+		
 		return lines;
 	}
 
