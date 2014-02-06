@@ -63,12 +63,12 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Transactional
 	@Override
-	public Stations findStationsById(int id) {
+	public Stations findStationsById(Integer id) {
 		return stationDao.findById(id);
 	}
 
 	/**
-	 * Save Station in database using parametrs.
+	 * Saves Station in database using parameters.
 	 * 
 	 * @param stationCode
 	 * 
@@ -83,7 +83,7 @@ public class StationsManagerImpl implements StationsManager {
 	}
 
 	/**
-	 * Save Stations in database.
+	 * Saves Stations in database.
 	 */
 	@Transactional
 	@Override
@@ -94,7 +94,7 @@ public class StationsManagerImpl implements StationsManager {
 	}
 
 	/**
-	 * Remove Stations by Id from database.
+	 * Removes Stations by Id from database.
 	 */
 	@Transactional
 	@Override
@@ -110,7 +110,7 @@ public class StationsManagerImpl implements StationsManager {
 	}
 
 	/**
-	 * Update Stations table in DB and get list of all stations.
+	 * Updates Stations table in DB and get list of all stations.
 	 * 
 	 * @return list of all stations.
 	 */
