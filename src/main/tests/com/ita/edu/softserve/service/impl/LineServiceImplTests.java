@@ -33,7 +33,7 @@ import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class LineServiceImplTests {
 
-	@Test
+/*	@Test
 	public void getFullLinesTest() {
 		List<Lines> testList = new ArrayList<Lines>();
 		Lines lines = mock(Lines.class);
@@ -79,16 +79,16 @@ public class LineServiceImplTests {
 	}
 
 	
-	/***************************************/
-	/*
+	*//***************************************//*
+	
 	 * THIS SECTION WILL BE CHANGED SOON
-	 */
-	/***************************************/
-	/*
+	 
+	*//***************************************//*
+	
 	 * Test for method {@link
 	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
 	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
-	 */
+	 
 	@Test
 	public final void LinesTwoStationsCertainOrderTest() {
 
@@ -125,11 +125,11 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
-	/*
+	
 	 * Test for method: empty List {@link
 	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
 	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
-	 */
+	 
 	@Test
 	public final void LinesTwoStationsCertainOrderEmptyListTest() {
 
@@ -164,11 +164,11 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
-	/*
+	
 	 * Test for method: Test if different lines in two Lists {@link
 	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
 	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
-	 */
+	 
 	@Test
 	public final void LinesTwoStationsCertainOrderIfDifferentLinesTest() {
 
@@ -202,11 +202,11 @@ public class LineServiceImplTests {
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
 	}
 
-	/*
+	
 	 * Test for method: Test if two Stations are the same {@link
 	 * com.ita.edu.softserve.service.impl.LineServiceImpl#
 	 * getLinesTwoStationsCertainOrder(Stations, Stations)}
-	 */
+	 
 	@Test
 	public final void LinesTwoStationsCertainOrderEqualsListsTest() {
 
@@ -229,6 +229,6 @@ public class LineServiceImplTests {
 
 		List<Lines> expectedLines = new ArrayList<Lines>();
 		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
-	}
+	}*/
 
 }

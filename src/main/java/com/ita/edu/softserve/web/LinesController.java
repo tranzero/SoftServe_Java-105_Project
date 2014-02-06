@@ -28,38 +28,6 @@ public class LinesController {
 		return "addLines";
 	}
 
-	@RequestMapping(value = "/addNewLine", method = RequestMethod.GET)
-	public String addNewLine(Map<String, Object> modelMap) {
-		return "updateLines";
-	}
-	
-	@RequestMapping(value = "/addStationToLine", method = RequestMethod.GET)
-	public String addStationToLine(Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.findAllStations());
-		return "addStationToLine";
-	}
-
-	@RequestMapping(value = "updateLines/{updateLines}", method = RequestMethod.GET)
-	public String update(@PathVariable("updateLines") String lineName,
-			Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));
-		return "updateLine";
-	}
-
-	@RequestMapping(value = "removeStationOnLine/{removeStationOnLine}", method = RequestMethod.GET)
-	public String removeStation(
-			@PathVariable("removeStationOnLine") String stationName) {
-		return "redirect:/updateLine";
-	}
-
-	@RequestMapping(value = "removeLines/{removeLines}", method = RequestMethod.GET)
-	public String remove(@PathVariable("removeLines") String lineName,
-			Map<String, Object> modelMap) {
-		linesManager.deleteLine(lineName);
-		modelMap.put("linesList", linesManager.getFullLines());
-		return "redirect:/addLines";
-	}
-
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";
