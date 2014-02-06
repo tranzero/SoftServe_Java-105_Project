@@ -103,7 +103,12 @@ public class LinesManagerImpl implements LinesManager {
 			linesList.add(stl.getLineId());
 		}
 		return linesList;
-	}
+		}
+	
+		public List<Lines> getLinesByStationName(String stationName){
+			return lineDao.getLinesByStationName(stationName);
+		}
+	
 	@Override
 	public int getLinesByStationCount(String stationName){
 		Stations station = stationDao.findByStations(stationName).get(0);

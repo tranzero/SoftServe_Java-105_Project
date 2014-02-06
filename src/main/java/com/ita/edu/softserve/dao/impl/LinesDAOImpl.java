@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -36,4 +38,11 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
                 
                 return Lines.class;
         }
+        
+        public List<Lines> getLinesByStationName(String stationName){
+        	Query query = entityManager.createNamedQuery(Lines.FIND_BY_STATION_NAME).setParameter(1, stationName);
+        	List<Lines > list = query.getResultList();
+        	return list;
+        }
+		
 }
