@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 /**
  * Class for parser.
- * 
  * @author Roman
  */
 public final class ParseUtil {
@@ -33,7 +32,7 @@ public final class ParseUtil {
 			LOGGER.error("The param time is null");
 			return null;
 		}
-		
+
 		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		Date date = null;
 
