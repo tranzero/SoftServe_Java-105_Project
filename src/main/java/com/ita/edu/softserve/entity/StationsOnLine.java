@@ -19,7 +19,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQueries({
 @NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY),
-@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_COUNT,query = StationsOnLine.GET_LINES_BY_STATION_COUNT_QUERY)})
+@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_COUNT,query = StationsOnLine.GET_LINES_BY_STATION_COUNT_QUERY),
+@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_FOR_PAGING,query = StationsOnLine. GET_LINES_BY_STATION_FOR_PAGING_QUERY)})
 public class StationsOnLine extends BaseEntity {
 
 
@@ -31,6 +32,9 @@ public class StationsOnLine extends BaseEntity {
 	public static final String FIND_BY_LINE_ID_QUERY="SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
 	public static final String GET_LINES_BY_STATION_COUNT="StationsOnLine.getLinesByStationCount";
 	public static final String GET_LINES_BY_STATION_COUNT_QUERY="SELECT COUNT ( stl.stationOnLineId) FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
+	public static final String GET_LINES_BY_STATION_FOR_PAGING = "StationsOnLine.getLinesByStationForPaging";
+	public static final String GET_LINES_BY_STATION_FOR_PAGING_QUERY = "SELECT stl from StationsOnLine stl WHERE stl.lineId.lineId = ?1 ORDER BY stl.stationOnLineId";
+	
 	@Id
 	@Column(name = "STATIONONLINEID")
 	@GeneratedValue(strategy = GenerationType.AUTO)

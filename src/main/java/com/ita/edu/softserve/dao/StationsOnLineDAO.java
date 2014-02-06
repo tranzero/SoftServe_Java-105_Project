@@ -20,4 +20,5 @@ public interface StationsOnLineDAO extends AbstractDAOIface<StationsOnLine>{
 	public List<StationsOnLine> findByStationId(int id);
 	public List<StationsOnLine> findByLineId(int id);
 	public int getLinesByStationCount(int id);
+	public List<StationsOnLine> getLinesByStationForOnePage (int from, int count,int id);
 }
