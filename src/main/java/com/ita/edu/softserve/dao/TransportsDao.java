@@ -8,9 +8,12 @@ import com.ita.edu.softserve.entity.Transports;
 public interface TransportsDao extends AbstractDAOIface<Transports> {
 
 	/**
-	 * Find Transports by route id
+	 * Finds Transports by route id.
 	 */
 	Transports findByRouteId(int id);
 	
-	void saveOrUpdate(final Transports entity);
+	/**
+	 * Saves a Transport to database if not exist or update existing one.
+	 */
+	void saveOrUpdate(Transports entity);
 }
