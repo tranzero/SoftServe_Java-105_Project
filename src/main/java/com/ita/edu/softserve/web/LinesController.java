@@ -74,6 +74,12 @@ public class LinesController {
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "redirect:/updateline/" + lineName + "/" + lineId;
 	}
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
