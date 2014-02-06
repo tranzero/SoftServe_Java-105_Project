@@ -36,8 +36,6 @@ public class IndexPageController {
 		try {
 			int maxPageCount = pageMan.getMaxPageCount(pageMan.getDefaultResultPerPage(), posts.getPostListCount());
 			
-	//		modelMap.put("newsList", posts.findPostList());
-			
 			modelMap.put("maxPageCount", maxPageCount);
 			return "mainpage";
 			
@@ -81,16 +79,51 @@ public class IndexPageController {
 	@RequestMapping(value = "/managenews", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
 
+		modelMap.put("pageNumber", pageMan.getDefaultPageNumber());
+		modelMap.put("resultsPerPage", pageMan.getDefaultResultPerPage());
+		modelMap.put("sizeOfPaging", pageMan.getDefaultPageCount());
 		try {
-			modelMap.put("newsList", posts.findPostList());
+			int maxPageCount = pageMan.getMaxPageCount(pageMan.getDefaultResultPerPage(), posts.getPostListCount());
+			modelMap.put("maxPageCount", maxPageCount);
+			return "managenews";
 		} catch (PostManagerExeption e) {
 			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
 			modelMap.put("errorMsg", e.getMessage());
 			return "result";
 		}
-		return "managenews";
+		
 	}
 
+	@RequestMapping(value = "managenewspost", method = RequestMethod.POST)
+	public String mainNewsPost(@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("resultsPerPage") int resultsPerPage, Map<String, Object> modelMap) {
+
+		
+		try {
+			
+			int maxPageCount = 0;
+			long resultCount = 0;
+			
+			resultCount = posts.getPostListCount();
+			modelMap.put("maxResultCount", resultCount);
+			maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
+			modelMap.put("maxPageCount", maxPageCount);
+			int currentPagingPosition = pageMan.getCurrentPagingPosition(pageNumber, resultsPerPage);
+			modelMap.put("pageNumber", pageNumber);
+			modelMap.put("resultsPerPage", resultsPerPage);
+			modelMap.put("newsList", posts.getPostForPage(currentPagingPosition, resultsPerPage));
+			
+			
+			return "managenewspost";
+			
+		} catch (PostManagerExeption e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		
+	}
+	
 	@RequestMapping(value = "/addnews", method = RequestMethod.GET)
 	public String addNews() {
 		return "addnews";

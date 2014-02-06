@@ -18,11 +18,23 @@
 		<put-attribute name = "title" value = "View: News"/>	
 		<put-attribute name="content" value="/jsp/mainpage.jsp" />
 	</definition>
+	<definition name="managenews" extends="base-template">
+		<put-attribute name = "title" value = "View: News Manager"/>	
+		<put-attribute name="content" value="/jsp/managenews.jsp" />
+	</definition>
 	<definition name="mainpagepost" extends="ajax">
 		<put-attribute name = "title" value = "View: News"/>
 		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />
 	</definition>
+	<definition name="managenewspost" extends="ajax">
+		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="content" value="/jsp/managenewspost.jsp" />
+	</definition>
 	
+<!-- 	<definition name="managenews" extends="base-template"> -->
+<!-- 		<put-attribute name = "title" value = "View: News Maneger"/>	 -->
+<!-- 		<put-attribute name="content" value="/jsp/managenews.jsp" /> -->
+<!-- 	</definition> -->
 	
 	<!--  <definition name = "index" extends = "base-template">
 		<put-attribute name = "title" value = ""/>

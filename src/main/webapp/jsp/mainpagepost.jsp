@@ -29,6 +29,7 @@
 						
 						<td>
 							${News.getDescription()}
+							<a href="detailsnews/${News.getPostId()}">Details...</a>
 						</td>
 						<td>
 							${News.getDate()}
