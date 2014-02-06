@@ -33,4 +33,6 @@ public interface LinesManager extends BaseManager {
 	public void deleteLine(String lineName);
 
 	void updateLine(String lineName, String newLineName);
+	
+	public List<Lines> getLinesByStationName(String stationName);
 }

@@ -31,7 +31,7 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 	
 	@Override
     public Stations findByName(String stationName) {
-            Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+            Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
                             .setParameter(1, stationName);
             return (Stations) query.getSingleResult();
     }

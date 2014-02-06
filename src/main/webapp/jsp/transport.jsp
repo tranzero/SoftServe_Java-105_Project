@@ -5,16 +5,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <section id="content">
-	<table>
+	<h2 align="center">
+		<spring:message code="label.navigation.transport" />
+	</h2>
+	<table style="align: center">
 		<tr>
-			<th><spring:message code="label.transport.transportcode"/></th>
-			<th><spring:message code="label.transport.starttime"/></th>
-			<th><spring:message code="label.routes.routecode"/></th>
-			<th><spring:message code="label.lines.linename"/></th>
-			<th><spring:message code="label.transport.seatclass1"/></th>
-			<th><spring:message code="label.transport.seatclass2"/></th>
-			<th><spring:message code="label.transport.seatclass3"/></th>
-			<th><spring:message code="label.transport.genprice"/></th>
+			<th><spring:message code="label.transport.transportcode" /></th>
+			<th><spring:message code="label.transport.starttime" /></th>
+			<th><spring:message code="label.routes.routecode" /></th>
+			<th><spring:message code="label.lines.linename" /></th>
+			<th><spring:message code="label.transport.seatclass1" /></th>
+			<th><spring:message code="label.transport.seatclass2" /></th>
+			<th><spring:message code="label.transport.seatclass3" /></th>
+			<th><spring:message code="label.transport.genprice" /></th>
+
 		</tr>
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>
@@ -26,6 +30,10 @@
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
 				<td align="center">${transport.getGenPrice()}</td>
+				<td align="center"><a href="edit/${transport.getTransportId()}"><spring:message
+							code="label.transport.edit" /></a></td>
+				<td align="center"><a href="delete/${transport.getTransportId()}"><spring:message
+							code="label.transport.delete" /></a></td>
 		</c:forEach>
 	</table>
 </section>

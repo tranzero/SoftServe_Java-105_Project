@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.manager.LinesManager;
+import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
 
 @Controller
@@ -21,6 +22,9 @@ public class LinesController {
 
 	@Autowired
 	private StationsManager stationsManager;
+
+	@Autowired
+	private StationOnLineManager stationOnLineManager;
 
 	@RequestMapping(value = "/addLines", method = RequestMethod.GET)
 	public String addLines(Map<String, Object> modelMap) {
@@ -52,21 +56,23 @@ public class LinesController {
 		return "redirect:/addLines";
 	}
 
-	@RequestMapping(value = "/updateline/{update}")
-	public String updateLine(@PathVariable("update") String lineName,
+	@RequestMapping(value = "/updateline/{lineName}/{lineId}")
+	public String updateLine(@PathVariable("lineName") String lineName,
+			@PathVariable("lineId") Integer lineId, 
 			Map<String, Object> modelMap) {
 		modelMap.put("stationsList",
 				stationsManager.getStationsOnCertainLine(lineName));
 		return "editLine";
 	}
 
-	@RequestMapping(value = "/updateline/removestation/{removest}/{update}")
-	public String removeSt(@PathVariable("removest") Integer stationId,
-			@PathVariable("update") String stationName,
+	@RequestMapping(value = "/updateline/{lineName}/removestation/{removeStId}/{lineId}")
+	public String removeSt(@PathVariable("removeStId") Integer stationId,
+			@PathVariable("lineName") String lineName,
+			@PathVariable("lineId") Integer lineId, 
 			Map<String, Object> modelMap) {
-		stationsManager.removeStations(stationId);
+		stationOnLineManager.removeStation(stationId, lineId);
 		modelMap.put("stationsList", stationsManager.findAllStations());
-		return "redirect:/updateline/" + stationName;
+		return "redirect:/updateline/" + lineName + "/" + lineId;
 	}
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)

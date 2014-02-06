@@ -21,7 +21,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQuery(name = StationsOnLine.FIND_BY_TWO_STATIONS, query = StationsOnLine.FIND_BY_TWO_STATIONS_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY),
 @NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_COUNT,query = StationsOnLine.GET_LINES_BY_STATION_COUNT_QUERY),
-@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_FOR_PAGING,query = StationsOnLine. GET_LINES_BY_STATION_FOR_PAGING_QUERY)})
+@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_FOR_PAGING,query = StationsOnLine. GET_LINES_BY_STATION_FOR_PAGING_QUERY),
+@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID, query = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID_QUERY)})
 public class StationsOnLine extends BaseEntity {
 
 
@@ -33,6 +34,11 @@ public class StationsOnLine extends BaseEntity {
 	public static final String FIND_BY_TWO_STATIONS = "StationsOnLine.findByTwoStations";
 	public static final String FIND_BY_TWO_STATIONS_QUERY ="select stl from StationsOnLine stl, StationsOnLine stlt where stl.stationId.stationName = ?1 and stlt.stationId.stationName = ?2 and stl.lineId.lineId = stlt.lineId.lineId and stlt.stationOrderNum > stl.stationOrderNum";
 
+	public static final String FIND_BY_LINE_ID_AND_STATION_ID = "StationsOnLine.findByStationIdAndLineId";
+	public static final String FIND_BY_LINE_ID_AND_STATION_ID_QUERY ="select stl from StationsOnLine stl where stl.stationId.stationId = ?1 and stl.lineId.lineId = ?2";
+
+	
+	
 	public static final String FIND_BY_LINE_ID = "StationsOnLine.findByLineID";
 	public static final String FIND_BY_LINE_ID_QUERY="SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
 	public static final String GET_LINES_BY_STATION_COUNT="StationsOnLine.getLinesByStationCount";

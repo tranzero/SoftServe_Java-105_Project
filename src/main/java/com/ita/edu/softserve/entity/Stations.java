@@ -18,7 +18,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY)
 public class Stations extends BaseEntity {
 
-	public static final String FIND_BY_NAME = "Station.findByName";
+	public static final String FIND_BY_NAME = "Stations.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
 
 	@Id

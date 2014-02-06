@@ -12,44 +12,44 @@ import com.ita.edu.softserve.entity.Stations;
 public interface StationsManager extends BaseManager {
 
 	/**
-	 * Get list of all Stations.
+	 * Gets list of all Stations.
 	 */
 	List<Stations> findAllStations();
 
 	/**
-	 * Get Station by ID.
+	 * Gets Station by ID.
 	 */
-	Stations findStationsById(int id);
+	Stations findStationsById(Integer id);
 
 	/**
 	 * 
-	 * Save station by parametrs
+	 * Saves station by parameters.
 	 * 
 	 */
 	void createStation(String stationCode, String stationName);
 
 	/**
-	 * Save station
+	 * Saves station.
 	 */
 	void saveStations(Stations... station);
 
 	/**
-	 * Remove station
+	 * Removes station.
 	 */
 	void removeStations(Integer stationId);
 
 	/**
-	 * Update stations
+	 * Updates stations.
 	 */
 	List<Stations> updateStations(Stations... station);
 
 	/**
-	 * Update exact station by Id
+	 * Updates exact station by Id.
 	 */
 	void editStation(Integer stationId, String stationCode, String stationName);
 	
 	/**
-	 * Find station by its Name 
+	 * Finds station by its Name.
 	 */
 	public Stations findByStationName(String stationName); 
 	

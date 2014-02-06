@@ -103,7 +103,12 @@ public class LinesManagerImpl implements LinesManager {
 			linesList.add(stl.getLineId());
 		}
 		return linesList;
-	}
+		}
+	
+		public List<Lines> getLinesByStationName(String stationName){
+			return lineDao.getLinesByStationName(stationName);
+		}
+	
 	@Override
 	public int getLinesByStationCount(String stationName){
 		Stations station = stationDao.findByStations(stationName).get(0);
@@ -159,8 +164,7 @@ public class LinesManagerImpl implements LinesManager {
 		} catch (NoResultException e) {
 		}
 		if (line == null) {
-			line = new Lines(lineName);
-			lineDao.save(line);
+			lineDao.save(new Lines(lineName));
 		}
 	}
 

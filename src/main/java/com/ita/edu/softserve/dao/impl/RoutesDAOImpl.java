@@ -21,7 +21,7 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 
 	@Override
 	public Routes findByCode(String routeCode) {
-		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+		Query query = entityManager.createNamedQuery(Routes.FIND_BY_CODE)
 				.setParameter(1, routeCode);
 		return (Routes) query.getSingleResult();
 	}

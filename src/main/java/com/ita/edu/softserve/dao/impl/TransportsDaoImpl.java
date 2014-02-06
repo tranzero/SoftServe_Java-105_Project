@@ -28,13 +28,14 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 		return (Transports) query.getSingleResult();
 	}
-	
-	public void saveOrUpdate(final Transports entity) { 
-	    if (entity.getTransportId() == null) { 
-	        entityManager.persist(entity); 
-	        entityManager.refresh(entity); 
-	    } else { 
-	    	entityManager.merge(entity); 
-	    } 
+
+	@Override
+	public void saveOrUpdate(final Transports entity) {
+		if (entity.getTransportId() == null) {
+			entityManager.persist(entity);
+			entityManager.refresh(entity);
+		} else {
+			entityManager.merge(entity);
+		}
 	}
 }
