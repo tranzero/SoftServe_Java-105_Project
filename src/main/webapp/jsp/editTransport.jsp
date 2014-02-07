@@ -5,47 +5,46 @@
 
 <section id="content">
 	<h1 align="center">Edit Transport</h1>
-
-	<form action="/editTransport" method="post" name="transport">
+	<form id="editTransport" method="post" name="transport">
 		<table style="align: center">
 			<tr>
-				<td>ID:</td>
-				<td><input type="text" name="transportId"
+				<!-- 				<td>ID:</td> -->
+				<td><input id="transportId" type="hidden" name="transportId"
 					value="${transport.getTransportId()}"></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.transportcode" /></td>
-				<td><input type="text" name="transportCode"
+				<td><input id="transportCode" type="text" name="transportCode"
 					value="${transport.getTransportCode()}"></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.starttime" /></td>
-				<td><input type="text" type="text" name="startTime"
+				<td><input id="startTime" type="text" type="text" name="startTime"
 					value="${transport.getStartTime()}"></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.routes.routecode" /></td>
-				<td><input type="text" name="routes"
+				<td><input id="routes" type="text" name="routes"
 					value="${transport.getRoutes().getRouteCode()}" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.seatclass1" /></td>
-				<td><input type="text" name="seatclass1"
+				<td><input id="seatclass1" type="text" name="seatclass1"
 					value="${transport.getSeatclass1()}" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.seatclass2" /></td>
-				<td><input type="text" name="seatclass2"
+				<td><input id="seatclass2" type="text" name="seatclass2"
 					value="${transport.getSeatclass2()}" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.seatclass3" /></td>
-				<td><input type="text" name="seatclass3"
+				<td><input id="seatclass3" type="text" name="seatclass3"
 					value="${transport.getSeatclass3()}" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.transport.genprice" /></td>
-				<td><input type="text" name="genprice"
+				<td><input id="genprice" type="text" name="genprice"
 					value="${transport.getGenPrice()}" /></td>
 			</tr>
 			<tr>

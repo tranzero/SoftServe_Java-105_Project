@@ -25,14 +25,16 @@
 				<td align="center">${transport.getTransportCode()}</td>
 				<td align="center">${transport.getStartTime()}</td>
 				<td align="center"><a href="">${transport.getRoutes().getRouteCode()}</a></td>
-				<td align="center"><a href="stations">${transport.getRoutes().getLineId().getLineName()}</a></td>
+				<td align="center"><a href="">${transport.getRoutes().getLineId().getLineName()}</a></td>
 				<td align="center">${transport.getSeatclass1()}</td>
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
 				<td align="center">${transport.getGenPrice()}</td>
+				
 				<td align="center"><a href="editTransport/${transport.getTransportId()}"><spring:message
 							code="label.transport.edit" /></a></td>
-				<td align="center"><a href="delete/${transport.getTransportId()}"><spring:message
+							
+				<td align="center"><a href="removeTransport/${transport.getTransportId()}"><spring:message
 							code="label.transport.delete" /></a></td>
 		</c:forEach>
 	</table>

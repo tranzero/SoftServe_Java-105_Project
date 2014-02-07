@@ -94,7 +94,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Removes Transport by Id from database.
 	 */
-	@Transactional(readOnly = false)
+	@Transactional
 	@Override
 	public void removeTransportById(Integer transportId) {
 		Transports transport = null;
@@ -130,7 +130,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves Transport object or updates it to database.
+	 * Saves Transport object if not exist or updates it to database.
 	 */
 	@Transactional
 	@Override
@@ -138,11 +138,16 @@ public class TransportsManagerImpl implements TransportsManager {
 			String routes, String seatclass1, String seatclass2,
 			String seatclass3, String genprice) {
 
-		Transports transport = new Transports(transportCode,
-				timeParse(startTime), routesDao.findByCode(routes),
-				new Integer(seatclass1), new Integer(seatclass2), new Integer(
-						seatclass3), new Double(genprice));
-
+		Transports transport = new Transports();
+		
+		transport.setTransportCode(transportCode);
+		transport.setStartTime(timeParse(startTime));
+		transport.setRoutes(routesDao.findByCode(routes));
+		transport.setSeatclass1(new Integer(seatclass1));
+		transport.setSeatclass2(new Integer(seatclass2));
+		transport.setSeatclass3(new Integer(seatclass3));
+		transport.setGenPrice(new Double(genprice));
+		
 		transportsDao.saveOrUpdate(transport);
 	}
 
@@ -165,7 +170,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		transport.setSeatclass3(new Integer(seatclass3));
 		transport.setGenPrice(new Double(genprice));
 
-		transportsDao.update(transport);
+		transportsDao.saveOrUpdate(transport);
 	}
 
 	@Override

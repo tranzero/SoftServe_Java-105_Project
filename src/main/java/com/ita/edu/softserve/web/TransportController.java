@@ -90,20 +90,23 @@ public class TransportController {
 			@ModelAttribute("seatclass3") String seatclass3,
 			@ModelAttribute("genprice") String genprice) {
 
-		transportsManager.editTransport(transportId, transportCode, startTime, routes,
-				seatclass1, seatclass2, seatclass3, genprice);
-		
+		transportsManager.editTransport(transportId, transportCode, startTime,
+				routes, seatclass1, seatclass2, seatclass3, genprice);
+
 		return "redirect:/transport";
 	}
-	
-/**
- * Deletes Transport from database.
- * @param transportId
- * @return
- */
-	@RequestMapping(value = "/delete/{transportId}", method = RequestMethod.POST)
-	public String deleteTransport(@PathVariable("transportId") Integer transportId) {
+
+	/**
+	 * Deletes Transport from database.
+	 * 
+	 * @param transportId
+	 * @return
+	 */
+	@RequestMapping(value = "/removeTransport/{transportToRemove}", method = RequestMethod.GET)
+	public String removeTransport(
+			@PathVariable("transportToRemove") Integer transportId) {
 		transportsManager.removeTransportById(transportId);
+		System.out.println("delete " + transportId);
 
 		return "redirect:/transport";
 	}
