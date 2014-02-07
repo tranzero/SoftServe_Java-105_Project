@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
@@ -111,20 +112,25 @@ public class LinesController {
 	}
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.GET)
-	public String linesByStation(Map<String, Object> modelMap) {
+	public String linesByStationGet() {
+		
 		return "linesbystation";
+		
 	}
-
-	@RequestMapping(value = "/findlinesbyStation", method = RequestMethod.GET)
-	public String linesByStation(
-			@RequestParam("stationname") String stationName,
-			Map<String, Object> modelMap) {
-		if (stationName.equalsIgnoreCase("")) {
-			return "linesbystation";
-		}
+	@RequestMapping(value = "/linesbystation", method = RequestMethod.POST)
+	public String linesByStationPost( @ModelAttribute("stationname") String stationName,Map<String, Object> modelMap) {
+		modelMap.put("stationName",stationName);
 		modelMap.put("linesbystationlist",
-				linesManager.getLinesByStation(stationName));
-		return "linesbystation";
+				linesManager.getLinesByStationName(stationName));
+		return "linesbystationresult";
+		
 	}
+//	@RequestMapping(value = "/linesbystationresult", method = RequestMethod.GET)
+//	public String linesByStationGet(String stationName,Map<String, Object> modelMap) {
+//	
+//	return "linesbystation";
+//	
+//}
+//	
 
 }
