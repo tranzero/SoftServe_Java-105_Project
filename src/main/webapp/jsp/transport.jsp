@@ -30,7 +30,7 @@
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
 				<td align="center">${transport.getGenPrice()}</td>
-				<td align="center"><a href="edit/${transport.getTransportId()}"><spring:message
+				<td align="center"><a href="editTransport/${transport.getTransportId()}"><spring:message
 							code="label.transport.edit" /></a></td>
 				<td align="center"><a href="delete/${transport.getTransportId()}"><spring:message
 							code="label.transport.delete" /></a></td>

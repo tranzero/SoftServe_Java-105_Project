@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 
 @Controller
@@ -25,9 +23,6 @@ public class TransportController {
 	@Autowired
 	private TransportsManager transportsManager;
 
-	// @Autowired
-	// private RoutesManager routesManager;
-
 	@RequestMapping(value = "/transport", method = RequestMethod.GET)
 	public String printTransports(Map<String, Object> modelMap) {
 
@@ -36,7 +31,7 @@ public class TransportController {
 		return "transport";
 	}
 
-	/*--------------------------------------HTML FORM-----------------------------------*/
+	/*--------------------------------------for HTML FORM-----------------------------------*/
 
 	@RequestMapping(value = "/formTransport.htm", method = RequestMethod.GET)
 	public String transportForm() {
@@ -59,7 +54,7 @@ public class TransportController {
 		return "redirect:/transport";
 	}
 
-	/*--------------------------------------Spring FORM-----------------------------------*/
+	/*--------------------------------------for Spring FORM-----------------------------------*/
 
 	/*
 	 * @RequestMapping("/formTransport.htm") public String
@@ -74,7 +69,7 @@ public class TransportController {
 	 * e) { LOGGER.error(e.toString()); } return "redirect:/transport"; }
 	 */
 
-	@RequestMapping(value = "/edit/{transport}", method = RequestMethod.GET)
+	@RequestMapping(value = "/editTransport/{transport}", method = RequestMethod.GET)
 	public String editTransport(@PathVariable("transport") Integer transportId,
 			Map<String, Object> modelMap) {
 		Transports transport = transportsManager
@@ -84,9 +79,9 @@ public class TransportController {
 		return "editTransport";
 	}
 
-	@RequestMapping(value = "/editTransport/{transportToEdit}", method = RequestMethod.POST)
+	@RequestMapping(value = "/editTransport/{transportId}", method = RequestMethod.POST)
 	public String updateTransportToDB(
-			@PathVariable("transpotransportCodertToEdit") Integer transportId,
+			@PathVariable("transportId") Integer transportId,
 			@ModelAttribute("transportCode") String transportCode,
 			@ModelAttribute("startTime") String startTime,
 			@ModelAttribute("routes") String routes,
@@ -106,7 +101,7 @@ public class TransportController {
  * @param transportId
  * @return
  */
-	@RequestMapping(value = "/delete/{transportId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{transportId}", method = RequestMethod.POST)
 	public String deleteTransport(@PathVariable("transportId") Integer transportId) {
 		transportsManager.removeTransportById(transportId);
 
