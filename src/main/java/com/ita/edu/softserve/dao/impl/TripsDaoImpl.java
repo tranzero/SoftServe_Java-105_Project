@@ -4,12 +4,18 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDao;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 
+/**
+ * @author dnycktc
+ */
+@Repository("tripsDao")
 public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDao{
 
 	@Override
