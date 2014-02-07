@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import static org.apache.commons.lang.Validate.*;
 
 /**
  * The persistent class for the transports database table.
@@ -25,9 +26,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Entity
 @Table(name = "transports")
 @NamedQueries({
-	@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
-	@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY)
-})
+		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY) })
 public class Transports extends BaseEntity {
 
 	static final String TRANSPORTS_FIND_ALL = "Transports.findAll";
@@ -53,13 +53,13 @@ public class Transports extends BaseEntity {
 
 	@Column(name = "SEATCLASS1", nullable = false)
 	private int seatclass1;
-	
+
 	@Column(name = "SEATCLASS2", nullable = false)
 	private int seatclass2;
-	
+
 	@Column(name = "SEATCLASS3", nullable = false)
 	private int seatclass3;
-	
+
 	@Column(name = "GENPRICE", nullable = false)
 	private double genPrice;
 
@@ -67,25 +67,6 @@ public class Transports extends BaseEntity {
 		super();
 	}
 
-	public Transports(String transportCode, Time startTime, Routes routes) {
-		this();
-		this.transportCode = transportCode;
-		this.startTime = startTime;
-		this.routes = routes;
-	}
-	
-	public Transports(String transportCode, Time startTime, Routes routes,
-			int seatclass1, int seatclass2, int seatclass3, double genprice) {
-		super();
-		this.transportCode = transportCode;
-		this.startTime = startTime;
-		this.routes = routes;
-		this.seatclass1 = seatclass1;
-		this.seatclass2 = seatclass2;
-		this.seatclass3 = seatclass3;
-		this.genPrice = genprice;
-	}
-	
 	public Integer getTransportId() {
 		return transportId;
 	}
@@ -152,8 +133,7 @@ public class Transports extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(transportCode)
-				.hashCode();
+		return new HashCodeBuilder().append(transportCode).hashCode();
 	}
 
 	@Override
