@@ -20,5 +20,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a class="button" href="/SoftServe_Java-105/addnewstations">Add Stations</a>
+	<a class="button" href="/SoftServe_Java-105/addnewstations/${lineId}">Add
+		Stations</a>
 </section>
