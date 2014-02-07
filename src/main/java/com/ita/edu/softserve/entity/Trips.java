@@ -27,10 +27,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Trips extends BaseEntity{
 	
 	static final String TRIPS_FIND_ALL = "Trips.findAll";
-	static final String TRIPS_FIND_ALL_QUERY = "from Trips";
+	static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
 	
 	public static final String FIND_BY_TRANSPORTID = "Trips.findByTransportId";
-	public static final String FIND_BY_TRANSPORTID_QUERY = "select tr from Trips tr where tr.transport.transportId = ?1";
+	public static final String FIND_BY_TRANSPORTID_QUERY = "SELECT tr FROM Trips tr WHERE tr.transport.transportId = ?1";
 
 	
 	
