@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -18,13 +20,24 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "trips")
+@NamedQueries({
+	@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
+	@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY)
+})
 public class Trips extends BaseEntity{
+	
+	static final String TRIPS_FIND_ALL = "Trips.findAll";
+	static final String TRIPS_FIND_ALL_QUERY = "from Trips";
+	
+	public static final String FIND_BY_TRANSPORTID = "Trips.findByTransportId";
+	public static final String FIND_BY_TRANSPORTID_QUERY = "select tr from Trips tr where tr.transport.transportId = ?1";
+
 	
 	
 	@Id
 	@Column(name = "TRIPID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int tripId;
+	private Integer tripId;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -33,15 +46,15 @@ public class Trips extends BaseEntity{
 	
 	
 	@Column(name = "REMSEATCLASS1", nullable = false)
-	private int remSeatClass1;
+	private Integer remSeatClass1;
 	
 	
 	@Column(name = "REMSEATCLASS2", nullable = false)
-	private int remSeatClass2;
+	private Integer remSeatClass2;
 	
 	
 	@Column(name = "REMSEATCLASS3", nullable = false)
-	private int remSeatClass3;
+	private Integer remSeatClass3;
 	
 	
 	@Column(name = "STARTDATE", nullable = false)
@@ -55,8 +68,8 @@ public class Trips extends BaseEntity{
 
 	
 	
-	public Trips(Transports transport, int remSeatClass1, int remSeatClass2,
-			int remSeatClass3, Date startDate) {
+	public Trips(Transports transport, Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date startDate) {
 		super();
 		this.transport = transport;
 		this.remSeatClass1 = remSeatClass1;
@@ -71,15 +84,15 @@ public class Trips extends BaseEntity{
 	/**
 	 * @return the tripId
 	 */
-	public int getTripId() {
+	public Integer getTripId() {
 		return tripId;
 	}
-	/**
-	 * @param tripId the tripId to set
-	 */
-	public void setTripId(int tripId) {
-		this.tripId = tripId;
-	}
+//	/**
+//	 * @param tripId the tripId to set
+//	 */
+//	public void setTripId(Integer tripId) {
+//		this.tripId = tripId;
+//	}
 	/**
 	 * @return the transportId
 	 */
@@ -95,37 +108,37 @@ public class Trips extends BaseEntity{
 	/**
 	 * @return the remSeatClass1
 	 */
-	public int getRemSeatClass1() {
+	public Integer getRemSeatClass1() {
 		return remSeatClass1;
 	}
 	/**
 	 * @param remSeatClass1 the remSeatClass1 to set
 	 */
-	public void setRemSeatClass1(int remSeatClass1) {
+	public void setRemSeatClass1(Integer remSeatClass1) {
 		this.remSeatClass1 = remSeatClass1;
 	}
 	/**
 	 * @return the remSeatClass2
 	 */
-	public int getRemSeatClass2() {
+	public Integer getRemSeatClass2() {
 		return remSeatClass2;
 	}
 	/**
 	 * @param remSeatClass2 the remSeatClass2 to set
 	 */
-	public void setRemSeatClass2(int remSeatClass2) {
+	public void setRemSeatClass2(Integer remSeatClass2) {
 		this.remSeatClass2 = remSeatClass2;
 	}
 	/**
 	 * @return the remSeatClass3
 	 */
-	public int getRemSeatClass3() {
+	public Integer getRemSeatClass3() {
 		return remSeatClass3;
 	}
 	/**
 	 * @param remSeatClass3 the remSeatClass3 to set
 	 */
-	public void setRemSeatClass3(int remSeatClass3) {
+	public void setRemSeatClass3(Integer remSeatClass3) {
 		this.remSeatClass3 = remSeatClass3;
 	}
 	/**
