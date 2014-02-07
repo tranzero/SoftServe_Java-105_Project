@@ -2,7 +2,7 @@ package com.ita.edu.softserve.entity;
 
 
 import java.util.Date;
-
+import static org.apache.commons.lang.Validate.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,8 +52,6 @@ public class Post extends BaseEntity{
 	public Post(String title, String description) throws IllegalArgumentException
 	{
 		this();
-		org.apache.commons.lang.Validate.notEmpty(title);
-		org.apache.commons.lang.Validate.notEmpty(description);
 		this.setTitle(title);
 		this.setDescription(description);
 
@@ -71,6 +69,7 @@ public class Post extends BaseEntity{
 	}
 
 	public void setTitle(String title) {
+		notEmpty(title);
 		this.title = title;
 	}
 
@@ -79,6 +78,7 @@ public class Post extends BaseEntity{
 	}
 
 	public void setDescription(String description) {
+		notEmpty(description);
 		this.description = description;
 	}
 
@@ -86,7 +86,7 @@ public class Post extends BaseEntity{
 		return date;
 	}
 
-	public void setDate() {
+	private void setDate() {
 		this.date = new Date();
 	}
 	

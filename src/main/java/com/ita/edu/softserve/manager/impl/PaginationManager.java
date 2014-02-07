@@ -4,26 +4,33 @@ package com.ita.edu.softserve.manager.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.ita.edu.softserve.manager.PaginationManager;
 
  
 
 @Service
-public class PaginationManagerImpl implements PaginationManager{
+public final class PaginationManager {
 	private final int defaultPageCount = 10;
 	private final int defaultPageNumber = 1;
 	private final int defaultResultPerPage = 15;
 	
 	
-	@Override
-	public int getMaxPageCount(int resultsPerPage, long resultCount) {
-		if(resultsPerPage <= 0) {
-			resultsPerPage = this.getDefaultPageCount();
+	
+	 public static class SingletonHolder {
+	        public static final PaginationManager HOLDER_INSTANCE = new PaginationManager();
+	    }
+	        
+	    public static PaginationManager getInstance() {
+	        return SingletonHolder.HOLDER_INSTANCE;
+	    }
+	
+	
+	public int getMaxPageCount(final int resultsPerPage, long resultCount) {
+		if(resultCount <= 0) {
+			resultCount = this.getDefaultPageCount();
 		}
-		return (int) Math.ceil((double)resultCount / resultsPerPage);
+		return (int) ((resultCount -1)/resultsPerPage +1);
 	}
 
-	@Override
 	public int getCurrentPagingPosition(int pageNumber, int resultsPerPage) {
 		if (pageNumber <= 0) {
 		    return this.getDefaultPageNumber();
@@ -36,7 +43,6 @@ public class PaginationManagerImpl implements PaginationManager{
 	/**
 	 * @return the defaultPageCount
 	 */
-	@Override
 	public int getDefaultPageCount() {
 		return defaultPageCount;
 	}
@@ -44,7 +50,6 @@ public class PaginationManagerImpl implements PaginationManager{
 	/**
 	 * @return the defaultPageNumber
 	 */
-	@Override
 	public int getDefaultPageNumber() {
 		return defaultPageNumber;
 	}
@@ -52,7 +57,6 @@ public class PaginationManagerImpl implements PaginationManager{
 	/**
 	 * @return the defaultResultPerPage
 	 */
-	@Override
 	public int getDefaultResultPerPage() {
 		return defaultResultPerPage;
 	}
