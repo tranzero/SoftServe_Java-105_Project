@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.manager.LinesManager;
+import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
 
 @Controller
@@ -22,41 +25,67 @@ public class LinesController {
 	@Autowired
 	private StationsManager stationsManager;
 
+	@Autowired
+	private StationOnLineManager stationOnLineManager;
+
 	@RequestMapping(value = "/addLines", method = RequestMethod.GET)
 	public String addLines(Map<String, Object> modelMap) {
 		modelMap.put("linesList", linesManager.getFullLines());
 		return "addLines";
 	}
 
-	@RequestMapping(value = "/addNewLine", method = RequestMethod.GET)
-	public String addNewLine(Map<String, Object> modelMap) {
-		return "updateLines";
-	}
-	
-	@RequestMapping(value = "/addStationToLine", method = RequestMethod.GET)
-	public String addStationToLine(Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.findAllStations());
-		return "addStationToLine";
+	@RequestMapping(value = "/addnewline")
+	public String addNewLine(/* Map<String, Object> modelMap */) {
+		return "editLine";
 	}
 
-	@RequestMapping(value = "updateLines/{updateLines}", method = RequestMethod.GET)
-	public String update(@PathVariable("updateLines") String lineName,
+	@RequestMapping(value = "/addnewstations/{lineId}")
+	public String addNewStations(@PathVariable("lineId") Integer lineId,
 			Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));
-		return "updateLine";
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "allStationsEditLine";
 	}
 
-	@RequestMapping(value = "removeStationOnLine/{removeStationOnLine}", method = RequestMethod.GET)
-	public String removeStation(
-			@PathVariable("removeStationOnLine") String stationName) {
-		return "redirect:/updateLine";
+	@RequestMapping(value = "/updateline/addnewstations")
+	public String addNewStation(Map<String, Object> modelMap) {
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "allStationsEditLine";
 	}
 
-	@RequestMapping(value = "removeLines/{removeLines}", method = RequestMethod.GET)
-	public String remove(@PathVariable("removeLines") String lineName,
+	@RequestMapping(value = "/removeline/{remove}")
+	public String removeLine(@PathVariable("remove") String lineName,
 			Map<String, Object> modelMap) {
 		linesManager.deleteLine(lineName);
-		modelMap.put("linesList", linesManager.getFullLines());
+		return "redirect:/addLines";
+	}
+
+	@RequestMapping(value = "/updateline/{lineName}/{lineId}")
+	public String updateLine(@PathVariable("lineName") String lineName,
+			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
+		modelMap.put("stationsList",
+				stationsManager.getStationsOnCertainLine(lineName));
+		return "editLine";
+	}
+
+	@RequestMapping(value = "/updateline/{lineName}/removestation/{removeStId}/{lineId}")
+	public String removeSt(@PathVariable("removeStId") Integer stationId,
+			@PathVariable("lineName") String lineName,
+			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
+		stationOnLineManager.removeStation(stationId, lineId);
+		modelMap.put("stationsList", stationsManager.findAllStations());
+		return "redirect:/updateline/" + lineName + "/" + lineId;
+	}
+
+	@RequestMapping(value = "/addnewstations/confirmaddstations", method = RequestMethod.POST)
+	public String confirmAddStations(
+			@RequestParam("checkStations") String[] stationsName,
+			@ModelAttribute("lineId") Integer lineId) {
+		List<String> stationName = new ArrayList<String>();
+		for (String str : stationsName) {
+			stationName.add(str);
+		}
+		stationOnLineManager.addStationsToLine(lineId, stationName);
+
 		return "redirect:/addLines";
 	}
 
@@ -75,8 +104,8 @@ public class LinesController {
 			return "linesbytwostations";
 		}
 
-		model.put("LinesList", linesManager.getLinesByTwoStations(
-				stationName1, stationName2));
+		model.put("LinesList",
+				linesManager.getLinesByTwoStations(stationName1, stationName2));
 
 		return "linesbytwostations";
 	}

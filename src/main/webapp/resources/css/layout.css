@@ -21,24 +21,52 @@ body {
 header {
 	display:block;
 	height: 140px;
-	background-color:#999;
+	background-color:#272727;
+	color: #f3f3f3;
 }
 
 header > div#logo {
-	padding-left:40px;
-	display:block;	
-	float:left;
+	padding: 40px 0 0 180px;
+	display: block;	
+	float: left;
+}
+
+header > div#login {
+	padding-right:140px;
+	display:inline-block;	
+	float:right;
+}
+
+header > div#login ul li{
+	padding-left: 10px;
+	list-style-type:none;
+	display:inline-block;	
 }
 
 header > div#language {
-	display:block;	
+	clear: right;
+	display:inline-block;	
 	float:right;
 	padding-right:40px;
-	padding-top:40px;
+}
+
+header div#login a {
+	color: #e3e3e3;
+}
+
+header div#login a:hover {
+	color: #359BED;
+}
+header div#language a {
+	color: #e3e3e3;
+}
+
+header div#language a:hover {
+	color: #359BED;
 }
 
 nav {
-	background-color: #999;
+	background-color:#272727;
 	height:44px;       
 }
 
@@ -59,8 +87,7 @@ footer {
         color: #777777;
         margin-left:auto;
         margin-right:auto;
-	padding:40px;
+	padding:20px;
 	width:980px;
 	height: 40px;
 }
-

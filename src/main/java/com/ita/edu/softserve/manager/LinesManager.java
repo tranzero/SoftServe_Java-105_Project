@@ -22,6 +22,9 @@ public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getLinesByStation(String stationName);
 	
+	public int getLinesByStationCount(String stationName);
+	public List<Lines> getLinesByStationForPage(int from,int count, String stationName);
+	
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2);
 	
@@ -30,4 +33,6 @@ public interface LinesManager extends BaseManager {
 	public void deleteLine(String lineName);
 
 	void updateLine(String lineName, String newLineName);
+	
+	public List<Lines> getLinesByStationName(String stationName);
 }

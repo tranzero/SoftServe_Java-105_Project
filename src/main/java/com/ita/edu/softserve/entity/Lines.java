@@ -19,7 +19,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "`lines`")
 @NamedQueries({
 		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
-		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY) })
+		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY)})
 public class Lines extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
@@ -27,6 +28,9 @@ public class Lines extends BaseEntity {
 	// Query to find all lines
 	public static final String GET_FULL_LINES = "Lines.findFullLines";
 	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
+	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
+	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";
+
 
 	@Id
 	@Column(name = "LINEID", nullable = false)

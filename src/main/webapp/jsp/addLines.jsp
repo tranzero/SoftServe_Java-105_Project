@@ -4,11 +4,8 @@
 
 <section id="content">
 	<h1>All Lines</h1>
-	<%
-		int i = 0;
-	%>
-	<a class="button" href="addNewLine">Add Line</a>
-	<table border="1">
+	<a class="button" href="addnewline">Add Line</a>
+	<table>
 		<tr>
 			<td align="center">Line Name</td>
 			<td align="center"></td>
@@ -17,8 +14,8 @@
 		<c:forEach var="line" items="${linesList}">
 			<tr>
 				<td align="center">${line.getLineName()}</td>
-				<td align="center"><a href="updateLines/${line.getLineName()}">edit</a></td>
-				<td align="center"><a href="removeLines/${line.getLineName()}">delete</a></td>
+				<td align="center"><a href="updateline/${line.getLineName()}/${line.getLineId()}">edit</a></td>
+				<td align="center"><a href="removeline/${line.getLineName()}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
