@@ -47,4 +47,10 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 
 		return Stations.class;
 	}
+	@Override
+    public List<Stations> findByLineName(String lineName){
+		Query query = entityManager.createNamedQuery(Stations.FIND_BY_LINE_NAME).setParameter(1, lineName);
+		List<Stations> list = query.getResultList();
+		return list;
+	}
 }

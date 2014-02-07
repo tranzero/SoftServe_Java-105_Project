@@ -154,13 +154,8 @@ public class StationsManagerImpl implements StationsManager {
 		}
 	
 	public List<Stations> getStationsOnCertainLine(String lineName){
-			Lines line =lineDao.findByName(lineName);
-			List<StationsOnLine> stlList = stlDao.findByLineId(line.getLineId());
-			List<Stations> stationsList = new ArrayList<Stations>();
-			for (StationsOnLine stl : stlList){
-				stationsList.add(stl.getStationId());
-			}
-			return stationsList;
+			
+			return stationDao.findByLineName(lineName);
 		
 		
 	}

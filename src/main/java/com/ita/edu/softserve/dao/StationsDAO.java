@@ -18,5 +18,6 @@ public interface StationsDAO extends AbstractDAOIface<Stations> {
 	 * Find Stations by name of the station
 	 */
 	public Stations findByName(String stationName); 
+	public List<Stations> findByLineName(String lineName);
 
 }

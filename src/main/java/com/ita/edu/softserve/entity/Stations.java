@@ -15,11 +15,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "stations")
-@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY)
+@NamedQueries({
+@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
+@NamedQuery(name = Stations.FIND_BY_LINE_NAME, query = Stations.FIND_BY_LINE_NAME_QUERY)})
 public class Stations extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Stations.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
+	public static final String FIND_BY_LINE_NAME = "Stations.findByLineName";
+	public static final String FIND_BY_LINE_NAME_QUERY = "select s from StationsOnLine stln inner join stln.stationId as s inner join stln.lineId as l where l.lineName = ?1";
 
 	@Id
 	@Column(name = "STATIONID", nullable = false)
