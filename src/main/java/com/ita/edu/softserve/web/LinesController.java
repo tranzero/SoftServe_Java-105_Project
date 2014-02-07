@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +39,9 @@ public class LinesController {
 		return "editLine";
 	}
 
-	@RequestMapping(value = "/addnewstations")
-	public String addNewStations(Map<String, Object> modelMap) {
+	@RequestMapping(value = "/addnewstations/{lineId}")
+	public String addNewStations(@PathVariable("lineId") Integer lineId,
+			Map<String, Object> modelMap) {
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "allStationsEditLine";
 	}
@@ -58,8 +61,7 @@ public class LinesController {
 
 	@RequestMapping(value = "/updateline/{lineName}/{lineId}")
 	public String updateLine(@PathVariable("lineName") String lineName,
-			@PathVariable("lineId") Integer lineId, 
-			Map<String, Object> modelMap) {
+			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
 		modelMap.put("stationsList",
 				stationsManager.getStationsOnCertainLine(lineName));
 		return "editLine";
@@ -68,11 +70,23 @@ public class LinesController {
 	@RequestMapping(value = "/updateline/{lineName}/removestation/{removeStId}/{lineId}")
 	public String removeSt(@PathVariable("removeStId") Integer stationId,
 			@PathVariable("lineName") String lineName,
-			@PathVariable("lineId") Integer lineId, 
-			Map<String, Object> modelMap) {
+			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
 		stationOnLineManager.removeStation(stationId, lineId);
 		modelMap.put("stationsList", stationsManager.findAllStations());
 		return "redirect:/updateline/" + lineName + "/" + lineId;
+	}
+
+	@RequestMapping(value = "/addnewstations/confirmaddstations", method = RequestMethod.POST)
+	public String confirmAddStations(
+			@RequestParam("checkStations") String[] stationsName,
+			@ModelAttribute("lineId") Integer lineId) {
+		List<String> stationName = new ArrayList<String>();
+		for (String str : stationsName) {
+			stationName.add(str);
+		}
+		stationOnLineManager.addStationsToLine(lineId, stationName);
+
+		return "redirect:/addLines";
 	}
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
