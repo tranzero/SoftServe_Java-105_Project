@@ -1,15 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
-<!-- <title>Insert title here</title> -->
-<!-- </head> -->
-<!-- <body> -->
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <section id="content">
-	<h1 style="text-align: center">Edit Station</h1>
+	<h2 align="center"><spring:message code="label.navigation.stationEdit"/></h2>
 	<hr />
 
 	<hr>
@@ -20,17 +16,17 @@
 			value="${station.getStationId()}">
 
 		<div>
-			<p>StationCode:</p>
+			<p><spring:message code="label.stations.stationcode" /></p>
 			<input id="stationCode" type="text" name="stationCode"
 				value="${station.getStationCode()}">
 
-			<p>StationName</p>
+			<p><spring:message code="label.stations.stationname" /></p>
 			<input id="stationName" type="text" name="stationName"
 				value="${station.getStationName()}">
 
 			<p>
-				<input type="submit" value="Update Station"> 
-				<input type="button" value="Cancel" onclick="window.location='/SoftServe_Java-105/stations';">
+				<input type="submit" value="<spring:message code="label.transport.edit"/>"> 
+				<input type="button" value="<spring:message code="label.stations.cancel"/>" onclick="window.location='/SoftServe_Java-105/stations';">
 			</p>
 			<br>
 

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript">
 	function confirm_delete() {
@@ -10,17 +11,20 @@
 </script>
 
 <section id="content">
+	<h2 align="center">
+		<spring:message code="label.navigation.stations" />
+	</h2>
+	
 	<table border="1">
 		<thead>
 			<tr >
-				<td width="90" height="37"><a class="button" href="addStation">Add Station</a></td>
-
+				<td width="111" height="37"><a class="button" href="addStation"><spring:message code="label.navigation.addStation" /></a></td>
 			</tr>
 			<tr>
-				<td align="center">Number</td>
-				<td align="center">Station Code</td>
-				<td align="center">Station Name</td>
-
+				<th align="center"><spring:message code="label.stations.number" /></th>
+				<th><spring:message code="label.stations.stationcode" /></th>
+				<th><spring:message code="label.stations.stationname" /></th>
+		
 			</tr>
 		</thead>
 		<tbody>
@@ -29,10 +33,12 @@
 					<td align="center" id="generate"></td>
 					<td align="center">${station.getStationCode()}</td>
 					<td align="center">${station.getStationName()}</td>
-					<td align="center"><a
-						href="stationEdit/${station.getStationId()}">Edit</a>
-					<td align="center"><a href="delete/${station.getStationId()}"
-						onclick="return confirm_delete()">Delete</a></td>
+					<td><a
+						href="stationEdit/${station.getStationId()}"><spring:message
+							code="label.stations.edit" /></a></td>
+					<td><a href="delete/${station.getStationId()}"
+						onclick="return confirm_delete()"><spring:message
+							code="label.stations.delete" /></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

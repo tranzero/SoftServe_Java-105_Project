@@ -1,7 +1,7 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Set;
-
+import static org.apache.commons.lang.Validate.*;
 import javax.persistence.*;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,6 +22,7 @@ public class Stations extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Stations.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
+	
 	public static final String FIND_BY_LINE_NAME = "Stations.findByLineName";
 	public static final String FIND_BY_LINE_NAME_QUERY = "select s from StationsOnLine stln inner join stln.stationId as s inner join stln.lineId as l where l.lineName = ?1";
 
@@ -33,7 +34,7 @@ public class Stations extends BaseEntity {
 	@Column(name = "STATIONCODE", unique = true, nullable = false)
 	private String stationCode;
 
-	@Column(name = "STATIONNAME", length = 100, nullable = false)
+	@Column(name = "STATIONNAME", length = 50, nullable = false)
 	private String stationName;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
@@ -53,8 +54,6 @@ public class Stations extends BaseEntity {
 	 */
 	public Stations(String stationCode, String stationName) {
 		this();
-		org.apache.commons.lang.Validate.notEmpty(stationCode);
-		org.apache.commons.lang.Validate.notEmpty(stationName);
 		this.setStationCode(stationCode);
 		this.setStationName(stationName);
 	}
@@ -86,6 +85,7 @@ public class Stations extends BaseEntity {
 	 *            the stationCode to set
 	 */
 	public void setStationCode(String stationCode) {
+		notEmpty(stationCode);
 		this.stationCode = stationCode;
 	}
 
@@ -101,6 +101,7 @@ public class Stations extends BaseEntity {
 	 *            the stationName to set
 	 */
 	public void setStationName(String stationName) {
+		notEmpty(stationName);
 		this.stationName = stationName;
 	}
 
