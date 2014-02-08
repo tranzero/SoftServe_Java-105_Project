@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 
 @Controller
@@ -23,6 +26,15 @@ public class TransportController {
 	@Autowired
 	private TransportsManager transportsManager;
 
+	@Autowired
+	private StationOnLineManager stationOnLineManager;
+
+	/**
+	 * Prints all transports in browser.
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/transport", method = RequestMethod.GET)
 	public String printTransports(Map<String, Object> modelMap) {
 
@@ -32,12 +44,28 @@ public class TransportController {
 	}
 
 	/*--------------------------------------for HTML FORM-----------------------------------*/
-
+	/**
+	 * Map name of jsp addTransport to formTransport.htm.
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/formTransport.htm", method = RequestMethod.GET)
 	public String transportForm() {
 		return "addTransport";
 	}
 
+	/**
+	 * Adds new transport into database.
+	 * 
+	 * @param transportCode
+	 * @param startTime
+	 * @param routesCode
+	 * @param seatclass1
+	 * @param seatclass2
+	 * @param seatclass3
+	 * @param genprice
+	 * @return
+	 */
 	@RequestMapping(value = "/addTransport.htm", method = RequestMethod.POST)
 	public String addTransportToBD(
 			@ModelAttribute("transportCode") String transportCode,
@@ -69,6 +97,14 @@ public class TransportController {
 	 * e) { LOGGER.error(e.toString()); } return "redirect:/transport"; }
 	 */
 
+	/**
+	 * Gets transports ID from field in table and finds it in database then puts
+	 * it in map as request attribute.
+	 * 
+	 * @param transportId
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/editTransport/{transport}", method = RequestMethod.GET)
 	public String editTransport(@PathVariable("transport") Integer transportId,
 			Map<String, Object> modelMap) {
@@ -79,6 +115,19 @@ public class TransportController {
 		return "editTransport";
 	}
 
+	/**
+	 * Gets transport object and save it into database.
+	 * 
+	 * @param transportId
+	 * @param transportCode
+	 * @param startTime
+	 * @param routes
+	 * @param seatclass1
+	 * @param seatclass2
+	 * @param seatclass3
+	 * @param genprice
+	 * @return
+	 */
 	@RequestMapping(value = "/editTransport/{transportId}", method = RequestMethod.POST)
 	public String updateTransportToDB(
 			@PathVariable("transportId") Integer transportId,
@@ -106,9 +155,26 @@ public class TransportController {
 	public String removeTransport(
 			@PathVariable("transportToRemove") Integer transportId) {
 		transportsManager.removeTransportById(transportId);
-		System.out.println("delete " + transportId);
 
 		return "redirect:/transport";
+	}
+
+	/**
+	 * Prints in browser all stations on certain line.
+	 * 
+	 * @param lineId
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "/getsLineId/{lineIdOnstations}", method = RequestMethod.GET)
+	public String printStationOnLine(@PathVariable("lineIdOnstations") Integer lineId,
+			Map<String, Object> modelMap) {
+		List<StationsOnLine> listOfStationsOnLine = stationOnLineManager
+				.findStationsOnLine(lineId);
+
+		modelMap.put("listOfStationsOnLine", listOfStationsOnLine);
+
+		return "listOfStationsOnLine";
 	}
 
 	/*------------------------------------------------------------------------------*/
