@@ -1,11 +1,8 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -26,7 +23,7 @@ import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
-import static com.ita.edu.softserve.utils.ParseUtil.*;
+
 /**
  * This is transports manager class.
  * 
@@ -139,7 +136,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			String seatclass3, String genprice) {
 
 		Transports transport = new Transports();
-		
+
 		transport.setTransportCode(transportCode);
 		transport.setStartTime(timeParse(startTime));
 		transport.setRoutes(routesDao.findByCode(routes));
@@ -147,7 +144,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		transport.setSeatclass2(new Integer(seatclass2));
 		transport.setSeatclass3(new Integer(seatclass3));
 		transport.setGenPrice(new Double(genprice));
-		
+
 		transportsDao.saveOrUpdate(transport);
 	}
 
@@ -156,10 +153,10 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Transactional
 	@Override
-	public void editTransport(Integer transportId, String transportCode, String startTime,
-			String routes, String seatclass1, String seatclass2,
-			String seatclass3, String genprice) {
-		
+	public void editTransport(Integer transportId, String transportCode,
+			String startTime, String routes, String seatclass1,
+			String seatclass2, String seatclass3, String genprice) {
+
 		Transports transport = transportsDao.findById(transportId);
 
 		transport.setTransportCode(transportCode);
