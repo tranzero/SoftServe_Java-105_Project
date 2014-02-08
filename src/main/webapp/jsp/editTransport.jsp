@@ -6,50 +6,41 @@
 <section id="content">
 	<h1 align="center">Edit Transport</h1>
 	<form id="editTransport" method="post" name="transport">
-		<table style="align: center">
-			<tr>
-				<!-- 				<td>ID:</td> -->
-				<td><input id="transportId" type="hidden" name="transportId"
-					value="${transport.getTransportId()}"></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.transportcode" /></td>
-				<td><input id="transportCode" type="text" name="transportCode"
-					value="${transport.getTransportCode()}"></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.starttime" /></td>
-				<td><input id="startTime" type="text" type="text" name="startTime"
-					value="${transport.getStartTime()}"></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.routes.routecode" /></td>
-				<td><input id="routes" type="text" name="routes"
-					value="${transport.getRoutes().getRouteCode()}" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.seatclass1" /></td>
-				<td><input id="seatclass1" type="text" name="seatclass1"
-					value="${transport.getSeatclass1()}" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.seatclass2" /></td>
-				<td><input id="seatclass2" type="text" name="seatclass2"
-					value="${transport.getSeatclass2()}" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.seatclass3" /></td>
-				<td><input id="seatclass3" type="text" name="seatclass3"
-					value="${transport.getSeatclass3()}" /></td>
-			</tr>
-			<tr>
-				<td><spring:message code="label.transport.genprice" /></td>
-				<td><input id="genprice" type="text" name="genprice"
-					value="${transport.getGenPrice()}" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Update"></td>
-			</tr>
-		</table>
+		<div>
+
+			<!-- 				<td>ID:</td> -->
+			<p><input id="transportId" type="hidden" name="transportId"
+				value="${transport.getTransportId()}"></p>
+
+			<p><spring:message code="label.transport.transportcode" /></p>
+			<p><input id="transportCode" type="text" name="transportCode"
+				value="${transport.getTransportCode()}"></p>
+
+			<p><spring:message code="label.transport.starttime" /></p>
+			<p><input id="startTime" type="text" type="text" name="startTime" value="${transport.getStartTime()}"></p>
+
+			<p><spring:message code="label.routes.routecode" /></p>
+			<p><input id="routes" type="text" name="routes"
+				value="${transport.getRoutes().getRouteCode()}" /></p>
+
+			<p><spring:message code="label.transport.seatclass1" /></p>
+			<p><input id="seatclass1" type="text" name="seatclass1"
+				value="${transport.getSeatclass1()}" /></p>
+
+			<p><spring:message code="label.transport.seatclass2" /></p>
+			<p><input id="seatclass2" type="text" name="seatclass2"
+				value="${transport.getSeatclass2()}" /></p>
+
+			<p><spring:message code="label.transport.seatclass3" /></p>
+			<p><input id="seatclass3" type="text" name="seatclass3"
+				value="${transport.getSeatclass3()}" /></p>
+
+			<p><spring:message code="label.transport.genprice" /></p>
+			<p><input id="genprice" type="text" name="genprice"
+				value="${transport.getGenPrice()}" /></p>
+
+			<p><input type="submit" value="Update"></p>
+
+		</div>
 	</form>
 </section>
