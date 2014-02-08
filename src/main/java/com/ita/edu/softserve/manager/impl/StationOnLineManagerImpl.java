@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationOnLineManager;
@@ -41,7 +42,7 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 		StationsOnLine sol = stlDao.findByStationIdAndLineId(stationId, lineId);
 		stlDao.remove(sol);
 	}
-	
+
 	public static StationOnLineManager getInstance() {
 		return ManagerFactory.getManager(StationOnLineManager.class);
 	}
@@ -50,13 +51,22 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	@Override
 	public void addStationsToLine(Integer lineId, List<String> stationsName) {
 		int i = 1;
-		for(String station: stationsName){
+		for (String station : stationsName) {
 			StationsOnLine sol = new StationsOnLine();
 			sol.setLineId(lineDao.findById(lineId));
 			sol.setStationId(stationDao.findByName(station));
 			sol.setStationOrderNum(i++);
 			stlDao.save(sol);
 		}
+	}
+
+	/**
+	 * @author Roman
+	 */
+	@Transactional
+	@Override
+	public List<StationsOnLine> findStationsOnLine(Integer lineId) {
 		
+		return stlDao.findByLineId(lineId);
 	}
 }
