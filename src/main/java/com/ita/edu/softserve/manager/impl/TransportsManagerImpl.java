@@ -173,10 +173,22 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2) {
+		// Results are stored here
+		List<TransportTravel> transportTravel;
+		
+		transportTravel = transportsDao.findByTwoStations(stationName1, stationName2); 
+		
+		return transportTravel;
+	}
+
+/* This will be deleted : antipattern 
+	@Override
+	public List<TransportTravel> getTransportByTwoStations(String stationName1,
+			String stationName2) {
 		Stations station1;
 		Stations station2;
 
-		/* Results are stored here */
+		// Results are stored here
 		List<TransportTravel> transportTravel = new ArrayList<TransportTravel>();
 
 		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
@@ -243,7 +255,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		return transportTravel;
 	}
-
+*/
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}

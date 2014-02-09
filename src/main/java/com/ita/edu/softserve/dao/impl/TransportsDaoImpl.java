@@ -1,12 +1,16 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
  * @author Roman
@@ -38,4 +42,16 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			entityManager.merge(entity);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TransportTravel> findByTwoStations(String stationName1,
+			String stationName2) {
+		Query query = entityManager
+				.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
+				.setParameter(1, stationName1).setParameter(2, stationName2);
+		
+		return (List<TransportTravel>) query.getResultList();
+	}
+
 }
