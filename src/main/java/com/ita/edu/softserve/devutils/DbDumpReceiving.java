@@ -247,16 +247,20 @@ public class DbDumpReceiving {
 			System.out.println("Success!");
 			System.out.println("Writing dump to the file...");
 			String truePath = DbDumpReceiving.class.getResource(DUMP_PATH).getFile();
-			File dumpFile = new File(truePath);
-			if (!dumpFile.delete()){
-				System.exit(0);
-			}
-			PrintWriter pw = new PrintWriter(new FileWriter(dumpFile));
-			pw.print(dump.toString());
-			pw.close();
+			String secondPath = new String(truePath);
+			secondPath=secondPath.replaceAll("target/classes", "src/main/java");
+			File dumpFile1 = new File(truePath);
+			File dumpFile2 = new File(secondPath);
+			PrintWriter pw1 = new PrintWriter(new FileWriter(dumpFile1));
+			pw1.print(dump.toString());
+			pw1.close();
+			PrintWriter pw2 = new PrintWriter(new FileWriter(dumpFile2));
+			pw2.print(dump.toString());
+			pw2.close();			
 			System.out.print(dump.toString());
 			System.out.println("Success!");
 			System.out.println(truePath);
+			System.out.println(secondPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
