@@ -43,4 +43,13 @@ public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDao{
 		
 	}
 
+	@Override
+	public List<Trips> getTripsForLimits(int firstElement, int count) {
+		Query query = entityManager
+				.createNamedQuery(Trips.TRIPS_FIND_ALL)
+				.setFirstResult(firstElement)
+				.setMaxResults(count);
+		return query.getResultList();
+	}
+
 }

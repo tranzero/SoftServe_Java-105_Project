@@ -22,12 +22,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "trips")
 @NamedQueries({
 	@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
+	@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 	@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY)
 })
 public class Trips extends BaseEntity{
 	
-	static final String TRIPS_FIND_ALL = "Trips.findAll";
-	static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
+	public static final String TRIPS_FIND_ALL = "Trips.findAll";
+	public static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
+
+	public static final String TRIPS_FIND_COUNT = "Trips.findCount";
+	public static final String TRIPS_FIND_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr";
 	
 	public static final String FIND_BY_TRANSPORTID = "Trips.findByTransportId";
 	public static final String FIND_BY_TRANSPORTID_QUERY = "SELECT tr FROM Trips tr WHERE tr.transport.transportId = ?1";

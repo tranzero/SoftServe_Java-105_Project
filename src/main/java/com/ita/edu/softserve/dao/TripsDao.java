@@ -13,6 +13,8 @@ public interface TripsDao extends AbstractDAOIface<Trips>{
 	 */
 	List<Trips> findByTransportId(int id);
 	
+	List<Trips> getTripsForLimits(int firstElement, int count);
+	
 	/**
 	 * Saves a Trip to database if not exist or update existing one.
 	 */	

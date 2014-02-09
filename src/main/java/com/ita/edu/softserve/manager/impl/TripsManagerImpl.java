@@ -24,4 +24,9 @@ public class TripsManagerImpl implements TripsManager {
 	public List<Trips> getAllTrips() {
 		return tripsDao.getAllEntities();
 	}
+
+	@Override
+	public List<Trips> getTripsForLimit(int firstElement, int count) {
+		return tripsDao.getTripsForLimits(firstElement, count);
+	}
 }

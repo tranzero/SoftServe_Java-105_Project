@@ -19,7 +19,7 @@
 <td align="center">${trip.getRemSeatClass1()}</td>
 <td align="center">${trip.getRemSeatClass2()}</td>
 <td align="center">${trip.getRemSeatClass3()}</td>
-<td align="center">${trip.getStartDate()}</td>
+<td align="center">${dateFormat.format(trip.getStartDate())}</td>
 <td align="center">${trip.getTransport().getStartTime()}</td>
 </tr>
 </c:forEach>

@@ -8,5 +8,7 @@ import com.ita.edu.softserve.entity.Trips;
 public interface TripsManager extends BaseManager {
 
 	List<Trips> getAllTrips();
+	
+	List<Trips> getTripsForLimit(int firstElement, int count);
 
 }
