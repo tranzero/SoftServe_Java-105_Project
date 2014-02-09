@@ -9,10 +9,13 @@ public interface TripsDao extends AbstractDAOIface<Trips>{
 	/**
 	 * Find trip by transport ID
 	 * @param id transport ID
-	 * @return 
+	 * @return List of found trips
 	 */
 	List<Trips> findByTransportId(int id);
 	
+	/**
+	 * Saves a Trip to database if not exist or update existing one.
+	 */	
 	void saveOrUpdate (Trips entity);
 
 }

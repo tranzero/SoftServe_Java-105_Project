@@ -12,6 +12,7 @@
 			<li><a href="/SoftServe_Java-105/stationsForUsers"><spring:message code="label.navigation.stationsForUsers"/></a></li>
 			<li><a href="/SoftServe_Java-105/routes"><spring:message code="label.navigation.routes"/></a></li>
 			<li><a href="/SoftServe_Java-105/transport"><spring:message code="label.navigation.transport"/></a></li>
+			<li><a href="/SoftServe_Java-105/trips"><spring:message code="label.navigation.trips"/></a></li>
 			<li><a href="/SoftServe_Java-105/transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
 		</ul>
 		</li>
