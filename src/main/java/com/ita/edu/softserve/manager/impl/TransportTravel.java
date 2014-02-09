@@ -1,10 +1,9 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
-
-import javax.mail.Transport;
 
 import com.ita.edu.softserve.entity.Transports;
 
@@ -12,11 +11,11 @@ public class TransportTravel {
 		
 	private Transports transport;
 	
-	private Time departureTime;
+	private Object departureTime;
 	
-	private Time arrivalTime;
+	private Object arrivalTime;
 	
-	private Time duration;
+	private Object duration;
 	
 	public TransportTravel() {
 		this.transport = null;
@@ -24,9 +23,12 @@ public class TransportTravel {
 		this.arrivalTime = null;
 		this.duration = null;
 	}
-	
-	public TransportTravel(Transports transport) {
+
+	public TransportTravel(Transports transport, Object departureTime, Object arrivalTime, Object duration) {
 		this.transport = transport;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.duration = duration;
 	}
 	
 	public Transports getTransport() {
@@ -36,8 +38,8 @@ public class TransportTravel {
 	public void setTransport(Transports transport) {
 		this.transport = transport;
 	}
-
-	public Time getDepartureTime() {
+	
+	public Object getDepartureTime() {
 		return departureTime;
 	}
 
@@ -45,7 +47,7 @@ public class TransportTravel {
 		this.departureTime = departureTime;
 	}
 
-	public Time getArrivalTime() {
+	public Object getArrivalTime() {
 		return arrivalTime;
 	}
 
@@ -53,7 +55,7 @@ public class TransportTravel {
 		this.arrivalTime = arrivalTime;
 	}
 
-	public Time getDuration() {
+	public Object getDuration() {
 		return duration;
 	}
 

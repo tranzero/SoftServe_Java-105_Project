@@ -43,6 +43,7 @@ INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest',
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 -- 
 -- Table structure for table `routes`
 -- 
@@ -242,3 +243,37 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-01-14 03:41:35.0', 'REGUSER'), ('2', 'yherasym', 'Yaroslav', 'Herasym', 'test@mail.second', '', '2014-01-14 03:42:46.0', 'MANAGER'), ('3', 'mychaylo.partyka', 'Mychaylo', 'Partyka', 'test@mail.third', '', '2014-01-14 03:43:46.0', 'ADMIN');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+-- 
+-- Table structure for table `orders`
+-- 
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    PRIMARY KEY (ORDERID),
+    CONSTRAINT `ORDERID_ibfk_1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `ORDERID_ibfk_2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `orders`
+-- 
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+

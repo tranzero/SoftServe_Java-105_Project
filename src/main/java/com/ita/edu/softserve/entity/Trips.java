@@ -178,4 +178,10 @@ public class Trips extends BaseEntity{
 				.isEquals();
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "" + tripId;
+	}
 }
