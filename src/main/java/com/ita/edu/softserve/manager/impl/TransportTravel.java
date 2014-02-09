@@ -23,12 +23,25 @@ public class TransportTravel {
 		this.arrivalTime = null;
 		this.duration = null;
 	}
-
-	public TransportTravel(Transports transport, Object departureTime, Object arrivalTime, Object duration) {
+	
+	public TransportTravel(Transports transport) {
 		this.transport = transport;
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
+		this.departureTime = null;
+		this.arrivalTime = null;
+		this.duration = null;
+	}
+
+
+//	public TransportTravel(Transports transport, Object departureTime, Object arrivalTime, Object duration) {
+	public TransportTravel(Transports transport, Object departureTime, Object duration) {
+		this();
+		if (transport == null || departureTime == null || duration == null) {
+			return;
+		}
+		this.transport = transport;
+		this.departureTime = TransportTravel.sumTimes( transport.getStartTime(), (Time)departureTime);
 		this.duration = duration;
+		this.arrivalTime = TransportTravel.sumTimes( (Time) this.departureTime, (Time)duration);
 	}
 	
 	public Transports getTransport() {
