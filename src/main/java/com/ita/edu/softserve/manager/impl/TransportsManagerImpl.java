@@ -137,14 +137,9 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		Transports transport = new Transports();
 
-		transport.setTransportCode(transportCode);
-		transport.setStartTime(timeParse(startTime));
-		transport.setRoutes(routesDao.findByCode(routes));
-		transport.setSeatclass1(new Integer(seatclass1));
-		transport.setSeatclass2(new Integer(seatclass2));
-		transport.setSeatclass3(new Integer(seatclass3));
-		transport.setGenPrice(new Double(genprice));
-
+		fillTransport(transport, transportCode, startTime, routes, seatclass1,
+				seatclass2, seatclass3, genprice);
+		
 		transportsDao.saveOrUpdate(transport);
 	}
 
@@ -158,15 +153,10 @@ public class TransportsManagerImpl implements TransportsManager {
 			String seatclass2, String seatclass3, String genprice) {
 
 		Transports transport = transportsDao.findById(transportId);
-
-		transport.setTransportCode(transportCode);
-		transport.setStartTime(timeParse(startTime));
-		transport.setRoutes(routesDao.findByCode(routes));
-		transport.setSeatclass1(new Integer(seatclass1));
-		transport.setSeatclass2(new Integer(seatclass2));
-		transport.setSeatclass3(new Integer(seatclass3));
-		transport.setGenPrice(new Double(genprice));
-
+		
+		fillTransport(transport, transportCode, startTime, routes, seatclass1,
+				seatclass2, seatclass3, genprice);
+		
 		transportsDao.saveOrUpdate(transport);
 	}
 
@@ -175,91 +165,91 @@ public class TransportsManagerImpl implements TransportsManager {
 			String stationName2) {
 		// Results are stored here
 		List<TransportTravel> transportTravel;
-		
-		transportTravel = transportsDao.findByTwoStations(stationName1, stationName2); 
-		
+
+		transportTravel = transportsDao.findByTwoStations(stationName1,
+				stationName2);
+
 		if (transportTravel.get(0).getTransport() == null) {
 			return null;
 		}
-		
-		return transportTravel;
-	}
-
-/* This will be deleted : antipattern 
-	@Override
-	public List<TransportTravel> getTransportByTwoStations(String stationName1,
-			String stationName2) {
-		Stations station1;
-		Stations station2;
-
-		// Results are stored here
-		List<TransportTravel> transportTravel = new ArrayList<TransportTravel>();
-
-		List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
-		List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
-
-		Stops stop1 = null;
-		Stops stop2 = null;
-
-		try {
-			station1 = (Stations) stationDao.findByStations(stationName1)
-					.get(0);
-			station2 = (Stations) stationDao.findByStations(stationName2)
-					.get(0);
-		} catch (Exception e) {
-			System.out.println("" + e.getMessage());
-			return null;
-		}
-
-		StationsOnLine1.addAll(stlDao.findByStationId(station1.getStationId()));
-		StationsOnLine2.addAll(stlDao.findByStationId(station2.getStationId()));
-
-		for (int i = 0; i < StationsOnLine2.size(); i++) {
-			for (int j = 0; j < StationsOnLine1.size(); j++) {
-				if (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
-						.get(j).getLineId().getLineId()) {
-					if (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
-							.get(j).getStationOrderNum()) {
-						try {
-							stop1 = stopsDao
-									.findByStationsOnLineId(StationsOnLine1
-											.get(i).getStationOnLineId());
-							stop2 = stopsDao
-									.findByStationsOnLineId(StationsOnLine2
-											.get(i).getStationOnLineId());
-						} catch (Exception e) {
-							System.out.println("" + e.getMessage());
-						}
-						if ((stop1 != null) && (stop2 != null)) {
-							Transports transport = transportsDao
-									.findByRouteId(stop1.getRouteId()
-											.getRouteId());
-							TransportTravel trTravel = new TransportTravel(
-									transport);
-							trTravel.setDepartureTime(TransportTravel.sumTimes(
-									transport.getStartTime(),
-									stop1.getDeparture()));
-							trTravel.setArrivalTime(TransportTravel.sumTimes(
-									transport.getStartTime(),
-									stop2.getArrival()));
-
-							trTravel.setDuration(TransportTravel.subtractTimes(
-									stop2.getArrival(), stop1.getDeparture()));
-							trTravel.setDuration(TransportTravel.subtractTimes(
-									trTravel.getArrivalTime(),
-									trTravel.getDepartureTime()));
-							transportTravel.add(trTravel);
-						} else {
-							return null;
-						}
-					}
-				}
-			}
-		}
 
 		return transportTravel;
 	}
-*/
+
+	/*
+	 * This will be deleted : antipattern
+	 * 
+	 * @Override public List<TransportTravel> getTransportByTwoStations(String
+	 * stationName1, String stationName2) { Stations station1; Stations
+	 * station2;
+	 * 
+	 * // Results are stored here List<TransportTravel> transportTravel = new
+	 * ArrayList<TransportTravel>();
+	 * 
+	 * List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
+	 * List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
+	 * 
+	 * Stops stop1 = null; Stops stop2 = null;
+	 * 
+	 * try { station1 = (Stations) stationDao.findByStations(stationName1)
+	 * .get(0); station2 = (Stations) stationDao.findByStations(stationName2)
+	 * .get(0); } catch (Exception e) { System.out.println("" + e.getMessage());
+	 * return null; }
+	 * 
+	 * StationsOnLine1.addAll(stlDao.findByStationId(station1.getStationId()));
+	 * StationsOnLine2.addAll(stlDao.findByStationId(station2.getStationId()));
+	 * 
+	 * for (int i = 0; i < StationsOnLine2.size(); i++) { for (int j = 0; j <
+	 * StationsOnLine1.size(); j++) { if
+	 * (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
+	 * .get(j).getLineId().getLineId()) { if
+	 * (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
+	 * .get(j).getStationOrderNum()) { try { stop1 = stopsDao
+	 * .findByStationsOnLineId(StationsOnLine1 .get(i).getStationOnLineId());
+	 * stop2 = stopsDao .findByStationsOnLineId(StationsOnLine2
+	 * .get(i).getStationOnLineId()); } catch (Exception e) {
+	 * System.out.println("" + e.getMessage()); } if ((stop1 != null) && (stop2
+	 * != null)) { Transports transport = transportsDao
+	 * .findByRouteId(stop1.getRouteId() .getRouteId()); TransportTravel
+	 * trTravel = new TransportTravel( transport);
+	 * trTravel.setDepartureTime(TransportTravel.sumTimes(
+	 * transport.getStartTime(), stop1.getDeparture()));
+	 * trTravel.setArrivalTime(TransportTravel.sumTimes(
+	 * transport.getStartTime(), stop2.getArrival()));
+	 * 
+	 * trTravel.setDuration(TransportTravel.subtractTimes( stop2.getArrival(),
+	 * stop1.getDeparture()));
+	 * trTravel.setDuration(TransportTravel.subtractTimes(
+	 * trTravel.getArrivalTime(), trTravel.getDepartureTime()));
+	 * transportTravel.add(trTravel); } else { return null; } } } } }
+	 * 
+	 * return transportTravel; }
+	 */
+
+	/**
+	 * Fills the transport object with values.
+	 * @param transport object to fill with values.
+	 * @param transportCode
+	 * @param startTime
+	 * @param routes
+	 * @param seatclass1
+	 * @param seatclass2
+	 * @param seatclass3
+	 * @param genprice
+	 */
+	private void fillTransport(Transports transport, String transportCode,
+			String startTime, String routes, String seatclass1,
+			String seatclass2, String seatclass3, String genprice) {
+
+		transport.setTransportCode(transportCode);
+		transport.setStartTime(timeParse(startTime));
+		transport.setRoutes(routesDao.findByCode(routes));
+		transport.setSeatclass1(new Integer(seatclass1));
+		transport.setSeatclass2(new Integer(seatclass2));
+		transport.setSeatclass3(new Integer(seatclass3));
+		transport.setGenPrice(new Double(genprice));
+	}
+
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}
