@@ -15,7 +15,7 @@ public class TransportManagerMain {
 				.getInstance();
 		List<Transports> transportsList = stationsManager.getAllTransports();
 
-		System.out.println("Line ID " + " Line NAME");
+		System.out.println("LINE ID " + " LINE NAME");
 		for (Transports transport : transportsList) {
 			System.out.println(transport.getRoutes().getLineId().getClass()
 					.getSimpleName()
