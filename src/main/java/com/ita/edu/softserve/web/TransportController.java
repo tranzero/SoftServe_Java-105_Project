@@ -190,7 +190,7 @@ public class TransportController {
 			@RequestParam("stationName2") String stationName2,
 			Map<String, Object> model) {
 
-		if (stationName1.equals("") || stationName2.equals("")) {
+		if (stationName1.equals("") || stationName2.equals("") || stationName1.equals(stationName2)) {
 			return "transportTravel";
 		}
 

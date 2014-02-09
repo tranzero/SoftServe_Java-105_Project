@@ -178,6 +178,10 @@ public class TransportsManagerImpl implements TransportsManager {
 		
 		transportTravel = transportsDao.findByTwoStations(stationName1, stationName2); 
 		
+		if (transportTravel.get(0).getTransport() == null) {
+			return null;
+		}
+		
 		return transportTravel;
 	}
 

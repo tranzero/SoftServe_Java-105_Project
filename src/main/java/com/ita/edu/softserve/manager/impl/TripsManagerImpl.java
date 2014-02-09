@@ -24,7 +24,20 @@ public class TripsManagerImpl implements TripsManager {
 	public List<Trips> getAllTrips() {
 		return tripsDao.getAllEntities();
 	}
-
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getTripsListCount() {
+		return tripsDao.getTripsListCount();
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Trips> getTripsForPage(int pageNumber, int count) {
+		return getTripsForLimit((pageNumber-1)*count, count);
+	}
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForLimit(int firstElement, int count) {
 		return tripsDao.getTripsForLimits(firstElement, count);

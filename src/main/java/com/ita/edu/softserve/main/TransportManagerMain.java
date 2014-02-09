@@ -23,7 +23,7 @@ public class TransportManagerMain {
 		}
 
 		List<TransportTravel> transportTravelList = stationsManager
-				.getTransportByTwoStations("Pisochne", "Sknyliv");
+				.getTransportByTwoStations("Sknyliv", "Stryy");
 		for (TransportTravel tt : transportTravelList) {
 			System.out.println(tt.getTransport().getTransportCode() + " "
 					+ tt.getDepartureTime() + " " + tt.getArrivalTime() + " "
