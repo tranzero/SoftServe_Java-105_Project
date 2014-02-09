@@ -15,6 +15,8 @@ public interface TripsDao extends AbstractDAOIface<Trips>{
 	
 	List<Trips> getTripsForLimits(int firstElement, int count);
 	
+	long getTripsListCount();
+	
 	/**
 	 * Saves a Trip to database if not exist or update existing one.
 	 */	

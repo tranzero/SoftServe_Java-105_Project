@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 
@@ -21,6 +22,12 @@ public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDao{
 	@Override
 	public Class<Trips> getEntityClass() {
 		return Trips.class;
+	}
+	
+	@Override
+	public long getTripsListCount() {
+		return (long) find((Query)entityManager
+					.createNamedQuery(Trips.TRIPS_FIND_COUNT));
 	}
 
 	@Override

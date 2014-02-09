@@ -13,30 +13,53 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.manager.impl.PaginationManager;
 
 @Controller
 public class TripsController {
 	
 	
-	public static int DEFAULT_PAGE= 1; 
 	
 	@Autowired
 	private TripsManager tripsManager;
+	
+	private PaginationManager paginationManager=PaginationManager.getInstance(); 
 
-	private static void validatePages(Integer pageNumber, Integer resultsPerPage){
-		if (pageNumber == null){
-			pageNumber = new Integer(DEFAULT_PAGE);
-		}
-	}
+
+
 	
 	@RequestMapping(value = "/trips", method = RequestMethod.GET)
 	public String printTrips(@RequestParam(value="pageNumber", required=false) Integer pageNumber,
 			@RequestParam(value="resultsPerPage", required=false) Integer resultsPerPage,
 			Map<String, Object> modelMap, Locale locale) {
-		validatePages(pageNumber, resultsPerPage);
-		String lang= locale.getLanguage();
-		modelMap.put("tripsList", tripsManager.getTripsForLimit(0, 10));
+		if (pageNumber == null){
+			pageNumber = new Integer(paginationManager.getDefaultPageNumber());
+		}
+		if (resultsPerPage==null){
+			resultsPerPage = new Integer(paginationManager.getDefaultResultPerPage());
+		}
+		int maxPages = paginationManager.getMaxPageCount(resultsPerPage, 
+				tripsManager.getTripsListCount());
+		if (pageNumber>maxPages){
+			pageNumber = maxPages;
+		}
+		int pageAmount = paginationManager.getDefaultPageCount();
+		int firstPage = pageNumber-(pageAmount/2);
+		int lastPage = pageNumber+(pageAmount/2);
+		if (firstPage<1){
+			firstPage=1;
+		}
+		if (lastPage>maxPages){
+			lastPage=maxPages;
+		}
+		String lang = locale.getLanguage();
+		modelMap.put("tripsList", tripsManager.getTripsForPage(pageNumber, resultsPerPage));
 		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));
+		modelMap.put("pageNumber", pageNumber);
+		modelMap.put("resultsPerPage", resultsPerPage);
+		modelMap.put("maxPages", maxPages);
+		modelMap.put("firstPage", firstPage);
+		modelMap.put("lastPage", lastPage);
 		return "trips";
 	}
 }

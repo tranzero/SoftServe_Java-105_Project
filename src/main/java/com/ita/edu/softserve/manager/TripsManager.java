@@ -10,5 +10,9 @@ public interface TripsManager extends BaseManager {
 	List<Trips> getAllTrips();
 	
 	List<Trips> getTripsForLimit(int firstElement, int count);
+	
+	public List<Trips> getTripsForPage(int pageNumber, int count);
+	
+	long getTripsListCount();
 
 }
