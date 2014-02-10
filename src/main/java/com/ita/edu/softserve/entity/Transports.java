@@ -38,7 +38,7 @@ public class Transports extends BaseEntity {
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 	
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
-	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT"
+	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival))) "
 			+ "FROM Transports t "
 			+ "JOIN t.routes r "
