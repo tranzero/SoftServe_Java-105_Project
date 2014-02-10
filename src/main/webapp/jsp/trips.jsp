@@ -60,7 +60,7 @@ function showTripsPage(pageNumber_, resultsPerPage_){
 		async : true,
 //		beforeSend : function(){$("div#changeable").html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
 		type : "GET",
-		url : "/tripspage",
+		url : "tripspage",
 		data :{
 			pageNumber : pageNumber_,
 			resultsPerPage : resultsPerPage_
@@ -72,7 +72,7 @@ function showTripsPage(pageNumber_, resultsPerPage_){
 
 
 $(document).ready(function(){
-	showTripsPage(${pageNumber}, ${resultsPerPage});
+	showTripsPage("${pageNumber}", "${resultsPerPage}");
 	}
 );
 
