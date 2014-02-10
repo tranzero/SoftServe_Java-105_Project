@@ -43,14 +43,14 @@ public interface TransportsManager extends BaseManager {
 	/**
 	 * Saves new transport into database otherwise update it.
 	 */
-	public void saveOrUpdateTransport(String transportCode, String startTime,
-			String route, String seatclass1, String seatclass2,
-			String seatclass3, String genprice);
+//	public void saveOrUpdateTransport(String transportCode, String startTime,
+//			String route, String seatclass1, String seatclass2,
+//			String seatclass3, String genprice);
 
 	/**
 	 * Edits transport.
 	 */
-	void editTransport(Integer transportId, String transportCode,
+	void saveOrUpdateTransport(Integer transportId, String transportCode,
 			String startTime, String routes, String seatclass1,
 			String seatclass2, String seatclass3, String genprice);
 
