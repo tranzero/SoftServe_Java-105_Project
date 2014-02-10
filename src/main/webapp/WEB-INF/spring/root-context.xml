@@ -44,4 +44,7 @@
 	<context:component-scan base-package="com.ita.edu.softserve.dao.impl" />
 	<context:component-scan base-package="com.ita.edu.softserve.manager" />
 	<context:component-scan base-package="com.ita.edu.softserve.manager.impl" />
+	
+	<!-- Spring Security -->
+	<import resource="security-context.xml" />
 </beans>
