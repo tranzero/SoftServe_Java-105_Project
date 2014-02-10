@@ -21,7 +21,7 @@
 <script src="resources/js/initPaging.js"></script>
 <script>
 function onPagingEvent(event, num, resultsPerPage){
-	var elementSelectorForResult = "div#newscontent";
+	var elementSelectorForResult = "div#pagingcontent";
 	$.ajax({
 		async : false,
 		beforeSend : function(){$(elementSelectorForResult).html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
