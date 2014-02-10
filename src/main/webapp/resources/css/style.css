@@ -95,31 +95,6 @@ input[type="text"]:focus
     box-shadow:0 0 2px #FFFE00;
 }
 
-/*-- Pagination --*/
-.pagination{
-	clear: both;
-	overflow: hidden;
-	margin: 30px 0;	
-}
-
-.pagination a:hover{
-	color: #FFFFFF;
-	background: #359BED;
-}
-
-.pagination  .page-numbers {
-	background: #EEEEEE;
-	display: inline-block;	
-	margin-right:3px;
-	margin-bottom: 8px;
-	padding: 5px 12px;
-}
-
-.pagination .current {
-	background: #359BED;
-	color: #ffffff;
-}
-
 .flag {
 	padding-right:4px;
 	width: 16px;
