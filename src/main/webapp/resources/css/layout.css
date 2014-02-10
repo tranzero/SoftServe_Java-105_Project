@@ -74,8 +74,8 @@ nav {
 section#content {
         margin-left:auto;
         margin-right:auto;
-	padding: 40px 0 100px 40px;
-	width:980px;
+	padding: 40px 40px 100px 40px;
+	width:940px;
 	min-height:400px;
 	background-color: #fff;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 

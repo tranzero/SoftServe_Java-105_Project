@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.ita.edu.softserve.entity.*"%>
+
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<jsp:directive.page import="java.util.*" />
+
+
 <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <!-- <html> -->
 <!-- <head> -->
@@ -11,7 +17,6 @@
 <section id="content">
 	<h1>Edit User</h1>
 	<hr />
-
 	<hr>
 
 	<form id="userEdit" method="post" name="/userEdit">
@@ -23,28 +28,23 @@
 			<input id="userFirstName" type="text" name="userFirstName"
 				value="${user.getFirstName()}">
 
-			<p>LastName</p>
+			<p>LastName:</p>
 			<input id="lastName" type="text" name="lastName"
 				value="${user.getLastName()}">
 
-			<p>Email</p>
+			<p>Email:</p>
 			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
 
-			<p>Password</p>
-			<input id="Passwd" type="text" name="Passwd"
+			<p>Password:</p>
+			<input id="passwd" type="password" name="passwd"
 				value="${user.getPasswd()}">
 
-			<p>Role</p>
-			<select>
-				<c:forEach var="user" items="user">
-					<option selected value="${user.getRole()}">${user.getRole()}</option>
-					<option value="${Role.REGUSER}">REGUSER</option>
-					<option value="ADMIN">ADMIN</option>
-					<option value="MANAGER">MANAGER</option>
-				</c:forEach>
-			</select>
+			<p>Role:</p>
+			<form:select id="role" name="role" path="user.role">
+				<form:options itemLabel="description" />
 
-
+			</form:select>
+			<br/>
 			<p>
 				<input type="submit" value="Update USER">
 			</p>
