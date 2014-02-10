@@ -40,6 +40,16 @@ public class LinesController {
 		return "editLine";
 	}
 
+	@RequestMapping(value = "/savenewline", method = RequestMethod.POST)
+	public String saveNewLine(@ModelAttribute("newLineName") String newlineName) {
+		System.out.println(newlineName);
+		linesManager.createLine(newlineName);
+		Integer newLineId = linesManager.findByLineName(newlineName)
+				.getLineId();
+		System.out.println(newLineId);
+		return "redirect:/updateline/" + newlineName + "/" + newLineId;
+	}
+
 	@RequestMapping(value = "/addnewstations/{lineId}")
 	public String addNewStations(@PathVariable("lineId") Integer lineId,
 			Map<String, Object> modelMap) {
@@ -113,24 +123,29 @@ public class LinesController {
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.GET)
 	public String linesByStationGet() {
-		
+
 		return "linesbystation";
-		
+
 	}
+
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.POST)
-	public String linesByStationPost( @ModelAttribute("stationname") String stationName,Map<String, Object> modelMap) {
-		modelMap.put("stationName",stationName);
+	public String linesByStationPost(
+			@ModelAttribute("stationname") String stationName,
+			Map<String, Object> modelMap) {
+		modelMap.put("stationName", stationName);
 		modelMap.put("linesbystationlist",
 				linesManager.getLinesByStationName(stationName));
 		return "linesbystationresult";
-		
+
 	}
-//	@RequestMapping(value = "/linesbystationresult", method = RequestMethod.GET)
-//	public String linesByStationGet(String stationName,Map<String, Object> modelMap) {
-//	
-//	return "linesbystation";
-//	
-//}
-//	
+	// @RequestMapping(value = "/linesbystationresult", method =
+	// RequestMethod.GET)
+	// public String linesByStationGet(String stationName,Map<String, Object>
+	// modelMap) {
+	//
+	// return "linesbystation";
+	//
+	// }
+	//
 
 }
