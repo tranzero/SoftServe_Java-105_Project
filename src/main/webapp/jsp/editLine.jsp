@@ -4,7 +4,10 @@
 
 <section id="content">
 	<h1>Edit/Create Line</h1>
-	Line name: <input type="text" value="${lineName}">
+	<form action="savenewline" method="post">
+		Line name: <input type="text" value="${lineName}" name="newLineName"><br>
+		<input type="submit" value="Save line">
+	</form>
 	<table>
 		<tr>
 			<td align="center">Station Code</td>
