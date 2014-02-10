@@ -28,7 +28,7 @@ $(document).ready(function(){
 });
 </script>
 <div id = "content">
-<div id="newscontent"></div>
-<div id="pagecontent"></div>
+	<div id="newscontent"></div>
+	<div id="pagecontent"></div>
 	<div id="pagination"></div>	
 </div>

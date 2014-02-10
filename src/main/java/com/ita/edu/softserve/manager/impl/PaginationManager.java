@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public final class PaginationManager {
 	private final int defaultPageCount = 10;
 	private final int defaultPageNumber = 1;
-	private final int defaultResultPerPage = 15;
+	private final int defaultResultPerPage = 10;
 	
 	
 	
