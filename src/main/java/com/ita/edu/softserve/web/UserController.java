@@ -65,7 +65,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/userEdit/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
-			@ModelAttribute("firstName") String firstName,
+			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("eMail") String eMail,
 			@ModelAttribute("passwd") String passwd,
