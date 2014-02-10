@@ -57,14 +57,16 @@
 function showTripsPage(pageNumber_, resultsPerPage_){
 	//var path = "/tripspage?pageNumber="+pageNumber_+"&resultsPerPage="+resultsPerPage_;
 	$.ajax({
+		async : true,
+//		beforeSend : function(){$("div#changeable").html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
 		type : "GET",
 		url : "/tripspage",
 		data :{
 			pageNumber : pageNumber_,
 			resultsPerPage : resultsPerPage_
 		}
-	}).done (function(msg){  
-        $("div#changeable").html(msg);
+	}).done(function(msg) {
+		$("div#changeable").html(msg);
 	});
 }
 
