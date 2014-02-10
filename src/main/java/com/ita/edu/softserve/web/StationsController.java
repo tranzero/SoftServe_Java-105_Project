@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.exception.PostManagerExeption;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
 
@@ -24,29 +24,57 @@ public class StationsController {
 	@RequestMapping(value = "/stationsForUsers", method = RequestMethod.GET)
 	public String listStations(Map<String, Object> modelMap) {
 
-		modelMap.put("stationsList", stationsManager.findAllStations());
-	
+		try {
+			modelMap.put("stationsList", stationsManager.findAllStations());
+		} catch (StationManagerException e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
+
 		return "stationsForUsers";
 	}
-	
+
 	@RequestMapping(value = "/stations", method = RequestMethod.GET)
 	public String manageStations(Map<String, Object> modelMap) {
 
-		modelMap.put("stationsList", stationsManager.findAllStations());
-		return "stations";
+		try {
+			modelMap.put("stationsList", stationsManager.findAllStations());
+		} catch (StationManagerException e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
+
+		return "redirect:/stations";
 	}
-	
-	@RequestMapping("/delete/{stationId}")
-	public String deleteStation(@PathVariable("stationId") Integer stationId) {
-		stationsManager.removeStations(stationId);
+
+	@RequestMapping(value = "/delete/{stationId}", method = RequestMethod.GET)
+	public String deleteStation(@PathVariable("stationId") Integer stationId,
+			Map<String, Object> map) {
+		try {
+			stationsManager.removeStations(stationId);
+		} catch (StationManagerException e) {
+			map.put("incorrectMsg", "Incorrect Station!!!");
+			return "result";
+		}
+
 		return "redirect:/stations";
 	}
 
 	@RequestMapping(value = "/stationEdit/{station}", method = RequestMethod.GET)
 	public String editStation(@PathVariable("station") Integer stationId,
 			Map<String, Object> modelMap) {
-		Stations station = stationsManager.findStationsById(stationId);
-		modelMap.put("station", station);
+
+		Stations station = null;
+		try {
+			station = stationsManager.findStationsById(stationId);
+			modelMap.put("station", station);
+		} catch (StationManagerException e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
 		return "stationEdit";
 	}
 
@@ -54,14 +82,16 @@ public class StationsController {
 	public String updateStationToDB(
 			@PathVariable("stationToEdit") Integer stationId,
 			@ModelAttribute("stationCode") String stationCode,
-			@ModelAttribute("stationName") String stationName) {
-
-		if (stationCode.isEmpty() || stationName.isEmpty()) {
-			throw new NullPointerException();
-		} else {
+			@ModelAttribute("stationName") String stationName,
+			Map<String, Object> modelMap) {
+		try {
 			stationsManager.editStation(stationId, stationCode, stationName);
-			return "redirect:/stations";
+		} catch (StationManagerException e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
 		}
+		return "redirect:/stations";
 	}
 
 	@RequestMapping(value = "/addStation", method = RequestMethod.GET)
@@ -74,19 +104,22 @@ public class StationsController {
 			@RequestParam("stationCode") String stationCode,
 			@RequestParam("stationName") String stationName,
 			Map<String, Object> modelMap) {
-
-		stationsManager.createStation(stationCode, stationName);
+		try {
+			stationsManager.createStation(stationCode, stationName);
+		} catch (StationManagerException e) {
+			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
+			modelMap.put("errorMsg", e.getMessage());
+			return "result";
+		}
 		return "redirect:/stations";
 	}
-	
-	
-	@RequestMapping(value="stationsoncertainline/{line}", method = RequestMethod.GET)
-	public String stationsOnCertainLine(@PathVariable("line") String lineName, Map<String,Object>modelMap){
-		modelMap.put("stationsList", stationsManager.getStationsOnCertainLine(lineName));
+
+	@RequestMapping(value = "stationsoncertainline/{line}", method = RequestMethod.GET)
+	public String stationsOnCertainLine(@PathVariable("line") String lineName,
+			Map<String, Object> modelMap) {
+		modelMap.put("stationsList",
+				stationsManager.getStationsOnCertainLine(lineName));
 		return "stations";
 	}
-	
-	
-	
 
 }
