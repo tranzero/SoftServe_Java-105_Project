@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.utils.PageInfoContainer;
 
 @Controller
 public class TripsController {
@@ -27,74 +28,34 @@ public class TripsController {
 
 
 	@RequestMapping(value = "/tripspage", method = RequestMethod.GET)
-	public String printTripsPage(@RequestParam(value="pageNumber", required=false) Integer pageNumber,
-			@RequestParam(value="resultsPerPage", required=false) Integer resultsPerPage,
+	public String printTripsPage(@RequestParam(value=PaginationManager.PAGE_NUMBER_NAME, required=false) Integer pageNumber,
+			@RequestParam(value=PaginationManager.RESULTS_PER_PAGE_NAME, required=false) Integer resultsPerPage,
 			Map<String, Object> modelMap, Locale locale) {
-		if (pageNumber == null){
-			pageNumber = new Integer(paginationManager.getDefaultPageNumber());
-		}
-		if (resultsPerPage==null){
-			resultsPerPage = new Integer(paginationManager.getDefaultResultPerPage());
-		}
-		int maxPages = paginationManager.getMaxPageCount(resultsPerPage, 
-				tripsManager.getTripsListCount());
-		if (pageNumber>maxPages){
-			pageNumber = maxPages;
-		}
-		int pageAmount = paginationManager.getDefaultPageCount();
-		int firstPage = pageNumber-(pageAmount/2);
-		int lastPage = pageNumber+(pageAmount/2);
-		if (firstPage<1){
-			firstPage=1;
-		}
-		if (lastPage>maxPages){
-			lastPage=maxPages;
-		}
+		long count = tripsManager.getTripsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
 		String lang = locale.getLanguage();
-		modelMap.put("tripsList", tripsManager.getTripsForPage(pageNumber, resultsPerPage));
+		modelMap.put("tripsList", tripsManager.getTripsForPage(container.getPageNumber(), 
+				container.getResultsPerPage()));
 		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));
-		modelMap.put("pageNumber", pageNumber);
-		modelMap.put("resultsPerPage", resultsPerPage);
-		modelMap.put("maxPages", maxPages);
-		modelMap.put("firstPage", firstPage);
-		modelMap.put("lastPage", lastPage);
 		return "tripspage";
 	}
 	
 	
 	
 	@RequestMapping(value = "/trips", method = RequestMethod.GET)
-	public String printTrips(@RequestParam(value="pageNumber", required=false) Integer pageNumber,
-			@RequestParam(value="resultsPerPage", required=false) Integer resultsPerPage,
+	public String printTrips(@RequestParam(value=PaginationManager.PAGE_NUMBER_NAME, required=false) Integer pageNumber,
+			@RequestParam(value=PaginationManager.RESULTS_PER_PAGE_NAME, required=false) Integer resultsPerPage,
 			Map<String, Object> modelMap, Locale locale) {
-		if (pageNumber == null){
-			pageNumber = new Integer(paginationManager.getDefaultPageNumber());
-		}
-		if (resultsPerPage==null){
-			resultsPerPage = new Integer(paginationManager.getDefaultResultPerPage());
-		}
-		int maxPages = paginationManager.getMaxPageCount(resultsPerPage, 
-				tripsManager.getTripsListCount());
-		if (pageNumber>maxPages){
-			pageNumber = maxPages;
-		}
-		int pageAmount = paginationManager.getDefaultPageCount();
-		int firstPage = pageNumber-(pageAmount/2);
-		int lastPage = pageNumber+(pageAmount/2);
-		if (firstPage<1){
-			firstPage=1;
-		}
-		if (lastPage>maxPages){
-			lastPage=maxPages;
-		}
+		long count = tripsManager.getTripsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
 		String lang = locale.getLanguage();
-		modelMap.put("tripsList", tripsManager.getTripsForPage(pageNumber, resultsPerPage));
-		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));
-		modelMap.put("pageNumber", pageNumber);
-		modelMap.put("resultsPerPage", resultsPerPage);
-		modelMap.put("maxPages", maxPages);
-		modelMap.put("firstPage", firstPage);
-		modelMap.put("lastPage", lastPage);
+		modelMap.put("tripsList", tripsManager.getTripsForPage(container.getPageNumber(), 
+				container.getResultsPerPage()));
+		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));		
 		return "trips";
 	}
 }
