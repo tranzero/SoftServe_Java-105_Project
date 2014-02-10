@@ -3,6 +3,7 @@ package com.ita.edu.softserve.manager;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.exception.StationManagerException;
 
 /**
  * Service interface for stations.
@@ -13,45 +14,41 @@ public interface StationsManager extends BaseManager {
 
 	/**
 	 * Gets list of all Stations.
+	 * @throws StationManagerException 
 	 */
-	List<Stations> findAllStations();
+	List<Stations> findAllStations() throws StationManagerException;
 
 	/**
 	 * Gets Station by ID.
+	 * @throws StationManagerException 
 	 */
-	Stations findStationsById(Integer id);
+	Stations findStationsById(Integer id) throws StationManagerException;
 
 	/**
 	 * 
 	 * Saves station by parameters.
+	 * @throws StationManagerException 
 	 * 
 	 */
-	void createStation(String stationCode, String stationName);
-
-	/**
-	 * Saves station.
-	 */
-	void saveStations(Stations... station);
+	void createStation(String stationCode, String stationName) throws StationManagerException;
 
 	/**
 	 * Removes station.
+	 * @throws StationManagerException 
 	 */
-	void removeStations(Integer stationId);
-
-	/**
-	 * Updates stations.
-	 */
-	List<Stations> updateStations(Stations... station);
+	void removeStations(Integer stationId) throws StationManagerException;
 
 	/**
 	 * Updates exact station by Id.
+	 * @throws StationManagerException 
 	 */
-	void editStation(Integer stationId, String stationCode, String stationName);
+	void editStation(Integer stationId, String stationCode, String stationName) throws StationManagerException;
 	
 	/**
-	 * Finds station by its Name.
+	 * Finds station by Name.
+	 * @throws StationManagerException 
 	 */
-	public Stations findByStationName(String stationName); 
+	public Stations findByStationName(String stationName) throws StationManagerException; 
 	
 	public List<Stations> getStationsOnCertainLine(String lineName);
 

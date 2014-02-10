@@ -1,9 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 
@@ -28,14 +24,15 @@ import com.ita.edu.softserve.manager.StationsManager;
 @Service("stationsService")
 public class StationsManagerImpl implements StationsManager {
 
-	private static final Logger LOGGER = Logger.getLogger(Stations.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(StationManagerException.class);
 
 	/**
 	 * Class to get access to DAO layer.
 	 */
 	@Autowired
 	private StationsDAO stationDao;
-	
+
 	@Autowired
 	private LinesDAO lineDao;
 
@@ -50,21 +47,35 @@ public class StationsManagerImpl implements StationsManager {
 
 	/**
 	 * @return list of all stations.
+	 * @throws StationManagerException
 	 * 
 	 */
 	@Transactional
 	@Override
-	public List<Stations> findAllStations() {
-		return stationDao.getAllEntities();
+	public List<Stations> findAllStations() throws StationManagerException {
+		try {
+			return stationDao.getAllEntities();
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new StationManagerException(
+					"Could not find List of Stations", e);
+		}
 	}
 
 	/**
 	 * @return Station found by ID.
+	 * @throws StationManagerException
 	 */
 	@Transactional
 	@Override
-	public Stations findStationsById(Integer id) {
-		return stationDao.findById(id);
+	public Stations findStationsById(Integer id) throws StationManagerException {
+		try {
+			return stationDao.findById(id);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new StationManagerException(
+					"Could not find Station by this Id", e);
+		}
 	}
 
 	/**
@@ -73,90 +84,87 @@ public class StationsManagerImpl implements StationsManager {
 	 * @param stationCode
 	 * 
 	 * @param stationName
+	 * @throws StationManagerException
 	 */
 	@Transactional
 	@Override
-	public void createStation(String stationCode, String stationName) {
+	public void createStation(String stationCode, String stationName)
+			throws StationManagerException {
 
-		Stations station = new Stations(stationCode, stationName);
-		stationDao.save(station);
-	}
-
-	/**
-	 * Saves Stations in database.
-	 */
-	@Transactional
-	@Override
-	public void saveStations(Stations... stations) {
-
-		for (Stations station : stations)
+		try {
+			Stations station = new Stations(stationCode, stationName);
 			stationDao.save(station);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new StationManagerException("Could not create Station", e);
+		}
 	}
 
 	/**
 	 * Removes Stations by Id from database.
+	 * 
+	 * @throws StationManagerException
 	 */
 	@Transactional
 	@Override
-	public void removeStations(Integer stationId) {
+	public void removeStations(Integer stationId)
+			throws StationManagerException {
 
 		Stations station = null;
 		try {
 			station = (Stations) stationDao.findById(stationId);
 			stationDao.remove(station);
-		} catch (NoResultException e) {
-			LOGGER.error("No such station!", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new StationManagerException("Could not remove Station", e);
 		}
 	}
 
 	/**
-	 * Updates Stations table in DB and get list of all stations.
+	 * Updates exact station by Id.
 	 * 
-	 * @return list of all stations.
+	 * @throws StationManagerException
 	 */
-	@Transactional
-	@Override
-	public List<Stations> updateStations(Stations... stations) {
-		List<Stations> stationUpdateResult = new ArrayList<Stations>();
-
-		for (Stations station : stations) {
-			stationUpdateResult.add((Stations) stationDao.update(station));
-		}
-		return stationUpdateResult;
-	}
-
 	@Override
 	@Transactional
 	public void editStation(Integer stationId, String stationCode,
-			String stationName) {
+			String stationName) throws StationManagerException {
 
-		Stations station = stationDao.findById(stationId);
+		try {
+			Stations station = stationDao.findById(stationId);
 
-		station.setStationCode(stationCode);
-		station.setStationName(stationName);
-
-		stationDao.update(station);
+			station.setStationCode(stationCode);
+			station.setStationName(stationName);
+			stationDao.update(station);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new StationManagerException("Could not update Station", e);
+		}
 
 	}
-	
-	public Stations findByStationName(String stationName) {
-		Stations station = null;
+
+	/**
+	 * Finds station by Name.
+	 * 
+	 * @throws StationManagerException
+	 */
+	public Stations findByStationName(String stationName)
+			throws StationManagerException {
+
 		try {
-			 station = stationDao.findByName(stationName);
-		} catch (NoResultException e) {
-			LOGGER.error("No such station!", e);
+			return stationDao.findByName(stationName);
+		} catch (Exception e) {
+			throw new StationManagerException("Could not find Station", e);
 		}
-		return station;
-	} 
+	}
 
 	public static StationsManager getInstance() {
 		return ManagerFactory.getManager(StationsManager.class);
-		}
-	
-	public List<Stations> getStationsOnCertainLine(String lineName){
-			
-			return stationDao.findByLineName(lineName);
-		
-		
+	}
+
+	public List<Stations> getStationsOnCertainLine(String lineName) {
+
+		return stationDao.findByLineName(lineName);
+
 	}
 }
