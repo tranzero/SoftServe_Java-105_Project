@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ page session="true"%>
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.stationEdit"/></h2>
 	<hr />
