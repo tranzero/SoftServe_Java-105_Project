@@ -8,7 +8,6 @@
 	<form id="editTransport" method="post" name="transport">
 		<div>
 
-			<!-- 				<td>ID:</td> -->
 			<p><input id="transportId" type="hidden" name="transportId"
 				value="${transport.getTransportId()}"></p>
 
@@ -39,7 +38,9 @@
 			<p><input id="genprice" type="text" name="genprice"
 				value="${transport.getGenPrice()}" /></p>
 
-			<p><input type="submit" value="Update"></p>
+			<p><input type="submit" value="Update">&emsp;
+				<input type="button" value="<spring:message code="label.stations.cancel"/>" 
+				onclick="window.location='/SoftServe_Java-105/transport';"></p>
 
 		</div>
 	</form>
