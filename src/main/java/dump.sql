@@ -7,7 +7,7 @@ CREATE DATABASE  IF NOT EXISTS `test`;
 
 DROP TABLE IF EXISTS `lines`;
 CREATE TABLE `lines` (
-    `LINEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `LINEID` INT (10) unsigned NOT NULL , 
     `LINENAME` VARCHAR (100) NOT NULL ,
     PRIMARY KEY (LINEID)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -19,37 +19,6 @@ LOCK TABLES `lines` WRITE;
 /*!40000 ALTER TABLE `lines` DISABLE KEYS */;
 INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv');
 /*!40000 ALTER TABLE `lines` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- 
--- Table structure for table `orders`
--- 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL ,
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- 
@@ -70,7 +39,7 @@ CREATE TABLE `posts` (
 -- 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest', '2003-01-20'), ('2', 'Merkel condemns US over EU insult', 'U insultPolice in Kiev, 6 FebMasked protesters march through Kiev, 6 FebruaryPrevious image | Pause | Next image3 / 4Germany\'s Angela Merkel says a US official\'s apparent insult of the EU\'s work in Ukraine in a leaked recording is "totally unacceptable". ', '2014-02-07'), ('3', 'Earliest UK human footprints found', 'Scientists discover the earliest evidence of human footprints outside of Africa on the Norfolk coast in Eastern England. ', '2014-02-07'), ('4', 'Sochi prepares for opening ceremony', 'The costliest Winter Olympics in history officially open in Russia on Friday with a lavish ceremony in Sochi.', '2014-02-07'), ('5', 'Environment chief faces floods anger', 'There is anger directed at Environment Agency chairman Lord Smith ahead of his visit to the flood-hit Somerset Levels.', '2014-02-07'), ('6', 'Cameron: Seven months to save UK', 'David Cameron makes an emotional appeal to Scottish voters to "save the most extraordinary country in history" in September\'s independence vote.', '2014-02-07'), ('7', 'Violent clashes at Rio fares protest', 'Hundreds of Brazilian demonstrators clash with riot police in Rio de Janeiro, in a protest against a rise in public transport fares. ', '2014-02-07'), ('8', 'Mass grave found in Michoacan state', 'Mexico police find four severed heads and a mass grave in the troubled western state of Michoacan, where vigilantes are fighting a notorious drug cartel. ', '2014-02-07'), ('9', 'Pacific castaway health worsens', 'The castaway who says he survived more than a year adrift in the Pacific has been readmitted to hospital for health checks. ', '2014-02-07'), ('10', 'Anderson film opens Berlin festival', 'Wes Anderson\'s latest movie The Grand Budapest Hotel opens the Berlin Film Festival to rave reviews.', '2014-02-07'), ('11', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('12', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('13', 'National Gallery buys first US work', 'The National Gallery makes its first ever acquisition of a painting by an American artist - a 1912 work by George Bellows. ', '2014-02-07'), ('14', '\'No target\' in UK animal tests plan', 'The UK government launches its plan to replace, refine and reduce animals in research, but campaigners are disappointed. ', '2014-02-07'), ('15', 'Salmon born with \'magnetic map\'', 'Scientists believe that Pacific salmon sense changes in intensity and angle of the Earth\'s magnetic field to find their way in the ocean.', '2014-02-07'), ('16', 'US military funds \'vanishing\' tech', 'The US military is funding a project to develop electronics that can self-destruct like the secret messages in the Mission Impossible TV show. ', '2014-02-07');
+INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest', '2003-01-20'), ('2', 'Самооборона та «Автономний опір» покинуть приміщення ', 'Представники народної самооборони почнуть вивільняти приміщення Львівської облдержадміністрації. «Автономний опір» уже покинув Винниченка, 18. «Правий сектор», що зайняв перший поверх, поки не вирішив, чи піде з ЛОДА.', '2005-08-09'), ('3', 'У Києві застрелили ще одного міліціонера', 'У Києві 42-річний старший прапорщик міліції помер у лікарні від вогнепального поранення в груди.', '2555-01-08'), ('4', 'Від кримінальної відповідальності звільнили 8 активіс', 'Вісьмох учасників масових заворушень, що сталися у грудні минулого року, звільнили від кримінальної відповідальності. Про це повідомили у прес-службі прокуратури Києва.', '2555-01-06'), ('5', 'dfsdklfhsdfkjdssdfsdfsd', 'dfzdvzdgxzdgxdgsdgsd', '1005-01-11');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +49,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `routes`;
 CREATE TABLE `routes` (
-    `ROUTEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `ROUTEID` INT (10) unsigned NOT NULL , 
     `LINEID` INT (10) unsigned NOT NULL , 
     `ROUTECODE` VARCHAR (20) NOT NULL , 
     `STARTTIME` TIME NOT NULL ,
@@ -107,7 +76,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `stations`;
 CREATE TABLE `stations` (
-    `STATIONID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `STATIONID` INT (10) unsigned NOT NULL , 
     `STATIONCODE` VARCHAR (20) NOT NULL , 
     `STATIONNAME` VARCHAR (100) NOT NULL ,
     PRIMARY KEY (STATIONID)
@@ -128,7 +97,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `stationsonlines`;
 CREATE TABLE `stationsonlines` (
-    `STATIONONLINEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `STATIONONLINEID` INT (10) unsigned NOT NULL , 
     `LINEID` INT (10) unsigned NOT NULL , 
     `STATIONID` INT (10) unsigned NOT NULL , 
     `STATIONORDERNUM` INT (10) unsigned NOT NULL ,
@@ -160,7 +129,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `stops`;
 CREATE TABLE `stops` (
-    `STOPID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `STOPID` INT (10) unsigned NOT NULL , 
     `ROUTEID` INT (10) unsigned NOT NULL , 
     `STATIONONLINEID` INT (10) unsigned NOT NULL , 
     `ARRIVAL` TIME NOT NULL , 
@@ -200,7 +169,7 @@ CREATE TABLE `transports` (
     `SEATCLASS1` INT (10) NOT NULL , 
     `SEATCLASS2` INT (10) NOT NULL , 
     `SEATCLASS3` INT (10) NOT NULL , 
-    `GENPRICE` DECIMAL (7, 2) NOT NULL ,
+    `GENPRICE` DECIMAL (5, 2) NOT NULL ,
     PRIMARY KEY (TRANSPORTID),
     CONSTRAINT `ROUTES_ROUTEID_fk`
     FOREIGN KEY (`ROUTEID`)
@@ -214,37 +183,8 @@ CREATE TABLE `transports` (
 -- 
 LOCK TABLES `transports` WRITE;
 /*!40000 ALTER TABLE `transports` DISABLE KEYS */;
-INSERT INTO `transports` VALUES ('1', '1', 'T000000001', '12:00:00', '10', '50', '150', '25.00'), ('2', '1', 'T000000001', '16:00:00', '10', '50', '150', '25.00'), ('3', '2', 'T000000002', '12:00:00', '10', '50', '150', '25.00'), ('4', '2', 'T000000002', '16:00:00', '10', '50', '150', '25.00');
+INSERT INTO `transports` VALUES ('1', '1', '1000000000001', '06:40:00', '100', '200', '200', '150.25'), ('2', '2', '1000000000002', '10:10:00', '150', '200', '250', '150.25');
 /*!40000 ALTER TABLE `transports` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- 
--- Table structure for table `trips`
--- 
-
-DROP TABLE IF EXISTS `trips`;
-CREATE TABLE `trips` (
-    `TRIPID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `TRANSPORTID` INT (10) NOT NULL , 
-    `REMSEATCLASS1` INT (10) NOT NULL , 
-    `REMSEATCLASS2` INT (10) NOT NULL , 
-    `REMSEATCLASS3` INT (10) NOT NULL , 
-    `STARTDATE` DATE NOT NULL ,
-    PRIMARY KEY (TRIPID),
-    CONSTRAINT `transports_transportid_fk`
-    FOREIGN KEY (`TRANSPORTID`)
-    REFERENCES `transports` (`TRANSPORTID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `trips`
--- 
-LOCK TABLES `trips` WRITE;
-/*!40000 ALTER TABLE `trips` DISABLE KEYS */;
-INSERT INTO `trips` VALUES ('1', '1', '10', '50', '150', '2013-02-20'), ('2', '1', '10', '50', '150', '2013-02-21'), ('3', '1', '10', '50', '150', '2013-02-22'), ('4', '1', '10', '50', '150', '2013-02-23'), ('5', '2', '10', '50', '150', '2013-02-20'), ('6', '2', '10', '50', '150', '2013-02-21'), ('7', '2', '10', '50', '150', '2013-02-22'), ('8', '2', '10', '50', '150', '2013-02-23'), ('9', '3', '10', '50', '150', '2013-02-20'), ('10', '3', '10', '50', '150', '2013-02-21'), ('11', '3', '10', '50', '150', '2013-02-22'), ('12', '3', '10', '50', '150', '2013-02-23'), ('13', '4', '10', '50', '150', '2013-02-20'), ('14', '4', '10', '50', '150', '2013-02-21'), ('15', '4', '10', '50', '150', '2013-02-22'), ('16', '4', '10', '50', '150', '2013-02-23');
-/*!40000 ALTER TABLE `trips` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- 
@@ -253,7 +193,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-    `USERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
     `USERNAME` VARCHAR (100) NOT NULL , 
     `FIRSTNAME` VARCHAR (100) NOT NULL , 
     `LASTNAME` VARCHAR (100) NOT NULL , 
@@ -270,6 +210,6 @@ CREATE TABLE `users` (
 -- 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-02-10 15:40:03.0', 'MANAGER'), ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '', '2014-02-10 15:40:03.0', 'MANAGER'), ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '', '2014-02-10 15:40:03.0', 'ADMIN'), ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7s233', '2014-01-14 01:42:46.0', 'MANAGER'), ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '568355', '2014-01-14 02:41:35.0', 'REGUSER'), ('6', 'yuriy', 'Yuriy', 'logazyak', 'test6@gmail', '', '2014-01-14 02:42:46.0', 'MANAGER'), ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '467888', '2014-01-14 03:43:46.0', 'ADMIN'), ('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '432567sd', '2014-01-14 03:41:38.0', 'ADMIN'), ('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '', '2014-01-14 04:42:46.0', 'MANAGER'), ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '', '2014-01-14 04:43:46.0', 'REGUSER'), ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4e5155', '2014-01-14 04:44:35.0', 'REGUSER'), ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '', '2014-01-14 04:44:46.0', 'REGUSER'), ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '8754325', '2014-01-14 04:44:46.0', 'REGUSER');
+INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', 'dfghj', '2014-01-14 03:41:35.0', 'REGUSER'), ('2', 'yherasym', 'Yaroslav', 'Herasym', 'test@mail.second', '', '2014-01-14 03:42:46.0', 'MANAGER'), ('3', 'mychaylo.partyka', 'Mychaylo', 'Partyka', 'test@mail.third', '', '2014-01-14 03:43:46.0', 'ADMIN');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
