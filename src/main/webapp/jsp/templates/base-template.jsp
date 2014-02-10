@@ -19,6 +19,24 @@
 <link rel="stylesheet" href="resources/css/paging.css">
 <script src="resources/js/jquery.bootpag.js"></script>
 <script src="resources/js/initPaging.js"></script>
+<script>
+function onPagingEvent(event, num, resultsPerPage){
+	var elementSelectorForResult = "div#newscontent";
+	$.ajax({
+		async : false,
+		beforeSend : function(){$(elementSelectorForResult).html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
+		type: "POST",
+		url: pageUrl,
+		data: { pageNumber: num - 1, resultsPerPage: resultsPerPage }
+		})
+		.done(function( msg ) {
+			$(elementSelectorForResult).html(msg);
+	});
+}
+$(document).ready(function(){
+	initPageWithPaging('${maxPageCount}', '${sizeOfPaging}', onPagingEvent, pageUrl);
+});
+</script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />

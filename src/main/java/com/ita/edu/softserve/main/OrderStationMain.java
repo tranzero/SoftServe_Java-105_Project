@@ -5,6 +5,7 @@ import java.util.List;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TransportsManager;
@@ -21,7 +22,13 @@ public class OrderStationMain {
 		StationsManager stationsDAOImpl = (StationsManager) StationsManagerImpl
 				.getInstance();
 
-		List<Stations> stationsList = stationsDAOImpl.findAllStations();
+		List<Stations> stationsList=null;
+		try {
+			stationsList = stationsDAOImpl.findAllStations();
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Stations station1 = stationsList.get(4);
 		Stations station2 = stationsList.get(15);
 		System.out.println("***********************************");

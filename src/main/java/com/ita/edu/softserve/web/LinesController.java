@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
@@ -43,13 +44,23 @@ public class LinesController {
 	@RequestMapping(value = "/addnewstations/{lineId}")
 	public String addNewStations(@PathVariable("lineId") Integer lineId,
 			Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.findAllStations());
+		try {
+			modelMap.put("stationsList", stationsManager.findAllStations());
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "allStationsEditLine";
 	}
 
 	@RequestMapping(value = "/updateline/addnewstations")
 	public String addNewStation(Map<String, Object> modelMap) {
-		modelMap.put("stationsList", stationsManager.findAllStations());
+		try {
+			modelMap.put("stationsList", stationsManager.findAllStations());
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "allStationsEditLine";
 	}
 
@@ -73,7 +84,12 @@ public class LinesController {
 			@PathVariable("lineName") String lineName,
 			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
 		stationOnLineManager.removeStation(stationId, lineId);
-		modelMap.put("stationsList", stationsManager.findAllStations());
+		try {
+			modelMap.put("stationsList", stationsManager.findAllStations());
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/updateline/" + lineName + "/" + lineId;
 	}
 

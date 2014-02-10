@@ -36,6 +36,13 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	@Autowired
 	private StationsDAO stationDao;
 
+	/**
+	 * @author MatyashPetro
+	 * @param stationId
+	 *            station ID which must be deleted
+	 * @param lineId
+	 *            line ID which contains station for deleting
+	 */
 	@Transactional
 	@Override
 	public void removeStation(Integer stationId, Integer lineId) {
@@ -47,16 +54,33 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 		return ManagerFactory.getManager(StationOnLineManager.class);
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @param stationsName
+	 *            List of stations name which must be included to new line
+	 * @param lineId
+	 *            ID of new line
+	 */
 	@Transactional
 	@Override
 	public void addStationsToLine(Integer lineId, List<String> stationsName) {
-		int i = 1;
+		Boolean b;
+		List<StationsOnLine> solList = stlDao.findByLineId(lineId);
 		for (String station : stationsName) {
-			StationsOnLine sol = new StationsOnLine();
-			sol.setLineId(lineDao.findById(lineId));
-			sol.setStationId(stationDao.findByName(station));
-			sol.setStationOrderNum(i++);
-			stlDao.save(sol);
+			b = true;
+			for (StationsOnLine st : solList) {
+				if (st.getStationId().getStationId() == stationDao.findByName(
+						station).getStationId()) {
+					b = false;
+					break;
+				}
+			}
+			if (b) {
+				StationsOnLine sol = new StationsOnLine();
+				sol.setLineId(lineDao.findById(lineId));
+				sol.setStationId(stationDao.findByName(station));
+				stlDao.save(sol);
+			}
 		}
 	}
 
@@ -66,7 +90,7 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	@Transactional
 	@Override
 	public List<StationsOnLine> findStationsOnLine(Integer lineId) {
-		
+
 		return stlDao.findByLineId(lineId);
 	}
 }

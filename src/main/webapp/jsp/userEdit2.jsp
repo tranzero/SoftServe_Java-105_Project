@@ -34,11 +34,11 @@
 			<input id="Passwd" type="text" name="Passwd"
 				value="${user.getPasswd()}">
 
-			
+
 
 
 			<p>
-				<input type="submit" value="USER Update --2">
+				<input type="submit" value="Update USER">
 			</p>
 			<br>
 
