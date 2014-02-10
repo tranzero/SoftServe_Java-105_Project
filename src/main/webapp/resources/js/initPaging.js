@@ -4,6 +4,7 @@
  * Controller serving paging needs has to start page numbering from 0.
  * Callback takes two params - event object and number of page.
  */
+
 function initPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 
 	var initializationMap = {};
@@ -17,7 +18,7 @@ function initPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 			});
 }
 
-function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
+function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc, pageUrl) {
 	initPaging(maxPageCount, sizeOfPaging, function(event, num) {
 		onChangePageFunc(event, num, sizeOfPaging);
 	});
@@ -27,7 +28,7 @@ function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 	$("li[data-lp='1']").trigger("click");
 	$("li[data-lp='1']").addClass('disabled');
 };
-function showNews() {
+function showpage(pageUrl) {
 	$(document)
 			.ready(
 					function() {
@@ -36,7 +37,7 @@ function showNews() {
 										'<img src="resources/images/loading.gif" style="width:100; height:28;">');
 						$.ajax({
 							type : "POST",
-							url : "/mainpagepost",
+							url : pageUrl,
 							data : {
 								pageNumber : "0",
 								resultsPerPage : "10"
@@ -62,7 +63,7 @@ function showNews() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpagepost",
+																url : pageUrl,
 																data : {
 																	pageNumber : prevPageNumber,
 																	resultsPerPage : prevResultsPerPage
@@ -95,91 +96,7 @@ function showNews() {
 													.ajax(
 															{
 																type : "POST",
-																url : "/mainpagepost",
-																data : {
-																	pageNumber : nextPageNumber,
-																	resultsPerPage : nextResultsPerPage
-																}
-															})
-													.done(
-															function(msg) {
-																$(
-																		"div#resultsAndPaging")
-																		.html(
-																				msg);
-															});
-										});
-					});
-};
-function showManageNews() {
-	$(document)
-			.ready(
-					function() {
-						$('div#resultsAndPaging')
-								.html(
-										'<img src="resources/images/loading.gif" style="width:100; height:28;">');
-						$.ajax({
-							type : "POST",
-							url : "managenewspost",
-							data : {
-								pageNumber : "0",
-								resultsPerPage : "10"
-							}
-						}).done(function(msg) {
-							$("div#resultsAndPaging").html(msg);
-						});
-						$("div#resultsAndPaging")
-								.on(
-										'click',
-										'#prevPageSubmit',
-										function() {
-											var prevPageNumber = $(
-													"#prevPageNumberHidden")
-													.val();
-											var prevResultsPerPage = $(
-													"#prevResultsPerPageHidden")
-													.val();
-											$('div#resultsAndPaging')
-													.html(
-															'<img src="resources/images/loading.gif" style="width:100; height:28;">');
-											$
-													.ajax(
-															{
-																type : "POST",
-																url : "managenewspost",
-																data : {
-																	pageNumber : prevPageNumber,
-																	resultsPerPage : prevResultsPerPage
-																}
-															})
-													.done(
-															function(msg) {
-																$(
-																		"div#resultsAndPaging")
-																		.html(
-																				msg);
-															});
-										});
-
-						$("div#resultsAndPaging")
-								.on(
-										'click',
-										'#nextPageSubmit',
-										function() {
-											var nextPageNumber = $(
-													"#nextPageNumberHidden")
-													.val();
-											var nextResultsPerPage = $(
-													"#nextResultsPerPageHidden")
-													.val();
-											$('div#resultsAndPaging')
-													.html(
-															'<img src="resources/images/loading.gif" style="width:100; height:28;">');
-											$
-													.ajax(
-															{
-																type : "POST",
-																url : "managenewspost",
+																url : pageUrl,
 																data : {
 																	pageNumber : nextPageNumber,
 																	resultsPerPage : nextResultsPerPage
