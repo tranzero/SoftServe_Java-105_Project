@@ -85,7 +85,8 @@ public class UserController {
 		modelMap.put("user", user);
 		return "userEdit2";
 	}
-	//--2
+
+	// --2
 	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
 			@ModelAttribute("userFirstName") String firstName,
@@ -108,6 +109,26 @@ public class UserController {
 	public String deleteUser(@PathVariable("userr") Integer userId) {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist";
+	}
+
+	@RequestMapping(value = "/editProfile/{userId}", method = RequestMethod.GET)
+	public String editProfile(@PathVariable("userId") Integer usId,
+			Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
+		return "editProfile";
+	}
+
+	@RequestMapping(value = "/editProfile/{userId}", method = RequestMethod.POST)
+	public String updateProfile(@PathVariable("userId") Integer userId,
+			@ModelAttribute("firstName") String firstName,
+			@ModelAttribute("lastName") String lastName,
+			@ModelAttribute("email") String email,
+			@ModelAttribute("password") String password
+
+	) {
+		usersmanage.updateUser2(userId, firstName, lastName, email, password);
+		return "redirect:/mainpage";
 	}
 
 }
