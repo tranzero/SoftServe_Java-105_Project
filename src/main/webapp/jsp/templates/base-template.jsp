@@ -33,7 +33,9 @@ function onPagingEvent(event, num, resultsPerPage){
 			$(elementSelectorForResult).html(msg);
 	});
 }
-
+$(document).ready(function(){
+	initPageWithPaging('${maxPageCount}', '${sizeOfPaging}', onPagingEvent, pageUrl);
+});
 </script>
 </head>
 <body>

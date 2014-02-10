@@ -7,9 +7,6 @@
 
 <script>
 var pageUrl = "mainpagepost";
-$(document).ready(function(){
-	initPageWithPaging('${maxPageCount}', '${sizeOfPaging}', onPagingEvent, pageUrl);
-});
 </script>
 <div id = "content">
 	<div id="newscontent"></div>
