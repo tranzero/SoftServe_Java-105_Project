@@ -19,15 +19,25 @@ import com.ita.edu.softserve.utils.PageInfoContainer;
 @Controller
 public class TripsController {
 	
-	
+	private static final String UKRAINIAN= "ua";
+	private static final String UKRAINIAN_DATE_FORMAT= "dd.MM.yyyy";
+	private static final String DEFAULT_DATE_FORMAT= "yyyy.MM.dd";
+	private static final String TRIPS_WEB_NAME= "/trips";
+	private static final String TRIPSPAGE_WEB_NAME= "/tripspage";
+	private static final String TRIPS_SPRING_NAME= "trips";
+	private static final String TRIPSPAGE_SPRING_NAME= "tripspage";
+	private static final String TRIPSLIST_NAME= "tripsList";
+	private static final String DATEFORMAT_NAME= "dateFormat";
 	
 	@Autowired
 	private TripsManager tripsManager;
 	
 	private PaginationManager paginationManager=PaginationManager.getInstance(); 
+	
+	
 
 
-	@RequestMapping(value = "/tripspage", method = RequestMethod.GET)
+	@RequestMapping(value = TRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
 	public String printTripsPage(@RequestParam(value=PaginationManager.PAGE_NUMBER_NAME, required=false) Integer pageNumber,
 			@RequestParam(value=PaginationManager.RESULTS_PER_PAGE_NAME, required=false) Integer resultsPerPage,
 			Map<String, Object> modelMap, Locale locale) {
@@ -36,15 +46,16 @@ public class TripsController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		String lang = locale.getLanguage();
-		modelMap.put("tripsList", tripsManager.getTripsForPage(container.getPageNumber(), 
+		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForPage(container.getPageNumber(), 
 				container.getResultsPerPage()));
-		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));
-		return "tripspage";
+		modelMap.put(DATEFORMAT_NAME, new SimpleDateFormat(
+				lang.equalsIgnoreCase(UKRAINIAN)?UKRAINIAN_DATE_FORMAT:DEFAULT_DATE_FORMAT));
+		return TRIPSPAGE_SPRING_NAME;
 	}
 	
 	
 	
-	@RequestMapping(value = "/trips", method = RequestMethod.GET)
+	@RequestMapping(value = TRIPS_WEB_NAME, method = RequestMethod.GET)
 	public String printTrips(@RequestParam(value=PaginationManager.PAGE_NUMBER_NAME, required=false) Integer pageNumber,
 			@RequestParam(value=PaginationManager.RESULTS_PER_PAGE_NAME, required=false) Integer resultsPerPage,
 			Map<String, Object> modelMap, Locale locale) {
@@ -53,9 +64,10 @@ public class TripsController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		String lang = locale.getLanguage();
-		modelMap.put("tripsList", tripsManager.getTripsForPage(container.getPageNumber(), 
+		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForPage(container.getPageNumber(), 
 				container.getResultsPerPage()));
-		modelMap.put("dateFormat", new SimpleDateFormat(lang.equalsIgnoreCase("ua")?"dd.MM.yyyy":"yyyy.MM.dd"));		
-		return "trips";
+		modelMap.put(DATEFORMAT_NAME, new SimpleDateFormat(
+				lang.equalsIgnoreCase(UKRAINIAN)?UKRAINIAN_DATE_FORMAT:DEFAULT_DATE_FORMAT));		
+		return TRIPS_SPRING_NAME;
 	}
 }
