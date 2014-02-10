@@ -2,7 +2,6 @@ package com.ita.edu.softserve.manager.impl;
 
 import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -13,13 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.RoutesDAO;
-import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Stops;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
@@ -36,20 +29,22 @@ public class TransportsManagerImpl implements TransportsManager {
 			.getLogger(TransportsManagerImpl.class);
 
 	/**
-	 * Object to get access to DAO layer.
+	 * Gets access to Transports DAO.
 	 */
 	@Autowired
 	public TransportsDao transportsDao;
 
-	@Autowired
-	private StationsOnLineDAO stlDao;
+	/*
+	 * @Autowired private StationsOnLineDAO stlDao;
+	 * 
+	 * @Autowired private StationsDAO stationDao;
+	 * 
+	 * @Autowired private StopsDAO stopsDao;
+	 */
 
-	@Autowired
-	private StationsDAO stationDao;
-
-	@Autowired
-	private StopsDAO stopsDao;
-
+	/**
+	 * Gets access to Routes DAO.
+	 */
 	@Autowired
 	private RoutesDAO routesDao;
 
@@ -127,36 +122,35 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves Transport object if not exist or updates it to database.
+	 * Saves Transport object to database if not exist or updates it. <br/>
+	 * <br/>
+	 * If <code>transportId</code> is <code>null</code> than it creates new
+	 * transport object otherwise it finds existing one in database and updates
+	 * it.
 	 */
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateTransport(String transportCode, String startTime,
-			String routes, String seatclass1, String seatclass2,
-			String seatclass3, String genprice) {
+	public void saveOrUpdateTransport(Integer transportId,
+			String transportCode, String startTime, String routes,
+			String seatclass1, String seatclass2, String seatclass3,
+			String genprice) {
 
-		Transports transport = new Transports();
+		Transports transport = null;
 
-		fillTransport(transport, transportCode, startTime, routes, seatclass1,
-				seatclass2, seatclass3, genprice);
-		
-		transportsDao.saveOrUpdate(transport);
-	}
+		if (transportId == null) {
+			transport = new Transports();
+		} else {
+			transport = transportsDao.findById(transportId);
+		}
 
-	/**
-	 * Edits Transport object.
-	 */
-	@Transactional
-	@Override
-	public void editTransport(Integer transportId, String transportCode,
-			String startTime, String routes, String seatclass1,
-			String seatclass2, String seatclass3, String genprice) {
+		transport.setTransportCode(transportCode);
+		transport.setStartTime(timeParse(startTime));
+		transport.setRoutes(routesDao.findByCode(routes));
+		transport.setSeatclass1(new Integer(seatclass1));
+		transport.setSeatclass2(new Integer(seatclass2));
+		transport.setSeatclass3(new Integer(seatclass3));
+		transport.setGenPrice(new Double(genprice));
 
-		Transports transport = transportsDao.findById(transportId);
-		
-		fillTransport(transport, transportCode, startTime, routes, seatclass1,
-				seatclass2, seatclass3, genprice);
-		
 		transportsDao.saveOrUpdate(transport);
 	}
 
@@ -172,6 +166,9 @@ public class TransportsManagerImpl implements TransportsManager {
 		return transportTravel;
 	}
 
+	public static TransportsManager getInstance() {
+		return ManagerFactory.getManager(TransportsManager.class);
+	}
 	/*
 	 * This will be deleted : antipattern
 	 * 
@@ -221,32 +218,4 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * 
 	 * return transportTravel; }
 	 */
-
-	/**
-	 * Fills the transport object with values.
-	 * @param transport object to fill with values.
-	 * @param transportCode
-	 * @param startTime
-	 * @param routes
-	 * @param seatclass1
-	 * @param seatclass2
-	 * @param seatclass3
-	 * @param genprice
-	 */
-	private void fillTransport(Transports transport, String transportCode,
-			String startTime, String routes, String seatclass1,
-			String seatclass2, String seatclass3, String genprice) {
-
-		transport.setTransportCode(transportCode);
-		transport.setStartTime(timeParse(startTime));
-		transport.setRoutes(routesDao.findByCode(routes));
-		transport.setSeatclass1(new Integer(seatclass1));
-		transport.setSeatclass2(new Integer(seatclass2));
-		transport.setSeatclass3(new Integer(seatclass3));
-		transport.setGenPrice(new Double(genprice));
-	}
-
-	public static TransportsManager getInstance() {
-		return ManagerFactory.getManager(TransportsManager.class);
-	}
 }

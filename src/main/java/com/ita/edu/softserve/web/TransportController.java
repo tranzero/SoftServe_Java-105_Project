@@ -76,7 +76,7 @@ public class TransportController {
 			@ModelAttribute("seatclass3") String seatclass3,
 			@ModelAttribute("genprice") String genprice) {
 
-		transportsManager.saveOrUpdateTransport(transportCode, startTime,
+		transportsManager.saveOrUpdateTransport(null, transportCode, startTime,
 				routesCode, seatclass1, seatclass2, seatclass3, genprice);
 
 		return "redirect:/transport";
@@ -139,7 +139,7 @@ public class TransportController {
 			@ModelAttribute("seatclass3") String seatclass3,
 			@ModelAttribute("genprice") String genprice) {
 
-		transportsManager.editTransport(transportId, transportCode, startTime,
+		transportsManager.saveOrUpdateTransport(transportId, transportCode, startTime,
 				routes, seatclass1, seatclass2, seatclass3, genprice);
 
 		return "redirect:/transport";
