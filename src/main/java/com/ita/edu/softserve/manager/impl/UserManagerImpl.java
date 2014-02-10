@@ -15,6 +15,12 @@ import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
 
+/**
+ * UserManagerImpl
+ * 
+ * @author iryna
+ * 
+ */
 @Service("userService")
 public class UserManagerImpl implements UserManager {
 
@@ -82,15 +88,15 @@ public class UserManagerImpl implements UserManager {
 		userr.setFirstName(firstName);
 		userr.setLastName(lastName);
 		userr.seteMail(eMail);
-
 		userr.setPasswd(passwd);
 		userr.setRole(role);
 
 		userDao.update(userr);
-
 	}
-	
-	//updateUser2 bez role
+
+	/**
+	 * Update user - without role
+	 */
 	@Transactional
 	public void updateUser2(Integer userId, String firstName, String lastName,
 			String eMail, String passwd) {
@@ -100,11 +106,9 @@ public class UserManagerImpl implements UserManager {
 		userr.setFirstName(firstName);
 		userr.setLastName(lastName);
 		userr.seteMail(eMail);
-
-		userr.setPasswd(passwd);		
+		userr.setPasswd(passwd);
 
 		userDao.update(userr);
-
 	}
 
 	/**

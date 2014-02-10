@@ -14,7 +14,7 @@ import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 
 /**
- * UserController
+ * Controller - UserController
  * 
  * @author iryna
  * 
@@ -38,7 +38,7 @@ public class UserController {
 	}
 
 	/**
-	 * Update user
+	 * Update user to DB - RequestMethod.GET
 	 * 
 	 * @param usId
 	 * @param modelMap
@@ -53,7 +53,7 @@ public class UserController {
 	}
 
 	/**
-	 * Update user to DB
+	 * Update user to DB - RequestMethod.POST
 	 * 
 	 * @param userId
 	 * @param firstName
@@ -77,7 +77,7 @@ public class UserController {
 		return "redirect:/userlist";
 	}
 
-	// updateUserToDB2
+	// updateUserToDB2 - RequestMethod.GET
 	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
 	public String editUser2(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
@@ -86,7 +86,7 @@ public class UserController {
 		return "userEdit2";
 	}
 
-	// --2
+	// updateUserToDB2 - RequestMethod.POST
 	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
 			@ModelAttribute("userFirstName") String firstName,

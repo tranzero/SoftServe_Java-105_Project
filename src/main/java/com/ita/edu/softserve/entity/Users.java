@@ -54,13 +54,13 @@ public class Users extends BaseEntity {
 	@Column(name = "FIRSTNAME", nullable = true, updatable = true, length = 100)
 	private String firstName;
 
-	@Column(name = "LASTNAME", nullable = true,updatable = true, length = 100)
+	@Column(name = "LASTNAME", nullable = true, updatable = true, length = 100)
 	private String lastName;
 
-	@Column(name = "EMAIL", nullable = false,updatable = true, length = 100)
+	@Column(name = "EMAIL", nullable = false, updatable = true, length = 100)
 	private String eMail;
 
-	@Column(name = "PASSWD", nullable = false,updatable = true, length = 100)
+	@Column(name = "PASSWD", nullable = false, updatable = true, length = 100)
 	private String passwd;
 
 	@Column(name = "REGDATE", nullable = true)

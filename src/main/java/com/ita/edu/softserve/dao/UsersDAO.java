@@ -5,6 +5,7 @@ import com.ita.edu.softserve.entity.Users;
 /**
  * interface UsersDAO
  * 
+ * @author iryna
  * 
  */
 public interface UsersDAO extends AbstractDAOIface<Users> {
