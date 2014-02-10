@@ -7,9 +7,26 @@ import org.springframework.stereotype.Service;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 
+/**
+ * interface UserManager
+ * 
+ * @author iryna
+ * 
+ */
 @Service
 public interface UserManager extends BaseManager {
 
+	/**
+	 * Create new user
+	 * 
+	 * @param username
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param password
+	 * @param role
+	 * @return
+	 */
 	public boolean createUser(String username, String firstname,
 			String lastname, String email, String password, Role role);
 
@@ -33,7 +50,10 @@ public interface UserManager extends BaseManager {
 	 */
 	public void updateUser(Integer userId, String firstName, String lastName,
 			String eMail, String passwd, Role role);
-	
+
+	/**
+	 * Update user - without role
+	 */
 	public void updateUser2(Integer userId, String firstName, String lastName,
 			String eMail, String passwd);
 
@@ -45,7 +65,7 @@ public interface UserManager extends BaseManager {
 	public void removeUser(Integer id);
 
 	/**
-	 * Find a user by username
+	 * Find user by username
 	 * 
 	 * @param id
 	 * @return user
