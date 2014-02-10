@@ -25,33 +25,6 @@ UNLOCK TABLES;
 -- Table structure for table `orders`
 -- 
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL ,
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
 -- 
 -- Table structure for table `posts`
 -- 
@@ -70,17 +43,7 @@ CREATE TABLE `posts` (
 -- 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-<<<<<<< HEAD
-INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest', '2003-01-20'), ('2', 'РЎР°РјРѕРѕР±РѕСЂРѕРЅР° С‚Р° В«РђРІС‚РѕРЅРѕРјРЅРёР№ РѕРїС–СЂВ» РїРѕРєРёРЅСѓС‚СЊ РїСЂРёРјС–С‰РµРЅРЅСЏ ', 'РџСЂРµРґСЃС‚Р°РІРЅРёРєРё РЅР°СЂРѕРґРЅРѕС— СЃР°РјРѕРѕР±РѕСЂРѕРЅРё РїРѕС‡РЅСѓС‚СЊ РІРёРІС–Р»СЊРЅСЏС‚Рё РїСЂРёРјС–С‰РµРЅРЅСЏ Р›СЊРІС–РІСЃСЊРєРѕС— РѕР±Р»РґРµСЂР¶Р°РґРјС–РЅС–СЃС‚СЂР°С†С–С—. В«РђРІС‚РѕРЅРѕРјРЅРёР№ РѕРїС–СЂВ» СѓР¶Рµ РїРѕРєРёРЅСѓРІ Р’РёРЅРЅРёС‡РµРЅРєР°, 18. В«РџСЂР°РІРёР№ СЃРµРєС‚РѕСЂВ», С‰Рѕ Р·Р°Р№РЅСЏРІ РїРµСЂС€РёР№ РїРѕРІРµСЂС…, РїРѕРєРё РЅРµ РІРёСЂС–С€РёРІ, С‡Рё РїС–РґРµ Р· Р›РћР”Рђ.', '2005-08-09'), ('3', 'РЈ РљРёС”РІС– Р·Р°СЃС‚СЂРµР»РёР»Рё С‰Рµ РѕРґРЅРѕРіРѕ РјС–Р»С–С†С–РѕРЅРµСЂР°', 'РЈ РљРёС”РІС– 42-СЂС–С‡РЅРёР№ СЃС‚Р°СЂС€РёР№ РїСЂР°РїРѕСЂС‰РёРє РјС–Р»С–С†С–С— РїРѕРјРµСЂ Сѓ Р»С–РєР°СЂРЅС– РІС–Рґ РІРѕРіРЅРµРїР°Р»СЊРЅРѕРіРѕ РїРѕСЂР°РЅРµРЅРЅСЏ РІ РіСЂСѓРґРё.', '2555-01-08'), ('4', 'Р’С–Рґ РєСЂРёРјС–РЅР°Р»СЊРЅРѕС— РІС–РґРїРѕРІС–РґР°Р»СЊРЅРѕСЃС‚С– Р·РІС–Р»СЊРЅРёР»Рё 8 Р°РєС‚РёРІС–СЃ', 'Р’С–СЃСЊРјРѕС… СѓС‡Р°СЃРЅРёРєС–РІ РјР°СЃРѕРІРёС… Р·Р°РІРѕСЂСѓС€РµРЅСЊ, С‰Рѕ СЃС‚Р°Р»РёСЃСЏ Сѓ РіСЂСѓРґРЅС– РјРёРЅСѓР»РѕРіРѕ СЂРѕРєСѓ, Р·РІС–Р»СЊРЅРёР»Рё РІС–Рґ РєСЂРёРјС–РЅР°Р»СЊРЅРѕС— РІС–РґРїРѕРІС–РґР°Р»СЊРЅРѕСЃС‚С–. РџСЂРѕ С†Рµ РїРѕРІС–РґРѕРјРёР»Рё Сѓ РїСЂРµСЃ-СЃР»СѓР¶Р±С– РїСЂРѕРєСѓСЂР°С‚СѓСЂРё РљРёС”РІР°.', '2555-01-06');
-=======
-INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest', '2003-01-20'), ('2', 'Merkel condemns US over EU insult', 'U insult
-Police in Kiev, 6 Feb
-Masked protesters march through Kiev, 6 February
-Previous image | Pause | Next image
-3 / 4
-
-Germany\'s Angela Merkel says a US official\'s apparent insult of the EU\'s work in Ukraine in a leaked recording is "totally unacceptable". ', '2014-02-07'), ('3', 'Earliest UK human footprints found', 'Scientists discover the earliest evidence of human footprints outside of Africa on the Norfolk coast in Eastern England. ', '2014-02-07'), ('4', 'Sochi prepares for opening ceremony', 'The costliest Winter Olympics in history officially open in Russia on Friday with a lavish ceremony in Sochi.', '2014-02-07'), ('5', 'Environment chief faces floods anger', 'There is anger directed at Environment Agency chairman Lord Smith ahead of his visit to the flood-hit Somerset Levels.', '2014-02-07'), ('6', 'Cameron: Seven months to save UK', 'David Cameron makes an emotional appeal to Scottish voters to "save the most extraordinary country in history" in September\'s independence vote.', '2014-02-07'), ('7', 'Violent clashes at Rio fares protest', 'Hundreds of Brazilian demonstrators clash with riot police in Rio de Janeiro, in a protest against a rise in public transport fares. ', '2014-02-07'), ('8', 'Mass grave found in Michoacan state', 'Mexico police find four severed heads and a mass grave in the troubled western state of Michoacan, where vigilantes are fighting a notorious drug cartel. ', '2014-02-07'), ('9', 'Pacific castaway health worsens', 'The castaway who says he survived more than a year adrift in the Pacific has been readmitted to hospital for health checks. ', '2014-02-07'), ('10', 'Anderson film opens Berlin festival', 'Wes Anderson\'s latest movie The Grand Budapest Hotel opens the Berlin Film Festival to rave reviews.', '2014-02-07'), ('11', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('12', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('13', 'National Gallery buys first US work', 'The National Gallery makes its first ever acquisition of a painting by an American artist - a 1912 work by George Bellows. ', '2014-02-07'), ('14', '\'No target\' in UK animal tests plan', 'The UK government launches its plan to replace, refine and reduce animals in research, but campaigners are disappointed. ', '2014-02-07'), ('15', 'Salmon born with \'magnetic map\'', 'Scientists believe that Pacific salmon sense changes in intensity and angle of the Earth\'s magnetic field to find their way in the ocean.', '2014-02-07'), ('16', 'US military funds \'vanishing\' tech', 'The US military is funding a project to develop electronics that can self-destruct like the secret messages in the Mission Impossible TV show. ', '2014-02-07');
->>>>>>> refs/remotes/origin/develop
+INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest', '2003-01-20'), ('2', 'Merkel condemns US over EU insult', 'U insultPolice in Kiev, 6 FebMasked protesters march through Kiev, 6 FebruaryPrevious image | Pause | Next image3 / 4Germany\'s Angela Merkel says a US official\'s apparent insult of the EU\'s work in Ukraine in a leaked recording is "totally unacceptable". ', '2014-02-07'), ('3', 'Earliest UK human footprints found', 'Scientists discover the earliest evidence of human footprints outside of Africa on the Norfolk coast in Eastern England. ', '2014-02-07'), ('4', 'Sochi prepares for opening ceremony', 'The costliest Winter Olympics in history officially open in Russia on Friday with a lavish ceremony in Sochi.', '2014-02-07'), ('5', 'Environment chief faces floods anger', 'There is anger directed at Environment Agency chairman Lord Smith ahead of his visit to the flood-hit Somerset Levels.', '2014-02-07'), ('6', 'Cameron: Seven months to save UK', 'David Cameron makes an emotional appeal to Scottish voters to "save the most extraordinary country in history" in September\'s independence vote.', '2014-02-07'), ('7', 'Violent clashes at Rio fares protest', 'Hundreds of Brazilian demonstrators clash with riot police in Rio de Janeiro, in a protest against a rise in public transport fares. ', '2014-02-07'), ('8', 'Mass grave found in Michoacan state', 'Mexico police find four severed heads and a mass grave in the troubled western state of Michoacan, where vigilantes are fighting a notorious drug cartel. ', '2014-02-07'), ('9', 'Pacific castaway health worsens', 'The castaway who says he survived more than a year adrift in the Pacific has been readmitted to hospital for health checks. ', '2014-02-07'), ('10', 'Anderson film opens Berlin festival', 'Wes Anderson\'s latest movie The Grand Budapest Hotel opens the Berlin Film Festival to rave reviews.', '2014-02-07'), ('11', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('12', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '2014-02-07'), ('13', 'National Gallery buys first US work', 'The National Gallery makes its first ever acquisition of a painting by an American artist - a 1912 work by George Bellows. ', '2014-02-07'), ('14', '\'No target\' in UK animal tests plan', 'The UK government launches its plan to replace, refine and reduce animals in research, but campaigners are disappointed. ', '2014-02-07'), ('15', 'Salmon born with \'magnetic map\'', 'Scientists believe that Pacific salmon sense changes in intensity and angle of the Earth\'s magnetic field to find their way in the ocean.', '2014-02-07'), ('16', 'US military funds \'vanishing\' tech', 'The US military is funding a project to develop electronics that can self-destruct like the secret messages in the Mission Impossible TV show. ', '2014-02-07');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,11 +187,7 @@ CREATE TABLE `transports` (
 -- 
 LOCK TABLES `transports` WRITE;
 /*!40000 ALTER TABLE `transports` DISABLE KEYS */;
-<<<<<<< HEAD
-INSERT INTO `transports` VALUES ('1', '1', 'T000000001', '12:00:00', '10', '50', '150', '25.00'), ('2', '1', 'T000000001', '16:00:00', '10', '50', '150', '25.00'), ('3', '2', 'T000000002', '12:00:00', '10', '50', '150', '25.00'), ('4', '2', 'T000000002', '16:00:00', '10', '50', '150', '25.00');
-=======
 INSERT INTO `transports` VALUES ('1', '1', 'T000000001', '12:00:00', '10', '50', '150', '25.00'), ('2', '1', 'T000000001', '16:00:00', '10', '50', '150', '25.00'), ('3', '2', 'T000000002', '12:00:00', '10', '50', '150', '25.00'), ('4', '2', 'T000000002', '16:00:00', '10', '50', '150', '25.00'), ('5', '3', 'T000000044', '16:00:00', '10', '50', '150', '25.00');
->>>>>>> refs/remotes/origin/develop
 /*!40000 ALTER TABLE `transports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,43 +224,6 @@ UNLOCK TABLES;
 -- Table structure for table `users`
 -- 
 
-
-
--- 
--- Table structure for table `orders`
--- 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
-
-
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `USERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
@@ -323,4 +245,32 @@ LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-01-14 03:41:35.0', 'REGUSER'), ('2', 'yherasym', 'Yaroslav', 'Herasym', 'test@mail.second', '', '2014-01-14 03:42:46.0', 'MANAGER'), ('3', 'mychaylo.partyka', 'Mychaylo', 'Partyka', 'test@mail.third', '', '2014-01-14 03:43:46.0', 'ADMIN');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL ,
+    PRIMARY KEY (ORDERID),
+    CONSTRAINT `ORDERID_ibfk_1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `ORDERID_ibfk_2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `orders`
+-- 
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
