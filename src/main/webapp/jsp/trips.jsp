@@ -53,26 +53,43 @@
 <li class="next disabled"><a href="javascript:void(0);"> » </a></li>
 </c:if>
 </ul></div></div>
+
+
 <script>
 function showTripsPage(pageNumber_, resultsPerPage_){
 	//var path = "/tripspage?pageNumber="+pageNumber_+"&resultsPerPage="+resultsPerPage_;
 	$.ajax({
 		async : true,
-//		beforeSend : function(){$("div#changeable").html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
+		beforeSend : function(){$("div#changeable").html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
 		type : "GET",
 		url : "tripspage",
 		data :{
 			pageNumber : pageNumber_,
 			resultsPerPage : resultsPerPage_
 		}
+		
 	}).done(function(msg) {
 		$("div#changeable").html(msg);
+
+		
+		
+        
 	});
+	var currentURL = new URL (document.URL);
+	if (currentURL.pageNumber != null && currentURL.resultsPerPage != null) {
+	currentURL.pageNumber = pageNumber_;
+	currentURL.resultsPerPage = resultsPerPage_;
+	var newURL = currentURL.toString();
+	alert(newURL);
+	document.location.href = newURL ;
+	}
+	
 }
 
 
 $(document).ready(function(){
 	showTripsPage("${pageNumber}", "${resultsPerPage}");
+	
 	}
 );
 
