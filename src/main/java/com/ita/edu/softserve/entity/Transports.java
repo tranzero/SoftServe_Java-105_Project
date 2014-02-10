@@ -38,7 +38,22 @@ public class Transports extends BaseEntity {
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 	
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
-	public static final String FIND_BY_TWO_STATIONS_QUERY ="select new com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival))) from Transports t join t.routes r join r.stops s join s.stationOnLineId sol join sol.stationId st where t.routes.routeId in (select s1.routeId.routeId from Stops s1, Stops s2 where s1.stationOnLineId.stationId.stationName = ?1 and s2.stationOnLineId.stationId.stationName = ?2 and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum) and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) group by t.transportCode";
+	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT"
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode";
 
 	@Id
 	@Column(name = "TRANSPORTID")
