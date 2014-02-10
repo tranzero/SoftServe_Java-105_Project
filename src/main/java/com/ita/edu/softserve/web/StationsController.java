@@ -46,7 +46,7 @@ public class StationsController {
 			return "result";
 		}
 
-		return "redirect:/stations";
+		return "stations";
 	}
 
 	@RequestMapping(value = "/delete/{stationId}", method = RequestMethod.GET)
