@@ -6,26 +6,7 @@
 <link rel="stylesheet" href="resources/css/paging.css">
 
 <script>
-function onPagingEvent(event, num, resultsPerPage){
-	var elementSelectorForResult = "div#newscontent";
-	$.ajax({
-		async : false,
-		beforeSend : function(){$(elementSelectorForResult).html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');},
-		type: "POST",
-		url: "managenewspost",
-		data: { pageNumber: num - 1, resultsPerPage: resultsPerPage }
-		})
-		.done(function( msg ) {
-			$(elementSelectorForResult).html(msg);
-	});
-}
-
-$(document).ready(function(){
-	var maxPageCount = ${maxPageCount};
-	var sizeOfPaging = ${sizeOfPaging};
-
-	initPageWithPaging(maxPageCount, sizeOfPaging, onPagingEvent);
-});
+var pageUrl = "managenewspost";
 </script>
 <div id = "content">
 <div id="newscontent"></div>
