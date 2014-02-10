@@ -8,22 +8,22 @@ import java.util.Calendar;
 import com.ita.edu.softserve.entity.Transports;
 
 public class TransportTravel {
-		
+
 	private Transports transport;
-	
+
 	private Object departureTime;
-	
+
 	private Object arrivalTime;
-	
+
 	private Object duration;
-	
+
 	public TransportTravel() {
 		this.transport = null;
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
 	}
-	
+
 	public TransportTravel(Transports transport) {
 		this.transport = transport;
 		this.departureTime = null;
@@ -31,19 +31,22 @@ public class TransportTravel {
 		this.duration = null;
 	}
 
-
-//	public TransportTravel(Transports transport, Object departureTime, Object arrivalTime, Object duration) {
-	public TransportTravel(Transports transport, Object departureTime, Object duration) {
+	// public TransportTravel(Transports transport, Object departureTime, Object
+	// arrivalTime, Object duration) {
+	public TransportTravel(Transports transport, Object departureTime,
+			Object duration) {
 		this();
 		if (transport == null || departureTime == null || duration == null) {
 			return;
 		}
 		this.transport = transport;
-		this.departureTime = TransportTravel.sumTimes( transport.getStartTime(), (Time)departureTime);
+		this.departureTime = TransportTravel.sumTimes(transport.getStartTime(),
+				(Time) departureTime);
 		this.duration = duration;
-		this.arrivalTime = TransportTravel.sumTimes( (Time) this.departureTime, (Time)duration);
+		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
+				(Time) duration);
 	}
-	
+
 	public Transports getTransport() {
 		return transport;
 	}
@@ -51,7 +54,7 @@ public class TransportTravel {
 	public void setTransport(Transports transport) {
 		this.transport = transport;
 	}
-	
+
 	public Object getDepartureTime() {
 		return departureTime;
 	}
@@ -75,7 +78,7 @@ public class TransportTravel {
 	public void setDuration(Time duration) {
 		this.duration = duration;
 	}
-	
+
 	/*
 	 * Sum two Times
 	 */
@@ -83,9 +86,9 @@ public class TransportTravel {
 		int secs = 0;
 		int mins = 0;
 		int hrs = 0;
-		
+
 		Calendar calendar = Calendar.getInstance();
-		
+
 		for (int i = 0; i < time.length; i++) {
 			Date date = new Date(time[i].getTime());
 			calendar.setTime(date);
@@ -94,7 +97,7 @@ public class TransportTravel {
 			hrs += calendar.get(Calendar.HOUR_OF_DAY);
 		}
 		calendar.set(0, 0, 0, hrs, mins, secs);
-		
+
 		return new Time(calendar.get(Calendar.HOUR_OF_DAY),
 				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 	}
@@ -106,9 +109,9 @@ public class TransportTravel {
 		int secs = 0;
 		int mins = 0;
 		int hrs = 0;
-		
+
 		Calendar calendar = Calendar.getInstance();
-		
+
 		Date date1 = new Date(time1.getTime());
 		Date date2 = new Date(time2.getTime());
 		calendar.setTime(date1);
@@ -118,13 +121,13 @@ public class TransportTravel {
 		hrs = calendar.get(Calendar.HOUR_OF_DAY);
 
 		calendar.setTime(date2);
-		
+
 		secs -= calendar.get(Calendar.SECOND);
 		mins -= calendar.get(Calendar.MINUTE);
 		hrs -= calendar.get(Calendar.HOUR_OF_DAY);
-		
+
 		calendar.set(0, 0, 0, hrs, mins, secs);
-		
+
 		return new Time(calendar.get(Calendar.HOUR_OF_DAY),
 				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 	}
