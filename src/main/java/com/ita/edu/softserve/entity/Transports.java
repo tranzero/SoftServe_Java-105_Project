@@ -86,6 +86,18 @@ public class Transports extends BaseEntity {
 		super();
 	}
 
+	public Transports(String transportCode, Time startTime, Routes routes,
+			int seatclass1, int seatclass2, int seatclass3, double genPrice) {
+		this();
+		this.transportCode = transportCode;
+		this.startTime = startTime;
+		this.routes = routes;
+		this.seatclass1 = seatclass1;
+		this.seatclass2 = seatclass2;
+		this.seatclass3 = seatclass3;
+		this.genPrice = genPrice;
+	}
+
 	public Integer getTransportId() {
 		return transportId;
 	}
@@ -152,7 +164,11 @@ public class Transports extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(transportCode).hashCode();
+		return new HashCodeBuilder()
+				.append(transportCode)
+				.append(startTime)
+				.append(routes)
+				.hashCode();
 	}
 
 	@Override
@@ -165,7 +181,10 @@ public class Transports extends BaseEntity {
 			return false;
 		Transports other = (Transports) obj;
 
-		return new EqualsBuilder().append(transportCode, other.transportCode)
+		return new EqualsBuilder()
+				.append(transportCode, other.transportCode)
+				.append(startTime, other.startTime)
+				.append(routes, other.routes)
 				.isEquals();
 	}
 }
