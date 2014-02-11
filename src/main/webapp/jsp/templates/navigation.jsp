@@ -16,7 +16,11 @@
 			<li><a href="/SoftServe_Java-105/transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
 		</ul>
 		</li>
-		<li><spring:message code="label.navigation.orders"/></li>
+		<li><spring:message code="label.navigation.orders"/>
+		<ul class="submenu">
+			<li><a href="/SoftServe_Java-105/orders"><spring:message code="label.navigation.orders"/></a></li>
+		</ul>
+		</li>
 		<li><spring:message code="label.navigation.editing"/>
 		<ul class="submenu">
 			<li><a href="/SoftServe_Java-105/addnews"><spring:message code="label.navigation.addnews"/></a></li>

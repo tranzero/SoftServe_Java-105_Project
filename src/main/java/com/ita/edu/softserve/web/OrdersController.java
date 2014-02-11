@@ -15,9 +15,9 @@ public class OrdersController {
 	@Autowired
 	private OrdersManager ordersManager;
 	
-	@RequestMapping(value="/orders/{userId}", method = RequestMethod.GET) 
-	public String listOrders (@PathVariable("userId") Integer userId, Map <String,Object> model) {
-		model.put("ordersList", ordersManager.findOrdersByUserId(userId));
+	@RequestMapping(value="/orders", method = RequestMethod.GET) 
+	public String listOrders (Map <String,Object> model) {
+		model.put("ordersList", ordersManager.findAllOrders());
 		return "orders";
 	}
 }
