@@ -33,19 +33,6 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	 */
 
 	@Override
-	public long getLinesListCount() {
-		return (long) find((Query) entityManager
-				.createNamedQuery(Lines.GET_FULL_LINES_COUNT));
-	}
-
-	@Override
-	public List<Lines> getLinesForLimits(int firstElement, int count) {
-		Query query = entityManager.createNamedQuery(Lines.GET_FULL_LINES)
-				.setFirstResult(firstElement).setMaxResults(count);
-		return (List<Lines>) query.getResultList();
-	}
-
-	@Override
 	public Class<Lines> getEntityClass() {
 
 		return Lines.class;
@@ -110,4 +97,23 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 				.setParameter(1, stationName1).setParameter(2, stationName2));
 	}
 
+	
+	@Override
+	public long getLinesListCount() {
+		return (long) find((Query) entityManager
+				.createNamedQuery(Lines.GET_LINES_LIST_COUNT));
+	}
+
+	@Override
+	public List<Lines> getLinesForOnePage(int from, int count) {
+		return this.getLinesForPaging(from, count);
+
+	}
+
+	private List<Lines> getLinesForPaging(int from, int count) {
+		Query query = entityManager
+				.createNamedQuery(Lines.GET_LINES_LIST_FOR_PAGING)
+				.setFirstResult(from).setMaxResults(count);
+		return (List<Lines>) getRange(from, count, query);
+	}
 }

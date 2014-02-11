@@ -18,8 +18,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Entity
 @Table(name = "`lines`")
 @NamedQueries({
-		@NamedQuery(name = Lines.GET_FULL_LINES, query = Lines.GET_FULL_LINES_QUERY),
-		@NamedQuery(name = Lines.GET_FULL_LINES_COUNT, query = Lines.GET_FULL_LINES_QUERY_COUNT),
+	@NamedQuery(name = Lines.GET_LINES_LIST_FOR_PAGING, query = Lines.GET_LINES_LIST_FOR_PAGING_QUERY),
+	@NamedQuery(name = Lines.GET_LINES_LIST_COUNT, query = Lines.GET_LINES_LIST_QUERY_COUNT),
 		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_COUNT, query = Lines.FIND_BY_STATION_NAME_COUNT_QUERY),
@@ -32,11 +32,10 @@ public class Lines extends BaseEntity {
 	public static final String FIND_BY_NAME = "Lines.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Lines u WHERE u.lineName = ?1";
 	// Query to find all lines
-	public static final String GET_FULL_LINES = "Lines.findFullLines";
-	public static final String GET_FULL_LINES_QUERY = "SELECT ln FROM Lines ln";
-	
-	public static final String GET_FULL_LINES_COUNT = "Lines.findFullLinesCount";
-	public static final String GET_FULL_LINES_QUERY_COUNT = "SELECT COUNT(ln.lineId) FROM Lines ln";
+	public static final String GET_LINES_LIST_FOR_PAGING = "Lines.findLinesListForPaging";
+	public static final String GET_LINES_LIST_FOR_PAGING_QUERY = "SELECT ln FROM Lines ln";
+	public static final String GET_LINES_LIST_COUNT = "Lines.findLinesListCount";
+	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) FROM Lines ln";
 	
 	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
 	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";

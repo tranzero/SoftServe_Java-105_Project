@@ -21,8 +21,6 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 */
 	public Lines findByName(String lineName);
 	public List<Lines> getLinesByStationName(String stationName);
-	public List<Lines> getLinesForLimits(int firstElement, int count);
-	public long getLinesListCount();
 	public int getLinesByStationNameCount(String stationName);
 	public List<Lines> getLinesByStationForOnePage(int from,
 			int count, String stationName);
@@ -45,5 +43,8 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	
 	public long getLinesByTwoStListCount(String stationName1,
 			String stationName2);
-
+	
+	public long getLinesListCount();
+	
+	public List<Lines> getLinesForOnePage(int from, int count);
 }

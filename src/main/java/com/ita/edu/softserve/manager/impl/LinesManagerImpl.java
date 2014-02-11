@@ -191,23 +191,7 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public long getLinesListCount() {
-		return lineDao.getLinesListCount();
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getLinesForPage(int pageNumber, int count) {
-		return getLinesForLimit((pageNumber - 1) * count, count);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getLinesForLimit(int firstElement, int count) {
-		return lineDao.getLinesForLimits(firstElement, count);
-	}
+	
 
 	@Transactional(readOnly = true)
 	@Override 
@@ -228,5 +212,15 @@ public class LinesManagerImpl implements LinesManager {
 	public List<Lines> getLinesByTwoStForLimit(String stationName1,
 			String stationName2, int firstElement, int count) {
 		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2, firstElement, count);
+	}
+	
+	@Override
+	public long getLinesListCount(){
+		return lineDao.getLinesListCount();
+	}
+	
+	@Override
+	public List<Lines> getLinesForPage(int from, int count){
+		return lineDao.getLinesForOnePage(from, count);
 	}
 }
