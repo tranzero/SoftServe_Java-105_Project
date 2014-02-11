@@ -20,6 +20,6 @@ public interface StationOnLineManager extends BaseManager {
 
 	List<StationsOnLine> findStationsOnLine(Integer lineId);
 	
-	public void updateStationOnLine(Integer lineId, List<Stations> stations);
+	public void updateStationOnLine(Integer lineId, List<String> stations);
 	
 }

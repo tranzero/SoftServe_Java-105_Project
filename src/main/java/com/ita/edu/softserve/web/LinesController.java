@@ -30,13 +30,13 @@ public class LinesController {
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
-	@RequestMapping(value = "/allLines")
+	@RequestMapping(value = "/allLines", method=RequestMethod.GET)
 	public String allLines(Map<String, Object> modelMap) {
 		modelMap.put("lines", linesManager.getFullLines());
 		return "allLines";
 	}
 
-	@RequestMapping(value = "addline")
+	@RequestMapping(value = "addline", method=RequestMethod.GET)
 	public String addLine(Map<String, Object> modelMap) {
 		try {
 			modelMap.put("stations", stationsManager.findAllStations());
@@ -46,7 +46,7 @@ public class LinesController {
 		return "newLine";
 	}
 
-	@RequestMapping(value = "editline/{lineName}")
+	@RequestMapping(value = "editline/{lineName}", method=RequestMethod.GET)
 	public String editLine(Map<String, Object> modelMap,
 			@PathVariable("lineName") String lineName) {
 		modelMap.put("stationsOnLine",
@@ -54,13 +54,13 @@ public class LinesController {
 		return "editLines";
 	}
 
-	@RequestMapping(value = "deleteline/{lineName}")
+	@RequestMapping(value = "deleteline/{lineName}", method=RequestMethod.GET)
 	public String deleteLine(@PathVariable("lineName") String lineName) {
 		linesManager.deleteLine(lineName);
 		return "redirect:/allLines";
 	}
 
-	@RequestMapping(value = "editline/deletestation/{stationId}/{lineName}")
+	@RequestMapping(value = "editline/deletestation/{stationId}/{lineName}", method=RequestMethod.GET)
 	public String deleteStation(@PathVariable("stationId") Integer stationId,
 			@PathVariable("lineName") String lineName) {
 		stationOnLineManager.removeStation(stationId, linesManager
@@ -68,7 +68,7 @@ public class LinesController {
 		return "redirect:/editline/" + lineName;
 	}
 
-	@RequestMapping(value = "editline/addstation/{lineName}")
+	@RequestMapping(value = "editline/addstation/{lineName}", method=RequestMethod.GET)
 	public String addStation(@PathVariable("lineName") String lineName,
 			Map<String, Object> modelMap) {
 		List<Stations> existStations = stationsManager
@@ -90,43 +90,23 @@ public class LinesController {
 
 	@RequestMapping(value = "editline/addstation/changestations/{lineName}", method = RequestMethod.POST)
 	public String changeStations(
-			@RequestParam("stationsCheck") String[] stations,
+			@RequestParam("stationsCheck") List<String> stations,
 			@PathVariable("lineName") String lineName) {
-		List<Stations> stationList = new ArrayList<Stations>();
-		for (String str : stations) {
-			try {
-				stationList.add(stationsManager.findByStationName(str));
-			} catch (StationManagerException e) {
-				e.printStackTrace();
-			}
-		}
 		stationOnLineManager.updateStationOnLine(
-				linesManager.findByLineName(lineName).getLineId(), stationList);
+				linesManager.findByLineName(lineName).getLineId(), stations);
 		return "redirect:/editline/" + lineName;
 	}
 
 	@RequestMapping(value = "confirmcreating", method=RequestMethod.POST)
 	public String confirmCreating(@ModelAttribute("newLineName") String lineName,
-			@RequestParam("stationsCheck") String[] stations) {
-		System.out.println(lineName);
-		for(String str:stations){
-			System.out.println(str);
-		}
-		linesManager.createLine(lineName);
-		List<Stations> stationList = new ArrayList<Stations>();
-		for (String str : stations) {
-			try {
-				stationList.add(stationsManager.findByStationName(str));
-			} catch (StationManagerException e) {
-				e.printStackTrace();
-			}
-		}
+			@RequestParam("stationsCheck") List<String> stations) {
+		linesManager.createLine(lineName);		
 		stationOnLineManager.updateStationOnLine(
-				linesManager.findByLineName(lineName).getLineId(), stationList);
+				linesManager.findByLineName(lineName).getLineId(), stations);
 		return "redirect:/allLines";
 	}
 	
-	@RequestMapping(value="editline/applychanges")
+	@RequestMapping(value="editline/applychanges", method=RequestMethod.GET)
 	public String applyChanges(){
 		return "redirect:/allLines";
 	}
