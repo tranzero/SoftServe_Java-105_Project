@@ -117,8 +117,13 @@ public class StationsController {
 	@RequestMapping(value = "stationsoncertainline/{line}", method = RequestMethod.GET)
 	public String stationsOnCertainLine(@PathVariable("line") String lineName,
 			Map<String, Object> modelMap) {
-		modelMap.put("stationsList",
-				stationsManager.getStationsOnCertainLine(lineName));
+		try {
+			modelMap.put("stationsList",
+					stationsManager.getStationsOnCertainLine(lineName));
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "stations";
 	}
 

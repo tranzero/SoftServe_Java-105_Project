@@ -19,6 +19,23 @@ import com.ita.edu.softserve.manager.StationsManager;
 @Controller
 public class LinesController {
 
+	String pageNumberKey = "pageNumber";
+	String resultsPerPageKey = "resultsPerPage";
+	String sizeOfPagingKey = "sizeOfPaging";
+	String maxPageCountKey = "maxPageCount";
+	String maxResultCountKey = "maxResultCount";
+	String newsListKey = "newsList";
+	String errorListKey = "errorList";
+	String errorMsgKey = "errorMsg";
+
+	String allLines = "allLines";
+	String allLinesAddLine = "newLine";
+	String editLinesEditLine = "editLines";
+	String deleteLines = "redirect:/allLines";
+	String deleteStations = "redirect:/editline/";
+	String editStations = "redirect:/editline/";
+	String addStations = "addStationsToLine";
+	String applyChanges = "redirect:/allLines";
 	@Autowired
 	private LinesManager linesManager;
 
@@ -31,7 +48,7 @@ public class LinesController {
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
 	public String allLines(Map<String, Object> modelMap) {
 		modelMap.put("lines", linesManager.getFullLines());
-		return "allLines";
+		return allLines;
 	}
 
 	@RequestMapping(value = "addline", method = RequestMethod.GET)
@@ -41,21 +58,25 @@ public class LinesController {
 		} catch (StationManagerException e) {
 			e.printStackTrace();
 		}
-		return "newLine";
+		return allLinesAddLine;
 	}
 
 	@RequestMapping(value = "editline/{lineName}", method = RequestMethod.GET)
 	public String editLine(Map<String, Object> modelMap,
 			@PathVariable("lineName") String lineName) {
-		modelMap.put("stationsOnLine",
-				stationsManager.getStationsOnCertainLine(lineName));
-		return "editLines";
+		try {
+			modelMap.put("stationsOnLine",
+					stationsManager.getStationsOnCertainLine(lineName));
+		} catch (StationManagerException e) {
+			e.printStackTrace();
+		}
+		return editLinesEditLine;
 	}
 
 	@RequestMapping(value = "deleteline/{lineName}", method = RequestMethod.GET)
 	public String deleteLine(@PathVariable("lineName") String lineName) {
 		linesManager.deleteLine(lineName);
-		return "redirect:/allLines";
+		return deleteLines;
 	}
 
 	@RequestMapping(value = "editline/deletestation/{stationId}/{lineName}", method = RequestMethod.GET)
@@ -63,15 +84,22 @@ public class LinesController {
 			@PathVariable("lineName") String lineName) {
 		stationOnLineManager.removeStation(stationId, linesManager
 				.findByLineName(lineName).getLineId());
-		return "redirect:/editline/" + lineName;
+		return editStations + lineName;
 	}
 
 	@RequestMapping(value = "editline/addstation/{lineName}", method = RequestMethod.GET)
 	public String addStation(@PathVariable("lineName") String lineName,
-			Map<String, Object> modelMap) {		
-			modelMap.put("allStations", stationsManager.getStationsNotOnCertainLine(lineName));
-			modelMap.put("existStations", stationsManager.getStationsOnCertainLine(lineName));
-		return "addStationsToLine";
+			Map<String, Object> modelMap) {
+		try {
+			modelMap.put("allStations",
+					stationsManager.getStationsNotOnCertainLine(lineName));
+			modelMap.put("existStations",
+					stationsManager.getStationsOnCertainLine(lineName));
+		} catch (StationManagerException e) {
+			e.printStackTrace();
+		}
+
+		return addStations;
 	}
 
 	@RequestMapping(value = "editline/addstation/changestations/{lineName}", method = RequestMethod.POST)
@@ -80,7 +108,7 @@ public class LinesController {
 			@PathVariable("lineName") String lineName) {
 		stationOnLineManager.updateStationOnLine(
 				linesManager.findByLineName(lineName).getLineId(), stations);
-		return "redirect:/editline/" + lineName;
+		return deleteStations + lineName;
 	}
 
 	@RequestMapping(value = "confirmcreating", method = RequestMethod.POST)
@@ -90,12 +118,12 @@ public class LinesController {
 		linesManager.createLine(lineName);
 		stationOnLineManager.updateStationOnLine(
 				linesManager.findByLineName(lineName).getLineId(), stations);
-		return "redirect:/allLines";
+		return applyChanges;
 	}
 
 	@RequestMapping(value = "editline/applychanges", method = RequestMethod.GET)
 	public String applyChanges() {
-		return "redirect:/allLines";
+		return applyChanges;
 	}
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)

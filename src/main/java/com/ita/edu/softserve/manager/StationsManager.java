@@ -50,9 +50,17 @@ public interface StationsManager extends BaseManager {
 	 */
 	public Stations findByStationName(String stationName) throws StationManagerException; 
 	
-	public List<Stations> getStationsOnCertainLine(String lineName);
+	/**
+	 * Finds stations on certain line by line name.
+	 * @throws StationManagerException 
+	 */
+	public List<Stations> getStationsOnCertainLine(String lineName) throws StationManagerException;
 
-	List<Stations> getStationsNotOnCertainLine(String lineName);
+	/**
+	 * Finds stations which not exist on certain line by line name.
+	 * @throws StationManagerException 
+	 */
+	List<Stations> getStationsNotOnCertainLine(String lineName) throws StationManagerException;
 	
 	
 
