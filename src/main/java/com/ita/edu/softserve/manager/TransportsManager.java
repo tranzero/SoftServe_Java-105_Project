@@ -3,6 +3,7 @@ package com.ita.edu.softserve.manager;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
@@ -59,4 +60,11 @@ public interface TransportsManager extends BaseManager {
 	 */
 	List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2);
+	
+	List<Transports> getTransportsForLimit(int firstElement, int count);
+	
+	public List<Transports> getTransportsForPage(int pageNumber, int count);
+	
+	long getTransportsListCount();
+
 }

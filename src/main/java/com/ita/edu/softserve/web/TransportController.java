@@ -16,12 +16,17 @@ import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
+import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.utils.PageInfoContainer;
 
 @Controller
 public class TransportController {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(TransportController.class);
+
+	private PaginationManager paginationManager = PaginationManager
+			.getInstance();
 
 	@Autowired
 	private TransportsManager transportsManager;
@@ -36,11 +41,39 @@ public class TransportController {
 	 * @return
 	 */
 	@RequestMapping(value = "/transport", method = RequestMethod.GET)
-	public String printTransports(Map<String, Object> modelMap) {
-
-		modelMap.put("transportsList", transportsManager.getAllTransports());
-
+	public String printTransports(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+		long count = transportsManager.getTransportsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put(
+				"transportsList",
+				transportsManager.getTransportsForPage(
+						container.getPageNumber(),
+						container.getResultsPerPage()));
 		return "transport";
+	}
+
+	@RequestMapping(value = "/transportpage", method = RequestMethod.GET)
+	public String printTransportPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+		long count = transportsManager.getTransportsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put(
+				"transportsList",
+				transportsManager.getTransportsForPage(
+						container.getPageNumber(),
+						container.getResultsPerPage()));
+		return "transportpage";
 	}
 
 	/*--------------------------------------for HTML FORM-----------------------------------*/
@@ -139,8 +172,9 @@ public class TransportController {
 			@ModelAttribute("seatclass3") String seatclass3,
 			@ModelAttribute("genprice") String genprice) {
 
-		transportsManager.saveOrUpdateTransport(transportId, transportCode, startTime,
-				routes, seatclass1, seatclass2, seatclass3, genprice);
+		transportsManager
+				.saveOrUpdateTransport(transportId, transportCode, startTime,
+						routes, seatclass1, seatclass2, seatclass3, genprice);
 
 		return "redirect:/transport";
 	}
@@ -167,7 +201,8 @@ public class TransportController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getsLineId/{lineIdOnstations}", method = RequestMethod.GET)
-	public String printStationOnLine(@PathVariable("lineIdOnstations") Integer lineId,
+	public String printStationOnLine(
+			@PathVariable("lineIdOnstations") Integer lineId,
 			Map<String, Object> modelMap) {
 		List<StationsOnLine> listOfStationsOnLine = stationOnLineManager
 				.findStationsOnLine(lineId);
@@ -190,7 +225,8 @@ public class TransportController {
 			@RequestParam("stationName2") String stationName2,
 			Map<String, Object> model) {
 
-		if (stationName1.equals("") || stationName2.equals("") || stationName1.equals(stationName2)) {
+		if (stationName1.equals("") || stationName2.equals("")
+				|| stationName1.equals(stationName2)) {
 			return "transportTravel";
 		}
 

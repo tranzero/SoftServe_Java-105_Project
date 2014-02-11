@@ -3,6 +3,7 @@ package com.ita.edu.softserve.dao;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
@@ -19,6 +20,11 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 * Saves a Transport to database if not exist or update existing one.
 	 */
 	void saveOrUpdate(Transports entity);
+	
+	
+	List<Transports> getTransportsForLimits(int firstElement, int count);
+	
+	long getTransportsListCount();
 	
 	public List<TransportTravel> findByTwoStations(String stationName1,
 			String stationName2);

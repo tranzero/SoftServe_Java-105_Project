@@ -26,13 +26,17 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "transports")
 @NamedQueries({
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
+		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY)
 })
 public class Transports extends BaseEntity {
 
-	static final String TRANSPORTS_FIND_ALL = "Transports.findAll";
-	static final String TRANSPORTS_FIND_ALL_QUERY = "SELECT t FROM Transports t";
+	public static final String TRANSPORTS_FIND_ALL = "Transports.findAll";
+	public static final String TRANSPORTS_FIND_ALL_QUERY = "SELECT t FROM Transports t";
+	
+	public static final String TRANSPORTS_FIND_COUNT = "Transports.findCount";
+	public static final String TRANSPORTS_FIND_COUNT_QUERY = "SELECT COUNT (t.transportId) FROM Transports t";
  
 	public static final String FIND_BY_ROUTEID = "Transport.findByRouteId";
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";

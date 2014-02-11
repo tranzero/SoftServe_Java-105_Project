@@ -35,7 +35,7 @@ public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDao{
 		Query query = entityManager
 				.createNamedQuery(Trips.FIND_BY_TRANSPORTID).setParameter(1,
 						id);
-		List<Trips> result = query.getResultList();
+		List<Trips> result = (List<Trips>)query.getResultList();
 		return result;
 	}
 
@@ -56,7 +56,7 @@ public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDao{
 				.createNamedQuery(Trips.TRIPS_FIND_ALL)
 				.setFirstResult(firstElement)
 				.setMaxResults(count);
-		return query.getResultList();
+		return (List<Trips>)query.getResultList();
 	}
 
 }

@@ -218,4 +218,22 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * 
 	 * return transportTravel; }
 	 */
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsForLimit(int firstElement, int count) {
+		return transportsDao.getTransportsForLimits(firstElement, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsForPage(int pageNumber, int count) {
+		return getTransportsForLimit((pageNumber-1)*count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getTransportsListCount() {
+		return transportsDao.getTransportsListCount();
+	}
 }

@@ -6,7 +6,7 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
-	<div id="changeable">
+	<div id="pagingcontent">
 		<table style="align: center">
 			<tr>
 				<th><spring:message code="label.transport.transportcode" /></th>
@@ -87,7 +87,7 @@
 							{
 								async : true,
 								beforeSend : function() {
-									$("div#changeable")
+									$("div#pagingcontent")
 											.html(
 													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 								},
@@ -99,7 +99,7 @@
 								}
 
 							}).done(function(msg) {
-						$("div#changeable").html(msg);
+						$("div#pagingcontent").html(msg);
 
 					});
 			var currentURL = new URL(document.URL);
