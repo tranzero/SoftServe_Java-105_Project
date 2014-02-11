@@ -3,26 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <section id="content">
-	<h1>Edit/Create Line</h1>
-	<form action="savenewline" method="post">
-		Line name: <input type="text" value="${lineName}" name="newLineName"><br>
-		<input type="submit" value="Save line">
-	</form>
+	<h1>EDIT LINE</h1>
+	Line Name: <input type="text" value="${lineName}"> <br>
 	<table>
 		<tr>
 			<td align="center">Station Code</td>
 			<td align="center">Station Name</td>
-			<td align="center"></td>
+			<td align="center">Remove</td>
 		</tr>
-		<c:forEach var="station" items="${stationsList}">
+		<c:forEach var="station" items="${stationsOnLine}">
 			<tr>
 				<td align="center">${station.getStationCode()}</td>
 				<td align="center">${station.getStationName()}</td>
 				<td align="center"><a
-					href="removestation/${station.getStationId()}/${lineId}">delete</a></td>
+					href="deletestation/${station.getStationId()}/${lineName}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-	<a class="button" href="/SoftServe_Java-105/addnewstations/${lineId}">Add
-		Stations</a>
+	<br> <a class="button" href="addstation/${lineName}">Add Station</a>
+	<br> <br>
+	<a class="button" href="applychanges">Apply</a>
 </section>
