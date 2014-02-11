@@ -26,5 +26,18 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	public int getLinesByStationNameCount(String stationName);
 	public List<Lines> getLinesByStationForOnePage(int from,
 			int count, String stationName);
+	/**
+	 * Return <code>List</code> of Lines, that contain two stations in
+	 * certain order
+	 * 
+	 * @param stationName1
+	 *            - First station name
+	 * @param stationName2
+	 *            - Second station name
+	 * @return List of Lines
+	 */
+	public List<Lines> findByTwoStations(String stationName1,
+			String stationName2);
+
 
 }

@@ -41,18 +41,6 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<StationsOnLine> findByTwoStations(String stationName1,
-			String stationName2) {
-		Query query = entityManager
-				.createNamedQuery(StationsOnLine.FIND_BY_TWO_STATIONS)
-				.setParameter(1, stationName1).setParameter(2, stationName2);
-
-		return query.getResultList();
-	}
-
-
 	@Override
 	public StationsOnLine findByStationIdAndLineId(Integer stationId,
 			Integer lineId) {

@@ -23,7 +23,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_COUNT, query = Lines.FIND_BY_STATION_NAME_COUNT_QUERY),
-		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_FOR_PAGING, query = Lines.FIND_BY_STATION_NAME_FOR_PAGING_QUERY)})
+		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_FOR_PAGING, query = Lines.FIND_BY_STATION_NAME_FOR_PAGING_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS, query = Lines.FIND_BY_TWO_STATIONS_QUERY)
+})
 public class Lines extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
@@ -44,7 +46,16 @@ public class Lines extends BaseEntity {
 	public static final String FIND_BY_STATION_NAME_FOR_PAGING = "Lines.findByStationNameForPaging";
 	public static final String FIND_BY_STATION_NAME_FOR_PAGING_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 ORDER BY l.lineId";
 	
-	
+	public static final String FIND_BY_TWO_STATIONS = "Lines.findByTwoStations";
+	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT line "
+			+ "FROM StationsOnLine stl1, StationsOnLine stl2 "
+			+ "JOIN stl1.lineId as line "
+			+ "JOIN stl1.stationId as st "
+			+ "WHERE stl1.stationId.stationName = ?1 "
+			+ "AND stl2.stationId.stationName = ?2 "
+			+ "AND stl1.lineId = stl2.lineId "
+			+ "AND stl2.stationOrderNum > stl1.stationOrderNum";
+
 
 	@Id
 	@Column(name = "LINEID", nullable = false)

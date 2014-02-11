@@ -79,5 +79,17 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
     			int count, String stationName) {
     		return this.getLinesByStationForPaging(from, count, stationName);
     	}
+        
+    	@SuppressWarnings("unchecked")
+    	@Override
+    	public List<Lines> findByTwoStations(String stationName1,
+    			String stationName2) {
+    		Query query = entityManager
+    				.createNamedQuery(Lines.FIND_BY_TWO_STATIONS)
+    				.setParameter(1, stationName1).setParameter(2, stationName2);
+
+    		return query.getResultList();
+    	}
+
 		
 }

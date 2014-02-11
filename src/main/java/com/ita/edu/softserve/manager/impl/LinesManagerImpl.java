@@ -134,13 +134,7 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2) {
-		List<Lines> lines = new ArrayList<Lines>();
-		
-		List<StationsOnLine> stOnLineList = stlDao.findByTwoStations(stationName1, stationName2);
-		
-		for (StationsOnLine stOnline : stOnLineList) {
-			lines.add(stOnline.getLineId());
-		}
+		List<Lines> lines = lineDao.findByTwoStations(stationName1, stationName2);
 		
 		return lines;
 	}
