@@ -9,8 +9,9 @@ import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Users;
 
 /**
- * 
  * class UsersDAOImpl
+ * 
+ * @author iryna
  * 
  */
 @Repository("usersDao")
@@ -25,10 +26,10 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 
 	@Override
 	public Long getCountAllUsers() {
-		Query query = entityManager.createNamedQuery(Users.GET_COUNT_ALL_USERS);				
+		Query query = entityManager.createNamedQuery(Users.GET_COUNT_ALL_USERS);
 		return (Long) query.getSingleResult();
-	}	
-	
+	}
+
 	@Override
 	public Class<Users> getEntityClass() {
 		return Users.class;
@@ -36,8 +37,9 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 
 	@Override
 	public Users findByUsername(String username) {
-		Query  query =entityManager.createNamedQuery(Users.FIND_BY_USERNAME).setParameter(1, username);
-		return (Users)query.getSingleResult();
+		Query query = entityManager.createNamedQuery(Users.FIND_BY_USERNAME)
+				.setParameter(1, username);
+		return (Users) query.getSingleResult();
 	}
 
 }

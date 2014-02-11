@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
 
 /**
@@ -72,7 +73,13 @@ public class TestStationManagerImpl {
 		listOfStations.add(station2);
 
 		when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
-		List<Stations> stationList = stationsManagerImpl.findAllStations();
+		List<Stations> stationList = null;
+		try {
+			stationList = stationsManagerImpl.findAllStations();
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		assertTrue((listOfStations.size() == stationList.size())
 				&& (listOfStations.containsAll(stationList)));
@@ -86,7 +93,13 @@ public class TestStationManagerImpl {
 	public final void testFindAllStationsEmptyList() {
 		List<Stations> listOfStations = new ArrayList<Stations>();
 		when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
-		List<Stations> stationList = stationsManagerImpl.findAllStations();
+		List<Stations> stationList = null;
+		try {
+			stationList = stationsManagerImpl.findAllStations();
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		assertTrue((listOfStations.size() == stationList.size())
 				&& (listOfStations.containsAll(stationList)));
@@ -96,9 +109,10 @@ public class TestStationManagerImpl {
 	 * Test method for Null.<br/>
 	 * Method under test
 	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
+	 * @throws StationManagerException 
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
-	public final void testFindAllStationsShouldThrowNullPointerException() {
+	public final void testFindAllStationsShouldThrowNullPointerException() throws StationManagerException {
 		when(mockStationsDAOImpl.getAllEntities()).thenThrow(
 				new NullPointerException());
 		stationsManagerImpl.findAllStations();
@@ -106,9 +120,10 @@ public class TestStationManagerImpl {
 
 	/**
 	 * Test the methods for Equals.
+	 * @throws StationManagerException 
 	 */
 	@Test
-	public final void testFindStationsByIdForEquals() {
+	public final void testFindStationsByIdForEquals() throws StationManagerException {
 		Stations actualStation = mock(Stations.class);
 
 		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(
@@ -120,9 +135,10 @@ public class TestStationManagerImpl {
 
 	/**
 	 * Test the methods for <code>null</code>.
+	 * @throws StationManagerException 
 	 */
 	@Test
-	public final void testFindStationsByIdForNull() {
+	public final void testFindStationsByIdForNull() throws StationManagerException {
 		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(null);
 
 		Stations expectedStation = stationsManagerImpl.findStationsById(9);
