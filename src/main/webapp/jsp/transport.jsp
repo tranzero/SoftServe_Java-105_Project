@@ -129,7 +129,7 @@
 
 		}
 
-		$(document).ready(function() {
+		$(window).load(function() {
 			showTransportPage("${pageNumber}", "${resultsPerPage}");
 
 		});

@@ -6,7 +6,7 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
-	<div id="resultsAndPaging">
+	<div id="result">
 		<table style="align: center">
 			<tr>
 				<th><spring:message code="label.transport.transportcode" /></th>
@@ -77,17 +77,15 @@
 			</ul>
 		</div>
 	</div>
-	<script>
-// 		var pageUrl = "tripspage";
-	</script>
+	
 
 		<script>
 		function showTripsPage(pageNumber_, resultsPerPage_) {
-			alert("!");
+
 			$.ajax({
 				async : true,
 				beforeSend : function() {
-					$("div#resultsAndPaging")
+					$("div#result")
 					.html(
 							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 					},
@@ -98,14 +96,14 @@
 						resultsPerPage : resultsPerPage_
 						}
 					}).done(function(msg) {
-						$("div#resultsAndPaging").html(msg);
+						$("div#result").html(msg);
 						});
 
 			
 		}
 
-		$(document).ready(function() {
-			alert("?");
+		$(window).load(function() {
+
 			showTripsPage("${pageNumber}", "${resultsPerPage}");
 
 		});

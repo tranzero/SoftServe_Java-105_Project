@@ -36,7 +36,7 @@
 		<put-attribute name = "title" value = "View: News Maneger"/>
 		<put-attribute name="content" value="/jsp/tripspage.jsp" />
 	</definition>
-	<definition name="tripspage" extends="ajax">
+	<definition name="tripsmanagerpage" extends="ajax">
 		<put-attribute name = "title" value = "View: News Maneger"/>
 		<put-attribute name="content" value="/jsp/tripsmanagerpage.jsp" />
 	</definition>

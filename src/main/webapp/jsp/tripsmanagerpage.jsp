@@ -32,7 +32,7 @@
 	</c:forEach>
 </table>
 
-<h1>Test</h1>
+
 <div class="pagination">
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">
