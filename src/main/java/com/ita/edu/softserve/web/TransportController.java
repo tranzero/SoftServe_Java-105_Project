@@ -215,18 +215,13 @@ public class TransportController {
 	/*------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/transportTravel", method = RequestMethod.GET)
-	public String getLinesByTwoStations(Map<String, Object> model) {
-		return "transportTravel";
-	}
-
-	@RequestMapping(value = "/transportTravelFind", method = RequestMethod.GET)
 	public String getLinesByTwoStations(
-			@RequestParam("stationName1") String stationName1,
-			@RequestParam("stationName2") String stationName2,
+			@RequestParam(value = "stationName1", required = false) String stationName1,
+			@RequestParam(value = "stationName2", required = false) String stationName2,
 			Map<String, Object> model) {
 
-		if (stationName1.equals("") || stationName2.equals("")
-				|| stationName1.equals(stationName2)) {
+		if (stationName1 == null || stationName2 == null || 
+				stationName1.equals("") || stationName2.equals("")) {
 			return "transportTravel";
 		}
 

@@ -5,9 +5,10 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
 	<section>
-		<form:form action="transportTravelFind" method="get">
-			From: <input type="text" name="stationName1" />&nbsp;&nbsp;&nbsp;
-			To: <input type="text" name="stationName2"/>
+		<h2>Transport find</h2>
+		<form:form action="transportTravel" method="get">
+			From: <input type="text" name="stationName1" placeholder="Pisochne" />&nbsp;&nbsp;&nbsp;
+			To: <input type="text" name="stationName2" placeholder="Sknyliv" />
 			<input class="button" type="submit" name="submit" value="Find" />
 		</form:form>
 		<%-- Results --%>
@@ -28,14 +29,17 @@
 								value="${param.stationName2}"></c:out></td>
 						<%--=request.getParameter("stationName1")--%>
 						<td>${transport.getTransport().getTransportCode()}</td>
-						<td>dep ${transport.getDepartureTime()}<br />arr ${transport.getArrivalTime()}</td>
+						<td>dep ${transport.getDepartureTime()}<br />arr
+							${transport.getArrivalTime()}
+						</td>
 						<td>${transport.getDuration()}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty TransportTravelList && not empty param.stationName1 && not empty param.stationName2}">
+		<c:if
+			test="${empty TransportTravelList && not empty param.stationName1 && not empty param.stationName2}">
 			<hr />
 			<h3>Sorry. No results was found</h3>
 			<hr />

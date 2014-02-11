@@ -158,20 +158,16 @@ public class LinesController {
 	}
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
-	public String getLinesByTwoStations(Map<String, Object> model) {
-		return "linesbytwostations";
-	}
-
-	@RequestMapping(value = "/linesbytwostationsFind", method = RequestMethod.GET)
 	public String getLinesByTwoStations(
-			@RequestParam("stationName1") String stationName1,
-			@RequestParam("stationName2") String stationName2,
+			@RequestParam(value = "stationName1", required = false) String stationName1,
+			@RequestParam(value = "stationName2", required = false) String stationName2,
 			Map<String, Object> model) {
 
-		if (stationName1.equals("") || stationName2.equals("")) {
+		if (stationName1 == null || stationName2 == null || 
+				stationName1.equals("") || stationName2.equals("")) {
 			return "linesbytwostations";
 		}
-
+		
 		model.put("LinesList",
 				linesManager.getLinesByTwoStations(stationName1, stationName2));
 
