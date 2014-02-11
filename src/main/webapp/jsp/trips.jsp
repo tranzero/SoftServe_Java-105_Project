@@ -81,7 +81,6 @@
 
 	<script>
 		function showTripsPage(pageNumber_, resultsPerPage_) {
-			//var path = "/tripspage?pageNumber="+pageNumber_+"&resultsPerPage="+resultsPerPage_;
 			$
 					.ajax(
 							{
@@ -102,16 +101,8 @@
 						$("div#pagingcontent").html(msg);
 
 					});
-			var currentURL = new URL(document.URL);
-			if (currentURL.pageNumber != null
-					&& currentURL.resultsPerPage != null) {
-				currentURL.pageNumber = pageNumber_;
-				currentURL.resultsPerPage = resultsPerPage_;
-				var newURL = currentURL.toString();
-				alert(newURL);
-				document.location.href = newURL;
-			}
 
+			
 		}
 
 		$(document).ready(function() {
