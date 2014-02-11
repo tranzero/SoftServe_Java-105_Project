@@ -39,6 +39,9 @@
 
 			<p>
 				<input type="submit" value="Update USER">
+				
+				<input type="button" value="Cancel"
+				onclick="window.location='/SoftServe_Java-105/userlist';">
 			</p>
 			<br>
 
