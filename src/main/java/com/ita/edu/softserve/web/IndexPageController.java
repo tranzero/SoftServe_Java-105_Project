@@ -18,7 +18,28 @@ import com.ita.edu.softserve.utils.ExceptionUtil;
 
 @Controller
 public class IndexPageController {
-
+	String pageNumberKey = "pageNumber";
+	String resultsPerPageKey = "resultsPerPage";
+	String sizeOfPagingKey = "sizeOfPaging";
+	String maxPageCountKey = "maxPageCount";
+	String maxResultCountKey = "maxResultCount";
+	String newsListKey = "newsList";
+	String errorListKey = "errorList";
+	String errorMsgKey = "errorMsg";
+	
+	String mainPageOutGet = "mainpage";
+	String resultOut = "result";
+	String mainPageOutPost = "mainpagepost";
+	String managePageNewsGet = "managenews";
+	String managePageNewsOutPost = "managenewspost";
+	String addNewsOutGet = "addnews";
+	String addNewsOutPost = "redirect:/managenews";
+	String delNewsGet = "redirect:/managenews";
+	String editNewsGet = "editnews";
+	String editNewsPost = "redirect:/managenews";
+	String detailsNewsGet = "detailsnews";
+	
+	
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
 
@@ -28,50 +49,51 @@ public class IndexPageController {
 	@RequestMapping(value = "/mainpage", method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
 
-		modelMap.put("pageNumber", pageMan.getDefaultPageNumber());
-		modelMap.put("resultsPerPage", pageMan.getDefaultResultPerPage());
-		modelMap.put("sizeOfPaging", pageMan.getDefaultPageCount());
+		modelMap.put(pageNumberKey , pageMan.getDefaultPageNumber());
+		modelMap.put(resultsPerPageKey, pageMan.getDefaultResultPerPage());
+		modelMap.put(sizeOfPagingKey, pageMan.getDefaultPageCount());
 		try {
 			int maxPageCount = pageMan
 					.getMaxPageCount(pageMan.getDefaultResultPerPage(),
 							posts.getPostListCount());
 
-			modelMap.put("maxPageCount", maxPageCount);
-			return "mainpage";
+			modelMap.put(maxPageCountKey, maxPageCount);
+			return mainPageOutGet;
 
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return  resultOut;
 		}
 
 	}
 
 	@RequestMapping(value = "/mainpagepost", method = RequestMethod.POST)
-	public String mainPagePost(@RequestParam("pageNumber") int pageNumber,
+	public String mainPagePost(
+			@RequestParam("pageNumber") int pageNumber,
 			@RequestParam("resultsPerPage") int resultsPerPage,
 			Map<String, Object> modelMap) {
 
 		try {
 
 			long resultCount = posts.getPostListCount();
-			modelMap.put("maxResultCount", resultCount);
+			modelMap.put(maxResultCountKey, resultCount);
 			int maxPageCount = pageMan.getMaxPageCount(resultsPerPage,
 					resultCount);
-			modelMap.put("maxPageCount", maxPageCount);
+			modelMap.put(maxPageCountKey, maxPageCount);
 			int currentPagingPosition = pageMan.getCurrentPagingPosition(
 					pageNumber, resultsPerPage);
-			modelMap.put("pageNumber", pageNumber);
-			modelMap.put("resultsPerPage", resultsPerPage);
-			modelMap.put("newsList",
+			modelMap.put(pageNumberKey, pageNumber);
+			modelMap.put(resultsPerPageKey, resultsPerPage);
+			modelMap.put(newsListKey,
 					posts.getPostForPage(currentPagingPosition, resultsPerPage));
 
-			return "mainpagepost";
+			return mainPageOutPost;
 
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
 
 	}
@@ -79,19 +101,19 @@ public class IndexPageController {
 	@RequestMapping(value = "/managenews", method = RequestMethod.GET)
 	public String index(Map<String, Object> modelMap) {
 
-		modelMap.put("pageNumber", pageMan.getDefaultPageNumber());
-		modelMap.put("resultsPerPage", pageMan.getDefaultResultPerPage());
-		modelMap.put("sizeOfPaging", pageMan.getDefaultPageCount());
+		modelMap.put(pageNumberKey, pageMan.getDefaultPageNumber());
+		modelMap.put(resultsPerPageKey, pageMan.getDefaultResultPerPage());
+		modelMap.put(sizeOfPagingKey, pageMan.getDefaultPageCount());
 		try {
 			int maxPageCount = pageMan
 					.getMaxPageCount(pageMan.getDefaultResultPerPage(),
 							posts.getPostListCount());
-			modelMap.put("maxPageCount", maxPageCount);
-			return "managenews";
+			modelMap.put(maxPageCountKey, maxPageCount);
+			return managePageNewsGet;
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
 
 	}
@@ -103,60 +125,59 @@ public class IndexPageController {
 
 		try {
 
-			int maxPageCount = 0;
-			long resultCount = 0;
-
-			resultCount = posts.getPostListCount();
-			modelMap.put("maxResultCount", resultCount);
-			maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
-			modelMap.put("maxPageCount", maxPageCount);
+			long resultCount = posts.getPostListCount();
+			modelMap.put(maxResultCountKey, resultCount);
+			int maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
+			modelMap.put(maxPageCountKey, maxPageCount);
 			int currentPagingPosition = pageMan.getCurrentPagingPosition(
 					pageNumber, resultsPerPage);
-			modelMap.put("pageNumber", pageNumber);
-			modelMap.put("resultsPerPage", resultsPerPage);
-			modelMap.put("newsList",
+			modelMap.put(pageNumberKey, pageNumber);
+			modelMap.put(resultsPerPageKey, resultsPerPage);
+			modelMap.put(newsListKey,
 					posts.getPostForPage(currentPagingPosition, resultsPerPage));
 
-			return "managenewspost";
+			return managePageNewsOutPost;
 
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
 
 	}
 
 	@RequestMapping(value = "/addnews", method = RequestMethod.GET)
 	public String addNews() {
-		return "addnews";
+		return addNewsOutGet;
 	}
 
 	@RequestMapping(value = "addnews", method = RequestMethod.POST)
-	public String addNewsToBD(@ModelAttribute("newsTitle") String newsTitle,
+	public String addNewsToBD(
+			@ModelAttribute("newsTitle") String newsTitle,
 			@ModelAttribute("newsDescription") String newsDescription,
 			Map<String, Object> modelMap) {
 		try {
 			posts.createNews(newsTitle, newsDescription);
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
 
-		return "redirect:/managenews";
+		return addNewsOutPost;
 	}
 
 	@RequestMapping(value = "/delnews/{delnews}", method = RequestMethod.GET)
-	public String delNews(@PathVariable("delnews") Integer postId,
+	public String delNews(
+			@PathVariable("delnews") Integer postId,
 			Map<String, Object> map) {
 		try {
 			posts.removeNews(postId);
 		} catch (PostManagerExeption e) {
 			map.put("incorrectMsg", "Incorrect News!");
-			return "result";
+			return resultOut;
 		}
-		return "redirect:/managenews";
+		return delNewsGet;
 
 	}
 
@@ -176,27 +197,28 @@ public class IndexPageController {
 
 			modelMap.put("post", post);
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
-		return "editnews";
+		return editNewsGet;
 	}
 
 	@RequestMapping(value = "editnews/{editnews}", method = RequestMethod.POST)
-	public String updateNewsToBD(@PathVariable("editnews") Integer newsId,
+	public String updateNewsToBD(
+			@ModelAttribute("idTitle") Integer newsId,
 			@ModelAttribute("newsTitle") String newsTitle,
 			@ModelAttribute("newsDescription") String newsDescription,
 			Map<String, Object> modelMap) {
 		try {
 			posts.updateNews(newsId, newsTitle, newsDescription);
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
 
-		return "redirect:/managenews";
+		return editNewsPost;
 	}
 
 	@RequestMapping(value = "/detailsnews/{detailsId}", method = RequestMethod.GET)
@@ -209,16 +231,16 @@ public class IndexPageController {
 
 			modelMap.put("News", post);
 		} catch (PostManagerExeption e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			modelMap.put(errorListKey, ExceptionUtil.createErrorList(e));
+			modelMap.put(errorMsgKey, e.getMessage());
+			return resultOut;
 		}
-		return "detailsnews";
+		return detailsNewsGet;
 	}
 
 	@RequestMapping(value = "/result", method = RequestMethod.GET)
 	public String result(Map<String, Object> modelMap) {
-		return "result";
+		return resultOut;
 	}
 
 }

@@ -106,7 +106,8 @@ public class LinesController {
 	}
 
 	@RequestMapping(value = "confirmcreating", method=RequestMethod.POST)
-	public String confirmCreating(@ModelAttribute("newLineName") String lineName,
+	public String confirmCreating(
+			@ModelAttribute("newLineName") String lineName,
 			@RequestParam("stationsCheck") String[] stations) {
 		System.out.println(lineName);
 		for(String str:stations){
