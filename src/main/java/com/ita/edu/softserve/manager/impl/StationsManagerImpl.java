@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -167,4 +168,18 @@ public class StationsManagerImpl implements StationsManager {
 		return stationDao.findByLineName(lineName);
 
 	}
+
+	@Override
+	public List<Stations> getStationsNotOnCertainLine(String lineName) {
+		List<Stations> existStations = stationDao.findByLineName(lineName);
+			List<Stations> allStations = new ArrayList<Stations>();
+			for (Stations st : stationDao.getAllEntities()) {
+				if (!existStations.contains(st)) {
+					allStations.add(st);
+				}
+			}
+		return allStations;
+	}
+
+
 }

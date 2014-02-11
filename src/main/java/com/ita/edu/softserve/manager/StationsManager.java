@@ -52,4 +52,8 @@ public interface StationsManager extends BaseManager {
 	
 	public List<Stations> getStationsOnCertainLine(String lineName);
 
+	List<Stations> getStationsNotOnCertainLine(String lineName);
+	
+	
+
 }

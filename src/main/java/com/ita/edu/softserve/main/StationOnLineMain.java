@@ -19,13 +19,13 @@ public class StationOnLineMain {
 //		System.out.println("START!");
 //		//lm.removeStation(2, 1);
 //		System.out.println("KOOL!!!");
-		try {
-			List<Stations> str = st.findAllStations();
-			lm.updateStationOnLine(3, str);
-		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			List<Stations> str = st.findAllStations();
+//			lm.updateStationOnLine(3, str);
+//		} catch (StationManagerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 //		str.add("Stryy");
 //		str.add("Ugers'ko");
