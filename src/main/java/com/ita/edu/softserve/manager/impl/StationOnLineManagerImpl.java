@@ -3,6 +3,7 @@
  */
 package com.ita.edu.softserve.manager.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -19,6 +20,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 
@@ -90,9 +92,12 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 
 	@Override
 	@Transactional
-	public void updateStationOnLine(Integer lineId, List<Stations> stations) {
-
-		for (Stations st : stations) {
+	public void updateStationOnLine(Integer lineId, List<String> stations) {
+		List<Stations> stationList = new ArrayList<Stations>();
+		for (String str : stations) {
+				stationList.add(stationDao.findByName(str));
+		}
+		for (Stations st : stationList) {
 			StationsOnLine sol = null;
 			try {
 				sol = stlDao

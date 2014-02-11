@@ -116,7 +116,7 @@
 
 		}
 
-		$(document).ready(function() {
+		$(window).load(function() {
 			showTripsManagerPage("${pageNumber}", "${resultsPerPage}");
 
 		});
