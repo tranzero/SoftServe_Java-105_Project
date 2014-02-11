@@ -65,7 +65,7 @@ public class LinesManagerImpl implements LinesManager {
 	public LinesManagerImpl(StationsDAOImpl stationDao) {
 		this.stationDao = stationDao;
 	}
-	
+
 	public Lines findByLineName(String lineName) {
 		Lines line = null;
 		try {
@@ -74,7 +74,7 @@ public class LinesManagerImpl implements LinesManager {
 			LOGGER.error("No such line!", e);
 		}
 		return line;
-	} 
+	}
 
 	/**
 	 * Return all Lines
@@ -104,23 +104,26 @@ public class LinesManagerImpl implements LinesManager {
 			linesList.add(stl.getLineId());
 		}
 		return linesList;
-		}
-	
-		public List<Lines> getLinesByStationName(String stationName){
-			return lineDao.getLinesByStationName(stationName);
-		}
-	
+	}
+
+	public List<Lines> getLinesByStationName(String stationName) {
+		return lineDao.getLinesByStationName(stationName);
+	}
+
 	@Override
-	public int getLinesByStationCount(String stationName){
-	
+	public int getLinesByStationCount(String stationName) {
+
 		return lineDao.getLinesByStationNameCount(stationName);
 	}
 
 	@Override
-	public List<Lines> getLinesByStationForPage(int from,int count, String stationName){
-		List<Lines> linesList = lineDao.getLinesByStationForOnePage(from, count, stationName);
+	public List<Lines> getLinesByStationForPage(int from, int count,
+			String stationName) {
+		List<Lines> linesList = lineDao.getLinesByStationForOnePage(from,
+				count, stationName);
 		return linesList;
 	}
+
 	/**
 	 * Return Lines that includes two stations in certain order
 	 * 
@@ -134,8 +137,9 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2) {
-		List<Lines> lines = lineDao.findByTwoStations(stationName1, stationName2);
-		
+		List<Lines> lines = lineDao.findByTwoStations(stationName1,
+				stationName2);
+
 		return lines;
 	}
 
@@ -192,16 +196,37 @@ public class LinesManagerImpl implements LinesManager {
 	public long getLinesListCount() {
 		return lineDao.getLinesListCount();
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesForPage(int pageNumber, int count) {
-		return getLinesForLimit((pageNumber-1)*count, count);
+		return getLinesForLimit((pageNumber - 1) * count, count);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesForLimit(int firstElement, int count) {
 		return lineDao.getLinesForLimits(firstElement, count);
+	}
+
+	@Transactional(readOnly = true)
+	@Override 
+	public long getLinesByTwoStListCount(String stationName1,
+			String stationName2) {
+		return lineDao.getLinesByTwoStListCount(stationName1, stationName2);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesByTwoStForPage(String stationName1,
+			String stationName2, int pageNumber, int count) {
+		return getLinesByTwoStForLimit(stationName1, stationName2, (pageNumber - 1) * count, count);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesByTwoStForLimit(String stationName1,
+			String stationName2, int firstElement, int count) {
+		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2, firstElement, count);
 	}
 }
