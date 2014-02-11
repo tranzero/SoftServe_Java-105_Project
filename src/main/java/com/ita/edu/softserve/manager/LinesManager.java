@@ -38,4 +38,12 @@ public interface LinesManager extends BaseManager {
 	public long getLinesListCount();
 	public List<Lines> getLinesForPage(int pageNumber, int count);
 	public List<Lines> getLinesForLimit(int firstElement, int count);
+	
+	
+	public long getLinesByTwoStListCount(String stationName1,
+			String stationName2);
+	public List<Lines> getLinesByTwoStForPage(String stationName1,
+			String stationName2, int pageNumber, int count);
+	public List<Lines> getLinesByTwoStForLimit(String stationName1,
+			String stationName2, int firstElement, int count);
 }
