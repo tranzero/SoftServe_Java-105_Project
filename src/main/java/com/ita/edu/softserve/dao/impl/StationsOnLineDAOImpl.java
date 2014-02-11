@@ -52,27 +52,6 @@ public class StationsOnLineDAOImpl extends AbstractDAO<StationsOnLine>
 		return query.getResultList();
 	}
 
-	@Override
-	public int getLinesByStationCount(int id) {
-
-		return (int) find((Query) entityManager.createNamedQuery(
-				StationsOnLine.GET_LINES_BY_STATION_COUNT).setParameter(1, id));
-	}
-
-	private List<StationsOnLine> getLinesByStationForPaging(int from,
-			int count, int id) {
-		Query query = entityManager
-				.createNamedQuery(
-						StationsOnLine.GET_LINES_BY_STATION_FOR_PAGING)
-				.setParameter(1, id).setFirstResult(from).setMaxResults(count);
-		return (List<StationsOnLine>) getRange(from, count, query);
-	}
-
-	@Override
-	public List<StationsOnLine> getLinesByStationForOnePage(int from,
-			int count, int id) {
-		return this.getLinesByStationForPaging(from, count, id);
-	}
 
 	@Override
 	public StationsOnLine findByStationIdAndLineId(Integer stationId,

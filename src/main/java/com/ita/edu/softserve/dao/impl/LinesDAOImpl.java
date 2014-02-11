@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Trips;
 
 /**
@@ -58,5 +59,25 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
         	List<Lines > list = query.getResultList();
         	return list;
         }
+        @Override
+    	public int getLinesByStationNameCount(String stationName) {
+
+    		return (int) find((Query) entityManager.createNamedQuery(
+    				Lines.FIND_BY_STATION_NAME_COUNT).setParameter(1, stationName));
+    	}
+        
+        private List<Lines> getLinesByStationForPaging(int from,
+    			int count, String stationName) {
+    		Query query = entityManager
+    				.createNamedQuery(
+    						Lines.FIND_BY_STATION_NAME_FOR_PAGING)
+    				.setParameter(1, stationName).setFirstResult(from).setMaxResults(count);
+    		return (List<Lines>) getRange(from, count, query);
+    	}
+        @Override
+    	public List<Lines> getLinesByStationForOnePage(int from,
+    			int count, String stationName) {
+    		return this.getLinesByStationForPaging(from, count, stationName);
+    	}
 		
 }

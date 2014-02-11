@@ -20,15 +20,11 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_TWO_STATIONS, query = StationsOnLine.FIND_BY_TWO_STATIONS_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY),
-@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_COUNT,query = StationsOnLine.GET_LINES_BY_STATION_COUNT_QUERY),
-@NamedQuery(name =StationsOnLine.GET_LINES_BY_STATION_FOR_PAGING,query = StationsOnLine. GET_LINES_BY_STATION_FOR_PAGING_QUERY),
 @NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID, query = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID_QUERY)})
 public class StationsOnLine extends BaseEntity {
 
 
 	public static final String FIND_BY_STATIONS_ID = "StationsOnLine.findByStationID";
-//	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT u FROM StationsOnLine u WHERE u.stationId = ?1";
-//	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl INNER JOIN stl.stationId s WHERE s.stationId = ?1";
 	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl WHERE stl.stationId.stationId = ?1";
 
 	public static final String FIND_BY_TWO_STATIONS = "StationsOnLine.findByTwoStations";
@@ -41,10 +37,6 @@ public class StationsOnLine extends BaseEntity {
 	
 	public static final String FIND_BY_LINE_ID = "StationsOnLine.findByLineID";
 	public static final String FIND_BY_LINE_ID_QUERY="SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
-	public static final String GET_LINES_BY_STATION_COUNT="StationsOnLine.getLinesByStationCount";
-	public static final String GET_LINES_BY_STATION_COUNT_QUERY="SELECT COUNT ( stl.stationOnLineId) FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
-	public static final String GET_LINES_BY_STATION_FOR_PAGING = "StationsOnLine.getLinesByStationForPaging";
-	public static final String GET_LINES_BY_STATION_FOR_PAGING_QUERY = "SELECT stl from StationsOnLine stl WHERE stl.lineId.lineId = ?1 ORDER BY stl.stationOnLineId";
 	
 	@Id
 	@Column(name = "STATIONONLINEID")
