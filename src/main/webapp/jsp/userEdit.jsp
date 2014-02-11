@@ -6,8 +6,6 @@
 
 <jsp:directive.page import="java.util.*" />
 
-
-
 <section id="content">
 	<h1>Edit User</h1>
 	
@@ -49,7 +47,6 @@
 			<br>
 
 		</div>
-
 
 	</form>
 </section>
