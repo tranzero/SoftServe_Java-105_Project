@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
@@ -30,92 +30,173 @@ public class LinesController {
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
-	@RequestMapping(value = "/addLines", method = RequestMethod.GET)
-	public String addLines(Map<String, Object> modelMap) {
-		modelMap.put("linesList", linesManager.getFullLines());
-		return "addLines";
+	@RequestMapping(value = "/allLines")
+	public String allLines(Map<String, Object> modelMap) {
+		modelMap.put("lines", linesManager.getFullLines());
+		return "allLines";
 	}
 
-	@RequestMapping(value = "/addnewline")
-	public String addNewLine(/* Map<String, Object> modelMap */) {
-		return "editLine";
-	}
-
-	@RequestMapping(value = "/savenewline", method = RequestMethod.POST)
-	public String saveNewLine(@ModelAttribute("newLineName") String newlineName) {
-		System.out.println(newlineName);
-		linesManager.createLine(newlineName);
-		Integer newLineId = linesManager.findByLineName(newlineName)
-				.getLineId();
-		System.out.println(newLineId);
-		return "redirect:/updateline/" + newlineName + "/" + newLineId;
-	}
-
-	@RequestMapping(value = "/addnewstations/{lineId}")
-	public String addNewStations(@PathVariable("lineId") Integer lineId,
-			Map<String, Object> modelMap) {
+	@RequestMapping(value = "addline")
+	public String addLine(Map<String, Object> modelMap) {
 		try {
-			modelMap.put("stationsList", stationsManager.findAllStations());
+			modelMap.put("stations", stationsManager.findAllStations());
 		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "allStationsEditLine";
+		return "newLine";
 	}
 
-	@RequestMapping(value = "/updateline/addnewstations")
-	public String addNewStation(Map<String, Object> modelMap) {
-		try {
-			modelMap.put("stationsList", stationsManager.findAllStations());
-		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "allStationsEditLine";
-	}
-
-	@RequestMapping(value = "/removeline/{remove}")
-	public String removeLine(@PathVariable("remove") String lineName,
-			Map<String, Object> modelMap) {
-		linesManager.deleteLine(lineName);
-		return "redirect:/addLines";
-	}
-
-	@RequestMapping(value = "/updateline/{lineName}/{lineId}")
-	public String updateLine(@PathVariable("lineName") String lineName,
-			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
-		modelMap.put("stationsList",
+	@RequestMapping(value = "editline/{lineName}")
+	public String editLine(Map<String, Object> modelMap,
+			@PathVariable("lineName") String lineName) {
+		modelMap.put("stationsOnLine",
 				stationsManager.getStationsOnCertainLine(lineName));
-		return "editLine";
+		return "editLines";
 	}
 
-	@RequestMapping(value = "/updateline/{lineName}/removestation/{removeStId}/{lineId}")
-	public String removeSt(@PathVariable("removeStId") Integer stationId,
-			@PathVariable("lineName") String lineName,
-			@PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
-		stationOnLineManager.removeStation(stationId, lineId);
+	@RequestMapping(value = "deleteline/{lineName}")
+	public String deleteLine(@PathVariable("lineName") String lineName) {
+		linesManager.deleteLine(lineName);
+		return "redirect:/allLines";
+	}
+
+	@RequestMapping(value = "editline/deletestation/{stationId}/{lineName}")
+	public String deleteStation(@PathVariable("stationId") Integer stationId,
+			@PathVariable("lineName") String lineName) {
+		stationOnLineManager.removeStation(stationId, linesManager
+				.findByLineName(lineName).getLineId());
+		return "redirect:/editline/" + lineName;
+	}
+
+	@RequestMapping(value = "editline/addstation/{lineName}")
+	public String addStation(@PathVariable("lineName") String lineName,
+			Map<String, Object> modelMap) {
+		List<Stations> existStations = stationsManager
+				.getStationsOnCertainLine(lineName);
 		try {
-			modelMap.put("stationsList", stationsManager.findAllStations());
+			List<Stations> allStations = new ArrayList<Stations>();
+			for (Stations st : stationsManager.findAllStations()) {
+				if (!existStations.contains(st)) {
+					allStations.add(st);
+				}
+			}
+			modelMap.put("allStations", allStations);
+			modelMap.put("existStations", existStations);
 		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:/updateline/" + lineName + "/" + lineId;
+		return "addStationsToLine";
 	}
 
-	@RequestMapping(value = "/addnewstations/confirmaddstations", method = RequestMethod.POST)
-	public String confirmAddStations(
-			@RequestParam("checkStations") String[] stationsName,
-			@ModelAttribute("lineId") Integer lineId) {
-		List<String> stationName = new ArrayList<String>();
-		for (String str : stationsName) {
-			stationName.add(str);
+	@RequestMapping(value = "editline/addstation/changestations/{lineName}", method = RequestMethod.POST)
+	public String changeStations(
+			@RequestParam("stationsCheck") String[] stations,
+			@PathVariable("lineName") String lineName) {
+		List<Stations> stationList = new ArrayList<Stations>();
+		for (String str : stations) {
+			try {
+				stationList.add(stationsManager.findByStationName(str));
+			} catch (StationManagerException e) {
+				e.printStackTrace();
+			}
 		}
-		stationOnLineManager.addStationsToLine(lineId, stationName);
-
-		return "redirect:/addLines";
+		stationOnLineManager.updateStationOnLine(
+				linesManager.findByLineName(lineName).getLineId(), stationList);
+		return "redirect:/editline/" + lineName;
 	}
 
+	@RequestMapping(value = "confirmcreating", method=RequestMethod.POST)
+	public String confirmCreating(@ModelAttribute("newLineName") String lineName,
+			@RequestParam("stationsCheck") String[] stations) {
+		System.out.println(lineName);
+		for(String str:stations){
+			System.out.println(str);
+		}
+		linesManager.createLine(lineName);
+		List<Stations> stationList = new ArrayList<Stations>();
+		for (String str : stations) {
+			try {
+				stationList.add(stationsManager.findByStationName(str));
+			} catch (StationManagerException e) {
+				e.printStackTrace();
+			}
+		}
+		stationOnLineManager.updateStationOnLine(
+				linesManager.findByLineName(lineName).getLineId(), stationList);
+		return "redirect:/allLines";
+	}
+	
+	@RequestMapping(value="editline/applychanges")
+	public String applyChanges(){
+		return "redirect:/allLines";
+	}
+
+	/*
+	 * @RequestMapping(value = "/addLines", method = RequestMethod.GET) public
+	 * String addLines(Map<String, Object> modelMap) { modelMap.put("linesList",
+	 * linesManager.getFullLines()); return "addLines"; }
+	 * 
+	 * @RequestMapping(value = "/addnewline") public String addNewLine(
+	 * Map<String, Object> modelMap ) { return "editLine"; }
+	 * 
+	 * @RequestMapping(value = "/savenewline", method = RequestMethod.POST)
+	 * public String saveNewLine(@ModelAttribute("newLineName") String
+	 * newlineName) { System.out.println(newlineName);
+	 * linesManager.createLine(newlineName); Integer newLineId =
+	 * linesManager.findByLineName(newlineName) .getLineId();
+	 * System.out.println(newLineId); return "redirect:/updateline/" +
+	 * newlineName + "/" + newLineId; }
+	 * 
+	 * @RequestMapping(value = "/addnewstations/{lineId}") public String
+	 * addNewStations(@PathVariable("lineId") Integer lineId, Map<String,
+	 * Object> modelMap) { try { modelMap.put("stationsList",
+	 * stationsManager.findAllStations()); } catch (StationManagerException e) {
+	 * // TODO Auto-generated catch block e.printStackTrace(); } return
+	 * "allStationsEditLine"; }
+	 * 
+	 * @RequestMapping(value = "/updateline/addnewstations") public String
+	 * addNewStation(Map<String, Object> modelMap) { try {
+	 * modelMap.put("stationsList", stationsManager.findAllStations()); } catch
+	 * (StationManagerException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } return "allStationsEditLine"; }
+	 * 
+	 * @RequestMapping(value = "/removeline/{remove}") public String
+	 * removeLine(@PathVariable("remove") String lineName, Map<String, Object>
+	 * modelMap) { linesManager.deleteLine(lineName); return
+	 * "redirect:/addLines"; }
+	 * 
+	 * @RequestMapping(value = "/updateline/{lineName}/{lineId}") public String
+	 * updateLine(@PathVariable("lineName") String lineName,
+	 * 
+	 * @PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
+	 * modelMap.put("stationsList",
+	 * stationsManager.getStationsOnCertainLine(lineName)); return "editLine"; }
+	 * 
+	 * @RequestMapping(value =
+	 * "/updateline/{lineName}/removestation/{removeStId}/{lineId}") public
+	 * String removeSt(@PathVariable("removeStId") Integer stationId,
+	 * 
+	 * @PathVariable("lineName") String lineName,
+	 * 
+	 * @PathVariable("lineId") Integer lineId, Map<String, Object> modelMap) {
+	 * stationOnLineManager.removeStation(stationId, lineId); try {
+	 * modelMap.put("stationsList", stationsManager.findAllStations()); } catch
+	 * (StationManagerException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } return "redirect:/updateline/" + lineName + "/" +
+	 * lineId; }
+	 * 
+	 * @RequestMapping(value = "/addnewstations/confirmaddstations", method =
+	 * RequestMethod.POST) public String confirmAddStations(
+	 * 
+	 * @RequestParam("checkStations") String[] stationsName,
+	 * 
+	 * @ModelAttribute("lineId") Integer lineId) { List<String> stationName =
+	 * new ArrayList<String>(); for (String str : stationsName) {
+	 * stationName.add(str); } stationOnLineManager.addStationsToLine(lineId,
+	 * stationName);
+	 * 
+	 * return "redirect:/addLines"; }
+	 */
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
 	public String getLinesByTwoStations(Map<String, Object> model) {
 		return "linesbytwostations";

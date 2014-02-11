@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.StationOnLineManagerImpl;
@@ -14,10 +15,18 @@ public class StationOnLineMain {
 
 	public static void main(String[] args) {
 		StationOnLineManager lm = (StationOnLineManager) StationOnLineManagerImpl.getInstance();
+		StationsManager st = (StationsManager) StationsManagerImpl.getInstance();
 //		System.out.println("START!");
 //		//lm.removeStation(2, 1);
 //		System.out.println("KOOL!!!");
-//		List<String> str = new ArrayList<String>();
+		try {
+			List<Stations> str = st.findAllStations();
+			lm.updateStationOnLine(3, str);
+		} catch (StationManagerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 //		str.add("Stryy");
 //		str.add("Ugers'ko");
 //		str.add("Dmytriya");

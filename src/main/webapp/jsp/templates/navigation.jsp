@@ -21,7 +21,7 @@
 		<ul class="submenu">
 			<li><a href="/SoftServe_Java-105/addnews"><spring:message code="label.navigation.addnews"/></a></li>
 			<li><a href="/SoftServe_Java-105/stations"><spring:message code="label.navigation.stations"/></a></li>
-			<li><a href="/SoftServe_Java-105/addLines"><spring:message code="label.navigation.addLines"/></a></li>
+			<li><a href="/SoftServe_Java-105/allLines"><spring:message code="label.navigation.allLines"/></a></li>
 			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 			<li><a href="/SoftServe_Java-105/formTransport.htm"><spring:message code="label.navigation.addTransport"/></a></li>
 			
@@ -53,7 +53,7 @@
 	<span class="navigationHeader"><spring:message code="label.navigation.editing"/></span>
 	<span class = "navigationPoint"><a href="addnews"><spring:message code="label.navigation.addnews"/></a></span>
 	<span class = "navigationPoint"><a href="addStation"><spring:message code="label.navigation.addStation"/></a></span>
-	<span class = "navigationPoint"><a href="addLines"><spring:message code="label.navigation.addLines"/></a></span>
+	<span class = "navigationPoint"><a href="allLines"><spring:message code="label.navigation.addLines"/></a></span>
 	<span class = "navigationPoint"><a href="linesbystation"><spring:message code="label.navigation.linesbystation"/></a></span>
 </nav>
 <nav class="navigationGroup">
