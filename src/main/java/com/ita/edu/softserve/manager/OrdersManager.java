@@ -11,5 +11,7 @@ public interface OrdersManager extends BaseManager {
 
 	public Orders findOrder(Integer id);
 	
+	public List<Orders> findAllOrders();
+	
 	public List<Orders> findOrdersByUserId(Integer id);
 }
