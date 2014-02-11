@@ -23,10 +23,16 @@ public class TripsController {
 	private static final String DEFAULT_DATE_FORMAT = "yyyy.MM.dd";
 	private static final String TRIPS_WEB_NAME = "/trips";
 	private static final String TRIPSPAGE_WEB_NAME = "/tripspage";
+	private static final String MANAGETRIPS_WEB_NAME = "/tripsmanager";
+	private static final String MANAGETRIPSPAGE_WEB_NAME = "/tripsmanagerpage";
 	private static final String TRIPS_SPRING_NAME = "trips";
 	private static final String TRIPSPAGE_SPRING_NAME = "tripspage";
+	private static final String MANAGETRIPS_SPRING_NAME = "tripsmanager";
+	private static final String MANAGETRIPSPAGE_SPRING_NAME = "tripsmanagerpage";
 	private static final String TRIPSLIST_NAME = "tripsList";
 	private static final String DATEFORMAT_NAME = "dateFormat";
+	
+	
 
 	@Autowired
 	private TripsManager tripsManager;
@@ -74,5 +80,47 @@ public class TripsController {
 						lang.equalsIgnoreCase(UKRAINIAN) ? UKRAINIAN_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
 		return TRIPS_SPRING_NAME;
+	}
+	
+	@RequestMapping(value = MANAGETRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
+	public String printManageTripsPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap, Locale locale) {
+		long count = tripsManager.getTripsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		String lang = locale.getLanguage();
+		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForPage(
+				container.getPageNumber(), container.getResultsPerPage()));
+		modelMap.put(
+				DATEFORMAT_NAME,
+				new SimpleDateFormat(
+						lang.equalsIgnoreCase(UKRAINIAN) ? UKRAINIAN_DATE_FORMAT
+								: DEFAULT_DATE_FORMAT));
+		return MANAGETRIPSPAGE_SPRING_NAME;
+	}
+	
+	@RequestMapping(value = MANAGETRIPS_WEB_NAME, method = RequestMethod.GET)
+	public String printManageTrips(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap, Locale locale) {
+		long count = tripsManager.getTripsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		String lang = locale.getLanguage();
+		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForPage(
+				container.getPageNumber(), container.getResultsPerPage()));
+		modelMap.put(
+				DATEFORMAT_NAME,
+				new SimpleDateFormat(
+						lang.equalsIgnoreCase(UKRAINIAN) ? UKRAINIAN_DATE_FORMAT
+								: DEFAULT_DATE_FORMAT));
+		return MANAGETRIPS_SPRING_NAME;
 	}
 }

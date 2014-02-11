@@ -3,12 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<script type="text/javascript">
-	function confirm_delete() {
-		return confirm('Are you sure?');
-	}
-</script>
-
 <table style="align: center">
 	<thead>
 		<tr>
@@ -37,14 +31,14 @@
 				<td align="center"><a
 					href="editTransport/${transport.getTransportId()}"> <input
 						id="edit" type="button" name="edit"
-						value="<spring:message code="label.transport.edit"/>">
+						value="<spring:message code="label.edit"/>">
 				</a></td>
 
 				<td align="center"><a
 					href="removeTransport/${transport.getTransportId()}"> <input
 						id="delete" type="button" name="delete"
 						onclick="return confirm_delete()"
-						value="<spring:message code="label.transport.delete"/>">
+						value="<spring:message code="label.delete"/>">
 				</a></td>
 		</c:forEach>
 	</tbody>

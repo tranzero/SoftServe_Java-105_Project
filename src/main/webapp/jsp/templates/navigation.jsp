@@ -22,6 +22,7 @@
 			<li><a href="/SoftServe_Java-105/addnews"><spring:message code="label.navigation.addnews"/></a></li>
 			<li><a href="/SoftServe_Java-105/stations"><spring:message code="label.navigation.stations"/></a></li>
 			<li><a href="/SoftServe_Java-105/allLines"><spring:message code="label.navigation.allLines"/></a></li>
+			<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message code="label.navigation.managetrips"/></a></li>
 			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 			<li><a href="/SoftServe_Java-105/formTransport.htm"><spring:message code="label.navigation.addTransport"/></a></li>
 			
