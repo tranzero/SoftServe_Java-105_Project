@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Trips;
 
 /**
  * 
@@ -31,7 +32,20 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
          * @return List of lines which has certain station
          */
         
-
+    	@Override
+    	public long getLinesListCount() {
+    		return (long) find((Query)entityManager
+    					.createNamedQuery(Lines.GET_FULL_LINES_COUNT));
+    	}
+        
+    	@Override
+    	public List<Lines> getLinesForLimits(int firstElement, int count) {
+    		Query query = entityManager
+    				.createNamedQuery(Lines.GET_FULL_LINES)
+    				.setFirstResult(firstElement)
+    				.setMaxResults(count);
+    		return (List<Lines>)query.getResultList();
+    	}
         
         @Override
 		public Class<Lines> getEntityClass() {

@@ -35,4 +35,7 @@ public interface LinesManager extends BaseManager {
 	void updateLine(String lineName, String newLineName);
 	
 	public List<Lines> getLinesByStationName(String stationName);
+	public long getLinesListCount();
+	public List<Lines> getLinesForPage(int pageNumber, int count);
+	public List<Lines> getLinesForLimit(int firstElement, int count);
 }

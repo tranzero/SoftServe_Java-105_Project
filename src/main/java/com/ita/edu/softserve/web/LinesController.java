@@ -15,6 +15,8 @@ import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.utils.PageInfoContainer;
 
 @Controller
 public class LinesController {
@@ -29,6 +31,7 @@ public class LinesController {
 	String errorMsgKey = "errorMsg";
 
 	String allLines = "allLines";
+	String allLinesPage = "allLinesPage";
 	String allLinesAddLine = "newLine";
 	String editLinesEditLine = "editLines";
 	String deleteLines = "redirect:/allLines";
@@ -36,6 +39,10 @@ public class LinesController {
 	String editStations = "redirect:/editline/";
 	String addStations = "addStationsToLine";
 	String applyChanges = "redirect:/allLines";
+	
+	private PaginationManager paginationManager = PaginationManager
+			.getInstance();
+	
 	@Autowired
 	private LinesManager linesManager;
 
@@ -46,9 +53,33 @@ public class LinesController {
 	private StationOnLineManager stationOnLineManager;
 
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
-	public String allLines(Map<String, Object> modelMap) {
+	public String allLines(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+		long count = linesManager.getLinesListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		
 		modelMap.put("lines", linesManager.getFullLines());
 		return allLines;
+	}
+	
+	@RequestMapping(value = "/allLinesPage", method = RequestMethod.GET)
+	public String allLinesPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+		long count = linesManager.getLinesListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		
+		modelMap.put("lines", linesManager.getFullLines());
+		return allLinesPage;
 	}
 
 	@RequestMapping(value = "addline", method = RequestMethod.GET)

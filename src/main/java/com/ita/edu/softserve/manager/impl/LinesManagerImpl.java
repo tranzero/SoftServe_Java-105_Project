@@ -22,6 +22,7 @@ import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
 
@@ -199,4 +200,21 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public long getLinesListCount() {
+		return lineDao.getLinesListCount();
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesForPage(int pageNumber, int count) {
+		return getLinesForLimit((pageNumber-1)*count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesForLimit(int firstElement, int count) {
+		return lineDao.getLinesForLimits(firstElement, count);
+	}
 }

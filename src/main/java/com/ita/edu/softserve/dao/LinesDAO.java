@@ -20,5 +20,7 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 */
 	public Lines findByName(String lineName);
 	public List<Lines> getLinesByStationName(String stationName);
+	public List<Lines> getLinesForLimits(int firstElement, int count);
+	public long getLinesListCount();
 
 }
