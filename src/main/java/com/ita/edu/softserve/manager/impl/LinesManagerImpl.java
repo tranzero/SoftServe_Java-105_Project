@@ -112,20 +112,13 @@ public class LinesManagerImpl implements LinesManager {
 	
 	@Override
 	public int getLinesByStationCount(String stationName){
-		Stations station = stationDao.findByStations(stationName).get(0);
-		return stlDao.getLinesByStationCount(station
-				.getStationId());
+	
+		return lineDao.getLinesByStationNameCount(stationName);
 	}
 
 	@Override
 	public List<Lines> getLinesByStationForPage(int from,int count, String stationName){
-		Stations station = stationDao.findByStations(stationName).get(0);
-		List<StationsOnLine> stlList = stlDao.getLinesByStationForOnePage(from, count,station
-				.getStationId());
-		List<Lines> linesList = new ArrayList<Lines>();
-		for (StationsOnLine stl : stlList) {
-			linesList.add(stl.getLineId());
-		}
+		List<Lines> linesList = lineDao.getLinesByStationForOnePage(from, count, stationName);
 		return linesList;
 	}
 	/**
