@@ -24,5 +24,4 @@
 	</table>
 	<input type="submit" value="Confirm">
 	</form>
-	<br>  <a class="button" href="confirmcreating">Confirm</a>
 </section>
