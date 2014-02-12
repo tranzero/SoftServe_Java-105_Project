@@ -4,36 +4,35 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <section id="content">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<h2 align="center">
-		<spring:message code="label.navigation.transport" />
+		<spring:message code="label.navigation.route" />
 	</h2>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
 				<tr>
-					<th><spring:message code="label.transport.transportcode" /></th>
-					<th><spring:message code="label.transport.starttime" /></th>
 					<th><spring:message code="label.routes.routecode" /></th>
 					<th><spring:message code="label.lines.linename" /></th>
-					<th><spring:message code="label.transport.seatclass1" /></th>
-					<th><spring:message code="label.transport.seatclass2" /></th>
-					<th><spring:message code="label.transport.seatclass3" /></th>
-					<th><spring:message code="label.transport.genprice" /></th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${transportsList}" var="transport">
+				<c:forEach var="route" items="${routesList}">
 					<tr>
-						<td align="center">${transport.getTransportCode()}</td>
-						<td align="center">${transport.getStartTime()}</td>
-						<td align="center">${transport.getRoutes().getRouteCode()}</td>
+						<td align="center">${route.getRouteCode()}</td>
+						<td align="center">${route.getLineId().getLineName()}</td>
 						<td align="center"><a
-							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td>
-						<td align="center">${transport.getSeatclass1()}</td>
-						<td align="center">${transport.getSeatclass2()}</td>
-						<td align="center">${transport.getSeatclass3()}</td>
-						<td align="center">${transport.getGenPrice()}</td>
-					</tr>
+							href="editRoute/${route.getRouteId()}"> <input
+								id="edit" type="button" name="edit"
+								value="<spring:message code="label.edit"/>">
+						</a></td>
+
+						<td align="center"><a
+							href="deleteRoute/${route.getRouteId()}"> <input
+								id="delete" type="button" name="delete"
+								onclick="return confirm_delete()"
+								value="<spring:message code="label.delete"/>">
+						</a></td>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -86,33 +85,40 @@
 			</ul>
 		</div>
 	</div>
-			<script>
-		function showTripsPage(pageNumber_, resultsPerPage_) {
+	
+<script type="text/javascript">
+	function confirm_delete() {
+		return confirm('Are you sure?');
+	}
+</script>
+	<script>
 
-			$.ajax({
-				async : true,
-				beforeSend : function() {
-					$("div#result")
-					.html(
-							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-					},
-					type : "GET",
-					url : "transportpageView",
-					data : {
-						pageNumber : pageNumber_,
-						resultsPerPage : resultsPerPage_
-						}
-					}).done(function(msg) {
-						$("div#result").html(msg);
-						});
+		function showRoutePage(pageNumber_, resultsPerPage_) {
+			$
+					.ajax(
+							{
+								async : true,
+								beforeSend : function() {
+									$("div#pagingcontent")
+											.html(
+													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+								},
+								type : "GET",
+								url : "routesAllEditPage",
+								data : {
+									pageNumber : pageNumber_,
+									resultsPerPage : resultsPerPage_
+								}
+
+							}).done(function(msg) {
+						$("div#pagingcontent").html(msg);
+					});
+
 		}
+		
 
 		$(window).load(function() {
-
-			showTripsPage("${pageNumber}", "${resultsPerPage}");
-
+			showTransportPage("${pageNumber}", "${resultsPerPage}");
 		});
-		
 	</script>
 </section>
- 

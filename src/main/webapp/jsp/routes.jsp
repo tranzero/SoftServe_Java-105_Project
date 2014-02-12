@@ -1,50 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Routes</title>
-</head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<body>-->
+<script type="text/javascript">
+	function confirm_delete() {
+		return confirm('Are you sure?');
+	}
+</script>
+
 <section id="content">
-<div id="routesPage">
-	<div id="routesMenu">
-	
-		<b>Return Routes of transports that are arriving to certain station during certain times</b>
-		<form action="routesSearch" method="get">
-			idStationArriving: <input type="text" name="idStationArriving"></input>
-			timeArrivalMin: <input type="text" name="timeArrivalMin"></input>
-			timeArrivalMax: <input type="text" name="timeArrivalMax"></input>
-			<input type="submit" name="submit" value ="Search"></input>
-		</form>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<h2 align="center">
+		<spring:message code="label.navigation.route" />
+	</h2>
+	<div id="pagingcontent">
+		<table style="align: center">
+			<thead>
+				<tr>
+					<th><spring:message code="label.routes.routecode" /></th>
+					<th><spring:message code="label.lines.linename" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="route" items="${routesList}">
+					<tr>
+						<td align="center">${route.getRouteCode()}</td>
+						<td align="center">${route.getLineId().getLineName()}</td>
+					</tr>	
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="pagination">
+			<ul class="bootpag">
+				<c:if test="${pageNumber>1}">
+					<li class="prev"><a
+						href="?pageNumber=1&resultsPerPage=${resultsPerPage}"> « </a></li>
+					<li class="prev"><a
+						href="?pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+							<spring:message code="label.prev" />
+					</a></li>
+				</c:if>
+				<c:if test="${pageNumber==1}">
+					<li class="prev disabled"><a href="javascript:void(0);"> «
+					</a></li>
+					<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
+								code="label.prev" />
+					</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${firstPage}" end="${lastPage}" step="1"
+					varStatus="status">
+					<c:if test="${pageNumber!=i}">
+						<li><a
+							href="?pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+								${i} </a></li>
+					</c:if>
+					<c:if test="${pageNumber==i}">
+						<li class="disabled"><a href="javascript:void(0);"> ${i}
+						</a></li>
+					</c:if>
+				</c:forEach>
+
+				<c:if test="${pageNumber<maxPages}">
+					<li class="next"><a
+						href="?pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+							<spring:message code="label.next" />
+					</a></li>
+					<li class="next"><a
+						href="?pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+							» </a></li>
+				</c:if>
+				<c:if test="${pageNumber==maxPages}">
+					<li class="next disabled"><a href="javascript:void(0);"> <spring:message
+								code="label.next" />
+					</a></li>
+					<li class="next disabled"><a href="javascript:void(0);"> »
+					</a></li>
+				</c:if>
+			</ul>
+		</div>
 	</div>
-	<hr />
-	<table class='tableRoutes'>
-		<thead>
-			<tr>
-				<th>routeId</th>
-				<th>LineId</th>
-				<th>RouteCode</th>
-				<th>StartTime</th>
-			</tr>
-		</thead>
-	<tbody>
-		<c:forEach var="routes" items="${RoutesList}">
-			<tr>
-				<td>${routesArriving.getRouteId()}</td>
-				<td>${routesArriving.getLineId().getLineName()}</td>
-				<td>${routesArriving.getRouteCode()}</td>
-				<td>${routesArriving.getStartTime()}</td>
-			</tr>
-		</c:forEach>
-		</tbody>
-	</table>
+	<script>
+		function showRoutePage(pageNumber_, resultsPerPage_) {
+			$
+					.ajax(
+							{
+								async : true,
+								beforeSend : function() {
+									$("div#pagingcontent")
+											.html(
+													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+								},
+								type : "GET",
+								url : "routesPage",
+								data : {
+									pageNumber : pageNumber_,
+									resultsPerPage : resultsPerPage_
+								}
 
+							}).done(function(msg) {
+						$("div#pagingcontent").html(msg);
+					});
 
-</div>
-</section><!-- 
-</body>
-</html> -->
+		}
+		
+
+		$(window).load(function() {
+			showTransportPage("${pageNumber}", "${resultsPerPage}");
+		});
+	</script>
+</section>

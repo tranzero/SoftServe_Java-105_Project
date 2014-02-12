@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
-
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -112,19 +111,65 @@ public class UserControllerPg {
 
 	}
 
-	// -----
-	/**
-	 * Shows userlist2
-	 * 
-	 * @param modelMap
-	 * @return userlist
-	 *//*
-	@RequestMapping(value = "userlist2", method = RequestMethod.GET)
-	public String getAllUser(Map<String, Object> modelMap) {
-		modelMap.put("userList2", usersmanage.findAllUsers());
-		return "userlist2";
-	}*/
+	
 
+	//-------------------------------------
+	/**
+	 * Update user to DB - RequestMethod.GET
+	 * 
+	 * @param usId
+	 * @param modelMap
+	 * @return userEdit
+	 */
+	@RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
+	public String editUser(@PathVariable("user") Integer usId,
+			Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
+		return "userEdit";
+	}
+
+	/**
+	 * Update user to DB - RequestMethod.POST
+	 * 
+	 * @param userId
+	 * @param firstName
+	 * @param lastName
+	 * @param eMail
+	 * @param passwd
+	 * @param role
+	 * @return userEdit
+	 */
+	@RequestMapping(value = "/userEditpg/{userToEdit}", method = RequestMethod.POST)
+	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
+			@ModelAttribute("userFirstName") String firstName,
+			@ModelAttribute("lastName") String lastName,
+			@ModelAttribute("eMail") String eMail,
+			@ModelAttribute("passwd") String passwd,
+			@ModelAttribute("role") Role role
+
+	) {
+		usersmanage
+				.updateUser(userId, firstName, lastName, eMail, passwd, role);
+		return "redirect:/userlist2";
+	}
+
+	
+	/**
+	 * Delete user
+	 * 
+	 * @param userId
+	 * @return userlist
+	 */
+	@RequestMapping("/userdelpg/{userr}")
+	public String deleteUser(@PathVariable("userr") Integer userId) {
+		usersmanage.removeUser(userId);
+		return "redirect:/userlist2";
+	}
+	
+	
+	
+	
 	
 
 	
