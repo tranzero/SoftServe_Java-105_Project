@@ -74,6 +74,11 @@
 	<definition name="errorPage" extends="base-template">
 	  	<put-attribute name="content" value="/jsp/error/errorPage.jsp" />
 	</definition>
+	
+	<definition name="login" extends="base-template">
+	  	<put-attribute name="content" value="/jsp/login.jsp" />
+	</definition>
+	
 <!-- 	<definition name="managenews" extends="base-template"> -->
 <!-- 		<put-attribute name = "title" value = "View: News Maneger"/>	 -->
 <!-- 		<put-attribute name="content" value="/jsp/managenews.jsp" /> -->
