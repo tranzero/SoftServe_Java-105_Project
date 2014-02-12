@@ -214,30 +214,48 @@ public class LinesController {
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.POST)
 	public String linesByStationPost(
-			@RequestParam(value = "stationname") String stationName,
-			@RequestParam(value ="pageNumber") int pageNumber,
-			@RequestParam(value ="resultsPerPage") int resultsPerPage,
+			@ModelAttribute(value = "stationname") String stationName,
+			//@RequestParam(value ="pageNumber") int pageNumber,
+			//@RequestParam(value ="resultsPerPage") int resultsPerPage,
 			Map<String, Object> modelMap) {
-		int maxPageCount = 0;
-		int resultCount = 0;
+		//int maxPageCount = 0;
+		//int resultCount = 0;
+		
 		modelMap.put("stationName", stationName);
-		resultCount = linesManager.getLinesByStationCount(stationName);
-		modelMap.put("maxResultCount", resultCount);
-		maxPageCount = pageMan.getMaxPageCount(resultsPerPage, (long)resultCount);
-		modelMap.put("maxPageCount", maxPageCount);
-		int currentPagingPosition = pageMan.getCurrentPagingPosition(pageNumber, resultsPerPage);
-		modelMap.put("pageNumber", pageNumber);
-		modelMap.put("resultsPerPage", resultsPerPage);
-		modelMap.put("linesbystationlist",
-				linesManager.getLinesByStationForPage(currentPagingPosition, resultsPerPage, stationName));
-
-		return "linesbystationresult";
+		//resultCount = linesManager.getLinesByStationCount(stationName);
+		//modelMap.put("maxResultCount", resultCount);
+		//maxPageCount = pageMan.getMaxPageCount(resultsPerPage, (long)resultCount);
+		//modelMap.put("maxPageCount", maxPageCount);
+		//int currentPagingPosition = pageMan.getCurrentPagingPosition(pageNumber, resultsPerPage);
+		//modelMap.put("pageNumber", pageNumber);
+		//modelMap.put("resultsPerPage", resultsPerPage);
+		//modelMap.put("linesbystationlist",
+		//		linesManager.getLinesByStationForPage(currentPagingPosition, resultsPerPage, stationName));
+		modelMap.put("pageNumber" , pageMan.getDefaultPageNumber());
+		modelMap.put("resultsPerPage", pageMan.getDefaultResultPerPage());
+		modelMap.put("sizeOfPaging", pageMan.getDefaultPageCount());
+		return "linesbystation";
 
 	}
 	@RequestMapping(value = "/linesbystationresult", method =
 	RequestMethod.POST)
-	public String linesByStationGet(Map<String, Object> modelMap) {
-
+	public String linesByStationGet(
+			@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("resultsPerPage") int resultsPerPage, 
+			@RequestParam("searchRequest") String searchRequest,
+			Map<String, Object> modelMap) {
+		System.out.println(searchRequest);
+		long resultCount = linesManager.getLinesByStationCount(searchRequest);
+		modelMap.put("maxResultCount", resultCount);
+		int maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
+		modelMap.put("maxPageCount", maxPageCount);
+		int currentPagingPosition = pageMan.getCurrentPagingPosition(
+				pageNumber, resultsPerPage);
+		modelMap.put("pageNumber", pageNumber);
+		modelMap.put("resultsPerPage", resultsPerPage);
+		modelMap.put("searchRequest", searchRequest);
+		modelMap.put("linesbystationlist",
+				linesManager.getLinesByStationForPage(currentPagingPosition-1, resultsPerPage, searchRequest));
 			return "linesbystationresult";
 	
 	 }
