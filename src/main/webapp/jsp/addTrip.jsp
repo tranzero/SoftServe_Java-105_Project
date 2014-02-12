@@ -11,8 +11,11 @@
 
 <section id="content">
 	<h2 align="center">
-		<spring:message code="label.navigation.transport" />
+		<spring:message code="label.addtrips.addtrips" />
 	</h2>
+	<h3>
+		<spring:message code="label.addtrips.choosetransport" />
+	</h3>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
@@ -33,25 +36,11 @@
 						<td align="center">${transport.getTransportCode()}</td>
 						<td align="center">${transport.getStartTime()}</td>
 						<td align="center">${transport.getRoutes().getRouteCode()}</td>
-						<td align="center"><a
-							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td>
+						<td align="center">${transport.getRoutes().getLineId().getLineName()}</td>
 						<td align="center">${transport.getSeatclass1()}</td>
 						<td align="center">${transport.getSeatclass2()}</td>
 						<td align="center">${transport.getSeatclass3()}</td>
 						<td align="center">${transport.getGenPrice()}</td>
-
-						<td align="center"><a
-							href="editTransport/${transport.getTransportId()}"> <input
-								id="edit" type="button" name="edit"
-								value="<spring:message code="label.edit"/>">
-						</a></td>
-
-						<td align="center"><a
-							href="removeTransport/${transport.getTransportId()}"> <input
-								id="delete" type="button" name="delete"
-								onclick="return confirm_delete()"
-								value="<spring:message code="label.delete"/>">
-						</a></td>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -105,7 +94,7 @@
 		</div>
 	</div>
 	<script>
-		function showTransportPage(pageNumber_, resultsPerPage_) {
+		function showAddTripPage(pageNumber_, resultsPerPage_) {
 			$
 					.ajax(
 							{
@@ -116,7 +105,7 @@
 													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 								},
 								type : "GET",
-								url : "transportpage",
+								url : "addTripPage",
 								data : {
 									pageNumber : pageNumber_,
 									resultsPerPage : resultsPerPage_
@@ -130,7 +119,7 @@
 		}
 
 		$(window).load(function() {
-			showTransportPage("${pageNumber}", "${resultsPerPage}");
+			showAddTripPage("${pageNumber}", "${resultsPerPage}");
 
 		});
 	</script>
