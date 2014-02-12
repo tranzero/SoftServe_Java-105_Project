@@ -110,7 +110,7 @@ public class LinesManagerImpl implements LinesManager {
 	}
 
 	@Override
-	public int getLinesByStationCount(String stationName) {
+	public long getLinesByStationCount(String stationName) {
 
 		return lineDao.getLinesByStationNameCount(stationName);
 	}

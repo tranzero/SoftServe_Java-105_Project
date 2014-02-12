@@ -199,9 +199,10 @@ public class LinesController {
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("LinesList",
-				linesManager.getLinesByTwoStForPage(stationName1, stationName2, (int)pageNumber, (int)resultsPerPage));
-//				linesManager.getLinesByTwoStations(stationName1, stationName2));
+		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
+				stationName1, stationName2, (int) pageNumber,
+				(int) resultsPerPage));
+		// linesManager.getLinesByTwoStations(stationName1, stationName2));
 
 		return "linesbytwostationsPage";
 	}
@@ -211,50 +212,53 @@ public class LinesController {
 			@RequestParam(value = "stationName", required = false) String stationName,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap){
-		
-		if (stationName == null || stationName.equals("") ) {
+			Map<String, Object> modelMap) {
+
+		if (stationName == null || stationName.equals("")) {
 			return "linesbystation";
 		}
-		
+
 		long count = linesManager.getLinesByStationCount(stationName);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("linesbystationlist",
-				linesManager.getLinesByStationName(stationName));
+		modelMap.put(
+				"linesbystationlist",
+				linesManager.getLinesByStNameForPage(stationName,
+						container.getPageNumber(),
+						container.getResultsPerPage()));
 
 		return "linesbystation";
 
 	}
 
-
-	@RequestMapping(value = "/linesbystationresult", method =
-	RequestMethod.GET)
+	@RequestMapping(value = "/linesbystationresult", method = RequestMethod.GET)
 	public String linesByStationresult(
 			@RequestParam(value = "stationName", required = false) String stationName,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
-		
-		if (stationName == null || stationName.equals("") ) {
-			return "linesbystation";
+
+		if (stationName == null || stationName.equals("")) {
+			return "linesbystationresult";
 		}
-		
+
 		long count = linesManager.getLinesByStationCount(stationName);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("linesbystationlist",
-				linesManager.getLinesByStNameForPage(stationName,  (int)pageNumber, (int)resultsPerPage));
-		
+		modelMap.put(
+				"linesbystationlist",
+				linesManager.getLinesByStNameForPage(stationName,
+						container.getPageNumber(),
+						container.getResultsPerPage()));
+
 		return "linesbystationresult";
-	
-	 }
+
+	}
 
 }
-

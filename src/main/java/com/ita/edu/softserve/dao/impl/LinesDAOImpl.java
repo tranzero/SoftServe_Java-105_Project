@@ -47,9 +47,9 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	}
 
 	@Override
-	public int getLinesByStationNameCount(String stationName) {
+	public long getLinesByStationNameCount(String stationName) {
 
-		return (int) find((Query) entityManager.createNamedQuery(
+		return (long) find((Query) entityManager.createNamedQuery(
 				Lines.FIND_BY_STATION_NAME_COUNT).setParameter(1, stationName));
 	}
 
