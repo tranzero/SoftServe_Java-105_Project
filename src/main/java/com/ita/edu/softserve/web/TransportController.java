@@ -32,12 +32,7 @@ public class TransportController {
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
-	/**
-	 * Prints transports in browser.
-	 * 
-	 * @param modelMap
-	 * @return
-	 */
+
 	@RequestMapping(value = "/transport", method = RequestMethod.GET)
 	public String printTransports(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
