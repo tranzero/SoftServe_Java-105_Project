@@ -206,30 +206,40 @@ public class LinesController {
 	}
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.GET)
-	public String linesByStationGet() {
-
+	public String linesByStationGet(){
 		return "linesbystation";
 
 	}
 
 	@RequestMapping(value = "/linesbystation", method = RequestMethod.POST)
 	public String linesByStationPost(
-			@ModelAttribute("stationname") String stationName,
+			@RequestParam(value = "stationname") String stationName,
+			@RequestParam(value ="pageNumber") int pageNumber,
+			@RequestParam(value ="resultsPerPage") int resultsPerPage,
 			Map<String, Object> modelMap) {
+		int maxPageCount = 0;
+		int resultCount = 0;
 		modelMap.put("stationName", stationName);
+		resultCount = linesManager.getLinesByStationCount(stationName);
+		modelMap.put("maxResultCount", resultCount);
+		maxPageCount = pageMan.getMaxPageCount(resultsPerPage, (long)resultCount);
+		modelMap.put("maxPageCount", maxPageCount);
+		int currentPagingPosition = pageMan.getCurrentPagingPosition(pageNumber, resultsPerPage);
+		modelMap.put("pageNumber", pageNumber);
+		modelMap.put("resultsPerPage", resultsPerPage);
 		modelMap.put("linesbystationlist",
-				linesManager.getLinesByStationName(stationName));
+				linesManager.getLinesByStationForPage(currentPagingPosition, resultsPerPage, stationName));
+
 		return "linesbystationresult";
 
 	}
-	// @RequestMapping(value = "/linesbystationresult", method =
-	// RequestMethod.GET)
-	// public String linesByStationGet(String stationName,Map<String, Object>
-	// modelMap) {
-	//
-	// return "linesbystation";
-	//
-	// }
-	//
+	@RequestMapping(value = "/linesbystationresult", method =
+	RequestMethod.POST)
+	public String linesByStationGet(Map<String, Object> modelMap) {
+
+			return "linesbystationresult";
+	
+	 }
 
 }
+
