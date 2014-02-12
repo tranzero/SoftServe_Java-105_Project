@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.UsersDAO;
+
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
+
+import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
 
@@ -26,6 +29,9 @@ public class UserManagerImpl implements UserManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
+	
+	/*private static final Logger LOGGER = Logger.getLogger(UsersManagerExeption.class);
+	*/
 
 	@Autowired
 	private UsersDAO userDao;
@@ -129,4 +135,28 @@ public class UserManagerImpl implements UserManager {
 		return (Users) userDao.findByUsername(username);
 	}
 
+	// for paging
+
+	@Override
+	public long getUsersListCount() throws UsersManagerExeption {
+		try {
+			return userDao.getUsersListCount();
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new UsersManagerExeption("Could not get Users list count", e);
+		}
+	}
+
+	@Override
+	public List<Users> getUsersForPage(int from, int count)
+			throws UsersManagerExeption {
+		try {
+			return userDao.getUsersForOnePage(from-1, count);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new UsersManagerExeption("Could not get Users for one page",
+					e);
+		}
+
+	}
 }

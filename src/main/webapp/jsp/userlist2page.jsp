@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ page session="true"%>
 
-<section id="content">
-	<h1>List of Users</h1>
-
-	<hr />
-
-	<table class='table'>
+<c:if test="${!empty userList}">
+	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
+	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
 	
+	<table>
+		
 		<thead>
 			<tr>
 				<th>Num</th>
@@ -35,20 +33,18 @@
 					<td>${user.getRole().getDescription()}</td>
 					<td>${user.getRegDate()}</td>
 
-					<td><a href="userEdit/${user.getUserId()}"> <input
-							id="userEdit" type="button" name="userEdit" value="EDIT User">
-					</a></br></td>					
+										
 
-					<td><a href="userdel/${user.getUserId()}" 
-					onclick="return confirm_delete()"> <input
-							id="userdel" type="button" name="userdel" value="DELETE">
-					</a></br></td>
+					
 
 				</tr>
 			</c:forEach>
 		</tbody>
 		
 	</table>
-	<hr />
 	
-</section>
+	
+</c:if>
+<c:if test="${empty userList}">
+	<p>No results.</p>
+</c:if>

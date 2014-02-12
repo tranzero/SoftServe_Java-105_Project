@@ -3,81 +3,82 @@
 "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
-    <!-- Templates -->
-	<definition name = "base-template" template = "/jsp/templates/base-template.jsp">
-		<put-attribute name="title" value="Default title"/>
-		<put-attribute name = "header" value = "/jsp/templates/header.jsp" />
-		<put-attribute name = "navigation" value = "/jsp/templates/navigation.jsp" />
-		<put-attribute name = "content" value = ""/>
-		<put-attribute name = "footer" value = "/jsp/templates/footer.jsp"/>
+	<!-- Templates -->
+	<definition name="base-template" template="/jsp/templates/base-template.jsp">
+		<put-attribute name="title" value="Default title" />
+		<put-attribute name="header" value="/jsp/templates/header.jsp" />
+		<put-attribute name="navigation" value="/jsp/templates/navigation.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/jsp/templates/footer.jsp" />
 	</definition>
 	<definition name="ajax" template="/jsp/templates/ajaxLayout.jsp">
 		<put-attribute name="content" value="" />
 	</definition>
 	<definition name="mainpage" extends="base-template">
-		<put-attribute name = "title" value = "View: News"/>	
+		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpage.jsp" />
 	</definition>
 	<definition name="managenews" extends="base-template">
-		<put-attribute name = "title" value = "View: News Manager"/>	
+		<put-attribute name="title" value="View: News Manager" />
 		<put-attribute name="content" value="/jsp/managenews.jsp" />
 	</definition>
 	<definition name="mainpagepost" extends="ajax">
-		<put-attribute name = "title" value = "View: News"/>
+		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />
 	</definition>
 	<definition name="managenewspost" extends="ajax">
-		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/managenewspost.jsp" />
 	</definition>
-
-
+	<definition name="userlist2" extends="base-template">
+		<put-attribute name="title" value="View: News" />
+		<put-attribute name="content" value="/jsp/userlist2.jsp" />
+	</definition>
+	<definition name="userlist2page" extends="ajax">
+		<put-attribute name="title" value="View: userlist2page" />
+		<put-attribute name="content" value="/jsp/userlist2page.jsp" />
+	</definition>
 	<definition name="tripspage" extends="ajax">
-		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/tripspage.jsp" />
 	</definition>
 	<definition name="tripsmanagerpage" extends="ajax">
-		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/tripsmanagerpage.jsp" />
 	</definition>
 	<definition name="transportpage" extends="ajax">
-		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/transportpage.jsp" />
 	</definition>
 	<definition name="allLinesPage" extends="ajax">
-		<put-attribute name = "title" value = "View: News Maneger"/>
+		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/allLinesPage.jsp" />
-	</definition>				
+	</definition>
 
 	<definition name="404" extends="base-template">
-	  	<put-attribute name="content" value="/jsp/error/404.jsp" />
+		<put-attribute name="content" value="/jsp/error/404.jsp" />
 	</definition>
 
 	<definition name="errorPage" extends="base-template">
-	  	<put-attribute name="content" value="/jsp/error/errorPage.jsp" />
+		<put-attribute name="content" value="/jsp/error/errorPage.jsp" />
 	</definition>
-<!-- 	<definition name="managenews" extends="base-template"> -->
-<!-- 		<put-attribute name = "title" value = "View: News Maneger"/>	 -->
-<!-- 		<put-attribute name="content" value="/jsp/managenews.jsp" /> -->
-<!-- 	</definition> -->
-	
-	<!--  <definition name = "index" extends = "base-template">
-		<put-attribute name = "title" value = ""/>
-		<put-attribute name = "content" value = "/jsp/index.jsp"/>
+	<!-- <definition name="managenews" extends="base-template"> -->
+	<!-- <put-attribute name = "title" value = "View: News Maneger"/> -->
+	<!-- <put-attribute name="content" value="/jsp/managenews.jsp" /> -->
+	<!-- </definition> -->
+
+	<!-- <definition name = "index" extends = "base-template"> <put-attribute 
+		name = "title" value = ""/> <put-attribute name = "content" value = "/jsp/index.jsp"/> 
+		</definition> <definition name = "indexwithdiv" extends = "base-template"> 
+		<put-attribute name = "title" value = ""/> <put-attribute name = "content" 
+		value = "/jsp/indexwithdiv.jsp"/> </definition> -->
+	<!-- <definition name = "info" extends = "base-template" > <put-attribute 
+		name = "title" value = "View: info"/> <put-attribute name = "content" value 
+		= "/jsp/templates/layouts/info.jsp"/> </definition> -->
+	<definition name="*" extends="base-template">
+		<put-attribute name="title" value="View: {1}" />
+		<put-attribute name="content" value="/jsp/{1}.jsp" />
 	</definition>
-	<definition name = "indexwithdiv" extends = "base-template">
-		<put-attribute name = "title" value = ""/>
-		<put-attribute name = "content" value = "/jsp/indexwithdiv.jsp"/>
-	</definition>-->	
-	<!-- 
-	<definition name = "info" extends = "base-template" >
-		<put-attribute name = "title" value = "View: info"/>
-		<put-attribute name = "content" value = "/jsp/templates/layouts/info.jsp"/>
-	</definition> -->
-	 <definition name="*" extends="base-template">
-		<put-attribute name = "title" value = "View: {1}"/>		
-		<put-attribute name = "content" value = "/jsp/{1}.jsp"/>
-	</definition>
-	
-	
+
+
 </tiles-definitions>
