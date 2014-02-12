@@ -35,18 +35,19 @@ public class OrdersDAOImpl extends AbstractDAO<Orders> implements OrdersDAO {
 	@Override
 	public long getOrdersListCount() {
 		return (long) find((Query)entityManager
-					.createNamedQuery(Orders.FIND_ORDERS_LIST_COUNT));
+					.createNamedQuery(Orders.FIND_ORDER_LIST_COUNT));
 	}
 	
 	@Override
     public List<Orders> getOrdersForOnePage (int from, int count) {
-	return this.getOrdersForPaging(from, count);
+		
+		return this.getOrdersForPaging(from, count);
     }
 	
 	private List<Orders> getOrdersForPaging(int from, int count) {
 		Query query = entityManager
 			.createNamedQuery(
-					Orders.FIND_ORDERS_LIST_FOR_PAGING)
+					Orders.FIND_ORDER_LIST_FOR_PAGING)
 			.setFirstResult(from).setMaxResults(count);
 		return (List<Orders>)getRange(from, count, query);
 	    }

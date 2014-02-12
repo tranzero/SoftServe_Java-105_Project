@@ -63,7 +63,7 @@ public class OrdersController {
 		modelMap.put(pageNumberKey, pageNumber);
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put(ordersListKey, ordersManager.getOrdersForPage(
-				currentPagingPosition, resultsPerPage));
+				currentPagingPosition-1, resultsPerPage));
 
 		return PageOrdersOutPost;
 

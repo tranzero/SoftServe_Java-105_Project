@@ -17,7 +17,7 @@
           </tr>
           <tr>
               <td align="right"><spring:message code="label.login.password" /></td>
-              <td width="50%"><input type="text" id="password" placeholder="Password" name='j_password' /></td>
+              <td width="50%"><input type="password" id="password" placeholder="Password" name='j_password' /></td>
           </tr>
           <tr>
               <td align="right">
