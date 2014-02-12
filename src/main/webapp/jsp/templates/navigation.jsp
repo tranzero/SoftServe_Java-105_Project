@@ -13,7 +13,7 @@
 			<li><a href="/SoftServe_Java-105/trips"><spring:message code="label.navigation.trips"/></a></li>
 			<li><a href="/SoftServe_Java-105/transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
 			<li><a href="/SoftServe_Java-105/trips"><spring:message code="label.navigation.trips"/></a></li>
-			<li><a href="/SoftServe_Java-105/transportView"><spring:message code="label.navigation.transportTravel"/></a></li>
+			<li><a href="/SoftServe_Java-105/transportView"><spring:message code="label.navigation.transport"/></a></li>
 			<li><a href="/SoftServe_Java-105/routes"><spring:message code="label.navigation.route"/></a></li>
 			<li><a href="/SoftServe_Java-105/routesTrips"><spring:message code="label.navigation.routes"/></a></li>
 
@@ -28,7 +28,7 @@
 			<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message code="label.navigation.managetrips"/></a></li>
 			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 			<li><a href="/SoftServe_Java-105/addTrip"><spring:message code="label.navigation.addtrips"/></a></li>
-			<li><a href="/SoftServe_Java-105/transport"><spring:message code="label.transport.manage"/></a></li>		
+			<li><a href="/SoftServe_Java-105/transport"><spring:message code="label.navigation.transportManage"/></a></li>		
 		</ul>
 		</li>
 		<li><spring:message code="label.navigation.users"/>
