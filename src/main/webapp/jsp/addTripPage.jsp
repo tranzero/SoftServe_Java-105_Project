@@ -22,24 +22,11 @@
 				<td align="center">${transport.getTransportCode()}</td>
 				<td align="center">${transport.getStartTime()}</td>
 				<td align="center">${transport.getRoutes().getRouteCode()}</td>
-				<td align="center"><a
-					href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td>
+				<td align="center">${transport.getRoutes().getLineId().getLineName()}</td>
 				<td align="center">${transport.getSeatclass1()}</td>
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
 				<td align="center">${transport.getGenPrice()}</td>
-				<td align="center"><a
-					href="editTransport/${transport.getTransportId()}"> <input
-						id="edit" type="button" name="edit"
-						value="<spring:message code="label.edit"/>">
-				</a></td>
-
-				<td align="center"><a
-					href="removeTransport/${transport.getTransportId()}"> <input
-						id="delete" type="button" name="delete"
-						onclick="return confirm_delete()"
-						value="<spring:message code="label.delete"/>">
-				</a></td>
 		</c:forEach>
 	</tbody>
 </table>
@@ -47,9 +34,9 @@
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">
 			<li class="prev"><a href="javascript:void(0);"
-				onclick="showTransportPage(1, ${resultsPerPage})"> « </a></li>
+				onclick="showAddTripPage(1, ${resultsPerPage})"> « </a></li>
 			<li class="prev"><a href="javascript:void(0);"
-				onclick="showTransportPage(${pageNumber-1},${resultsPerPage})"> <spring:message
+				onclick="showAddTripPage(${pageNumber-1},${resultsPerPage})"> <spring:message
 						code="label.prev" />
 			</a></li>
 		</c:if>
@@ -63,7 +50,7 @@
 			varStatus="status">
 			<c:if test="${pageNumber!=i}">
 				<li><a href="javascript:void(0);"
-					onclick="showTransportPage(${i},${resultsPerPage})"> ${i} </a></li>
+					onclick="showAddTripPage(${i},${resultsPerPage})"> ${i} </a></li>
 			</c:if>
 			<c:if test="${pageNumber==i}">
 				<li class="disabled"><a href="javascript:void(0);"> ${i} </a></li>
@@ -72,11 +59,11 @@
 
 		<c:if test="${pageNumber<maxPages}">
 			<li class="next"><a href="javascript:void(0);"
-				onclick="showTransportPage(${pageNumber+1},${resultsPerPage})"> <spring:message
+				onclick="showAddTripPage(${pageNumber+1},${resultsPerPage})"> <spring:message
 						code="label.next" />
 			</a></li>
 			<li class="next"><a href="javascript:void(0);"
-				onclick="showTransportPage(${maxPages},${resultsPerPage})"> » </a></li>
+				onclick="showAddTripPage(${maxPages},${resultsPerPage})"> » </a></li>
 		</c:if>
 		<c:if test="${pageNumber==maxPages}">
 			<li class="next disabled"><a href="javascript:void(0);"> <spring:message

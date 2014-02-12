@@ -15,12 +15,15 @@
 	</div>
 	<div id="language">
 		<ul>
-			<li><img class="flag flag-ua" /><a href="?lang=ua">ua</a></li>
-			<li><img class="flag flag-en" /><a href="?lang=en">en</a></li>
+			<li><span class="flag flag-ua"></span><a href="?lang=ua">ua</a></li>
+			<li><span class="flag flag-en"></span><a href="?lang=en">en</a></li>
 		</ul>
-<%--
-		<div class="lang_ua"><a href="?lang=ua">ua</a></div>
-		<div class="lang_en"><a href="?lang=en">en</a></div>
---%>
+	</div>
+		<div id="social">
+		<ul>
+			<li><a href="#"><span class="icon fb_icon"></span></a></li>
+			<li><a href="#"><span class="icon vk_icon"></span></a></li>
+			<li><a href="#"><span class="icon rss_icon"></span></a></li>
+		</ul>
 	</div>
 </header>

@@ -1,9 +1,8 @@
 body {
-	background: url("../images/img01.png") repeat scroll 0 0 #f9f6e7;
+        background: url("../images/content_bg.png") repeat-x scroll 0 0 #D2D1D0;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	font-weight: 200;
-	letter-spacing: -0.02em;
 	color: #343434;
 }
 
@@ -95,8 +94,13 @@ input[type="text"]:focus
     box-shadow:0 0 2px #FFFE00;
 }
 
+span.flag {
+	width: 16px;
+	height: 11px;
+	display: inline-block;
+}
 .flag {
-	padding-right:4px;
+	padding-right: 4px;
 	width: 16px;
 	height: 11px;
 	background:url("../images/flags.png") no-repeat;
