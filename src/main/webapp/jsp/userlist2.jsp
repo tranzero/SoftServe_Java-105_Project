@@ -10,8 +10,8 @@ var pageUrl = "userlist2page";
 </script>
 
 
-<div id = "content">
+<section id = "content">
 	<div id="pagingcontent"></div>
 	<div id="pagecontent"></div>
 	<div id="pagination"></div>	
-</div>
+</section>
