@@ -26,9 +26,6 @@ public class LinesController {
 	String sizeOfPagingKey = "sizeOfPaging";
 	String maxPageCountKey = "maxPageCount";
 	String maxResultCountKey = "maxResultCount";
-	String newsListKey = "newsList";
-	String errorListKey = "errorList";
-	String errorMsgKey = "errorMsg";
 
 	String allLines = "allLines";
 	String allLinesPage = "allLinesPage";
@@ -39,10 +36,9 @@ public class LinesController {
 	String editStations = "redirect:/editline/";
 	String addStations = "addStationsToLine";
 	String applyChanges = "redirect:/allLines";
-	
-	private PaginationManager paginationManager = PaginationManager
-			.getInstance();
-	
+
+	private PaginationManager pageMan = PaginationManager.getInstance();
+
 	@Autowired
 	private LinesManager linesManager;
 
@@ -53,32 +49,32 @@ public class LinesController {
 	private StationOnLineManager stationOnLineManager;
 
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
-	public String allLines(
-			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
-			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
-		long count = linesManager.getLinesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-		
-		modelMap.put("lines", linesManager.getFullLines());
+	public String allLines(Map<String, Object> modelMap) {
+		modelMap.put(pageNumberKey, pageMan.getDefaultPageNumber());
+		modelMap.put(resultsPerPageKey, pageMan.getDefaultResultPerPage());
+		modelMap.put(sizeOfPagingKey, pageMan.getDefaultPageCount());
+		int maxPageCount = pageMan.getMaxPageCount(
+				pageMan.getDefaultResultPerPage(),
+				linesManager.getLinesListCount());
+		modelMap.put(maxPageCountKey, maxPageCount);
 		return allLines;
 	}
-	
-	@RequestMapping(value = "/allLinesPage", method = RequestMethod.GET)
-	public String allLinesPage(
-			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
-			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+
+	@RequestMapping(value = "/allLinesPage", method = RequestMethod.POST)
+	public String allLinesPage(@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("resultsPerPage") int resultsPerPage,
 			Map<String, Object> modelMap) {
-		long count = linesManager.getLinesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-		
-		modelMap.put("lines", linesManager.getFullLines());
+		long resultCount = linesManager.getLinesListCount();
+		modelMap.put(maxResultCountKey, resultCount);
+		int maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
+		modelMap.put(maxPageCountKey, maxPageCount);
+		int currentPagingPosition = pageMan.getCurrentPagingPosition(
+				pageNumber, resultsPerPage);
+		modelMap.put(pageNumberKey, pageNumber);
+		modelMap.put(resultsPerPageKey, resultsPerPage);
+		modelMap.put("lines", linesManager.getLinesForPage(
+				currentPagingPosition, resultsPerPage));
+
 		return allLinesPage;
 	}
 
@@ -165,16 +161,18 @@ public class LinesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		if (stationName1 == null || stationName2 == null || 
-				stationName1.equals("") || stationName2.equals("")) {
+		if (stationName1 == null || stationName2 == null
+				|| stationName1.equals("") || stationName2.equals("")) {
 			return "linesbytwostations";
 		}
-		
-		long count = linesManager.getLinesByTwoStListCount(stationName1, stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-		
+
+		long count = linesManager.getLinesByTwoStListCount(stationName1,
+				stationName2);
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		pageMan.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, pageMan);
+
 		modelMap.put("LinesList",
 				linesManager.getLinesByTwoStations(stationName1, stationName2));
 
@@ -189,16 +187,18 @@ public class LinesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		if (stationName1 == null || stationName2 == null || 
-				stationName1.equals("") || stationName2.equals("")) {
+		if (stationName1 == null || stationName2 == null
+				|| stationName1.equals("") || stationName2.equals("")) {
 			return "linesbytwostations";
 		}
-		
-		long count = linesManager.getLinesByTwoStListCount(stationName1, stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-		
+
+		long count = linesManager.getLinesByTwoStListCount(stationName1,
+				stationName2);
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		pageMan.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, pageMan);
+
 		modelMap.put("LinesList",
 				linesManager.getLinesByTwoStations(stationName1, stationName2));
 

@@ -5,6 +5,7 @@ package com.ita.edu.softserve.manager.impl;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.utils.Validator;
 
 
  
@@ -22,24 +23,7 @@ public final class PaginationManager {
 	public static final String LAST_PAGE_NAME = "lastPage";
 	
 	public void validatePaging(PageInfoContainer container){
-		if (container.getPageNumber()== null){
-			container.setPageNumber(new Integer(SingletonHolder.HOLDER_INSTANCE.defaultPageNumber));
-		}
-		else if (container.getPageNumber()<1){
-			container.setPageNumber(new Integer(SingletonHolder.HOLDER_INSTANCE.defaultPageNumber));
-		}
-		if (container.getResultsPerPage()==null){
-			container.setResultsPerPage(new Integer(SingletonHolder.HOLDER_INSTANCE.getDefaultResultPerPage()));
-		}
-		else if (container.getResultsPerPage()<1){
-			container.setResultsPerPage(new Integer(SingletonHolder.HOLDER_INSTANCE.getDefaultResultPerPage()));
-		}
-		
-		container.setMaxPages(SingletonHolder.HOLDER_INSTANCE.getMaxPageCount(
-				container.getResultsPerPage(), container.getCount()));
-		if (container.getPageNumber()>container.getMaxPages()){
-			container.setPageNumber(container.getMaxPages());
-		}
+		Validator.validatePaging(container, SingletonHolder.HOLDER_INSTANCE);
 	}
 	
 	

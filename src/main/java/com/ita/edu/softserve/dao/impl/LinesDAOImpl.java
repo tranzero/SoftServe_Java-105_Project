@@ -33,19 +33,6 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	 */
 
 	@Override
-	public long getLinesListCount() {
-		return (long) find((Query) entityManager
-				.createNamedQuery(Lines.GET_FULL_LINES_COUNT));
-	}
-
-	@Override
-	public List<Lines> getLinesForLimits(int firstElement, int count) {
-		Query query = entityManager.createNamedQuery(Lines.GET_FULL_LINES)
-				.setFirstResult(firstElement).setMaxResults(count);
-		return (List<Lines>) query.getResultList();
-	}
-
-	@Override
 	public Class<Lines> getEntityClass() {
 
 		return Lines.class;
@@ -110,4 +97,38 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 				.setParameter(1, stationName1).setParameter(2, stationName2));
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @return size of list with all lines
+	 */
+	@Override
+	public long getLinesListCount() {
+		return (long) find((Query) entityManager
+				.createNamedQuery(Lines.GET_LINES_LIST_COUNT));
+	}
+
+	/**
+	 * @author MatyashPetro
+	 * @return List of lines witch will be printed on one page
+	 * @param from from what element will be start next list
+	 * @param count how match elements will be in the list 
+	 */
+	@Override
+	public List<Lines> getLinesForOnePage(int from, int count) {
+		return this.getLinesForPaging(from, count);
+
+	}
+
+	/**
+	 * @author MatyashPetro
+	 * @return List of lines witch will be printed on one page
+	 * @param from from what element will be start next list
+	 * @param count how match elements will be in the list 
+	 */
+	private List<Lines> getLinesForPaging(int from, int count) {
+		Query query = entityManager
+				.createNamedQuery(Lines.GET_LINES_LIST_FOR_PAGING)
+				.setFirstResult(from).setMaxResults(count);
+		return (List<Lines>) getRange(from, count, query);
+	}
 }

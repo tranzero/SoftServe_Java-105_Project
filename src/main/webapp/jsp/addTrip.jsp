@@ -4,10 +4,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript">
-<!--
 	function confirm_delete() {
 		return confirm('Are you sure?');
-		//-->
 	}
 </script>
 
@@ -107,7 +105,6 @@
 		</div>
 	</div>
 	<script>
-	<!--
 		function showTransportPage(pageNumber_, resultsPerPage_) {
 			$
 					.ajax(
@@ -136,6 +133,5 @@
 			showTransportPage("${pageNumber}", "${resultsPerPage}");
 
 		});
-	//-->
 	</script>
 </section>
