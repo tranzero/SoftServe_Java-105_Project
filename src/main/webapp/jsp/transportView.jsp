@@ -3,22 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<script type="text/javascript">
-<!--
-	function confirm_delete() {
-		return confirm('Are you sure?');
-		//-->
-	}
-</script>
-
 <section id="content">
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
-	<a href="/SoftServe_Java-105/formTransport.htm"> <input id="Add"
-		type="button" name="add"
-		value="<spring:message code="label.transport.add"/>">
-	</a>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
@@ -45,19 +33,7 @@
 						<td align="center">${transport.getSeatclass2()}</td>
 						<td align="center">${transport.getSeatclass3()}</td>
 						<td align="center">${transport.getGenPrice()}</td>
-
-						<td align="center"><a
-							href="editTransport/${transport.getTransportId()}"> <input
-								id="edit" type="button" name="edit"
-								value="<spring:message code="label.edit"/>">
-						</a></td>
-
-						<td align="center"><a
-							href="removeTransport/${transport.getTransportId()}"> <input
-								id="delete" type="button" name="delete"
-								onclick="return confirm_delete()"
-								value="<spring:message code="label.delete"/>">
-						</a></td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -110,36 +86,34 @@
 			</ul>
 		</div>
 	</div>
-	<script>
-	<!--
-		function showTransportPage(pageNumber_, resultsPerPage_) {
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#pagingcontent")
-											.html(
-													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-								},
-								type : "GET",
-								url : "transportpage",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
+			<script>
+		function showTripsPage(pageNumber_, resultsPerPage_) {
 
-							}).done(function(msg) {
-						$("div#pagingcontent").html(msg);
+			$.ajax({
+				async : true,
+				beforeSend : function() {
+					$("div#result")
+					.html(
+							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+					},
+					type : "GET",
+					url : "transportpageView",
+					data : {
+						pageNumber : pageNumber_,
+						resultsPerPage : resultsPerPage_
+						}
+					}).done(function(msg) {
+						$("div#result").html(msg);
+						});
 
-					});
-
+			
 		}
 
 		$(window).load(function() {
-			showTransportPage("${pageNumber}", "${resultsPerPage}");
+
+			showTripsPage("${pageNumber}", "${resultsPerPage}");
 
 		});
-	//-->
+		
 	</script>
 </section>
