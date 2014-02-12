@@ -31,9 +31,10 @@ public class Lines extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Lines.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Lines u WHERE u.lineName = ?1";
-	// Query to find all lines
+	
 	public static final String GET_LINES_LIST_FOR_PAGING = "Lines.findLinesListForPaging";
 	public static final String GET_LINES_LIST_FOR_PAGING_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId";
+	
 	public static final String GET_LINES_LIST_COUNT = "Lines.findLinesListCount";
 	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) from Lines ln";
 	

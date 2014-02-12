@@ -15,7 +15,10 @@ import com.ita.edu.softserve.entity.Lines;
  * 
  */
 public interface LinesManager extends BaseManager {
-
+	/**
+	 * @author MatyashPetro
+	 * @return list with all lines
+	 */
 	public List<Lines> getFullLines();
 
 	public Lines findByLineName(String lineName);
@@ -30,16 +33,45 @@ public interface LinesManager extends BaseManager {
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2);
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be created
+	 */
 	public void createLine(String lineName);
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be deleted
+	 */
 	public void deleteLine(String lineName);
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be updated
+	 * @param newLineName
+	 *            new name of the line witch was updated
+	 */
 	void updateLine(String lineName, String newLineName);
 
 	public List<Lines> getLinesByStationName(String stationName);
 
+	/**
+	 * @author MatyashPetro
+	 * @return size of list with all lines
+	 */
 	public long getLinesListCount();
 
+	/**
+	 * @author MatyashPetro
+	 * @param from
+	 *            from what element will be start next list
+	 * @param count
+	 *            how match elements will be in the list
+	 * @return List of lines
+	 */
 	public List<Lines> getLinesForPage(int from, int count);
 
 	public long getLinesByTwoStListCount(String stationName1,

@@ -22,7 +22,6 @@ import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
 
@@ -77,9 +76,9 @@ public class LinesManagerImpl implements LinesManager {
 	}
 
 	/**
-	 * Return all Lines
+	 * @author MatyashPetro
+	 * @return list with all Lines
 	 * 
-	 * @return <code>List&lt;Lines&gt;</code>
 	 */
 	@Override
 	public List<Lines> getFullLines() {
@@ -147,6 +146,11 @@ public class LinesManagerImpl implements LinesManager {
 		return ManagerFactory.getManager(LinesManager.class);
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be created
+	 */
 	@Transactional
 	@Override
 	public void createLine(String lineName) {
@@ -160,6 +164,13 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be updated
+	 * @param newLineName
+	 *            new name of the line witch was updated
+	 */
 	@Transactional
 	@Override
 	public void updateLine(String lineName, String newLineName) {
@@ -179,6 +190,11 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @param lineName
+	 *            name of the line witch must be deleted
+	 */
 	@Transactional
 	@Override
 	public void deleteLine(String lineName) {
@@ -191,10 +207,8 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 
-	
-
 	@Transactional(readOnly = true)
-	@Override 
+	@Override
 	public long getLinesByTwoStListCount(String stationName1,
 			String stationName2) {
 		return lineDao.getLinesByTwoStListCount(stationName1, stationName2);
@@ -204,23 +218,37 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public List<Lines> getLinesByTwoStForPage(String stationName1,
 			String stationName2, int pageNumber, int count) {
-		return getLinesByTwoStForLimit(stationName1, stationName2, (pageNumber - 1) * count, count);
+		return getLinesByTwoStForLimit(stationName1, stationName2,
+				(pageNumber - 1) * count, count);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesByTwoStForLimit(String stationName1,
 			String stationName2, int firstElement, int count) {
-		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2, firstElement, count);
+		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2,
+				firstElement, count);
 	}
-	
+
+	/**
+	 * @author MatyashPetro
+	 * @return size of list with all lines
+	 */
 	@Override
-	public long getLinesListCount(){
+	public long getLinesListCount() {
 		return lineDao.getLinesListCount();
 	}
-	
+
+	/**
+	 * @author MatyashPetro
+	 * @param from
+	 *            from what element will be start next list
+	 * @param count
+	 *            how match elements will be in the list
+	 * @return List of lines
+	 */
 	@Override
-	public List<Lines> getLinesForPage(int from, int count){
+	public List<Lines> getLinesForPage(int from, int count) {
 		return lineDao.getLinesForOnePage(from - 1, count);
 	}
 }
