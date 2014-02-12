@@ -7,7 +7,6 @@
 <nav id="navigation">
 
 	<div id="container">
-		<<<<<<< HEAD
 		<ul class="menu">
 			<li><a href="/SoftServe_Java-105/mainpage"><spring:message
 						code="label.navigation.news" /></a></li>
