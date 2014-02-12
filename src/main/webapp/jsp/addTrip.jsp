@@ -14,12 +14,18 @@
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
-	<div id="pagingcontent">
 		<form>
+			<h3>
+				<spring:message code="label.addtrips.choosedateinterval" />
+			</h3>
+			<p>
+			<spring:message code="label.addtrips.from" />
+			<spring:message code="label.addtrips.to" />
+			<p>
 			<h3>
 				<spring:message code="label.addtrips.choosetransport" />
 			</h3>
-
+	<div id="pagingcontent">
 			<table style="align: center">
 				<thead>
 					<tr>
@@ -100,9 +106,9 @@
 					</c:if>
 				</ul>
 			</div>
-		</form>
+		
 	</div>
-
+</form>
 	<script>
 		function showAddTripPage(pageNumber_, resultsPerPage_) {
 			$
