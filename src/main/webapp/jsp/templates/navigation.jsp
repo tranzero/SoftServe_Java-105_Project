@@ -29,6 +29,7 @@
 			<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message code="label.navigation.managetrips"/></a></li>
 			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 			<li><a href="/SoftServe_Java-105/formTransport.htm"><spring:message code="label.navigation.addTransport"/></a></li>
+			<li><a href="/SoftServe_Java-105/addTrip"><spring:message code="label.navigation.addtrips"/></a></li>
 			
 		</ul>
 		</li>
@@ -39,32 +40,3 @@
 		</li>
 	</ul>
 </nav>
-<%--
-<span class = "navigationPoint"><a href="mainpage"><spring:message code="label.navigation.news"/></a></span>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.timetable"/></span>
-	<span class = "navigationPoint"><a href="stations"><spring:message code="label.navigation.stations"/></a></span>
-	<span class = "navigationPoint"><a href="routes"><spring:message code="label.navigation.routes"/></a></span>
-	<span class = "navigationPoint"><a href="transport"><spring:message code="label.navigation.transport"/></a></span>
-	<span class = "navigationPoint"><a href="transportTravel"><spring:message code="label.navigation.transportTravel"/></a></span>
-</nav>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.orders"/></span>
-</nav>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.editing"/></span>
-	<span class = "navigationPoint"><a href="addnews"><spring:message code="label.navigation.addnews"/></a></span>
-	<span class = "navigationPoint"><a href="addStation"><spring:message code="label.navigation.addStation"/></a></span>
-	<span class = "navigationPoint"><a href="allLines"><spring:message code="label.navigation.addLines"/></a></span>
-	<span class = "navigationPoint"><a href="linesbystation"><spring:message code="label.navigation.linesbystation"/></a></span>
-</nav>
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.users"/></span>
-	<span class = "navigationPoint"><a href="userlist"><spring:message code="label.navigation.userlist"/></a></span>
-</nav>
---%>
-
-<%-- </div> --%>
