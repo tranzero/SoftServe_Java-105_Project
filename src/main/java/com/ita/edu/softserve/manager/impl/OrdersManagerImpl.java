@@ -58,7 +58,8 @@ public class OrdersManagerImpl implements OrdersManager {
 
 	@Override
 	public List<Orders> getOrdersForPage(int from, int count) {
-		return ordersDao.getOrdersForOnePage(from, from);
+		
+		return ordersDao.getOrdersForOnePage(from, count);
 
 	}
 
