@@ -2,34 +2,44 @@
 	pageEncoding="UTF8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<table style="align: center">
-	<thead>
-		<tr>
-			<th><spring:message code="label.transport.transportcode" /></th>
-			<th><spring:message code="label.transport.starttime" /></th>
-			<th><spring:message code="label.routes.routecode" /></th>
-			<th><spring:message code="label.lines.linename" /></th>
-			<th><spring:message code="label.transport.seatclass1" /></th>
-			<th><spring:message code="label.transport.seatclass2" /></th>
-			<th><spring:message code="label.transport.seatclass3" /></th>
-			<th><spring:message code="label.transport.genprice" /></th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${transportsList}" var="transport">
+<form>
+	<h3>
+		<spring:message code="label.addtrips.choosetransport" />
+	</h3>
+	<table style="align: center">
+		<thead>
 			<tr>
-				<td align="center">${transport.getTransportCode()}</td>
-				<td align="center">${transport.getStartTime()}</td>
-				<td align="center">${transport.getRoutes().getRouteCode()}</td>
-				<td align="center">${transport.getRoutes().getLineId().getLineName()}</td>
-				<td align="center">${transport.getSeatclass1()}</td>
-				<td align="center">${transport.getSeatclass2()}</td>
-				<td align="center">${transport.getSeatclass3()}</td>
-				<td align="center">${transport.getGenPrice()}</td>
-		</c:forEach>
-	</tbody>
-</table>
+				<th></th>
+				<th><spring:message code="label.transport.transportcode" /></th>
+				<th><spring:message code="label.transport.starttime" /></th>
+				<th><spring:message code="label.routes.routecode" /></th>
+				<th><spring:message code="label.lines.linename" /></th>
+				<th><spring:message code="label.transport.seatclass1" /></th>
+				<th><spring:message code="label.transport.seatclass2" /></th>
+				<th><spring:message code="label.transport.seatclass3" /></th>
+				<th><spring:message code="label.transport.genprice" /></th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<c:forEach items="${transportsList}" var="transport">
+				<tr>
+
+					<td><input type="radio" name="transportid"
+						value="${transport.getTransportId()}" /></td>
+					<td align="center">${transport.getTransportCode()}</td>
+					<td align="center">${transport.getStartTime()}</td>
+					<td align="center">${transport.getRoutes().getRouteCode()}</td>
+					<td align="center">${transport.getRoutes().getLineId().getLineName()}</td>
+					<td align="center">${transport.getSeatclass1()}</td>
+					<td align="center">${transport.getSeatclass2()}</td>
+					<td align="center">${transport.getSeatclass3()}</td>
+					<td align="center">${transport.getGenPrice()}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</form>
 <div class="pagination">
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">

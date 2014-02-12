@@ -131,4 +131,10 @@ public class TripsController {
 		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap);
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
+	
+	@RequestMapping(value = "/addNewTrips", method = RequestMethod.GET)
+	public String printAddTripsPage(Map<String, Object> modelMap){
+		return MANAGETRIPS_SPRING_NAME;
+	}
+			
 }
