@@ -25,15 +25,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQueries({
 		@NamedQuery(name = Orders.FIND_ALL, query = Orders.FIND_ALL_QUERY),
 		@NamedQuery(name = Orders.FIND_BY_USERID, query = Orders.FIND_BY_USERID_QUERY),
-		@NamedQuery(name = Orders.FIND_ORDERS_LIST_COUNT, query = Orders.FIND_ORDERS_LIST_COUNT_QUERY),
-		@NamedQuery(name = Orders.FIND_ORDERS_LIST_FOR_PAGING, query = Orders.FIND_ORDERS_LIST_FOR_PAGING_QUERY) })
+		@NamedQuery(name = Orders.FIND_ORDER_LIST_COUNT, query = Orders.FIND_ORDER_LIST_COUNT_QUERY),
+		@NamedQuery(name = Orders.FIND_ORDER_LIST_FOR_PAGING, query = Orders.FIND_ORDER_LIST_FOR_PAGING_QUERY) })
 public class Orders extends BaseEntity {
 
-	public static final String FIND_ORDERS_LIST_COUNT = "Orders.findOrdersListCount";
-	public static final String FIND_ORDERS_LIST_COUNT_QUERY = "SELECT COUNT (orders.orderId) from Orders orders";
+	public static final String FIND_ORDER_LIST_COUNT = "Orders.findOrdersListCount";
+	public static final String FIND_ORDER_LIST_COUNT_QUERY = "SELECT COUNT (o.orderId) FROM Orders o";
 
-	public static final String FIND_ORDERS_LIST_FOR_PAGING = "Orders.findOrdersListForPaging";
-	public static final String FIND_ORDERS_LIST_FOR_PAGING_QUERY = "SELECT orders from Orders orders ORDER BY orders.orderId";
+	public static final String FIND_ORDER_LIST_FOR_PAGING = "Orders.findOrdersListForPaging";
+	public static final String FIND_ORDER_LIST_FOR_PAGING_QUERY = "SELECT o FROM Orders o ORDER BY o.orderId";
 
 	public static final String FIND_BY_USERID = "Orders.findByUserId";
 	public static final String FIND_BY_USERID_QUERY = "SELECT o FROM Orders o WHERE o.userId.userId = ?1";
