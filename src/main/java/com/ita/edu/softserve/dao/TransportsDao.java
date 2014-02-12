@@ -17,7 +17,7 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	Transports findByRouteId(int id);
 	
 	/**
-	 * Saves a Transport to database if not exist or update existing one.
+	 * Saves a Transport into the Transports table if not exist or updates existing one.
 	 */
 	void saveOrUpdate(Transports entity);
 	

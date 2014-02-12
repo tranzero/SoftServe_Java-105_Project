@@ -3,7 +3,6 @@ package com.ita.edu.softserve.manager;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
@@ -42,29 +41,21 @@ public interface TransportsManager extends BaseManager {
 	List<Transports> getAllTransports();
 
 	/**
-	 * Saves new transport into database otherwise update it.
+	 * Saves new transport into Transports table if not exist otherwise updates it.
 	 */
-//	public void saveOrUpdateTransport(String transportCode, String startTime,
-//			String route, String seatclass1, String seatclass2,
-//			String seatclass3, String genprice);
+	void saveOrUpdateTransport(Integer transportId, String transportCode, String startTime,
+			String routes, String seatclass1, String seatclass2, String seatclass3,
+			String genprice);
 
 	/**
-	 * Edits transport.
+	 * Gets transport by two stations in certain order
 	 */
-	void saveOrUpdateTransport(Integer transportId, String transportCode,
-			String startTime, String routes, String seatclass1,
-			String seatclass2, String seatclass3, String genprice);
+	List<TransportTravel> getTransportByTwoStations(String stationName1, String stationName2);
 
-	/**
-	 * Get transport by two stations in certain order
-	 */
-	List<TransportTravel> getTransportByTwoStations(String stationName1,
-			String stationName2);
-	
 	List<Transports> getTransportsForLimit(int firstElement, int count);
-	
+
 	public List<Transports> getTransportsForPage(int pageNumber, int count);
-	
+
 	long getTransportsListCount();
 
 }
