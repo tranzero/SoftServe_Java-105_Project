@@ -67,6 +67,15 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 			String stationName) {
 		return this.getLinesByStationForPaging(from, count, stationName);
 	}
+	
+	@Override
+	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count) {
+		Query query = entityManager
+				.createNamedQuery(Lines.FIND_BY_STATION_NAME).setParameter(1, stationName).setFirstResult(firstElement).setMaxResults(count);
+		
+		return (List<Lines>) query.getResultList();
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

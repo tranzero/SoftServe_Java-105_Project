@@ -116,6 +116,20 @@ public class LinesManagerImpl implements LinesManager {
 	}
 
 	@Override
+	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count) {
+		return this.getLinesByStNameForLimit(stationName,
+				(pageNumber - 1) * count, count);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count) {
+		
+		return lineDao.getLinesByStNameForLimits(stationName, firstElement, count);
+				
+	}
+	
+	@Override
 	public List<Lines> getLinesByStationForPage(int from, int count,
 			String stationName) {
 		List<Lines> linesList = lineDao.getLinesByStationForOnePage(from,
