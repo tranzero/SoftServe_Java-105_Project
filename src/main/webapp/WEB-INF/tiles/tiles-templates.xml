@@ -32,6 +32,14 @@
 		<put-attribute name="content" value="/jsp/managenewspost.jsp" />
 	</definition>
 
+	<definition name="orders" extends="base-template">
+		<put-attribute name="title" value="View: Orders" />
+		<put-attribute name="content" value="/jsp/orders.jsp" />
+	</definition>
+	<definition name="ordersp" extends="ajax">
+		<put-attribute name="title" value="View: Orders" />
+		<put-attribute name="content" value="/jsp/ordersp.jsp" />
+	</definition>
 
 	<definition name="tripspage" extends="ajax">
 		<put-attribute name = "title" value = "View: News Maneger"/>
