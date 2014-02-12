@@ -10,7 +10,6 @@ html {
 body {
 	height: 100%;
 	min-width: 1200px;
-	max-width: 1400px;
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
@@ -19,36 +18,47 @@ body {
 
 /* Header */
 header {
-	background: url("../images/train4.png") no-repeat;	
-	background-position: 70% 0%;
 	display:block;
 	height: 160px;
 	background-color:#272727;
 	color: #f3f3f3;
 }
-
-header > div#logo {
+header#header > div#container {
+	background: url("../images/train4.png") no-repeat;	
+	background-position: 750px 0px;
+	height: 160px;
+}
+div#container {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 1200px;
+	max-width: 1400px;
+}
+header#header > div#container > div#logo {
 	background: url("../images/logo.png") no-repeat;	
-	width: 200px;
-	height: 100px;
-	padding: 40px 0 0 180px;
+	background-position: 80px -30px;
+	width: 400px;
+	height: 40px;
+	padding: 100px 0 0 180px;
+	font-size: 0.8em;
 	display: block;	
 	float: left;
 }
 
-header > div#login {
+header#header > div#container > div#login {
 	padding-right:140px;
 	display:inline-block;	
 	float:right;
 }
 
-header > div#login ul li{
+header#header > div#container > div#login ul li{
 	padding-left: 10px;
 	list-style-type:none;
 	display:inline-block;	
 }
 
-header > div#language {
+header#header > div#container > div#language {
 	clear: right;
 	display:inline-block;	
 	float:right;
@@ -57,17 +67,17 @@ header > div#language {
 	height: 70px;
 }
 
-header > div#social {
+header#header > div#container > div#social {
    display: inline-block;
    float: right;
    padding-right: 40px;
    padding-top: 20px;
 }
-header > div#social ul{
+header#header > div#container > div#social ul{
    list-style-type:none;
    display:inline-block;	
 }
-header > div#social ul li{
+header#header > div#container > div#social ul li{
    display:inline-block;	
 }
 span.icon {
@@ -99,18 +109,18 @@ span.icon {
 	opacity: 1.0;
 }
 
-header div#login a {
+header#header > div#container div#login a {
 	color: #e3e3e3;
 }
 
-header div#login a:hover {
+header#header > div#container div#login a:hover {
 	color: #359BED;
 }
-header div#language a {
+header#header > div#container div#language a {
 	color: #e3e3e3;
 }
 
-header div#language a:hover {
+header#header > div#container div#language a:hover {
 	color: #359BED;
 }
 
@@ -245,5 +255,5 @@ span.ss_icon {
 
 #footer_secondary #footer_second_col {
 	float: right;
-	padding-right: 100px;
+	padding-right: 200px;
 }

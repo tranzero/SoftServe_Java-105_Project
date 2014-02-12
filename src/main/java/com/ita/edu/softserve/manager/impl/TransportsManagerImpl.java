@@ -161,56 +161,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}
-	/*
-	 * This will be deleted : antipattern
-	 * 
-	 * @Override public List<TransportTravel> getTransportByTwoStations(String
-	 * stationName1, String stationName2) { Stations station1; Stations
-	 * station2;
-	 * 
-	 * // Results are stored here List<TransportTravel> transportTravel = new
-	 * ArrayList<TransportTravel>();
-	 * 
-	 * List<StationsOnLine> StationsOnLine1 = new ArrayList<StationsOnLine>();
-	 * List<StationsOnLine> StationsOnLine2 = new ArrayList<StationsOnLine>();
-	 * 
-	 * Stops stop1 = null; Stops stop2 = null;
-	 * 
-	 * try { station1 = (Stations) stationDao.findByStations(stationName1)
-	 * .get(0); station2 = (Stations) stationDao.findByStations(stationName2)
-	 * .get(0); } catch (Exception e) { System.out.println("" + e.getMessage());
-	 * return null; }
-	 * 
-	 * StationsOnLine1.addAll(stlDao.findByStationId(station1.getStationId()));
-	 * StationsOnLine2.addAll(stlDao.findByStationId(station2.getStationId()));
-	 * 
-	 * for (int i = 0; i < StationsOnLine2.size(); i++) { for (int j = 0; j <
-	 * StationsOnLine1.size(); j++) { if
-	 * (StationsOnLine2.get(i).getLineId().getLineId() == StationsOnLine1
-	 * .get(j).getLineId().getLineId()) { if
-	 * (StationsOnLine2.get(i).getStationOrderNum() > StationsOnLine1
-	 * .get(j).getStationOrderNum()) { try { stop1 = stopsDao
-	 * .findByStationsOnLineId(StationsOnLine1 .get(i).getStationOnLineId());
-	 * stop2 = stopsDao .findByStationsOnLineId(StationsOnLine2
-	 * .get(i).getStationOnLineId()); } catch (Exception e) {
-	 * System.out.println("" + e.getMessage()); } if ((stop1 != null) && (stop2
-	 * != null)) { Transports transport = transportsDao
-	 * .findByRouteId(stop1.getRouteId() .getRouteId()); TransportTravel
-	 * trTravel = new TransportTravel( transport);
-	 * trTravel.setDepartureTime(TransportTravel.sumTimes(
-	 * transport.getStartTime(), stop1.getDeparture()));
-	 * trTravel.setArrivalTime(TransportTravel.sumTimes(
-	 * transport.getStartTime(), stop2.getArrival()));
-	 * 
-	 * trTravel.setDuration(TransportTravel.subtractTimes( stop2.getArrival(),
-	 * stop1.getDeparture()));
-	 * trTravel.setDuration(TransportTravel.subtractTimes(
-	 * trTravel.getArrivalTime(), trTravel.getDepartureTime()));
-	 * transportTravel.add(trTravel); } else { return null; } } } } }
-	 * 
-	 * return transportTravel; }
-	 */
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Transports> getTransportsForLimit(int firstElement, int count) {
