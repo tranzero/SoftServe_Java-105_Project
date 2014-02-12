@@ -121,7 +121,7 @@ public class StationsController {
 			@RequestParam("stationName") String stationName,
 			Map<String, Object> modelMap) {
 		try {
-			stationsManager.createStation(stationCode, stationName);
+			stationsManager.saveOrUpdateStation(null, stationCode, stationName);
 		} catch (StationManagerException e) {
 			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
 			modelMap.put("errorMsg", e.getMessage());
