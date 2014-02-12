@@ -9,14 +9,18 @@ import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
 /**
@@ -152,5 +156,50 @@ public class TestTransportsManagerImpl {
 		Transports expectedTransport = transportsManagerImpl.findTransportsById(3);
 
 		assertNull(expectedTransport);
+	}
+	
+	/**
+	 * Test for method {@link
+	 * com.ita.edu.softserve.service.impl.TransportManagerImpl#
+	 * getTransportByTwoStations(Stations, Stations)}
+	 */
+	@Test
+	public final void getTransportByTwoStationsTest() {
+		String stationName1 = "Pisochne";
+		String stationName2 = "Sknyliv";
+		
+		List<TransportTravel> listOfTTravel = new ArrayList<TransportTravel>();
+		TransportTravel ttravel = mock(TransportTravel.class);
+		listOfTTravel.add(ttravel);		
+		
+		List<TransportTravel> expectedTTravel = Collections.singletonList(ttravel);
+		
+		when(mockTransportsDaoImpl.findByTwoStations(stationName1, stationName2)).thenReturn(
+				listOfTTravel);
+		List<TransportTravel> actualTTravel = transportsManagerImpl
+				.getTransportByTwoStations(stationName1, stationName2);
+		
+		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));		
+	}
+
+	
+	/**
+	 * Test for method {@link
+	 * com.ita.edu.softserve.service.impl.TransportManagerImpl#
+	 * getTransportByTwoStations(Stations, Stations)}
+	 */
+	@Test
+	public final void getTransportByTwoStationsIfEmptyListTest() {
+		String stationName1 = "Rahiv";
+		String stationName2 = "Lviv";
+		
+		List<TransportTravel> listOfTTravel = new ArrayList<TransportTravel>();
+		List<TransportTravel> expectedTTravel = new ArrayList<TransportTravel>();
+		
+		when(mockTransportsDaoImpl.findByTwoStations(stationName1, stationName2)).thenReturn(listOfTTravel);
+		List<TransportTravel> actualTTravel = transportsManagerImpl
+				.getTransportByTwoStations(stationName1, stationName2);
+		
+		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));		
 	}
 }

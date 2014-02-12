@@ -22,6 +22,37 @@ import com.ita.edu.softserve.utils.PageInfoContainer;
 @Controller
 public class TransportController {
 
+	private static final String TRANSPORT_TRAVEL_LIST = "TransportTravelList";
+	private static final String TRANSPORT_TRAVEL_JSP = "transportTravel";
+	private static final String STATION_NAME2_REQUEST_PARAM = "stationName2";
+	private static final String STATION_NAME1_REQUEST_PARAM = "stationName1";
+	private static final String TRANSPORT_TRAVEL_URL_PATTERN = "/transportTravel";
+	private static final String LIST_OF_STATIONS_ON_LINE = "listOfStationsOnLine";
+	private static final String LINE_ID_ONSTATIONS_PATH_VERIABLE = "lineIdOnstations";
+	private static final String GETS_LINE_ID_LINE_ID_ONSTATIONS = "/getsLineId/{lineIdOnstations}";
+	private static final String TRANSPORT_TO_REMOVE_PATH_VERIABLE = "transportToRemove";
+	private static final String REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE = "/removeTransport/{transportToRemove}";
+	private static final String TRANSPORT_ID_MODEL_ATTRIBUTE = "transportId";
+	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "/editTransport/{transportId}";
+	private static final String EDIT_TRANSPORT_JSP = "editTransport";
+	private static final String EDIT_TRANSPORT_TRANSPORT = "/editTransport/{transport}";
+	private static final String REDIRECT_TRANSPORT = "redirect:/transport";
+	private static final String GENPRICE_MODEL_ATTRIBUTE = "genprice";
+	private static final String SEATCLASS3_MODEL_ATTRIBUTE = "seatclass3";
+	private static final String SEATCLASS2_MODEL_ATTRIBUTE = "seatclass2";
+	private static final String SEATCLASS1_MODEL_ATTRIBUTE = "seatclass1";
+	private static final String ROUTES_MODEL_ATTRIBUTE = "routes";
+	private static final String START_TIME_MODEL_ATTRIBUTE = "startTime";
+	private static final String TRANSPORT_CODE_MODEL_ATTRIBUTE = "transportCode";
+	private static final String ADD_TRANSPORT_URL_PATTERN = "/addTransport.htm";
+	private static final String ADD_TRANSPORT_JSP = "addTransport";
+	private static final String FORM_TRANSPORT_URL_PATTERN = "/formTransport.htm";
+	private static final String TRANSPORTPAGE_JSP = "transportpage";
+	private static final String TRANSPORTPAGE_URL_PATTERN = "/transportpage";
+	private static final String TRANSPORTS_LIST_NAME = "transportsList";
+	private static final String TRANSPORT_JSP = "transport";
+	private static final String TRANSPORT_URL_PATTERN = "/transport";
+
 	private static final Logger LOGGER = Logger.getLogger(TransportController.class);
 
 	private PaginationManager paginationManager = PaginationManager.getInstance();
@@ -32,8 +63,13 @@ public class TransportController {
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
-
-	@RequestMapping(value = "/transport", method = RequestMethod.GET)
+	/**
+	 * Prints transports in browser.
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String printTransports(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
@@ -46,12 +82,12 @@ public class TransportController {
 
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put("transportsList", transports);
+		modelMap.put(TRANSPORTS_LIST_NAME, transports);
 
-		return "transport";
+		return TRANSPORT_JSP;
 	}
 
-	@RequestMapping(value = "/transportpage", method = RequestMethod.GET)
+	@RequestMapping(value = TRANSPORTPAGE_URL_PATTERN, method = RequestMethod.GET)
 	public String printTransportPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
@@ -61,12 +97,12 @@ public class TransportController {
 		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		
+
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put("transportsList", transports);
+		modelMap.put(TRANSPORTS_LIST_NAME, transports);
 
-		return "transportpage";
+		return TRANSPORTPAGE_JSP;
 	}
 
 	/**
@@ -74,13 +110,13 @@ public class TransportController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/formTransport.htm", method = RequestMethod.GET)
+	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm() {
-		return "addTransport";
+		return ADD_TRANSPORT_JSP;
 	}
 
 	/**
-	 * Adds new transport into database.
+	 * Adds new transport into the Transports table.
 	 * 
 	 * @param transportCode
 	 * @param startTime
@@ -91,40 +127,41 @@ public class TransportController {
 	 * @param genprice
 	 * @return
 	 */
-	@RequestMapping(value = "/addTransport.htm", method = RequestMethod.POST)
-	public String addTransportToBD(@ModelAttribute("transportCode") String transportCode,
-			@ModelAttribute("startTime") String startTime,
-			@ModelAttribute("routes") String routesCode,
-			@ModelAttribute("seatclass1") String seatclass1,
-			@ModelAttribute("seatclass2") String seatclass2,
-			@ModelAttribute("seatclass3") String seatclass3,
-			@ModelAttribute("genprice") String genprice) {
+	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
+	public String addTransportToBD(
+			@ModelAttribute(TRANSPORT_CODE_MODEL_ATTRIBUTE) String transportCode,
+			@ModelAttribute(START_TIME_MODEL_ATTRIBUTE) String startTime,
+			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routesCode,
+			@ModelAttribute(SEATCLASS1_MODEL_ATTRIBUTE) String seatclass1,
+			@ModelAttribute(SEATCLASS2_MODEL_ATTRIBUTE) String seatclass2,
+			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
+			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
 
 		transportsManager.saveOrUpdateTransport(null, transportCode, startTime, routesCode,
 				seatclass1, seatclass2, seatclass3, genprice);
 
-		return "redirect:/transport";
+		return REDIRECT_TRANSPORT;
 	}
 
 	/**
-	 * Gets transports ID from field in table and finds it in database then puts
-	 * it in map as request attribute.
+	 * Gets transports ID from the Transports table and finds it in the
+	 * Transports table then puts found object in Map as request attribute.
 	 * 
 	 * @param transportId
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/editTransport/{transport}", method = RequestMethod.GET)
-	public String editTransport(@PathVariable("transport") Integer transportId,
+	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
+	public String editTransport(@PathVariable(TRANSPORT_JSP) Integer transportId,
 			Map<String, Object> modelMap) {
 		Transports transport = transportsManager.findTransportsById(transportId);
-		modelMap.put("transport", transport);
+		modelMap.put(TRANSPORT_JSP, transport);
 
-		return "editTransport";
+		return EDIT_TRANSPORT_JSP;
 	}
 
 	/**
-	 * Gets transport object and save it into database.
+	 * Gets a transport object and save it into the Transports table.
 	 * 
 	 * @param transportId
 	 * @param transportCode
@@ -136,33 +173,35 @@ public class TransportController {
 	 * @param genprice
 	 * @return
 	 */
-	@RequestMapping(value = "/editTransport/{transportId}", method = RequestMethod.POST)
-	public String updateTransportToDB(@PathVariable("transportId") Integer transportId,
-			@ModelAttribute("transportCode") String transportCode,
-			@ModelAttribute("startTime") String startTime,
-			@ModelAttribute("routes") String routes,
-			@ModelAttribute("seatclass1") String seatclass1,
-			@ModelAttribute("seatclass2") String seatclass2,
-			@ModelAttribute("seatclass3") String seatclass3,
-			@ModelAttribute("genprice") String genprice) {
+	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
+	public String updateTransportToDB(
+			@PathVariable(TRANSPORT_ID_MODEL_ATTRIBUTE) Integer transportId,
+			@ModelAttribute(TRANSPORT_CODE_MODEL_ATTRIBUTE) String transportCode,
+			@ModelAttribute(START_TIME_MODEL_ATTRIBUTE) String startTime,
+			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routes,
+			@ModelAttribute(SEATCLASS1_MODEL_ATTRIBUTE) String seatclass1,
+			@ModelAttribute(SEATCLASS2_MODEL_ATTRIBUTE) String seatclass2,
+			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
+			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
 
 		transportsManager.saveOrUpdateTransport(transportId, transportCode, startTime, routes,
 				seatclass1, seatclass2, seatclass3, genprice);
 
-		return "redirect:/transport";
+		return REDIRECT_TRANSPORT;
 	}
 
 	/**
-	 * Deletes Transport from database.
+	 * Deletes a transport from the Transports table.
 	 * 
 	 * @param transportId
 	 * @return
 	 */
-	@RequestMapping(value = "/removeTransport/{transportToRemove}", method = RequestMethod.GET)
-	public String removeTransport(@PathVariable("transportToRemove") Integer transportId) {
+	@RequestMapping(value = REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE, method = RequestMethod.GET)
+	public String removeTransport(
+			@PathVariable(TRANSPORT_TO_REMOVE_PATH_VERIABLE) Integer transportId) {
 		transportsManager.removeTransportById(transportId);
 
-		return "redirect:/transport";
+		return REDIRECT_TRANSPORT;
 	}
 
 	/**
@@ -172,31 +211,32 @@ public class TransportController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/getsLineId/{lineIdOnstations}", method = RequestMethod.GET)
-	public String printStationOnLine(@PathVariable("lineIdOnstations") Integer lineId,
+	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
+	public String printStationOnLine(
+			@PathVariable(LINE_ID_ONSTATIONS_PATH_VERIABLE) Integer lineId,
 			Map<String, Object> modelMap) {
 		List<StationsOnLine> listOfStationsOnLine = stationOnLineManager
 				.findStationsOnLine(lineId);
 
-		modelMap.put("listOfStationsOnLine", listOfStationsOnLine);
+		modelMap.put(LIST_OF_STATIONS_ON_LINE, listOfStationsOnLine);
 
-		return "listOfStationsOnLine";
+		return LIST_OF_STATIONS_ON_LINE;
 	}
 
-	@RequestMapping(value = "/transportTravel", method = RequestMethod.GET)
+	@RequestMapping(value = TRANSPORT_TRAVEL_URL_PATTERN, method = RequestMethod.GET)
 	public String getLinesByTwoStations(
-			@RequestParam(value = "stationName1", required = false) String stationName1,
-			@RequestParam(value = "stationName2", required = false) String stationName2,
+			@RequestParam(value = STATION_NAME1_REQUEST_PARAM, required = false) String stationName1,
+			@RequestParam(value = STATION_NAME2_REQUEST_PARAM, required = false) String stationName2,
 			Map<String, Object> model) {
 
 		if (stationName1 == null || stationName2 == null || stationName1.equals("")
 				|| stationName2.equals("")) {
-			return "transportTravel";
+			return TRANSPORT_TRAVEL_JSP;
 		}
 
-		model.put("TransportTravelList",
+		model.put(TRANSPORT_TRAVEL_LIST,
 				transportsManager.getTransportByTwoStations(stationName1, stationName2));
 
-		return "transportTravel";
+		return TRANSPORT_TRAVEL_JSP;
 	}
 }

@@ -48,6 +48,12 @@
 		<put-attribute name = "title" value = "View: News Maneger"/>
 		<put-attribute name="content" value="/jsp/allLinesPage.jsp" />
 	</definition>				
+
+	<definition name="linesbytwostationsPage" extends="ajax">
+		<put-attribute name = "title" value = "View: Lines Search"/>
+		<put-attribute name="content" value="/jsp/linesbytwostationsPage.jsp" />
+	</definition>
+
 	<definition name="addTripPage" extends="ajax">
 		<put-attribute name = "title" value = "View: News Maneger"/>
 		<put-attribute name="content" value="/jsp/addTripPage.jsp" />
