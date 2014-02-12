@@ -18,8 +18,8 @@
 	<table border="1" style="align: center">
 		<thead>
 			<tr>
-				<td align="center"  height="30"><a href="addStation"> <input id="edit"
-						type="button" name="edit"
+				<td align="center" height="30"><a href="addStation"> <input
+						id="edit" type="button" name="edit"
 						value="<spring:message code="label.navigation.addStation"/>">
 				</a></td>
 			</tr>
@@ -53,10 +53,10 @@
 	<div class="pagination">
 		<ul class="bootpag">
 			<c:if test="${pageNumber>1}">
-				<li class="prev"><a
-					href="?pageNumber=1&resultsPerPage=${resultsPerPage}"> « </a></li>
-				<li class="prev"><a
-					href="?pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+				<li class="prev"><a href="javascript:void(0);"
+					onclick="showStationsManagerPage(1, ${resultsPerPage})"> « </a></li>
+				<li class="prev"><a href="javascript:void(0);"
+					onclick="showStationsManagerPage(${pageNumber-1},${resultsPerPage})">
 						<spring:message code="label.prev" />
 				</a></li>
 			</c:if>
@@ -70,9 +70,9 @@
 			<c:forEach var="i" begin="${firstPage}" end="${lastPage}" step="1"
 				varStatus="status">
 				<c:if test="${pageNumber!=i}">
-					<li><a
-						href="?pageNumber=${i}&resultsPerPage=${resultsPerPage}"> ${i}
-					</a></li>
+					<li><a href="javascript:void(0);"
+						onclick="showStationsManagerPage(${i},${resultsPerPage})">
+							${i} </a></li>
 				</c:if>
 				<c:if test="${pageNumber==i}">
 					<li class="disabled"><a href="javascript:void(0);"> ${i} </a></li>
@@ -80,12 +80,12 @@
 			</c:forEach>
 
 			<c:if test="${pageNumber<maxPages}">
-				<li class="next"><a
-					href="?pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+				<li class="next"><a href="javascript:void(0);"
+					onclick="showStationsManagerPage(${pageNumber+1},${resultsPerPage})">
 						<spring:message code="label.next" />
 				</a></li>
-				<li class="next"><a
-					href="?pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+				<li class="next"><a href="javascript:void(0);"
+					onclick="showStationsManagerPage(${maxPages},${resultsPerPage})">
 						» </a></li>
 			</c:if>
 			<c:if test="${pageNumber==maxPages}">
@@ -97,35 +97,4 @@
 			</c:if>
 		</ul>
 	</div>
-
-	<script>
-		function showStationsManagerPage(pageNumber_, resultsPerPage_) {
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#pagingcontent")
-											.html(
-													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-								},
-								type : "GET",
-								url : "stationsPage",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
-
-							}).done(function(msg) {
-						$("div#pagingcontent").html(msg);
-
-					});
-
-		}
-
-		$(window).load(function() {
-			showStationsManagerPage("${pageNumber}", "${resultsPerPage}");
-
-		});
-	</script>
 </section>

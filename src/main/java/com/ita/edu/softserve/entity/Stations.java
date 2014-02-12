@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Set;
+
 import static org.apache.commons.lang.Validate.*;
+
 import javax.persistence.*;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -16,10 +18,18 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Entity
 @Table(name = "stations")
 @NamedQueries({
-@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
-@NamedQuery(name = Stations.FIND_BY_LINE_NAME, query = Stations.FIND_BY_LINE_NAME_QUERY)})
+		@NamedQuery(name = Stations.STATIONS_FIND_ALL, query = Stations.STATIONS_FIND_ALL_QUERY),
+		@NamedQuery(name = Stations.STATIONS_FIND_COUNT, query = Stations.STATIONS_FIND_COUNT_QUERY),
+		@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
+		@NamedQuery(name = Stations.FIND_BY_LINE_NAME, query = Stations.FIND_BY_LINE_NAME_QUERY)})
 public class Stations extends BaseEntity {
+	
+	public static final String STATIONS_FIND_ALL = "Stations.findAll";
+	public static final String STATIONS_FIND_ALL_QUERY = "SELECT s FROM Stations s";
 
+	public static final String STATIONS_FIND_COUNT = "Stations.findCount";
+	public static final String STATIONS_FIND_COUNT_QUERY = "SELECT COUNT(s.stationId) FROM Stations s";
+	
 	public static final String FIND_BY_NAME = "Stations.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
 	
