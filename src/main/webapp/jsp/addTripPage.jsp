@@ -2,10 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<form>
-	<h3>
-		<spring:message code="label.addtrips.choosetransport" />
-	</h3>
+
 	<table style="align: center">
 		<thead>
 			<tr>
@@ -39,7 +36,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-</form>
+
 <div class="pagination">
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">

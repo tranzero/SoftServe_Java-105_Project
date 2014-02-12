@@ -36,6 +36,7 @@ public class TripsController {
 	private static final String ADDTRIP_SPRING_NAME = "addTrip";
 	private static final String ADDTRIPPAGE_SPRING_NAME = "addTripPage";	
 	private static final String TRIPSLIST_NAME = "tripsList";
+	private static final String TRANSPORTSLIST_NAME = "transportsList";
 	private static final String DATEFORMAT_NAME = "dateFormat";
 
 	@Autowired
@@ -56,7 +57,7 @@ public class TripsController {
 
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put("transportsList", transports);
+		modelMap.put(TRANSPORTSLIST_NAME, transports);
 	}
 	
 	private void completeMapForTrips(Integer pageNumber,

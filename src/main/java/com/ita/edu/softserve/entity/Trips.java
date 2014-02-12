@@ -82,7 +82,14 @@ public class Trips extends BaseEntity{
 		this.startDate = startDate;
 	}
 
-
+	public Trips(Transports transport, Date startDate) {
+		super();
+		this.transport = transport;
+		this.remSeatClass1 = transport.getSeatclass1();
+		this.remSeatClass2 = transport.getSeatclass2();
+		this.remSeatClass3 = transport.getSeatclass3();
+		this.startDate = startDate;
+	}
 
 
 	/**
