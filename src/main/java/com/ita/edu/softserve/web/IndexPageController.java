@@ -86,7 +86,7 @@ public class IndexPageController {
 			modelMap.put(pageNumberKey, pageNumber);
 			modelMap.put(resultsPerPageKey, resultsPerPage);
 			modelMap.put(newsListKey,
-					posts.getPostForPage(currentPagingPosition, resultsPerPage));
+					posts.getPostForPage(currentPagingPosition-1, resultsPerPage));
 
 			return mainPageOutPost;
 
@@ -134,7 +134,7 @@ public class IndexPageController {
 			modelMap.put(pageNumberKey, pageNumber);
 			modelMap.put(resultsPerPageKey, resultsPerPage);
 			modelMap.put(newsListKey,
-					posts.getPostForPage(currentPagingPosition, resultsPerPage));
+					posts.getPostForPage(currentPagingPosition-1, resultsPerPage));
 
 			return managePageNewsOutPost;
 

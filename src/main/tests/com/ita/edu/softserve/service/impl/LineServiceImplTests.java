@@ -62,51 +62,39 @@ public class LineServiceImplTests {
 		fild.setAccessible(true);
 		fild.set(linesManagerImpl, mockLinesDaoImpl);
 	}
-/*	@Test
-	public void getFullLinesTest() {
-		List<Lines> testList = new ArrayList<Lines>();
-		Lines lines = mock(Lines.class);
-		testList.add(lines);
-		testList.add(lines);
-		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
-		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
-		LinesManagerImpl lsi = new LinesManagerImpl(linesDaoImpl);
-		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
-	}
 
+	/**
+	 * Test for method which returns all lines.
+	 * @author MatyashPetro 
+	 */
 	@Test
-	public void getFullLinesWithEmptyListTest() {
-		List<Lines> testList = new ArrayList<Lines>();
-		LinesDAOImpl linesDaoImpl = mock(LinesDAOImpl.class);
-		when(linesDaoImpl.getAllEntities()).thenReturn(testList);
-		LinesManagerImpl lsi = new LinesManagerImpl(linesDaoImpl);
-		assertTrue(Iterables.elementsEqual(testList, lsi.getFullLines()));
+	public final void getFullLinesTest() {
+		List<Lines> expectedLinesList = new ArrayList<Lines>();
+		List<Lines> actualLinesList = null;
+		Lines line1 = mock(Lines.class);
+		Lines line2 = mock(Lines.class);
+		expectedLinesList.add(line1);
+		expectedLinesList.add(line2);
+		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expectedLinesList);
+		actualLinesList = linesManagerImpl.getFullLines();
+		assertTrue((expectedLinesList.containsAll(actualLinesList))
+				&& (expectedLinesList.size() == actualLinesList.size()));
 	}
-
+	
+	/**
+	 * Test for method which returns all lines when table is empty.
+	 * @author MatyashPetro 
+	 */
 	@Test
-	public void getLinesByStationTest() {
-
-		Lines line = Mockito.mock(Lines.class);
-		when(line.getLineId()).thenReturn(1);
-		
-		StationsOnLine stationOnLine = mock(StationsOnLine.class);
-		when(stationOnLine.getLineId()).thenReturn(line);
-		
-		List<StationsOnLine> stlList = new ArrayList<StationsOnLine>();
-		stlList.add(stationOnLine);
-		
-		StationsOnLineDAOImpl stl = mock(StationsOnLineDAOImpl.class);
-		when(stl.findByStationId(Mockito.anyInt())).thenReturn(stlList);
-		
-		LinesManagerImpl lineService = new LinesManagerImpl(stl);
-		List<Lines> actualLines = lineService.getLinesByStation("");
-		
-		Assert.notEmpty(actualLines);
-		
-		List<Lines> expectedLines = Collections.singletonList(line);
-		assertTrue(Iterables.elementsEqual(expectedLines, actualLines));
-	}	
-*/
+	public final void getFullLinesEmptyTest() {
+		List<Lines> expectedLinesList = new ArrayList<Lines>();
+		List<Lines> actualLinesList = null;
+		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expectedLinesList);
+		actualLinesList = linesManagerImpl.getFullLines();
+		assertTrue((expectedLinesList.containsAll(actualLinesList))
+				&& (expectedLinesList.size() == actualLinesList.size()));
+	}
+	
 	/**
 	 * Test for method {@link
 	 * com.ita.edu.softserve.service.impl.LinesManagerImpl#

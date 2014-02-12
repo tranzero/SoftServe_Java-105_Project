@@ -5,27 +5,30 @@
 <div>	
 	<c:if test='${not empty param.error}'> 
 	  <font color='red'> 
-	    Login error. <br /> 
-	    Reason : ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message} 
+	    <spring:message code="label.Login.loginerror" /><br /> 
+	    <spring:message code="label.login.reason" />${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message} 
 	  </font> 
 	</c:if>  
 	<form name='loginForm' action="<c:url value="/j_spring_security_check"/>" method='POST'>	
 		<table>
           <tr>
-              <td>Username:</td>
-              <td><input type="text" id="username" placeholder="Username" name='j_username' value='' /></td>
+              <td align="right"><spring:message code="label.login.username" /></td>
+              <td width="50%"><input type="text" id="username" placeholder="Username" name='j_username' value='' /></td>
           </tr>
           <tr>
-              <td>Password:</td>
-              <td><input type="text" id="password" placeholder="Password" name='j_password' /></td>
+              <td align="right"><spring:message code="label.login.password" /></td>
+              <td width="50%"><input type="password" id="password" placeholder="Password" name='j_password' /></td>
           </tr>
           <tr>
-              <td colspan="2">
-                  <input type="submit" name="submit" value="Login" class="btn" />                
+              <td align="right">
+                  <input type="submit" name="submit" value="Login" class="btn" />                                  
+              </td>
+              <td align="left">
+                  <a href='mainpage'><input type="button" name="cancel" value="Cancel"></a>                                  
               </td>
          <tr>
-			<td>Remember Me</td>
-			<td>
+			<td align="right"><spring:message code="label.login.remember" /></td>
+			<td width="45%">
 			 	<input type="checkbox" name="_spring_security_remember_me"/>
 			</td>
 		</tr>          

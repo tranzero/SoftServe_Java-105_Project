@@ -2,15 +2,22 @@
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <header id = "header">
 	<div id="logo">
 		<h1><spring:message code="label.header.title"/>[WIP]</h1>
 	</div>
 	<div id="login">
 		<ul>
-			<li><a href="">Login</a></li>
-			<li>|</li>
-			<li><a href="">Register</a></li>
+			<sec:authorize access="isAuthenticated()">	
+				<li><p>Hello, <sec:authentication property="principal.username"/></p></li>
+  				<li><a href="<c:url value="j_spring_security_logout" />" ><spring:message code="label.header.logout" /></a></li>					
+			</sec:authorize>
+  			<sec:authorize access="isAnonymous()">
+  				<li><a href="login"><spring:message code="label.header.login" /></a></li>  						
+				<li>|</li>
+				<li><a href="registration"><spring:message code="label.header.register"/></a></li>
+  			</sec:authorize>
 		</ul>
 	</div>
 	<div id="language">

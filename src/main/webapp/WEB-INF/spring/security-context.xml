@@ -8,12 +8,18 @@
 	    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">	
 	   
 	  <http access-denied-page="/jsp/errors.jsp" use-expressions="true"> 
-	   	<intercept-url pattern="/login.html" access="hasRole('REGUSER')"/> 
-		<form-login login-page="/jsp/login.jsp" default-target-url="/login"
-					authentication-failure-url="/jsp/login.jsp?error=true" /><!-- /login.jsp?error=true -->
-		<logout logout-url="/logout" logout-success-url="/index.html" />
-		<anonymous username="guest" granted-authority="permitAll" /><!-- granted-authority="ROLE_ANONYMOUS" -->
-		<remember-me />
+	       	<intercept-url pattern="/login" access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')"/>	      	
+	   <!--     <intercept-url pattern="/add*"  access="hasRole('MANAGER')"/>
+	        <intercept-url pattern="/edit*" access="hasRole('MANAGER')"/>
+	        <intercept-url pattern="/manage*" access="hasRole('MANAGER')"/>
+	        <intercept-url pattern="/user*" access="hasRole('ADMIN')"/>	  -->        
+		
+		<form-login login-page="/login.html" default-target-url="/mainpage"					
+					authentication-failure-url="/login.html?error=true" 
+					always-use-default-target="true"/>										
+		<logout logout-success-url="/" />		
+		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
+		<remember-me />		
 	  </http>
 	<authentication-manager>
 		<authentication-provider user-service-ref="usersDetailsService" />

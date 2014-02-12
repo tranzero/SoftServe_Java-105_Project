@@ -3,12 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<script type="text/javascript">
-	function confirm_delete() {
-		return confirm('Are you sure?');
-	}
-</script>
-
 <section id="content">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<h2 align="center">
@@ -27,7 +21,18 @@
 					<tr>
 						<td align="center">${route.getRouteCode()}</td>
 						<td align="center">${route.getLineId().getLineName()}</td>
-					</tr>	
+						<td align="center"><a
+							href="editRoute/${route.getRouteId()}"> <input
+								id="edit" type="button" name="edit"
+								value="<spring:message code="label.edit"/>">
+						</a></td>
+
+						<td align="center"><a
+							href="deleteRoute/${route.getRouteId()}"> <input
+								id="delete" type="button" name="delete"
+								onclick="return confirm_delete()"
+								value="<spring:message code="label.delete"/>">
+						</a></td>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -80,7 +85,14 @@
 			</ul>
 		</div>
 	</div>
+	
+<script type="text/javascript">
+	function confirm_delete() {
+		return confirm('Are you sure?');
+	}
+</script>
 	<script>
+
 		function showRoutePage(pageNumber_, resultsPerPage_) {
 			$
 					.ajax(
@@ -92,7 +104,7 @@
 													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 								},
 								type : "GET",
-								url : "routesPage",
+								url : "routesAllEditPage",
 								data : {
 									pageNumber : pageNumber_,
 									resultsPerPage : resultsPerPage_

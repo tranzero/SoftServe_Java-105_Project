@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.exception.UsersManagerExeption;
 
 /**
  * interface UserManager
@@ -71,5 +72,13 @@ public interface UserManager extends BaseManager {
 	 * @return user
 	 */
 	public Users findByUsername(String username);
+	
+	//for paging
+	public long getUsersListCount() throws UsersManagerExeption;
+	
+	public List<Users> getUsersForPage(int from, int count)
+			throws UsersManagerExeption;
+	
+	
 
 }
