@@ -33,9 +33,9 @@ public class Lines extends BaseEntity {
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Lines u WHERE u.lineName = ?1";
 	// Query to find all lines
 	public static final String GET_LINES_LIST_FOR_PAGING = "Lines.findLinesListForPaging";
-	public static final String GET_LINES_LIST_FOR_PAGING_QUERY = "SELECT ln FROM Lines ln";
+	public static final String GET_LINES_LIST_FOR_PAGING_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId";
 	public static final String GET_LINES_LIST_COUNT = "Lines.findLinesListCount";
-	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) FROM Lines ln";
+	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) from Lines ln";
 	
 	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
 	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";

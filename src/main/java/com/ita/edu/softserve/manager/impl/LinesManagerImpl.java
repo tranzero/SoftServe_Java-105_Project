@@ -221,6 +221,6 @@ public class LinesManagerImpl implements LinesManager {
 	
 	@Override
 	public List<Lines> getLinesForPage(int from, int count){
-		return lineDao.getLinesForOnePage(from, count);
+		return lineDao.getLinesForOnePage(from - 1, count);
 	}
 }
