@@ -19,6 +19,8 @@ body {
 
 /* Header */
 header {
+	background: url("../images/train4.png") no-repeat;	
+	background-position: 70% 0%;
 	display:block;
 	height: 160px;
 	background-color:#272727;
@@ -26,6 +28,9 @@ header {
 }
 
 header > div#logo {
+	background: url("../images/logo.png") no-repeat;	
+	width: 200px;
+	height: 100px;
 	padding: 40px 0 0 180px;
 	display: block;	
 	float: left;
@@ -121,8 +126,14 @@ section {
 	width:840px;
 	margin-left: 140px;
 }
+@media screen and (max-width: 1280px) {
+    aside {
+        display: none !important;
+    }
+}
 aside {
 	float: right;
+	width: auto;
 	margin-right: 60px;
 	z-index: -99;
 }
