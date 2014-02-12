@@ -105,8 +105,6 @@
 					}).done(function(msg) {
 						$("div#result").html(msg);
 						});
-
-			
 		}
 
 		$(window).load(function() {
@@ -117,3 +115,4 @@
 		
 	</script>
 </section>
+ 
