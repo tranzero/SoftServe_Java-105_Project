@@ -9,7 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.entity.Orders;
+import com.ita.edu.softserve.entity.Post;
 
+/**
+ * @author nvrubl
+ *
+ */
 @Repository("ordersDao")
 public class OrdersDAOImpl extends AbstractDAO<Orders> implements OrdersDAO {
 
@@ -26,5 +31,24 @@ public class OrdersDAOImpl extends AbstractDAO<Orders> implements OrdersDAO {
 		List<Orders> list = query.getResultList();
 		return list;
 	}
+	
+	@Override
+	public long getOrdersListCount() {
+		return (long) find((Query)entityManager
+					.createNamedQuery(Orders.FIND_ORDERS_LIST_COUNT));
+	}
+	
+	@Override
+    public List<Orders> getOrdersForOnePage (int from, int count) {
+	return this.getOrdersForPaging(from, count);
+    }
+	
+	private List<Orders> getOrdersForPaging(int from, int count) {
+		Query query = entityManager
+			.createNamedQuery(
+					Orders.FIND_ORDERS_LIST_FOR_PAGING)
+			.setFirstResult(from).setMaxResults(count);
+		return (List<Orders>)getRange(from, count, query);
+	    }
 
 }

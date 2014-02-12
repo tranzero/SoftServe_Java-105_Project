@@ -10,7 +10,7 @@
 		<ul>
 			<li><a href="">Login</a></li>
 			<li>|</li>
-			<li><a href="">Register</a></li>
+			<li><a href="registration">Register</a></li>
 		</ul>
 	</div>
 	<div id="language">
