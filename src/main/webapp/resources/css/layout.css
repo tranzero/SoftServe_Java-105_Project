@@ -37,9 +37,11 @@ div#container {
 }
 header#header > div#container > div#logo {
 	background: url("../images/logo.png") no-repeat;	
-	width: 200px;
-	height: 100px;
-	padding: 40px 0 0 180px;
+	background-position: 80px -30px;
+	width: 400px;
+	height: 40px;
+	padding: 100px 0 0 180px;
+	font-size: 0.8em;
 	display: block;	
 	float: left;
 }

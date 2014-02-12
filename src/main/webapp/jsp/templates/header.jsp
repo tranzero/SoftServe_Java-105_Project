@@ -7,10 +7,7 @@
 <header id="header">
 	<div id="container">
 		<div id="logo">
-			<h1>
-				<spring:message code="label.header.title" />
-				[WIP]
-			</h1>
+			<h2>Just go. To travel is to live...</h2>
 		</div>
 		<div id="login">
 			<ul>
