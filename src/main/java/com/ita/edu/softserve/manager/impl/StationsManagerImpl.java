@@ -181,5 +181,22 @@ public class StationsManagerImpl implements StationsManager {
 		return allStations;
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<Stations> getStationsForLimit(int firstElement, int count) {
+		return stationDao.getStationsForLimits(firstElement, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Stations> getStationsForPage(int pageNumber, int count) {
+		return getStationsForLimit((pageNumber-1)*count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getStationsListCount() {
+		return stationDao.getStationsListCount();
+	}
 
 }

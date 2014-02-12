@@ -13,38 +13,55 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
+import com.ita.edu.softserve.utils.PageInfoContainer;
 
 @Controller
 public class StationsController {
 
+	private PaginationManager paginationManager = PaginationManager
+			.getInstance();
+
 	@Autowired
 	private StationsManager stationsManager;
 
+	/**
+	 * Prints all stations.
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/stationsForUsers", method = RequestMethod.GET)
-	public String listStations(Map<String, Object> modelMap) {
+	public String listStations(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
 
-		try {
-			modelMap.put("stationsList", stationsManager.findAllStations());
-		} catch (StationManagerException e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
-		}
+		long count = stationsManager.getStationsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put("stationsList", stationsManager.getStationsForPage(
+				container.getPageNumber(), container.getResultsPerPage()));
 
 		return "stationsForUsers";
 	}
 
 	@RequestMapping(value = "/stations", method = RequestMethod.GET)
-	public String manageStations(Map<String, Object> modelMap) {
+	public String manageStations(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
 
-		try {
-			modelMap.put("stationsList", stationsManager.findAllStations());
-		} catch (StationManagerException e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
-		}
+		long count = stationsManager.getStationsListCount();
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put("stationsList", stationsManager.getStationsForPage(
+				container.getPageNumber(), container.getResultsPerPage()));
 
 		return "stations";
 	}
@@ -66,9 +83,8 @@ public class StationsController {
 	public String editStation(@PathVariable("station") Integer stationId,
 			Map<String, Object> modelMap) {
 
-		Stations station = null;
 		try {
-			station = stationsManager.findStationsById(stationId);
+			Stations station = stationsManager.findStationsById(stationId);
 			modelMap.put("station", station);
 		} catch (StationManagerException e) {
 			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
