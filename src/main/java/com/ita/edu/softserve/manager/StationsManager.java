@@ -61,6 +61,12 @@ public interface StationsManager extends BaseManager {
 	 * @throws StationManagerException 
 	 */
 	List<Stations> getStationsNotOnCertainLine(String lineName) throws StationManagerException;
+
+	List<Stations> getStationsForLimit(int firstElement, int count);
+
+	List<Stations> getStationsForPage(int pageNumber, int count);
+
+	long getStationsListCount();
 	
 	
 
