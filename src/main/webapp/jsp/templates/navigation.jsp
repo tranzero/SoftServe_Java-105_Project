@@ -25,7 +25,7 @@
 					<li><a href="/SoftServe_Java-105/routes"><spring:message
 								code="label.navigation.route" /></a></li>
 					<li><a href="/SoftServe_Java-105/routesTrips"><spring:message
-								code="label.navigation.routes" /></a></li> >>>>>>>
+								code="label.navigation.routes" /></a></li> 
 				</ul></li>
 			<li><spring:message code="label.navigation.orders" /></li>
 			<li><spring:message code="label.navigation.editing" />
