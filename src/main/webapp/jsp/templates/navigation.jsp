@@ -36,6 +36,7 @@
 		<li><spring:message code="label.navigation.users"/>
 		<ul class="submenu">
 			<li><a href="/SoftServe_Java-105/userlist"><spring:message code="label.navigation.userlist"/></a></li>
+			<li><a href="/SoftServe_Java-105/userlist2"><spring:message code="label.navigation.userlist"/>2</a></li>
 		</ul>
 		</li>
 	</ul>
