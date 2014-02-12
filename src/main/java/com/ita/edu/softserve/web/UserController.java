@@ -77,7 +77,9 @@ public class UserController {
 		return "redirect:/userlist";
 	}
 
-	// updateUserToDB2 - RequestMethod.GET
+	/**
+	 * updateUserToDB2 - RequestMethod.GET
+	 */
 	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
 	public String editUser2(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
@@ -86,7 +88,9 @@ public class UserController {
 		return "userEdit2";
 	}
 
-	// updateUserToDB2 - RequestMethod.POST
+	/**
+	 * updateUserToDB2 - RequestMethod.POST
+	 */
 	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
 			@ModelAttribute("userFirstName") String firstName,
@@ -111,6 +115,13 @@ public class UserController {
 		return "redirect:/userlist";
 	}
 
+	/**
+	 * Edit user profile
+	 * 
+	 * @param usId
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/editProfile/{userId}", method = RequestMethod.GET)
 	public String editProfile(@PathVariable("userId") Integer usId,
 			Map<String, Object> modelMap) {

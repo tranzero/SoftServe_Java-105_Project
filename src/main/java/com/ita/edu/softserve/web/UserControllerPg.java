@@ -31,23 +31,15 @@ public class UserControllerPg {
 	String sizeOfPagingKey = "sizeOfPaging";
 	String maxPageCountKey = "maxPageCount";
 	String maxResultCountKey = "maxResultCount";
-	
+
 	String usersListKey = "userList";
-	
+
 	String errorListKey = "errorList";
 	String errorMsgKey = "errorMsg";
 
 	String mainPageOutGet = "userlist2";
 	String resultOut = "result";
 	String mainPageOutPost = "userlist2page";
-	// String managePageNewsGet = "managenews";
-	// String managePageNewsOutPost = "managenewspost";
-	// String addNewsOutGet = "addnews";
-	// String addNewsOutPost = "redirect:/managenews";
-	// String delNewsGet = "redirect:/managenews";
-	// String editNewsGet = "editnews";
-	// String editNewsPost = "redirect:/managenews";
-	// String detailsNewsGet = "detailsnews";
 
 	@Autowired
 	private UserManager usersmanage;
@@ -55,7 +47,12 @@ public class UserControllerPg {
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
 
-	// for paging
+	/**
+	 * For paging userList
+	 * 
+	 * @param modelMap
+	 * @return userlist2
+	 */
 	@RequestMapping(value = "/userlist2", method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
 
@@ -78,6 +75,14 @@ public class UserControllerPg {
 
 	}
 
+	/**
+	 * For paging userList
+	 * 
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/userlist2page", method = RequestMethod.POST)
 	public String mainPagePost(@RequestParam("pageNumber") int pageNumber,
 			@RequestParam("resultsPerPage") int resultsPerPage,
@@ -92,10 +97,10 @@ public class UserControllerPg {
 			modelMap.put(maxPageCountKey, maxPageCount);
 			int currentPagingPosition = pageMan.getCurrentPagingPosition(
 					pageNumber, resultsPerPage);
-			
+
 			modelMap.put(pageNumberKey, pageNumber);
 			modelMap.put(resultsPerPageKey, resultsPerPage);
-			
+
 			modelMap.put(usersListKey, usersmanage.getUsersForPage(
 					currentPagingPosition, resultsPerPage)
 
@@ -111,9 +116,7 @@ public class UserControllerPg {
 
 	}
 
-	
-
-	//-------------------------------------
+	// -------------------------------------
 	/**
 	 * Update user to DB - RequestMethod.GET
 	 * 
@@ -154,7 +157,6 @@ public class UserControllerPg {
 		return "redirect:/userlist2";
 	}
 
-	
 	/**
 	 * Delete user
 	 * 
@@ -166,14 +168,5 @@ public class UserControllerPg {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist2";
 	}
-	
-	
-	
-	
-	
-
-	
-
-	
 
 }

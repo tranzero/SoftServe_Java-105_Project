@@ -72,13 +72,24 @@ public interface UserManager extends BaseManager {
 	 * @return user
 	 */
 	public Users findByUsername(String username);
-	
-	//for paging
+
+	/**
+	 * For paging- get userlist Count
+	 * 
+	 * @return
+	 * @throws UsersManagerExeption
+	 */
 	public long getUsersListCount() throws UsersManagerExeption;
-	
+
+	/**
+	 * For paging- get all users
+	 * 
+	 * @param from
+	 * @param count
+	 * @return
+	 * @throws UsersManagerExeption
+	 */
 	public List<Users> getUsersForPage(int from, int count)
 			throws UsersManagerExeption;
-	
-	
 
 }
