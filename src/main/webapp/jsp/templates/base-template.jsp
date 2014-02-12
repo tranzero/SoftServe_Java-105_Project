@@ -41,6 +41,7 @@ $(document).ready(function(){
 <body>
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="navigation"/>
+	<tiles:insertAttribute name="sidebar"/>
 	<tiles:insertAttribute name="content"/>
 	<tiles:insertAttribute name="footer"/>
 <%--

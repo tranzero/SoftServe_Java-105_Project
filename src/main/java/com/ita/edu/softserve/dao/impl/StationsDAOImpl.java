@@ -10,31 +10,57 @@ import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.Transports;
 
 /**
  * 
- * @author iryna
+ * @author admin
  * 
  */
-@Repository ("stationsDao")
+@Repository("stationsDao")
 public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		StationsDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Stations> findByStations(String stationName) {
-		Query query = entityManager.createNamedQuery(
-				Stations.FIND_BY_NAME).setParameter(1, stationName);
-		
+		Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
+				.setParameter(1, stationName);
+
 		return query.getResultList();
 	}
-	
+
 	@Override
-    public Stations findByName(String stationName) {
-            Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
-                            .setParameter(1, stationName);
-            return (Stations) query.getSingleResult();
-    }
+	public Stations findByName(String stationName) {
+		Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
+				.setParameter(1, stationName);
+		return (Stations) query.getSingleResult();
+	}
+
+	@Override
+	public void saveOrUpdate(final Stations entity) {
+		if (entity.getStationId() == null) {
+			entityManager.persist(entity);
+			entityManager.refresh(entity);
+		} else {
+			entityManager.merge(entity);
+		}
+	}
+
+	@Override
+	public long getStationsListCount() {
+		return (long) find((Query) entityManager
+				.createNamedQuery(Stations.STATIONS_FIND_COUNT));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stations> getStationsForLimits(int firstElement, int count) {
+		Query query = entityManager
+				.createNamedQuery(Stations.STATIONS_FIND_ALL)
+				.setFirstResult(firstElement).setMaxResults(count);
+		return (List<Stations>) query.getResultList();
+	}
 
 	/*
 	 * @Override public Stations findByStations(String stationName) { Query
@@ -47,9 +73,12 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 
 		return Stations.class;
 	}
+
 	@Override
-    public List<Stations> findByLineName(String lineName){
-		Query query = entityManager.createNamedQuery(Stations.FIND_BY_LINE_NAME).setParameter(1, lineName);
+	public List<Stations> findByLineName(String lineName) {
+		Query query = entityManager
+				.createNamedQuery(Stations.FIND_BY_LINE_NAME).setParameter(1,
+						lineName);
 		List<Stations> list = query.getResultList();
 		return list;
 	}

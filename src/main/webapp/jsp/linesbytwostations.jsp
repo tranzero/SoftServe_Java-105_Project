@@ -16,35 +16,38 @@
 		<input class="button" type="submit" name="submit" value="Find" />
 	</form:form>
 	<div id="result">
-	<%-- Results --%>
-	<c:if test="${!empty LinesList}">
-		<hr />
-		<table>
-			<c:forEach var="lines" items="${LinesList}">
-				<tr>
-					<td id="generate"></td>
-					<td>${lines.getLineName()}</td>
-					<td><a href="stationsoncertainline/${lines.getLineName()}">Show
-							stations</a></td>
-				</tr>
-			</c:forEach>
-		</table>
-		<hr />
-	</c:if>
-	<c:if
-		test="${empty LinesList && not empty param.stationName1 && not empty param.stationName2}">
-		<hr />
-		<h3>Sorry. No results was found</h3>
-		<hr />
-	</c:if>
+		<%-- Results --%>
+		<c:if test="${!empty LinesList}">
+			<hr />
+			<table>
+				<c:forEach var="lines" items="${LinesList}">
+					<tr>
+						<td id="generate"></td>
+						<td>${lines.getLineName()}</td>
+						<td><a href="stationsoncertainline/${lines.getLineName()}">Show
+								stations</a></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<hr />
+		</c:if>
+		<c:if
+			test="${empty LinesList && not empty param.stationName1 && not empty param.stationName2}">
+			<hr />
+			<h3>Sorry. No results was found</h3>
+			<hr />
+		</c:if>
 	</div>
+	<c:if
+		test="${not empty param.stationName1 && not empty param.stationName2}">
 		<div class="pagination">
 			<ul class="bootpag">
 				<c:if test="${pageNumber>1}">
 					<li class="prev"><a
-						href="?pageNumber=1&resultsPerPage=${resultsPerPage}"> « </a></li>
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}">
+							« </a></li>
 					<li class="prev"><a
-						href="?pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
 							<spring:message code="label.prev" />
 					</a></li>
 				</c:if>
@@ -59,7 +62,7 @@
 					varStatus="status">
 					<c:if test="${pageNumber!=i}">
 						<li><a
-							href="?pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${i}&resultsPerPage=${resultsPerPage}">
 								${i} </a></li>
 					</c:if>
 					<c:if test="${pageNumber==i}">
@@ -70,11 +73,11 @@
 
 				<c:if test="${pageNumber<maxPages}">
 					<li class="next"><a
-						href="?pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
 							<spring:message code="label.next" />
 					</a></li>
 					<li class="next"><a
-						href="?pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
 							» </a></li>
 				</c:if>
 				<c:if test="${pageNumber==maxPages}">
@@ -86,35 +89,43 @@
 				</c:if>
 			</ul>
 		</div>
-	</div>
-			<script>
-		function showLinesPage(pageNumber_, resultsPerPage_) {
+		</div>
+		<script>
+			function showLinesPage(stationName1_, stationName2_, pageNumber_,
+					resultsPerPage_) {
 
-			$.ajax({
-				async : true,
-				beforeSend : function() {
-					$("div#result")
-					.html(
-							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-					},
-					type : "GET",
-					url : "linesbytwostationsPage",
-					data : {
-						pageNumber : pageNumber_,
-						resultsPerPage : resultsPerPage_
-						}
-					}).done(function(msg) {
-						$("div#result").html(msg);
+				if (stationName1_ == "" || stationName2_ == "") {
+					return;
+				}
+				$.ajax(
+								{
+									async : true,
+									beforeSend : function() {
+										$("div#result")
+												.html(
+														'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+									},
+									type : "GET",
+									url : "linesbytwostationsPage",
+									data : {
+										stationName1 : stationName1_,
+										stationName2 : stationName2_,
+										pageNumber : pageNumber_,
+										resultsPerPage : resultsPerPage_
+									}
+								}).done(function(msg) {
+							$("div#result").html(msg);
 						});
 
-			
-		}
+			}
 
-		$(window).load(function() {
+			$(window).load(
+					function() {
+						showLinesPage("${param.stationName1}",
+								"${param.stationName2}", "${pageNumber}",
+								"${resultsPerPage}");
+					});
+		</script>
+	</c:if>
 
-			showTripsPage("${pageNumber}", "${resultsPerPage}");
-
-		});
-		
-	</script>
 </section>

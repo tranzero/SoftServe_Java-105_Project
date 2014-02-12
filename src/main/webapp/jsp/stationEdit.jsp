@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF8"
+	pageEncoding="UTF8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page session="true"%>
+
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.stationEdit"/></h2>
 	<hr />
@@ -25,7 +25,7 @@
 				value="${station.getStationName()}">
 
 			<p>
-				<input type="submit" value="<spring:message code="label.transport.edit"/>"> 
+				<input type="submit" value="<spring:message code="label.stations.edit"/>"> 
 				<input type="button" value="<spring:message code="label.stations.cancel"/>" onclick="window.location='/SoftServe_Java-105/stations';">
 			</p>
 			<br>
@@ -34,5 +34,3 @@
 
 	</form>
 </section>
-<!-- </body> -->
-<!-- </html> -->

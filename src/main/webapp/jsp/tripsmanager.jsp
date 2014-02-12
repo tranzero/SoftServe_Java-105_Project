@@ -6,7 +6,7 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
-	<a> <input id="addtrips" type="button" name="addtrips"
+	<a href="addTrip"> <input id="addtrips" type="button" name="addtrips"
 		value="<spring:message code="label.trips.addtrips"/>">
 	</a>
 	<p>

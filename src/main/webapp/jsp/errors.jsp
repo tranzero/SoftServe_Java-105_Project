@@ -7,6 +7,6 @@
 <title>Error</title>
 </head>
 <body>
-	Incorrect username or password
+	Access denied
 </body>
 </html>
