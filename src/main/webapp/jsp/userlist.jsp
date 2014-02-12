@@ -11,7 +11,7 @@
 </script>
 
 <section id="content">
-	<h1>List of Users</h1>
+	<h1 align="center">List of Users</h1>
 
 	<hr />
 
