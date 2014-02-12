@@ -20,8 +20,11 @@
               <td width="50%"><input type="text" id="password" placeholder="Password" name='j_password' /></td>
           </tr>
           <tr>
-              <td align="center" colspan="2">
+              <td align="right">
                   <input type="submit" name="submit" value="Login" class="btn" />                                  
+              </td>
+              <td align="left">
+                  <a href='mainpage'><input type="button" name="cancel" value="Cancel"></a>                                  
               </td>
          <tr>
 			<td align="right"><spring:message code="label.login.remember" /></td>
