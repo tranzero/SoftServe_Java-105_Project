@@ -1,29 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ page session="true"%>
 
-<section id="content">
-	<h1>List of Users</h1>
+<c:if test="${!empty userList}">
+	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
+	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
 
-	<hr />
+	<table>
 
-	<table class='table'>
-	
 		<thead>
 			<tr>
 				<th>Num</th>
 				<th>Username</th>
 				<th>First name</th>
 				<th>Last name</th>
-				<th>Email</th>				
+				<th>Email</th>
 				<th>Role</th>
 				<th>Date of Regist</th>
 
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<c:forEach var="user" items="${userList}">
 				<tr>
@@ -31,24 +29,27 @@
 					<td>${user.getUserName() }</td>
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
-					<td>${user.geteMail() }</td>					
+					<td>${user.geteMail() }</td>
 					<td>${user.getRole().getDescription()}</td>
 					<td>${user.getRegDate()}</td>
 
-					<td><a href="userEdit/${user.getUserId()}"> <input
+					<td><a href="userEditpg/${user.getUserId()}"> <input
 							id="userEdit" type="button" name="userEdit" value="EDIT User">
-					</a></br></td>					
+					</a></br></td>
 
-					<td><a href="userdel/${user.getUserId()}" 
-					onclick="return confirm_delete()"> <input
-							id="userdel" type="button" name="userdel" value="DELETE">
+					<td><a href="userdelpg/${user.getUserId()}"
+						onclick="return confirm_delete()"> <input id="userdel"
+							type="button" name="userdel" value="DELETE">
 					</a></br></td>
 
 				</tr>
 			</c:forEach>
 		</tbody>
-		
+
 	</table>
-	<hr />
-	
-</section>
+
+
+</c:if>
+<c:if test="${empty userList}">
+	<p>No results.</p>
+</c:if>

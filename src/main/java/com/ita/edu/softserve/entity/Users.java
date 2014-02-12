@@ -28,7 +28,16 @@ import org.springframework.util.Assert;
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Users.FIND_BY_USERNAME, query = Users.FIND_BY_USERNAME_QUERY),
 		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY),
-		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY) })
+		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY)
+		//,
+		// for paging
+		
+		//@NamedQuery(name = Users.FIND_USERS_LIST_COUNT, query = Users.FIND_USERS_LIST_COUNT_QUERY),
+		//@NamedQuery(name = Users.FIND_USERS_LIST_FOR_PAGING, query = Users.FIND_USERS_LIST_FOR_PAGING_QUERY)
+
+}
+
+)
 public class Users extends BaseEntity {
 
 	public static final String FIND_BY_NAME = "Users.findByName";
@@ -42,6 +51,16 @@ public class Users extends BaseEntity {
 
 	public static final String GET_COUNT_ALL_USERS = "Users.getCountAllUsers";
 	public static final String GET_COUNT_ALL_USERS_QUERY = "SELECT COUNT(user) FROM Users user";
+
+	// for paging
+
+	/*public static final String FIND_USERS_LIST_COUNT = "Users.getUsersListCount";
+	public static final String FIND_USERS_LIST_COUNT_QUERY = "SELECT COUNT(user) FROM Users user";
+
+	public static final String FIND_USERS_LIST_FOR_PAGING = "Users.getUsersForPaging";
+	public static final String FIND_USERS_LIST_FOR_PAGING_QUERY = "SELECT user FROM Users ORDER BY user.userId";
+*/
+	//
 
 	@Id
 	@Column(name = "USERID", nullable = false)
@@ -124,11 +143,7 @@ public class Users extends BaseEntity {
 	 */
 	public Users(String userName, String firstName, String lastName,
 			String eMail, String password, Role role) {
-		org.apache.commons.lang.Validate.notEmpty(userName);
-		org.apache.commons.lang.Validate.notEmpty(firstName);
-		org.apache.commons.lang.Validate.notEmpty(lastName);
-		org.apache.commons.lang.Validate.notEmpty(eMail);
-		org.apache.commons.lang.Validate.notEmpty(password);
+
 		this.setUserName(userName);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
