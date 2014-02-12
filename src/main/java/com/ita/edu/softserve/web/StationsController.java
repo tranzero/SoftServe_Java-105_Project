@@ -49,6 +49,14 @@ public class StationsController {
 		return "stationsForUsers";
 	}
 
+	/**\
+	 * Print all Stations where manager can manage them.
+	 *
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/stations", method = RequestMethod.GET)
 	public String manageStations(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -66,6 +74,13 @@ public class StationsController {
 		return "stations";
 	}
 
+	/**
+	 * Delete Station by Id.
+	 * 
+	 * @param stationId
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{stationId}", method = RequestMethod.GET)
 	public String deleteStation(@PathVariable("stationId") Integer stationId,
 			Map<String, Object> map) {
@@ -79,6 +94,13 @@ public class StationsController {
 		return "redirect:/stations";
 	}
 
+	/**
+	 * Return jsp stationEdit.
+	 * 
+	 * @param stationId
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/stationEdit/{station}", method = RequestMethod.GET)
 	public String editStation(@PathVariable("station") Integer stationId,
 			Map<String, Object> modelMap) {
@@ -94,6 +116,15 @@ public class StationsController {
 		return "stationEdit";
 	}
 
+	/**
+	 *  Update station to DB - RequestMethod.POST
+	 * 
+	 * @param stationId
+	 * @param stationCode
+	 * @param stationName
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/stationEdit/{stationToEdit}", method = RequestMethod.POST)
 	public String updateStationToDB(
 			@PathVariable("stationToEdit") Integer stationId,
@@ -110,18 +141,29 @@ public class StationsController {
 		return "redirect:/stations";
 	}
 
+	/**
+	 * @return jsp page addStation.
+	 */
 	@RequestMapping(value = "/addStation", method = RequestMethod.GET)
 	public String addStations() {
 		return "addStation";
 	}
 
+	/**
+	 * Save station to DB
+	 * 
+	 * @param stationCode
+	 * @param stationName
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping(value = "/addstat", method = RequestMethod.POST)
 	public String addStationToBD(
 			@RequestParam("stationCode") String stationCode,
 			@RequestParam("stationName") String stationName,
 			Map<String, Object> modelMap) {
 		try {
-			stationsManager.saveOrUpdateStation(null, stationCode, stationName);
+			stationsManager.createStation(stationCode, stationName);
 		} catch (StationManagerException e) {
 			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
 			modelMap.put("errorMsg", e.getMessage());
