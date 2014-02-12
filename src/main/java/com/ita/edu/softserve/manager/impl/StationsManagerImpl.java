@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +102,26 @@ public class StationsManagerImpl implements StationsManager {
 		}
 	}
 
+	@Transactional(readOnly = false)
+	@Override
+	public void saveOrUpdateStation(Integer stationId, String stationCode,
+			String stationName) throws StationManagerException {
+
+		Stations station = null;
+
+		if (stationId == null) {
+			station = new Stations();
+		} else {
+			station = stationDao.findById(stationId);
+		}
+
+		station.setStationCode(stationCode);
+		station.setStationName(stationName);
+	
+		stationDao.saveOrUpdate(station);
+	}
+	
+	
 	/**
 	 * Removes Stations by Id from database.
 	 * 
@@ -181,5 +202,22 @@ public class StationsManagerImpl implements StationsManager {
 		return allStations;
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<Stations> getStationsForLimit(int firstElement, int count) {
+		return stationDao.getStationsForLimits(firstElement, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Stations> getStationsForPage(int pageNumber, int count) {
+		return getStationsForLimit((pageNumber-1)*count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getStationsListCount() {
+		return stationDao.getStationsListCount();
+	}
 
 }

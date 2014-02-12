@@ -61,7 +61,18 @@ public interface StationsManager extends BaseManager {
 	 * @throws StationManagerException 
 	 */
 	List<Stations> getStationsNotOnCertainLine(String lineName) throws StationManagerException;
-	
+
+	List<Stations> getStationsForLimit(int firstElement, int count);
+
+	List<Stations> getStationsForPage(int pageNumber, int count);
+
+	long getStationsListCount();
+
+	/**
+	 * Save station if not exist or update if exist.
+	 */
+	void saveOrUpdateStation(Integer stationId, String stationCode,
+			String stationName) throws StationManagerException;
 	
 
 }
