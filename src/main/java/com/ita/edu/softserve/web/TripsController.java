@@ -38,6 +38,7 @@ public class TripsController {
 	private static final String TRIPSLIST_NAME = "tripsList";
 	private static final String TRANSPORTSLIST_NAME = "transportsList";
 	private static final String DATEFORMAT_NAME = "dateFormat";
+	private static final String LANGUAGE_NAME = "language";
 
 	@Autowired
 	private TripsManager tripsManager;
@@ -49,7 +50,7 @@ public class TripsController {
 			.getInstance();
 
 	private void completeMapForAddTrip(Integer pageNumber,
-			Integer resultsPerPage, Map<String, Object> modelMap) {
+			Integer resultsPerPage, Map<String, Object> modelMap, Locale locale) {
 		long count = transportsManager.getTransportsListCount();
 		PageInfoContainer container = new PageInfoContainer(pageNumber, resultsPerPage, count);
 		paginationManager.validatePaging(container);
@@ -58,6 +59,7 @@ public class TripsController {
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
+		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
 	}
 	
 	private void completeMapForTrips(Integer pageNumber,
@@ -119,8 +121,8 @@ public class TripsController {
 	public String printAddTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
-		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap);
+			Map<String, Object> modelMap, Locale locale) {
+		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap, locale);
 		return ADDTRIP_SPRING_NAME;
 	}
 
@@ -128,13 +130,13 @@ public class TripsController {
 	public String printAddTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
-		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap);
+			Map<String, Object> modelMap, Locale locale) {
+		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap, locale);
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
 	
-	@RequestMapping(value = "/addNewTrips", method = RequestMethod.GET)
-	public String printAddTripsPage(Map<String, Object> modelMap){
+	@RequestMapping(value = "/addNewTrips", method = RequestMethod.POST)
+	public String printAddTripsPage(Map<String, Object> modelMap, Locale locale){
 		return MANAGETRIPS_SPRING_NAME;
 	}
 			

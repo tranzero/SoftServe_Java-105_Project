@@ -4,28 +4,23 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
-<script type="text/javascript">
-	function confirm_delete() {
-		return confirm('Are you sure?');
-	}
-</script>
 
 <section id="content">
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
-		<form>
-			<h3>
-				<spring:message code="label.addtrips.choosedateinterval" />
-			</h3>
-			<p>
-			<spring:message code="label.addtrips.from" />
-			<spring:message code="label.addtrips.to" />
-			<p>
-			<h3>
-				<spring:message code="label.addtrips.choosetransport" />
-			</h3>
-	<div id="pagingcontent">
+	<form action="addNewTrips.htm" name="trips">
+		<h3>
+			<spring:message code="label.addtrips.choosedateinterval" />
+		</h3>
+		<p>
+			<label for="from"><spring:message code="label.addtrips.from" /></label>
+			<input type="text" id="from" name="from"> <label for="to"><spring:message
+					code="label.addtrips.to" /></label> <input type="text" id="to" name="to">
+		<h3>
+			<spring:message code="label.addtrips.choosetransport" />
+		</h3>
+		<div id="pagingcontent">
 			<table style="align: center">
 				<thead>
 					<tr>
@@ -106,10 +101,31 @@
 					</c:if>
 				</ul>
 			</div>
-		
-	</div>
-</form>
+
+		</div>
+	</form>
 	<script>
+		function formDatePicker() {
+			$.datepicker.setDefaults($.datepicker.regional['${language}']);
+			$("#from").datepicker({
+				defaultDate : "+0w",
+				changeMonth : true,
+				numberOfMonths : 3,
+				onClose : function(selectedDate) {
+					$("#to").datepicker("option", "minDate", selectedDate);
+				}
+			});
+			$("#to").datepicker({
+				defaultDate : "+1w",
+				changeMonth : true,
+				numberOfMonths : 3,
+				onClose : function(selectedDate) {
+					$("#from").datepicker("option", "maxDate", selectedDate);
+				}
+			});
+
+		}
+
 		function showAddTripPage(pageNumber_, resultsPerPage_) {
 			$
 					.ajax(
@@ -136,7 +152,7 @@
 
 		$(window).load(function() {
 			showAddTripPage("${pageNumber}", "${resultsPerPage}");
-
+			formDatePicker();
 		});
 	</script>
 </section>

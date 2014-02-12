@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,13 @@ public class TripsManagerImpl implements TripsManager {
 	@Override
 	public List<Trips> getTripsForLimit(int firstElement, int count) {
 		return tripsDao.getTripsForLimits(firstElement, count);
+	}
+
+	@Transactional
+	@Override
+	public boolean addTripsInInterval(Locale locale, String minDate,
+			String maxDate, int transportId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
