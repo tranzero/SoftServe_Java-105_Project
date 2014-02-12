@@ -49,8 +49,8 @@
 			<li class="prev"><a href="javascript:void(0);"
 				onclick="showTransportPage(1, ${resultsPerPage})"> « </a></li>
 			<li class="prev"><a href="javascript:void(0);"
-				onclick="showTransportPage(${pageNumber-1},${resultsPerPage})"> <spring:message
-						code="label.prev" />
+				onclick="showTransportPage(${pageNumber-1},${resultsPerPage})">
+					<spring:message code="label.prev" />
 			</a></li>
 		</c:if>
 		<c:if test="${pageNumber==1}">
@@ -72,8 +72,8 @@
 
 		<c:if test="${pageNumber<maxPages}">
 			<li class="next"><a href="javascript:void(0);"
-				onclick="showTransportPage(${pageNumber+1},${resultsPerPage})"> <spring:message
-						code="label.next" />
+				onclick="showTransportPage(${pageNumber+1},${resultsPerPage})">
+					<spring:message code="label.next" />
 			</a></li>
 			<li class="next"><a href="javascript:void(0);"
 				onclick="showTransportPage(${maxPages},${resultsPerPage})"> » </a></li>

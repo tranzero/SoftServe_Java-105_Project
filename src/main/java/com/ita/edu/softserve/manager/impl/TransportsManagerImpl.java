@@ -34,14 +34,6 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Autowired
 	public TransportsDao transportsDao;
 
-	/*
-	 * @Autowired private StationsOnLineDAO stlDao;
-	 * 
-	 * @Autowired private StationsDAO stationDao;
-	 * 
-	 * @Autowired private StopsDAO stopsDao;
-	 */
-
 	/**
 	 * Gets access to Routes DAO.
 	 */

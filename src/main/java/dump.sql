@@ -18,6 +18,13 @@ CREATE TABLE `lines` (
 LOCK TABLES `lines` WRITE;
 /*!40000 ALTER TABLE `lines` DISABLE KEYS */;
 INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv');
+INSERT INTO `lines` VALUES ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1');
+INSERT INTO `lines` VALUES ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2');
+INSERT INTO `lines` VALUES ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3');
+INSERT INTO `lines` VALUES ('13', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3');
+INSERT INTO `lines` VALUES ('14', 'L\'viv - Stryy3'), ('17', 'Stryy - L\'viv3'), ('20', 'Pisochne - Sknyliv3');
+INSERT INTO `lines` VALUES ('15', 'L\'viv - Stryy3'), ('18', 'Stryy - L\'viv3'), ('21', 'Pisochne - Sknyliv3');
+
 /*!40000 ALTER TABLE `lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,6 +128,26 @@ CREATE TABLE `stationsonlines` (
 LOCK TABLES `stationsonlines` WRITE;
 /*!40000 ALTER TABLE `stationsonlines` DISABLE KEYS */;
 INSERT INTO `stationsonlines` VALUES ('1', '1', '17', '1'), ('2', '1', '16', '2'), ('3', '1', '15', '3'), ('4', '1', '14', '4'), ('5', '1', '13', '5'), ('6', '1', '12', '6'), ('7', '1', '11', '7'), ('8', '1', '10', '8'), ('9', '1', '9', '9'), ('10', '1', '8', '10'), ('11', '1', '7', '11'), ('12', '1', '6', '12'), ('13', '1', '5', '13'), ('14', '1', '4', '14'), ('15', '1', '3', '15'), ('16', '1', '2', '16'), ('17', '1', '1', '17'), ('18', '2', '1', '1'), ('19', '2', '2', '2'), ('20', '2', '3', '3'), ('21', '2', '4', '4'), ('22', '2', '5', '5'), ('23', '2', '6', '6'), ('24', '2', '7', '7'), ('25', '2', '8', '8'), ('26', '2', '9', '9'), ('27', '2', '10', '10'), ('28', '2', '11', '11'), ('29', '2', '12', '12'), ('30', '2', '13', '13'), ('31', '2', '14', '14'), ('32', '2', '15', '15'), ('33', '2', '16', '16'), ('34', '2', '17', '17'), ('38', '3', '5', '1'), ('39', '3', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('40', '4', '5', '1'), ('41', '4', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('42', '5', '5', '1'), ('43', '5', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('44', '6', '5', '1'), ('45', '6', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('46', '7', '5', '1'), ('47', '7', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('48', '8', '5', '1'), ('49', '8', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('50', '9', '5', '1'), ('51', '9', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('52', '10', '5', '1'), ('53', '10', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('54', '11', '5', '1'), ('55', '11', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('56', '12', '5', '1'), ('57', '12', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('58', '13', '5', '1'), ('59', '13', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('60', '14', '5', '1'), ('61', '14', '16', '2');
+
+INSERT INTO `stationsonlines` VALUES ('62', '15', '5', '1'), ('63', '15', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('64', '16', '5', '1'), ('65', '16', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('66', '17', '5', '1'), ('67', '17', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('68', '18', '5', '1'), ('69', '18', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('70', '19', '5', '1'), ('71', '19', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('72', '20', '5', '1'), ('73', '20', '16', '2');
+INSERT INTO `stationsonlines` VALUES ('74', '21', '5', '1'), ('75', '21', '16', '2');
+
 /*!40000 ALTER TABLE `stationsonlines` ENABLE KEYS */;
 UNLOCK TABLES;
 

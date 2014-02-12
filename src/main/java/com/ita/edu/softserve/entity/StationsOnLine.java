@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.entity;
 
-
 import java.util.Set;
 
 import javax.persistence.*;
@@ -17,27 +16,20 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Entity
 @Table(name = "stationsonlines")
 @NamedQueries({
-@NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY),
-@NamedQuery(name = StationsOnLine.FIND_BY_TWO_STATIONS, query = StationsOnLine.FIND_BY_TWO_STATIONS_QUERY),
-@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY),
-@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID, query = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID_QUERY)})
+		@NamedQuery(name = StationsOnLine.FIND_BY_STATIONS_ID, query = StationsOnLine.FIND_BY_STATIONS_ID_QUERY),
+		@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID, query = StationsOnLine.FIND_BY_LINE_ID_QUERY),
+		@NamedQuery(name = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID, query = StationsOnLine.FIND_BY_LINE_ID_AND_STATION_ID_QUERY) })
 public class StationsOnLine extends BaseEntity {
 
-
 	public static final String FIND_BY_STATIONS_ID = "StationsOnLine.findByStationID";
-	public static final String FIND_BY_STATIONS_ID_QUERY ="SELECT stl FROM StationsOnLine stl WHERE stl.stationId.stationId = ?1";
-
-	public static final String FIND_BY_TWO_STATIONS = "StationsOnLine.findByTwoStations";
-	public static final String FIND_BY_TWO_STATIONS_QUERY ="select stl from StationsOnLine stl, StationsOnLine stlt where stl.stationId.stationName = ?1 and stlt.stationId.stationName = ?2 and stl.lineId.lineId = stlt.lineId.lineId and stlt.stationOrderNum > stl.stationOrderNum";
+	public static final String FIND_BY_STATIONS_ID_QUERY = "SELECT stl FROM StationsOnLine stl WHERE stl.stationId.stationId = ?1";
 
 	public static final String FIND_BY_LINE_ID_AND_STATION_ID = "StationsOnLine.findByStationIdAndLineId";
-	public static final String FIND_BY_LINE_ID_AND_STATION_ID_QUERY ="select stl from StationsOnLine stl where stl.stationId.stationId = ?1 and stl.lineId.lineId = ?2";
+	public static final String FIND_BY_LINE_ID_AND_STATION_ID_QUERY = "select stl from StationsOnLine stl where stl.stationId.stationId = ?1 and stl.lineId.lineId = ?2";
 
-	
-	
 	public static final String FIND_BY_LINE_ID = "StationsOnLine.findByLineID";
-	public static final String FIND_BY_LINE_ID_QUERY="SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
-	
+	public static final String FIND_BY_LINE_ID_QUERY = "SELECT stl FROM StationsOnLine stl WHERE stl.lineId.lineId = ?1";
+
 	@Id
 	@Column(name = "STATIONONLINEID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -152,7 +144,8 @@ public class StationsOnLine extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		StationsOnLine other = (StationsOnLine) obj;
-		return new EqualsBuilder().append(stationOnLineId, other.stationOnLineId).isEquals();
+		return new EqualsBuilder().append(stationOnLineId,
+				other.stationOnLineId).isEquals();
 	}
 
 }

@@ -4,8 +4,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript">
+<!--
 	function confirm_delete() {
 		return confirm('Are you sure?');
+		//-->
 	}
 </script>
 
@@ -13,6 +15,10 @@
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
+	<a href="/SoftServe_Java-105/formTransport.htm"> <input id="Add"
+		type="button" name="add"
+		value="<spring:message code="label.transport.add"/>">
+	</a>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
@@ -105,6 +111,7 @@
 		</div>
 	</div>
 	<script>
+	<!--
 		function showTransportPage(pageNumber_, resultsPerPage_) {
 			$
 					.ajax(
@@ -133,5 +140,6 @@
 			showTransportPage("${pageNumber}", "${resultsPerPage}");
 
 		});
+	//-->
 	</script>
 </section>
