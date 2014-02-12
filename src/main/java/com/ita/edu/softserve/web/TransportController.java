@@ -3,7 +3,6 @@ package com.ita.edu.softserve.web;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,9 +56,6 @@ public class TransportController {
 	private static final String TRANSPORT_JSP = "transport";
 	private static final String TRANSPORT_URL_PATTERN = "/transport";
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportController.class);
-
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -71,7 +67,6 @@ public class TransportController {
 
 	/**
 	 * Prints transports in browser.
-	 * 
 	 * @param modelMap
 	 * @return
 	 */
@@ -147,6 +142,7 @@ public class TransportController {
 
 	/**
 	 * Prints page transports in browser.
+	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
 	 * @param modelMap
@@ -309,4 +305,3 @@ public class TransportController {
 		return TRANSPORT_TRAVEL_JSP;
 	}
 }
- 
