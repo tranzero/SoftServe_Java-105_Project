@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+
 /**
  * @author admin _ The persistent class for the ROUTES database table.
  */
