@@ -20,7 +20,7 @@ body {
 /* Header */
 header {
 	display:block;
-	height: 140px;
+	height: 160px;
 	background-color:#272727;
 	color: #f3f3f3;
 }
@@ -47,7 +47,51 @@ header > div#language {
 	clear: right;
 	display:inline-block;	
 	float:right;
+	padding-top: 30px;
 	padding-right:40px;
+	height: 70px;
+}
+
+header > div#social {
+   display: inline-block;
+   float: right;
+   padding-right: 40px;
+   padding-top: 20px;
+}
+header > div#social ul{
+   list-style-type:none;
+   display:inline-block;	
+}
+header > div#social ul li{
+   display:inline-block;	
+}
+span.icon {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+}
+.icon {
+	padding-right: 4px;
+	width: 40px;
+	height: 40px;
+}
+.fb_icon {
+	background: url("../images/fb.png") no-repeat;	
+	background-size: 40px 40px;
+	opacity: 0.7;
+}
+.vk_icon {
+	background: url("../images/vk.png") no-repeat;	
+	background-size: 40px 40px;
+	opacity: 0.7;
+}
+.rss_icon {
+	background: url("../images/rss.png") no-repeat;	
+	background-size: 40px 40px;
+	opacity: 0.7;
+}
+.fb_icon:hover,.vk_icon:hover,.rss_icon:hover {
+	opacity: 1.0;
 }
 
 header div#login a {
@@ -66,28 +110,117 @@ header div#language a:hover {
 }
 
 nav {
-	background-color:#272727;
+        background: none repeat scroll 0 0 #434343;
 	height:44px;       
 }
 
 /* Context */
+section {
+	margin-top: 10px;
+}
 section#content {
         margin-left:auto;
         margin-right:auto;
 	padding: 40px 40px 100px 40px;
 	width:940px;
 	min-height:400px;
-	background-color: #fff;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+    	background-color: #F5F5F5;
+    	border-radius: 4px;
+    	margin-bottom: 20px;
 }
 
 /* Footer */
 footer {
-        font-size: 0.7em;
+	margin-top: 50px;
+        font-size: 0.8em;
         color: #777777;
         margin-left:auto;
         margin-right:auto;
-	padding:20px;
-	width:980px;
+	height: 230px;
+}
+footer ul li{
+	list-style-type: none;
+	padding-bottom: 8px;
+}
+span.github_icon {
+	width: 40px;
 	height: 40px;
+	display: inline-block;
+}
+span.ss_icon {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+}
+
+.ss_icon {
+	padding-right: 4px;
+	background: url("../images/softserve_logo.png") no-repeat;
+	background-size: 40px 40px;
+	font-size: 1.25em;
+	width: 40px;
+	height: 40px;
+	opacity: 0.7;
+	vertical-align: middle;
+	margin-left: -24px;
+}
+.ss_icon:hover {
+	background: url("../images/softserve_logo.png") no-repeat;
+	background-size: 40px 40px;
+	opacity: 1.0;
+	width: 40px;
+	height: 40px;
+}
+.github_icon {
+	padding-right: 4px;
+	background: url("../images/github_black.png") no-repeat;
+	background-size: 40px 40px;
+	font-size: 1.25em;
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+	margin-left: -24px;
+}
+.github_icon:hover {
+	background: url("../images/github_white.png") no-repeat;
+	background-size: 40px 40px;
+	opacity: 0.7;
+	width: 40px;
+	height: 40px;
+}
+
+#footer_col {
+	padding-left: 100px;
+	display: block;
+	float: left;
+}
+.footer_col_title {
+	font-size: 1.75em;
+	line-height: 1em;
+	color: #ffe;
+	font-weight: 800;
+}
+#footer_primary {
+        padding: 0;
+        margin: 0;
+	height: 140px;
+        background-color: #333333;
+        padding: 30px 0;
+}
+#footer_secondary {
+	height: 40px;
+	background-color: #232323;
+	color: #837E76;
+	font-size: 0.9em;
+	padding: 30px 0 10px 0;
+}
+#footer_secondary #footer_first_col {
+	clear: both;
+	padding-left: 100px;
+	float: left;
+}
+
+#footer_secondary #footer_second_col {
+	float: right;
+	padding-right: 100px;
 }
