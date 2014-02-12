@@ -1,20 +1,29 @@
 package com.ita.edu.softserve.manager.impl;
 
+import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.StopsDAO;
 import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Stops;
+import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 
@@ -22,41 +31,79 @@ import com.ita.edu.softserve.manager.RoutesManager;
  * @author Lyubomyr
  * 
  */
-@Service("routesService")
+@Service("routesManager")
 public class RoutesManagerImpl implements RoutesManager {
 
-	private static final Logger LOGGER = Logger.getLogger(Routes.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(RoutesManagerImpl.class);
 
 	@Autowired
 	private RoutesDAO routeDao;
 
 	@Autowired
-	private StopsDAO stopDao;
-
-	@Autowired
-	private StationsOnLineDAO stationOnLineDao;
+	private LinesDAO lineDao;
 
 	public RoutesManagerImpl() {
 	}
 
-	public RoutesManagerImpl(RoutesDAOImpl routeDao) {
-		this.routeDao = routeDao;
+	@Transactional(readOnly = true)
+	@Override
+	public Routes findRoutesById(int id) {
+		return routeDao.findById(id);
 	}
 
-	public RoutesManagerImpl(StopsDAO stopDao) {
-		this.stopDao = stopDao;
+	@Transactional
+	@Override
+	public void createRoute(String lines, String routeCode) {
+		Routes route = new Routes();
+		route.setRouteCode(routeCode);
+		route.setLineId(lineDao.findByName(lines));
+		routeDao.save(route);
 	}
 
-	public RoutesManagerImpl(StationsOnLineDAO stationOnLineDao) {
-		this.stationOnLineDao = stationOnLineDao;
+	@Override
+	@Transactional
+	public void updateRoute(Integer routeId, String lines, String routeCode) {
+		Routes route = routeDao.findById(routeId);
+		route.setRouteCode(routeCode);
+		route.setLineId(lineDao.findByName(lines));
+		routeDao.update(route);
+	}
+
+	@Transactional
+	@Override
+	public void removeRouteById(Integer routeId) {
+		try {
+			routeDao.remove(routeDao.findById(routeId));
+		} catch (NoResultException e) {
+			LOGGER.error("No routes", e);
+		}
+	}
+
+	@Transactional
+	@Override
+	public List<Routes> getAllRoutes() {
+		return routeDao.getAllEntities();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Routes> getRoutesForPage(int currentPage, int count) {
+		return routeDao.getRoutesForLimits((currentPage - 1) * count, count);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutesListCount() {
+		return routeDao.getRoutesListCount();
 	}
 
 	/**
 	 * Return Routes of transports that are arriving to certain station during
 	 * certain times
 	 * 
-	 * @param idStationArriving
-	 *            - id arriving station
+	 * @param stationNameArrival
+	 *            - name arriving station
 	 * @param timeArrivalMin
 	 *            - minimum time arrival
 	 * @param timeArrivalMax
@@ -64,49 +111,25 @@ public class RoutesManagerImpl implements RoutesManager {
 	 * 
 	 */
 	@Override
-	public List<Routes> findRoutersListByStationIdArriving(
-			int idStationArriving, Time timeArrivalMin, Time timeArrivalMax)
+	public List<RouteTrip> findRoutersListByStationNameArriving(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax)
 			throws IllegalArgumentException {
-		checkInvalidDataByStationArriving(idStationArriving, timeArrivalMin,
+		checkInvalidDataByStationArriving(stationNameArrival, timeArrivalMin,
 				timeArrivalMax);
-
-		List<Routes> routersListByStationArriving = new ArrayList<Routes>();
-
-		for (StationsOnLine stationOnLine : stationOnLineDao.getAllEntities()) {
-			if (stationOnLine.getStationId().getStationId() == idStationArriving)
-				for (Stops stop : stopDao.getAllEntities()) {
-					if (stationOnLine.getStationOnLineId() == stop
-							.getStationOnLineID().getStationOnLineId())
-						for (Routes route : routeDao.getAllEntities()) {
-							if (stop.getRouteId().getRouteId() == route
-									.getRouteId()) {
-								@SuppressWarnings("deprecation")
-								Time timeForComparison = new Time(route
-										.getStartTime().getHours()
-										+ stop.getArrival().getHours(), route
-										.getStartTime().getMinutes()
-										+ stop.getArrival().getMinutes(), route
-										.getStartTime().getSeconds()
-										+ stop.getArrival().getSeconds());
-								if ((timeForComparison.equals(timeArrivalMin) || timeForComparison
-										.after(timeArrivalMin))
-										&& (timeForComparison
-												.equals(timeArrivalMax) || timeForComparison
-												.before(timeArrivalMax))) {
-									routersListByStationArriving.add(route);
-								}
-							}
-						}
-				}
+		List<RouteTrip> routesArrivingList = routeDao
+				.findRoutersListByStationNameArriving(stationNameArrival,
+						timeArrivalMin, timeArrivalMax);
+		if (routesArrivingList.get(0) == null) {
+			return null;
 		}
-		return routersListByStationArriving;
+		return routesArrivingList;
 	}
 
-	private void checkInvalidDataByStationArriving(int idStationArriving,
+	private void checkInvalidDataByStationArriving(String stationNameArrival,
 			Time timeArrivalMin, Time timeArrivalMax) {
-		if (idStationArriving < 1) {
+		if (stationNameArrival == null) {
 			throw new IllegalArgumentException(
-					"idStationArriving should be greater than zero");
+					"stationNameArrival should be not null");
 		}
 		if (timeArrivalMin.after(timeArrivalMax)) {
 			throw new IllegalArgumentException(
@@ -118,8 +141,8 @@ public class RoutesManagerImpl implements RoutesManager {
 	 * Return Routes of transports that are departing from certain station
 	 * during certain times
 	 * 
-	 * @param idStationArriving
-	 *            - id departing station
+	 * @param stationNameDeparture
+	 *            - name departing station
 	 * @param timeDepartureMin
 	 *            - minimum time departure
 	 * @param timeDepartureMax
@@ -127,51 +150,26 @@ public class RoutesManagerImpl implements RoutesManager {
 	 * 
 	 */
 	@Override
-	public List<Routes> findRoutersListByStationIdDeparting(
-			int idStationDeparting, Time timeDepartureMin, Time timeDepartureMax)
-			throws IllegalArgumentException {
-
-		checkInvalidDataByStationDeparting(idStationDeparting,
+	public List<RouteTrip> findRoutersListByStationNameDeparting(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax) throws IllegalArgumentException {
+		checkInvalidDataByStationDeparting(stationNameDeparture,
 				timeDepartureMin, timeDepartureMax);
-
-		List<Routes> routersListByStationDeparting = new ArrayList<Routes>();
-
-		for (StationsOnLine stationOnLine : stationOnLineDao.getAllEntities()) {
-			if (stationOnLine.getStationId().getStationId() == idStationDeparting)
-				for (Stops stop : stopDao.getAllEntities()) {
-					if (stationOnLine.getStationOnLineId() == stop
-							.getStationOnLineID().getStationOnLineId())
-						for (Routes route : routeDao.getAllEntities()) {
-							if (stop.getRouteId().getRouteId() == route
-									.getRouteId()) {
-								@SuppressWarnings("deprecation")
-								Time timeForComparison = new Time(route
-										.getStartTime().getHours()
-										+ stop.getDeparture().getHours(), route
-										.getStartTime().getMinutes()
-										+ stop.getDeparture().getMinutes(),
-										route.getStartTime().getSeconds()
-												+ stop.getDeparture()
-														.getSeconds());
-								if ((timeForComparison.equals(timeDepartureMin) || timeForComparison
-										.after(timeDepartureMin))
-										&& (timeForComparison
-												.equals(timeDepartureMax) || timeForComparison
-												.before(timeDepartureMax))) {
-									routersListByStationDeparting.add(route);
-								}
-							}
-						}
-				}
+		List<RouteTrip> routesDepartingList = routeDao
+				.findRoutersListByStationNameDeparting(stationNameDeparture,
+						timeDepartureMin, timeDepartureMax);
+		if (routesDepartingList.get(0) == null) {
+			return null;
 		}
-		return routersListByStationDeparting;
+		return routesDepartingList;
 	}
 
-	private void checkInvalidDataByStationDeparting(int idStationDeparting,
-			Time timeDepartureMin, Time timeDepartureMax) {
-		if (idStationDeparting < 1) {
+	private void checkInvalidDataByStationDeparting(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax) {
+		if (stationNameDeparture == null) {
 			throw new IllegalArgumentException(
-					"idStationDeparting should be greater than zero");
+					"stationNameDeparture should be not null");
 		}
 		if (timeDepartureMin.after(timeDepartureMax)) {
 			throw new IllegalArgumentException(

@@ -10,10 +10,11 @@
 		<li><spring:message code="label.navigation.timetable"/>
 		<ul class="submenu">
 			<li><a href="/SoftServe_Java-105/stationsForUsers"><spring:message code="label.navigation.stationsForUsers"/></a></li>
-			<li><a href="/SoftServe_Java-105/routes"><spring:message code="label.navigation.routes"/></a></li>
+			<li><a href="/SoftServe_Java-105/routesTrips"><spring:message code="label.navigation.routes"/></a></li>
 			<li><a href="/SoftServe_Java-105/transport"><spring:message code="label.navigation.transport"/></a></li>
 			<li><a href="/SoftServe_Java-105/trips"><spring:message code="label.navigation.trips"/></a></li>
 			<li><a href="/SoftServe_Java-105/transportTravel"><spring:message code="label.navigation.transportTravel"/></a></li>
+			<li><a href="/SoftServe_Java-105/routes"><spring:message code="label.navigation.route"/></a></li>
 		</ul>
 		</li>
 		<li><spring:message code="label.navigation.orders"/></li>
@@ -25,7 +26,8 @@
 			<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message code="label.navigation.managetrips"/></a></li>
 			<li><a href="/SoftServe_Java-105/linesbystation"><spring:message code="label.navigation.linesbystation"/></a></li>
 			<li><a href="/SoftServe_Java-105/formTransport.htm"><spring:message code="label.navigation.addTransport"/></a></li>
-			
+			<li><a href="/SoftServe_Java-105/routesAllEdit"><spring:message code="label.navigation.editroutes"/></a></li>
+			<li><a href="/SoftServe_Java-105/addRt"><spring:message code="label.navigation.addRoute"/></a></li>
 		</ul>
 		</li>
 		<li><spring:message code="label.navigation.users"/>
