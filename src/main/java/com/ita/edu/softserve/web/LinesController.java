@@ -200,7 +200,8 @@ public class LinesController {
 		PagingController.deployPaging(modelMap, container, pageMan);
 
 		modelMap.put("LinesList",
-				linesManager.getLinesByTwoStations(stationName1, stationName2));
+				linesManager.getLinesByTwoStForPage(stationName1, stationName2, (int)pageNumber, (int)count));
+//				linesManager.getLinesByTwoStations(stationName1, stationName2));
 
 		return "linesbytwostationsPage";
 	}
