@@ -9,7 +9,7 @@ html {
 
 body {
 	height: 100%;
-	min-width: 980px;
+	min-width: 1200px;
 	max-width: 1400px;
 	margin: 0 auto;
 	min-height: 100%;
@@ -117,12 +117,23 @@ nav {
 /* Context */
 section {
 	margin-top: 10px;
+	float: left;
+	width:840px;
+	margin-left: 140px;
 }
+aside {
+	float: right;
+	margin-right: 60px;
+	z-index: -99;
+}
+.widget {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
 section#content {
-        margin-left:auto;
-        margin-right:auto;
 	padding: 40px 40px 100px 40px;
-	width:940px;
+	width:840px;
 	min-height:400px;
     	background-color: #F5F5F5;
     	border-radius: 4px;
@@ -131,6 +142,7 @@ section#content {
 
 /* Footer */
 footer {
+	clear: both;
 	margin-top: 50px;
         font-size: 0.8em;
         color: #777777;
