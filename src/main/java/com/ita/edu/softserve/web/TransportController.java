@@ -185,7 +185,7 @@ public class TransportController {
 	/**
 	 * The name of jsp that defines Spring.
 	 */
-	private static final String TRANSPORT_JSP = "transport";
+	private static final String TRANSPORT = "transport";
 
 	/**
 	 * URL pattern that map controller printTransports.
@@ -213,7 +213,6 @@ public class TransportController {
 
 	/**
 	 * Display transports in browser.
-	 * 
 	 * @param modelMap
 	 *            Model map to fill.
 	 * @return transportView jsp to use.
@@ -231,7 +230,6 @@ public class TransportController {
 
 	/**
 	 * Displays page transports in browser.
-	 * 
 	 * @param pageNumber
 	 *            Number of displaying page.
 	 * @param resultsPerPage
@@ -253,7 +251,6 @@ public class TransportController {
 
 	/**
 	 * Displays transports in browser with button to edit and delete rows.
-	 * 
 	 * @param modelMap
 	 *            Model map to fill.
 	 * @return transport jsp to use.
@@ -266,12 +263,11 @@ public class TransportController {
 
 		forPrintTransport(pageNumber, resultsPerPage, modelMap);
 
-		return TRANSPORT_JSP;
+		return TRANSPORT;
 	}
 
 	/**
 	 * Displays page transports in browser.
-	 * 
 	 * @param pageNumber
 	 *            Number of displaying page.
 	 * @param resultsPerPage
@@ -294,7 +290,6 @@ public class TransportController {
 	/**
 	 * Method to display filling model map used in transports-list related
 	 * controllers.
-	 * 
 	 * @param pageNumber
 	 *            Number of displaying page.
 	 * @param resultsPerPage
@@ -318,7 +313,6 @@ public class TransportController {
 
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
-	 * 
 	 * @return addTransport jsp to use.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
@@ -329,7 +323,6 @@ public class TransportController {
 	/**
 	 * Controller method for displaying adding transport page. Adds new
 	 * transport into the Transports table.
-	 * 
 	 * @param transportCode
 	 *            Transport code.
 	 * @param startTime
@@ -366,7 +359,6 @@ public class TransportController {
 	 * Controller for displaying getting transports ID from the Transports table
 	 * and finds it in the Transports table then puts found object in Map as
 	 * request attribute.
-	 * 
 	 * @param transportId
 	 *            transports ID to get from the database.
 	 * @param modelMap
@@ -375,18 +367,19 @@ public class TransportController {
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(
-			@PathVariable(TRANSPORT_JSP) Integer transportId,
+			@PathVariable(TRANSPORT) Integer transportId,
 			Map<String, Object> modelMap) {
+		
 		Transports transport = transportsManager
 				.findTransportsById(transportId);
-		modelMap.put(TRANSPORT_JSP, transport);
+		
+		modelMap.put(TRANSPORT, transport);
 
 		return EDIT_TRANSPORT_JSP;
 	}
 
 	/**
 	 * Displays getting a transport object and saves it into the Transports table.
-	 * 
 	 * @param transportCode
 	 *            Transport code.
 	 * @param startTime
@@ -423,7 +416,6 @@ public class TransportController {
 
 	/**
 	 * Displays deleting a transport from the Transports table.
-	 * 
 	 * @param transportId
 	 * @return redirect:/transport
 	 */
@@ -437,7 +429,6 @@ public class TransportController {
 
 	/**
 	 * Displays in browser all stations on certain line.
-	 * 
 	 * @param lineId
 	 *            Line ID.
 	 * @param modelMap
@@ -458,7 +449,6 @@ public class TransportController {
 
 	/**
 	 * Controller method for displaying getting lines by two stations page.
-	 * 
 	 * @param stationName1
 	 *            Name of station 1.
 	 * @param stationName2
