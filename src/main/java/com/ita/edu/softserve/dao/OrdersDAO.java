@@ -3,7 +3,6 @@ package com.ita.edu.softserve.dao;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Orders;
-import com.ita.edu.softserve.entity.Post;
 
 /**
  * @author nvrubl
@@ -18,7 +17,17 @@ public interface OrdersDAO extends AbstractDAOIface<Orders> {
 	 */
 	public List<Orders> findOrdersByUserId(int id);
 	
+	/**
+	 * Find size of the list
+	 * @return size of the list
+	 */
 	public long getOrdersListCount();
 
+	/**
+	 * Find orders for one page
+	 * @param from from what element list will begin
+	 * @param count how match elements will be in the list 
+	 * @return List of lines witch will be printed on one page
+	 */
 	public List<Orders> getOrdersForOnePage(int from, int count);
 }
