@@ -2,6 +2,7 @@ package com.ita.edu.softserve.web;
 
 import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
 
+import java.io.Console;
 import java.sql.Time;
 import java.util.Map;
 
@@ -73,7 +74,6 @@ public class RoutesController {
 	}
 
 	@RequestMapping(value = "/routes", method = RequestMethod.GET)
-	// =================
 	public String printListRoutes(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
@@ -107,7 +107,13 @@ public class RoutesController {
 	public String transportForm() {
 		return "addRoute";
 	}
-
+	
+	/**
+	 * Add route to DB
+	 * 
+	 * @param routeCode
+	 * @param lineNam
+	 */
 	@RequestMapping(value = "/addRoute", method = RequestMethod.POST)
 	public String addRouteToBD(@ModelAttribute("routeCode") String routeCode,
 			@ModelAttribute("lineName") String lineName) {
@@ -126,7 +132,13 @@ public class RoutesController {
 		modelMap.put("route", route);
 		return "editRoute";
 	}
-
+	
+	/**
+	 * Edit route in DB
+	 * 
+	 * @param routeCode
+	 * @param lineNam
+	 */
 	@RequestMapping(value = "/editRoute/{routeId}", method = RequestMethod.POST)
 	public String updateRouteToDB(@PathVariable("routeId") Integer routeId,
 			@ModelAttribute("routeCode") String routeCode,
@@ -137,6 +149,11 @@ public class RoutesController {
 		return "redirect:/routesAllEdit";
 	}
 
+	/**
+	 * Delete route from DB
+	 * 
+	 * @param routeId
+	 */
 	@RequestMapping(value = "/deleteRoute/{routeToDelete}", method = RequestMethod.GET)
 	public String deleteRoute(@PathVariable("routeToDelete") Integer routeId) {
 		routesManager.removeRouteById(routeId);
@@ -148,7 +165,21 @@ public class RoutesController {
 	public String findRoutersListByStationIdArriving(Map<String, Object> model) {
 		return "routesTrips";
 	}
-
+	
+	/**
+	 * Find Routes of transports that are arriving/departing to certain station during
+	 * certain times
+	 * 
+	 * @param stationName
+	 *            - name arriving/departing  station
+	 * @param timeMin
+	 *            - minimum time arrival/departing 
+	 * @param timeMax
+	 *            - maximum time arrival/departing 
+	 * @param findBy
+	 *            - chose arrival or departing
+	 * 
+	 */
 	@RequestMapping(value = "/routesFind", method = RequestMethod.GET)
 	public String findRoutersListByStationIdArriving(
 			@RequestParam("nameStation") String nameStation,
@@ -170,5 +201,94 @@ public class RoutesController {
 							timeParse(timeMin), timeParse(timeMax)));
 		}
 		return "routesTrips";
+	}
+	
+	@RequestMapping(value = "/routestripsbystations", method = RequestMethod.GET)
+	public String getRoutesTripsByStations(
+			@RequestParam("nameStation") String nameStation,
+			@RequestParam("timeMin") String timeMin,
+			@RequestParam("timeMax") String timeMax,
+			@RequestParam("findBy") String findBy,
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+
+		if (nameStation.equals("") || timeMin.equals("") || timeMax.equals("")) {
+			return "routestripsbystations";
+		}
+
+		long count = 0;
+		if (findBy.equals("findByArr")) {
+			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+		}
+		if (findBy.equals("findByDep")) {
+			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+		}		
+	
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		
+		if (findBy.equals("findByArr")) {
+			modelMap.put("RouteTripsList", routesManager
+					.findRoutersListByStationNameArriving(nameStation,
+							timeParse(timeMin), timeParse(timeMax)));
+		}
+		
+		if (findBy.equals("findByDep")) {
+			modelMap.put("RouteTripsList", routesManager
+					.findRoutersListByStationNameDeparting(nameStation,
+							timeParse(timeMin), timeParse(timeMax)));
+		}	
+
+		return "routestripsbystations";
+	}
+
+	@RequestMapping(value = "/routestripsbystationsPage", method = RequestMethod.GET)
+	public String getRoutesTripsByStationsPage(
+			@RequestParam("nameStation") String nameStation,
+			@RequestParam("timeMin") String timeMin,
+			@RequestParam("timeMax") String timeMax,
+			@RequestParam("findBy") String findBy,
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+		if (nameStation.equals("") || timeMin.equals("") || timeMax.equals("")) {
+			return "routestripsbystations";
+		}
+
+		long count = 0;
+		
+		if (findBy.equals("findByArr")) {
+			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+		}
+		if (findBy.equals("findByDep")) {
+			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+		}	
+		
+		PageInfoContainer container = new PageInfoContainer(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+
+		System.out.println(nameStation);
+		System.out.println(timeMin);
+		System.out.println(timeMax);
+		System.out.println(pageNumber);
+		System.out.println(resultsPerPage);
+		System.out.println("nooooo");
+		if (findBy.equals("findByArr")) {
+			modelMap.put("RouteTripsList", routesManager.getRoutersListByStNameArrivingForPage(
+					nameStation,
+					timeParse(timeMin), timeParse(timeMax), container.getPageNumber(), container.getResultsPerPage()));
+		}
+		
+		if (findBy.equals("findByDep")) {
+			modelMap.put("RouteTripsList", routesManager.getRoutersListByStNameDepartingForPage(
+					nameStation,
+					timeParse(timeMin), timeParse(timeMax), container.getPageNumber(), container.getResultsPerPage()));
+		}
+		return "routestripsbystationsPage";
 	}
 }
