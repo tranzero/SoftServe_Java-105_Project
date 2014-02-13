@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
  * @author Roman
  */
 public final class ParseUtil {
+	
+	private static final String HH_MM_SS = "hh:mm:ss";
+	
 	private static final Logger LOGGER = Logger.getLogger(ParseUtil.class);
 
 	/**
@@ -33,7 +36,7 @@ public final class ParseUtil {
 			return null;
 		}
 
-		DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		DateFormat sdf = new SimpleDateFormat(HH_MM_SS);
 		Date date = null;
 
 		try {

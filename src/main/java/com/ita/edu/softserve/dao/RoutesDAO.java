@@ -3,6 +3,7 @@ package com.ita.edu.softserve.dao;
 import java.sql.Time;
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
@@ -32,4 +33,18 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 	public List<RouteTrip> findRoutersListByStationNameDeparting(
 			String stationNameDeparture, Time timeDepartureMin,
 			Time timeDepartureMax);
+	
+	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count);
+
+	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count);
+	
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax);
+	
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax);
 }

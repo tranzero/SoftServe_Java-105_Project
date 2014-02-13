@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
@@ -80,5 +81,49 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				.setParameter(2, timeDepartureMin)
 				.setParameter(3, timeDepartureMax);
 		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count){
+		Query query = entityManager
+				.createNamedQuery(Routes.FIND_BY_ARRIVING_STATION_NAME_AND_TIME_INTERVAL)
+				.setParameter(1, stationNameArrival)
+				.setParameter(2, timeArrivalMin)
+				.setParameter(3, timeArrivalMax)
+				.setFirstResult(currentPaget).setMaxResults(count);
+		return (List<RouteTrip>) query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count){
+		Query query = entityManager
+				.createNamedQuery(Routes.FIND_BY_DEPARTING_STATION_NAME_AND_TIME_INTERVAL)
+				.setParameter(1, stationNameDeparture)
+				.setParameter(2, timeDepartureMin)
+				.setParameter(3, timeDepartureMax)
+				.setFirstResult(currentPaget).setMaxResults(count);
+		return (List<RouteTrip>) query.getResultList();
+	}
+	
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax){
+		return (long) find((Query) entityManager
+				.createNamedQuery(Routes.GET_ROUTES_BY_ARRIVING_STATION_NAME_AND_TIME_INTERVAL_COUNT)
+				.setParameter(1, stationNameArrival)
+				.setParameter(2, timeArrivalMin)
+				.setParameter(3, timeArrivalMax));
+	}
+	
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax){
+		return (long) find((Query) entityManager
+				.createNamedQuery(Routes.GET_ROUTES_BY_DEPARTING_STATION_NAME_AND_TIME_INTERVAL_COUNT)
+				.setParameter(1, stationNameDeparture)
+				.setParameter(2, timeDepartureMin)
+				.setParameter(3, timeDepartureMax));
 	}
 }

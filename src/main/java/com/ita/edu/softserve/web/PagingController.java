@@ -7,6 +7,13 @@ import com.ita.edu.softserve.utils.PageInfoContainer;
 
 public class PagingController {
 	
+	/**
+	 * Fills given model map with info, related to paging
+	 * @param modelMap Model map to fill
+	 * @param container container of paging info (must be validated)
+	 * @param paginationManager manager for pagination
+	 */
+	
 	public static void deployPaging(Map<String, Object> modelMap, 
 			PageInfoContainer container,PaginationManager paginationManager){
 		int pageAmount = paginationManager.getDefaultPageCount();

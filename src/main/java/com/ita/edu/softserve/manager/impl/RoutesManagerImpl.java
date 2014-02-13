@@ -28,6 +28,8 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 
 /**
+ * RoutesManagerImpl
+ * 
  * @author Lyubomyr
  * 
  */
@@ -119,9 +121,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		List<RouteTrip> routesArrivingList = routeDao
 				.findRoutersListByStationNameArriving(stationNameArrival,
 						timeArrivalMin, timeArrivalMax);
-		if (routesArrivingList.get(0) == null) {
+		/*if (routesArrivingList.get(0) == null) {
 			return null;
-		}
+		}*/
 		return routesArrivingList;
 	}
 
@@ -135,6 +137,15 @@ public class RoutesManagerImpl implements RoutesManager {
 			throw new IllegalArgumentException(
 					"timeArrivalMax should be greater or equals than timeArrivalMin");
 		}
+		if (timeArrivalMin.after(new Time(24,0,0))||timeArrivalMax.after(new Time(24,0,0))) {
+			throw new IllegalArgumentException(
+					"time can not be greater than 24h");
+		}
+		if (timeArrivalMin.before(new Time(0,0,0))||timeArrivalMax.before(new Time(0,0,0))) {
+			throw new IllegalArgumentException(
+					"time can not be less than 0h");
+		}
+		
 	}
 
 	/**
@@ -158,9 +169,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		List<RouteTrip> routesDepartingList = routeDao
 				.findRoutersListByStationNameDeparting(stationNameDeparture,
 						timeDepartureMin, timeDepartureMax);
-		if (routesDepartingList.get(0) == null) {
+		/*if (routesDepartingList.get(0) == null) {
 			return null;
-		}
+		}*/
 		return routesDepartingList;
 	}
 
@@ -175,6 +186,50 @@ public class RoutesManagerImpl implements RoutesManager {
 			throw new IllegalArgumentException(
 					"timeDepartureMax should be greater or equals than timeDepartureMin");
 		}
+		if (timeDepartureMin.after(new Time(24,0,0))||timeDepartureMax.after(new Time(24,0,0))) {
+			throw new IllegalArgumentException(
+					"time can not be greater than 24h");
+		}
+		if (timeDepartureMin.before(new Time(0,0,0))||timeDepartureMax.before(new Time(0,0,0))) {
+			throw new IllegalArgumentException(
+					"time can not be less than 0h");
+		}
+	}
+	
+	
+	
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax){
+		return routeDao.getRoutersListByStationNameArrivingCount(stationNameArrival, timeArrivalMin, timeArrivalMax);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count){
+		System.out.println("go data to manager");
+		return routeDao.getRoutersListByStNameArrivingForLimits(stationNameArrival, timeArrivalMin, timeArrivalMax,
+				(currentPaget - 1) * count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax){
+		return routeDao.getRoutersListByStationNameDepartingCount(stationNameDeparture, timeDepartureMin, timeDepartureMax);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<RouteTrip> getRoutersListByStNameDepartingForPage(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count){
+		return routeDao.getRoutersListByStNameDepartingForLimits(stationNameDeparture, timeDepartureMin, timeDepartureMax,
+				(currentPaget - 1) * count, count);
 	}
 
 	public static RoutesManager getInstance() {

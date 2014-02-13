@@ -41,7 +41,6 @@
 			<p><input type="submit" value="Update">&emsp;
 				<input type="button" value="<spring:message code="label.stations.cancel"/>" 
 				onclick="window.location='/SoftServe_Java-105/transport';"></p>
-
 		</div>
 	</form>
 </section>
