@@ -30,6 +30,20 @@ public interface RoutesManager extends BaseManager {
 	public List<Routes> getRoutesForPage(int currentPage, int count);
 
 	long getRoutesListCount();
+	
+	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count);
+	
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax);
+
+	public List<RouteTrip> getRoutersListByStNameDepartingForPage(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count);
+	
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax);
 
 	/**
 	 * Return Routes of transports that are arriving to certain station during
