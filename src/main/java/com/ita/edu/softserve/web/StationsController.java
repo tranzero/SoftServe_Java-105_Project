@@ -44,9 +44,9 @@ public class StationsController {
 		return "stationsForUsers";
 	}
 
-	/**\
-	 * Print all Stations where manager can manage them.
-	 *
+	/**
+	 * \ Print all Stations where manager can manage them.
+	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
 	 * @param modelMap
@@ -58,14 +58,14 @@ public class StationsController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-			paggingForStations(pageNumber, resultsPerPage, modelMap);
-			
+		paggingForStations(pageNumber, resultsPerPage, modelMap);
+
 		return "stations";
 	}
-	
-	
+
 	/**
-	 * Method genered pagging for Satations and filled modalMap to display filling model map.
+	 * Method genered pagging for Satations and filled modalMap to display
+	 * filling model map.
 	 * 
 	 * @param pageNumber
 	 *            Number of displaying page.
@@ -131,7 +131,7 @@ public class StationsController {
 	}
 
 	/**
-	 *  Update station to DB - RequestMethod.POST
+	 * Update station to DB - RequestMethod.POST
 	 * 
 	 * @param stationId
 	 * @param stationCode
