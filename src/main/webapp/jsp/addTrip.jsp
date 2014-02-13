@@ -9,7 +9,12 @@
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
-	<form action="addNewTrips.htm" name="trips">
+	<c:if test="${not empty errormark}">
+		<font color="red"><spring:message
+				code="label.addtrips.errormessage" /> </font>
+	</c:if>
+
+	<form action="addNewTrips" name="trips" method="post">
 		<h3>
 			<spring:message code="label.addtrips.choosedateinterval" />
 		</h3>
@@ -103,6 +108,8 @@
 			</div>
 
 		</div>
+		<input type="submit"
+			value="<spring:message code="label.navigation.addtrips"/>">
 	</form>
 	<script>
 		function formDatePicker() {

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,6 +107,24 @@ public class TripsController {
 	private static final String LANGUAGE_NAME = "language";
 
 	/**
+	 * name for mark of error in addTrip.jsp
+	 */
+	private static final String ERRORMARK = "errormark";
+
+	/**
+	 * name for minimum date in adding trips attribute name
+	 */
+	private static final String FROM_ATTRIBUTE_NAME = "from";
+	/**
+	 * name for maximum date in adding trips attribute name
+	 */
+	private static final String TO_ATTRIBUTE_NAME = "to";
+	/**
+	 * name for transport id in adding trips attribute name
+	 */
+	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportid";
+
+	/**
 	 * Field for using trips-related controller-level methods
 	 */
 
@@ -183,16 +202,21 @@ public class TripsController {
 						lang.equalsIgnoreCase(UKRAINIAN) ? UKRAINIAN_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
 	}
-	
+
 	/**
 	 * Controller method for displaying trips list page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
-	
+
 	@RequestMapping(value = TRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
 	public String printTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -201,13 +225,18 @@ public class TripsController {
 		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
 		return TRIPSPAGE_SPRING_NAME;
 	}
-	
+
 	/**
 	 * Controller method for displaying AJAX-source trips list page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
 
@@ -220,13 +249,17 @@ public class TripsController {
 		return TRIPS_SPRING_NAME;
 	}
 
-	
 	/**
 	 * Controller method for displaying trips manager page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
 	@RequestMapping(value = MANAGETRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
@@ -237,13 +270,18 @@ public class TripsController {
 		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
 		return MANAGETRIPSPAGE_SPRING_NAME;
 	}
-	
+
 	/**
 	 * Controller method for displaying AJAX-source trips manager page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
 
@@ -258,13 +296,18 @@ public class TripsController {
 
 	/**
 	 * Controller method for displaying adding trips page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
-	
+
 	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
 	public String printAddTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -273,13 +316,18 @@ public class TripsController {
 		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap, locale);
 		return ADDTRIP_SPRING_NAME;
 	}
-	
+
 	/**
 	 * Controller method for displaying AJAX-source adding trips page
-	 * @param pageNumber Number of displaying page (spring-defined)
-	 * @param resultsPerPage Amount of results per page (spring-defined)
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
 
@@ -293,14 +341,34 @@ public class TripsController {
 	}
 
 	/**
-	 * Controller method for performing addition of trips 
-	 * @param modelMap Model map to fill
-	 * @param locale Used spring locale
+	 * Controller method for performing addition of trips
+	 * 
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
-	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME, method = RequestMethod.POST)
-	public String printAddTripsPage(Map<String, Object> modelMap, Locale locale) {
-		return MANAGETRIPS_SPRING_NAME;
+	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME)
+	public String printAddTripsPage(Map<String, Object> modelMap,
+			Locale locale, @ModelAttribute(FROM_ATTRIBUTE_NAME) String minDate,
+			@ModelAttribute(TO_ATTRIBUTE_NAME) String maxDate,
+			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
+		if (transportId == null) {
+			completeMapForAddTrip(null, null, modelMap, locale);
+			modelMap.put(ERRORMARK, true);
+			return ADDTRIP_SPRING_NAME;
+		}
+		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
+				transportId)) {
+			completeMapForTrips(null, null, modelMap, locale);
+			return MANAGETRIPS_SPRING_NAME;
+		} else {
+			completeMapForAddTrip(null, null, modelMap, locale);
+			modelMap.put(ERRORMARK, true);
+			return ADDTRIP_SPRING_NAME;
+		}
+
 	}
 
 }
