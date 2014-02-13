@@ -3,15 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%
-	int i = 0;
-%>
-<!-- <script type="text/javascript">
-var pageUrl = "linesbystationresult";
-</script> -->
 <h1>Lines Search</h1>
 <section id="content">
-	<form name="linesbystation" id="linebystation" method="get">
+	<form:form action="linesbystation" id="linebystation" method="get">
 		Enter station name :
 		<c:if test="${not empty param.stationName}">
 			<input type="text" name="stationName" value="${param.stationName}" />
@@ -20,7 +14,7 @@ var pageUrl = "linesbystationresult";
 			<input type="text" name="stationName"/>
 		</c:if>
 		<input class="button" type="submit" name="submit" value="Find" />
-	</form>
+	</form:form>
 	<div id="result">
 		<c:if test="${!empty linesbystationlist}">
 			<hr />
