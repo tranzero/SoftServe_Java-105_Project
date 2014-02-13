@@ -19,9 +19,41 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 * @return Lines
 	 */
 	public Lines findByName(String lineName);
+	
+	/**
+	 * Find Lines by station name
+	 * 
+	 * @param stationName
+	 * @return List of Lines, which include certain station
+	 */
 	public List<Lines> getLinesByStationName(String stationName);
+	
+	/**
+	 * Method for paging
+	 * 
+	 * @param stationName
+	 * @param firstElement
+	 * @param count
+	 * @return List of Lines
+	 */
 	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count);
+	
+	/**
+	 * Method for paging
+	 * 
+	 * @param stationName
+	 * @return quantity of result
+	 */
 	public long getLinesByStationNameCount(String stationName);
+	
+	/**
+	 * Method for paging
+	 * 
+	 * @param from
+	 * @param count
+	 * @param stationName
+	 * @return List of Lines
+	 */
 	public List<Lines> getLinesByStationForOnePage(int from,
 			int count, String stationName);
 	
