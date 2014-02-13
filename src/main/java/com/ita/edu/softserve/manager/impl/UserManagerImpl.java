@@ -29,9 +29,6 @@ public class UserManagerImpl implements UserManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
-	
-	/*private static final Logger LOGGER = Logger.getLogger(UsersManagerExeption.class);
-	*/
 
 	@Autowired
 	private UsersDAO userDao;
@@ -135,8 +132,9 @@ public class UserManagerImpl implements UserManager {
 		return (Users) userDao.findByUsername(username);
 	}
 
-	// for paging
-
+	/**
+	 * For paging- get userlist Count
+	 */
 	@Override
 	public long getUsersListCount() throws UsersManagerExeption {
 		try {
@@ -147,11 +145,14 @@ public class UserManagerImpl implements UserManager {
 		}
 	}
 
+	/**
+	 * For paging- get all users
+	 */
 	@Override
 	public List<Users> getUsersForPage(int from, int count)
 			throws UsersManagerExeption {
 		try {
-			return userDao.getUsersForOnePage(from-1, count);
+			return userDao.getUsersForOnePage(from - 1, count);
 		} catch (Exception e) {
 			LOGGER.error(e);
 			throw new UsersManagerExeption("Could not get Users for one page",

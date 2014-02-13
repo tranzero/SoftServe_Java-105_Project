@@ -3,7 +3,6 @@ package com.ita.edu.softserve.web;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,9 +56,6 @@ public class TransportController {
 	private static final String TRANSPORT_JSP = "transport";
 	private static final String TRANSPORT_URL_PATTERN = "/transport";
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportController.class);
-
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -81,21 +77,14 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-
-		List<Transports> transports = transportsManager.getTransportsForPage(
-				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put(TRANSPORTS_LIST_NAME, transports);
+		forPrintTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORT_VIEW_JSP;
 	}
 
 	/**
 	 * Prints page transports in browser.
+	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
 	 * @param modelMap
@@ -107,15 +96,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-
-		List<Transports> transports = transportsManager.getTransportsForPage(
-				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put(TRANSPORTS_LIST_NAME, transports);
+		forPrintTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORTPAGE_VIEW_JSP;
 	}
@@ -132,21 +113,14 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-
-		List<Transports> transports = transportsManager.getTransportsForPage(
-				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put(TRANSPORTS_LIST_NAME, transports);
+		forPrintTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORT_JSP;
 	}
 
 	/**
 	 * Prints page transports in browser.
+	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
 	 * @param modelMap
@@ -158,6 +132,14 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
+		forPrintTransport(pageNumber, resultsPerPage, modelMap);
+
+		return TRANSPORTPAGE_JSP;
+	}
+
+	private void forPrintTransport(Integer pageNumber, Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+
 		long count = transportsManager.getTransportsListCount();
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
@@ -167,14 +149,12 @@ public class TransportController {
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
 		modelMap.put(TRANSPORTS_LIST_NAME, transports);
-
-		return TRANSPORTPAGE_JSP;
 	}
 
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
 	 * 
-	 * @return
+	 * @return addTransport
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm() {
@@ -191,7 +171,7 @@ public class TransportController {
 	 * @param seatclass2
 	 * @param seatclass3
 	 * @param genprice
-	 * @return
+	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
@@ -215,7 +195,7 @@ public class TransportController {
 	 * 
 	 * @param transportId
 	 * @param modelMap
-	 * @return
+	 * @return editTransport
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(
@@ -239,7 +219,7 @@ public class TransportController {
 	 * @param seatclass2
 	 * @param seatclass3
 	 * @param genprice
-	 * @return
+	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
@@ -263,7 +243,7 @@ public class TransportController {
 	 * Deletes a transport from the Transports table.
 	 * 
 	 * @param transportId
-	 * @return
+	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE, method = RequestMethod.GET)
 	public String removeTransport(
@@ -278,7 +258,7 @@ public class TransportController {
 	 * 
 	 * @param lineId
 	 * @param modelMap
-	 * @return
+	 * @return listOfStationsOnLine
 	 */
 	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
 	public String printStationOnLine(

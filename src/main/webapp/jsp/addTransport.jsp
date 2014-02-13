@@ -31,42 +31,8 @@
 				<p><input type="text" name="genprice"></p>
 
 		</div>
-		<input type="submit" value="<spring:message code="label.navigation.addTransport"/>">
+		<input type="submit" value="<spring:message code="label.navigation.addTransport"/>">&emsp;
+		<input type="button" value="<spring:message code="label.stations.cancel"/>" 
+				onclick="window.location='/SoftServe_Java-105/transport';">
 	</form>
-
-<%-- 	<form:form method="POST" action="addTransport.htm"
-		commandName="transport">
-		<div>
-			
-				<p><form:label path="transportCode">Transport Code</form:label></p>
-				<p><form:input path="transportCode" /></p>
-			
-			
-				<p><form:label path="startTime">Start Time</form:label></p>
-				<p><form:input path="startTime" /></p>
-			
-			
-				<p><form:label path="routes">Routes ID</form:label></p>
-				<p><form:input path="routes" /></p>
-			
-				<p><form:label path="seatclass1">Seat Class 1</form:label></p>
-				<p><form:input path="seatclass1" /></p>
-			
-			
-				<p><form:label path="seatclass2">Seat Class 2</form:label></p>
-				<p><form:input path="seatclass2" /></p>
-			
-			
-				<p><form:label path="seatclass3">Seat Class 3</form:label></p>
-				<p><form:input path="seatclass3" /></p>
-			
-			
-				<p><form:label path="genprice">General Price</form:label></p>
-				<p><form:input path="genprice" /></p>
-			
-			
-				<td colspan="2"><input type="submit" value="Add" /></p>
-			
-		</div>
-	</form:form> --%>
 </section>
