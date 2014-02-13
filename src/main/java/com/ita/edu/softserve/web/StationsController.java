@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,7 @@ public class StationsController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		long count = stationsManager.getStationsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-		modelMap.put("stationsList", stationsManager.getStationsForPage(
-				container.getPageNumber(), container.getResultsPerPage()));
+		paggingForStations(pageNumber, resultsPerPage, modelMap);
 
 		return "stationsForUsers";
 	}
@@ -63,15 +58,34 @@ public class StationsController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
+			paggingForStations(pageNumber, resultsPerPage, modelMap);
+			
+		return "stations";
+	}
+	
+	
+	/**
+	 * Method genered pagging for Satations and filled modalMap to display filling model map.
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page.
+	 * @param resultsPerPage
+	 *            Amount of results per page.
+	 * @param modelMap
+	 *            Model map to fill.
+	 */
+	private void paggingForStations(Integer pageNumber, Integer resultsPerPage,
+			Map<String, Object> modelMap) {
+
 		long count = stationsManager.getStationsListCount();
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		modelMap.put("stationsList", stationsManager.getStationsForPage(
-				container.getPageNumber(), container.getResultsPerPage()));
 
-		return "stations";
+		List<Stations> stations = stationsManager.getStationsForPage(
+				container.getPageNumber(), container.getResultsPerPage());
+		modelMap.put("stationsList", stations);
 	}
 
 	/**
