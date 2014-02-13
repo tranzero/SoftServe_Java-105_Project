@@ -172,8 +172,9 @@ public class LinesController {
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("LinesList",
-				linesManager.getLinesByTwoStations(stationName1, stationName2));
+		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
+				stationName1, stationName2, (int) container.getPageNumber(),
+				(int) container.getResultsPerPage()));
 
 		return "linesbytwostations";
 	}
@@ -188,7 +189,7 @@ public class LinesController {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
-			return "linesbytwostations";
+			return "linesbytwostationsPage";
 		}
 
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
@@ -199,8 +200,8 @@ public class LinesController {
 		PagingController.deployPaging(modelMap, container, pageMan);
 
 		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
-				stationName1, stationName2, (int) pageNumber,
-				(int) resultsPerPage));
+				stationName1, stationName2, (int) container.getPageNumber(),
+				(int) container.getResultsPerPage()));
 		// linesManager.getLinesByTwoStations(stationName1, stationName2));
 
 		return "linesbytwostationsPage";
