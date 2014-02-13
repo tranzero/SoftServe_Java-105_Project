@@ -18,58 +18,205 @@ import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.PageInfoContainer;
 
+/**
+ * Base controller class for transport.
+ * @author Roman
+ *
+ */
 @Controller
 public class TransportController {
 
 	private static final String TRANSPORTPAGE_VIEW_JSP = "transportpageView";
+
+	/**
+	 * URL pattern that map controller printTransportPageView.
+	 */
 	private static final String TRANSPORTPAGE_VIEW_URL_PATTERN = "/transportpageView";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String TRANSPORT_VIEW_JSP = "transportView";
+
+	/**
+	 * URL pattern that map controller printTransportsView.
+	 */
 	private static final String TRANSPORT_VIEW_URL_PATTERN = "/transportView";
+
+	/**
+	 * The name of key with which the transports value is to be associated.
+	 */
 	private static final String TRANSPORT_TRAVEL_LIST = "TransportTravelList";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String TRANSPORT_TRAVEL_JSP = "transportTravel";
-	private static final String STATION_NAME2_REQUEST_PARAM = "stationName2";
+
+	/**
+	 * Name of request param to find lines by two stations.
+	 */
 	private static final String STATION_NAME1_REQUEST_PARAM = "stationName1";
+
+	/**
+	 * Name of request param to find lines by two stations.
+	 */
+	private static final String STATION_NAME2_REQUEST_PARAM = "stationName2";
+
+	/**
+	 * URL pattern that map controller getLinesByTwoStations.
+	 */
 	private static final String TRANSPORT_TRAVEL_URL_PATTERN = "/transportTravel";
+
+	/**
+	 * The name of key with which the StationsOnLine value is to be associated.
+	 */
 	private static final String LIST_OF_STATIONS_ON_LINE = "listOfStationsOnLine";
+
+	/**
+	 * Path variable to get from view.
+	 */
 	private static final String LINE_ID_ONSTATIONS_PATH_VERIABLE = "lineIdOnstations";
+
+	/**
+	 * URL pattern that map controller printStationOnLine.
+	 */
 	private static final String GETS_LINE_ID_LINE_ID_ONSTATIONS = "/getsLineId/{lineIdOnstations}";
+
+	/**
+	 * Path variable to get Id to remove transport.
+	 */
 	private static final String TRANSPORT_TO_REMOVE_PATH_VERIABLE = "transportToRemove";
+
+	/**
+	 * URL pattern that map controller removeTransport.
+	 */
 	private static final String REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE = "/removeTransport/{transportToRemove}";
+
+	/**
+	 * Path variable to transport Id.
+	 */
 	private static final String TRANSPORT_ID_MODEL_ATTRIBUTE = "transportId";
+
+	/**
+	 * URL pattern that map controller updateTransportToDB.
+	 */
 	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "/editTransport/{transportId}";
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String EDIT_TRANSPORT_JSP = "editTransport";
+
+	/**
+	 * URL pattern that map controller editTransport.
+	 */
 	private static final String EDIT_TRANSPORT_TRANSPORT = "/editTransport/{transport}";
-	private static final String REDIRECT_TRANSPORT = "redirect:/transport";
-	private static final String GENPRICE_MODEL_ATTRIBUTE = "genprice";
-	private static final String SEATCLASS3_MODEL_ATTRIBUTE = "seatclass3";
-	private static final String SEATCLASS2_MODEL_ATTRIBUTE = "seatclass2";
-	private static final String SEATCLASS1_MODEL_ATTRIBUTE = "seatclass1";
-	private static final String ROUTES_MODEL_ATTRIBUTE = "routes";
-	private static final String START_TIME_MODEL_ATTRIBUTE = "startTime";
+
+	/**
+	 * Transport code model attribute to get transport code.
+	 */
 	private static final String TRANSPORT_CODE_MODEL_ATTRIBUTE = "transportCode";
+
+	/**
+	 * Start time model attribute to get start time.
+	 */
+	private static final String START_TIME_MODEL_ATTRIBUTE = "startTime";
+
+	/**
+	 * Routes code model attribute to get routes code.
+	 */
+	private static final String ROUTES_MODEL_ATTRIBUTE = "routes";
+
+	/**
+	 * Seat class 1 model attribute to get number of seats of class 1.
+	 */
+	private static final String SEATCLASS1_MODEL_ATTRIBUTE = "seatclass1";
+
+	/**
+	 * Seat class 2 model attribute to get number of seats of class 2.
+	 */
+	private static final String SEATCLASS2_MODEL_ATTRIBUTE = "seatclass2";
+
+	/**
+	 * Seat class 3 model attribute to get number of seats of class 3.
+	 */
+	private static final String SEATCLASS3_MODEL_ATTRIBUTE = "seatclass3";
+
+	/**
+	 * General price model attribute to get general price.
+	 */
+	private static final String GENPRICE_MODEL_ATTRIBUTE = "genprice";
+	
+	/**
+	 * The name of jsp that defines Spring to redirect.
+	 */
+	private static final String REDIRECT_TRANSPORT = "redirect:/transport";
+
+	/**
+	 * URL pattern that map controller addTransportToBD.
+	 */
 	private static final String ADD_TRANSPORT_URL_PATTERN = "/addTransport.htm";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String ADD_TRANSPORT_JSP = "addTransport";
+
+	/**
+	 * URL pattern that map controller transportForm.
+	 */
 	private static final String FORM_TRANSPORT_URL_PATTERN = "/formTransport.htm";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String TRANSPORTPAGE_JSP = "transportpage";
+
+	/**
+	 * URL pattern that map controller printTransportPage.
+	 */
 	private static final String TRANSPORTPAGE_URL_PATTERN = "/transportpage";
+
+	/**
+	 * The name of key with which the transports value is to be associated.
+	 */
 	private static final String TRANSPORTS_LIST_NAME = "transportsList";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
 	private static final String TRANSPORT_JSP = "transport";
+
+	/**
+	 * URL pattern that map controller printTransports.
+	 */
 	private static final String TRANSPORT_URL_PATTERN = "/transport";
 
+	/**
+	 * Field for using paging-related controller-level methods (class realized
+	 * using singleton)
+	 */
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
+	/**
+	 * Field for using transports-related controller-level methods.
+	 */
 	@Autowired
 	private TransportsManager transportsManager;
 
+	/**
+	 * Field for using station on line manager-related controller-level methods.
+	 */
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
 	/**
-	 * Prints transports in browser.
+	 * Display transports in browser.
 	 * 
 	 * @param modelMap
-	 * @return
+	 *            Model map to fill.
+	 * @return transportView jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_VIEW_URL_PATTERN, method = RequestMethod.GET)
 	public String printTransportsView(
@@ -83,11 +230,14 @@ public class TransportController {
 	}
 
 	/**
-	 * Prints page transports in browser.
+	 * Displays page transports in browser.
 	 * 
 	 * @param pageNumber
+	 *            Number of displaying page.
 	 * @param resultsPerPage
+	 *            Amount of results per page.
 	 * @param modelMap
+	 *            Model map to fill.
 	 * @return
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_VIEW_URL_PATTERN, method = RequestMethod.GET)
@@ -102,10 +252,11 @@ public class TransportController {
 	}
 
 	/**
-	 * Prints transports in browser with button to edit and delete rows.
+	 * Displays transports in browser with button to edit and delete rows.
 	 * 
 	 * @param modelMap
-	 * @return
+	 *            Model map to fill.
+	 * @return transport jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String printTransports(
@@ -119,12 +270,15 @@ public class TransportController {
 	}
 
 	/**
-	 * Prints page transports in browser.
+	 * Displays page transports in browser.
 	 * 
 	 * @param pageNumber
+	 *            Number of displaying page.
 	 * @param resultsPerPage
+	 *            Amount of results per page.
 	 * @param modelMap
-	 * @return
+	 *            Model map to fill.
+	 * @return transportpage jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_URL_PATTERN, method = RequestMethod.GET)
 	public String printTransportPage(
@@ -137,6 +291,17 @@ public class TransportController {
 		return TRANSPORTPAGE_JSP;
 	}
 
+	/**
+	 * Method to display filling model map used in transports-list related
+	 * controllers.
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page.
+	 * @param resultsPerPage
+	 *            Amount of results per page.
+	 * @param modelMap
+	 *            Model map to fill.
+	 */
 	private void forPrintTransport(Integer pageNumber, Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
@@ -154,7 +319,7 @@ public class TransportController {
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
 	 * 
-	 * @return addTransport
+	 * @return addTransport jsp to use.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm() {
@@ -162,15 +327,23 @@ public class TransportController {
 	}
 
 	/**
-	 * Adds new transport into the Transports table.
+	 * Controller method for displaying adding transport page. Adds new
+	 * transport into the Transports table.
 	 * 
 	 * @param transportCode
+	 *            Transport code.
 	 * @param startTime
+	 *            Start time.
 	 * @param routesCode
+	 *            Routes code.
 	 * @param seatclass1
+	 *            Number of seats class 1.
 	 * @param seatclass2
+	 *            Number of seats class 2.
 	 * @param seatclass3
+	 *            Number of seats class 3.
 	 * @param genprice
+	 *            General price.
 	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
@@ -190,12 +363,15 @@ public class TransportController {
 	}
 
 	/**
-	 * Gets transports ID from the Transports table and finds it in the
-	 * Transports table then puts found object in Map as request attribute.
+	 * Controller for displaying getting transports ID from the Transports table
+	 * and finds it in the Transports table then puts found object in Map as
+	 * request attribute.
 	 * 
 	 * @param transportId
+	 *            transports ID to get from the database.
 	 * @param modelMap
-	 * @return editTransport
+	 *            Model map to fill.
+	 * @return editTransport jsp to use.
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(
@@ -209,16 +385,22 @@ public class TransportController {
 	}
 
 	/**
-	 * Gets a transport object and save it into the Transports table.
+	 * Displays getting a transport object and saves it into the Transports table.
 	 * 
-	 * @param transportId
 	 * @param transportCode
+	 *            Transport code.
 	 * @param startTime
-	 * @param routes
+	 *            Start time.
+	 * @param routesCode
+	 *            Routes code.
 	 * @param seatclass1
+	 *            Number of seats class 1.
 	 * @param seatclass2
+	 *            Number of seats class 2.
 	 * @param seatclass3
+	 *            Number of seats class 3.
 	 * @param genprice
+	 *            General price.
 	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
@@ -240,7 +422,7 @@ public class TransportController {
 	}
 
 	/**
-	 * Deletes a transport from the Transports table.
+	 * Displays deleting a transport from the Transports table.
 	 * 
 	 * @param transportId
 	 * @return redirect:/transport
@@ -254,10 +436,12 @@ public class TransportController {
 	}
 
 	/**
-	 * Prints in browser all stations on certain line.
+	 * Displays in browser all stations on certain line.
 	 * 
 	 * @param lineId
+	 *            Line ID.
 	 * @param modelMap
+	 *            Model Map to fill.
 	 * @return listOfStationsOnLine
 	 */
 	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
@@ -272,18 +456,29 @@ public class TransportController {
 		return LIST_OF_STATIONS_ON_LINE;
 	}
 
+	/**
+	 * Controller method for displaying getting lines by two stations page.
+	 * 
+	 * @param stationName1
+	 *            Name of station 1.
+	 * @param stationName2
+	 *            Name of station 2.
+	 * @param modelMap
+	 *            Model map to fill.
+	 * @return
+	 */
 	@RequestMapping(value = TRANSPORT_TRAVEL_URL_PATTERN, method = RequestMethod.GET)
 	public String getLinesByTwoStations(
 			@RequestParam(value = STATION_NAME1_REQUEST_PARAM, required = false) String stationName1,
 			@RequestParam(value = STATION_NAME2_REQUEST_PARAM, required = false) String stationName2,
-			Map<String, Object> model) {
+			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
 
-		model.put(TRANSPORT_TRAVEL_LIST, transportsManager
+		modelMap.put(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStations(stationName1, stationName2));
 
 		return TRANSPORT_TRAVEL_JSP;
