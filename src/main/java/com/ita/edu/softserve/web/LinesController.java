@@ -21,21 +21,20 @@ import com.ita.edu.softserve.utils.PageInfoContainer;
 @Controller
 public class LinesController {
 
-	String pageNumberKey = "pageNumber";
-	String resultsPerPageKey = "resultsPerPage";
-	String sizeOfPagingKey = "sizeOfPaging";
-	String maxPageCountKey = "maxPageCount";
-	String maxResultCountKey = "maxResultCount";
-
-	String allLines = "allLines";
-	String allLinesPage = "allLinesPage";
-	String allLinesAddLine = "newLine";
-	String editLinesEditLine = "editLines";
-	String deleteLines = "redirect:/allLines";
-	String deleteStations = "redirect:/editline/";
-	String editStations = "redirect:/editline/";
-	String addStations = "addStationsToLine";
-	String applyChanges = "redirect:/allLines";
+	private static final String pageNumberKey = "pageNumber";
+	private static final String resultsPerPageKey = "resultsPerPage";
+	private static final String sizeOfPagingKey = "sizeOfPaging";
+	private static final String maxPageCountKey = "maxPageCount";
+	private static final String maxResultCountKey = "maxResultCount";
+	private static final String allLines = "allLines";
+	private static final String allLinesPage = "allLinesPage";
+	private static final String allLinesAddLine = "newLine";
+	private static final String editLinesEditLine = "editLines";
+	private static final String deleteLines = "redirect:/allLines";
+	private static final String deleteStations = "redirect:/editline/";
+	private static final String editStations = "redirect:/editline/";
+	private static final String addStations = "addStationsToLine";
+	private static final String applyChanges = "redirect:/allLines";
 
 	private PaginationManager pageMan = PaginationManager.getInstance();
 
