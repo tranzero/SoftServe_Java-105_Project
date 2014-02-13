@@ -28,10 +28,6 @@ public class OrdersManagerImpl implements OrdersManager {
 	@Autowired
 	private OrdersDAO ordersDao;
 
-	public static OrdersManager getInstance() {
-		return ManagerFactory.getManager(OrdersManager.class);
-	}
-
 	@Transactional(readOnly = true)
 	@Override
 	public Orders findOrder(Integer id) {
