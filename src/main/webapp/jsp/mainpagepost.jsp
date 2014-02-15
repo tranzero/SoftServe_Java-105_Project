@@ -8,7 +8,7 @@
 	<div id="news_main">
 		<c:forEach var="News" items="${newsList}" varStatus="status">
 			<c:choose>
-				<c:when test="${status.index == 0}">
+				<c:when test="${status.index == 0 && param.pageNumber == 0}">
 					<div class="news_primary">
 						<div class="test_image_primary"></div>
 						<div class="news_content_primary">
