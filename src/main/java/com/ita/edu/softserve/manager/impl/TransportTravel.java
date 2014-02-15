@@ -11,6 +11,8 @@ public class TransportTravel {
 
 	private Transports transport;
 
+	private String lineName;
+	
 	private Object departureTime;
 
 	private Object arrivalTime;
@@ -19,6 +21,7 @@ public class TransportTravel {
 
 	public TransportTravel() {
 		this.transport = null;
+		this.lineName = null;
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
@@ -26,6 +29,7 @@ public class TransportTravel {
 
 	public TransportTravel(Transports transport) {
 		this.transport = transport;
+		this.lineName = null;
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
@@ -40,6 +44,7 @@ public class TransportTravel {
 			return;
 		}
 		this.transport = transport;
+		this.lineName = transport.getRoutes().getLineId().getLineName();
 		this.departureTime = TransportTravel.sumTimes(transport.getStartTime(),
 				(Time) departureTime);
 		this.duration = duration;
@@ -55,6 +60,14 @@ public class TransportTravel {
 		this.transport = transport;
 	}
 
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+	
 	public Object getDepartureTime() {
 		return departureTime;
 	}
