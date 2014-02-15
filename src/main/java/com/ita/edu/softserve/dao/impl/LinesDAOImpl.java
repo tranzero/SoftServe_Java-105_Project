@@ -80,6 +80,13 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		
 	}
 
+	/**
+	 * 
+	 * @param stationName1
+	 * @param stationName2
+	 * 
+	 * @return List of lines, that contains two stations
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lines> findByTwoStations(String stationName1,
@@ -92,6 +99,15 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		return query.getResultList();
 	}
 
+	/**
+	 * 
+	 * @param stationName1
+	 * @param stationName2
+	 * @param firstElement to start with
+	 * @param count 	   how math to fetch
+	 * 
+	 * @return Lines limited
+	 */
 	@Override
 	public List<Lines> getLinesByTwoStForLimits(String stationName1,
 			String stationName2, int firstElement, int count) {
@@ -104,6 +120,12 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		return (List<Lines>) query.getResultList();
 	}
 
+	/**
+	 * @param stationName1
+	 * @param stationName2
+	 * 
+	 * @return size of list with lines
+	 */
 	@Override
 	public long getLinesByTwoStListCount(String stationName1,
 			String stationName2) {
