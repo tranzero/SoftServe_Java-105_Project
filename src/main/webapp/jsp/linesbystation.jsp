@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<h1>Lines Search</h1>
 <section id="content">
+	<h2>Lines Search</h2>
 	<form:form action="linesbystation" id="linebystation" method="get">
 		Enter station name :
 		<c:if test="${not empty param.stationName}">
@@ -31,7 +31,7 @@
 			</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty linesbystationlist}">
+		<c:if test="${empty linesbystationlist && not empty param.stationName}">
 			<p>No results.</p>
 		</c:if>
 		<c:if test="${not empty param.stationName}">
