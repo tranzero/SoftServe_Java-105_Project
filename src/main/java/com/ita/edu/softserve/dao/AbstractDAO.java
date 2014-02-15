@@ -101,7 +101,7 @@ public abstract class AbstractDAO<E> extends BaseEntity implements AbstractDAOIf
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
-            return null;
+            return  new NoResultException();
         }
     }
 	
