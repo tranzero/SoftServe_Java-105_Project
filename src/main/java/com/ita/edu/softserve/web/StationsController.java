@@ -15,12 +15,48 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.ExceptionUtil;
 import com.ita.edu.softserve.utils.PageInfoContainer;
 
 @Controller
 public class StationsController {
 
+	private static final String STATIONS_LIST = "stationsList";
+
+	private static final String STATION = "station";
+
+	private static final String STATION_ID = "stationId";
+
+	private static final String STATION_CODE = "stationCode";
+
+	private static final String STATION_NAME = "stationName";
+	
+	private static final String STATIONS_FOR_USERS_URL = "/stationsForUsers";
+
+	private static final String STATIONS_FOR_USERS_JSP_PAGE = "stationsForUsers";
+
+	private static final String STATIONS_URL = "/stations";
+
+	private static final String STATIONS_JSP_PAGE = "stations";
+
+	private static final String DELETE_STATION_ID_URL = "/delete/{stationId}";
+
+	private static final String REDIRECT_STATIONS = "redirect:/stations";
+
+	private static final String STATION_EDIT_URL_GET = "/stationEdit/{station}";
+
+	private static final String STATION_EDIT_JSP_PAGE = "stationEdit";
+
+	private static final String STATION_EDIT_URL_POST = "/stationEdit/{stationToEdit}";
+
+	private static final String STATION_TO_EDIT = "stationToEdit";
+
+	private static final String ADD_STATION_URL_GET = "/addStation";
+
+	private static final String ADD_STATION_JSP_PAGE = "addStation";
+
+	private static final String ADD_STATION_URL_POST = "/addstat";
+
+	
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -33,7 +69,7 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/stationsForUsers", method = RequestMethod.GET)
+	@RequestMapping(value = STATIONS_FOR_USERS_URL, method = RequestMethod.GET)
 	public String listStations(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
@@ -41,7 +77,7 @@ public class StationsController {
 
 		paggingForStations(pageNumber, resultsPerPage, modelMap);
 
-		return "stationsForUsers";
+		return STATIONS_FOR_USERS_JSP_PAGE;
 	}
 
 	/**
@@ -52,7 +88,7 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/stations", method = RequestMethod.GET)
+	@RequestMapping(value = STATIONS_URL, method = RequestMethod.GET)
 	public String manageStations(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
@@ -60,7 +96,7 @@ public class StationsController {
 
 		paggingForStations(pageNumber, resultsPerPage, modelMap);
 
-		return "stations";
+		return STATIONS_JSP_PAGE;
 	}
 
 	/**
@@ -85,7 +121,7 @@ public class StationsController {
 
 		List<Stations> stations = stationsManager.getStationsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put("stationsList", stations);
+		modelMap.put(STATIONS_LIST, stations);
 	}
 
 	/**
@@ -95,17 +131,16 @@ public class StationsController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/delete/{stationId}", method = RequestMethod.GET)
-	public String deleteStation(@PathVariable("stationId") Integer stationId,
+	@RequestMapping(value = DELETE_STATION_ID_URL, method = RequestMethod.GET)
+	public String deleteStation(@PathVariable(STATION_ID) Integer stationId,
 			Map<String, Object> map) {
 		try {
 			stationsManager.removeStations(stationId);
 		} catch (StationManagerException e) {
-			map.put("incorrectMsg", "Incorrect Station!!!");
-			return "result";
+			return REDIRECT_STATIONS;
 		}
 
-		return "redirect:/stations";
+		return REDIRECT_STATIONS;
 	}
 
 	/**
@@ -115,19 +150,17 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/stationEdit/{station}", method = RequestMethod.GET)
+	@RequestMapping(value = STATION_EDIT_URL_GET, method = RequestMethod.GET)
 	public String editStation(@PathVariable("station") Integer stationId,
 			Map<String, Object> modelMap) {
 
 		try {
 			Stations station = stationsManager.findStationsById(stationId);
-			modelMap.put("station", station);
+			modelMap.put(STATION, station);
 		} catch (StationManagerException e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			return STATION_EDIT_JSP_PAGE;
 		}
-		return "stationEdit";
+		return STATION_EDIT_JSP_PAGE;
 	}
 
 	/**
@@ -139,28 +172,26 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/stationEdit/{stationToEdit}", method = RequestMethod.POST)
+	@RequestMapping(value = STATION_EDIT_URL_POST, method = RequestMethod.POST)
 	public String updateStationToDB(
-			@PathVariable("stationToEdit") Integer stationId,
-			@ModelAttribute("stationCode") String stationCode,
-			@ModelAttribute("stationName") String stationName,
+			@PathVariable(STATION_TO_EDIT) Integer stationId,
+			@ModelAttribute(STATION_CODE) String stationCode,
+			@ModelAttribute(STATION_NAME) String stationName,
 			Map<String, Object> modelMap) {
 		try {
 			stationsManager.editStation(stationId, stationCode, stationName);
 		} catch (StationManagerException e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			return REDIRECT_STATIONS;
 		}
-		return "redirect:/stations";
+		return REDIRECT_STATIONS;
 	}
 
 	/**
 	 * @return jsp page addStation.
 	 */
-	@RequestMapping(value = "/addStation", method = RequestMethod.GET)
+	@RequestMapping(value = ADD_STATION_URL_GET, method = RequestMethod.GET)
 	public String addStations() {
-		return "addStation";
+		return ADD_STATION_JSP_PAGE;
 	}
 
 	/**
@@ -171,32 +202,29 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/addstat", method = RequestMethod.POST)
+	@RequestMapping(value = ADD_STATION_URL_POST, method = RequestMethod.POST)
 	public String addStationToBD(
-			@RequestParam("stationCode") String stationCode,
-			@RequestParam("stationName") String stationName,
+			@RequestParam(STATION_CODE) String stationCode,
+			@RequestParam(STATION_NAME) String stationName,
 			Map<String, Object> modelMap) {
 		try {
 			stationsManager.createStation(stationCode, stationName);
 		} catch (StationManagerException e) {
-			modelMap.put("errorList", ExceptionUtil.createErrorList(e));
-			modelMap.put("errorMsg", e.getMessage());
-			return "result";
+			return REDIRECT_STATIONS;
 		}
-		return "redirect:/stations";
+		return REDIRECT_STATIONS;
 	}
 
 	@RequestMapping(value = "stationsoncertainline/{line}", method = RequestMethod.GET)
 	public String stationsOnCertainLine(@PathVariable("line") String lineName,
 			Map<String, Object> modelMap) {
 		try {
-			modelMap.put("stationsList",
+			modelMap.put(STATIONS_LIST,
 					stationsManager.getStationsOnCertainLine(lineName));
 		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return STATIONS_JSP_PAGE;
 		}
-		return "stations";
+		return STATIONS_JSP_PAGE;
 	}
 
 }
