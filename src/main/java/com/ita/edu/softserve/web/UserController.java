@@ -58,8 +58,8 @@ public class UserController {
 	 * @param userId
 	 * @param firstName
 	 * @param lastName
-	 * @param eMail
-	 * @param passwd
+	 * @param email
+	 * @param parole
 	 * @param role
 	 * @return userEdit
 	 */

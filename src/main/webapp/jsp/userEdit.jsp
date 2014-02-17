@@ -35,8 +35,7 @@
 			</form:select>
 
 
-			<br />
-			<br />
+			<br /> <br />
 			<p align="center">
 				<input type="submit" value="Update USER"> <input
 					type="button" value="Cancel"
