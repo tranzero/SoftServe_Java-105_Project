@@ -218,7 +218,7 @@ public class TransportController {
 	 * @return transportView jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_VIEW_URL_PATTERN, method = RequestMethod.GET)
-	public String printTransportsView(
+	public String displayTransportsView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
@@ -239,7 +239,7 @@ public class TransportController {
 	 * @return
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_VIEW_URL_PATTERN, method = RequestMethod.GET)
-	public String printTransportPageView(
+	public String displayTransportPageView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
@@ -256,7 +256,7 @@ public class TransportController {
 	 * @return transport jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
-	public String printTransports(
+	public String displayTransports(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
@@ -277,7 +277,7 @@ public class TransportController {
 	 * @return transportpage jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_URL_PATTERN, method = RequestMethod.GET)
-	public String printTransportPage(
+	public String displayTransportPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
@@ -436,7 +436,7 @@ public class TransportController {
 	 * @return listOfStationsOnLine
 	 */
 	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
-	public String printStationOnLine(
+	public String displayStationOnLine(
 			@PathVariable(LINE_ID_ONSTATIONS_PATH_VERIABLE) Integer lineId,
 			Map<String, Object> modelMap) {
 		List<StationsOnLine> listOfStationsOnLine = stationOnLineManager
