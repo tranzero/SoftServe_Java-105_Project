@@ -48,6 +48,8 @@
 								code="label.navigation.addtrips" /></a></li>
 					<li><a href="/SoftServe_Java-105/transport"><spring:message
 								code="label.navigation.transportManage" /></a></li>
+					<li><a href="/SoftServe_Java-105/routesAllEdit"><spring:message
+								code="label.navigation.editroutes" /></a></li>
 				</ul></li>
 			<li><spring:message code="label.navigation.users" />
 				<ul class="submenu">

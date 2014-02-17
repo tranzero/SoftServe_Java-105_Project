@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <section id="content">
-	<h1 align="center">Edit Transport</h1>
+	<h1 align="center">Edit Route</h1>
 	<form id="editTRoute" method="post" name="route">
 		<div>
 			<p><input id="routeId" type="hidden" name="routeId"

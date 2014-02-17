@@ -18,7 +18,7 @@
 			<spring:message code="label.navigation.arrival" /> <input name="findBy" type="radio" value="findByArr" checked>
             <spring:message code="label.navigation.departure" /> <input name="findBy" type="radio" value="findByDep">
             <p/>
-			<spring:message code="label.stations.stationname" /> <input type="text" name="nameStation " placeholder="Pisochne" ></input>
+			<spring:message code="label.stations.stationname" /> <input type="text" name="nameStation" placeholder="Pisochne" ></input>
 
 			<input class="button" type="submit" name="submit" value =<spring:message code="label.navigation.findrouts" />></input>
 		</form>
