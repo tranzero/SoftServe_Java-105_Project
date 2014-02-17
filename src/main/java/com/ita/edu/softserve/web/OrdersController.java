@@ -4,15 +4,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.exception.PostManagerExeption;
 import com.ita.edu.softserve.manager.OrdersManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.ExceptionUtil;
 
 @Controller
 public class OrdersController {
@@ -27,11 +24,11 @@ public class OrdersController {
 	String PageOrdersGet = "orders";
 	String PageOrdersOutPost = "ordersp";
 
+	private PaginationManager pageMan = PaginationManager.getInstance();
+	
+	
 	@Autowired
 	private OrdersManager ordersManager;
-
-	@Autowired
-	public PaginationManager pageMan = PaginationManager.getInstance();
 
 	@RequestMapping(value = "/orders", method = RequestMethod.GET)
 	public String orders(Map<String, Object> modelMap) {

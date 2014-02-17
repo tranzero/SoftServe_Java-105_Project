@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 
-<link rel="stylesheet" href="resources/css/paging.css">
+<link rel="stylesheet" href="resources/css/news.css">
 
 <script>
 var pageUrl = "mainpagepost";

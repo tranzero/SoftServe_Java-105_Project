@@ -5,6 +5,7 @@
 
 .pagination {
 	margin: 20px 0;
+	clear: both;
 }
 
 .pagination ul {

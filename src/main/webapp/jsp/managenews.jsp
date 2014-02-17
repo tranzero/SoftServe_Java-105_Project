@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="resources/css/paging.css">
 
 <script>
-var pageUrl = "managenewspost";
+	var pageUrl = "managenewspost";
 </script>
-<div id = "content">
-<div id="pagingcontent"></div>
-<div id="pagecontent"></div>
-	<div id="pagination"></div>	
-</div>
+<section id="content">
+	<div id="pagingcontent"></div>
+	<div id="pagecontent"></div>
+	<div id="pagination"></div>
+</section>

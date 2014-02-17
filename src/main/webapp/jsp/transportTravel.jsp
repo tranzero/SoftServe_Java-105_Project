@@ -24,9 +24,7 @@
 			<c:forEach var="transport" items="${TransportTravelList}">
 				<tr>
 					<td id="generate"></td>
-					<td><c:out value="${param.stationName1}"></c:out> - <c:out
-							value="${param.stationName2}"></c:out></td>
-					<%--=request.getParameter("stationName1")--%>
+					<td>${transport.getLineName()}</td>
 					<td>${transport.getTransport().getTransportCode()}</td>
 					<td>dep ${transport.getDepartureTime()}<br />arr
 						${transport.getArrivalTime()}

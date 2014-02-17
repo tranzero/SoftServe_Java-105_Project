@@ -39,30 +39,11 @@ public class LinesManagerImpl implements LinesManager {
 	@Autowired
 	private LinesDAO lineDao;
 
-	@Autowired
-	private StationsOnLineDAO stlDao;
-
-	@Autowired
-	private StationsDAO stationDao;
-
 	public LinesManagerImpl() {
-	}
-
-	public LinesManagerImpl(StationsOnLineDAOImpl stlDao, LinesDAOImpl lineDao) {
-		this.lineDao = lineDao;
-		this.stlDao = stlDao;
-	}
-
-	public LinesManagerImpl(StationsOnLineDAOImpl stlDao) {
-		this.stlDao = stlDao;
 	}
 
 	public LinesManagerImpl(LinesDAOImpl lineDao) {
 		this.lineDao = lineDao;
-	}
-
-	public LinesManagerImpl(StationsDAOImpl stationDao) {
-		this.stationDao = stationDao;
 	}
 
 	public Lines findByLineName(String lineName) {
@@ -88,33 +69,35 @@ public class LinesManagerImpl implements LinesManager {
 
 	/**
 	 * 
-	 * @param stationName
-	 *            name of station
+	 * @param stationName - name of station
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
-	@Override
-	public List<Lines> getLinesByStation(String stationName) {
-		Stations station = stationDao.findByStations(stationName).get(0);
-		List<StationsOnLine> stlList = stlDao.findByStationId(station
-				.getStationId());
-		List<Lines> linesList = new ArrayList<Lines>();
-		for (StationsOnLine stl : stlList) {
-			// linesList.add(lineDao.findById(stl.getLineId().getLineId()));
-			linesList.add(stl.getLineId());
-		}
-		return linesList;
-	}
 
+	@Override
 	public List<Lines> getLinesByStationName(String stationName) {
 		return lineDao.getLinesByStationName(stationName);
 	}
 
 	@Override
-	public int getLinesByStationCount(String stationName) {
+	public long getLinesByStationCount(String stationName) {
 
 		return lineDao.getLinesByStationNameCount(stationName);
 	}
 
+	@Override
+	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count) {
+		return this.getLinesByStNameForLimit(stationName,
+				(pageNumber - 1) * count, count);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count) {
+		
+		return lineDao.getLinesByStNameForLimits(stationName, firstElement, count);
+				
+	}
+	
 	@Override
 	public List<Lines> getLinesByStationForPage(int from, int count,
 			String stationName) {

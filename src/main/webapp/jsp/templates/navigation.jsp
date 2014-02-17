@@ -5,29 +5,33 @@
 <%--<div id = "navigation" >
 <h2><spring:message code="label.navigation.title"/>[WIP]</h2> --%>
 <nav id="navigation">
+
 	<div id="container">
 		<ul class="menu">
 			<li><a href="/SoftServe_Java-105/mainpage"><spring:message
 						code="label.navigation.news" /></a></li>
 			<li><spring:message code="label.navigation.timetable" />
 				<ul class="submenu">
+					<li><a href="/SoftServe_Java-105/transportView"><spring:message
+								code="label.navigation.transport" /></a></li>
 					<li><a href="/SoftServe_Java-105/stationsForUsers"><spring:message
 								code="label.navigation.stationsForUsers" /></a></li>
 					<li><a href="/SoftServe_Java-105/trips"><spring:message
 								code="label.navigation.trips" /></a></li>
 					<li><a href="/SoftServe_Java-105/transportTravel"><spring:message
 								code="label.navigation.transportTravel" /></a></li>
-					<li><a href="/SoftServe_Java-105/trips"><spring:message
-								code="label.navigation.trips" /></a></li>
 					<li><a href="/SoftServe_Java-105/transportView"><spring:message
 								code="label.navigation.transport" /></a></li>
 					<li><a href="/SoftServe_Java-105/routes"><spring:message
 								code="label.navigation.route" /></a></li>
 					<li><a href="/SoftServe_Java-105/routesTrips"><spring:message
 								code="label.navigation.routes" /></a></li>
-
 				</ul></li>
-			<li><spring:message code="label.navigation.orders" /></li>
+			<li><spring:message code="label.navigation.orders" />
+				<ul class="submenu">
+					<li><a href="/SoftServe_Java-105/orders"><spring:message
+								code="label.navigation.orders" /></a></li>
+								</ul></li>
 			<li><spring:message code="label.navigation.editing" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/addnews"><spring:message

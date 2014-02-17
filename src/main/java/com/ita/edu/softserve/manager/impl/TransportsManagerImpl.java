@@ -146,6 +146,16 @@ public class TransportsManagerImpl implements TransportsManager {
 		transportsDao.saveOrUpdate(transport);
 	}
 
+	/**
+	 * Returns <code>TransportTravel</code> object, that contains
+	 * all transport that goes through two stations
+	 * 
+	 * @param stationName1
+	 * @param stationName2
+	 * 
+	 * return <code>TransportTravel</code>, that contains transport code,
+	 * 		  departure and arrival times, duration
+	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2) {

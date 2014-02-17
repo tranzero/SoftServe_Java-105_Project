@@ -2,30 +2,68 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-	<%int i = 0;%>
-<h1 >Lines Search</h1> 
-<h1>"${stationName}"</h1>
-<form name="linesbystation" id = "linebystation" method="post">
-		Enter station name : <input type="text" name="stationname" value="${stationName}" />
-		<input class="button" type="submit" value="Find" />
-	</form>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:if test="${!empty linesbystationlist}">
-	<div id = "maxPageCount" style="display : none;">${maxPageCount}</div>
-	<div id = "resultsPerPage" style="display : none;">${resultsPerPage}</div>
-	<div id = "searchRequest" style="display : none;">${searchRequest}</div>
-		<hr />
-		<table>
-		
-			<c:forEach var="lines" items="${linesbystationlist}">
-				<tr>
-					<td><%=++i%></td>
-					<td>${lines.getLineName()}</td>
-					<!--  <td><a href="stationsoncertainline/${lines.getLineName()}">Show stations</a></td>-->
-				</tr>
-			</c:forEach>
-		</table>
-		<hr />
-	</c:if>
-	<c:if test="${empty linesbystationlist}">
+	<hr />
+	<table>
+
+		<c:forEach var="lines" items="${linesbystationlist}">
+			<tr>
+				<td id="generate"></td>
+				<td>${lines.getLineName()}</td>
+				<td><a href="stationsoncertainline/${lines.getLineName()}">Show
+						stations</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<hr />
+</c:if>
+<c:if test="${empty linesbystationlist}">
 	<p>No results.</p>
-	</c:if>
+</c:if>
+<div class="pagination">
+	<ul class="bootpag">
+		<c:if test="${pageNumber>1}">
+			<li class="prev"><a href="javascript:void(0);"
+				onclick="showLinesByStationPage('${param.stationName}',1, ${resultsPerPage})">
+					« </a></li>
+			<li class="prev"><a href="javascript:void(0);"
+				onclick="showLinesByStationPage('${param.stationName}',${pageNumber-1},${resultsPerPage})">
+					<spring:message code="label.prev" />
+			</a></li>
+		</c:if>
+		<c:if test="${pageNumber==1}">
+			<li class="prev disabled"><a href="javascript:void(0);"> « </a></li>
+			<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
+						code="label.prev" />
+			</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${firstPage}" end="${lastPage}" step="1"
+			varStatus="status">
+			<c:if test="${pageNumber!=i}">
+				<li><a href="javascript:void(0);"
+					onclick="showLinesByStationPage('${param.stationName}',${i},${resultsPerPage})">
+						${i} </a></li>
+			</c:if>
+			<c:if test="${pageNumber==i}">
+				<li class="disabled"><a href="javascript:void(0);"> ${i} </a></li>
+			</c:if>
+		</c:forEach>
+
+		<c:if test="${pageNumber<maxPages}">
+			<li class="next"><a href="javascript:void(0);"
+				onclick="showLinesByStationPage('${param.stationName}',${pageNumber+1},${resultsPerPage})">
+					<spring:message code="label.next" />
+			</a></li>
+			<li class="next"><a href="javascript:void(0);"
+				onclick="showLinesByStationPage('${param.stationName}',${maxPages},${resultsPerPage})">
+					» </a></li>
+		</c:if>
+		<c:if test="${pageNumber==maxPages}">
+			<li class="next disabled"><a href="javascript:void(0);"> <spring:message
+						code="label.next" />
+			</a></li>
+			<li class="next disabled"><a href="javascript:void(0);"> » </a></li>
+		</c:if>
+	</ul>
+</div>

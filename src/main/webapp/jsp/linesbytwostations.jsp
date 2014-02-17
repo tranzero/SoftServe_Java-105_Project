@@ -37,7 +37,7 @@
 			<h3>Sorry. No results was found</h3>
 			<hr />
 		</c:if>
-	</div>
+	
 	<c:if
 		test="${not empty param.stationName1 && not empty param.stationName2}">
 		<div class="pagination">
@@ -89,7 +89,10 @@
 				</c:if>
 			</ul>
 		</div>
+		</c:if>
 		</div>
+			<c:if
+		test="${not empty param.stationName1 && not empty param.stationName2}">
 		<script>
 			function showLinesPage(stationName1_, stationName2_, pageNumber_,
 					resultsPerPage_) {

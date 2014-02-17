@@ -5,11 +5,13 @@
 <div id = "maxPageCount" style="display : none;">${maxPageCount}</div>
 		<div id = "resultsPerPage" style="display : none;">${resultsPerPage}</div>
 	<table>
+	<thead>
 		<tr>
-			<td align="center">Line Name</td>
-			<td align="center"></td>
-			<td align="center"></td>
+			<th align="center">Line Name</th>
+			<th align="center"></th>
+			<th align="center"></th>
 		</tr>
+		</thead>
 		<c:forEach var="line" items="${lines}">
 			<tr>
 				<td align="center">${line.getLineName()}</td>
