@@ -5,26 +5,37 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%-- Results --%>
-<c:if test="${!empty LinesList}">
+<c:if test="${!empty TransportTravelList}">
 	<hr />
 	<table>
-		<c:forEach var="lines" items="${LinesList}">
+		<tr>
+			<td>Number</td>
+			<td>Station / Stop</td>
+			<td>Transport Number</td>
+			<td>Departure / Arrival time</td>
+			<td>Duration</td>
+		</tr>
+		<c:forEach var="transport" items="${TransportTravelList}">
 			<tr>
 				<td id="generate"></td>
-				<td>${lines.getLineName()}</td>
-				<td><a href="stationsoncertainline/${lines.getLineName()}">Show
-						stations</a></td>
+				<td>${transport.getLineName()}</td>
+				<td>${transport.getTransport().getTransportCode()}</td>
+				<td>dep ${transport.getDepartureTime()}<br />arr
+					${transport.getArrivalTime()}
+				</td>
+				<td>${transport.getDuration()}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<hr />
 </c:if>
 <c:if
-	test="${empty LinesList && not empty param.stationName1 && not empty param.stationName2}">
+	test="${empty TransportTravelList && not empty param.stationName1 && not empty param.stationName2}">
 	<hr />
 	<h3>Sorry. No results was found</h3>
 	<hr />
 </c:if>
+
 <c:if
 	test="${not empty param.stationName1 && not empty param.stationName2}">
 

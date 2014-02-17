@@ -78,6 +78,11 @@
 		<put-attribute name="content" value="/jsp/linesbytwostationsPage.jsp" />
 	</definition>
 
+	<definition name="transportTravelPage" extends="ajax">
+		<put-attribute name="title" value="View: Transport Search" />
+		<put-attribute name="content" value="/jsp/transportTravelPage.jsp" />
+	</definition>
+	
 	<definition name="addTripPage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/addTripPage.jsp" />

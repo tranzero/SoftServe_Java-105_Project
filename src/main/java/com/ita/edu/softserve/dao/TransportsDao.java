@@ -2,6 +2,7 @@ package com.ita.edu.softserve.dao;
 
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -25,6 +26,20 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	
 	long getTransportsListCount();
 	
+	/**
+	 * Get transport by two stations
+	 * 
+	 * @param stationName1
+	 * @param stationName2
+	 * @return
+	 */
 	public List<TransportTravel> findByTwoStations(String stationName1,
 			String stationName2);
+	
+	public List<TransportTravel> getTransportByTwoStForLimits(String stationName1,
+			String stationName2, int firstElement, int count);
+	
+	public long getTransportByTwoStListCount(String stationName1,
+			String stationName2);
+	
 }
