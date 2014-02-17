@@ -93,19 +93,19 @@ span.icon {
 .fb_icon {
 	background: url("../images/fb.png") no-repeat;	
 	background-size: 40px 40px;
-	opacity: 0.7;
+	opacity: 0.55;
 }
-.vk_icon {
-	background: url("../images/vk.png") no-repeat;	
+.twitter_icon {
+	background: url("../images/twitter.png") no-repeat;	
 	background-size: 40px 40px;
-	opacity: 0.7;
+	opacity: 0.55;
 }
 .rss_icon {
 	background: url("../images/rss.png") no-repeat;	
 	background-size: 40px 40px;
-	opacity: 0.7;
+	opacity: 0.55;
 }
-.fb_icon:hover,.vk_icon:hover,.rss_icon:hover {
+.fb_icon:hover,.twitter_icon:hover,.rss_icon:hover {
 	opacity: 1.0;
 }
 

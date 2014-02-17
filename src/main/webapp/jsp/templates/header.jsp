@@ -37,7 +37,7 @@
 		<div id="social">
 			<ul>
 				<li><a href="#"><span class="icon fb_icon"></span></a></li>
-				<li><a href="#"><span class="icon vk_icon"></span></a></li>
+				<li><a href="#"><span class="icon twitter_icon"></span></a></li>
 				<li><a href="#"><span class="icon rss_icon"></span></a></li>
 			</ul>
 		</div>
