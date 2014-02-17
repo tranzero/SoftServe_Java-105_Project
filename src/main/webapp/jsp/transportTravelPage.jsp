@@ -43,10 +43,10 @@
 		<ul class="bootpag">
 			<c:if test="${pageNumber>1}">
 				<li class="prev"><a href="javascript:void(0);"
-					onclick="showLinesPage('${param.stationName1}','${param.stationName2}',1, ${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',1, ${resultsPerPage})">
 						« </a></li>
 				<li class="prev"><a href="javascript:void(0);"
-					onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber-1},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber-1},${resultsPerPage})">
 						<spring:message code="label.prev" />
 				</a></li>
 			</c:if>
@@ -61,7 +61,7 @@
 				varStatus="status">
 				<c:if test="${pageNumber!=i}">
 					<li><a href="javascript:void(0);"
-						onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${i},${resultsPerPage})">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${i},${resultsPerPage})">
 							${i} </a></li>
 				</c:if>
 				<c:if test="${pageNumber==i}">
@@ -71,11 +71,11 @@
 
 			<c:if test="${pageNumber<maxPages}">
 				<li class="next"><a href="javascript:void(0);"
-					onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber+1},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber+1},${resultsPerPage})">
 						<spring:message code="label.next" />
 				</a></li>
 				<li class="next"><a href="javascript:void(0);"
-					onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${maxPages},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${maxPages},${resultsPerPage})">
 						» </a></li>
 			</c:if>
 			<c:if test="${pageNumber==maxPages}">
