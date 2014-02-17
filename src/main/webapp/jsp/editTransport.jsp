@@ -16,7 +16,8 @@
 				value="${transport.getTransportCode()}"></p>
 
 			<p><spring:message code="label.transport.starttime" /></p>
-			<p><input id="startTime" type="text" type="text" name="startTime" value="${transport.getStartTime()}"></p>
+			<p><input id="startTime" type="text" type="text" name="startTime" 
+				value="${transport.getStartTime()}"></p>
 
 			<p><spring:message code="label.routes.routecode" /></p>
 			<p><input id="routes" type="text" name="routes"
