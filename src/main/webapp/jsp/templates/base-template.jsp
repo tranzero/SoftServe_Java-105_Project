@@ -13,6 +13,7 @@
 	type="text/css" />
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
+<link rel="stylesheet" href="resources/css/news.css">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -59,13 +60,5 @@
 		<tiles:insertAttribute name="content" />
 	</div>
 	<tiles:insertAttribute name="footer" />
-	<%--
-	<div class="headerStyle">
-		<tiles:insertAttribute name="header" />
-	</div>
-	<div class="navigationStyle"> <tiles:insertAttribute name="navigation"/> </div>
-<div class="contentStyle"> <tiles:insertAttribute name="content"/> </div>
-<div class=footerStyle> <tiles:insertAttribute name="footer"/> </div>
---%>
 </body>
 </html>

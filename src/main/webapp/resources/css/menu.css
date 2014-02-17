@@ -3,13 +3,10 @@
     padding: 0;
     margin: 0;
 }
-.menu li {
-    padding: 0 25px;
-}
 .menu {
     margin-left: 110px;
     font-size: 1em;
-    line-height: 40px;
+    line-height: 44px;
     height: 44px;
     width: 970px;
     background: #434343;
@@ -20,6 +17,7 @@
     text-decoration: none;
 }
 .menu li {
+    padding: 0 25px;
     background: none repeat scroll 0 0 #434343;
     min-width: 140px;
 }
@@ -31,6 +29,12 @@
 
 .menu li:hover {
     background: none repeat scroll 0 0 #11ABB0;
+/*
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+*/
 }
 
 .menu a {

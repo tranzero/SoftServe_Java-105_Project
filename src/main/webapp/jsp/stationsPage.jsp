@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page session="true"%>
+
 <script type="text/javascript">
 	function confirm_delete() {
 		return confirm('Are you sure?');
@@ -20,7 +20,7 @@
 	</a>
 	<p>
 	<div id="pagingcontent">
-		<table border="1" style="align: center">
+		<table style="align: center">
 			<thead>
 				<tr>
 					<th align="center"><spring:message
@@ -100,5 +100,5 @@
 				</c:if>
 			</ul>
 		</div>
-	</div>
+</div>
 </section>
