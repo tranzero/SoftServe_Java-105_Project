@@ -41,10 +41,10 @@ public class Stations extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer stationId;
 
-	@Column(name = "STATIONCODE", unique = true, nullable = false)
+	@Column(name = "STATIONCODE", length = 25, nullable = false)
 	private String stationCode;
 
-	@Column(name = "STATIONNAME", length = 50, nullable = false)
+	@Column(name = "STATIONNAME", length = 25, nullable = false)
 	private String stationName;
 
 	/* Bi-directional one-to-many association to StationsOnLine */
