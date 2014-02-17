@@ -8,42 +8,41 @@
 
 <section id="content">
 	<h1>Edit User</h1>
-	
+
 	<hr>
 
-	<form id="userEdit" method="post" name="/userEdit">
+	<form id="userEdit" method="post" name="/userEdit"
+		style="text-align: center">
 		<input id="userId" type="hidden" name="userId"
 			value="${user.getUserId()}">
 
 		<div>
-			<p>FirstName:</p>
+			<p>First name and Last name:</p>
 			<input id="userFirstName" type="text" name="userFirstName"
-				value="${user.getFirstName()}">
-
-			<p>LastName:</p>
-			<input id="lastName" type="text" name="lastName"
-				value="${user.getLastName()}">
+				value="${user.getFirstName()}"> <input id="lastName"
+				type="text" name="lastName" value="${user.getLastName()}">
 
 			<p>Email:</p>
-			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
+			<input id="email" type="text" name="email" value="${user.geteMail()}">
 
 			<p>Password:</p>
-			<input id="passwd" type="password" name="passwd"
+			<input id="parole" type="password" name="parole"
 				value="${user.getPasswd()}">
 
 			<p>Role:</p>
 			<form:select id="role" name="role" path="user.role">
 				<form:options itemLabel="description" />
 			</form:select>
-			
-			<br/>
-			<p>
-				<input type="submit" value="Update USER">
-				
-				<input type="button" value="Cancel"
-				onclick="window.location='/SoftServe_Java-105/userlist2';">
+
+
+			<br />
+			<br />
+			<p align="center">
+				<input type="submit" value="Update USER"> <input
+					type="button" value="Cancel"
+					onclick="window.location='/SoftServe_Java-105/userlist2';">
 			</p>
-			
+
 			<br>
 
 		</div>

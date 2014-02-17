@@ -67,13 +67,13 @@ public class UserController {
 	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
 			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("eMail") String eMail,
-			@ModelAttribute("passwd") String passwd,
+			@ModelAttribute("email") String email,
+			@ModelAttribute("parole") String parole,
 			@ModelAttribute("role") Role role
 
 	) {
 		usersmanage
-				.updateUser(userId, firstName, lastName, eMail, passwd, role);
+				.updateUser(userId, firstName, lastName, email, parole, role);
 		return "redirect:/userlist";
 	}
 
@@ -109,8 +109,8 @@ public class UserController {
 	 * @param userId
 	 * @return userlist
 	 */
-	@RequestMapping("/userdel/{userr}")
-	public String deleteUser(@PathVariable("userr") Integer userId) {
+	@RequestMapping("/userdel/{user}")
+	public String deleteUser(@PathVariable("user") Integer userId) {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist";
 	}
