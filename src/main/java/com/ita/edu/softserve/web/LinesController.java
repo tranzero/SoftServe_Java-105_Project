@@ -210,8 +210,7 @@ public class LinesController {
 		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
-		// linesManager.getLinesByTwoStations(stationName1, stationName2));
-
+		
 		return "linesbytwostationsPage";
 	}
 
