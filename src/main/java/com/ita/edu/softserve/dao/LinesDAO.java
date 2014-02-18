@@ -71,7 +71,7 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 			String stationName2);
 	
 	public List<Lines> getLinesByTwoStForLimits(String stationName1,
-			String stationName2, int firstElement, int count);
+			String stationName2, int firstElement, int count, int sortOrder);
 	
 	public long getLinesByTwoStListCount(String stationName1,
 			String stationName2);

@@ -15,6 +15,8 @@
 			To: <input type="text" name="stationName2" placeholder="Sknyliv" />
 		<input class="button" type="submit" name="submit" value="Find" />
 	</form:form>
+	<a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}&sortOrder=1&submit=Find">ASC</a>
+	<a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}&sortOrder=2&submit=Find">DESC</a>
 	<div id="result">
 		<%-- Results --%>
 		<c:if test="${!empty LinesList}">
@@ -44,10 +46,10 @@
 			<ul class="bootpag">
 				<c:if test="${pageNumber>1}">
 					<li class="prev"><a
-						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}?sortOrder=${param.sortOrder}">
 							« </a></li>
 					<li class="prev"><a
-						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}?sortOrder=${param.sortOrder}">
 							<spring:message code="label.prev" />
 					</a></li>
 				</c:if>
@@ -62,7 +64,7 @@
 					varStatus="status">
 					<c:if test="${pageNumber!=i}">
 						<li><a
-							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${i}&resultsPerPage=${resultsPerPage}?sortOrder=${param.sortOrder}">
 								${i} </a></li>
 					</c:if>
 					<c:if test="${pageNumber==i}">
@@ -73,11 +75,11 @@
 
 				<c:if test="${pageNumber<maxPages}">
 					<li class="next"><a
-						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}?sortOrder=${param.sortOrder}">
 							<spring:message code="label.next" />
 					</a></li>
 					<li class="next"><a
-						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}?sortOrder=${param.sortOrder}">
 							» </a></li>
 				</c:if>
 				<c:if test="${pageNumber==maxPages}">
@@ -95,7 +97,7 @@
 		test="${not empty param.stationName1 && not empty param.stationName2}">
 		<script>
 			function showLinesPage(stationName1_, stationName2_, pageNumber_,
-					resultsPerPage_) {
+					resultsPerPage_, sortOrder_) {
 
 				if (stationName1_ == "" || stationName2_ == "") {
 					return;
@@ -114,7 +116,8 @@
 										stationName1 : stationName1_,
 										stationName2 : stationName2_,
 										pageNumber : pageNumber_,
-										resultsPerPage : resultsPerPage_
+										resultsPerPage : resultsPerPage_,
+										sortOrder: sortOrder_
 									}
 								}).done(function(msg) {
 							$("div#result").html(msg);
@@ -126,7 +129,7 @@
 					function() {
 						showLinesPage("${param.stationName1}",
 								"${param.stationName2}", "${pageNumber}",
-								"${resultsPerPage}");
+								"${resultsPerPage}", "${param.sortOrder}");
 					});
 		</script>
 	</c:if>

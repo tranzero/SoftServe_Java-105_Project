@@ -110,12 +110,28 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	 */
 	@Override
 	public List<Lines> getLinesByTwoStForLimits(String stationName1,
-			String stationName2, int firstElement, int count) {
+			String stationName2, int firstElement, int count, int sortOrder) {
+
+		Query query = null;
 		
-		Query query = entityManager
-				.createNamedQuery(Lines.FIND_BY_TWO_STATIONS)
-				.setParameter(1, stationName1).setParameter(2, stationName2)
-				.setFirstResult(firstElement).setMaxResults(count);
+		if (sortOrder == 1) {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_BY_TWO_STATIONS_ASC)
+					.setParameter(1, stationName1).setParameter(2, stationName2)
+					.setFirstResult(firstElement).setMaxResults(count);
+		}
+		else if (sortOrder == 2) {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_BY_TWO_STATIONS_DESC)
+					.setParameter(1, stationName1).setParameter(2, stationName2)
+					.setFirstResult(firstElement).setMaxResults(count);			
+		}
+		else {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_BY_TWO_STATIONS)
+					.setParameter(1, stationName1).setParameter(2, stationName2)
+					.setFirstResult(firstElement).setMaxResults(count);
+		}
 		
 		return (List<Lines>) query.getResultList();
 	}
