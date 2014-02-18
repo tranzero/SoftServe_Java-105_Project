@@ -62,5 +62,7 @@ public interface TripsManager extends BaseManager {
 	 */
 
 	long getTripsListCount();
+	
+	public Trips findByTripId (Integer id);
 
 }

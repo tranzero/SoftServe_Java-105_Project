@@ -68,9 +68,8 @@ public class Orders extends BaseEntity {
 	 * @param userId
 	 * @param tripId
 	 */
-	public Orders(int orderId, Users userId, Trips tripId) {
+	public Orders( Users userId, Trips tripId) {
 		super();
-		this.setOrderId(orderId);
 		this.setTripId(tripId);
 		this.setUserId(userId);
 	}
@@ -139,8 +138,8 @@ public class Orders extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "orderId=" + orderId + ", userId=" + userId + ", tripId="
-				+ tripId + " ";
+		return "orderId=" + orderId + ", userId=" + userId.getUserId() + ", tripId="
+				+ tripId.getTripId() + " ";
 	}
 
 }
