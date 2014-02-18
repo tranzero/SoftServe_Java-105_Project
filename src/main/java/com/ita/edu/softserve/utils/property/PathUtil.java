@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.utils;
+package com.ita.edu.softserve.utils.property;
 
 
 
@@ -24,7 +24,7 @@ public class PathUtil {
 		try (InputStream is = getClass().getClassLoader().getResourceAsStream(
 				"path.properties")) {
 			properties.load(is);
-			// initOsSpecificMainPath(properties);
+			
 			@SuppressWarnings("rawtypes")
 			Enumeration enumeration = properties.keys();
 			while (enumeration.hasMoreElements()) {
