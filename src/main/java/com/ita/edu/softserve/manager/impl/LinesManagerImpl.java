@@ -200,17 +200,17 @@ public class LinesManagerImpl implements LinesManager {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count) {
+			String stationName2, int pageNumber, int count, int sortOrder) {
 		return getLinesByTwoStForLimit(stationName1, stationName2,
-				(pageNumber - 1) * count, count);
+				(pageNumber - 1) * count, count, sortOrder);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count) {
+			String stationName2, int firstElement, int count, int sortOrder) {
 		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2,
-				firstElement, count);
+				firstElement, count, sortOrder);
 	}
 
 	/**
