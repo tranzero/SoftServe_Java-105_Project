@@ -25,6 +25,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_COUNT, query = Lines.FIND_BY_STATION_NAME_COUNT_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_FOR_PAGING, query = Lines.FIND_BY_STATION_NAME_FOR_PAGING_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS, query = Lines.FIND_BY_TWO_STATIONS_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS_ASC, query = Lines.FIND_BY_TWO_STATIONS_ASC_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS_DESC, query = Lines.FIND_BY_TWO_STATIONS_DESC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS_COUNT, query = Lines.FIND_BY_TWO_STATIONS_COUNT_QUERY)
 })
 public class Lines extends BaseEntity {
@@ -56,6 +58,28 @@ public class Lines extends BaseEntity {
 			+ "AND stl2.stationId.stationName = ?2 "
 			+ "AND stl1.lineId = stl2.lineId "
 			+ "AND stl2.stationOrderNum > stl1.stationOrderNum";
+	
+	public static final String FIND_BY_TWO_STATIONS_ASC = "Lines.findByTwoStationsASC";
+	public static final String FIND_BY_TWO_STATIONS_ASC_QUERY = "SELECT line "
+			+ "FROM StationsOnLine stl1, StationsOnLine stl2 "
+			+ "JOIN stl1.lineId as line "
+			+ "JOIN stl1.stationId as st "
+			+ "WHERE stl1.stationId.stationName = ?1 "
+			+ "AND stl2.stationId.stationName = ?2 "
+			+ "AND stl1.lineId = stl2.lineId "
+			+ "AND stl2.stationOrderNum > stl1.stationOrderNum "
+			+ "ORDER BY line.lineName ASC";
+	
+	public static final String FIND_BY_TWO_STATIONS_DESC = "Lines.findByTwoStationsDESC";
+	public static final String FIND_BY_TWO_STATIONS_DESC_QUERY = "SELECT line "
+			+ "FROM StationsOnLine stl1, StationsOnLine stl2 "
+			+ "JOIN stl1.lineId as line "
+			+ "JOIN stl1.stationId as st "
+			+ "WHERE stl1.stationId.stationName = ?1 "
+			+ "AND stl2.stationId.stationName = ?2 "
+			+ "AND stl1.lineId = stl2.lineId "
+			+ "AND stl2.stationOrderNum > stl1.stationOrderNum "
+			+ "ORDER BY line.lineName DESC";
 
 	public static final String FIND_BY_TWO_STATIONS_COUNT = "Lines.findByTwoStationsCount";
 	public static final String FIND_BY_TWO_STATIONS_COUNT_QUERY = "SELECT COUNT(line) "

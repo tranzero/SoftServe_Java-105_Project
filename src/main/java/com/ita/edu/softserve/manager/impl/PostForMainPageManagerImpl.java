@@ -16,7 +16,7 @@ import com.ita.edu.softserve.manager.PostForMainPageManager;
 
 @Service("postForMainPageService")
 public class PostForMainPageManagerImpl implements PostForMainPageManager  {
-	private static final Logger LOGGER = Logger.getLogger(PostManagerExeption.class);
+	private static final Logger LOGGER = Logger.getLogger(PostForMainPageManagerImpl.class);
 	
 	@Autowired
 	PostDAOImpl postDao;

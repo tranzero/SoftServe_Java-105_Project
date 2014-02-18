@@ -158,11 +158,15 @@ public class LinesController {
 			@RequestParam(value = "stationName2", required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return "linesbytwostations";
+		}
+		if (sortOrder == null) {
+			sortOrder = 0;
 		}
 
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
@@ -174,7 +178,7 @@ public class LinesController {
 
 		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
-				(int) container.getResultsPerPage()));
+				(int) container.getResultsPerPage(), sortOrder));
 
 		return "linesbytwostations";
 	}
@@ -185,13 +189,17 @@ public class LinesController {
 			@RequestParam(value = "stationName2", required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return "linesbytwostationsPage";
 		}
-
+		if (sortOrder == null) {
+			sortOrder = 0;
+		}
+		
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
 				stationName2);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -201,9 +209,8 @@ public class LinesController {
 
 		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
-				(int) container.getResultsPerPage()));
-		// linesManager.getLinesByTwoStations(stationName1, stationName2));
-
+				(int) container.getResultsPerPage(), sortOrder));
+		
 		return "linesbytwostationsPage";
 	}
 

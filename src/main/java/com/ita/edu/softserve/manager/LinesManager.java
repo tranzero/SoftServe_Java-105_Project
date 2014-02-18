@@ -39,10 +39,10 @@ public interface LinesManager extends BaseManager {
 			String stationName2);
 
 	public List<Lines> getLinesByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count);
+			String stationName2, int pageNumber, int count, int sortOrder);
 
 	public List<Lines> getLinesByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count);
+			String stationName2, int firstElement, int count, int sortOrder);
 
 	/**
 	 * @author MatyashPetro

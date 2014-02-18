@@ -17,10 +17,15 @@
 			<table>
 				<tr>
 					<td>Number</td>
-					<td>Station / Stop</td>
-					<td>Transport Number</td>
+					<td><a
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=1&submit=Find">Station
+							/ Stop</a></td>
+					<td><a
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=2&submit=Find">Transport
+							Number</a></td>
 					<td>Departure / Arrival time</td>
-					<td>Duration</td>
+					<td><a
+						href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=3&submit=Find">Duration</a></td>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
 					<tr>
@@ -42,7 +47,7 @@
 			<h3>Sorry. No results was found</h3>
 			<hr />
 		</c:if>
-		
+
 		<c:if
 			test="${not empty param.stationName1 && not empty param.stationName2}">
 			<div class="pagination">
