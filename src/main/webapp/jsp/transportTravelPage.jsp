@@ -10,10 +10,18 @@
 	<table>
 		<tr>
 			<td>Number</td>
-			<td><a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=1&submit=Find">Station / Stop</a></td>
-			<td><a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=2&submit=Find">Transport Number</a></td>
-			<td>Departure / Arrival time</td>
-			<td><a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&orderBy=3&submit=Find">Duration</a></td>
+			<td><a href="javascript:void(0);"
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')">
+					Station / Stop</a></td>
+			<td><a href="javascript:void(0);"
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')">
+					Number</a></td>
+			<td><a href="javascript:void(0);"
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '3')">
+					Departure / Arrival time</a></td>
+			<td><a href="javascript:void(0);"
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '4')">
+					Duration</a></td>
 		</tr>
 		<c:forEach var="transport" items="${TransportTravelList}">
 			<tr>
@@ -43,10 +51,10 @@
 		<ul class="bootpag">
 			<c:if test="${pageNumber>1}">
 				<li class="prev"><a href="javascript:void(0);"
-					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',1, ${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',1, ${resultsPerPage}, '${param.orderBy}')">
 						« </a></li>
 				<li class="prev"><a href="javascript:void(0);"
-					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber-1},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber-1},${resultsPerPage}, '${param.orderBy}')">
 						<spring:message code="label.prev" />
 				</a></li>
 			</c:if>
@@ -61,7 +69,7 @@
 				varStatus="status">
 				<c:if test="${pageNumber!=i}">
 					<li><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${i},${resultsPerPage})">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${i},${resultsPerPage}, '${param.orderBy}')">
 							${i} </a></li>
 				</c:if>
 				<c:if test="${pageNumber==i}">
@@ -71,11 +79,11 @@
 
 			<c:if test="${pageNumber<maxPages}">
 				<li class="next"><a href="javascript:void(0);"
-					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber+1},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber+1},${resultsPerPage}, '${param.orderBy}')">
 						<spring:message code="label.next" />
 				</a></li>
 				<li class="next"><a href="javascript:void(0);"
-					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${maxPages},${resultsPerPage})">
+					onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${maxPages},${resultsPerPage}, '${param.orderBy}')">
 						» </a></li>
 			</c:if>
 			<c:if test="${pageNumber==maxPages}">

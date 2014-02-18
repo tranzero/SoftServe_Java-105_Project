@@ -206,6 +206,11 @@ public class TransportController {
 	private static final String TRANSPORT_URL_PATTERN = "/transport";
 
 	/**
+	 * Defines orderBy attribute
+	 */
+	private static final String ORDER_BY = "orderBy";
+
+	/**
 	 * Field for using paging-related controller-level methods (class realized
 	 * using singleton)
 	 */
@@ -495,11 +500,15 @@ public class TransportController {
 			@RequestParam(value = STATION_NAME2_REQUEST_PARAM, required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
+		}
+		if (orderBy == null) {
+			orderBy = 0;
 		}
 
 		long count = transportsManager.getTransportByTwoStListCount(
@@ -512,7 +521,7 @@ public class TransportController {
 		modelMap.put(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
-						(int) container.getResultsPerPage()));
+						(int) container.getResultsPerPage(), orderBy));
 
 		return TRANSPORT_TRAVEL_JSP;
 	}
@@ -523,13 +532,17 @@ public class TransportController {
 			@RequestParam(value = STATION_NAME2_REQUEST_PARAM, required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
-
+		if (orderBy == null) {
+			orderBy = 0;
+		}
+		
 		long count = transportsManager.getTransportByTwoStListCount(
 				stationName1, stationName2);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -540,7 +553,7 @@ public class TransportController {
 		modelMap.put(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
-						(int) container.getResultsPerPage()));
+						(int) container.getResultsPerPage(), orderBy));
 
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}

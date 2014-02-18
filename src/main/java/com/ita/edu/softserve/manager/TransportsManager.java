@@ -57,10 +57,10 @@ public interface TransportsManager extends BaseManager {
 			String stationName2);
 
 	public List<TransportTravel> getTransportByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count);
+			String stationName2, int pageNumber, int count, int orderBy);
 
 	public List<TransportTravel> getTransportByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count);
+			String stationName2, int firstElement, int count, int orderBy);
 	
 
 	List<Transports> getTransportsForLimit(int firstElement, int count);

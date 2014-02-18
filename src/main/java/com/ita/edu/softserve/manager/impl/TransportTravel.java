@@ -43,8 +43,7 @@ public class TransportTravel {
 		}
 		this.transport = transport;
 		this.lineName = transport.getRoutes().getLineId().getLineName();
-		this.departureTime = TransportTravel.sumTimes(transport.getStartTime(),
-				(Time) departureTime);
+		this.departureTime = departureTime;
 		this.duration = duration;
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);

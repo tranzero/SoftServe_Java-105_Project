@@ -26,11 +26,15 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
  */
 @Entity
 @Table(name = "transports")
-@NamedQueries({
+@NamedQueries({ 
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
-		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY)
+		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_LNAME, query = Transports.FIND_BY_TS_ORDER_BY_LNAME_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_TCODE, query = Transports.FIND_BY_TS_ORDER_BY_TCODE_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DEP, query = Transports.FIND_BY_TS_ORDER_BY_DEP_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DURATION, query = Transports.FIND_BY_TS_ORDER_BY_DURATION_QUERY)
 })
 public class Transports extends BaseEntity {
 
@@ -45,7 +49,7 @@ public class Transports extends BaseEntity {
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
 	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT "
-			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
 			+ "FROM Transports t "
 			+ "JOIN t.routes r "
 			+ "JOIN r.stops s "
@@ -60,6 +64,82 @@ public class Transports extends BaseEntity {
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
 			+ "GROUP BY t.transportCode";
+
+	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
+    public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+            + "FROM Transports t "
+            + "JOIN t.routes r "
+            + "JOIN r.stops s "
+            + "JOIN s.stationOnLineId sol "
+            + "JOIN sol.stationId st "
+            + "WHERE t.routes.routeId in "
+            + "(SELECT s1.routeId.routeId "
+            + "FROM Stops s1, Stops s2 "
+            + "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+            + "and s2.stationOnLineId.stationId.stationName = ?2 "
+            + "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+            + "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+            + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+            + "GROUP BY t.transportCode "
+            + "ORDER BY t.routes.lineId.lineName";
+	
+	public static final String FIND_BY_TS_ORDER_BY_TCODE = "Transports.findByTwoStationsOrderByTCode";
+	public static final String FIND_BY_TS_ORDER_BY_TCODE_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY t.transportCode";
+
+	public static final String FIND_BY_TS_ORDER_BY_DEP = "Transports.findByTwoStationsOrderByDep";
+	public static final String FIND_BY_TS_ORDER_BY_DEP_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY TIME(TIME(s.departure) + TIME(t.startTime))";
+
+	public static final String FIND_BY_TS_ORDER_BY_DURATION = "Transports.findByTwoStationsOrderByDuration";
+	public static final String FIND_BY_TS_ORDER_BY_DURATION_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY MAX(s.arrival) DESC";
 
 	@Id
 	@Column(name = "TRANSPORTID")
