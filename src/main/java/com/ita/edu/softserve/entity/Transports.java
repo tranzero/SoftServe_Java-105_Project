@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.ita.edu.softserve.manager.impl.TransportTravel;
+
 /**
  * The persistent class for the transports database table.
  * 
@@ -43,7 +45,7 @@ public class Transports extends BaseEntity {
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
 	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT "
-			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival))) "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, s.departure, TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
 			+ "FROM Transports t "
 			+ "JOIN t.routes r "
 			+ "JOIN r.stops s "

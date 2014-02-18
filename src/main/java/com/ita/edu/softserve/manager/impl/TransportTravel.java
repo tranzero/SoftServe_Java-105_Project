@@ -35,10 +35,8 @@ public class TransportTravel {
 		this.duration = null;
 	}
 
-	// public TransportTravel(Transports transport, Object departureTime, Object
-	// arrivalTime, Object duration) {
 	public TransportTravel(Transports transport, Object departureTime,
-			Object duration) {
+			Object arrivalTime, Object duration) {
 		this();
 		if (transport == null || departureTime == null || duration == null) {
 			return;

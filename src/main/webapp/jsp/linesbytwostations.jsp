@@ -17,8 +17,10 @@
 	</form:form>
 	<c:if
 		test="${not empty param.stationName1 && not empty param.stationName2}">
-		<a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}&sortOrder=1&submit=Find">ASC</a>
-		<a href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}&sortOrder=2&submit=Find">DESC</a>
+		<a href="javascript:void(0);"
+						onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')">ASC</a>
+		<a href="javascript:void(0);"
+						onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')">DESC</a>
 	</c:if>
 	<div id="result">
 		<%-- Results --%>
