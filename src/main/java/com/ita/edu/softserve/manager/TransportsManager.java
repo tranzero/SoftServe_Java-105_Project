@@ -2,6 +2,7 @@ package com.ita.edu.softserve.manager;
 
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -51,6 +52,16 @@ public interface TransportsManager extends BaseManager {
 	 * Gets transport by two stations in certain order
 	 */
 	List<TransportTravel> getTransportByTwoStations(String stationName1, String stationName2);
+	
+	public long getTransportByTwoStListCount(String stationName1,
+			String stationName2);
+
+	public List<TransportTravel> getTransportByTwoStForPage(String stationName1,
+			String stationName2, int pageNumber, int count);
+
+	public List<TransportTravel> getTransportByTwoStForLimit(String stationName1,
+			String stationName2, int firstElement, int count);
+	
 
 	List<Transports> getTransportsForLimit(int firstElement, int count);
 

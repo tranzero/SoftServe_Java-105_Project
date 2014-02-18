@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -61,12 +62,32 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (List<TransportTravel>) query.getResultList();
 	}
 
+	@Override
+	public List<TransportTravel> getTransportByTwoStForLimits(
+			String stationName1, String stationName2, int firstElement,
+			int count) {
+		Query query = entityManager
+				.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
+				.setParameter(1, stationName1).setParameter(2, stationName2)
+				.setFirstResult(firstElement).setMaxResults(count);
+		
+		return (List<TransportTravel>) query.getResultList();
+	}
+
+	@Override
+	public long getTransportByTwoStListCount(String stationName1,
+			String stationName2) {
+		//this will be changed soon
+		return findByTwoStations(stationName1, stationName2).size();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> getTransportsForLimits(int firstElement, int count) {
 		Query query = entityManager
 				.createNamedQuery(Transports.TRANSPORTS_FIND_ALL)
 				.setFirstResult(firstElement).setMaxResults(count);
+		
 		return (List<Transports>) query.getResultList();
 	}
 

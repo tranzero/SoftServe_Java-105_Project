@@ -147,14 +147,14 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Returns <code>TransportTravel</code> object, that contains
-	 * all transport that goes through two stations
+	 * Returns <code>TransportTravel</code> object, that contains all transport
+	 * that goes through two stations
 	 * 
 	 * @param stationName1
 	 * @param stationName2
 	 * 
-	 * return <code>TransportTravel</code>, that contains transport code,
-	 * 		  departure and arrival times, duration
+	 *            return <code>TransportTravel</code>, that contains transport
+	 *            code, departure and arrival times, duration
 	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStations(String stationName1,
@@ -177,16 +177,41 @@ public class TransportsManagerImpl implements TransportsManager {
 	public List<Transports> getTransportsForLimit(int firstElement, int count) {
 		return transportsDao.getTransportsForLimits(firstElement, count);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Transports> getTransportsForPage(int pageNumber, int count) {
-		return getTransportsForLimit((pageNumber-1)*count, count);
+		return getTransportsForLimit((pageNumber - 1) * count, count);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public long getTransportsListCount() {
 		return transportsDao.getTransportsListCount();
+	}
+
+	@Override
+	public long getTransportByTwoStListCount(String stationName1,
+			String stationName2) {
+
+		return transportsDao.getTransportByTwoStListCount(stationName1,
+				stationName2);
+	}
+
+	@Override
+	public List<TransportTravel> getTransportByTwoStForPage(
+			String stationName1, String stationName2, int pageNumber, int count) {
+
+		return getTransportByTwoStForLimit(stationName1, stationName2,
+				(pageNumber - 1) * count, count);
+	}
+
+	@Override
+	public List<TransportTravel> getTransportByTwoStForLimit(
+			String stationName1, String stationName2, int firstElement,
+			int count) {
+
+		return transportsDao.getTransportByTwoStForLimits(stationName1,
+				stationName2, firstElement, count);
 	}
 }

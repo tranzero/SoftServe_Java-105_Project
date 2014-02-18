@@ -34,6 +34,15 @@ public interface LinesManager extends BaseManager {
 
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2);
+	
+	public long getLinesByTwoStListCount(String stationName1,
+			String stationName2);
+
+	public List<Lines> getLinesByTwoStForPage(String stationName1,
+			String stationName2, int pageNumber, int count);
+
+	public List<Lines> getLinesByTwoStForLimit(String stationName1,
+			String stationName2, int firstElement, int count);
 
 	/**
 	 * @author MatyashPetro
@@ -76,12 +85,4 @@ public interface LinesManager extends BaseManager {
 	 */
 	public List<Lines> getLinesForPage(int from, int count);
 
-	public long getLinesByTwoStListCount(String stationName1,
-			String stationName2);
-
-	public List<Lines> getLinesByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count);
-
-	public List<Lines> getLinesByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count);
 }
