@@ -38,8 +38,6 @@
 								code="label.navigation.addnews" /></a></li>
 					<li><a href="/SoftServe_Java-105/stations"><spring:message
 								code="label.navigation.stations" /></a></li>
-					<li><a href="/SoftServe_Java-105/stationEdit"><spring:message
-								code="label.navigation.stationEdit" /></a></li>
 					<li><a href="/SoftServe_Java-105/allLines"><spring:message
 								code="label.navigation.allLines" /></a></li>
 					<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message
