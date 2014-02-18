@@ -3,12 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+	<!-- JS for table sorting -->
+  <link rel="shortcut icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+  <link rel="icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+<!--   <link rel="stylesheet" type="text/css" media="all" href="resources/css/styles.css"> -->
+  <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+  <script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
+	
+	<!-- JS for table searching -->
+	<script src="resources/js/jquery.searcher.js"></script>
+
 <section id="content">
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
+	
+	<p><spring:message code="label.transport.tableSearchInput"/>
+	<input id="tableSearchInput" /></p>
+	
 	<div id="pagingcontent">
-		<table style="align: center">
+		<table style="align: center" id="transportTable">
 			<thead>
 				<tr>
 					<th><spring:message code="label.transport.transportcode" /></th>
@@ -114,5 +128,21 @@
 		});
 		
 	</script>
+	
+	<!-- JS for table sorting -->
+	<script type="text/javascript">
+		$(function() {
+			$('#transportTable').tablesorter();
+		});
+	</script>
+
+	<!-- JS for table searching -->
+	<script type="text/javascript">
+		$("#transportTable").searcher({
+			inputSelector : "#tableSearchInput"
+		// itemSelector (tbody > tr) and textSelector (td) already have proper default values
+		});
+	</script>
+	
 </section>
  
