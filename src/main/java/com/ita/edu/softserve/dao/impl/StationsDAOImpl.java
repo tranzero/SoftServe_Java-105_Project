@@ -41,7 +41,6 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 	public void saveOrUpdate(final Stations entity) {
 		if (entity.getStationId() == null) {
 			entityManager.persist(entity);
-			entityManager.refresh(entity);
 		} else {
 			entityManager.merge(entity);
 		}

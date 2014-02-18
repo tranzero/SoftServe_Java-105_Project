@@ -4,11 +4,13 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="resources/js/editstation-valid.js"></script>
+
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.stationEdit"/></h2>
 	<hr />
-
-	<hr>
 
 	<form id="stationEdit" method="post" name="statEdit"
 		style="text-align: center">
@@ -28,8 +30,6 @@
 				<input type="submit" value="<spring:message code="label.stations.edit"/>"> 
 				<input type="button" value="<spring:message code="label.stations.cancel"/>" onclick="window.location='/SoftServe_Java-105/stations';">
 			</p>
-			<br>
-
 		</div>
 
 	</form>

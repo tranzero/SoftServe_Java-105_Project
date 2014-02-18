@@ -31,13 +31,15 @@
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/orders"><spring:message
 								code="label.navigation.orders" /></a></li>
-								</ul></li>
+				</ul></li>
 			<li><spring:message code="label.navigation.editing" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/addnews"><spring:message
 								code="label.navigation.addnews" /></a></li>
 					<li><a href="/SoftServe_Java-105/stations"><spring:message
 								code="label.navigation.stations" /></a></li>
+					<li><a href="/SoftServe_Java-105/stationEdit"><spring:message
+								code="label.navigation.stationEdit" /></a></li>
 					<li><a href="/SoftServe_Java-105/allLines"><spring:message
 								code="label.navigation.allLines" /></a></li>
 					<li><a href="/SoftServe_Java-105/tripsmanager"><spring:message
