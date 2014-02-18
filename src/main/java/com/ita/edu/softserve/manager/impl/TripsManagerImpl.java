@@ -11,8 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.manager.ManagerFactory;
+import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 
 @Service("tripsManager")
@@ -40,6 +43,14 @@ public class TripsManagerImpl implements TripsManager {
 		return tripsDao.getAllEntities();
 	}
 
+	@Transactional
+	@Override
+	public Trips findByTripId (Integer id){
+		
+		return tripsDao.findById(id);
+		
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCount() {
@@ -114,5 +125,8 @@ public class TripsManagerImpl implements TripsManager {
 		}
 		
 
+	}
+	public static TripsManager getInstance() {
+		return ManagerFactory.getManager(TripsManager.class);
 	}
 }
