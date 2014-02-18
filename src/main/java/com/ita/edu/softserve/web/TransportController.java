@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -58,7 +60,7 @@ public class TransportController {
 	 * The name of jsp that defines Spring.
 	 */
 	private static final String TRANSPORT_TRAVEL_PAGE_JSP = "transportTravelPage";
-	
+
 	/**
 	 * Name of request param to find lines by two stations.
 	 */
@@ -221,6 +223,9 @@ public class TransportController {
 	 */
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
+	
+	@Autowired
+	private RoutesManager routesManager;
 
 	/**
 	 * Display transports in browser.
@@ -333,7 +338,11 @@ public class TransportController {
 	 * @return addTransport jsp to use.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
-	public String transportForm() {
+	public String transportForm(Map<String, Object> map) {
+		
+		List<Routes> routesList = routesManager.getAllRoutes();
+		map.put("routesList", routesList);
+		
 		return ADD_TRANSPORT_JSP;
 	}
 
@@ -520,7 +529,7 @@ public class TransportController {
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
-		
+
 		long count = transportsManager.getTransportByTwoStListCount(
 				stationName1, stationName2);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -532,7 +541,7 @@ public class TransportController {
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
 						(int) container.getResultsPerPage()));
-		
+
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}
 

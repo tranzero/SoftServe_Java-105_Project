@@ -137,7 +137,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		transport.setTransportCode(transportCode);
 		transport.setStartTime(timeParse(startTime));
-		transport.setRoutes(routesDao.findByCode(routes));
+		transport.setRoutes(routesDao.findById(new Integer(routes)));
 		transport.setSeatclass1(new Integer(seatclass1));
 		transport.setSeatclass2(new Integer(seatclass2));
 		transport.setSeatclass3(new Integer(seatclass3));
