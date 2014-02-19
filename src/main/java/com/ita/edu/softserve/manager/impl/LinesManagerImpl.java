@@ -30,15 +30,16 @@ public class LinesManagerImpl implements LinesManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(LinesManagerImpl.class);
+	
 	private String entityName = Lines.class.getCanonicalName()
 			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
+	
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
 	private String changeMsg = " was change in DB by ";
 	private final String createLinesMsg = "Could not create Lines";
 	private final String findLinesMsg = "Could not find Lines List";
 	private final String removeLinesMsg = "Could not remove Lines";
-	private final String findByIdLinesMsg = "Could not find Lines by id";
 	private final String findByNameLinesMsg = "Could not find Lines by name";
 	private final String updateLinesMsg = "Could not update Lines";
 	private final String countLinesMsg = "Could not get Lines list count";
@@ -213,7 +214,7 @@ public class LinesManagerImpl implements LinesManager {
 			LOGGER.info(entityName + line.getLineId() + removeMsg);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
-			throw new LinesManagerException(createLinesMsg, e);
+			throw new LinesManagerException(removeLinesMsg, e);
 		}
 	}
 
