@@ -48,7 +48,7 @@ public class Lines extends BaseEntity {
 	public static final String FIND_BY_STATION_NAME_ASC ="Lines.findByLineNameAsc";
 	public static final String FIND_BY_STATION_NAME_ASC_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 order by l.lineName ASC";
 	
-	public static final String FIND_BY_STATION_NAME_DESC ="Lines.findByLineNameAsc";
+	public static final String FIND_BY_STATION_NAME_DESC ="Lines.findByLineNameDesc";
 	public static final String FIND_BY_STATION_NAME_DESC_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 order by l.lineName DESC";
 	
 	public static final String FIND_BY_STATION_NAME_COUNT = "Lines.findByStationNameCount";

@@ -99,9 +99,9 @@ public class LinesController {
 		return editLinesEditLine;
 	}
 
-	@RequestMapping(value = "deleteline/{lineName}", method = RequestMethod.GET)
-	public String deleteLine(@PathVariable("lineName") String lineName) {
-		linesManager.deleteLine(lineName);
+	@RequestMapping(value = "deleteline/{lineId}", method = RequestMethod.GET)
+	public String deleteLine(@PathVariable("lineId") Integer lineId) {
+		linesManager.deleteLine(lineId);
 		return deleteLines;
 	}
 

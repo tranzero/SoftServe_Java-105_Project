@@ -49,7 +49,7 @@ public interface LinesManager extends BaseManager {
 	 * @param lineName
 	 *            name of the line witch must be created
 	 */
-	public void createLine(Integer lineId, String lineName);
+	public void createLine(String lineName);
 
 	/**
 	 * @author MatyashPetro

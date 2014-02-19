@@ -153,17 +153,16 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void createLine(Integer lineId, String lineName) {
+	public void createLine(String lineName) {
 		try {
-			lineDao.findById(lineId);
+			lineDao.findByName(lineName);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
 			new LinesManagerException(findByNameLinesMsg);
 		}
 
 		try {
-			Lines newLine = lineDao.findById(lineId);
-			newLine.setLineName(lineName);
+			Lines newLine = new Lines(lineName);
 			lineDao.save(newLine);
 			LOGGER.info(entityName + newLine.getLineId() + addMsg);
 		} catch (RuntimeException e) {
