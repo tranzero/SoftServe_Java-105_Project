@@ -28,15 +28,16 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 */
 	public List<Lines> getLinesByStationName(String stationName);
 	
-	/**
-	 * Method for paging
-	 * 
-	 * @param stationName
-	 * @param firstElement
-	 * @param count
-	 * @return List of Lines
-	 */
-	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count);
+	
+/**
+ * Method for sorting results
+ * @param stationName
+ * @param firstElement
+ * @param count
+ * @param sortOrder
+ * @return List of Lines for 1 page
+ */
+	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count, int sortOrder);
 	
 	/**
 	 * Method for paging
