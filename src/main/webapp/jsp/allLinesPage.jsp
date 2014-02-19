@@ -17,7 +17,7 @@
 				<td align="center">${line.getLineName()}</td>
 				<td align="center"><a
 					href="editline/${line.getLineName()}">edit</a></td>
-				<td align="center"><a href="deleteline/${line.getLineName()}">delete</a></td>
+				<td align="center"><a href="deleteline/${line.getLineId()}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

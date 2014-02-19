@@ -46,22 +46,22 @@ public class LinesServiceMain {
 		}
 		System.out.println("Створив лінію MyNewLine2 і поверув всі лінії");
 		
-		lm.updateLine("MyNewLine2", "MyNewLine3");
-		for(Lines line: lm.getFullLines()){
-			System.out.println(line.getLineName());			
-		}
-		System.out.println("Переіменував MyNewLine2 в MyNewLine3 і повернув всі лінії");
-		
-		lm.updateLine("MyNewLine3", "MyNewLine1");
-		for(Lines line: lm.getFullLines()){
-			System.out.println(line.getLineName());			
-		}
-		System.out.println("Переіменував MyNewLine3 в MyNewLine1 і повернув всі лінії");
-		
-		lm.deleteLine("MyNewLine1");
-		for(Lines line: lm.getFullLines()){
-			System.out.println(line.getLineName());			
-		}
+//		lm.updateLine("MyNewLine2", "MyNewLine3");
+//		for(Lines line: lm.getFullLines()){
+//			System.out.println(line.getLineName());			
+//		}
+//		System.out.println("Переіменував MyNewLine2 в MyNewLine3 і повернув всі лінії");
+//		
+//		lm.updateLine("MyNewLine3", "MyNewLine1");
+//		for(Lines line: lm.getFullLines()){
+//			System.out.println(line.getLineName());			
+//		}
+//		System.out.println("Переіменував MyNewLine3 в MyNewLine1 і повернув всі лінії");
+//		
+//		lm.deleteLine("MyNewLine1");
+//		for(Lines line: lm.getFullLines()){
+//			System.out.println(line.getLineName());			
+//		}
 		System.out.println("");
 	}
 }

@@ -30,15 +30,16 @@ public class LinesManagerImpl implements LinesManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(LinesManagerImpl.class);
+	
 	private String entityName = Lines.class.getCanonicalName()
 			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
+	
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
 	private String changeMsg = " was change in DB by ";
 	private final String createLinesMsg = "Could not create Lines";
 	private final String findLinesMsg = "Could not find Lines List";
 	private final String removeLinesMsg = "Could not remove Lines";
-	private final String findByIdLinesMsg = "Could not find Lines by id";
 	private final String findByNameLinesMsg = "Could not find Lines by name";
 	private final String updateLinesMsg = "Could not update Lines";
 	private final String countLinesMsg = "Could not get Lines list count";
@@ -100,18 +101,18 @@ public class LinesManagerImpl implements LinesManager {
 
 	@Override
 	public List<Lines> getLinesByStNameForPage(String stationName,
-			int pageNumber, int count) {
+			int pageNumber, int count, int sortOrder) {
 		return this.getLinesByStNameForLimit(stationName, (pageNumber - 1)
-				* count, count);
+				* count, count,sortOrder);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<Lines> getLinesByStNameForLimit(String stationName,
-			int firstElement, int count) {
+			int firstElement, int count, int sortOrder) {
 
 		return lineDao.getLinesByStNameForLimits(stationName, firstElement,
-				count);
+				count,sortOrder);
 
 	}
 
@@ -155,7 +156,7 @@ public class LinesManagerImpl implements LinesManager {
 	@Override
 	public void createLine(String lineName) {
 		try {
-			Lines line = lineDao.findByName(lineName);
+			lineDao.findByName(lineName);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
 			new LinesManagerException(findByNameLinesMsg);
@@ -180,20 +181,15 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void updateLine(String lineName, String newLineName) {
-		Lines line = null;
+	public void updateLine(Integer lineId, String newLineName) {
 		try {
-			line = lineDao.findByName(lineName);
-			try {
-				lineDao.findByName(newLineName);
-				LOGGER.error("Such line \"" + newLineName
-						+ "\" is already exist");
-			} catch (NoResultException e) {
-				line.setLineName(newLineName);
-				lineDao.update(line);
-			}
-		} catch (NoResultException e) {
-			LOGGER.error("No such line!", e);
+			Lines line = lineDao.findById(lineId);
+			line.setLineName(newLineName);
+			lineDao.update(line);
+			LOGGER.info(entityName + line.getLineId() + changeMsg);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(updateLinesMsg, e);
 		}
 	}
 
@@ -204,13 +200,21 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void deleteLine(String lineName) {
-		Lines line = null;
+	public void deleteLine(Integer lineId) {
 		try {
-			line = lineDao.findByName(lineName);
+			lineDao.findById(lineId);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			new LinesManagerException(findByNameLinesMsg);
+		}
+
+		try {
+			Lines line = lineDao.findById(lineId);
 			lineDao.remove(line);
-		} catch (NoResultException e) {
-			LOGGER.error("No such line!", e);
+			LOGGER.info(entityName + line.getLineId() + removeMsg);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(removeLinesMsg, e);
 		}
 	}
 
@@ -243,7 +247,12 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public long getLinesListCount() {
+		try{
 		return lineDao.getLinesListCount();
+		} catch (RuntimeException e){
+			LOGGER.error(e);
+			throw new LinesManagerException(countLinesMsg, e);
+		}
 	}
 
 	/**
@@ -256,6 +265,11 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public List<Lines> getLinesForPage(int from, int count) {
-		return lineDao.getLinesForOnePage(from - 1, count);
+		try{
+			return lineDao.getLinesForOnePage(from - 1, count);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(resultPerPageLinesMsg, e);
+		}
 	}
 }

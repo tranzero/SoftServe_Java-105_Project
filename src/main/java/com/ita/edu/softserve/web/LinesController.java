@@ -99,9 +99,9 @@ public class LinesController {
 		return editLinesEditLine;
 	}
 
-	@RequestMapping(value = "deleteline/{lineName}", method = RequestMethod.GET)
-	public String deleteLine(@PathVariable("lineName") String lineName) {
-		linesManager.deleteLine(lineName);
+	@RequestMapping(value = "deleteline/{lineId}", method = RequestMethod.GET)
+	public String deleteLine(@PathVariable("lineId") Integer lineId) {
+		linesManager.deleteLine(lineId);
 		return deleteLines;
 	}
 
@@ -140,10 +140,10 @@ public class LinesController {
 	@RequestMapping(value = "confirmcreating", method = RequestMethod.POST)
 	public String confirmCreating(
 			@ModelAttribute("newLineName") String lineName,
-			@RequestParam("stationsCheck") List<String> stations) {
+			@RequestParam("stationsCheck") List<Integer> stationsId) {
 		linesManager.createLine(lineName);
-		stationOnLineManager.updateStationOnLine(
-				linesManager.findByLineName(lineName).getLineId(), stations);
+		stationOnLineManager.addStationsToLine(
+				linesManager.findByLineName(lineName).getLineId(), stationsId);
 		return applyChanges;
 	}
 
@@ -219,6 +219,7 @@ public class LinesController {
 			@RequestParam(value = "stationName", required = false) String stationName,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
 
 		if (stationName == null || stationName.equals("")) {
@@ -235,7 +236,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage()));
+						container.getResultsPerPage(),sortOrder));
 
 		return "linesbystation";
 
@@ -246,6 +247,7 @@ public class LinesController {
 			@RequestParam(value = "stationName", required = false) String stationName,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
 
 		if (stationName == null || stationName.equals("")) {
@@ -262,7 +264,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage()));
+						container.getResultsPerPage(),sortOrder));
 
 		return "linesbystationresult";
 

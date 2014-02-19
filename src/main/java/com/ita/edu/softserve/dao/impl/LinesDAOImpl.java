@@ -71,10 +71,24 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	}
 	
 	@Override
-	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count) {
-		
-		Query query = entityManager
+	public List<Lines> getLinesByStNameForLimits(String stationName, int firstElement, int count, int sortOrder) {
+		Query query;
+		if(sortOrder ==1){
+			
+			query = entityManager
+					.createNamedQuery(Lines.FIND_BY_STATION_NAME_ASC).setParameter(1, stationName).setFirstResult(firstElement).setMaxResults(count);
+			
+		}
+		if(sortOrder ==2){
+			
+			query = entityManager
+					.createNamedQuery(Lines.FIND_BY_STATION_NAME_DESC).setParameter(1, stationName).setFirstResult(firstElement).setMaxResults(count);
+			
+		}else{
+			
+			query = entityManager
 				.createNamedQuery(Lines.FIND_BY_STATION_NAME).setParameter(1, stationName).setFirstResult(firstElement).setMaxResults(count);
+		}
 		
 		return (List<Lines>) query.getResultList();
 		

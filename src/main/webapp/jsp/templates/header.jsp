@@ -32,6 +32,7 @@
 			<ul>
 				<li><span class="flag flag-ua"></span><a href="?lang=ua">ua</a></li>
 				<li><span class="flag flag-en"></span><a href="?lang=en">en</a></li>
+				<li><span class="flag flag-es"></span><a href="?lang=es">es</a></li>
 			</ul>
 		</div>
 		<div id="social">

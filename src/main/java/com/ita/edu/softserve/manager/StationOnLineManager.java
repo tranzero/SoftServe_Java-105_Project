@@ -16,7 +16,7 @@ public interface StationOnLineManager extends BaseManager {
 	
 	public void removeStation(Integer stationId, Integer lineId);	
 	
-	public void addStationsToLine(Integer lineId, List<String> stationsName);
+	public void addStationsToLine(Integer lineId, List<Integer> stationsId);
 
 	List<StationsOnLine> findStationsOnLine(Integer lineId);
 	

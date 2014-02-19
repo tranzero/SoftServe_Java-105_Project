@@ -25,9 +25,9 @@ public interface LinesManager extends BaseManager {
 
 	public long getLinesByStationCount(String stationName);
 	
-	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count);
+	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count, int sortOrder);
 	
-	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count);
+	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count, int sortOrder);
 
 	public List<Lines> getLinesByStationForPage(int from, int count,
 			String stationName);
@@ -56,7 +56,7 @@ public interface LinesManager extends BaseManager {
 	 * @param lineName
 	 *            name of the line witch must be deleted
 	 */
-	public void deleteLine(String lineName);
+	public void deleteLine(Integer lineId);
 
 	/**
 	 * @author MatyashPetro
@@ -65,7 +65,7 @@ public interface LinesManager extends BaseManager {
 	 * @param newLineName
 	 *            new name of the line witch was updated
 	 */
-	void updateLine(String lineName, String newLineName);
+	void updateLine(Integer lineId, String newLineName);
 
 	public List<Lines> getLinesByStationName(String stationName);
 
