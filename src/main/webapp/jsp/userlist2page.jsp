@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<!-- JS for table sorting -->
+<!-- JS for userlist sorting -->
 <link rel="shortcut icon"
 	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
 <link rel="icon"
@@ -17,7 +17,7 @@
 	src="resources/js/jquery.tablesorter.min.js"></script>
 
 
-<!-- JS for table searching -->
+<!-- JS for user searching -->
 <script src="resources/js/jquery.searcher.js"></script>
 
 <!-- JS for confirm_delete_user -->
@@ -81,9 +81,18 @@
 
 	</table>
 
-	<!-- JS for table searching -->
+	<!-- JS for user searching -->
 	<script type="text/javascript">
-		$("#tableUsers").searcher({inputSelector : "#inputSearchUser"});
+		$("#tableUsers").searcher({
+			inputSelector : "#inputSearchUser"
+		});
+	</script>
+
+	<!-- JS for userlist Sorting -->
+	<script type="text/javascript">
+		$(function() {
+			$("#tableUsers").tablesorter();
+		});
 	</script>
 
 
