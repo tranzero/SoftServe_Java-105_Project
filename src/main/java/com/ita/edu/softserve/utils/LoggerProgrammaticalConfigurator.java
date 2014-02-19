@@ -15,12 +15,20 @@ public class LoggerProgrammaticalConfigurator {
 	private ConsoleAppender consoleAppender = null;
 	private String consoleAppenderPatternString = "%-5p: %c - %m%n";
 	private Level consoleAppenderLevel = Level.INFO;
+	
+	private ConsoleAppender consoleErrorAppender = null;
+	private Level consoleErrorAppenderLevel = Level.ERROR;
 
 	private DailyRollingFileAppender fileAppender = null;
 	private String fileNameString = "info.log";
 	private String datePatternString = "'.'yyyy-MM-dd";
 	private String fileAppenderPatternString = "%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n";
 	private Level fileAppenderLevel = Level.INFO;
+	
+	
+	private DailyRollingFileAppender fileErorAppender = null;
+	private String fileErrorNameString = "error.log";
+	private Level fileErrorAppenderLevel = Level.ERROR;
 
 	public LoggerProgrammaticalConfigurator() {
 	}
@@ -46,5 +54,28 @@ public class LoggerProgrammaticalConfigurator {
 		fileAppender.activateOptions();
 
 		Logger.getRootLogger().addAppender(fileAppender);
+		
+		
+		// Preparing the error console appender
+		consoleErrorAppender = new ConsoleAppender();
+		consoleErrorAppender.setLayout(new PatternLayout(
+				consoleAppenderPatternString));
+		consoleErrorAppender.setThreshold(consoleErrorAppenderLevel);
+		consoleAppender.activateOptions();
+
+		Logger.getRootLogger().addAppender(consoleErrorAppender);
+		
+		// Preparing error file appender
+		fileErorAppender = new DailyRollingFileAppender();
+		fileErorAppender.setName("FileLogger");
+		fileErorAppender.setFile(logsPath + fileErrorNameString);
+		fileErorAppender.setLayout(new PatternLayout(fileAppenderPatternString));
+		fileErorAppender.setThreshold(fileErrorAppenderLevel);
+		fileErorAppender.setAppend(true);
+		fileErorAppender.setDatePattern(datePatternString);
+		fileErorAppender.activateOptions();
+
+		Logger.getRootLogger().addAppender(fileErorAppender);
+				
 	}
 }

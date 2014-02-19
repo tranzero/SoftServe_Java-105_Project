@@ -121,9 +121,6 @@ public class RoutesManagerImpl implements RoutesManager {
 		List<RouteTrip> routesArrivingList = routeDao
 				.findRoutersListByStationNameArriving(stationNameArrival,
 						timeArrivalMin, timeArrivalMax);
-		/*if (routesArrivingList.get(0) == null) {
-			return null;
-		}*/
 		return routesArrivingList;
 	}
 
@@ -169,9 +166,6 @@ public class RoutesManagerImpl implements RoutesManager {
 		List<RouteTrip> routesDepartingList = routeDao
 				.findRoutersListByStationNameDeparting(stationNameDeparture,
 						timeDepartureMin, timeDepartureMax);
-		/*if (routesDepartingList.get(0) == null) {
-			return null;
-		}*/
 		return routesDepartingList;
 	}
 
