@@ -200,18 +200,18 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
-			String stationName1, String stationName2, int pageNumber, int count) {
+			String stationName1, String stationName2, int pageNumber, int count, int orderBy) {
 
 		return getTransportByTwoStForLimit(stationName1, stationName2,
-				(pageNumber - 1) * count, count);
+				(pageNumber - 1) * count, count, orderBy);
 	}
 
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimit(
 			String stationName1, String stationName2, int firstElement,
-			int count) {
+			int count, int orderBy) {
 
 		return transportsDao.getTransportByTwoStForLimits(stationName1,
-				stationName2, firstElement, count);
+				stationName2, firstElement, count, orderBy);
 	}
 }

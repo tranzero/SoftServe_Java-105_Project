@@ -17,10 +17,18 @@
 			<table>
 				<tr>
 					<td>Number</td>
-					<td>Station / Stop</td>
-					<td>Transport Number</td>
-					<td>Departure / Arrival time</td>
-					<td>Duration</td>
+					<td><a href="javascript:void(0);"
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')">
+							Station / Stop</a></td>
+					<td><a href="javascript:void(0);"
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')">
+							Number</a></td>
+					<td><a href="javascript:void(0);"
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '3')">
+							Departure / Arrival time</a></td>
+					<td><a href="javascript:void(0);"
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '4')">
+							Duration</a></td>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
 					<tr>
@@ -42,7 +50,7 @@
 			<h3>Sorry. No results was found</h3>
 			<hr />
 		</c:if>
-		
+
 		<c:if
 			test="${not empty param.stationName1 && not empty param.stationName2}">
 			<div class="pagination">
@@ -100,7 +108,7 @@
 		test="${not empty param.stationName1 && not empty param.stationName2}">
 		<script>
 			function showTransportPage(stationName1_, stationName2_,
-					pageNumber_, resultsPerPage_) {
+					pageNumber_, resultsPerPage_, orderBy_) {
 
 				if (stationName1_ == "" || stationName2_ == "") {
 					return;
@@ -120,7 +128,8 @@
 										stationName1 : stationName1_,
 										stationName2 : stationName2_,
 										pageNumber : pageNumber_,
-										resultsPerPage : resultsPerPage_
+										resultsPerPage : resultsPerPage_,
+										orderBy: orderBy_
 									}
 								}).done(function(msg) {
 							$("div#result").html(msg);
@@ -132,7 +141,7 @@
 					function() {
 						showTransportPage("${param.stationName1}",
 								"${param.stationName2}", "${pageNumber}",
-								"${resultsPerPage}");
+								"${resultsPerPage}", "${param.orderBy}");
 					});
 		</script>
 	</c:if>

@@ -36,4 +36,7 @@ public interface OrdersManager extends BaseManager {
 	public long getOrdersListCount();
 
 	public List<Orders> getOrdersForPage(int from, int count);
+	
+	public void createOrder(Integer userId,Integer tripId);
+	
 }
