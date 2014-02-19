@@ -22,6 +22,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 	@NamedQuery(name = Lines.GET_LINES_LIST_COUNT, query = Lines.GET_LINES_LIST_QUERY_COUNT),
 		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_ASC, query = Lines.FIND_BY_STATION_NAME_ASC_QUERY),
+		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_DESC, query = Lines.FIND_BY_STATION_NAME_DESC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_COUNT, query = Lines.FIND_BY_STATION_NAME_COUNT_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_FOR_PAGING, query = Lines.FIND_BY_STATION_NAME_FOR_PAGING_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS, query = Lines.FIND_BY_TWO_STATIONS_QUERY),
@@ -43,6 +45,12 @@ public class Lines extends BaseEntity {
 	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
 	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";
 
+	public static final String FIND_BY_STATION_NAME_ASC ="Lines.findByLineNameAsc";
+	public static final String FIND_BY_STATION_NAME_ASC_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 order by l.lineName ASC";
+	
+	public static final String FIND_BY_STATION_NAME_DESC ="Lines.findByLineNameAsc";
+	public static final String FIND_BY_STATION_NAME_DESC_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 order by l.lineName DESC";
+	
 	public static final String FIND_BY_STATION_NAME_COUNT = "Lines.findByStationNameCount";
 	public static final String FIND_BY_STATION_NAME_COUNT_QUERY = "select count(l.lineId) from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";
 	
