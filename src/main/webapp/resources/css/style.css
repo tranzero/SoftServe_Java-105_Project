@@ -94,20 +94,23 @@ input[type="text"]:focus
     box-shadow:0 0 2px #FFFE00;
 }
 
+div#language li a {
+	padding-left: 4px;
+} 
 span.flag {
 	width: 16px;
 	height: 11px;
 	display: inline-block;
 }
 .flag {
-	padding-right: 4px;
 	width: 16px;
 	height: 11px;
-	background:url("../images/flags.png") no-repeat;
+	background:url("../images/flags.png") no-repeat
 }
 
-.flag.flag-en {background-position: -16px 0}
-.flag.flag-ua {background-position: 0 -11px}
+.flag.flag-es {background-position: -16px 0}
+.flag.flag-en {background-position: 0 -11px}
+.flag.flag-ua {background-position: -16px -11px}
 
 #language ul{
 	list-style-type: none;
