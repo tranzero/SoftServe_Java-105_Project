@@ -17,8 +17,8 @@ import com.ita.edu.softserve.manager.PostForMainPageManager;
 public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	private static final Logger LOGGER = Logger
 			.getLogger(PostForMainPageManagerImpl.class);
-	private String entityName = Post.class.getCanonicalName()
-			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
+
+	private String entityName = Post.class.getName().concat(" with id=");
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
 	private String changeMsg = " was change in DB by ";
@@ -94,6 +94,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 			post.setTitle(newsTitle);
 			post.setDescription(newsDescription);
+			post.setDate();
 			postDao.update(post);
 			LOGGER.info(entityName + post.getPostId() + changeMsg);
 		} catch (RuntimeException e) {
