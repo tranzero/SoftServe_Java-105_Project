@@ -3,7 +3,6 @@
  */
 package com.ita.edu.softserve.manager.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -14,14 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.LinesDAO;
-import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
-import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
-import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.exception.LinesManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.ManagerFactory;
 
@@ -34,7 +28,21 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 @Service("linesService")
 public class LinesManagerImpl implements LinesManager {
 
-	private static final Logger LOGGER = Logger.getLogger(Lines.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(LinesManagerImpl.class);
+	private String entityName = Lines.class.getCanonicalName()
+			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
+	private String addMsg = " was added to DB by ";
+	private String removeMsg = " was remove from DB by ";
+	private String changeMsg = " was change in DB by ";
+	private final String createLinesMsg = "Could not create Lines";
+	private final String findLinesMsg = "Could not find Lines List";
+	private final String removeLinesMsg = "Could not remove Lines";
+	private final String findByIdLinesMsg = "Could not find Lines by id";
+	private final String findByNameLinesMsg = "Could not find Lines by name";
+	private final String updateLinesMsg = "Could not update Lines";
+	private final String countLinesMsg = "Could not get Lines list count";
+	private final String resultPerPageLinesMsg = "Could not get Lines for one page";
 
 	@Autowired
 	private LinesDAO lineDao;
@@ -50,10 +58,11 @@ public class LinesManagerImpl implements LinesManager {
 		Lines line = null;
 		try {
 			line = lineDao.findByName(lineName);
-		} catch (NoResultException e) {
-			LOGGER.error("No such line!", e);
+			return line;
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(findByNameLinesMsg, e);
 		}
-		return line;
 	}
 
 	/**
@@ -63,13 +72,18 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public List<Lines> getFullLines() {
-		return lineDao.getAllEntities();
-
+		try {
+			return lineDao.getAllEntities();
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(findLinesMsg, e);
+		}
 	}
 
 	/**
 	 * 
-	 * @param stationName - name of station
+	 * @param stationName
+	 *            - name of station
 	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
 	 */
 
@@ -85,19 +99,22 @@ public class LinesManagerImpl implements LinesManager {
 	}
 
 	@Override
-	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count) {
-		return this.getLinesByStNameForLimit(stationName,
-				(pageNumber - 1) * count, count);
+	public List<Lines> getLinesByStNameForPage(String stationName,
+			int pageNumber, int count) {
+		return this.getLinesByStNameForLimit(stationName, (pageNumber - 1)
+				* count, count);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count) {
-		
-		return lineDao.getLinesByStNameForLimits(stationName, firstElement, count);
-				
+	public List<Lines> getLinesByStNameForLimit(String stationName,
+			int firstElement, int count) {
+
+		return lineDao.getLinesByStNameForLimits(stationName, firstElement,
+				count);
+
 	}
-	
+
 	@Override
 	public List<Lines> getLinesByStationForPage(int from, int count,
 			String stationName) {
@@ -137,13 +154,20 @@ public class LinesManagerImpl implements LinesManager {
 	@Transactional
 	@Override
 	public void createLine(String lineName) {
-		Lines line = null;
 		try {
-			line = lineDao.findByName(lineName);
-		} catch (NoResultException e) {
+			Lines line = lineDao.findByName(lineName);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			new LinesManagerException(findByNameLinesMsg);
 		}
-		if (line == null) {
-			lineDao.save(new Lines(lineName));
+
+		try {
+			Lines newLine = new Lines(lineName);
+			lineDao.save(newLine);
+			LOGGER.info(entityName + newLine.getLineId() + addMsg);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(createLinesMsg, e);
 		}
 	}
 

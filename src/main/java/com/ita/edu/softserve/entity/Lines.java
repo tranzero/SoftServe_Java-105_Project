@@ -6,7 +6,7 @@ package com.ita.edu.softserve.entity;
 import java.util.Set;
 
 import javax.persistence.*;
-
+import static org.apache.commons.lang.Validate.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -118,9 +118,10 @@ public class Lines extends BaseEntity {
 	 *            Constructor with parametr lineName
 	 */
 	public Lines(String lineName) {
-		if (trueEnterValueOfLineName(lineName)) {
+		this.setLineName(lineName);
+		/*if (trueEnterValueOfLineName(lineName)) {
 			this.lineName = lineName;
-		}
+		}*/
 	}
 
 	/**
@@ -142,6 +143,7 @@ public class Lines extends BaseEntity {
 	 * @return the lineName
 	 */
 	public String getLineName() {
+		
 		return lineName;
 	}
 
@@ -150,6 +152,7 @@ public class Lines extends BaseEntity {
 	 *            to set
 	 */
 	public void setLineName(String lineName) {
+		notEmpty(lineName);
 		this.lineName = lineName;
 	}
 
@@ -183,19 +186,19 @@ public class Lines extends BaseEntity {
 		this.stationsOnLines = stationsOnLines;
 	}
 
-	/**
+/*	*//**
 	 * Check lineName is not null
 	 * 
 	 * @param lineNameValue
 	 * @return true or false
-	 */
+	 *//*
 	private boolean trueEnterValueOfLineName(String lineNameValue) {
 		if (lineNameValue != "" && lineNameValue != null) {
 			return true;
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
