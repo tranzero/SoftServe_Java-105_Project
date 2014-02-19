@@ -49,14 +49,14 @@ public interface LinesManager extends BaseManager {
 	 * @param lineName
 	 *            name of the line witch must be created
 	 */
-	public void createLine(String lineName);
+	public void createLine(Integer lineId, String lineName);
 
 	/**
 	 * @author MatyashPetro
 	 * @param lineName
 	 *            name of the line witch must be deleted
 	 */
-	public void deleteLine(String lineName);
+	public void deleteLine(Integer lineId);
 
 	/**
 	 * @author MatyashPetro
@@ -65,7 +65,7 @@ public interface LinesManager extends BaseManager {
 	 * @param newLineName
 	 *            new name of the line witch was updated
 	 */
-	void updateLine(String lineName, String newLineName);
+	void updateLine(Integer lineId, String newLineName);
 
 	public List<Lines> getLinesByStationName(String stationName);
 

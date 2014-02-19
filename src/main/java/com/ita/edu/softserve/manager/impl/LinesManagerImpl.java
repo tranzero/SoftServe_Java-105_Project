@@ -153,16 +153,17 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void createLine(String lineName) {
+	public void createLine(Integer lineId, String lineName) {
 		try {
-			lineDao.findByName(lineName);
+			lineDao.findById(lineId);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
 			new LinesManagerException(findByNameLinesMsg);
 		}
 
 		try {
-			Lines newLine = new Lines(lineName);
+			Lines newLine = lineDao.findById(lineId);
+			newLine.setLineName(lineName);
 			lineDao.save(newLine);
 			LOGGER.info(entityName + newLine.getLineId() + addMsg);
 		} catch (RuntimeException e) {
@@ -180,20 +181,15 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void updateLine(String lineName, String newLineName) {
-		Lines line = null;
+	public void updateLine(Integer lineId, String newLineName) {
 		try {
-			line = lineDao.findByName(lineName);
-			try {
-				lineDao.findByName(newLineName);
-				LOGGER.error("Such line \"" + newLineName
-						+ "\" is already exist");
-			} catch (NoResultException e) {
-				line.setLineName(newLineName);
-				lineDao.update(line);
-			}
-		} catch (NoResultException e) {
-			LOGGER.error("No such line!", e);
+			Lines line = lineDao.findById(lineId);
+			line.setLineName(newLineName);
+			lineDao.update(line);
+			LOGGER.info(entityName + line.getLineId() + changeMsg);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new LinesManagerException(updateLinesMsg, e);
 		}
 	}
 
@@ -204,18 +200,18 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void deleteLine(String lineName) {
+	public void deleteLine(Integer lineId) {
 		try {
-			lineDao.findByName(lineName);
+			lineDao.findById(lineId);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
 			new LinesManagerException(findByNameLinesMsg);
 		}
 
 		try {
-			Lines newLine = new Lines(lineName);
-			lineDao.remove(newLine);
-			LOGGER.info(entityName + newLine.getLineId() + removeMsg);
+			Lines line = lineDao.findById(lineId);
+			lineDao.remove(line);
+			LOGGER.info(entityName + line.getLineId() + removeMsg);
 		} catch (RuntimeException e) {
 			LOGGER.error(e);
 			throw new LinesManagerException(createLinesMsg, e);
