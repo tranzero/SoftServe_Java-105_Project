@@ -25,9 +25,9 @@ public interface LinesManager extends BaseManager {
 
 	public long getLinesByStationCount(String stationName);
 	
-	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count);
+	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count, int sortOrder);
 	
-	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count);
+	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count, int sortOrder);
 
 	public List<Lines> getLinesByStationForPage(int from, int count,
 			String stationName);
