@@ -30,11 +30,12 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
-		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY)/*,
 		@NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_LNAME, query = Transports.FIND_BY_TS_ORDER_BY_LNAME_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_TCODE, query = Transports.FIND_BY_TS_ORDER_BY_TCODE_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DEP, query = Transports.FIND_BY_TS_ORDER_BY_DEP_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DURATION, query = Transports.FIND_BY_TS_ORDER_BY_DURATION_QUERY)
+        */
 })
 public class Transports extends BaseEntity {
 
@@ -64,7 +65,7 @@ public class Transports extends BaseEntity {
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
 			+ "GROUP BY t.transportCode";
-
+/*
 	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
     public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
@@ -140,7 +141,7 @@ public class Transports extends BaseEntity {
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
 			+ "GROUP BY t.transportCode "
 			+ "ORDER BY MAX(s.arrival) DESC";
-
+*/
 	@Id
 	@Column(name = "TRANSPORTID")
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -67,7 +67,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			String stationName1, String stationName2, int firstElement,
 			int count, int orderBy) {
 		Query query = null;
-		
+/*		
 		if (orderBy == 1) {
 			query = entityManager
 					.createNamedQuery(Transports.FIND_BY_TS_ORDER_BY_LNAME)
@@ -89,11 +89,11 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 					.setParameter(1, stationName1).setParameter(2, stationName2)
 					.setFirstResult(firstElement).setMaxResults(count);			
 		} else {
-			query = entityManager
+*/			query = entityManager
 					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
 					.setParameter(1, stationName1).setParameter(2, stationName2)
 					.setFirstResult(firstElement).setMaxResults(count);
-		}
+//		}
 
 		return (List<TransportTravel>) query.getResultList();
 	}
