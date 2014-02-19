@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.exception;
 
-public class PostManagerException extends DBException {
+public class PostManagerException extends RuntimeException {
 
 	private static final long serialVersionUID = -993591282264002666L;
 
