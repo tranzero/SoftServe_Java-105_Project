@@ -140,10 +140,10 @@ public class LinesController {
 	@RequestMapping(value = "confirmcreating", method = RequestMethod.POST)
 	public String confirmCreating(
 			@ModelAttribute("newLineName") String lineName,
-			@RequestParam("stationsCheck") List<String> stations) {
+			@RequestParam("stationsCheck") List<Integer> stationsId) {
 		linesManager.createLine(lineName);
-		stationOnLineManager.updateStationOnLine(
-				linesManager.findByLineName(lineName).getLineId(), stations);
+		stationOnLineManager.addStationsToLine(
+				linesManager.findByLineName(lineName).getLineId(), stationsId);
 		return applyChanges;
 	}
 

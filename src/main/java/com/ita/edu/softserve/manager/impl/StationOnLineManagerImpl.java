@@ -33,7 +33,7 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	private static final Logger LOGGER = Logger
 			.getLogger(LinesManagerImpl.class);
 	
-	private String entityName = Lines.class.getCanonicalName()
+	private String entityName = StationsOnLine.class.getCanonicalName()
 			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
 	
 	private String addMsg = " was added to DB by ";
@@ -85,24 +85,19 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	 */
 	@Transactional
 	@Override
-	public void addStationsToLine(Integer lineId, List<String> stationsName) {
-		Boolean b;
-		List<StationsOnLine> solList = stlDao.findByLineId(lineId);
-		for (String station : stationsName) {
-			b = true;
-			for (StationsOnLine st : solList) {
-				if (st.getStationId().getStationId() == stationDao.findByName(
-						station).getStationId()) {
-					b = false;
-					break;
-				}
+	public void addStationsToLine(Integer lineId, List<Integer> stationsId) {
+		List<StationsOnLine> stationOnLineList = new ArrayList<StationsOnLine>();
+		try{
+			for(Integer station : stationsId){
+				StationsOnLine stationOnLine = new StationsOnLine();
+				stationOnLine.setLineId(lineDao.findById(lineId));
+				stationOnLine.setStationId(stationDao.findById(station));
+				stationOnLineList.add(stationOnLine);					
 			}
-			if (b) {
-				StationsOnLine sol = new StationsOnLine();
-				sol.setLineId(lineDao.findById(lineId));
-				sol.setStationId(stationDao.findByName(station));
-				stlDao.save(sol);
-			}
+			LOGGER.info(entityName + stationOnLineList + addMsg);
+		}catch(RuntimeException e){
+			LOGGER.error(e);
+			throw new StationOnLineManagerException(createStationsOnLineMsg, e);
 		}
 	}
 

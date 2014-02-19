@@ -18,7 +18,7 @@
 				<td align="center">${station.getStationCode()}</td>
 				<td align="center">${station.getStationName()}</td>
 				<td align="center"><input type="checkbox" name="stationsCheck"
-					value="${station.getStationName()}"></td>
+					value="${station.getStationId()}"></td>
 			</tr>
 		</c:forEach>
 	</table>
