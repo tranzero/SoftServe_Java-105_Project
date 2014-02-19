@@ -16,11 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.entity.Role;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.exception.StationManagerException;
+import com.ita.edu.softserve.exception.StationOnLineManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 
@@ -31,7 +30,22 @@ import com.ita.edu.softserve.manager.StationOnLineManager;
 @Service("StationOnLineService")
 public class StationOnLineManagerImpl implements StationOnLineManager {
 
-	private static final Logger LOGGER = Logger.getLogger(StationsOnLine.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(LinesManagerImpl.class);
+	
+	private String entityName = Lines.class.getCanonicalName()
+			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
+	
+	private String addMsg = " was added to DB by ";
+	private String removeMsg = " was remove from DB by ";
+	private String changeMsg = " was change in DB by ";
+	private final String createStationsOnLineMsg = "Could not create StationsOnLine";
+	private final String findStationsOnLineMsg = "Could not find StationsOnLine List";
+	private final String removeStationsOnLineMsg = "Could not remove StationsOnLine";
+	private final String findByNameStationsOnLineMsg = "Could not find StationsOnLine by name";
+	private final String updateStationsOnLineMsg = "Could not update StationsOnLine";
+	private final String countStationsOnLineMsg = "Could not get StationsOnLine list count";
+	private final String resultPerPageStationsOnLineMsg = "Could not get StationsOnLine for one page";
 
 	@Autowired
 	private LinesDAO lineDao;
@@ -52,12 +66,14 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	@Transactional
 	@Override
 	public void removeStation(Integer stationId, Integer lineId) {
-		StationsOnLine sol = stlDao.findByStationIdAndLineId(stationId, lineId);
-		stlDao.remove(sol);
-	}
-
-	public static StationOnLineManager getInstance() {
-		return ManagerFactory.getManager(StationOnLineManager.class);
+		try{	
+			StationsOnLine stationsOnLine = stlDao.findByStationIdAndLineId(stationId, lineId);
+		stlDao.remove(stationsOnLine);
+		LOGGER.info(entityName + stationsOnLine.getStationOnLineId() + removeMsg);
+		} catch (RuntimeException e){
+			LOGGER.error(e);
+			throw new StationOnLineManagerException(removeStationsOnLineMsg, e);
+		}
 	}
 
 	/**
@@ -116,16 +132,6 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 				stlDao.save(sol);
 			}
 		}
-
-		/*
-		 * userr.setFirstName(firstName); userr.setLastName(lastName);
-		 * userr.seteMail(eMail);
-		 * 
-		 * userr.setPasswd(passwd); userr.setRole(role);
-		 * 
-		 * userDao.update(userr);
-		 */
-
 	}
 
 	/**
@@ -136,5 +142,9 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 	public List<StationsOnLine> findStationsOnLine(Integer lineId) {
 
 		return stlDao.findByLineId(lineId);
+	}
+	
+	public static StationOnLineManager getInstance() {
+		return ManagerFactory.getManager(StationOnLineManager.class);
 	}
 }
