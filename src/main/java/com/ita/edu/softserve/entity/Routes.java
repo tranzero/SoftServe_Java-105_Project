@@ -102,13 +102,15 @@ public class Routes extends BaseEntity {
 
 	@Column(name = "ROUTECODE", length = 20)
 	private String routeCode;
-
-	// @Column(name = "STARTTIME")
-	// private Time startTime;
+	
+	@Column(name = "ROUTENAME", length = 30)
+	private String routeName;
 
 	@OneToMany(mappedBy = "routes", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Transports> transports = new ArrayList<Transports>();;
-
+	
+	
+	
 	/**
 	 * Default Constructor
 	 */
@@ -174,21 +176,21 @@ public class Routes extends BaseEntity {
 	public void setRouteCode(String routeCode) {
 		this.routeCode = routeCode;
 	}
-
+	
 	/**
-	 * @return the startTime
+	 * @return the routeName
 	 */
-	/*
-	 * public Time getStartTime() { return startTime; }
-	 */
-
+	public String getRouteName() {
+		return routeName;
+	}
+	
 	/**
-	 * @param startTime
-	 *            the startTime to set
+	 * @param routeName
+	 *            the routeName to set
 	 */
-	/*
-	 * public void setStartTime(Time startTime) { this.startTime = startTime; }
-	 */
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
 
 	@Override
 	public int hashCode() {
