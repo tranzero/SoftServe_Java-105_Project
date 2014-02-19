@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.exception.PostManagerExeption;
+import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.OrdersManager;
 

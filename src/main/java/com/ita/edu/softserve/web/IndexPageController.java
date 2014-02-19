@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.exception.PostManagerExeption;
+import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 
@@ -84,7 +84,7 @@ public class IndexPageController {
 			modelMap.put(maxPageCountKey, maxPageCount);
 			return mainPageOutGet;
 
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			return mainPageOutGet;
 		}
 
@@ -112,7 +112,7 @@ public class IndexPageController {
 
 			return mainPageOutPost;
 
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return mainPageOutPost;
 		}
@@ -131,7 +131,7 @@ public class IndexPageController {
 							posts.getPostListCount());
 			modelMap.put(maxPageCountKey, maxPageCount);
 			return managePageNewsGet;
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return managePageNewsGet;
 		}
@@ -158,7 +158,7 @@ public class IndexPageController {
 
 			return managePageNewsOutPost;
 
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return managePageNewsOutPost;
 		}
@@ -177,7 +177,7 @@ public class IndexPageController {
 			Map<String, Object> modelMap) {
 		try {
 			posts.createNews(newsTitle, newsDescription);
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return addNewsOutPost;
 		}
@@ -191,7 +191,7 @@ public class IndexPageController {
 			Map<String, Object> map) {
 		try {
 			posts.removeNews(postId);
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return delNewsGet;
 		}
@@ -214,7 +214,7 @@ public class IndexPageController {
 			post = posts.findNews(postId);
 
 			modelMap.put(newsNameListKey, post);
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return editNewsGet;
 		}
@@ -229,7 +229,7 @@ public class IndexPageController {
 			Map<String, Object> modelMap) {
 		try {
 			posts.updateNews(newsId, newsTitle, newsDescription);
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return editNewsPost;
 		}
@@ -246,7 +246,7 @@ public class IndexPageController {
 			post = posts.findNews(postId);
 
 			modelMap.put(postNameListKey, post);
-		} catch (PostManagerExeption e) {
+		} catch (PostManagerException e) {
 			
 			return detailsNewsGet;
 		}
