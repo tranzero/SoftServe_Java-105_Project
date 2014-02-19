@@ -3,17 +3,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<!-- JS for table sorting -->
+<link rel="shortcut icon"
+	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+<link rel="icon"
+	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+
+<script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/jquery.tablesorter.min.js"></script>
+
+
+<!-- JS for table searching -->
+<script src="resources/js/jquery.searcher.js"></script>
+
+<!-- JS for confirm_delete_user -->
 <script type="text/javascript">
 	function confirm_delete_user() {
 		return confirm('Delete this User?');
 	}
 </script>
 
+<!-- userlist -->
+
+
 <c:if test="${!empty userList}">
+
+	<p>Search user</p>
+	<p>
+		<input id="inputSearchUser" />
+	</p>
+
 	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
 
-	<table>
+	<table id="tableUsers">
 
 		<thead>
 			<tr>
@@ -54,8 +81,14 @@
 
 	</table>
 
+	<!-- JS for table searching -->
+	<script type="text/javascript">
+		$("#tableUsers").searcher({inputSelector : "#inputSearchUser"});
+	</script>
+
 
 </c:if>
 <c:if test="${empty userList}">
 	<p>No results.</p>
 </c:if>
+

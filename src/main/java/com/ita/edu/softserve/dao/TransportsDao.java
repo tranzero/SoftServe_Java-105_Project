@@ -37,7 +37,7 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 			String stationName2);
 	
 	public List<TransportTravel> getTransportByTwoStForLimits(String stationName1,
-			String stationName2, int firstElement, int count);
+			String stationName2, int firstElement, int count, int orderBy);
 	
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2);

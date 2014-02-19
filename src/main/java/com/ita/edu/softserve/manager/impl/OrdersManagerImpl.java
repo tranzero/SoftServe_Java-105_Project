@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.OrdersDAO;
+import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.OrdersManager;
+import com.ita.edu.softserve.manager.TicketsManager;
 
 /**
  * Orders Manager class.
@@ -27,7 +30,17 @@ public class OrdersManagerImpl implements OrdersManager {
 	 */
 	@Autowired
 	private OrdersDAO ordersDao;
+	
+	@Autowired
+	private UsersDAO usersDao;
 
+	@Autowired
+	private TripsDao tripsDao;
+
+	public static OrdersManager getInstance() {
+		return ManagerFactory.getManager(OrdersManager.class);
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public Orders findOrder(Integer id) {
@@ -57,6 +70,15 @@ public class OrdersManagerImpl implements OrdersManager {
 		
 		return ordersDao.getOrdersForOnePage(from, count);
 
+	}
+	
+	@Transactional
+	@Override
+	public void createOrder(Integer userId,Integer tripId){
+		Orders order = new Orders();
+		order.setTripId(tripsDao.findById(tripId));
+		order.setUserId(usersDao.findById(userId));
+		ordersDao.save(order);
 	}
 
 }
