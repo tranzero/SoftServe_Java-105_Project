@@ -10,18 +10,18 @@ import com.ita.edu.softserve.exception.PostManagerException;
 @Service
 public interface PostForMainPageManager extends BaseManager {
 	
-	public List<Post> findPostList() throws PostManagerException;
+	public List<Post> findPostList();
 
-	public void createNews(String newsTitle, String newsDescription) throws PostManagerException;
+	public void createNews(String newsTitle, String newsDescription);
 
-	public void removeNews(Integer id) throws PostManagerException;
+	public void removeNews(Integer id);
 
-	public Post findNews(Integer postId) throws PostManagerException;
+	public Post findNews(Integer postId);
 
 	public void updateNews(Integer newsId, String newsTitle,
-			String newsDescription) throws PostManagerException;
-	public long getPostListCount() throws PostManagerException;
+			String newsDescription);
+	public long getPostListCount();
 
-	public List<Post> getPostForPage(int from, int count) throws PostManagerException;
+	public List<Post> getPostForPage(int from, int count);
 
 }
