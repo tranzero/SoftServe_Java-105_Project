@@ -236,7 +236,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage(),sortOrder));
+						container.getResultsPerPage(),5));
 
 		return "linesbystation";
 
@@ -264,7 +264,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage(),sortOrder));
+						container.getResultsPerPage(),5));
 
 		return "linesbystationresult";
 
