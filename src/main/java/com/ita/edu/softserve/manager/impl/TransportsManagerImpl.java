@@ -1,10 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
-import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
-
+import java.sql.Time;
 import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 
@@ -25,8 +24,25 @@ import com.ita.edu.softserve.manager.TransportsManager;
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
+
 	private static final Logger LOGGER = Logger
 			.getLogger(TransportsManagerImpl.class);
+
+	private String entityName = Transports.class.getSimpleName().concat(
+			" with id=");
+
+	private String addMessage = " was added to DB";
+	private String removeMessage = " was remove from DB by ";
+	private String changeMsg = " was change in DB by ";
+
+	private final String findTransportsMessage = "Could not find Transport List";
+	private final String saveTransportMessage = "Could not save Transports";
+	private final String removeTransportMessage = "Could not remove Transport";
+	private final String removeTransportByIdMessage = "Could not remove Transport by id ";
+	private final String updateTransportMessage = "Could not update Transport";
+	private final String saveOrUpdateTransportMessage = "Could not save or update Transports";
+	private final String getAllTransportsMessage = "Could not get list of Transport";
+	private final String getTransportByTwoStationsMessage = "Could not get Transport by two stations";
 
 	/**
 	 * Gets access to Transports DAO.
@@ -54,7 +70,15 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
-		return transportsDao.findById(id);
+		try {
+			return transportsDao.findById(id);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					findTransportsMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -63,7 +87,16 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional(readOnly = false)
 	@Override
 	public void saveTransports(Transports... entities) {
-		transportsDao.save(entities);
+		try {
+			transportsDao.save(entities);
+			LOGGER.info(entityName + addMessage);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					saveTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -72,7 +105,16 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional(readOnly = false)
 	@Override
 	public void removeTransports(Transports... entities) {
-		transportsDao.remove(entities);
+		try {
+			transportsDao.remove(entities);
+			LOGGER.info(entityName + removeMessage);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					removeTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -85,9 +127,17 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		try {
 			transport = (Transports) transportsDao.findById(transportId);
+			LOGGER.info(entityName + transport.getTransportId() + "was fond");
+
 			transportsDao.remove(transport);
-		} catch (NoResultException e) {
-			LOGGER.error("No such transport!", e);
+			LOGGER.info(entityName + removeMessage);
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					removeTransportByIdMessage + transport.getTransportId(), e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
 		}
 	}
 
@@ -99,7 +149,15 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public List<Transports> updateTransports(Transports... entities) {
-		return transportsDao.update(entities);
+		try {
+			return transportsDao.update(entities);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					updateTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -110,7 +168,15 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public List<Transports> getAllTransports() {
-		return transportsDao.getAllEntities();
+		try {
+			return transportsDao.getAllEntities();
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					getAllTransportsMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -123,27 +189,46 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional(readOnly = false)
 	@Override
 	public void saveOrUpdateTransport(Integer transportId,
-			String transportCode, String startTime, String routes,
-			String seatclass1, String seatclass2, String seatclass3,
-			String genprice) {
+			String transportCode, Time startTime, Routes routes,
+			Integer seatclass1, Integer seatclass2, Integer seatclass3,
+			Double genprice) {
 
 		Transports transport = null;
 
 		if (transportId == null) {
 			transport = new Transports();
+			LOGGER.info(entityName + "was created");
 		} else {
-			transport = transportsDao.findById(transportId);
+			try {
+				transport = transportsDao.findById(transportId);
+				LOGGER.info(entityName + transport.getTransportId() + "was fond");
+			} catch (RuntimeException e) {
+				RuntimeException ex = new TransprtsManagerException(
+						"Could not find transport by ID =  "
+								+ transport.getTransportId(), e);
+				LOGGER.error(e);
+				LOGGER.error(ex);
+				throw ex;
+			}
 		}
 
 		transport.setTransportCode(transportCode);
-		transport.setStartTime(timeParse(startTime));
-		transport.setRoutes(routesDao.findById(new Integer(routes)));
-		transport.setSeatclass1(new Integer(seatclass1));
-		transport.setSeatclass2(new Integer(seatclass2));
-		transport.setSeatclass3(new Integer(seatclass3));
-		transport.setGenPrice(new Double(genprice));
+		transport.setStartTime(startTime);
+		transport.setRoutes(routes);
+		transport.setSeatclass1(seatclass1);
+		transport.setSeatclass2(seatclass2);
+		transport.setSeatclass3(seatclass3);
+		transport.setGenPrice(genprice);
 
-		transportsDao.saveOrUpdate(transport);
+		try {
+			transportsDao.saveOrUpdate(transport);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					saveOrUpdateTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 
 	/**
@@ -160,10 +245,18 @@ public class TransportsManagerImpl implements TransportsManager {
 	public List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2) {
 		// Results are stored here
-		List<TransportTravel> transportTravel;
+		List<TransportTravel> transportTravel = null;
 
-		transportTravel = transportsDao.findByTwoStations(stationName1,
-				stationName2);
+		try {
+			transportTravel = transportsDao.findByTwoStations(stationName1,
+					stationName2);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					getTransportByTwoStationsMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 
 		return transportTravel;
 	}
@@ -200,7 +293,8 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
-			String stationName1, String stationName2, int pageNumber, int count, int orderBy) {
+			String stationName1, String stationName2, int pageNumber,
+			int count, int orderBy) {
 
 		return getTransportByTwoStForLimit(stationName1, stationName2,
 				(pageNumber - 1) * count, count, orderBy);
