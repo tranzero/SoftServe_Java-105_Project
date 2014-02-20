@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -30,6 +31,10 @@ public class Tickets extends BaseEntity{
 	@JoinColumn(name = "ORDERID")
 	private Orders order;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "TRIPID")
+	private Trips trip;
+
 	@Column(name = "CUSTOMERINFO")
 	private String customerInfo;
 	
@@ -46,16 +51,22 @@ public class Tickets extends BaseEntity{
 		
 	}
 	
-	public Tickets(String ticketName, Orders order, String customerInfo,
-			Boolean isSeatClass1, Boolean isSeatClass2, Boolean isSeatClass3) {
+
+
+	public Tickets(String ticketName, Orders order, Trips trip,
+			String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
+			Boolean isSeatClass3) {
 		super();
 		this.ticketName = ticketName;
 		this.order = order;
+		this.trip = trip;
 		this.customerInfo = customerInfo;
 		this.isSeatClass1 = isSeatClass1;
 		this.isSeatClass2 = isSeatClass2;
 		this.isSeatClass3 = isSeatClass3;
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -65,7 +76,7 @@ public class Tickets extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "" + ticketName + " orderId=" + order.getOrderId()+ " tripId="+ order.getTripId().getTripId();
+		return "" + ticketName + " orderId=" + order.getOrderId()+ " tripId="+ trip.getTripId();
 	}
 	
 
@@ -88,6 +99,14 @@ public class Tickets extends BaseEntity{
 
 	public void setTicketName(String ticketName) {
 		this.ticketName = ticketName;
+	}
+	
+	public Trips getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trips trip) {
+		this.trip = trip;
 	}
 
 	public Orders getOrder() {

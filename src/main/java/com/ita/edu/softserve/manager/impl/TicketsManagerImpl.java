@@ -55,11 +55,11 @@ public class TicketsManagerImpl implements TicketsManager{
 	
 	@Transactional
 	@Override
-	public void createTicket (String ticketName, Integer orderId,
+	public void createTicket (String ticketName, Integer orderId, Integer tripId,
 			String customerInfo, Boolean isSeatClass1,
 			Boolean isSeatClass2, Boolean isSeatClass3){
 		
-		Tickets ticket = new Tickets(ticketName, ordersDao.findById(orderId),
+		Tickets ticket = new Tickets(ticketName, ordersDao.findById(orderId), tripsDao.findById(tripId),
 				customerInfo, isSeatClass1, isSeatClass2, isSeatClass3);
 		
 		ticketsDao.save(ticket);

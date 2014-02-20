@@ -10,7 +10,7 @@ public interface TicketsManager extends BaseManager {
 	
 	public Tickets findByTicketId (Integer id);
 	
-	public void createTicket (String ticketName, Integer orderId,
+	public void createTicket (String ticketName, Integer orderId, Integer tripId,
 			String customerInfo, Boolean isSeatClass1,
 			Boolean isSeatClass2, Boolean isSeatClass3);
 	
