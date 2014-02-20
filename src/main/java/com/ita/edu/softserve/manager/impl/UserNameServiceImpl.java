@@ -1,12 +1,14 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.manager.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.manager.UserManager;
 
-public class UserServiceImpl {
+@Service
+public class UserNameServiceImpl {
 	
 	@Autowired
 	private UserManager usersmanager;
@@ -15,9 +17,15 @@ public class UserServiceImpl {
 	 * @return username of logged in user
 	 */
 	public String getLoggedUsername() {	
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		try {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return user.getUsername();
+		} catch (RuntimeException e){
+		
+			return "Unregister user";
+		}
 	}	
+		
 	
 	/**  
 	 *  Checks if user remains on DB after login

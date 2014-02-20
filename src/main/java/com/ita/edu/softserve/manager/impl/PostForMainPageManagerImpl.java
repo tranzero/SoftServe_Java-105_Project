@@ -12,6 +12,7 @@ import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.UserNameService;
 
 @Service("postForMainPageService")
 public class PostForMainPageManagerImpl implements PostForMainPageManager {
@@ -32,6 +33,9 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 	@Autowired
 	PostDAOImpl postDao;
+	
+	@Autowired
+	UserNameServiceImpl userName;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -56,7 +60,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		try {
 			Post post = new Post(newsTitle, newsDescription);
 			postDao.save(post);
-			LOGGER.info(entityName + post.getPostId() + addMsg);
+			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			RuntimeException ex = new PostManagerException(createPostMsg, e);
 			LOGGER.error(e);
@@ -72,7 +76,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		try {
 			Post post = postDao.findById(id);
 			postDao.remove(post);
-			LOGGER.info(entityName + id + removeMsg);
+			LOGGER.info(entityName + id + removeMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			RuntimeException ex = new PostManagerException(removePostMsg, e);
 			LOGGER.error(e);
@@ -106,7 +110,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			post.setDescription(newsDescription);
 			post.setDate();
 			postDao.update(post);
-			LOGGER.info(entityName + post.getPostId() + changeMsg);
+			LOGGER.info(entityName + post.getPostId() + changeMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			RuntimeException ex = new PostManagerException(updatePostMsg, e);
 			LOGGER.error(e);
