@@ -3,6 +3,8 @@
 <%@ page import="com.ita.edu.softserve.entity.*"%>
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 
 <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
@@ -14,9 +16,8 @@
 
 
 <section id="content">
-	<h1>Edit User</h1>
-
-	<hr>
+	<h2 align="center"><spring:message code="label.users.userEdit"/></h2>
+	<hr />
 
 	<form id="userEdit" method="post" action="" name="/userEdit"
 		style="text-align: center">
