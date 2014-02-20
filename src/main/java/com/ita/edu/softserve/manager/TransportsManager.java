@@ -1,8 +1,10 @@
 package com.ita.edu.softserve.manager;
 
+import java.sql.Time;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -44,9 +46,9 @@ public interface TransportsManager extends BaseManager {
 	/**
 	 * Saves new transport into Transports table if not exist otherwise updates it.
 	 */
-	void saveOrUpdateTransport(Integer transportId, String transportCode, String startTime,
-			String routes, String seatclass1, String seatclass2, String seatclass3,
-			String genprice);
+	void saveOrUpdateTransport(Integer transportId, String transportCode,
+			Time startTime, Routes routes, Integer seatclass1,
+			Integer seatclass2, Integer seatclass3, Double genprice);
 
 	/**
 	 * Gets transport by two stations in certain order
@@ -68,5 +70,4 @@ public interface TransportsManager extends BaseManager {
 	public List<Transports> getTransportsForPage(int pageNumber, int count);
 
 	long getTransportsListCount();
-
 }
