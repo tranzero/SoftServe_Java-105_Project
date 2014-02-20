@@ -4,7 +4,8 @@
 
 <section id="content">
 	<h1>EDIT LINE</h1>
-	Line Name: <input type="text" value="${lineName}"> <br>
+<%-- 	<input type="hidden" value="${lineId} }"> --%>
+	Line Name: <input type="text" value="${lineName}" name="linename"> <br>
 	<table>
 		<tr>
 			<td align="center">Station Code</td>
@@ -16,11 +17,11 @@
 				<td align="center">${station.getStationCode()}</td>
 				<td align="center">${station.getStationName()}</td>
 				<td align="center"><a
-					href="deletestation/${station.getStationId()}/${lineName}">delete</a></td>
+					href="deletestation/${station.getStationId()}/${lineId}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-	<br> <a class="button" href="addstation/${lineName}">Add Station</a>
+	<br> <a class="button" href="addstation/${lineId}">Add Station</a>
 	<br> <br>
 	<a class="button" href="applychanges">Apply</a>
 </section>

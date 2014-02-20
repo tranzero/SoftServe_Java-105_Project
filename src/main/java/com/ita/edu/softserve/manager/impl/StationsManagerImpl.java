@@ -221,6 +221,23 @@ public class StationsManagerImpl implements StationsManager {
 		}
 
 	}
+	
+	public List<Stations> getStationsOnCertainLine(Integer lineId) {
+		return stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+	}
+	
+	@Override
+	public List<Stations> getStationsNotOnCertainLine(Integer lineId) {
+		List<Stations> existStations = stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+		List<Stations> allStations = new ArrayList<Stations>();
+		for (Stations st : stationDao.getAllEntities()) {
+			if (!existStations.contains(st)) {
+				allStations.add(st);
+			}
+		}
+		return allStations;
+		
+	}
 
 	@Override
 	public List<Stations> getStationsNotOnCertainLine(String lineName) {

@@ -5,7 +5,6 @@ package com.ita.edu.softserve.manager;
 
 import java.util.List;
 
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**
@@ -20,6 +19,6 @@ public interface StationOnLineManager extends BaseManager {
 
 	List<StationsOnLine> findStationsOnLine(Integer lineId);
 	
-	public void updateStationOnLine(Integer lineId, List<String> stations);
+	public void updateStationOnLine(Integer lineId, List<Integer> stationsId);
 	
 }

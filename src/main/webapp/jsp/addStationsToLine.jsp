@@ -4,8 +4,8 @@
 
 <section id="content">
 	<h1>ADD STATIONS TO LINE</h1>
-	<input type="hidden" value="${lineName}">
-	<form action="changestations/${lineName}" method="post">
+	<input type="hidden" value="${lineId}">
+	<form action="changestations/${lineId}" method="post">
 	
 	<table>
 		<tr>
@@ -13,20 +13,12 @@
 			<td align="center">Station Name</td>
 			<td align="center">Add</td>
 		</tr>
-		<c:forEach var="station1" items="${existStations}">
+		<c:forEach var="station" items="${allStations}">
 			<tr>
-				<td align="center">${station1.getStationCode()}</td>
-				<td align="center">${station1.getStationName()}</td>
-				<td align="center"><input type="checkbox" name="stationsCheck" disabled="disabled"
-					checked="checked" value="${station1.getStationName()}">
-			</tr>
-		</c:forEach>
-		<c:forEach var="station2" items="${allStations}">
-			<tr>
-				<td align="center">${station2.getStationCode()}</td>
-				<td align="center">${station2.getStationName()}</td>
+				<td align="center">${station.getStationCode()}</td>
+				<td align="center">${station.getStationName()}</td>
 				<td align="center"><input type="checkbox" name="stationsCheck"
-					value="${station2.getStationName()}">
+					value="${station.getStationId()}">
 			</tr>
 		</c:forEach>
 	</table>
