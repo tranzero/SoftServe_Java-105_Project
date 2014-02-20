@@ -5,11 +5,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <link rel="stylesheet" type="text/css" href="resources/css/jquery.datetimepicker.css"/>
+
+<script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="resources/js/addTransportValidation.js"></script>
 		
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-	<form action="addTransport.htm" method="post" name="transport">
+	<form id="addTransport.htm" action="addTransport.htm" method="post" name="transport">
 		<div>
 			<p><spring:message code="label.transport.transportcode"/></p>
 			<p><input id="transportCode" type="text" name="transportCode"></p>
@@ -46,11 +50,13 @@
 	<script src="resources/js/jquery.js"></script>
 	<script src="resources/js/jquery.datetimepicker.js"></script>
 	<script>
+	<!--
 		$('#startTime').datetimepicker({
 			datepicker : false,
 			format : 'H:i:s',
 			step : 5
 		});
+	//-->
 	</script>
 	
 </section>

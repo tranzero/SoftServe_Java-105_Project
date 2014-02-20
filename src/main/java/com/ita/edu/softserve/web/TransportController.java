@@ -1,5 +1,8 @@
 package com.ita.edu.softserve.web;
 
+import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
+
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
@@ -228,9 +232,15 @@ public class TransportController {
 	 */
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
-	
+
 	@Autowired
 	private RoutesManager routesManager;
+
+	/**
+	 * Gets access to Routes DAO.
+	 */
+	@Autowired
+	private RoutesDAO routesDao;
 
 	/**
 	 * Display transports in browser.
@@ -344,10 +354,10 @@ public class TransportController {
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm(Map<String, Object> map) {
-		
+
 		List<Routes> routesList = routesManager.getAllRoutes();
 		map.put("routesList", routesList);
-		
+
 		return ADD_TRANSPORT_JSP;
 	}
 
@@ -375,14 +385,21 @@ public class TransportController {
 	public String addTransportToBD(
 			@ModelAttribute(TRANSPORT_CODE_MODEL_ATTRIBUTE) String transportCode,
 			@ModelAttribute(START_TIME_MODEL_ATTRIBUTE) String startTime,
-			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routesCode,
+			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routes,
 			@ModelAttribute(SEATCLASS1_MODEL_ATTRIBUTE) String seatclass1,
 			@ModelAttribute(SEATCLASS2_MODEL_ATTRIBUTE) String seatclass2,
 			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
 			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
 
-		transportsManager.saveOrUpdateTransport(null, transportCode, startTime,
-				routesCode, seatclass1, seatclass2, seatclass3, genprice);
+		Time timeParse = timeParse(startTime);
+		Routes findById = routesDao.findById(new Integer(routes));
+		Integer seatclass12 = new Integer(seatclass1);
+		Integer seatclass22 = new Integer(seatclass2);
+		Integer seatclass32 = new Integer(seatclass3);
+		Double genprice2 = new Double(genprice);
+
+		transportsManager.saveOrUpdateTransport(null, transportCode, timeParse,
+				findById, seatclass12, seatclass22, seatclass32, genprice2);
 
 		return REDIRECT_TRANSPORT;
 	}
@@ -441,9 +458,16 @@ public class TransportController {
 			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
 			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
 
-		transportsManager
-				.saveOrUpdateTransport(transportId, transportCode, startTime,
-						routes, seatclass1, seatclass2, seatclass3, genprice);
+		Time timeParse = timeParse(startTime);
+		Routes findById = routesDao.findById(new Integer(routes));
+		Integer seatclass12 = new Integer(seatclass1);
+		Integer seatclass22 = new Integer(seatclass2);
+		Integer seatclass32 = new Integer(seatclass3);
+		Double genprice2 = new Double(genprice);
+
+		transportsManager.saveOrUpdateTransport(transportId, transportCode,
+				timeParse, findById, seatclass12, seatclass22, seatclass32,
+				genprice2);
 
 		return REDIRECT_TRANSPORT;
 	}
@@ -542,7 +566,7 @@ public class TransportController {
 		if (orderBy == null) {
 			orderBy = 0;
 		}
-		
+
 		long count = transportsManager.getTransportByTwoStListCount(
 				stationName1, stationName2);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,

@@ -107,9 +107,7 @@ public class Routes extends BaseEntity {
 	private String routeName;
 
 	@OneToMany(mappedBy = "routes", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private List<Transports> transports = new ArrayList<Transports>();;
-	
-	
+	private Set<Transports> transports;
 	
 	/**
 	 * Default Constructor

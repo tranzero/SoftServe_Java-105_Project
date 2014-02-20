@@ -12,8 +12,6 @@
 						code="label.navigation.news" /></a></li>
 			<li><spring:message code="label.navigation.timetable" />
 				<ul class="submenu">
-					<li><a href="/SoftServe_Java-105/transportView"><spring:message
-								code="label.navigation.transport" /></a></li>
 					<li><a href="/SoftServe_Java-105/stationsForUsers"><spring:message
 								code="label.navigation.stationsForUsers" /></a></li>
 					<li><a href="/SoftServe_Java-105/trips"><spring:message
