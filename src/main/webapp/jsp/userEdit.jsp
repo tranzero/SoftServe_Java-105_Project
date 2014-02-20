@@ -4,23 +4,33 @@
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/usersEdit-validation.js"></script>
+
 <jsp:directive.page import="java.util.*" />
+
+
 
 <section id="content">
 	<h1>Edit User</h1>
 
 	<hr>
 
-	<form id="userEdit" method="post" name="/userEdit"
+	<form id="userEdit" method="post" action="" name="/userEdit"
 		style="text-align: center">
 		<input id="userId" type="hidden" name="userId"
 			value="${user.getUserId()}">
 
 		<div>
-			<p>First name and Last name:</p>
+			<p>First name:</p>
 			<input id="userFirstName" type="text" name="userFirstName"
-				value="${user.getFirstName()}"> <input id="lastName"
-				type="text" name="lastName" value="${user.getLastName()}">
+				value="${user.getFirstName()}">
+
+			<p>Last name:</p>
+			<input id="lastName" type="text" name="lastName"
+				value="${user.getLastName()}">
 
 			<p>Email:</p>
 			<input id="email" type="text" name="email" value="${user.geteMail()}">
