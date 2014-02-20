@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,13 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.dao.TicketsDAO;
+import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDao;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Tickets;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TicketsManager;
+import com.ita.edu.softserve.manager.TransportsManager;
 
 
 @Service("ticketsService")
@@ -31,6 +36,9 @@ public class TicketsManagerImpl implements TicketsManager{
 	
 	@Autowired
 	private TripsDao tripsDao;
+	
+	@Autowired
+	private TransportsDao transportDao;
 
 	
 	public static TicketsManager getInstance() {
@@ -96,4 +104,37 @@ public class TicketsManagerImpl implements TicketsManager{
 		
 	}
 
+	
+	/**
+	 * Returns <code>TransportTravel</code> object, that contains all transport
+	 * that goes through two stations
+	 * 
+	 * @param stationName1
+	 * @param stationName2
+	 * 
+	 *            return <code>TransportTravel</code>, that contains transport
+	 *            code, departure and arrival times, duration
+	 */
+	@Override
+	public List<TransportTravel> getTransportByTwoStations(String stationName1,
+			String stationName2, String date) {
+		
+		List<Trips> trips = tripsDao.getAllEntities();
+		
+		List<TransportTravel> transportTravel = null;
+
+		//transportTravel = transportDao.findByTwoStations(stationName1,
+	//			stationName2);
+		for (Trips trips2 : trips) {
+			if (trips2.getTransport() == transportDao.findByTwoStations(stationName1,
+					stationName2)) {
+				if (trips2.getStartDate().toString() == date) {
+					 transportTravel = transportDao.findByTwoStations(stationName1,
+								stationName2);
+				}
+			}
+		}
+		return transportTravel;
+	}
+	
 }
