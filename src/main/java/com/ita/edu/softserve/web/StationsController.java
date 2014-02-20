@@ -29,7 +29,7 @@ public class StationsController {
 	private static final String STATION_CODE = "stationCode";
 
 	private static final String STATION_NAME = "stationName";
-	
+
 	private static final String STATIONS_FOR_USERS_URL = "/stationsForUsers";
 
 	private static final String STATIONS_FOR_USERS_JSP_PAGE = "stationsForUsers";
@@ -56,7 +56,6 @@ public class StationsController {
 
 	private static final String ADD_STATION_URL_POST = "/addstat";
 
-	
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -134,11 +133,8 @@ public class StationsController {
 	@RequestMapping(value = DELETE_STATION_ID_URL, method = RequestMethod.GET)
 	public String deleteStation(@PathVariable(STATION_ID) Integer stationId,
 			Map<String, Object> map) {
-		try {
-			stationsManager.removeStations(stationId);
-		} catch (StationManagerException e) {
-			return REDIRECT_STATIONS;
-		}
+
+		stationsManager.removeStations(stationId);
 
 		return REDIRECT_STATIONS;
 	}
@@ -154,12 +150,9 @@ public class StationsController {
 	public String editStation(@PathVariable("station") Integer stationId,
 			Map<String, Object> modelMap) {
 
-		try {
-			Stations station = stationsManager.findStationsById(stationId);
-			modelMap.put(STATION, station);
-		} catch (StationManagerException e) {
-			return STATION_EDIT_JSP_PAGE;
-		}
+		Stations station = stationsManager.findStationsById(stationId);
+		modelMap.put(STATION, station);
+
 		return STATION_EDIT_JSP_PAGE;
 	}
 
@@ -178,11 +171,9 @@ public class StationsController {
 			@ModelAttribute(STATION_CODE) String stationCode,
 			@ModelAttribute(STATION_NAME) String stationName,
 			Map<String, Object> modelMap) {
-		try {
-			stationsManager.editStation(stationId, stationCode, stationName);
-		} catch (StationManagerException e) {
-			return REDIRECT_STATIONS;
-		}
+
+		stationsManager.editStation(stationId, stationCode, stationName);
+
 		return REDIRECT_STATIONS;
 	}
 
@@ -207,23 +198,19 @@ public class StationsController {
 			@RequestParam(STATION_CODE) String stationCode,
 			@RequestParam(STATION_NAME) String stationName,
 			Map<String, Object> modelMap) {
-		try {
-			stationsManager.createStation(stationCode, stationName);
-		} catch (StationManagerException e) {
-			return REDIRECT_STATIONS;
-		}
+
+		stationsManager.createStation(stationCode, stationName);
+
 		return REDIRECT_STATIONS;
 	}
 
 	@RequestMapping(value = "stationsoncertainline/{line}", method = RequestMethod.GET)
 	public String stationsOnCertainLine(@PathVariable("line") String lineName,
 			Map<String, Object> modelMap) {
-		try {
-			modelMap.put(STATIONS_LIST,
-					stationsManager.getStationsOnCertainLine(lineName));
-		} catch (StationManagerException e) {
-			return STATIONS_JSP_PAGE;
-		}
+
+		modelMap.put(STATIONS_LIST,
+				stationsManager.getStationsOnCertainLine(lineName));
+
 		return STATIONS_JSP_PAGE;
 	}
 

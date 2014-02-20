@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.manager.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +25,26 @@ import com.ita.edu.softserve.manager.StationsManager;
 @Service("stationsService")
 public class StationsManagerImpl implements StationsManager {
 
+	private final String findStationsMsg = "Could not find Stations List";
+	private final String findStationByIDMsg = "Could not find Station by this Id";
+	private final String findStationByNameMsg = "Could not find Station by name";
+	private final String findStationsOnCertainLineMsg = "Could not get Stations On Certain Line";
+	private final String createStationMsg = "Could not create Station";
+	private final String removeStationMsg = "Could not remove Station";
+	private final String updateStationMsg = "Could not update Station";
+	private final String stationsForLimitsMsg = "Could not get Stations for limits";
+	private final String stationsForOnePageMsg = "Could not get Stations for one page";
+	private final String stationsListCountMsg = "Could not get Stations List count";
+	
+	private String addMsg = " was added to DB by ";
+	private String removeMsg = " was remove from DB by ";
+	private String changeMsg = " was change in DB by ";
+
 	private static final Logger LOGGER = Logger
-			.getLogger(StationManagerException.class);
+			.getLogger(StationsManagerImpl.class);
+
+	private String entityName = Stations.class.getSimpleName().concat(
+			" with id=");
 
 	/**
 	 * Class to get access to DAO layer.
@@ -41,6 +58,9 @@ public class StationsManagerImpl implements StationsManager {
 	@Autowired
 	private StationsOnLineDAO stlDao;
 
+	@Autowired
+	UserNameServiceImpl userName;
+
 	/**
 	 * Constructor without arguments.
 	 */
@@ -49,34 +69,35 @@ public class StationsManagerImpl implements StationsManager {
 
 	/**
 	 * @return list of all stations.
-	 * @throws StationManagerException
-	 * 
 	 */
 	@Transactional
 	@Override
-	public List<Stations> findAllStations() throws StationManagerException {
+	public List<Stations> findAllStations() {
 		try {
 			return stationDao.getAllEntities();
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
+			RuntimeException statMangExc = new StationManagerException(
+					findStationsMsg, e);
 			LOGGER.error(e);
-			throw new StationManagerException(
-					"Could not find List of Stations", e);
+			LOGGER.error(statMangExc);
+			throw statMangExc;
 		}
 	}
 
 	/**
 	 * @return Station found by ID.
-	 * @throws StationManagerException
 	 */
 	@Transactional
 	@Override
-	public Stations findStationsById(Integer id) throws StationManagerException {
+	public Stations findStationsById(Integer id) {
 		try {
 			return stationDao.findById(id);
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					findStationByIDMsg, e);
 			LOGGER.error(e);
-			throw new StationManagerException(
-					"Could not find Station by this Id", e);
+			LOGGER.error(ex);
+			throw ex;
 		}
 	}
 
@@ -86,26 +107,28 @@ public class StationsManagerImpl implements StationsManager {
 	 * @param stationCode
 	 * 
 	 * @param stationName
-	 * @throws StationManagerException
 	 */
 	@Transactional
 	@Override
-	public void createStation(String stationCode, String stationName)
-			throws StationManagerException {
+	public void createStation(String stationCode, String stationName) {
 
 		try {
 			Stations station = new Stations(stationCode, stationName);
 			stationDao.save(station);
-		} catch (Exception e) {
+			LOGGER.info(entityName + station.getStationId() + addMsg
+					+ userName.getLoggedUsername());
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(createStationMsg, e);
 			LOGGER.error(e);
-			throw new StationManagerException("Could not create Station", e);
+			LOGGER.error(ex);
+			throw ex;
 		}
 	}
 
 	@Transactional(readOnly = false)
 	@Override
 	public void saveOrUpdateStation(Integer stationId, String stationCode,
-			String stationName) throws StationManagerException {
+			String stationName) {
 
 		Stations station = null;
 
@@ -117,40 +140,39 @@ public class StationsManagerImpl implements StationsManager {
 
 		station.setStationCode(stationCode);
 		station.setStationName(stationName);
-	
+
 		stationDao.saveOrUpdate(station);
 	}
-	
-	
+
 	/**
-	 * Removes Stations by Id from database.
-	 * 
-	 * @throws StationManagerException
+	 * Removes Stations by Id from database
 	 */
 	@Transactional
 	@Override
-	public void removeStations(Integer stationId)
-			throws StationManagerException {
+	public void removeStations(Integer stationId) {
 
 		Stations station = null;
 		try {
 			station = (Stations) stationDao.findById(stationId);
 			stationDao.remove(station);
-		} catch (Exception e) {
+
+			LOGGER.info(entityName + stationId + removeMsg
+					+ userName.getLoggedUsername());
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(removeStationMsg, e);
 			LOGGER.error(e);
-			throw new StationManagerException("Could not remove Station", e);
+			LOGGER.error(ex);
+			throw ex;
 		}
 	}
 
 	/**
 	 * Updates exact station by Id.
-	 * 
-	 * @throws StationManagerException
 	 */
 	@Override
 	@Transactional
 	public void editStation(Integer stationId, String stationCode,
-			String stationName) throws StationManagerException {
+			String stationName) {
 
 		try {
 			Stations station = stationDao.findById(stationId);
@@ -158,66 +180,104 @@ public class StationsManagerImpl implements StationsManager {
 			station.setStationCode(stationCode);
 			station.setStationName(stationName);
 			stationDao.update(station);
-		} catch (Exception e) {
+
+			LOGGER.info(entityName + station.getStationId() + changeMsg
+					+ userName.getLoggedUsername());
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(updateStationMsg, e);
 			LOGGER.error(e);
-			throw new StationManagerException("Could not update Station", e);
+			LOGGER.error(ex);
+			throw ex;
 		}
 
 	}
 
 	/**
 	 * Finds station by Name.
-	 * 
-	 * @throws StationManagerException
 	 */
-	public Stations findByStationName(String stationName)
-			throws StationManagerException {
+	public Stations findByStationName(String stationName) {
 
 		try {
 			return stationDao.findByName(stationName);
-		} catch (Exception e) {
-			throw new StationManagerException("Could not find Station", e);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					findStationByNameMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
 		}
-	}
-
-	public static StationsManager getInstance() {
-		return ManagerFactory.getManager(StationsManager.class);
 	}
 
 	public List<Stations> getStationsOnCertainLine(String lineName) {
 
-		return stationDao.findByLineName(lineName);
+		try {
+			return stationDao.findByLineName(lineName);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					findStationsOnCertainLineMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 
 	}
 
 	@Override
 	public List<Stations> getStationsNotOnCertainLine(String lineName) {
 		List<Stations> existStations = stationDao.findByLineName(lineName);
-			List<Stations> allStations = new ArrayList<Stations>();
-			for (Stations st : stationDao.getAllEntities()) {
-				if (!existStations.contains(st)) {
-					allStations.add(st);
-				}
+		List<Stations> allStations = new ArrayList<Stations>();
+		for (Stations st : stationDao.getAllEntities()) {
+			if (!existStations.contains(st)) {
+				allStations.add(st);
 			}
+		}
 		return allStations;
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsForLimit(int firstElement, int count) {
-		return stationDao.getStationsForLimits(firstElement, count);
+		try {
+			return stationDao.getStationsForLimits(firstElement, count);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					stationsForLimitsMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsForPage(int pageNumber, int count) {
-		return getStationsForLimit((pageNumber-1)*count, count);
+		try {
+			return getStationsForLimit((pageNumber - 1) * count, count);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					stationsForOnePageMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public long getStationsListCount() {
-		return stationDao.getStationsListCount();
+		try {
+			return stationDao.getStationsListCount();
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(
+					stationsListCountMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
+
+	public static StationsManager getInstance() {
+		return ManagerFactory.getManager(StationsManager.class);
 	}
 
 }
