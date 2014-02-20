@@ -7,7 +7,7 @@ package com.ita.edu.softserve.exception;
  * @author admin
  * 
  */
-public class StationManagerException extends DBException {
+public class StationManagerException extends RuntimeException {
 
 	/**
      * 
@@ -22,7 +22,7 @@ public class StationManagerException extends DBException {
 		super(msg);
 	}
 
-	public StationManagerException(String msg, Exception e) {
+	public StationManagerException(String msg, RuntimeException e) {
 		super(msg, e);
 	}
 }
