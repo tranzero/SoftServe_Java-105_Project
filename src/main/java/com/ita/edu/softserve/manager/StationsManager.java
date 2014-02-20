@@ -49,6 +49,11 @@ public interface StationsManager extends BaseManager {
 	/**
 	 * Finds stations which not exist on certain line by line name.
 	 */
+	
+	public List<Stations> getStationsNotOnCertainLine(Integer lineId);
+	
+	public List<Stations> getStationsOnCertainLine(Integer lineId);
+	
 	List<Stations> getStationsNotOnCertainLine(String lineName);
 
 	List<Stations> getStationsForLimit(int firstElement, int count);

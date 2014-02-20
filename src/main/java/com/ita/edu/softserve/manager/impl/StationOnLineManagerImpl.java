@@ -6,8 +6,6 @@ package com.ita.edu.softserve.manager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.exception.StationOnLineManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
@@ -37,15 +33,11 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 			.replace("com.ita.edu.softserve.entity.", "").concat(" with id=");
 	
 	private String addMsg = " was added to DB by ";
-	private String removeMsg = " was remove from DB by ";
-	private String changeMsg = " was change in DB by ";
-	private final String createStationsOnLineMsg = "Could not create StationsOnLine";
-	private final String findStationsOnLineMsg = "Could not find StationsOnLine List";
-	private final String removeStationsOnLineMsg = "Could not remove StationsOnLine";
-	private final String findByNameStationsOnLineMsg = "Could not find StationsOnLine by name";
-	private final String updateStationsOnLineMsg = "Could not update StationsOnLine";
-	private final String countStationsOnLineMsg = "Could not get StationsOnLine list count";
-	private final String resultPerPageStationsOnLineMsg = "Could not get StationsOnLine for one page";
+	private String removeMsg = " was removed from DB by ";
+	private String changeMsg = " was changed in DB by ";
+	private final String createStationsOnLineMsg = "Could not create list of stations on line";
+	private final String removeStationsOnLineMsg = "Could not remove list of stations on line";
+	private final String updateStationsOnLineMsg = "Could not update list of stations on line";
 
 	@Autowired
 	private LinesDAO lineDao;
@@ -78,8 +70,8 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 
 	/**
 	 * @author MatyashPetro
-	 * @param stationsName
-	 *            List of stations name which must be included to new line
+	 * @param stationsId
+	 *            List of stations id which must be included to new line
 	 * @param lineId
 	 *            ID of new line
 	 */
@@ -92,7 +84,8 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 				StationsOnLine stationOnLine = new StationsOnLine();
 				stationOnLine.setLineId(lineDao.findById(lineId));
 				stationOnLine.setStationId(stationDao.findById(station));
-				stationOnLineList.add(stationOnLine);					
+				stationOnLineList.add(stationOnLine);
+				stlDao.save(stationOnLine);
 			}
 			LOGGER.info(entityName + stationOnLineList + addMsg);
 		}catch(RuntimeException e){
@@ -101,31 +94,29 @@ public class StationOnLineManagerImpl implements StationOnLineManager {
 		}
 	}
 
+	/**
+	 * @author MatyashPetro
+	 * @param stationsId
+	 *            List of stations id which must be included to existing line
+	 * @param lineId
+	 *            ID of new line
+	 */
 	@Override
 	@Transactional
-	public void updateStationOnLine(Integer lineId, List<String> stations) {
-		List<Stations> stationList = new ArrayList<Stations>();
-		for (String str : stations) {
-				stationList.add(stationDao.findByName(str));
-		}
-		for (Stations st : stationList) {
-			StationsOnLine sol = null;
-			try {
-				sol = stlDao
-						.findByStationIdAndLineId(st.getStationId(), lineId);
-				sol.setLineId(lineDao.findById(lineId));
-				sol.setStationId(st);
-				stlDao.update(sol);
-			} catch (NoResultException e) {
-				LOGGER.error(e);
+	public void updateStationOnLine(Integer lineId, List<Integer> stationsId) {
+		List<StationsOnLine> stationsOnLineList = new ArrayList<StationsOnLine>();
+		try{
+			for(Integer station : stationsId){
+				StationsOnLine stationOnLine = new StationsOnLine();
+				stationOnLine.setLineId(lineDao.findById(lineId));
+				stationOnLine.setStationId(stationDao.findById(station));
+				stationsOnLineList.add(stationOnLine);
+				stlDao.update(stationOnLine);
 			}
-			if (sol == null) {
-				System.out.println("!!!!!!!!");
-				sol = new StationsOnLine();
-				sol.setLineId(lineDao.findById(lineId));
-				sol.setStationId(st);
-				stlDao.save(sol);
-			}
+			LOGGER.info(entityName + stationsOnLineList + changeMsg);
+		}catch(RuntimeException e){
+			LOGGER.error(e);
+			throw new StationOnLineManagerException(updateStationsOnLineMsg, e);
 		}
 	}
 

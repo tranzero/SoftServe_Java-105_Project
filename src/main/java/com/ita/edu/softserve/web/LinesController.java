@@ -87,12 +87,16 @@ public class LinesController {
 		return allLinesAddLine;
 	}
 
-	@RequestMapping(value = "editline/{lineName}", method = RequestMethod.GET)
+	@RequestMapping(value = "editline/{lineId}", method = RequestMethod.GET)
 	public String editLine(Map<String, Object> modelMap,
-			@PathVariable("lineName") String lineName) {
+			@PathVariable("lineId") Integer lineId) {
 		try {
 			modelMap.put("stationsOnLine",
-					stationsManager.getStationsOnCertainLine(lineName));
+					stationsManager.getStationsOnCertainLine(lineId));
+			modelMap.put("lineName", linesManager.findByLineId(lineId)
+					.getLineName());
+			modelMap.put("lineId", linesManager.findByLineId(lineId)
+					.getLineId());
 		} catch (StationManagerException e) {
 			e.printStackTrace();
 		}
@@ -105,22 +109,19 @@ public class LinesController {
 		return deleteLines;
 	}
 
-	@RequestMapping(value = "editline/deletestation/{stationId}/{lineName}", method = RequestMethod.GET)
+	@RequestMapping(value = "editline/deletestation/{stationId}/{lineId}", method = RequestMethod.GET)
 	public String deleteStation(@PathVariable("stationId") Integer stationId,
-			@PathVariable("lineName") String lineName) {
-		stationOnLineManager.removeStation(stationId, linesManager
-				.findByLineName(lineName).getLineId());
-		return editStations + lineName;
+			@PathVariable("lineId") Integer lineId) {
+		stationOnLineManager.removeStation(stationId, lineId);
+		return editStations + lineId;
 	}
 
-	@RequestMapping(value = "editline/addstation/{lineName}", method = RequestMethod.GET)
-	public String addStation(@PathVariable("lineName") String lineName,
+	@RequestMapping(value = "editline/addstation/{lineId}", method = RequestMethod.GET)
+	public String addStation(@PathVariable("lineId") Integer lineId,
 			Map<String, Object> modelMap) {
 		try {
 			modelMap.put("allStations",
-					stationsManager.getStationsNotOnCertainLine(lineName));
-			modelMap.put("existStations",
-					stationsManager.getStationsOnCertainLine(lineName));
+					stationsManager.getStationsNotOnCertainLine(lineId));
 		} catch (StationManagerException e) {
 			e.printStackTrace();
 		}
@@ -128,13 +129,12 @@ public class LinesController {
 		return addStations;
 	}
 
-	@RequestMapping(value = "editline/addstation/changestations/{lineName}", method = RequestMethod.POST)
+	@RequestMapping(value = "editline/addstation/changestations/{lineId}", method = RequestMethod.POST)
 	public String changeStations(
-			@RequestParam("stationsCheck") List<String> stations,
-			@PathVariable("lineName") String lineName) {
-		stationOnLineManager.updateStationOnLine(
-				linesManager.findByLineName(lineName).getLineId(), stations);
-		return deleteStations + lineName;
+			@RequestParam("stationsCheck") List<Integer> stationsId,
+			@PathVariable("lineId") Integer lineId) {
+		stationOnLineManager.updateStationOnLine(lineId, stationsId);
+		return deleteStations + lineId;
 	}
 
 	@RequestMapping(value = "confirmcreating", method = RequestMethod.POST)
@@ -199,7 +199,7 @@ public class LinesController {
 		if (sortOrder == null) {
 			sortOrder = 0;
 		}
-		
+
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
 				stationName2);
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -210,7 +210,7 @@ public class LinesController {
 		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
-		
+
 		return "linesbytwostationsPage";
 	}
 
@@ -236,7 +236,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage(),5));
+						container.getResultsPerPage(), 5));
 
 		return "linesbystation";
 
@@ -264,7 +264,7 @@ public class LinesController {
 				"linesbystationlist",
 				linesManager.getLinesByStNameForPage(stationName,
 						container.getPageNumber(),
-						container.getResultsPerPage(),5));
+						container.getResultsPerPage(), 5));
 
 		return "linesbystationresult";
 

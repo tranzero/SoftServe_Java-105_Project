@@ -20,6 +20,12 @@ public interface LinesManager extends BaseManager {
 	 * @return list with all lines
 	 */
 	public List<Lines> getFullLines();
+	
+	/**
+	 * @author MatyashPetro
+	 * @return Line with selected id
+	 */
+	public Lines findByLineId(Integer lineId);
 
 	public Lines findByLineName(String lineName);
 

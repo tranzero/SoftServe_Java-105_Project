@@ -55,6 +55,7 @@ public class LinesManagerImpl implements LinesManager {
 		this.lineDao = lineDao;
 	}
 
+	@Override
 	public Lines findByLineName(String lineName) {
 		Lines line = null;
 		try {
@@ -65,6 +66,14 @@ public class LinesManagerImpl implements LinesManager {
 			throw new LinesManagerException(findByNameLinesMsg, e);
 		}
 	}
+	
+	@Override
+	public Lines findByLineId(Integer lineId){
+		return lineDao.findById(lineId);
+		
+	}
+	
+	
 
 	/**
 	 * @author MatyashPetro
