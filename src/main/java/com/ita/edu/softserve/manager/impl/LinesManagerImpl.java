@@ -104,8 +104,13 @@ public class LinesManagerImpl implements LinesManager {
 
 	@Override
 	public long getLinesByStationCount(String stationName) {
-
-		return lineDao.getLinesByStationNameCount(stationName);
+		
+		try{
+			return lineDao.getLinesByStationNameCount(stationName);
+		} catch (RuntimeException e){
+			LOGGER.error(e);
+			throw new LinesManagerException(countLinesMsg, e);
+		}
 	}
 
 	@Override
@@ -125,13 +130,6 @@ public class LinesManagerImpl implements LinesManager {
 
 	}
 
-	@Override
-	public List<Lines> getLinesByStationForPage(int from, int count,
-			String stationName) {
-		List<Lines> linesList = lineDao.getLinesByStationForOnePage(from,
-				count, stationName);
-		return linesList;
-	}
 
 	/**
 	 * Return Lines that includes two stations in certain order
