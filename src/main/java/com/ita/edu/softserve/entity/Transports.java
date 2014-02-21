@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.entity;
 
 import java.sql.Time;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
-import com.ita.edu.softserve.manager.impl.TransportTravel;
 
 /**
  * The persistent class for the transports database table.
@@ -30,18 +31,22 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
-		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY)/*,
+		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),/*,
 		@NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_LNAME, query = Transports.FIND_BY_TS_ORDER_BY_LNAME_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_TCODE, query = Transports.FIND_BY_TS_ORDER_BY_TCODE_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DEP, query = Transports.FIND_BY_TS_ORDER_BY_DEP_QUERY),
         @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DURATION, query = Transports.FIND_BY_TS_ORDER_BY_DURATION_QUERY)
         */
+		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY),
 })
 public class Transports extends BaseEntity {
 
+	public static final String FIND_BY_DATE = "Transports.findByDate";
+	public static final String FIND_BY_DATE_QUERY = "SELECT t FROM Transports t JOIN t.trips tr WHERE tr.startDate  = ?1";
+
 	public static final String TRANSPORTS_FIND_ALL = "Transports.findAll";
 	public static final String TRANSPORTS_FIND_ALL_QUERY = "SELECT t FROM Transports t";
-	
+
 	public static final String TRANSPORTS_FIND_COUNT = "Transports.findCount";
 	public static final String TRANSPORTS_FIND_COUNT_QUERY = "SELECT COUNT (t.transportId) FROM Transports t";
  
@@ -65,6 +70,8 @@ public class Transports extends BaseEntity {
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
 			+ "GROUP BY t.transportCode";
+	
+	
 /*
 	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
     public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
@@ -168,7 +175,10 @@ public class Transports extends BaseEntity {
 
 	@Column(name = "GENPRICE", nullable = false)
 	private double genPrice;
-
+	
+	@OneToMany(mappedBy = "transport", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private Set<Trips> trips;
+	
 	public Transports() {
 		super();
 	}
@@ -247,6 +257,20 @@ public class Transports extends BaseEntity {
 
 	public void setGenPrice(double genprice) {
 		this.genPrice = genprice;
+	}
+
+	/**
+	 * @return the trips
+	 */
+	public Set<Trips> getTrips() {
+		return trips;
+	}
+
+	/**
+	 * @param trips the trips to set
+	 */
+	public void setTrips(Set<Trips> trips) {
+		this.trips = trips;
 	}
 
 	@Override

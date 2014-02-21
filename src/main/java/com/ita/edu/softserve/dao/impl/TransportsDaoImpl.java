@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -50,6 +50,15 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			entityManager.merge(entity);
 		}
 	}
+	@Override
+	public List<Transports> findByDate(String date) {
+		Query query = entityManager
+				.createNamedQuery(Transports.FIND_BY_DATE)
+				.setParameter(1, date);
+
+		return (List<Transports>) query.getResultList();
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override

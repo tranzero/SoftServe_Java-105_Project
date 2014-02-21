@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Lines;
@@ -41,5 +42,7 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2);
+
+	List<Transports> findByDate(String date);
 	
 }
