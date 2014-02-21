@@ -32,10 +32,10 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	private final String resultPerPagePostMsg = "Could not get post for one page";
 
 	@Autowired
-	PostDAOImpl postDao;
+	private PostDAOImpl postDao;
 	
 	@Autowired
-	UserNameServiceImpl userName;
+	private UserNameService userName;
 
 	@Transactional(readOnly = true)
 	@Override

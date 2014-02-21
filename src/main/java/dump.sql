@@ -17,17 +17,40 @@ CREATE TABLE `lines` (
 -- 
 LOCK TABLES `lines` WRITE;
 /*!40000 ALTER TABLE `lines` DISABLE KEYS */;
-INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv');
-INSERT INTO `lines` VALUES ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1');
-INSERT INTO `lines` VALUES ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2');
-INSERT INTO `lines` VALUES ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3');
-INSERT INTO `lines` VALUES ('13', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3');
-INSERT INTO `lines` VALUES ('14', 'L\'viv - Stryy3'), ('17', 'Stryy - L\'viv3'), ('20', 'Pisochne - Sknyliv3');
-INSERT INTO `lines` VALUES ('15', 'L\'viv - Stryy3'), ('18', 'Stryy - L\'viv3'), ('21', 'Pisochne - Sknyliv3');
-
+INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv'), ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1'), ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2'), ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3'), ('13', 'L\'viv - Stryy3'), ('14', 'L\'viv - Stryy3'), ('15', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('17', 'Stryy - L\'viv3'), ('18', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3'), ('20', 'Pisochne - Sknyliv3'), ('21', 'Pisochne - Sknyliv3');
 /*!40000 ALTER TABLE `lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
+-- 
+-- Table structure for table `orders`
+-- 
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL ,
+    PRIMARY KEY (ORDERID),
+    CONSTRAINT `ORDERID_ibfk_1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `ORDERID_ibfk_2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `orders`
+-- 
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
 
 -- 
 -- Table structure for table `posts`
@@ -59,8 +82,8 @@ DROP TABLE IF EXISTS `routes`;
 CREATE TABLE `routes` (
     `ROUTEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
     `LINEID` INT (10) unsigned NOT NULL , 
-    `ROUTECODE` VARCHAR (20) NOT NULL ,
-     `ROUTENAME` VARCHAR (30) NOT NULL ,
+    `ROUTECODE` VARCHAR (20) NOT NULL , 
+    `ROUTENAME` VARCHAR (30) NOT NULL ,
     PRIMARY KEY (ROUTEID),
     CONSTRAINT `ROUTES_ibfk_1`
     FOREIGN KEY (`LINEID`)
@@ -74,21 +97,7 @@ CREATE TABLE `routes` (
 -- 
 LOCK TABLES `routes` WRITE;
 /*!40000 ALTER TABLE `routes` DISABLE KEYS */;
-INSERT INTO `routes` VALUES ('1', '1', '1000000000001','Sknyliv-Stryy'), ('2', '2', '1000000000002','Sknyliv1-Stryy'), ('3', '2', '1000000000003','Sknyliv2-Stryy');
-INSERT INTO `routes` VALUES ('4', '1', '1000000000004',''), ('5', '2', '1000000000005',''), ('6', '2', '100000000006','');
-INSERT INTO `routes` VALUES ('7', '1', '1000000000007',''), ('8', '2', '1000000000008',''), ('9', '2', '1000000000009','');
-INSERT INTO `routes` VALUES ('10', '1', '1000000000010',''), ('11', '2', '1000000000011',''), ('12', '2', '1000000000012','');
-INSERT INTO `routes` VALUES ('13', '1', '1000000000013',''), ('14', '2', '1000000000014',''), ('15', '2', '1000000000015','');
-INSERT INTO `routes` VALUES ('16', '1', '1000000000016',''), ('17', '2', '1000000000017',''), ('18', '2', '1000000000018','');
-INSERT INTO `routes` VALUES ('19', '1', '1000000000019',''), ('20', '2', '1000000000020',''), ('21', '2', '1000000000021','');
-INSERT INTO `routes` VALUES ('22', '1', '1000000000022',''), ('23', '2', '1000000000023',''), ('24', '2', '1000000000024','');
-INSERT INTO `routes` VALUES ('25', '1', '1000000000025',''), ('26', '2', '1000000000026',''), ('27', '2', '1000000000027','');
-INSERT INTO `routes` VALUES ('28', '1', '1000000000028',''), ('29', '2', '1000000000029',''), ('30', '2', '1000000000030','');
-INSERT INTO `routes` VALUES ('31', '1', '1000000000031',''), ('32', '2', '1000000000032',''), ('33', '2', '1000000000033','');
-INSERT INTO `routes` VALUES ('34', '1', '1000000000034',''), ('35', '2', '1000000000035',''), ('36', '2', '1000000000036','');
-INSERT INTO `routes` VALUES ('37', '1', '1000000000037',''), ('38', '2', '1000000000038',''), ('39', '2', '1000000000039','');
-INSERT INTO `routes` VALUES ('40', '1', '1000000000040',''), ('41', '2', '1000000000041',''), ('42', '2', '1000000000042','');
-INSERT INTO `routes` VALUES ('43', '1', '1000000000043',''), ('44', '2', '1000000000044',''), ('45', '2', '1000000000045','');
+INSERT INTO `routes` VALUES ('1', '1', '1000000000001', 'Sknyliv-Stryy'), ('2', '2', '1000000000002', 'Sknyliv1-Stryy'), ('3', '2', '1000000000003', 'Sknyliv2-Stryy'), ('4', '1', '1000000000004', ''), ('5', '2', '1000000000005', ''), ('6', '2', '100000000006', ''), ('7', '1', '1000000000007', ''), ('8', '2', '1000000000008', ''), ('9', '2', '1000000000009', ''), ('10', '1', '1000000000010', ''), ('11', '2', '1000000000011', ''), ('12', '2', '1000000000012', ''), ('13', '1', '1000000000013', ''), ('14', '2', '1000000000014', ''), ('15', '2', '1000000000015', ''), ('16', '1', '1000000000016', ''), ('17', '2', '1000000000017', ''), ('18', '2', '1000000000018', ''), ('19', '1', '1000000000019', ''), ('20', '2', '1000000000020', ''), ('21', '2', '1000000000021', ''), ('22', '1', '1000000000022', ''), ('23', '2', '1000000000023', ''), ('24', '2', '1000000000024', ''), ('25', '1', '1000000000025', ''), ('26', '2', '1000000000026', ''), ('27', '2', '1000000000027', ''), ('28', '1', '1000000000028', ''), ('29', '2', '1000000000029', ''), ('30', '2', '1000000000030', ''), ('31', '1', '1000000000031', ''), ('32', '2', '1000000000032', ''), ('33', '2', '1000000000033', ''), ('34', '1', '1000000000034', ''), ('35', '2', '1000000000035', ''), ('36', '2', '1000000000036', ''), ('37', '1', '1000000000037', ''), ('38', '2', '1000000000038', ''), ('39', '2', '1000000000039', ''), ('40', '1', '1000000000040', ''), ('41', '2', '1000000000041', ''), ('42', '2', '1000000000042', ''), ('43', '1', '1000000000043', ''), ('44', '2', '1000000000044', ''), ('45', '2', '1000000000045', '');
 /*!40000 ALTER TABLE `routes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,27 +150,7 @@ CREATE TABLE `stationsonlines` (
 -- 
 LOCK TABLES `stationsonlines` WRITE;
 /*!40000 ALTER TABLE `stationsonlines` DISABLE KEYS */;
-INSERT INTO `stationsonlines` VALUES ('1', '1', '17', '1'), ('2', '1', '16', '2'), ('3', '1', '15', '3'), ('4', '1', '14', '4'), ('5', '1', '13', '5'), ('6', '1', '12', '6'), ('7', '1', '11', '7'), ('8', '1', '10', '8'), ('9', '1', '9', '9'), ('10', '1', '8', '10'), ('11', '1', '7', '11'), ('12', '1', '6', '12'), ('13', '1', '5', '13'), ('14', '1', '4', '14'), ('15', '1', '3', '15'), ('16', '1', '2', '16'), ('17', '1', '1', '17'), ('18', '2', '1', '1'), ('19', '2', '2', '2'), ('20', '2', '3', '3'), ('21', '2', '4', '4'), ('22', '2', '5', '5'), ('23', '2', '6', '6'), ('24', '2', '7', '7'), ('25', '2', '8', '8'), ('26', '2', '9', '9'), ('27', '2', '10', '10'), ('28', '2', '11', '11'), ('29', '2', '12', '12'), ('30', '2', '13', '13'), ('31', '2', '14', '14'), ('32', '2', '15', '15'), ('33', '2', '16', '16'), ('34', '2', '17', '17'), ('38', '3', '5', '1'), ('39', '3', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('40', '4', '5', '1'), ('41', '4', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('42', '5', '5', '1'), ('43', '5', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('44', '6', '5', '1'), ('45', '6', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('46', '7', '5', '1'), ('47', '7', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('48', '8', '5', '1'), ('49', '8', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('50', '9', '5', '1'), ('51', '9', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('52', '10', '5', '1'), ('53', '10', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('54', '11', '5', '1'), ('55', '11', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('56', '12', '5', '1'), ('57', '12', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('58', '13', '5', '1'), ('59', '13', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('60', '14', '5', '1'), ('61', '14', '16', '2');
-
-INSERT INTO `stationsonlines` VALUES ('62', '15', '5', '1'), ('63', '15', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('64', '16', '5', '1'), ('65', '16', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('66', '17', '5', '1'), ('67', '17', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('68', '18', '5', '1'), ('69', '18', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('70', '19', '5', '1'), ('71', '19', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('72', '20', '5', '1'), ('73', '20', '16', '2');
-INSERT INTO `stationsonlines` VALUES ('74', '21', '5', '1'), ('75', '21', '16', '2');
-
+INSERT INTO `stationsonlines` VALUES ('1', '1', '17', '1'), ('2', '1', '16', '2'), ('3', '1', '15', '3'), ('4', '1', '14', '4'), ('5', '1', '13', '5'), ('6', '1', '12', '6'), ('7', '1', '11', '7'), ('8', '1', '10', '8'), ('9', '1', '9', '9'), ('10', '1', '8', '10'), ('11', '1', '7', '11'), ('12', '1', '6', '12'), ('13', '1', '5', '13'), ('14', '1', '4', '14'), ('15', '1', '3', '15'), ('16', '1', '2', '16'), ('17', '1', '1', '17'), ('18', '2', '1', '1'), ('19', '2', '2', '2'), ('20', '2', '3', '3'), ('21', '2', '4', '4'), ('22', '2', '5', '5'), ('23', '2', '6', '6'), ('24', '2', '7', '7'), ('25', '2', '8', '8'), ('26', '2', '9', '9'), ('27', '2', '10', '10'), ('28', '2', '11', '11'), ('29', '2', '12', '12'), ('30', '2', '13', '13'), ('31', '2', '14', '14'), ('32', '2', '15', '15'), ('33', '2', '16', '16'), ('34', '2', '17', '17'), ('38', '3', '5', '1'), ('39', '3', '16', '2'), ('40', '4', '5', '1'), ('41', '4', '16', '2'), ('42', '5', '5', '1'), ('43', '5', '16', '2'), ('44', '6', '5', '1'), ('45', '6', '16', '2'), ('46', '7', '5', '1'), ('47', '7', '16', '2'), ('48', '8', '5', '1'), ('49', '8', '16', '2'), ('50', '9', '5', '1'), ('51', '9', '16', '2'), ('52', '10', '5', '1'), ('53', '10', '16', '2'), ('54', '11', '5', '1'), ('55', '11', '16', '2'), ('56', '12', '5', '1'), ('57', '12', '16', '2'), ('58', '13', '5', '1'), ('59', '13', '16', '2'), ('60', '14', '5', '1'), ('61', '14', '16', '2'), ('62', '15', '5', '1'), ('63', '15', '16', '2'), ('64', '16', '5', '1'), ('65', '16', '16', '2'), ('66', '17', '5', '1'), ('67', '17', '16', '2'), ('68', '18', '5', '1'), ('69', '18', '16', '2'), ('70', '19', '5', '1'), ('71', '19', '16', '2'), ('72', '20', '5', '1'), ('73', '20', '16', '2'), ('74', '21', '5', '1'), ('75', '21', '16', '2');
 /*!40000 ALTER TABLE `stationsonlines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,6 +188,42 @@ INSERT INTO `stops` VALUES ('1', '1', '1', '00:00:00', '00:00:00'), ('2', '1', '
 UNLOCK TABLES;
 
 -- 
+-- Table structure for table `tickets`
+-- 
+
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE `tickets` (
+    `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `TICKETNAME` VARCHAR (100) NOT NULL , 
+    `ORDERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
+    `ISSEATCLASS1` BIT (null) NULL , 
+    `ISSEATCLASS2` BIT (null) NULL , 
+    `ISSEATCLASS3` BIT (null) NULL ,
+    PRIMARY KEY (TICKETID),
+    CONSTRAINT `fk1`
+    FOREIGN KEY (`ORDERID`)
+    REFERENCES `orders` (`ORDERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `fk2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `tickets`
+-- 
+LOCK TABLES `tickets` WRITE;
+/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
+INSERT INTO `tickets` VALUES ;
+/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- 
 -- Table structure for table `transports`
 -- 
 
@@ -225,7 +250,7 @@ CREATE TABLE `transports` (
 -- 
 LOCK TABLES `transports` WRITE;
 /*!40000 ALTER TABLE `transports` DISABLE KEYS */;
-INSERT INTO `transports` VALUES ('11', '1', 'T000000021', '12:00:00', '10', '50', '150', '25.00'), ('12', '1', 'T000000021', '16:00:00', '10', '50', '150', '25.00'), ('13', '2', 'T000000022', '12:00:00', '10', '50', '150', '25.00'), ('14', '2', 'T000000022', '16:00:00', '10', '50', '150', '25.00'), ('15', '3', 'T000000024', '16:00:00', '10', '50', '150', '25.00'),('6', '1', 'T000000011', '12:00:00', '10', '50', '150', '25.00'), ('7', '1', 'T000000011', '16:00:00', '10', '50', '150', '25.00'), ('8', '2', 'T000000012', '12:00:00', '10', '50', '150', '25.00'), ('9', '2', 'T000000012', '16:00:00', '10', '50', '150', '25.00'), ('10', '3', 'T000000014', '16:00:00', '10', '50', '150', '25.00'),('1', '1', 'T000000001', '12:00:00', '10', '50', '150', '25.00'), ('2', '1', 'T000000001', '16:00:00', '10', '50', '150', '25.00'), ('3', '2', 'T000000002', '12:00:00', '10', '50', '150', '25.00'), ('4', '2', 'T000000002', '16:00:00', '10', '50', '150', '25.00'), ('5', '3', 'T000000044', '16:00:00', '10', '50', '150', '25.00');
+INSERT INTO `transports` VALUES ('1', '1', 'T000000001', '12:00:00', '10', '50', '150', '25.00'), ('2', '1', 'T000000001', '16:00:00', '10', '50', '150', '25.00'), ('3', '2', 'T000000002', '12:00:00', '10', '50', '150', '25.00'), ('4', '2', 'T000000002', '16:00:00', '10', '50', '150', '25.00'), ('5', '3', 'T000000044', '16:00:00', '10', '50', '150', '25.00'), ('6', '1', 'T000000011', '12:00:00', '10', '50', '150', '25.00'), ('7', '1', 'T000000011', '16:00:00', '10', '50', '150', '25.00'), ('8', '2', 'T000000012', '12:00:00', '10', '50', '150', '25.00'), ('9', '2', 'T000000012', '16:00:00', '10', '50', '150', '25.00'), ('10', '3', 'T000000014', '16:00:00', '10', '50', '150', '25.00'), ('11', '1', 'T000000021', '12:00:00', '10', '50', '150', '25.00'), ('12', '1', 'T000000021', '16:00:00', '10', '50', '150', '25.00'), ('13', '2', 'T000000022', '12:00:00', '10', '50', '150', '25.00'), ('14', '2', 'T000000022', '16:00:00', '10', '50', '150', '25.00'), ('15', '3', 'T000000024', '16:00:00', '10', '50', '150', '25.00');
 /*!40000 ALTER TABLE `transports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,57 +309,3 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-02-10 19:24:50.0', 'MANAGER'), ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '', '2014-02-10 19:56:13.0', 'ADMIN'), ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7s233', '2014-01-14 01:42:46.0', 'MANAGER'), ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '568355', '2014-01-14 02:41:35.0', 'REGUSER'), ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '467888', '2014-01-14 03:43:46.0', 'ADMIN'), ('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '432567sd', '2014-01-14 03:41:38.0', 'ADMIN'), ('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '', '2014-01-14 04:42:46.0', 'MANAGER'), ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '', '2014-01-14 04:43:46.0', 'REGUSER'), ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4e5155', '2014-01-14 04:44:35.0', 'REGUSER'), ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '', '2014-01-14 04:44:46.0', 'REGUSER'), ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '8754325', '2014-01-14 04:44:46.0', 'REGUSER');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
-
--- 
--- Table structure for table `orders`
--- 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL ,
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- 
--- Table structure for table `tickets`
-
-DROP TABLE IF EXISTS `tickets`;
-
-CREATE TABLE `tickets` (
-  `TICKETID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `TICKETNAME` varchar(100) NOT NULL,
-  `ORDERID` int(10) unsigned NOT NULL,
-  `TRIPID` int(10) unsigned NOT NULL,
-  `CUSTOMERINFO` varchar(100) NOT NULL,
-  `ISSEATCLASS1` BOOL DEFAULT NULL,
-  `ISSEATCLASS2` BOOL DEFAULT NULL,
-  `ISSEATCLASS3` BOOL DEFAULT NULL,
-  PRIMARY KEY (`TICKETID`),
-  KEY `fk1_idx` (`ORDERID`),
-  CONSTRAINT `fk1` FOREIGN KEY (`ORDERID`) REFERENCES `orders` (`ORDERID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  KEY `fk2_idx` (`TRIPID`),
-  CONSTRAINT `fk2` FOREIGN KEY (`TRIPID`) REFERENCES `trips` (`TRIPID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- 

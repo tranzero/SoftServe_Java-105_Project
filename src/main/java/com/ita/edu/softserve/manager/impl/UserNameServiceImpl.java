@@ -6,9 +6,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.UserNameService;
 
 @Service
-public class UserNameServiceImpl {
+public class UserNameServiceImpl implements UserNameService {
 	
 	@Autowired
 	private UserManager usersmanager;
