@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.OrdersDAO;
-import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.Post;
@@ -35,7 +35,7 @@ public class OrdersManagerImpl implements OrdersManager {
 	private UsersDAO usersDao;
 
 	@Autowired
-	private TripsDao tripsDao;
+	private TripsDAO tripsDao;
 
 	public static OrdersManager getInstance() {
 		return ManagerFactory.getManager(OrdersManager.class);

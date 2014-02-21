@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
@@ -28,8 +28,15 @@ public class TripsManagerImpl implements TripsManager {
 
 	private static final String UKRAINIAN = "ua";
 
+	/**
+	 * String for spain language representation in locale format (used in
+	 * formatting date)
+	 */
+
+	private static final String SPAIN = "es";
+
 	@Autowired
-	private TripsDao tripsDao;
+	private TripsDAO tripsDao;
 
 	@Autowired
 	private TransportsDao transportsDao;
@@ -45,12 +52,21 @@ public class TripsManagerImpl implements TripsManager {
 
 	@Transactional
 	@Override
-	public Trips findByTripId (Integer id){
-		
+	public Trips findByTripId(Integer id) {
+
 		return tripsDao.findById(id);
-		
+
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
+	public long getTripsListCriteriaCount(String transportCode,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate) {
+		return tripsDao.getTripsListCriteriaCount(transportCode, remSeatClass1,
+				remSeatClass2, remSeatClass3, minDate, maxDate);
+	}
+
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCount() {
@@ -69,7 +85,7 @@ public class TripsManagerImpl implements TripsManager {
 		return tripsDao.getTripsForLimits(firstElement, count);
 	}
 
-	@SuppressWarnings({ "unused", "deprecation", "finally" })
+	@SuppressWarnings("deprecation")
 	@Transactional
 	@Override
 	public boolean addTripsInInterval(Locale locale, String minDate,
@@ -83,7 +99,8 @@ public class TripsManagerImpl implements TripsManager {
 			Transports transport = null;
 
 			transport = transportsDao.findById(transportId);
-			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)) {
+			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
+					|| locale.getLanguage().trim().equalsIgnoreCase(SPAIN)) {
 				String datesplit1[] = minDate.split("\\.");
 				year = Integer.parseInt(datesplit1[2]);
 				day = Integer.parseInt(datesplit1[0]);
@@ -106,7 +123,7 @@ public class TripsManagerImpl implements TripsManager {
 				month = Integer.parseInt(datesplit2[0]);
 				endDate = new Date(year, month, day);
 			}
-			
+
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
 			Calendar end = Calendar.getInstance();
@@ -114,18 +131,18 @@ public class TripsManagerImpl implements TripsManager {
 
 			for (Date date = start.getTime(); !start.after(end); start.add(
 					Calendar.DATE, 1), date = start.getTime()) {
-				Trips element= new Trips (transport, date);
+				Trips element = new Trips(transport, date);
 				tripsDao.saveOrUpdate(element);
 			}
 			;
 
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			return false;
 		}
-		
 
 	}
+
 	public static TripsManager getInstance() {
 		return ManagerFactory.getManager(TripsManager.class);
 	}

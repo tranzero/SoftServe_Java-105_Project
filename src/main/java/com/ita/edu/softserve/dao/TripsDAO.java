@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.ita.edu.softserve.entity.Trips;
 
-public interface TripsDao extends AbstractDAOIface<Trips> {
+public interface TripsDAO extends AbstractDAOIface<Trips> {
 
 	/**
 	 * Searches trip by transport ID

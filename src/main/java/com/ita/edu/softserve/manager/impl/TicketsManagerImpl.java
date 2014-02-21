@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.dao.TicketsDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.dao.TripsDao;
+import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Transports;
@@ -35,7 +35,7 @@ public class TicketsManagerImpl implements TicketsManager{
 	private OrdersDAO ordersDao;
 	
 	@Autowired
-	private TripsDao tripsDao;
+	private TripsDAO tripsDao;
 	
 	@Autowired
 	private TransportsDao transportDao;

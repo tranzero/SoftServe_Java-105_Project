@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -62,7 +63,36 @@ public interface TripsManager extends BaseManager {
 	 */
 
 	long getTripsListCount();
-	
-	public Trips findByTripId (Integer id);
+
+	/**
+	 * 
+	 * @param firstElement
+	 *            Starting element for result list
+	 * @param count
+	 *            capacity of result list
+	 * @param transportCode
+	 *            transport code for matching
+	 * @param remSeatClass1
+	 *            count of remaining seats of class 1 for matching
+	 * @param remSeatClass2
+	 *            count of remaining seats of class 2 for matching
+	 * @param remSeatClass3
+	 *            count of remaining seats of class 3 for matching
+	 * @param minDate
+	 *            minimum date for date range
+	 * @param maxDate
+	 *            maximum date for date range
+	 * @param orderByParam
+	 *            the column, using for sorting
+	 * @param orderByDirection
+	 *            sorting direction
+	 * @return List of trips according given limits and criteria
+	 */
+
+	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate);
+
+	public Trips findByTripId(Integer id);
 
 }
