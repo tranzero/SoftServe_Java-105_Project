@@ -5,7 +5,6 @@
 <%--<div id = "navigation" >
 <h2><spring:message code="label.navigation.title"/>[WIP]</h2> --%>
 <nav id="navigation">
-
 	<div id="container">
 		<ul class="menu">
 			<li><a href="/SoftServe_Java-105/mainpage"><spring:message
@@ -24,12 +23,14 @@
 								code="label.navigation.route" /></a></li>
 					<li><a href="/SoftServe_Java-105/routesTrips"><spring:message
 								code="label.navigation.routes" /></a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li><spring:message code="label.navigation.orders" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/orders"><spring:message
 								code="label.navigation.orders" /></a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li><spring:message code="label.navigation.editing" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/addnews"><spring:message
@@ -48,7 +49,8 @@
 								code="label.navigation.transportManage" /></a></li>
 					<li><a href="/SoftServe_Java-105/routesAllEdit"><spring:message
 								code="label.navigation.editroutes" /></a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li><spring:message code="label.navigation.users" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/userlist"><spring:message
@@ -56,36 +58,8 @@
 					<li><a href="/SoftServe_Java-105/userlist2"><spring:message
 								code="label.navigation.userlist" />2</a></li>
 
-				</ul></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 </nav>
-<%--
-<span class = "navigationPoint"><a href="mainpage"><spring:message code="label.navigation.news"/></a></span>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.timetable"/></span>
-	<span class = "navigationPoint"><a href="stations"><spring:message code="label.navigation.stations"/></a></span>
-	<span class = "navigationPoint"><a href="routes"><spring:message code="label.navigation.routes"/></a></span>
-	<span class = "navigationPoint"><a href="transport"><spring:message code="label.navigation.transport"/></a></span>
-	<span class = "navigationPoint"><a href="transportTravel"><spring:message code="label.navigation.transportTravel"/></a></span>
-</nav>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.orders"/></span>
-</nav>
-
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.editing"/></span>
-	<span class = "navigationPoint"><a href="addnews"><spring:message code="label.navigation.addnews"/></a></span>
-	<span class = "navigationPoint"><a href="addStation"><spring:message code="label.navigation.addStation"/></a></span>
-	<span class = "navigationPoint"><a href="allLines"><spring:message code="label.navigation.addLines"/></a></span>
-	<span class = "navigationPoint"><a href="linesbystation"><spring:message code="label.navigation.linesbystation"/></a></span>
-</nav>
-<nav class="navigationGroup">
-	<span class="navigationHeader"><spring:message code="label.navigation.users"/></span>
-	<span class = "navigationPoint"><a href="userlist"><spring:message code="label.navigation.userlist"/></a></span>
-</nav>
---%>
-
-<%-- </div> --%>

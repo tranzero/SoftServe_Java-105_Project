@@ -75,6 +75,40 @@ INSERT INTO `posts` VALUES ('1', 'TestNews', 'TestTestTestTestTestTestTestTest',
 UNLOCK TABLES;
 
 -- 
+-- Table structure for table `responses`
+-- 
+
+DROP TABLE IF EXISTS `responses`;
+CREATE TABLE `responses` (
+    `RESPONSEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `COMMENT` VARCHAR (200) NOT NULL , 
+    `DATE` DATE NULL , 
+    `checked` BIT (null) NOT NULL ,
+    PRIMARY KEY (RESPONSEID),
+    CONSTRAINT `USER_ID_fk1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `TRIP_ID_fk1`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `responses`
+-- 
+LOCK TABLES `responses` WRITE;
+/*!40000 ALTER TABLE `responses` DISABLE KEYS */;
+INSERT INTO `responses` VALUES ('1', '1', '2', 'good', '2014-02-04', 'true'), ('2', '1', '6', 'wonderful', '2014-02-11', 'true'), ('3', '10', '11', 'good', '2014-02-04', 'true'), ('4', '8', '13', 'wonderful', '2014-02-18', 'true'), ('5', '4', '2', 'wonderful', '2014-02-05', 'true'), ('6', '7', '9', 'This was a wonderful trip', '2014-02-11', 'true'), ('7', '9', '9', 'wonderful', '2014-02-05', 'true'), ('8', '4', '4', 'This was a wonderful trip', '2014-02-05', 'true');
+/*!40000 ALTER TABLE `responses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- 
 -- Table structure for table `routes`
 -- 
 
@@ -196,7 +230,6 @@ CREATE TABLE `tickets` (
     `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
     `TICKETNAME` VARCHAR (100) NOT NULL , 
     `ORDERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
     `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
     `ISSEATCLASS1` BIT (null) NULL , 
     `ISSEATCLASS2` BIT (null) NULL , 
@@ -205,11 +238,6 @@ CREATE TABLE `tickets` (
     CONSTRAINT `fk1`
     FOREIGN KEY (`ORDERID`)
     REFERENCES `orders` (`ORDERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `fk2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
