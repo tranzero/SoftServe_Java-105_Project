@@ -30,6 +30,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQueries({
 		@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
+		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
 		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY) })
 public class Trips extends BaseEntity {
 
@@ -42,6 +43,34 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting trips from DB. Compatible with paging.
 	 */
 	public static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
+	
+	
+//	/**
+//	 * Name of query which is used for selecting trips from DB using criteria. Compatible with
+//	 * paging.
+//	 */
+//	public static final String TRIPS_FIND_BY_CRITERIA = "Trips.findByCriteria";
+	/**
+	 * Query which is used for selecting trips from DB using criteria. Compatible with paging.
+	 */
+	public static final String TRIPS_FIND_BY_CRITERIA_QUERY = "SELECT tr FROM Trips tr WHERE" 
+			+ " tr.transport.transportCode LIKE :transportcode AND tr.remSeatClass1 > :remseatclass1"
+			+" AND tr.remSeatClass2 > :remseatclass2  AND tr.remSeatClass3 > :remseatclass3"
+			+ " AND tr.startDate BETWEEN :mindate AND :maxdate ORDER BY ";
+	
+	/**
+	 * Name of query which is used for selecting count of trips from DB with criteria. Used in
+	 * paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_COUNT = "Trips.findCriteriaCount";
+
+	/**
+	 * Query which is used for selecting count of trips from DB with criteria. Used in paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE" 
+			+ " tr.transport.transportCode LIKE :transportcode AND tr.remSeatClass1 > :remseatclass1"
+			+" AND tr.remSeatClass2 > :remseatclass2  AND tr.remSeatClass3 > :remseatclass3"
+			+ " AND tr.startDate BETWEEN :mindate AND :maxdate";
 
 	/**
 	 * Name of query which is used for selecting count of trips from DB. Used in
@@ -80,7 +109,7 @@ public class Trips extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRANSPORTID")
-	private Transports transport;
+	private Transports transport ;
 
 	/**
 	 * Remaining quantity of seats (class 1)
@@ -116,6 +145,7 @@ public class Trips extends BaseEntity {
 
 	public Trips() {
 		super();
+		
 	}
 
 	/**
