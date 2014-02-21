@@ -23,7 +23,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
-import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 @Controller
 public class RoutesController {

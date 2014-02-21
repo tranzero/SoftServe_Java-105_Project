@@ -2,8 +2,8 @@ package com.ita.edu.softserve.manager.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.ita.edu.softserve.utils.PageInfoContainer;
 import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 @Service
 public final class PaginationManager {

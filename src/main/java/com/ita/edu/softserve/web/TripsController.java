@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 @Controller
 public class TripsController {
@@ -196,7 +197,11 @@ public class TripsController {
 	 */
 
 	private void completeMapForTrips(Integer pageNumber,
-			Integer resultsPerPage, Map<String, Object> modelMap, Locale locale) {
+			Integer resultsPerPage, String transportCode,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, String minDate, String maxDate,
+			String orderByParam, String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
 		long count = tripsManager.getTripsListCount();
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
@@ -231,8 +236,18 @@ public class TripsController {
 	public String printTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForTrips(pageNumber, resultsPerPage, transportCode,
+				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate,
+				orderByParam, orderByDirection, modelMap, locale);
 		return TRIPSPAGE_SPRING_NAME;
 	}
 
@@ -254,8 +269,18 @@ public class TripsController {
 	public String printTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForTrips(pageNumber, resultsPerPage, transportCode,
+				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate,
+				orderByParam, orderByDirection, modelMap, locale);
 		return TRIPS_SPRING_NAME;
 	}
 
@@ -276,8 +301,18 @@ public class TripsController {
 	public String printManageTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForTrips(pageNumber, resultsPerPage, transportCode,
+				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate,
+				orderByParam, orderByDirection, modelMap, locale);
 		return MANAGETRIPSPAGE_SPRING_NAME;
 	}
 
@@ -299,8 +334,18 @@ public class TripsController {
 	public String printManageTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
+			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForTrips(pageNumber, resultsPerPage, transportCode,
+				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate,
+				orderByParam, orderByDirection, modelMap, locale);
 		return MANAGETRIPS_SPRING_NAME;
 	}
 
@@ -371,7 +416,9 @@ public class TripsController {
 		}
 		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
 				transportId)) {
-			completeMapForTrips(null, null, modelMap, locale);
+
+			completeMapForTrips(null, null, null, null, null, null, null, null,
+					null, null, modelMap, locale);
 			return MANAGETRIPS_SPRING_NAME;
 		} else {
 			completeMapForAddTrip(null, null, modelMap, locale);

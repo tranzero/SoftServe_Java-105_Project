@@ -3,7 +3,7 @@ package com.ita.edu.softserve.web;
 import java.util.Map;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 public class PagingController {
 	

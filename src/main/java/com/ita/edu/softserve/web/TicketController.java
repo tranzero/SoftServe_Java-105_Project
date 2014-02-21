@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 /**
  *  * Base controller class for Tickets.

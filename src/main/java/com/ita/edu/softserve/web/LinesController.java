@@ -16,7 +16,7 @@ import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 @Controller
 public class LinesController {

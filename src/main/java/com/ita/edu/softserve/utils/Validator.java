@@ -2,6 +2,7 @@ package com.ita.edu.softserve.utils;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager.SingletonHolder;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 
 /**

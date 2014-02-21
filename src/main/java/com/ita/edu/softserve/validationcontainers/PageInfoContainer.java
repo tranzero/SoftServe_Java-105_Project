@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.utils;
+package com.ita.edu.softserve.validationcontainers;
 
 public class PageInfoContainer {
 	private Integer pageNumber;

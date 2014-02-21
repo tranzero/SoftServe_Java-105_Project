@@ -22,6 +22,38 @@ import com.ita.edu.softserve.entity.Trips;
 @Repository("tripsDao")
 public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 
+	/**
+	 * Defines the name of transport code parameter
+	 */
+	public static final String TRANSPORT_CODE_NAME = "transportCode";
+	/**
+	 * Defines the name of remaining seat class 1 parameter
+	 */
+	public static final String REM_SEAT_CLASS_1_NAME = "remSeatClass1";
+	/**
+	 * Defines the name of remaining seat class 2 parameter
+	 */
+	public static final String REM_SEAT_CLASS_2_NAME = "remSeatClass2";
+	/**
+	 * Defines the name of remaining seat class 3 parameter
+	 */
+	public static final String REM_SEAT_CLASS_3_NAME = "remSeatClass3";
+	/**
+	 * Defines the name of minimum date parameter
+	 */
+	public static final String MIN_DATE_NAME = "minDate";
+	/**
+	 * Defines the name of maximum date parameter
+	 */
+	public static final String MAX_DATE_NAME = "maxDate";
+	/**
+	 * Defines the name of order by column parameter
+	 */
+	public static final String ORDER_BY_PARAM_NAME = "orderByParam";
+	/**
+	 * Defines the name of order by column direction parameter
+	 */
+	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
 	@Override
 	public Class<Trips> getEntityClass() {
 		return Trips.class;
@@ -39,12 +71,12 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 			Integer remSeatClass3, Date minDate, Date maxDate) {
 		return (long) find((Query) entityManager
 				.createNamedQuery(Trips.TRIPS_FIND_CRITERIA_COUNT)
-				.setParameter("transportcode", transportCode)
-				.setParameter("remseatclass1", remSeatClass1)
-				.setParameter("remseatclass2", remSeatClass2)
-				.setParameter("remseatclass3", remSeatClass3)
-				.setParameter("mindate", minDate, TemporalType.DATE)
-				.setParameter("maxdate", maxDate, TemporalType.DATE));
+				.setParameter(TRANSPORT_CODE_NAME, transportCode)
+				.setParameter(REM_SEAT_CLASS_1_NAME, remSeatClass1)
+				.setParameter(REM_SEAT_CLASS_2_NAME, remSeatClass2)
+				.setParameter(REM_SEAT_CLASS_3_NAME, remSeatClass3)
+				.setParameter(MIN_DATE_NAME, minDate, TemporalType.DATE)
+				.setParameter(MAX_DATE_NAME, maxDate, TemporalType.DATE));
 	}
 
 	public List<Trips> getTripsListCriteria(int firstElement, int count,
@@ -53,16 +85,16 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 			String orderByParam, String orderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam
-						+ " " + orderByDirection)
-				.setParameter("transportcode", transportCode)
-				.setParameter("remseatclass1", remSeatClass1)
-				.setParameter("remseatclass2", remSeatClass2)
-				.setParameter("remseatclass3", remSeatClass3)
-				.setParameter("mindate", minDate, TemporalType.DATE)
-				.setParameter("maxdate", maxDate, TemporalType.DATE)
-				.setFirstResult(firstElement)
-				.setMaxResults(count);
+				.createQuery(
+						Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam + " "
+								+ orderByDirection)
+				.setParameter(TRANSPORT_CODE_NAME, transportCode)
+				.setParameter(REM_SEAT_CLASS_1_NAME, remSeatClass1)
+				.setParameter(REM_SEAT_CLASS_2_NAME, remSeatClass2)
+				.setParameter(REM_SEAT_CLASS_3_NAME, remSeatClass3)
+				.setParameter(MIN_DATE_NAME, minDate, TemporalType.DATE)
+				.setParameter(MAX_DATE_NAME, maxDate, TemporalType.DATE)
+				.setFirstResult(firstElement).setMaxResults(count);
 		return (List<Trips>) query.getResultList();
 
 	}

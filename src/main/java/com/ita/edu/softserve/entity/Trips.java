@@ -54,9 +54,9 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting trips from DB using criteria. Compatible with paging.
 	 */
 	public static final String TRIPS_FIND_BY_CRITERIA_QUERY = "SELECT tr FROM Trips tr WHERE" 
-			+ " tr.transport.transportCode LIKE :transportcode AND tr.remSeatClass1 > :remseatclass1"
-			+" AND tr.remSeatClass2 > :remseatclass2  AND tr.remSeatClass3 > :remseatclass3"
-			+ " AND tr.startDate BETWEEN :mindate AND :maxdate ORDER BY ";
+			+ " tr.transport.transportCode LIKE :transportCode AND tr.remSeatClass1 > :remSeatClass1"
+			+" AND tr.remSeatClass2 > :remSeatClass2  AND tr.remSeatClass3 > :remSeatClass3"
+			+ " AND tr.startDate BETWEEN :minDate AND :maxDate ORDER BY ";
 	
 	/**
 	 * Name of query which is used for selecting count of trips from DB with criteria. Used in
@@ -68,9 +68,9 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting count of trips from DB with criteria. Used in paging.
 	 */
 	public static final String TRIPS_FIND_CRITERIA_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE" 
-			+ " tr.transport.transportCode LIKE :transportcode AND tr.remSeatClass1 > :remseatclass1"
-			+" AND tr.remSeatClass2 > :remseatclass2  AND tr.remSeatClass3 > :remseatclass3"
-			+ " AND tr.startDate BETWEEN :mindate AND :maxdate";
+			+ " tr.transport.transportCode LIKE :transportCode AND tr.remSeatClass1 > :remSeatClass1"
+			+" AND tr.remSeatClass2 > :remSeatClass2  AND tr.remSeatClass3 > :remSeatClass3"
+			+ " AND tr.startDate BETWEEN :minDate AND :maxDate";
 
 	/**
 	 * Name of query which is used for selecting count of trips from DB. Used in
