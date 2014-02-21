@@ -5,8 +5,20 @@ import java.util.List;
 import java.util.Locale;
 
 import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 public interface TripsManager extends BaseManager {
+
+	/**
+	 * Validates parameters, used in find with criteria queries
+	 * 
+	 * @param tripsCriteriaContainer
+	 *            container of parameters to validate
+	 * @param locale
+	 *            Locale(used to validate date)
+	 */
+	void validateTripsCriteria(TripsCriteriaContainer tripsCriteriaContainer,
+			Locale locale);
 
 	/**
 	 * Returns complete list of trips
@@ -84,7 +96,7 @@ public interface TripsManager extends BaseManager {
 	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
 			Date maxDate);
-	
+
 	/**
 	 * 
 	 * @param firstElement
@@ -109,11 +121,11 @@ public interface TripsManager extends BaseManager {
 	 *            sorting direction
 	 * @return List of trips according given limits and criteria
 	 */
-	
+
 	List<Trips> getTripsForCriteria(int firstElement, int count,
 			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection) ;
+			String orderByParam, String orderByDirection);
 
 	public Trips findByTripId(Integer id);
 

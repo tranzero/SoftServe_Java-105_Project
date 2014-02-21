@@ -18,6 +18,7 @@ import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Controller
 public class TripsController {
@@ -40,11 +41,11 @@ public class TripsController {
 	 * String for ukrainian or spain date format
 	 */
 
-	private static final String UKRAINIAN_OR_SPAIN_DATE_FORMAT = "dd.MM.yyyy";
+	public static final String UKRAINIAN_OR_SPAIN_DATE_FORMAT = "dd.MM.yyyy";
 	/**
 	 * String for default date format
 	 */
-	private static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd";
+	public static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd";
 	/**
 	 * Part of URL that defines trips web page
 	 */
@@ -202,6 +203,9 @@ public class TripsController {
 			Integer remSeatClass3, String minDate, String maxDate,
 			String orderByParam, String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
+		TripsCriteriaContainer tripsCriteriaContainer = new TripsCriteriaContainer(
+				transportCode, remSeatClass1, remSeatClass2, remSeatClass3,
+				minDate, maxDate, orderByParam, orderByDirection);
 		long count = tripsManager.getTripsListCount();
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
@@ -216,6 +220,7 @@ public class TripsController {
 						lang.equalsIgnoreCase(UKRAINIAN)
 								|| lang.equalsIgnoreCase(SPAIN) ? UKRAINIAN_OR_SPAIN_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
+		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
 	}
 
 	/**

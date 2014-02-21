@@ -17,6 +17,8 @@ import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Service("tripsManager")
 public class TripsManagerImpl implements TripsManager {
@@ -96,6 +98,11 @@ public class TripsManagerImpl implements TripsManager {
 	@Override
 	public List<Trips> getTripsForLimit(int firstElement, int count) {
 		return tripsDao.getTripsForLimits(firstElement, count);
+	}
+	
+	@Override
+	public void validateTripsCriteria(TripsCriteriaContainer tripsCriteriaContainer, Locale locale){
+		Validator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
 	@SuppressWarnings("deprecation")

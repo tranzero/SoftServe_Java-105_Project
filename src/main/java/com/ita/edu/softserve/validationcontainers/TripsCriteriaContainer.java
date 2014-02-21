@@ -12,6 +12,11 @@ import java.util.Date;
  */
 
 public class TripsCriteriaContainer {
+
+	public static final String[] TRIPS_ORDER_BY_COLUMNS = {
+			"tr.transport.transportCode", "tr.remSeatClass1",
+			"tr.remSeatClass2", "tr.remSeatClass3", "tr.startDate, tr.transport.startTime" };
+
 	private String transportCode;
 	private Integer remSeatClass1;
 	private Integer remSeatClass2;
