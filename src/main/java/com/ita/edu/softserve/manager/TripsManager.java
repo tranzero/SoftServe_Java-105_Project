@@ -66,6 +66,27 @@ public interface TripsManager extends BaseManager {
 
 	/**
 	 * 
+	 * @param transportCode
+	 *            transport code for matching
+	 * @param remSeatClass1
+	 *            count of remaining seats of class 1 for matching
+	 * @param remSeatClass2
+	 *            count of remaining seats of class 2 for matching
+	 * @param remSeatClass3
+	 *            count of remaining seats of class 3 for matching
+	 * @param minDate
+	 *            minimum date for date range
+	 * @param maxDate
+	 *            maximum date for date range
+	 * @return List of trips according given limits and criteria
+	 */
+
+	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate);
+	
+	/**
+	 * 
 	 * @param firstElement
 	 *            Starting element for result list
 	 * @param count
@@ -88,10 +109,11 @@ public interface TripsManager extends BaseManager {
 	 *            sorting direction
 	 * @return List of trips according given limits and criteria
 	 */
-
-	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
-			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
-			Date maxDate);
+	
+	List<Trips> getTripsForCriteria(int firstElement, int count,
+			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate,
+			String orderByParam, String orderByDirection) ;
 
 	public Trips findByTripId(Integer id);
 

@@ -32,9 +32,9 @@ public class TripsController {
 	 */
 	private static final String UKRAINIAN_DATE_FORMAT = "dd.MM.yyyy";
 	/**
-	 * String for default (not-ukrainian) date format
+	 * String for default date format
 	 */
-	private static final String DEFAULT_DATE_FORMAT = "yyyy.MM.dd";
+	private static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd";
 	/**
 	 * Part of URL that defines trips web page
 	 */

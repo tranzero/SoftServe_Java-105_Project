@@ -66,6 +66,19 @@ public class TripsManagerImpl implements TripsManager {
 		return tripsDao.getTripsListCriteriaCount(transportCode, remSeatClass1,
 				remSeatClass2, remSeatClass3, minDate, maxDate);
 	}
+	
+	
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Trips> getTripsForCriteria(int firstElement, int count,
+			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate,
+			String orderByParam, String orderByDirection) {
+		return tripsDao.getTripsListCriteria(firstElement, count,
+				transportCode, remSeatClass1, remSeatClass2, remSeatClass3,
+				minDate, maxDate, orderByParam, orderByDirection);
+	}
 
 	@Transactional(readOnly = true)
 	@Override

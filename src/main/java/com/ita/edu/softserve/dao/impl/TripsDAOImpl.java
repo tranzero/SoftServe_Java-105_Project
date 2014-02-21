@@ -20,7 +20,7 @@ import com.ita.edu.softserve.entity.Trips;
  * @author dnycktc
  */
 @Repository("tripsDao")
-public class TripsDaoImpl extends AbstractDAO<Trips> implements TripsDAO {
+public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 
 	@Override
 	public Class<Trips> getEntityClass() {
