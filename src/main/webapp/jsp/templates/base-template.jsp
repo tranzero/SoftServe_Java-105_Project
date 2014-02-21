@@ -23,6 +23,7 @@
 <script src="resources/js/jquery.bootpag.js"></script>
 <script src="resources/js/initPaging.js"></script>
 <script src="resources/js/jquery.ui.datepicker-ua.js"></script>
+<script src="resources/js/jquery.ui.datepicker-es.js"></script>
 <script>
 	function onPagingEvent(event, num, resultsPerPage) {
 		var elementSelectorForResult = "div#pagingcontent";
