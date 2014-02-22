@@ -19,12 +19,15 @@ public class TransportTravel {
 
 	private Object duration;
 
+	private Object sDate;
+	
 	public TransportTravel() {
 		this.transport = null;
 		this.lineName = null;
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
+		this.sDate = null;
 	}
 
 	public TransportTravel(Transports transport) {
@@ -33,6 +36,7 @@ public class TransportTravel {
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
+		this.sDate = null;
 	}
 
 	public TransportTravel(Transports transport, Object departureTime,
@@ -47,8 +51,24 @@ public class TransportTravel {
 		this.duration = duration;
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);
+		this.sDate = null;
 	}
 
+	public TransportTravel(Transports transport, Object departureTime,
+			Object arrivalTime, Object duration, Object sDate) {
+		this();
+		if (transport == null || departureTime == null || duration == null) {
+			return;
+		}
+		this.transport = transport;
+		this.lineName = transport.getRoutes().getLineId().getLineName();
+		this.departureTime = departureTime;
+		this.duration = duration;
+		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
+				(Time) duration);
+		this.sDate = sDate;
+	}
+	
 	public Transports getTransport() {
 		return transport;
 	}

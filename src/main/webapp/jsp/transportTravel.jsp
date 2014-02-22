@@ -7,8 +7,13 @@
 	<h2>Transport find</h2>
 	<form:form action="transportTravel" method="get">
 			From: <input type="text" name="stationName1" placeholder="Pisochne" />&nbsp;&nbsp;&nbsp;
-			To: <input type="text" name="stationName2" placeholder="Sknyliv" />
+			To: <input type="text" name="stationName2" placeholder="Sknyliv" />&nbsp;&nbsp;&nbsp;
+		<%-- Select Date Field --%>
+			Date:&nbsp;&nbsp;<input type="text" id="sDate" name="sDate" />&nbsp;&nbsp;&nbsp;
+		<%-- Select Date Field END --%>
 		<input class="button" type="submit" name="submit" value="Find" />
+		<br />
+		<br />
 	</form:form>
 	<div id="result">
 		<%-- Results --%>
@@ -18,16 +23,16 @@
 				<tr>
 					<td>Number</td>
 					<td><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
 							Station / Stop</a></td>
 					<td><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
 							Number</a></td>
 					<td><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '3')">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
 							Departure / Arrival time</a></td>
 					<td><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '4')">
+						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
 							Duration</a></td>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
@@ -57,10 +62,10 @@
 				<ul class="bootpag">
 					<c:if test="${pageNumber>1}">
 						<li class="prev"><a
-							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=1&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&sDate=${param.sDate}&pageNumber=1&resultsPerPage=${resultsPerPage}">
 								« </a></li>
 						<li class="prev"><a
-							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&sDate=${param.sDate}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
 								<spring:message code="label.prev" />
 						</a></li>
 					</c:if>
@@ -75,7 +80,7 @@
 						varStatus="status">
 						<c:if test="${pageNumber!=i}">
 							<li><a
-								href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+								href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&sDate=${param.sDate}&pageNumber=${i}&resultsPerPage=${resultsPerPage}">
 									${i} </a></li>
 						</c:if>
 						<c:if test="${pageNumber==i}">
@@ -86,11 +91,11 @@
 
 					<c:if test="${pageNumber<maxPages}">
 						<li class="next"><a
-							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&sDate=${param.sDate}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
 								<spring:message code="label.next" />
 						</a></li>
 						<li class="next"><a
-							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+							href="?stationName1=${param.stationName1}&stationName2=${param.stationName2}&sDate=${param.sDate}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
 								» </a></li>
 					</c:if>
 					<c:if test="${pageNumber==maxPages}">
@@ -104,11 +109,10 @@
 			</div>
 		</c:if>
 	</div>
-	<c:if
-		test="${not empty param.stationName1 && not empty param.stationName2}">
-		<script>
-			function showTransportPage(stationName1_, stationName2_,
-					pageNumber_, resultsPerPage_, orderBy_) {
+	<script>
+
+		function showTransportPage(stationName1_, stationName2_,
+					pageNumber_, resultsPerPage_, sDate_, orderBy_) {
 
 				if (stationName1_ == "" || stationName2_ == "") {
 					return;
@@ -129,6 +133,7 @@
 										stationName2 : stationName2_,
 										pageNumber : pageNumber_,
 										resultsPerPage : resultsPerPage_,
+										sDate: sDate_,
 										orderBy: orderBy_
 									}
 								}).done(function(msg) {
@@ -137,13 +142,23 @@
 
 			}
 
+		function formDatePicker() {
+			$.datepicker.setDefaults($.datepicker.regional['en']);
+			$('#sDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+			$("#sDate").datepicker({
+				defaultDate : "+0w",
+				changeMonth : true,
+				numberOfMonths : 1,
+			});
+		}
+		
 			$(window).load(
 					function() {
+						formDatePicker();
 						showTransportPage("${param.stationName1}",
 								"${param.stationName2}", "${pageNumber}",
-								"${resultsPerPage}", "${param.orderBy}");
-					});
+								"${resultsPerPage}", "${param.sDate}", "${param.orderBy}");
+								
+			});
 		</script>
-	</c:if>
-
 </section>

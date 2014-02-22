@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -74,8 +74,21 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimits(
 			String stationName1, String stationName2, int firstElement,
-			int count, int orderBy) {
+			int count, String sDate, int orderBy) {
 		Query query = null;
+		
+		if (sDate == null || sDate.equals("")) {
+			query = entityManager
+					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
+					.setParameter(1, stationName1).setParameter(2, stationName2)
+					.setFirstResult(firstElement).setMaxResults(count);			
+		} else {
+			query = entityManager
+					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS_AND_DATE)
+					.setParameter(1, stationName1).setParameter(2, stationName2)
+					.setParameter(3, java.sql.Date.valueOf(sDate))
+					.setFirstResult(firstElement).setMaxResults(count);						
+		}
 /*		
 		if (orderBy == 1) {
 			query = entityManager
@@ -98,10 +111,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 					.setParameter(1, stationName1).setParameter(2, stationName2)
 					.setFirstResult(firstElement).setMaxResults(count);			
 		} else {
-*/			query = entityManager
-					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
-					.setParameter(1, stationName1).setParameter(2, stationName2)
-					.setFirstResult(firstElement).setMaxResults(count);
+*/
 //		}
 
 		return (List<TransportTravel>) query.getResultList();

@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -294,18 +295,18 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
 			String stationName1, String stationName2, int pageNumber,
-			int count, int orderBy) {
+			int count, String sDate, int orderBy) {
 
 		return getTransportByTwoStForLimit(stationName1, stationName2,
-				(pageNumber - 1) * count, count, orderBy);
+				(pageNumber - 1) * count, count, sDate, orderBy);
 	}
 
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimit(
 			String stationName1, String stationName2, int firstElement,
-			int count, int orderBy) {
+			int count, String sDate, int orderBy) {
 
 		return transportsDao.getTransportByTwoStForLimits(stationName1,
-				stationName2, firstElement, count, orderBy);
+				stationName2, firstElement, count, sDate, orderBy);
 	}
 }

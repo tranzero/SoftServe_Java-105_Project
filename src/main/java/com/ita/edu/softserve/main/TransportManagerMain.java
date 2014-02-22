@@ -28,9 +28,13 @@ public class TransportManagerMain {
 			System.out.println(tt.getTransport().getTransportCode() + " "
 					+ tt.getDepartureTime() + " " + tt.getArrivalTime() + " "
 					+ tt.getDuration());
-//			System.out.println(tt.getDepartureTime());
-//			tt.print();
 		}
 
+		System.out.println("/*****************************/");
+		List<TransportTravel> trTravelList = stationsManager
+				.getTransportByTwoStForPage("Pisochne", "Sknyliv", 1, 10, new String("2013/02/20"), 0);
+		for (TransportTravel tt : trTravelList) {
+			System.out.println(tt);
+		}
 	}
 }
