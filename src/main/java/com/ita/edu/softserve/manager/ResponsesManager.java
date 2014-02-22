@@ -6,10 +6,11 @@ import com.ita.edu.softserve.entity.Responses;
 
 public interface ResponsesManager extends BaseManager {
 	
-	List<Responses> getResponsesByRouteId(Integer routeId);
+	public List<Responses> getResponsesByRouteId(Integer routeId);
 	
-	List<Responses> getResponsesByTripId(Integer tripId);
+	public List<Responses> getResponsesByTripId(Integer tripId);
 	
-	List<Responses> getResponsesByTransportId(Integer transportId);
+	public List<Responses> getResponsesByTransportId(Integer transportId);
 	
+	public void addResponse(Integer userId, Integer tripId, String responseText);
 }

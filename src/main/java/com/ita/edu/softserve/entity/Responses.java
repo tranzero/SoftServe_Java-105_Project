@@ -54,6 +54,14 @@ public class Responses extends BaseEntity {
 	public Responses() {
 	}
 
+	public Responses(Users user, Trips trip, String comment, Date date) {
+		this.user = user;
+		this.trip = trip;
+		this.comment = comment;
+		this.date = date;
+		this.checked = false;
+	}
+	
 	public Integer getResponseid() {
 		return this.responseid;
 	}
