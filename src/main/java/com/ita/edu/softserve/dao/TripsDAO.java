@@ -3,8 +3,11 @@ package com.ita.edu.softserve.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.ita.edu.softserve.entity.Trips;
 
+@Repository
 public interface TripsDAO extends AbstractDAOIface<Trips> {
 
 	/**

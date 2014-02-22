@@ -35,9 +35,6 @@ public interface LinesManager extends BaseManager {
 	
 	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count, int sortOrder);
 
-	public List<Lines> getLinesByStationForPage(int from, int count,
-			String stationName);
-
 	public List<Lines> getLinesByTwoStations(String stationName1,
 			String stationName2);
 	

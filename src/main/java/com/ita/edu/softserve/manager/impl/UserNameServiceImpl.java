@@ -6,9 +6,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.UserNameService;
 
 @Service
-public class UserNameServiceImpl {
+public class UserNameServiceImpl implements UserNameService {
+	
+	private static final String UNREGISTERED_USER = "Unregistered user";
 	
 	@Autowired
 	private UserManager usersmanager;
@@ -18,19 +21,22 @@ public class UserNameServiceImpl {
 	 */
 	public String getLoggedUsername() {	
 		try {
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return user.getUsername();
-		} catch (RuntimeException e){
-		
-			return "Unregister user";
+			User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return user.getUsername();
+		} catch (RuntimeException e){		
+			return UNREGISTERED_USER;
 		}
-	}	
-		
+	}			
 	
 	/**  
-	 *  Checks if user remains on DB after login
+	 *  Checks if user remains on DB after login to prevent his actions
 	 */
 	public boolean isUserFromDb(){		
-		return !usersmanager.findByUsername(getLoggedUsername()).equals(null);
+		if (!getLoggedUsername().equals(UNREGISTERED_USER)) {		
+			if (usersmanager.findByUsername(getLoggedUsername())!= null){
+				return true;
+			}				
+		}		
+		return false;	
 	}
 }

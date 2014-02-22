@@ -128,8 +128,13 @@ public class UserManagerImpl implements UserManager {
 	 */
 	@Override
 	@Transactional
-	public Users findByUsername(String username) {
-		return (Users) userDao.findByUsername(username);
+	public Users findByUsername(String username){		
+		try {
+			return (Users) userDao.findByUsername(username);
+		} catch (NoResultException e) {
+			System.out.println("User does not exist!");
+		}
+		return null;
 	}
 
 	/**
