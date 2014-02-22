@@ -338,3 +338,40 @@ CREATE TABLE `tickets` (
   CONSTRAINT `fk2` FOREIGN KEY (`TRIPID`) REFERENCES `trips` (`TRIPID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
+--
+-- Table structure for table `responses`
+--
+
+CREATE TABLE IF NOT EXISTS `responses` (
+  `RESPONSEID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `USERID` int(10) unsigned NOT NULL,
+  `TRIPID` int(10) unsigned NOT NULL,
+  `COMMENT` varchar(200) NOT NULL,
+  `DATE` date DEFAULT NULL,
+  `checked` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`RESPONSEID`),
+  KEY `USER_ID_fk1_idx` (`USERID`),
+  KEY `TRIP_ID_fk1_idx` (`TRIPID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `responses`
+--
+
+INSERT INTO `responses` (`RESPONSEID`, `USERID`, `TRIPID`, `COMMENT`, `DATE`, `checked`) VALUES
+(1, 1, 2, 'good', '2014-02-04', 1),
+(2, 1, 6, 'wonderful', '2014-02-11', 1),
+(3, 10, 11, 'good', '2014-02-04', 1),
+(4, 8, 13, 'wonderful', '2014-02-18', 1),
+(5, 4, 2, 'wonderful', '2014-02-05', 1),
+(6, 7, 9, 'This was a wonderful trip', '2014-02-11', 1),
+(7, 9, 9, 'wonderful', '2014-02-05', 1),
+(8, 4, 4, 'This was a wonderful trip', '2014-02-05', 1);
+
+
+--
+-- Constraints for table `responses`
+--
+ALTER TABLE `responses`
+  ADD CONSTRAINT `USER_ID_fk1` FOREIGN KEY (`USERID`) REFERENCES `users` (`USERID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `TRIP_ID_fk1` FOREIGN KEY (`TRIPID`) REFERENCES `trips` (`TRIPID`) ON DELETE CASCADE ON UPDATE CASCADE;
