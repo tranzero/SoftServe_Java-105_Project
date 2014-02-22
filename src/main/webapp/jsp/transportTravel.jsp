@@ -44,6 +44,9 @@
 							${transport.getArrivalTime()}
 						</td>
 						<td>${transport.getDuration()}</td>
+						<c:if test="${not empty param.sDate}">
+							<td><a href="#"><spring:message code="label.tickets.purchase" /></a></td>							
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
