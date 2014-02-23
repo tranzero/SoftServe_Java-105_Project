@@ -32,6 +32,10 @@ import org.springframework.util.StringUtils;
  */
 public class TimeEditor extends PropertyEditorSupport {
 
+	private static final String CHARACTERS_LONG = "characters long";
+
+	private static final String COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY = "Could not parse date: it is not exactly";
+
 	private final DateFormat dateFormat;
 
 	private final boolean allowEmpty;
@@ -100,8 +104,8 @@ public class TimeEditor extends PropertyEditorSupport {
 		} else if (text != null && this.exactDateLength >= 0
 				&& text.length() != this.exactDateLength) {
 			throw new IllegalArgumentException(
-					"Could not parse date: it is not exactly"
-							+ this.exactDateLength + "characters long");
+					COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY
+							+ this.exactDateLength + CHARACTERS_LONG);
 		} else {
 			setValue(timeParse(text));
 		}

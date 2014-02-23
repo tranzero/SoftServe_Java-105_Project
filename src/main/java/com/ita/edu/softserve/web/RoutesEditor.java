@@ -14,6 +14,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
  */
 public class RoutesEditor extends PropertyEditorSupport {
 
+	private static final String TEXT_MUST_NOT_BE_NULL = "Text must not be null";
 	RoutesManager routesManager;
 
 	/**
@@ -32,7 +33,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
-		Assert.notNull(text, "Text must not be null");
+		Assert.notNull(text, TEXT_MUST_NOT_BE_NULL);
 
 		String trimmed = StringUtils.trimAllWhitespace(text);
 		// Use default valueOf methods for parsing text.
