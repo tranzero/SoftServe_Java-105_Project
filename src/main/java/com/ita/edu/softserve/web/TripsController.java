@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -206,14 +207,31 @@ public class TripsController {
 		TripsCriteriaContainer tripsCriteriaContainer = new TripsCriteriaContainer(
 				transportCode, remSeatClass1, remSeatClass2, remSeatClass3,
 				minDate, maxDate, orderByParam, orderByDirection);
-		long count = tripsManager.getTripsListCount();
+		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
+		long count = tripsManager.getTripsListCriteriaCount("%"
+				+ tripsCriteriaContainer.getTransportCode() + "%",
+				tripsCriteriaContainer.getRemSeatClass1(),
+				tripsCriteriaContainer.getRemSeatClass2(),
+				tripsCriteriaContainer.getRemSeatClass3(),
+				tripsCriteriaContainer.getMinDate(),
+				tripsCriteriaContainer.getMaxDate());
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
 				resultsPerPage, count);
+
 		paginationManager.validatePaging(container);
+
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		String lang = locale.getLanguage();
-		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForPage(
-				container.getPageNumber(), container.getResultsPerPage()));
+		modelMap.put(TRIPSLIST_NAME, tripsManager.getTripsForCriteriaWithPage(
+				container.getPageNumber(), container.getResultsPerPage(), "%"
+						+ tripsCriteriaContainer.getTransportCode() + "%",
+				tripsCriteriaContainer.getRemSeatClass1(),
+				tripsCriteriaContainer.getRemSeatClass2(),
+				tripsCriteriaContainer.getRemSeatClass3(),
+				tripsCriteriaContainer.getMinDate(),
+				tripsCriteriaContainer.getMaxDate(),
+				tripsCriteriaContainer.getOrderByParam(),
+				tripsCriteriaContainer.getOrderByDirection()));
 		modelMap.put(
 				DATEFORMAT_NAME,
 				new SimpleDateFormat(
@@ -241,12 +259,12 @@ public class TripsController {
 	public String printTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
-			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
-			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = Trips.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = Trips.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = Trips.MAX_DATE_NAME, required = false) String maxDate,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
@@ -274,12 +292,12 @@ public class TripsController {
 	public String printTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
-			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
-			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = Trips.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = Trips.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = Trips.MAX_DATE_NAME, required = false) String maxDate,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
@@ -306,12 +324,12 @@ public class TripsController {
 	public String printManageTripsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
-			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
-			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = Trips.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = Trips.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = Trips.MAX_DATE_NAME, required = false) String maxDate,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
@@ -339,12 +357,12 @@ public class TripsController {
 	public String printManageTrips(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			@RequestParam(value = TripsDAOImpl.TRANSPORT_CODE_NAME, required = false) String transportCode,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
-			@RequestParam(value = TripsDAOImpl.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
-			@RequestParam(value = TripsDAOImpl.MIN_DATE_NAME, required = false) String minDate,
-			@RequestParam(value = TripsDAOImpl.MAX_DATE_NAME, required = false) String maxDate,
+			@RequestParam(value = Trips.TRANSPORT_CODE_NAME, required = false) String transportCode,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_1_NAME, required = false) Integer remSeatClass1,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_2_NAME, required = false) Integer remSeatClass2,
+			@RequestParam(value = Trips.REM_SEAT_CLASS_3_NAME, required = false) Integer remSeatClass3,
+			@RequestParam(value = Trips.MIN_DATE_NAME, required = false) String minDate,
+			@RequestParam(value = Trips.MAX_DATE_NAME, required = false) String maxDate,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_PARAM_NAME, required = false) String orderByParam,
 			@RequestParam(value = TripsDAOImpl.ORDER_BY_DIRECTION_NAME, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {

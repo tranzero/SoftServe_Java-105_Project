@@ -52,5 +52,5 @@ public class TicketController {
 		return "reservationTicket";
 	}
 
-	
+
 }

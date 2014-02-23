@@ -3,6 +3,8 @@ package com.ita.edu.softserve.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
@@ -33,14 +35,15 @@ public class Validator {
 	 * format
 	 */
 
-	private static final String MIN_DATE_STRING = "01/01/1900";
+	private static final String MIN_DATE_STRING = "1900/01/01";
 
 	/**
 	 * String for representation of maximal available date in default date
 	 * format
 	 */
 
-	private static final String MAX_DATE_STRING = "12/31/2100";
+	private static final String MAX_DATE_STRING = "2100/12/31";
+
 	/**
 	 * Validates paging info
 	 * 
@@ -85,16 +88,20 @@ public class Validator {
 
 	public static void validateTripsCriteria(
 			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
-		Set<String> fieldsSet = new TreeSet<String>(
-				Arrays.asList(TripsCriteriaContainer.TRIPS_ORDER_BY_COLUMNS));
-		if (!(fieldsSet.contains(tripsCriteriaContainer.getOrderByParam()))) {
+		Set<String> fieldsSet = new TreeSet<String>();
+		Collections.addAll(fieldsSet,
+				TripsCriteriaContainer.TRIPS_ORDER_BY_COLUMNS);
+		if ((tripsCriteriaContainer.getOrderByParam() == null)
+				|| !(fieldsSet.contains(tripsCriteriaContainer
+						.getOrderByParam()))) {
 			tripsCriteriaContainer
 					.setOrderByParam(TripsCriteriaContainer.TRIPS_ORDER_BY_COLUMNS[0]);
 		}
-		if (!(tripsCriteriaContainer.getOrderByDirection().equalsIgnoreCase(
-				ORDER_BY_SORTING_TYPES[0]) || tripsCriteriaContainer
-				.getOrderByDirection().equalsIgnoreCase(
-						ORDER_BY_SORTING_TYPES[1]))) {
+		if ((tripsCriteriaContainer.getOrderByDirection() == null)
+				|| !(tripsCriteriaContainer.getOrderByDirection()
+						.equalsIgnoreCase(ORDER_BY_SORTING_TYPES[0]) || tripsCriteriaContainer
+						.getOrderByDirection().equalsIgnoreCase(
+								ORDER_BY_SORTING_TYPES[1]))) {
 			tripsCriteriaContainer
 					.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
 
@@ -108,9 +115,11 @@ public class Validator {
 		tripsCriteriaContainer.setRemSeatClass3((Integer) ValidatorUtil
 				.defaultForNull(tripsCriteriaContainer.getRemSeatClass3(), -1));
 		tripsCriteriaContainer.setMinDate(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMinDateString(), locale, MIN_DATE_STRING));
+				tripsCriteriaContainer.getMinDateString(), locale,
+				MIN_DATE_STRING));
 		tripsCriteriaContainer.setMaxDate(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMaxDateString(), locale, MAX_DATE_STRING));
+				tripsCriteriaContainer.getMaxDateString(), locale,
+				MAX_DATE_STRING));
 	}
 
 }

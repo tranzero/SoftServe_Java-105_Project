@@ -126,6 +126,38 @@ public interface TripsManager extends BaseManager {
 			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate,
 			String orderByParam, String orderByDirection);
+	
+	
+	
+	/**
+	 * 
+	 * @param pageNumber
+	 *            Starting page for result list
+	 * @param count
+	 *            capacity of result list
+	 * @param transportCode
+	 *            transport code for matching
+	 * @param remSeatClass1
+	 *            count of remaining seats of class 1 for matching
+	 * @param remSeatClass2
+	 *            count of remaining seats of class 2 for matching
+	 * @param remSeatClass3
+	 *            count of remaining seats of class 3 for matching
+	 * @param minDate
+	 *            minimum date for date range
+	 * @param maxDate
+	 *            maximum date for date range
+	 * @param orderByParam
+	 *            the column, using for sorting
+	 * @param orderByDirection
+	 *            sorting direction
+	 * @return List of trips according given limits and criteria
+	 */
+	List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
+			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate,
+			String orderByParam, String orderByDirection);
+	
 
 	public Trips findByTripId(Integer id);
 
