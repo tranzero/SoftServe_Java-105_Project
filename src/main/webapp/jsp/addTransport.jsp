@@ -9,46 +9,68 @@
 <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="resources/js/addTransportValidation.js"></script>
-		
+
+<style>
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
+</style>
+
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-	<form id="addTransport.htm" action="addTransport.htm" method="post" name="transport">
-		<div>
+		<form:form id="addTransport.htm" method="POST" action="addTransport.htm" commandName="transport">
+			<form:errors path="*" cssClass="errorblock" element="div" />
+
 			<p><spring:message code="label.transport.transportcode"/></p>
-			<p><input id="transportCode" type="text" name="transportCode"></p>
-
+			<p><form:input type="text" path="transportCode" name="transportCode" onfocus="checkpostal()" />
+			<form:errors path="transportCode" cssClass="error"/>
+		
 			<p><spring:message code="label.transport.starttime"/></p>
-			<p><input id="startTime" type="text" name="startTime" ></p>
-
-			<p><label id="routes"><spring:message code="label.routes.routecode"/></label></p>
-			<select name="routes">
+			<p><form:input id="startTime" type="text" path="startTime" class="startTime" placeholder="HH:MM:SS" />
+			<form:errors path="startTime" cssClass="error"/></p>
+	
+			<p><spring:message code="label.transport.seatclass1"/></p>
+			<p><form:input id="seatclass1" path="seatclass1" name="seatclass1"/>
+			<form:errors path="seatclass1" cssClass="error"/></p>
+			
+			<p><spring:message code="label.transport.seatclass2"/></p>
+			<p><form:input id="seatclass2" path="seatclass2" name="seatclass2" />
+			<form:errors path="seatclass2" cssClass="error"/></p>
+			
+			<p><spring:message code="label.transport.seatclass3"/></p>
+			<p><form:input  id="seatclass3" path="seatclass3" name="seatclass3" />
+			<form:errors path="seatclass3" cssClass="error"/></p>
+			
+			<p><spring:message code="label.transport.genprice"/></p>
+			<p><form:input id="genPrice" path="genPrice" name="genPrice"/>
+			<form:errors path="genPrice" cssClass="error"/></p>
+	
+			<spring:message code="label.routes.routecode"/>
+			
+			<p><form:errors path="routes" cssClass="error"/>
+			<form:select path="routes" name="routes">
 				<c:forEach var="route" items="${routesList}">
 					<option value="${route.getRouteId()}">
 						${route.getRouteCode()}&emsp; ${route.getLineId().getLineName()}</option>
 				</c:forEach>
-			</select>
+			</form:select>
 				
-			<p><spring:message code="label.transport.seatclass1"/></p>
-			<p><input id="seatclass1" type="text" name="seatclass1"></p>
-			
-			<p><spring:message code="label.transport.seatclass2"/></p>
-			<p><input id="seatclass2" type="text" name="seatclass2"></p>
-
-			<p><spring:message code="label.transport.seatclass3"/></p>
-			<p><input id="seatclass3" type="text" name="seatclass3"></p>
-
-			<p><spring:message code="label.transport.genprice"/></p>
-			<p><input id="genprice" type="text" name="genprice"></p>
-				
-		</div>
-		<input type="submit" value="<spring:message code="label.navigation.addTransport"/>">&emsp;
-		<input type="button" value="<spring:message code="label.stations.cancel"/>" 
-				onclick="window.location='/SoftServe_Java-105/transport';">
-	</form>
+		<form:input path="" type="submit" value="Add" />
+		
+	</form:form>
 	
 	<script src="resources/js/jquery.js"></script>
 	<script src="resources/js/jquery.datetimepicker.js"></script>
+	
 	<script>
 	<!--
 		$('#startTime').datetimepicker({
@@ -58,5 +80,5 @@
 		});
 	//-->
 	</script>
-	
+
 </section>

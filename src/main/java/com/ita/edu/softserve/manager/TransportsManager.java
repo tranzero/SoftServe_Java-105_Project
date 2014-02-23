@@ -45,11 +45,9 @@ public interface TransportsManager extends BaseManager {
 	List<Transports> getAllTransports();
 
 	/**
-	 * Saves new transport into Transports table if not exist otherwise updates it.
+	 * Saves new a transport into Transports table if not exist otherwise updates it.
 	 */
-	void saveOrUpdateTransport(Integer transportId, String transportCode,
-			Time startTime, Routes routes, Integer seatclass1,
-			Integer seatclass2, Integer seatclass3, Double genprice);
+	void saveOrUpdateTransport(Transports transport);
 
 	/**
 	 * Gets transport by two stations in certain order

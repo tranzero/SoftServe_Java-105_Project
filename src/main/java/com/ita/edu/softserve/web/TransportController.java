@@ -1,14 +1,17 @@
 package com.ita.edu.softserve.web;
 
-import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
-
-import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,11 +115,6 @@ public class TransportController {
 	private static final String REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE = "/removeTransport/{transportToRemove}";
 
 	/**
-	 * Path variable to transport Id.
-	 */
-	private static final String TRANSPORT_ID_MODEL_ATTRIBUTE = "transportId";
-
-	/**
 	 * URL pattern that map controller updateTransportToDB.
 	 */
 	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "/editTransport/{transportId}";
@@ -129,41 +127,6 @@ public class TransportController {
 	 * URL pattern that map controller editTransport.
 	 */
 	private static final String EDIT_TRANSPORT_TRANSPORT = "/editTransport/{transport}";
-
-	/**
-	 * Transport code model attribute to get transport code.
-	 */
-	private static final String TRANSPORT_CODE_MODEL_ATTRIBUTE = "transportCode";
-
-	/**
-	 * Start time model attribute to get start time.
-	 */
-	private static final String START_TIME_MODEL_ATTRIBUTE = "startTime";
-
-	/**
-	 * Routes code model attribute to get routes code.
-	 */
-	private static final String ROUTES_MODEL_ATTRIBUTE = "routes";
-
-	/**
-	 * Seat class 1 model attribute to get number of seats of class 1.
-	 */
-	private static final String SEATCLASS1_MODEL_ATTRIBUTE = "seatclass1";
-
-	/**
-	 * Seat class 2 model attribute to get number of seats of class 2.
-	 */
-	private static final String SEATCLASS2_MODEL_ATTRIBUTE = "seatclass2";
-
-	/**
-	 * Seat class 3 model attribute to get number of seats of class 3.
-	 */
-	private static final String SEATCLASS3_MODEL_ATTRIBUTE = "seatclass3";
-
-	/**
-	 * General price model attribute to get general price.
-	 */
-	private static final String GENPRICE_MODEL_ATTRIBUTE = "genprice";
 
 	/**
 	 * The name of jsp that defines Spring to redirect.
@@ -199,7 +162,12 @@ public class TransportController {
 	 * The name of key with which the transports value is to be associated.
 	 */
 	private static final String TRANSPORTS_LIST_NAME = "transportsList";
-
+	
+	/**
+	 * The name of jsp that defines Spring.
+	 */
+	private static final String TRANSPORT_TO_UPDATE = "transport";
+	
 	/**
 	 * The name of jsp that defines Spring.
 	 */
@@ -248,6 +216,8 @@ public class TransportController {
 	@Autowired
 	private RoutesDAO routesDao;
 
+	@Autowired
+	Validator transportsValidator;
 	/**
 	 * Display transports in browser.
 	 * 
@@ -353,18 +323,48 @@ public class TransportController {
 		modelMap.put(TRANSPORTS_LIST_NAME, transports);
 	}
 
+	/*--------------------------------------------------------*/
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(transportsValidator);
+
+		// NumberFormat numberFormat = NumberFormat.getInstance();
+		// numberFormat.setGroupingUsed(false);
+		//
+		// binder.registerCustomEditor(Integer.class, new CustomNumberEditor(
+		// Integer.class, numberFormat, true));
+		//
+		// binder.registerCustomEditor(Double.class, new CustomNumberEditor(
+		// Double.class, numberFormat, true));
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Time.class, new TimeEditor(dateFormat,
+				false));
+
+		binder.registerCustomEditor(Routes.class, new RoutesEditor(
+				routesManager));
+	}
+
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
 	 * 
 	 * @return addTransport jsp to use.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
-	public String transportForm(Map<String, Object> map) {
+	public String transportForm(ModelMap modelMap) {
 
-		List<Routes> routesList = routesManager.getAllRoutes();
-		map.put("routesList", routesList);
+		modelMap.addAttribute("transport", new Transports());
+
+		transportForm2(modelMap);
 
 		return ADD_TRANSPORT_JSP;
+	}
+
+	public void transportForm2(ModelMap modelMap) {
+		List<Routes> routesList = routesManager.getAllRoutes();
+		modelMap.put("routesList", routesList);
 	}
 
 	/**
@@ -373,42 +373,26 @@ public class TransportController {
 	 * 
 	 * @param transportCode
 	 *            Transport code.
-	 * @param startTime
-	 *            Start time.
-	 * @param routesCode
-	 *            Routes code.
-	 * @param seatclass1
-	 *            Number of seats class 1.
-	 * @param seatclass2
-	 *            Number of seats class 2.
-	 * @param seatclass3
-	 *            Number of seats class 3.
-	 * @param genprice
-	 *            General price.
 	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
-			@ModelAttribute(TRANSPORT_CODE_MODEL_ATTRIBUTE) String transportCode,
-			@ModelAttribute(START_TIME_MODEL_ATTRIBUTE) String startTime,
-			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routes,
-			@ModelAttribute(SEATCLASS1_MODEL_ATTRIBUTE) String seatclass1,
-			@ModelAttribute(SEATCLASS2_MODEL_ATTRIBUTE) String seatclass2,
-			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
-			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
+			@ModelAttribute("transport")/* @Valid */Transports transport,
+			BindingResult bindingResult, ModelMap modelMap) {
 
-		Time timeParse = timeParse(startTime);
-		Routes findById = routesDao.findById(new Integer(routes));
-		Integer seatclass12 = new Integer(seatclass1);
-		Integer seatclass22 = new Integer(seatclass2);
-		Integer seatclass32 = new Integer(seatclass3);
-		Double genprice2 = new Double(genprice);
+		transportsValidator.validate(transport, bindingResult);
 
-		transportsManager.saveOrUpdateTransport(null, transportCode, timeParse,
-				findById, seatclass12, seatclass22, seatclass32, genprice2);
+		if (bindingResult.hasErrors()) {
+			transportForm2(modelMap);
+			return ADD_TRANSPORT_JSP;
+		}
+
+		transportsManager.saveOrUpdateTransport(transport);
 
 		return REDIRECT_TRANSPORT;
 	}
+
+	/*-----------------------------------------------------------*/
 
 	/**
 	 * Controller for displaying getting transports ID from the Transports table
@@ -423,12 +407,12 @@ public class TransportController {
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
-			Map<String, Object> modelMap) {
-
+			ModelMap modelMap) {
+		// TODO:
 		Transports transport = transportsManager
 				.findTransportsById(transportId);
 
-		modelMap.put(TRANSPORT, transport);
+		modelMap.put(TRANSPORT_TO_UPDATE, transport);
 
 		return EDIT_TRANSPORT_JSP;
 	}
@@ -437,46 +421,27 @@ public class TransportController {
 	 * Displays getting a transport object and saves it into the Transports
 	 * table.
 	 * 
-	 * @param transportCode
-	 *            Transport code.
-	 * @param startTime
-	 *            Start time.
-	 * @param routesCode
-	 *            Routes code.
-	 * @param seatclass1
-	 *            Number of seats class 1.
-	 * @param seatclass2
-	 *            Number of seats class 2.
-	 * @param seatclass3
-	 *            Number of seats class 3.
-	 * @param genprice
-	 *            General price.
 	 * @return redirect:/transport
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
-			@PathVariable(TRANSPORT_ID_MODEL_ATTRIBUTE) Integer transportId,
-			@ModelAttribute(TRANSPORT_CODE_MODEL_ATTRIBUTE) String transportCode,
-			@ModelAttribute(START_TIME_MODEL_ATTRIBUTE) String startTime,
-			@ModelAttribute(ROUTES_MODEL_ATTRIBUTE) String routes,
-			@ModelAttribute(SEATCLASS1_MODEL_ATTRIBUTE) String seatclass1,
-			@ModelAttribute(SEATCLASS2_MODEL_ATTRIBUTE) String seatclass2,
-			@ModelAttribute(SEATCLASS3_MODEL_ATTRIBUTE) String seatclass3,
-			@ModelAttribute(GENPRICE_MODEL_ATTRIBUTE) String genprice) {
+			@ModelAttribute(TRANSPORT_TO_UPDATE) Transports transport,
+			BindingResult bindingResult, ModelMap modelMap) {
+		// TODO:
+		transportsValidator.validate(transport, bindingResult);
 
-		Time timeParse = timeParse(startTime);
-		Routes findById = routesDao.findById(new Integer(routes));
-		Integer seatclass12 = new Integer(seatclass1);
-		Integer seatclass22 = new Integer(seatclass2);
-		Integer seatclass32 = new Integer(seatclass3);
-		Double genprice2 = new Double(genprice);
+		if (bindingResult.hasErrors()) {
+//			transportForm2(modelMap);
+			return EDIT_TRANSPORT_JSP;
+		}
 
-		transportsManager.saveOrUpdateTransport(transportId, transportCode,
-				timeParse, findById, seatclass12, seatclass22, seatclass32,
-				genprice2);
+		transportsManager.saveOrUpdateTransport(transport);
 
 		return REDIRECT_TRANSPORT;
 	}
+
+	/*-------------------------------------------------------*/
+
 
 	/**
 	 * Displays deleting a transport from the Transports table.

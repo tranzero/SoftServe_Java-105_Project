@@ -1,7 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -29,12 +28,11 @@ public class TransportsManagerImpl implements TransportsManager {
 	private static final Logger LOGGER = Logger
 			.getLogger(TransportsManagerImpl.class);
 
-	private String entityName = Transports.class.getSimpleName().concat(
-			" with id=");
+	private String entityName = Transports.class.getSimpleName();
 
 	private String addMessage = " was added to DB";
 	private String removeMessage = " was remove from DB by ";
-	private String changeMsg = " was change in DB by ";
+//	private String changeMsg = " was change in DB by ";
 
 	private final String findTransportsMessage = "Could not find Transport List";
 	private final String saveTransportMessage = "Could not save Transports";
@@ -189,38 +187,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateTransport(Integer transportId,
-			String transportCode, Time startTime, Routes routes,
-			Integer seatclass1, Integer seatclass2, Integer seatclass3,
-			Double genprice) {
-
-		Transports transport = null;
-
-		if (transportId == null) {
-			transport = new Transports();
-			LOGGER.info(entityName + "was created");
-		} else {
-			try {
-				transport = transportsDao.findById(transportId);
-				LOGGER.info(entityName + transport.getTransportId() + "was fond");
-			} catch (RuntimeException e) {
-				RuntimeException ex = new TransprtsManagerException(
-						"Could not find transport by ID =  "
-								+ transport.getTransportId(), e);
-				LOGGER.error(e);
-				LOGGER.error(ex);
-				throw ex;
-			}
-		}
-
-		transport.setTransportCode(transportCode);
-		transport.setStartTime(startTime);
-		transport.setRoutes(routes);
-		transport.setSeatclass1(seatclass1);
-		transport.setSeatclass2(seatclass2);
-		transport.setSeatclass3(seatclass3);
-		transport.setGenPrice(genprice);
-
+	public void saveOrUpdateTransport(Transports transport) {
 		try {
 			transportsDao.saveOrUpdate(transport);
 		} catch (RuntimeException e) {
