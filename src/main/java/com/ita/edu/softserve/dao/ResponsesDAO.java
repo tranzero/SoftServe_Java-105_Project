@@ -10,5 +10,8 @@ public interface ResponsesDAO extends AbstractDAOIface<Responses>{
 	
 	List<Responses> findResponsesByTripId(Integer tripId);
 	
-	List<Responses> findResponsesByTranportId(Integer transportId);	
+	List<Responses> findResponsesByTranportId(Integer transportId);
+	
+	List<Responses> findUncheckedResponses();	
+	
 }

@@ -31,7 +31,15 @@ public class ResponsesController {
 
 	private static final String RESPONSES_INFO = "/responsesInfoPage";
 
+	private static final String CHECK_RESPONSES = "/checkResponses";
+
+	private static final String DEL_RESPONSE = "/delResponse/{responseId}";
+	
+	private static final String MARK_AS_CHECKED = "/markAsChecked/{responseId}";
+	
 	private static final String RESPONSES_LIST = "ResponsesList";
+
+	private static final String UNCHECKED_RESPONSES_LIST = "uncheckedResponsesList";
 
 	private static final String RESPONSES_JSP_PAGE = "responses";
 
@@ -40,6 +48,14 @@ public class ResponsesController {
 	private static final String RESPONSES_INFO_JSP_PAGE = "responsesInfoPage";
 
 	private static final String COMMENT_TEXT_PARAM = "commentText";
+	
+	private static final String TRIP_ID_PARAM = "tripId";
+	
+	private static final String RESPONSE_ID_PARAM = "responseId";
+
+	private static final String CHECK_RESPONSES_JSP_PAGE = "checkResponses";
+
+	private static final String REDIRECT_CHECK_RESPONSES_JSP_PAGE = "redirect:/checkResponses";
 
 	@Autowired
 	private ResponsesManager responsesManager;
@@ -81,15 +97,40 @@ public class ResponsesController {
 	}
 
 	@RequestMapping(value = ADD_COMMENT, method = RequestMethod.POST)
-	public String addComment(@PathVariable("tripId") Integer tripId,
+	public String addComment(@PathVariable(TRIP_ID_PARAM) Integer tripId,
 			@ModelAttribute(COMMENT_TEXT_PARAM) String commentText,
 			Map<String, Object> modelMap) {
 
-		// here instead of 1, must be something like getCurrentUser{Logged}, that
+		// here instead of 1, must be something like getCurrentUser{Logged},
+		// that
 		// returns Users Object or userId
 		responsesManager.addResponse(1, tripId, commentText);
 
 		return RESPONSES_INFO_JSP_PAGE;
 	}
 
+	@RequestMapping(value = CHECK_RESPONSES, method = RequestMethod.GET)
+	public String checkResponses(Map<String, Object> modelMap) {
+
+		modelMap.put(UNCHECKED_RESPONSES_LIST,
+				responsesManager.getUncheckedResponses());
+
+		return CHECK_RESPONSES_JSP_PAGE;
+	}
+
+	@RequestMapping(value = DEL_RESPONSE, method = RequestMethod.GET)
+	public String delResponse(@PathVariable(RESPONSE_ID_PARAM) Integer responseId,
+			Map<String, Object> modelMap) {
+		responsesManager.delResponse(responseId);
+		
+		return REDIRECT_CHECK_RESPONSES_JSP_PAGE;
+	}
+
+	@RequestMapping(value = MARK_AS_CHECKED, method = RequestMethod.GET)
+	public String markAsChecked(@PathVariable(RESPONSE_ID_PARAM) Integer responseId,
+			Map<String, Object> modelMap) {
+		responsesManager.markAsChecked(responseId);
+		
+		return REDIRECT_CHECK_RESPONSES_JSP_PAGE;
+	}
 }
