@@ -37,8 +37,8 @@
 			<input id="email" type="text" name="email" value="${user.geteMail()}">
 
 			<p>Password:</p>
-			<input id="parole" type="password" name="parole"
-				value="${user.getPasswd()}">
+			<input id="password" type="password" name="password"
+				value="${user.getPassword()}">
 
 			<p>Role:</p>
 			<form:select id="role" name="role" path="user.role">

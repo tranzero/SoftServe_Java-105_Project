@@ -96,7 +96,7 @@ public class Users extends BaseEntity {
 
 		this.setUserName(userName);
 		this.seteMail(email);
-		this.setPasswd(password);
+		this.setPassword(password);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Users extends BaseEntity {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.seteMail(email);
-		this.setPasswd(password);
+		this.setPassword(password);
 		this.setRole(role);
 	}
 
@@ -216,7 +216,7 @@ public class Users extends BaseEntity {
 	/**
 	 * @return the passwd
 	 */
-	public String getPasswd() {
+	public String getPassword() {
 		return password;
 	}
 
@@ -224,7 +224,7 @@ public class Users extends BaseEntity {
 	 * @param password
 	 *            the passwd to set
 	 */
-	public void setPasswd(String password) {
+	public void setPassword(String password) {
 		// Assert.hasText(passwd, "Password must not be empty!");
 		this.password = password;
 	}

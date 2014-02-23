@@ -91,7 +91,7 @@ public class UserManagerImpl implements UserManager {
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.seteMail(email);
-		user.setPasswd(password);
+		user.setPassword(password);
 		user.setRole(role);
 
 		userDao.update(user);
@@ -109,7 +109,7 @@ public class UserManagerImpl implements UserManager {
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.seteMail(email);
-		user.setPasswd(password);
+		user.setPassword(password);
 
 		userDao.update(user);
 	}

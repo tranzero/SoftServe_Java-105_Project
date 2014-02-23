@@ -25,8 +25,8 @@
 			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
 
 			<p>Password</p>
-			<input id="Passwd" type="text" name="Passwd"
-				value="${user.getPasswd()}">
+			<input id="password" type="password" name="password"
+				value="${user.getPassword()}">
 
 			<p>
 				<input type="submit" value="Update USER">

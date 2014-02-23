@@ -148,12 +148,12 @@ public class UserControllerPg {
 			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("email") String email,
-			@ModelAttribute("parole") String parole,
+			@ModelAttribute("password") String password,
 			@ModelAttribute("role") Role role
 
 	) {
 		usersmanage
-				.updateUser(userId, firstName, lastName, email, parole, role);
+				.updateUser(userId, firstName, lastName, email, password, role);
 		return "redirect:/userlist2";
 	}
 
