@@ -32,9 +32,11 @@
 					${transport.getArrivalTime()}
 				</td>
 				<td>${transport.getDuration()}</td>
-						<c:if test="${not empty param.sDate}">
-							<td><a href="#"><spring:message code="label.tickets.purchase" /></a></td>							
-						</c:if>
+				<c:if test="${not empty param.sDate}">
+					<td><a
+						href="/SoftServe_Java-105/reservationTicket/${transport.getTripId()}"><spring:message
+								code="label.tickets.purchase" /></a></td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</table>

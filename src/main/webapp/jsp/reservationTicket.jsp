@@ -3,45 +3,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<section id="content">
-	<h2>Transports find</h2>
-	<form:form action="reservationTicket" method="get">
-			From: <input type="text" name="stationName1" placeholder="Pisochne" />&nbsp;&nbsp;&nbsp;
-			To: <input type="text" name="stationName2" placeholder="Sknyliv" />
-			<p>
-			Date: <input type="text" name="dateArriving" placeholder="2013-02-22" />
-		<input class="button" type="submit" name="submit" value="Find" />
-	</form:form>
 
-		<c:if test="${!empty TransportTravelList}">
-			<hr />
-			<table>
-				<tr>
-					<td>Station</td>
-					<td>Number</td>
-					<td>Departure / Arrival time</td>
-					<td>Duration</td>
-				</tr>
-				<c:forEach var="transport" items="${TransportTravelList}">
-				<div>
-				</div>
-					<tr>
-						<td><input type="radio" value="${transport.getLineName()}"></td>
-						<td>${transport.getTransport().getTransportCode()}</td>
-						<td>dep ${transport.getDepartureTime()}<br />arr
-							${transport.getArrivalTime()}
-						</td>
-						<td>${transport.getDuration()}</td>
-					</tr>
-				</c:forEach>
-			</table>
-			<hr />
-		</c:if>
-		<c:if
-			test="${empty TransportTravelList && not empty param.stationName1 && not empty param.stationName2}">
-			<hr />
-			<h3>Sorry. No results was found</h3>
-			<hr />
-		</c:if>
+<section id="content">
+	<h2>Choose Class-Seat</h2>
+	<form:form action="reservationTicket" method="get">
+		<tr>
+			<td valign=bottom><label><input type="radio"
+					name="group1"> <strong>SeatClass №1 :</strong> <br /> </label>Amount
+				of free space : <strong>${trip.getRemSeatClass1()}</strong><br />
+				Price : <strong>${transport.getGenPrice()}</strong></td>
+		</tr>
+		<br />
+		<tr>
+			<td valign=bottom><label><input type="radio"
+					name="group1" /> <strong>SeatClass №2 :</strong> <br /></label>Amount of
+				free space : <strong>${trip.getRemSeatClass2()}</strong><br />
+				Price : <strong>${transport.getGenPrice()}</strong></td>
+		</tr>
+		<br />
+		<tr>
+			<td valign=bottom><label><input type="radio"
+					name="group1" /> <strong>SeatClass №3 :</strong> <br /> </label> Amount
+				of free space : <strong>${trip.getRemSeatClass3()}</strong><br />
+				Price : <strong>${transport.getGenPrice()}</strong></td>
+		</tr>
+		<br />
+
+		<table cellspacing=0 cellpadding=5 bgcolor="tan">
+			<tr>
+				<td align=center>FirstName: <input type="text"
+					name="shopper_name" size=44><br> LastName: <input
+					type="text" name="shopper_name" size=44><br>
+					Email:&nbsp;&nbsp;&nbsp; <input type="text" size=44 name="email"><br>
+					Phone-Number:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" size="20"
+					name="phone"><br> Credit card number: <input
+					type="text" size="20" name="credit_card_number"> <br>
+				</td>
+			</tr>
+
+		</table>
+		<br>
+		<input type="submit" name="submit" value="Make a booking">&nbsp
+ 		<input type="reset" value="Cancel">
+		<br>
+	</form:form>
 
 </section>

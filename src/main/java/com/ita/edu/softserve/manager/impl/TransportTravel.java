@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashSet;
 
 import com.ita.edu.softserve.entity.Transports;
 
@@ -21,6 +22,8 @@ public class TransportTravel {
 
 	private Object sDate;
 	
+	private Integer tripId;
+	
 	public TransportTravel() {
 		this.transport = null;
 		this.lineName = null;
@@ -28,6 +31,7 @@ public class TransportTravel {
 		this.arrivalTime = null;
 		this.duration = null;
 		this.sDate = null;
+		this.tripId = null;
 	}
 
 	public TransportTravel(Transports transport) {
@@ -37,6 +41,7 @@ public class TransportTravel {
 		this.arrivalTime = null;
 		this.duration = null;
 		this.sDate = null;
+		this.tripId = null;
 	}
 
 	public TransportTravel(Transports transport, Object departureTime,
@@ -52,10 +57,11 @@ public class TransportTravel {
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);
 		this.sDate = null;
+		this.tripId = null;
 	}
 
 	public TransportTravel(Transports transport, Object departureTime,
-			Object arrivalTime, Object duration, Object sDate) {
+			Object arrivalTime, Object duration, Object sDate, Integer tripId) {
 		this();
 		if (transport == null || departureTime == null || duration == null) {
 			return;
@@ -67,6 +73,7 @@ public class TransportTravel {
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);
 		this.sDate = sDate;
+		this.tripId = tripId;
 	}
 	
 	public Transports getTransport() {
@@ -109,6 +116,14 @@ public class TransportTravel {
 		this.duration = duration;
 	}
 
+	public Integer getTripId() {
+		return tripId;
+	}
+
+	public void setTripId(Integer tripId) {
+		this.tripId = tripId;
+	}
+	
 	/*
 	 * Sum two Times
 	 */

@@ -22,11 +22,11 @@
 				value="${user.getLastName()}">
 
 			<p>Email</p>
-			<input id="eMail" type="text" name="eMail" value="${user.geteMail()}">
+			<input id="eMail" type="text" name="eMail" value="${user.getEmail()}">
 
 			<p>Password</p>
-			<input id="Passwd" type="text" name="Passwd"
-				value="${user.getPasswd()}">
+			<input id="password" type="password" name="password"
+				value="${user.getPassword()}">
 
 			<p>
 				<input type="submit" value="Update USER">

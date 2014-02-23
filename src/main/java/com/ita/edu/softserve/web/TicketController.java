@@ -8,12 +8,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TransportsManager;
+import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
@@ -33,37 +37,20 @@ public class TicketController {
 	@Autowired 
 	private TicketsManager ticketsManager;
 	
+	@Autowired
+	private TripsManager tripsManager;
 	
-	/**
-	 * Controller method for displaying getting Transport by two stations page.
-	 * 
-	 * @param stationName1
-	 *            Name of station 1.
-	 * @param stationName2
-	 *            Name of station 2.
-	 * @param modelMap
-	 *            Model map to fill.
-	 * @return
-	 */
-	@RequestMapping(value = "/reservationTicket", method = RequestMethod.GET)
-	public String getTransportByTwoStations(
-			@RequestParam(value = "stationName1", required = false) String stationName1,
-			@RequestParam(value = "stationName2", required = false) String stationName2,
-			@RequestParam(value = "dateArriving", required = false) String dateArriving,
-			@RequestParam(value = "orderBy", required = false) Integer orderBy,
+	
+	@RequestMapping(value = "/reservationTicket/{tripId}", method = RequestMethod.GET)
+	public String reservationTicket(@PathVariable("tripId") Integer tripId,
 			Map<String, Object> modelMap) {
-
-		if (stationName1 == null || stationName2 == null
-				|| stationName1.equals("") || stationName2.equals("")) {
-			return "reservationTicket";
-		}
-		if (orderBy == null) {
-			orderBy = 0;
-		}
-
-		modelMap.put("TransportTravelList", ticketsManager.getTransportByTwoStations(stationName1, stationName2, dateArriving));
-
+	 
+		Trips trip = tripsManager.findByTripId(tripId);
+		Transports transport = transportsManager.findTransportsById(trip.getTransport().getTransportId());
+		modelMap.put("trip", trip);
+		modelMap.put("transport", transport);
 		return "reservationTicket";
 	}
+
 
 }

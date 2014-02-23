@@ -17,11 +17,11 @@
 
 		<p>Email</p>
 		<input id="email" type="text" name="email" 
-		    value="${user.geteMail()}">
+		    value="${user.getEmail()}">
 
 		<p>Password</p>
 		<input id="password" type="text" name="password"
-			value="${user.getPasswd()}">
+			value="${user.getPassword()}">
 
 		<p>
 			<input type="submit" value="Update profile">

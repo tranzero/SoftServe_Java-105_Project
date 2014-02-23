@@ -61,10 +61,10 @@ public class Users extends BaseEntity {
 	private String lastName;
 
 	@Column(name = "EMAIL", nullable = false, updatable = true, length = 100)
-	private String eMail;
+	private String email;
 
 	@Column(name = "PASSWD", nullable = false, updatable = true, length = 100)
-	private String passwd;
+	private String password;
 
 	@Column(name = "REGDATE", nullable = true)
 	private Date regDate;
@@ -91,12 +91,12 @@ public class Users extends BaseEntity {
 	 * @param email
 	 * @param password
 	 */
-	public Users(String userName, String eMail, String password) {
+	public Users(String userName, String email, String password) {
 		this();
 
 		this.setUserName(userName);
-		this.seteMail(eMail);
-		this.setPasswd(password);
+		this.setEmail(email);
+		this.setPassword(password);
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class Users extends BaseEntity {
 	 * @param password
 	 */
 	public Users(String userName, String firstName, String lastName,
-			String eMail, String password) {
-		this(userName, eMail, password);
+			String email, String password) {
+		this(userName, email, password);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 	}
@@ -126,13 +126,13 @@ public class Users extends BaseEntity {
 	 * @param role
 	 */
 	public Users(String userName, String firstName, String lastName,
-			String eMail, String password, Role role) {
+			String email, String password, Role role) {
 
 		this.setUserName(userName);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		this.seteMail(eMail);
-		this.setPasswd(password);
+		this.setEmail(email);
+		this.setPassword(password);
 		this.setRole(role);
 	}
 
@@ -200,33 +200,33 @@ public class Users extends BaseEntity {
 	/**
 	 * @return the eMail
 	 */
-	public String geteMail() {
-		return eMail;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
-	 * @param eMail
+	 * @param email
 	 *            the eMail to set
 	 */
-	public void seteMail(String eMail) {
-		Assert.hasText(eMail, "Email adress must not be empty!");
-		this.eMail = eMail;
+	public void setEmail(String email) {
+		Assert.hasText(email, "Email adress must not be empty!");
+		this.email = email;
 	}
 
 	/**
 	 * @return the passwd
 	 */
-	public String getPasswd() {
-		return passwd;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param passwd
+	 * @param password
 	 *            the passwd to set
 	 */
-	public void setPasswd(String passwd) {
+	public void setPassword(String password) {
 		// Assert.hasText(passwd, "Password must not be empty!");
-		this.passwd = passwd;
+		this.password = password;
 	}
 
 	/**

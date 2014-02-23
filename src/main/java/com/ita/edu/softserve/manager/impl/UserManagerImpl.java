@@ -84,17 +84,17 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	@Transactional
 	public void updateUser(Integer userId, String firstName, String lastName,
-			String eMail, String passwd, Role role) {
+			String email, String password, Role role) {
 
-		Users userr = userDao.findById(userId);
+		Users user = userDao.findById(userId);
 
-		userr.setFirstName(firstName);
-		userr.setLastName(lastName);
-		userr.seteMail(eMail);
-		userr.setPasswd(passwd);
-		userr.setRole(role);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setRole(role);
 
-		userDao.update(userr);
+		userDao.update(user);
 	}
 
 	/**
@@ -102,16 +102,16 @@ public class UserManagerImpl implements UserManager {
 	 */
 	@Transactional
 	public void updateUser2(Integer userId, String firstName, String lastName,
-			String eMail, String passwd) {
+			String email, String password) {
 
-		Users userr = userDao.findById(userId);
+		Users user = userDao.findById(userId);
 
-		userr.setFirstName(firstName);
-		userr.setLastName(lastName);
-		userr.seteMail(eMail);
-		userr.setPasswd(passwd);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+		user.setPassword(password);
 
-		userDao.update(userr);
+		userDao.update(user);
 	}
 
 	/**

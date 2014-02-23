@@ -68,12 +68,12 @@ public class UserController {
 			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("email") String email,
-			@ModelAttribute("parole") String parole,
+			@ModelAttribute("password") String password,
 			@ModelAttribute("role") Role role
 
 	) {
 		usersmanage
-				.updateUser(userId, firstName, lastName, email, parole, role);
+				.updateUser(userId, firstName, lastName, email, password, role);
 		return "redirect:/userlist";
 	}
 
@@ -96,10 +96,10 @@ public class UserController {
 			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("eMail") String eMail,
-			@ModelAttribute("Passwd") String passwd
+			@ModelAttribute("password") String password
 
 	) {
-		usersmanage.updateUser2(userId, firstName, lastName, eMail, passwd);
+		usersmanage.updateUser2(userId, firstName, lastName, eMail, password);
 		return "redirect:/userlist";
 	}
 
