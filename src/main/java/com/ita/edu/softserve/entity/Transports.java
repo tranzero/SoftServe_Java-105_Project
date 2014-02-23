@@ -267,14 +267,14 @@ public class Transports extends BaseEntity {
 
 	@Column(name = "TRANSPORTCODE", nullable = false, length = 20)
 	private String transportCode;
-
+	
+//	@DateTimeFormat(pattern="hh:mm:ss")
 	@Column(name = "STARTTIME", nullable = false)
 	private Time startTime;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROUTEID")
 	private Routes routes;
-
 	@Column(name = "SEATCLASS1", nullable = false)
 	private int seatclass1;
 
