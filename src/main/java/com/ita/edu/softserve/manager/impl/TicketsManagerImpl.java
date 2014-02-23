@@ -105,36 +105,4 @@ public class TicketsManagerImpl implements TicketsManager{
 	}
 
 	
-	/**
-	 * Returns <code>TransportTravel</code> object, that contains all transport
-	 * that goes through two stations
-	 * 
-	 * @param stationName1
-	 * @param stationName2
-	 * 
-	 *            return <code>TransportTravel</code>, that contains transport
-	 *            code, departure and arrival times, duration
-	 */
-	@Override
-	public List<TransportTravel> getTransportByTwoStations(String stationName1,
-			String stationName2, String date) {
-		
-		List<Trips> trips = tripsDao.getAllEntities();
-		
-		List<TransportTravel> transportTravel = null;
-
-		//transportTravel = transportDao.findByTwoStations(stationName1,
-	//			stationName2);
-		for (Trips trips2 : trips) {
-			if (trips2.getTransport() == transportDao.findByTwoStations(stationName1,
-					stationName2)) {
-				if (trips2.getStartDate().toString() == date) {
-					 transportTravel = transportDao.findByTwoStations(stationName1,
-								stationName2);
-				}
-			}
-		}
-		return transportTravel;
-	}
-	
 }
