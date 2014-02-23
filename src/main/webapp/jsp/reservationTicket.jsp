@@ -49,6 +49,7 @@ div.content {
 							<strong>SeatClass №1 :</strong> 
 							Amount of free space : <strong>${trip.getRemSeatClass1()}</strong><br />
 							Price : <strong>${transport.getGenPrice()}</strong>
+							
 						</p>
 					</div>
 

@@ -47,8 +47,8 @@ public class TicketController {
 	 
 		Trips trip = tripsManager.findByTripId(tripId);
 		Transports transport = transportsManager.findTransportsById(trip.getTransport().getTransportId());
-		modelMap.put("Trip", trip);
-		modelMap.put("Transport", transport);
+		modelMap.put("trip", trip);
+		modelMap.put("transport", transport);
 		return "reservationTicket";
 	}
 
