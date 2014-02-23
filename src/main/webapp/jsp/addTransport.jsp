@@ -31,27 +31,28 @@
 			<form:errors path="*" cssClass="errorblock" element="div" />
 
 			<p><spring:message code="label.transport.transportcode"/></p>
-			<p><form:input type="text" path="transportCode" name="transportCode" onfocus="checkpostal()" />
+			<p><form:input type="text" path="transportCode" onfocus="checkpostal()" />
 			<form:errors path="transportCode" cssClass="error"/>
 		
 			<p><spring:message code="label.transport.starttime"/></p>
-			<p><form:input id="startTime" type="text" path="startTime" class="startTime" placeholder="HH:MM:SS" />
+			<p><form:input id="startTime" type="text" path="startTime" 
+				cssClass="startTime" placeholder="HH:MM:SS" />
 			<form:errors path="startTime" cssClass="error"/></p>
 	
 			<p><spring:message code="label.transport.seatclass1"/></p>
-			<p><form:input id="seatclass1" path="seatclass1" name="seatclass1"/>
+			<p><form:input id="seatclass1" path="seatclass1"/>
 			<form:errors path="seatclass1" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.seatclass2"/></p>
-			<p><form:input id="seatclass2" path="seatclass2" name="seatclass2" />
+			<p><form:input id="seatclass2" path="seatclass2" />
 			<form:errors path="seatclass2" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.seatclass3"/></p>
-			<p><form:input  id="seatclass3" path="seatclass3" name="seatclass3" />
+			<p><form:input  id="seatclass3" path="seatclass3"/>
 			<form:errors path="seatclass3" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.genprice"/></p>
-			<p><form:input id="genPrice" path="genPrice" name="genPrice"/>
+			<p><form:input id="genPrice" path="genPrice"/>
 			<form:errors path="genPrice" cssClass="error"/></p>
 	
 			<spring:message code="label.routes.routecode"/>

@@ -10,27 +10,25 @@ import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.RoutesManager;
 
 /**
- * 
  * @author Roman
- * 
  */
 public class RoutesEditor extends PropertyEditorSupport {
 
-	/**
-	 * 
-	 */
 	RoutesManager routesManager;
 
 	/**
-	 * 
+	 * Create a new RoutesEditor instance, using the given RoutesManager for
+	 * parsing and rendering.
 	 * @param routesManager
+	 *            the RoutesManager to get the Routes as String and set the
+	 *            String as Routes.
 	 */
 	public RoutesEditor(RoutesManager routesManager) {
 		this.routesManager = routesManager;
 	}
 
 	/**
-	 * Parse the Date from the given text, using the specified DateFormat.
+	 * Parse the Routes from the given text.
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
@@ -45,6 +43,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 
 	/**
 	 * Format the Routes as String.
+	 * @see java.beans.PropertyEditorSupport#getAsText()
 	 */
 	@Override
 	public String getAsText() {

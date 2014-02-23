@@ -27,82 +27,47 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 @Entity
 @Table(name = "transports")
-@NamedQueries({
+@NamedQueries({ 
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_ALL, query = Transports.TRANSPORTS_FIND_ALL_QUERY),
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE, query = Transports.FIND_BY_TRANSPORTCODE_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_STARTTIME, query = Transports.FIND_BY_STARTTIME_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS1, query = Transports.FIND_BY_SEATCLASS1_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS2, query = Transports.FIND_BY_SEATCLASS2_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS3, query = Transports.FIND_BY_SEATCLASS3_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_GENPRICE, query = Transports.FIND_BY_GENPRICE_QUERY),
+
+		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE_ASC, query = Transports.FIND_BY_TRANSPORTCODE_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE_DESC, query = Transports.FIND_BY_TRANSPORTCODE_DESC_QUERY),
+		
+		@NamedQuery(name = Transports.FIND_BY_STARTTIME_ASC, query = Transports.FIND_BY_STARTTIME_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_STARTTIME_DESC, query = Transports.FIND_BY_STARTTIME_DESC_QUERY),
+		
+		@NamedQuery(name = Transports.FIND_BY_ROUTECODE_ASC, query = Transports.FIND_BY_ROUTEID_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_ROUTECODE_DESC, query = Transports.FIND_BY_ROUTEID_DESC_QUERY),	
+
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS1_ASC, query = Transports.FIND_BY_SEATCLASS1_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS1_DESC, query = Transports.FIND_BY_SEATCLASS1_DESC_QUERY),
+		
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS2_ASC, query = Transports.FIND_BY_SEATCLASS2_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS2_DESC, query = Transports.FIND_BY_SEATCLASS2_DESC_QUERY),
+		
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS3_ASC, query = Transports.FIND_BY_SEATCLASS3_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_SEATCLASS3_DESC, query = Transports.FIND_BY_SEATCLASS3_DESC_QUERY),
+		
+		@NamedQuery(name = Transports.FIND_BY_GENPRICE_ASC, query = Transports.FIND_BY_GENPRICE_ASC_QUERY),
+		@NamedQuery(name = Transports.FIND_BY_GENPRICE_DESC, query = Transports.FIND_BY_GENPRICE_DESC_QUERY),
+		
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
-		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_LNAME
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_LNAME_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_TCODE
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_TCODE_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DEP
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DEP_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DURATION
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DURATION_QUERY
-																															 * )
-																															 */
-		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY), })
+		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*,
+		@NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_LNAME, query = Transports.FIND_BY_TS_ORDER_BY_LNAME_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_TCODE, query = Transports.FIND_BY_TS_ORDER_BY_TCODE_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DEP, query = Transports.FIND_BY_TS_ORDER_BY_DEP_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DURATION, query = Transports.FIND_BY_TS_ORDER_BY_DURATION_QUERY)
+        */
+		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY),
+})
 public class Transports extends BaseEntity {
 
 	public static final String FIND_BY_DATE = "Transports.findByDate";
@@ -113,12 +78,74 @@ public class Transports extends BaseEntity {
 
 	public static final String TRANSPORTS_FIND_COUNT = "Transports.findCount";
 	public static final String TRANSPORTS_FIND_COUNT_QUERY = "SELECT COUNT (t.transportId) FROM Transports t";
-
+	
+	public static final String FIND_BY_TRANSPORTCODE = "Transport.findByTransportCode";
+	public static final String FIND_BY_TRANSPORTCODE_QUERY = "SELECT t FROM Transports t WHERE t.transportCode = ?1";
+	
+	public static final String FIND_BY_STARTTIME = "Transport.findByStartTime";
+	public static final String FIND_BY_STARTTIME_QUERY = "SELECT t FROM Transports t WHERE t.startTime = ?1";
+	 
 	public static final String FIND_BY_ROUTEID = "Transport.findByRouteId";
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
+		
+	public static final String FIND_BY_SEATCLASS1 = "Transport.findBySeatclass1";
+	public static final String FIND_BY_SEATCLASS1_QUERY = "SELECT t FROM Transports t WHERE t.seatclass1 = ?1";
+	
+	public static final String FIND_BY_SEATCLASS2 = "Transport.findBySeatclass2";
+	public static final String FIND_BY_SEATCLASS2_QUERY = "SELECT t FROM Transports t WHERE t.seatclass2 = ?1";
+	
+	public static final String FIND_BY_SEATCLASS3 = "Transport.findBySeatclass3";
+	public static final String FIND_BY_SEATCLASS3_QUERY = "SELECT t FROM Transports t WHERE t.seatclass3 = ?1";
+	
+	public static final String FIND_BY_GENPRICE = "Transport.findByGenPrice";
+	public static final String FIND_BY_GENPRICE_QUERY = "SELECT t FROM Transports t WHERE t.genPrice = ?1";
+	
+	/*------------------------------------------------------------------------------------------------------------*/
+	public static final String FIND_BY_TRANSPORTCODE_ASC ="Lines.findByTransportCodeAsc";
+	public static final String FIND_BY_TRANSPORTCODE_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.transportCode ASC";
+	
+	public static final String FIND_BY_TRANSPORTCODE_DESC ="Lines.findByTransportCodeDesc";
+	public static final String FIND_BY_TRANSPORTCODE_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.transportCode DESC";
+	
+	public static final String FIND_BY_STARTTIME_ASC ="Lines.findByStartTimeAsc";
+	public static final String FIND_BY_STARTTIME_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.startTime ASC";
+	
+	public static final String FIND_BY_STARTTIME_DESC ="Lines.findByStartTimeDesc";
+	public static final String FIND_BY_STARTTIME_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.startTime DESC";
+	
+	public static final String FIND_BY_ROUTECODE_ASC ="Lines.findByRouteCodeAsc";
+	public static final String FIND_BY_ROUTEID_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.routes.routeCode ASC";
+	
+	public static final String FIND_BY_ROUTECODE_DESC ="Lines.findByRouteCodeDesc";
+	public static final String FIND_BY_ROUTEID_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.routes.routeCode DESC";
+	
+	public static final String FIND_BY_SEATCLASS1_ASC ="Lines.findBySeatclass1Asc";
+	public static final String FIND_BY_SEATCLASS1_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass1 ASC";
+	
+	public static final String FIND_BY_SEATCLASS1_DESC ="Lines.findBySeatclass1Desc";
+	public static final String FIND_BY_SEATCLASS1_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass1 DESC";
+	
+	public static final String FIND_BY_SEATCLASS2_ASC ="Lines.findBySeatclass2Asc";
+	public static final String FIND_BY_SEATCLASS2_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass2 ASC";
+	
+	public static final String FIND_BY_SEATCLASS2_DESC ="Lines.findBySeatclass2Desc";
+	public static final String FIND_BY_SEATCLASS2_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass2 DESC";
+	
+	public static final String FIND_BY_SEATCLASS3_ASC ="Lines.findBySeatclass3Asc";
+	public static final String FIND_BY_SEATCLASS3_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass3 ASC";
+	
+	public static final String FIND_BY_SEATCLASS3_DESC ="Lines.findBySeatclass3Desc";
+	public static final String FIND_BY_SEATCLASS3_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.seatclass3 DESC";
+	
+	public static final String FIND_BY_GENPRICE_ASC ="Lines.findByGenPriceAsc";
+	public static final String FIND_BY_GENPRICE_ASC_QUERY = "SELECT t FROM Transports t ORDER BY t.genPrice ASC";
+	
+	public static final String FIND_BY_GENPRICE_DESC ="Lines.findByGenPriceDesc";
+	public static final String FIND_BY_GENPRICE_DESC_QUERY = "SELECT t FROM Transports t ORDER BY t.genPrice DESC";
+	/*------------------------------------------------------------------------------------------------------------*/
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
-	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT "
+	public static final String FIND_BY_TWO_STATIONS_QUERY ="SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
 			+ "FROM Transports t "
 			+ "JOIN t.routes r "
@@ -134,92 +161,105 @@ public class Transports extends BaseEntity {
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
 			+ "GROUP BY t.transportCode";
-
+	
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE = "Transports.findByTwoStationsAndDate";
-	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY = "SELECT "
-			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr.startDate) "
-			+ "FROM Trips tr "
-			+ "JOIN tr.transport t "
+	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr.startDate) " 
+			+ "FROM Trips tr "  
+			+ "JOIN tr.transport t " 
+			+ "JOIN t.routes r " 
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol " 
+			+ "JOIN sol.stationId st "
+			+ "WHERE tr.transport.routes.routeId in " 
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId " 
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum "
+			+ "and tr.startDate = ?3"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode"; 	
+/*
+	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
+    public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+            + "FROM Transports t "
+            + "JOIN t.routes r "
+            + "JOIN r.stops s "
+            + "JOIN s.stationOnLineId sol "
+            + "JOIN sol.stationId st "
+            + "WHERE t.routes.routeId in "
+            + "(SELECT s1.routeId.routeId "
+            + "FROM Stops s1, Stops s2 "
+            + "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+            + "and s2.stationOnLineId.stationId.stationName = ?2 "
+            + "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+            + "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+            + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+            + "GROUP BY t.transportCode "
+            + "ORDER BY t.routes.lineId.lineName";
+	
+	public static final String FIND_BY_TS_ORDER_BY_TCODE = "Transports.findByTwoStationsOrderByTCode";
+	public static final String FIND_BY_TS_ORDER_BY_TCODE_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
 			+ "JOIN t.routes r "
 			+ "JOIN r.stops s "
 			+ "JOIN s.stationOnLineId sol "
 			+ "JOIN sol.stationId st "
-			+ "WHERE tr.transport.routes.routeId in "
+			+ "WHERE t.routes.routeId in "
 			+ "(SELECT s1.routeId.routeId "
 			+ "FROM Stops s1, Stops s2 "
 			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
 			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
 			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
-			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum "
-			+ "and tr.startDate = ?3"
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-			+ "GROUP BY t.transportCode";
-	/*
-	 * public static final String FIND_BY_TS_ORDER_BY_LNAME =
-	 * "Transports.findByTSOrderByLName"; public static final String
-	 * FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT " +
-	 * "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
-	 * + "FROM Transports t " + "JOIN t.routes r " + "JOIN r.stops s " +
-	 * "JOIN s.stationOnLineId sol " + "JOIN sol.stationId st " +
-	 * "WHERE t.routes.routeId in " + "(SELECT s1.routeId.routeId " +
-	 * "FROM Stops s1, Stops s2 " +
-	 * "WHERE s1.stationOnLineId.stationId.stationName = ?1 " +
-	 * "and s2.stationOnLineId.stationId.stationName = ?2 " +
-	 * "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
-	 * +
-	 * "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
-	 * + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-	 * + "GROUP BY t.transportCode " + "ORDER BY t.routes.lineId.lineName";
-	 * 
-	 * public static final String FIND_BY_TS_ORDER_BY_TCODE =
-	 * "Transports.findByTwoStationsOrderByTCode"; public static final String
-	 * FIND_BY_TS_ORDER_BY_TCODE_QUERY ="SELECT " +
-	 * "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
-	 * + "FROM Transports t " + "JOIN t.routes r " + "JOIN r.stops s " +
-	 * "JOIN s.stationOnLineId sol " + "JOIN sol.stationId st " +
-	 * "WHERE t.routes.routeId in " + "(SELECT s1.routeId.routeId " +
-	 * "FROM Stops s1, Stops s2 " +
-	 * "WHERE s1.stationOnLineId.stationId.stationName = ?1 " +
-	 * "and s2.stationOnLineId.stationId.stationName = ?2 " +
-	 * "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
-	 * +
-	 * "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
-	 * + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-	 * + "GROUP BY t.transportCode " + "ORDER BY t.transportCode";
-	 * 
-	 * public static final String FIND_BY_TS_ORDER_BY_DEP =
-	 * "Transports.findByTwoStationsOrderByDep"; public static final String
-	 * FIND_BY_TS_ORDER_BY_DEP_QUERY ="SELECT " +
-	 * "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
-	 * + "FROM Transports t " + "JOIN t.routes r " + "JOIN r.stops s " +
-	 * "JOIN s.stationOnLineId sol " + "JOIN sol.stationId st " +
-	 * "WHERE t.routes.routeId in " + "(SELECT s1.routeId.routeId " +
-	 * "FROM Stops s1, Stops s2 " +
-	 * "WHERE s1.stationOnLineId.stationId.stationName = ?1 " +
-	 * "and s2.stationOnLineId.stationId.stationName = ?2 " +
-	 * "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
-	 * +
-	 * "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
-	 * + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-	 * + "GROUP BY t.transportCode " +
-	 * "ORDER BY TIME(TIME(s.departure) + TIME(t.startTime))";
-	 * 
-	 * public static final String FIND_BY_TS_ORDER_BY_DURATION =
-	 * "Transports.findByTwoStationsOrderByDuration"; public static final String
-	 * FIND_BY_TS_ORDER_BY_DURATION_QUERY ="SELECT " +
-	 * "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
-	 * + "FROM Transports t " + "JOIN t.routes r " + "JOIN r.stops s " +
-	 * "JOIN s.stationOnLineId sol " + "JOIN sol.stationId st " +
-	 * "WHERE t.routes.routeId in " + "(SELECT s1.routeId.routeId " +
-	 * "FROM Stops s1, Stops s2 " +
-	 * "WHERE s1.stationOnLineId.stationId.stationName = ?1 " +
-	 * "and s2.stationOnLineId.stationId.stationName = ?2 " +
-	 * "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
-	 * +
-	 * "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
-	 * + ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-	 * + "GROUP BY t.transportCode " + "ORDER BY MAX(s.arrival) DESC";
-	 */
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY t.transportCode";
+
+	public static final String FIND_BY_TS_ORDER_BY_DEP = "Transports.findByTwoStationsOrderByDep";
+	public static final String FIND_BY_TS_ORDER_BY_DEP_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY TIME(TIME(s.departure) + TIME(t.startTime))";
+
+	public static final String FIND_BY_TS_ORDER_BY_DURATION = "Transports.findByTwoStationsOrderByDuration";
+	public static final String FIND_BY_TS_ORDER_BY_DURATION_QUERY ="SELECT "
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
+			+ "FROM Transports t "
+			+ "JOIN t.routes r "
+			+ "JOIN r.stops s "
+			+ "JOIN s.stationOnLineId sol "
+			+ "JOIN sol.stationId st "
+			+ "WHERE t.routes.routeId in "
+			+ "(SELECT s1.routeId.routeId "
+			+ "FROM Stops s1, Stops s2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
+			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
+			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ "GROUP BY t.transportCode "
+			+ "ORDER BY MAX(s.arrival) DESC";
+*/
+	
+	
 	@Id
 	@Column(name = "TRANSPORTID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -266,67 +306,115 @@ public class Transports extends BaseEntity {
 		this.setGenPrice(genPrice);
 	}
 
+	/**
+	 * @return the transport Id
+	 */
 	public Integer getTransportId() {
 		return transportId;
 	}
 
+	/**
+	 * @param transportId the transport Id to set
+	 */
 	public void setTransportId(Integer transportId) {
 		this.transportId = transportId;
 	}
 
+	/**
+	 * @return the transport code
+	 */
 	public String getTransportCode() {
 		return transportCode;
 	}
-
+	
+	/**
+	 * @param transportCode the transport code to set
+	 */
 	public void setTransportCode(String transportCode) {
 //		Assert.hasText(transportCode, "Transport Code must not be null or empty");
 		this.transportCode = transportCode;
 	}
 
+	/**
+	 * @return the start time
+	 */
 	public Time getStartTime() {
 		return startTime;
 	}
 
+	/**
+	 * @param startTime the start time to set
+	 */
 	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
+	/**
+	 * @return the route
+	 */
 	public Routes getRoutes() {
 		return routes;
 	}
 
+	/**
+	 * @param routes the route to set
+	 */
 	public void setRoutes(Routes routes) {
 		this.routes = routes;
 	}
 
+	/**
+	 * @return the seat class 1
+	 */
 	public int getSeatclass1() {
 		return seatclass1;
 	}
 
+	/**
+	 * @param seatclass1 the seat class 1 to set
+	 */
 	public void setSeatclass1(int seatclass1) {
 		this.seatclass1 = seatclass1;
 	}
 
+	/**
+	 * @return the seat class 2
+	 */
 	public int getSeatclass2() {
 		return seatclass2;
 	}
 
+	/**
+	 * @param seatclass2 the seat class 2 to set
+	 */
 	public void setSeatclass2(int seatclass2) {
 		this.seatclass2 = seatclass2;
 	}
 
+	/**
+	 * @return the seat class 3
+	 */
 	public int getSeatclass3() {
 		return seatclass3;
 	}
 
+	/**
+	 * @param seatclass3 the seat class 3 to set
+	 */
 	public void setSeatclass3(int seatclass3) {
 		this.seatclass3 = seatclass3;
 	}
 
+	/**
+	 * @return the general price
+	 */
 	public double getGenPrice() {
 		return genPrice;
 	}
 
+	/**
+	 * @param genprice the general price to set
+	 */
 	public void setGenPrice(double genprice) {
 		this.genPrice = genprice;
 	}
@@ -348,8 +436,11 @@ public class Transports extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(transportCode).append(startTime)
-				.append(routes).hashCode();
+		return new HashCodeBuilder()
+				.append(transportCode)
+				.append(startTime)
+				.append(routes)
+				.hashCode();
 	}
 
 	@Override
@@ -362,9 +453,11 @@ public class Transports extends BaseEntity {
 			return false;
 		Transports other = (Transports) obj;
 
-		return new EqualsBuilder().append(transportCode, other.transportCode)
+		return new EqualsBuilder()
+				.append(transportCode, other.transportCode)
 				.append(startTime, other.startTime)
 				.append(routes, other.routes)
-				.append(transportId, other.transportId).isEquals();
+				.append(transportId, other.transportId)
+				.isEquals();
 	}
 }

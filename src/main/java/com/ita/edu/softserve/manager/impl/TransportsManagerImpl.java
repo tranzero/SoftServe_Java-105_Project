@@ -18,19 +18,16 @@ import com.ita.edu.softserve.manager.TransportsManager;
  * This is transports manager class.
  * 
  * @author Roman
- * 
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportsManagerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
 
 	private String entityName = Transports.class.getSimpleName();
 
 	private String addMessage = " was added to DB";
 	private String removeMessage = " was remove from DB by ";
-//	private String changeMsg = " was change in DB by ";
 
 	private final String findTransportsMessage = "Could not find Transport List";
 	private final String saveTransportMessage = "Could not save Transports";
@@ -45,7 +42,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * Gets access to Transports DAO.
 	 */
 	@Autowired
-	public TransportsDao transportsDao;
+	private TransportsDao transportsDao;
 
 	/**
 	 * Gets access to Routes DAO.
@@ -54,15 +51,17 @@ public class TransportsManagerImpl implements TransportsManager {
 	private RoutesDAO routesDao;
 
 	/**
-	 * Constructor without arguments.
+	 * The constructor without arguments.
 	 */
 	public TransportsManagerImpl() {
 		super();
 	}
 
 	/**
-	 * @return transport found by Id.
+	 * Finds the transport by Id.
+	 * @return the transport found by Id.
 	 * 
+	 * @see com.ita.edu.softserve.manager.TransportsManager#findTransportsById(int)
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -80,6 +79,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	/**
 	 * Saves Transports in database.
+	 * @see com.ita.edu.softserve.manager.TransportsManager#saveTransports(com.ita.edu.softserve.entity.Transports[])
 	 */
 	@Transactional(readOnly = false)
 	@Override
@@ -139,9 +139,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Updates database and get list of all Transports.
+	 * Updates transport table and get list of all Transports.
 	 * 
-	 * @return list of all stations.
+	 * @return the list of all transports.
 	 */
 	@Transactional
 	@Override
@@ -158,9 +158,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Gets list of all transports.
+	 * Gets the list of all transports.
 	 * 
-	 * @return list of all transports.
+	 * @return the list of all transports.
 	 */
 	@Transactional
 	@Override
@@ -177,7 +177,26 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves Transport object to database if not exist or updates it. <br/>
+	 * Gets the list of all transports in descending order.
+	 * 
+	 * @return the list of all transports.
+	 */
+	@Transactional
+	@Override
+	public List<Transports> getAllTransportsDESC() {
+		try {
+			return transportsDao.getEntityDESC();
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					getAllTransportsMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
+
+	/**
+	 * Saves the Transport object to database if not exist or updates it. <br/>
 	 * <br/>
 	 * If <code>transportId</code> is <code>null</code> than it creates new
 	 * transport object otherwise it finds existing one in database and updates
@@ -200,7 +219,6 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Returns <code>TransportTravel</code> object, that contains all transport
 	 * that goes through two stations
-	 * 
 	 * @param stationName1
 	 * @param stationName2
 	 * 
@@ -227,28 +245,43 @@ public class TransportsManagerImpl implements TransportsManager {
 		return transportTravel;
 	}
 
+	/**
+	 * @return the instance of TransportsManager.
+	 */
 	public static TransportsManager getInstance() {
 		return ManagerFactory.getManager(TransportsManager.class);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsForLimit(int, int)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Transports> getTransportsForLimit(int firstElement, int count) {
 		return transportsDao.getTransportsForLimits(firstElement, count);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsForPage(int, int)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Transports> getTransportsForPage(int pageNumber, int count) {
 		return getTransportsForLimit((pageNumber - 1) * count, count);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsListCount()
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getTransportsListCount() {
 		return transportsDao.getTransportsListCount();
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStListCount(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2) {
@@ -257,6 +290,9 @@ public class TransportsManagerImpl implements TransportsManager {
 				stationName2);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStForPage(java.lang.String, java.lang.String, int, int, java.lang.String, int)
+	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
 			String stationName1, String stationName2, int pageNumber,
@@ -266,6 +302,9 @@ public class TransportsManagerImpl implements TransportsManager {
 				(pageNumber - 1) * count, count, sDate, orderBy);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStForLimit(java.lang.String, java.lang.String, int, int, java.lang.String, int)
+	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimit(
 			String stationName1, String stationName2, int firstElement,
