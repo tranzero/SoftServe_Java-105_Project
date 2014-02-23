@@ -160,11 +160,11 @@ public class Transports extends BaseEntity {
 			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-			+ "GROUP BY t.transportCode";
+			+ "GROUP BY t.transportId";
 	
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE = "Transports.findByTwoStationsAndDate";
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY ="SELECT "
-			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr.startDate) " 
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr.startDate, tr.tripId) " 
 			+ "FROM Trips tr "  
 			+ "JOIN tr.transport t " 
 			+ "JOIN t.routes r " 
@@ -180,7 +180,7 @@ public class Transports extends BaseEntity {
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum "
 			+ "and tr.startDate = ?3"
 			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-			+ "GROUP BY t.transportCode"; 	
+			+ "GROUP BY t.transportId"; 	
 /*
 	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
     public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
