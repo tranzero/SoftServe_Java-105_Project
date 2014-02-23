@@ -34,7 +34,7 @@
 
 	<p>Search user</p>
 	<p>
-		<input id="inputSearchUser" />
+		<input id="inputSearchUser" type="text" />
 	</p>
 
 	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>

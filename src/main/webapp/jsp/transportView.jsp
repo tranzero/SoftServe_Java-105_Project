@@ -19,7 +19,7 @@
 	</h2>
 	
 	<p><spring:message code="label.transport.tableSearchInput"/>
-	<input id="tableSearchInput" /></p>
+	<input id="tableSearchInput" type="text" /></p>
 	
 	<div id="pagingcontent">
 		<table style="align: center" id="transportTable">

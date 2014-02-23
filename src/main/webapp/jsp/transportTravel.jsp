@@ -21,19 +21,19 @@
 			<hr />
 			<table>
 				<tr>
-					<td>Number</td>
-					<td><a href="javascript:void(0);"
+					<th>Number</th>
+					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
-							Station / Stop</a></td>
-					<td><a href="javascript:void(0);"
+							Station / Stop</a></th>
+					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
-							Number</a></td>
-					<td><a href="javascript:void(0);"
+							Number</a></th>
+					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
-							Departure / Arrival time</a></td>
-					<td><a href="javascript:void(0);"
+							Departure / Arrival time</a></th>
+					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
-							Duration</a></td>
+							Duration</a></th>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
 					<tr>
