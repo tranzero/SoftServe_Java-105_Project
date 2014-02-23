@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.sql.Time;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
