@@ -4,53 +4,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<style>
-div.container {
-	width: 100%;
-	margin: 0px;
-	border: 1px solid gray;
-	line-height: 150%;
-}
-
-h1.header {
-	padding: 0;
-	margin: 0;
-}
-
-div.left {
-	float: left;
-	width: 160px;
-	margin: 0;
-	padding: 1em;
-}
-
-div.content {
-	margin-left: 190px;
-	border-left: 1px solid gray;
-	padding: 1em;
-}
-</style>
-<script>
-	$('.radioClass').click(function() {
-		$('.seats1').hide();
-		if (this.checked) {
-			$('.' + $(this).data('mappingclass')).show();
-		}
-	});
-
-	$('.radioClass').click(function() {
-		$('.seats2').hide();
-		if (this.checked) {
-			$('.' + $(this).data('mappingclass')).show();
-		}
-	});
-	$('.radioClass').click(function() {
-		$('.seats3').hide();
-		if (this.checked) {
-			$('.' + $(this).data('mappingclass')).show();
-		}
-	});
-</script>
 <section id="content">
 	<h2>Choose Class-Seat</h2>
 	<form:form action="reservationTicket" method="get">
