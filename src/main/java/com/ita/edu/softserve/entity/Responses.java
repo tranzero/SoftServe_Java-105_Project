@@ -14,10 +14,11 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name = Responses.FIND_BY_ROUTE_ID, query = Responses.FIND_BY_ROUTE_ID_QUERY),
 	@NamedQuery(name = Responses.FIND_BY_TRIP_ID, query = Responses.FIND_BY_TRIP_ID_QUERY),
-	@NamedQuery(name = Responses.FIND_BY_TRANSPORT_ID, query = Responses.FIND_BY_TRANSPORT_ID_QUERY)
+	@NamedQuery(name = Responses.FIND_BY_TRANSPORT_ID, query = Responses.FIND_BY_TRANSPORT_ID_QUERY),
+	@NamedQuery(name = Responses.FIND_UNCHECKED_RESPONSES, query = Responses.FIND_UNCHECKED_RESPONSES_QUERY)
 })
 public class Responses extends BaseEntity {
-
+	
 	public static final String FIND_BY_ROUTE_ID = "Responses.findByRouteId";
 	public static final String FIND_BY_ROUTE_ID_QUERY = "SELECT r FROM Responses AS r WHERE r.trip.transport.routes.routeId = ?1";
 
@@ -27,6 +28,9 @@ public class Responses extends BaseEntity {
 	public static final String FIND_BY_TRANSPORT_ID = "Responses.findByTranportId";
 	public static final String FIND_BY_TRANSPORT_ID_QUERY = "SELECT r FROM Responses AS r WHERE r.trip.transport.transportId = ?1";
 
+	public static final String FIND_UNCHECKED_RESPONSES = "Responses.findUncheckedResponses";
+	public static final String FIND_UNCHECKED_RESPONSES_QUERY = "SELECT r FROM Responses AS r WHERE r.checked = 'FALSE'";
+	
 	@Id
 	@Column(name = "RESPONSEID")
 	@GeneratedValue(strategy=GenerationType.AUTO)

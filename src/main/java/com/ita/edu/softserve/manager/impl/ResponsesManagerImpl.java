@@ -66,7 +66,27 @@ public class ResponsesManagerImpl implements ResponsesManager {
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
 		Responses response = new Responses(user, trip, responseText, sqlDate);
+		
 		responsesDao.save(response);
 	}
 
+	@Transactional
+	@Override
+	public void delResponse(Integer responseId) {
+		Responses response = responsesDao.findById(responseId);
+		responsesDao.remove(response);
+	}
+
+	@Override
+	public List<Responses> getUncheckedResponses() {
+		return responsesDao.findUncheckedResponses();
+	}
+
+	@Transactional
+	@Override
+	public void markAsChecked(Integer responseId) {
+		Responses response = responsesDao.findById(responseId);
+		response.setChecked(true);
+		responsesDao.update(response);
+	}
 }

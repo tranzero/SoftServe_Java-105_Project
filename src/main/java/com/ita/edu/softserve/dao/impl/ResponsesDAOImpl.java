@@ -43,4 +43,11 @@ public class ResponsesDAOImpl extends AbstractDAO<Responses> implements Response
 		return (List<Responses>) query.getResultList();
 	}
 
+	@Override
+	public List<Responses> findUncheckedResponses() {
+		Query query = entityManager.createNamedQuery(Responses.FIND_UNCHECKED_RESPONSES);
+		
+		return (List<Responses>) query.getResultList();		
+	}	
+
 }

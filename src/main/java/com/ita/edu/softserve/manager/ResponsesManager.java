@@ -13,4 +13,10 @@ public interface ResponsesManager extends BaseManager {
 	public List<Responses> getResponsesByTransportId(Integer transportId);
 	
 	public void addResponse(Integer userId, Integer tripId, String responseText);
+	
+	public void delResponse(Integer responseId);
+	
+	public List<Responses> getUncheckedResponses();
+	
+	void markAsChecked(Integer responseId);
 }

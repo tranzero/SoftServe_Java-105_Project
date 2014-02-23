@@ -49,6 +49,8 @@
 								code="label.navigation.editroutes" /></a></li>
 					<li><a href="/SoftServe_Java-105/orders"><spring:message
 								code="label.navigation.orders" /></a></li>
+					<li><a href="/SoftServe_Java-105/checkResponses"><spring:message
+								code="label.navigation.checkresponses" /></a></li>
 				</ul>
 			</li>
 			<li><spring:message code="label.navigation.users" />
