@@ -38,6 +38,10 @@ import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 @Controller
 public class TransportController {
 
+	private static final String ROUTES_LIST = "routesList";
+
+	private static final String TIME_PATTERN = "hh:mm:ss";
+
 	private static final String TRANSPORTPAGE_VIEW_JSP = "transportpageView";
 
 	/**
@@ -168,7 +172,7 @@ public class TransportController {
 	/**
 	 * The name of jsp that defines Spring.
 	 */
-	private static final String TRANSPORT_TO_UPDATE = "transport";
+	private static final String MODEL_TRANSPORT = "transport";
 
 	/**
 	 * The name of jsp that defines Spring.
@@ -234,7 +238,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		forPrintTransport(pageNumber, resultsPerPage, modelMap);
+		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORT_VIEW_JSP;
 	}
@@ -256,7 +260,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		forPrintTransport(pageNumber, resultsPerPage, modelMap);
+		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORTPAGE_VIEW_JSP;
 	}
@@ -274,7 +278,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		forPrintTransport(pageNumber, resultsPerPage, modelMap);
+		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORT;
 	}
@@ -296,7 +300,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
-		forPrintTransport(pageNumber, resultsPerPage, modelMap);
+		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
 		return TRANSPORTPAGE_JSP;
 	}
@@ -312,7 +316,7 @@ public class TransportController {
 	 * @param modelMap
 	 *            Model map to fill.
 	 */
-	private void forPrintTransport(Integer pageNumber, Integer resultsPerPage,
+	private void forDisplayTransport(Integer pageNumber, Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 
 		long count = transportsManager.getTransportsListCount();
@@ -339,7 +343,7 @@ public class TransportController {
 		binder.registerCustomEditor(Double.class, new CustomNumberEditor(
 				Double.class, numberFormat, true));
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_PATTERN);
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Time.class, new TimeEditor(dateFormat,
 				false));
@@ -356,10 +360,10 @@ public class TransportController {
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm(ModelMap modelMap) {
 
-		modelMap.addAttribute("transport", new Transports());
+		modelMap.addAttribute(MODEL_TRANSPORT, new Transports());
 
 		List<Routes> routesList = routesManager.getAllRoutes();
-		modelMap.put("routesList", routesList);
+		modelMap.put(ROUTES_LIST, routesList);
 
 		return ADD_TRANSPORT_JSP;
 	}
@@ -374,14 +378,14 @@ public class TransportController {
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
-			@ModelAttribute("transport")/* @Valid */Transports transport,
+			@ModelAttribute(MODEL_TRANSPORT)/* @Valid */Transports transport,
 			BindingResult bindingResult, ModelMap modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			List<Routes> routesList = routesManager.getAllRoutes();
-			modelMap.put("routesList", routesList);
+			modelMap.put(ROUTES_LIST, routesList);
 
 			return ADD_TRANSPORT_JSP;
 		}
@@ -409,7 +413,7 @@ public class TransportController {
 		Transports transport = transportsManager
 				.findTransportsById(transportId);
 
-		modelMap.put(TRANSPORT_TO_UPDATE, transport);
+		modelMap.put(MODEL_TRANSPORT, transport);
 
 		return EDIT_TRANSPORT_JSP;
 	}
@@ -422,7 +426,7 @@ public class TransportController {
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
-			@ModelAttribute(TRANSPORT_TO_UPDATE) Transports transport,
+			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult) {
 
 		transportsValidator.validate(transport, bindingResult);
