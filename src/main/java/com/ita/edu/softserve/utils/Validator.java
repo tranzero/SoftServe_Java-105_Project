@@ -1,14 +1,17 @@
 package com.ita.edu.softserve.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.manager.impl.PaginationManager.SingletonHolder;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.web.TripsController;
 
 /**
  * 
@@ -20,8 +23,24 @@ import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 public class Validator {
 
+	/**
+	 * Array contains the ways of sorting using jpql "sort by" instruction: asc
+	 * and desc
+	 */
 	public static final String[] ORDER_BY_SORTING_TYPES = { "ASC", "DESC" };
+	/**
+	 * String for representation of minimal available date in default date
+	 * format
+	 */
 
+	private static final String MIN_DATE_STRING = "01/01/1900";
+
+	/**
+	 * String for representation of maximal available date in default date
+	 * format
+	 */
+
+	private static final String MAX_DATE_STRING = "12/31/2100";
 	/**
 	 * Validates paging info
 	 * 
@@ -33,21 +52,22 @@ public class Validator {
 
 	public static void validatePaging(PageInfoContainer container,
 			PaginationManager paginationManager) {
-		if (container.getPageNumber() == null) {
-			container.setPageNumber(new Integer(paginationManager
-					.getDefaultPageNumber()));
-		} else if (container.getPageNumber() < 1) {
+		container.setPageNumber((Integer) ValidatorUtil.defaultForNull(
+				container.getPageNumber(),
+				new Integer(paginationManager.getDefaultPageNumber())));
+		if (container.getPageNumber() < 1) {
 			container.setPageNumber(new Integer(paginationManager
 					.getDefaultPageNumber()));
 		}
-		if (container.getResultsPerPage() == null) {
-			container.setResultsPerPage(new Integer(paginationManager
-					.getDefaultResultPerPage()));
-		} else if (container.getResultsPerPage() < 1) {
+
+		container.setResultsPerPage((Integer) ValidatorUtil.defaultForNull(
+				container.getResultsPerPage(),
+				new Integer(paginationManager.getDefaultResultPerPage())));
+		if (container.getResultsPerPage() < 1) {
 			container.setResultsPerPage(new Integer(paginationManager
 					.getDefaultResultPerPage()));
 		}
-		container.setMaxPages(SingletonHolder.HOLDER_INSTANCE.getMaxPageCount(
+		container.setMaxPages(paginationManager.getMaxPageCount(
 				container.getResultsPerPage(), container.getCount()));
 		if (container.getPageNumber() > container.getMaxPages()) {
 			container.setPageNumber(container.getMaxPages());
@@ -75,22 +95,22 @@ public class Validator {
 				ORDER_BY_SORTING_TYPES[0]) || tripsCriteriaContainer
 				.getOrderByDirection().equalsIgnoreCase(
 						ORDER_BY_SORTING_TYPES[1]))) {
-			tripsCriteriaContainer.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
+			tripsCriteriaContainer
+					.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
 
 		}
-		if (tripsCriteriaContainer.getTransportCode() == null) {
-			tripsCriteriaContainer.setTransportCode("");
-		}
-		if (tripsCriteriaContainer.getRemSeatClass1() == null) {
-			tripsCriteriaContainer.setRemSeatClass1(-1);
-		}
-		if (tripsCriteriaContainer.getRemSeatClass2() == null) {
-			tripsCriteriaContainer.setRemSeatClass2(-1);
-		}
-		if (tripsCriteriaContainer.getRemSeatClass3() == null) {
-			tripsCriteriaContainer.setRemSeatClass3(-1);
-		}
-
+		tripsCriteriaContainer.setTransportCode((String) ValidatorUtil
+				.defaultForNull(tripsCriteriaContainer.getTransportCode(), ""));
+		tripsCriteriaContainer.setRemSeatClass1((Integer) ValidatorUtil
+				.defaultForNull(tripsCriteriaContainer.getRemSeatClass1(), -1));
+		tripsCriteriaContainer.setRemSeatClass2((Integer) ValidatorUtil
+				.defaultForNull(tripsCriteriaContainer.getRemSeatClass2(), -1));
+		tripsCriteriaContainer.setRemSeatClass3((Integer) ValidatorUtil
+				.defaultForNull(tripsCriteriaContainer.getRemSeatClass3(), -1));
+		tripsCriteriaContainer.setMinDate(ValidatorUtil.getDateWithFormat(
+				tripsCriteriaContainer.getMinDateString(), locale, MIN_DATE_STRING));
+		tripsCriteriaContainer.setMaxDate(ValidatorUtil.getDateWithFormat(
+				tripsCriteriaContainer.getMaxDateString(), locale, MAX_DATE_STRING));
 	}
 
 }

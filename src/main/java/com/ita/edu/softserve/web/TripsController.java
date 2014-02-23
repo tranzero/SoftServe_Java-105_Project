@@ -28,20 +28,20 @@ public class TripsController {
 	 * formatting date)
 	 */
 
-	private static final String UKRAINIAN = "ua";
+	public static final String UKRAINIAN = "ua";
 
 	/**
-	 * String for spain language representation in locale format (used in
+	 * String for spanish language representation in locale format (used in
 	 * formatting date)
 	 */
 
-	private static final String SPAIN = "es";
+	public static final String SPANISH = "es";
 
 	/**
-	 * String for ukrainian or spain date format
+	 * String for ukrainian or spanish date format
 	 */
 
-	public static final String UKRAINIAN_OR_SPAIN_DATE_FORMAT = "dd.MM.yyyy";
+	public static final String UKRAINIAN_OR_SPANISH_DATE_FORMAT = "dd.MM.yyyy";
 	/**
 	 * String for default date format
 	 */
@@ -218,7 +218,7 @@ public class TripsController {
 				DATEFORMAT_NAME,
 				new SimpleDateFormat(
 						lang.equalsIgnoreCase(UKRAINIAN)
-								|| lang.equalsIgnoreCase(SPAIN) ? UKRAINIAN_OR_SPAIN_DATE_FORMAT
+								|| lang.equalsIgnoreCase(SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
 	}
