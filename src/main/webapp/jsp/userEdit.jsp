@@ -34,7 +34,7 @@
 				value="${user.getLastName()}">
 
 			<p>Email:</p>
-			<input id="email" type="text" name="email" value="${user.geteMail()}">
+			<input id="email" type="text" name="email" value="${user.getEmail()}">
 
 			<p>Password:</p>
 			<input id="password" type="password" name="password"

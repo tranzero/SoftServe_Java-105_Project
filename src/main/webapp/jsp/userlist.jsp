@@ -37,7 +37,7 @@
 					<td align="center">${user.getUserName() }</td>
 					<td align="center">${user.getFirstName()}</td>
 					<td align="center">${user.getLastName() }</td>
-					<td align="center">${user.geteMail() }</td>					
+					<td align="center">${user.getEmail() }</td>					
 					<td align="center">${user.getRole().getDescription()}</td>
 					<td align="center">${user.getRegDate()}</td>
 

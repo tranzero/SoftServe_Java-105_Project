@@ -90,7 +90,7 @@ public class UserManagerImpl implements UserManager {
 
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
-		user.seteMail(email);
+		user.setEmail(email);
 		user.setPassword(password);
 		user.setRole(role);
 
@@ -108,7 +108,7 @@ public class UserManagerImpl implements UserManager {
 
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
-		user.seteMail(email);
+		user.setEmail(email);
 		user.setPassword(password);
 
 		userDao.update(user);

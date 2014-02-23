@@ -95,7 +95,7 @@ public class Users extends BaseEntity {
 		this();
 
 		this.setUserName(userName);
-		this.seteMail(email);
+		this.setEmail(email);
 		this.setPassword(password);
 	}
 
@@ -131,7 +131,7 @@ public class Users extends BaseEntity {
 		this.setUserName(userName);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		this.seteMail(email);
+		this.setEmail(email);
 		this.setPassword(password);
 		this.setRole(role);
 	}
@@ -200,7 +200,7 @@ public class Users extends BaseEntity {
 	/**
 	 * @return the eMail
 	 */
-	public String geteMail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -208,7 +208,7 @@ public class Users extends BaseEntity {
 	 * @param email
 	 *            the eMail to set
 	 */
-	public void seteMail(String email) {
+	public void setEmail(String email) {
 		Assert.hasText(email, "Email adress must not be empty!");
 		this.email = email;
 	}
