@@ -19,7 +19,7 @@ public final class ParseUtil {
 	private static final Logger LOGGER = Logger.getLogger(ParseUtil.class);
 
 	/**
-	 * private constructor.
+	 * The private constructor without arguments.
 	 */
 	private ParseUtil() {
 	}
@@ -27,8 +27,8 @@ public final class ParseUtil {
 	/**
 	 * Parses time representing in string into sql time.
 	 * @param time
-	 *            string object.
-	 * @return sql time object.
+	 *            the string object to parse.
+	 * @return the sql time object.
 	 */
 	public static Time timeParse(final String time) {
 		if (time == null) {

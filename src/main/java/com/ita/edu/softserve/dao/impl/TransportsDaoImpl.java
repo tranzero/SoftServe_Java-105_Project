@@ -15,8 +15,7 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
  * @author Roman
  */
 @Repository("transportsDao")
-public class TransportsDaoImpl extends AbstractDAO<Transports> implements
-		TransportsDao {
+public class TransportsDaoImpl extends AbstractDAO<Transports> implements TransportsDao {
 
 	@Override
 	public Class<Transports> getEntityClass() {
@@ -25,13 +24,12 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 	/**
 	 * Finds Transport by route id.
-	 * @param id to find object.
+	 * @param id the Id to find object.
 	 */
 	@Override
 	public Transports findByRouteId(int id) {
-		Query query = entityManager
-				.createNamedQuery(Transports.FIND_BY_ROUTEID).setParameter(1,
-						id);
+		Query query = entityManager.createNamedQuery(
+				Transports.FIND_BY_ROUTEID).setParameter(1, id);
 
 		return (Transports) query.getSingleResult();
 	}
@@ -39,7 +37,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	/**
 	 * Saves a Transport into the Transports table if not exist or updates
 	 * existing one.
-	 * @param entity to save or update.
+	 * @param entity the transport to save or update into Transports table.
 	 */
 	@Override
 	public void saveOrUpdate(final Transports entity) {
@@ -50,6 +48,23 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		}
 	}
 	
+	/**
+	 * Finds Transport by transport code in descending order.
+	 * @param id the Id to find object in Transport table.
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getEntityDESC()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transports> getEntityDESC() {
+		Query query = entityManager.createNamedQuery(
+				Transports.FIND_BY_TRANSPORTCODE_DESC);
+
+		return (List<Transports>) query.getResultList();
+	}
+	
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#findByDate(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> findByDate(String date) {
@@ -60,6 +75,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (List<Transports>) query.getResultList();
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#findByTwoStations(java.lang.String, java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TransportTravel> findByTwoStations(String stationName1,
@@ -71,6 +89,10 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (List<TransportTravel>) query.getResultList();
 	}
 
+	/**
+	 * 
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportByTwoStForLimits(java.lang.String, java.lang.String, int, int, java.lang.String, int)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimits(
@@ -118,6 +140,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (List<TransportTravel>) query.getResultList();
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportByTwoStListCount(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2) {
@@ -125,16 +150,22 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return findByTwoStations(stationName1, stationName2).size();
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsForLimits(int, int)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> getTransportsForLimits(int firstElement, int count) {
 		Query query = entityManager
 				.createNamedQuery(Transports.TRANSPORTS_FIND_ALL)
 				.setFirstResult(firstElement).setMaxResults(count);
-		
+
 		return (List<Transports>) query.getResultList();
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListCount()
+	 */
 	@Override
 	public long getTransportsListCount() {
 		return (long) find((Query) entityManager

@@ -17,6 +17,12 @@ public class TransportsValidator implements Validator {
 		return Transports.class.equals(clazz);
 	}
 
+	/**
+	 * This method provide validation for Transports objects.
+	 * 
+	 * @see org.springframework.validation.Validator#validate(java.lang.Object,
+	 *      org.springframework.validation.Errors)
+	 */
 	public void validate(Object obj, Errors error) {
 		Transports transport = (Transports) obj;
 		if (transport.getGenPrice() <= 0) {
@@ -27,9 +33,9 @@ public class TransportsValidator implements Validator {
 				"transportCode.empty", "Empty transport Code");
 		ValidationUtils.rejectIfEmpty(error, "startTime", "startTime.empty",
 				"Empty start Time");
-		
-//		ValidationUtils.rejectIfEmpty(error, "seatclass1", "seatclass1.empty",
-//				"Empty seat class 1");
+
+		ValidationUtils.rejectIfEmpty(error, "seatclass1", "seatclass1.empty",
+				"Empty seat class 1");
 		ValidationUtils.rejectIfEmpty(error, "seatclass2", "seatclass2.empty",
 				"Empty seat class 2");
 		ValidationUtils.rejectIfEmpty(error, "seatclass3", "seatclass3.empty",
@@ -37,29 +43,26 @@ public class TransportsValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(error, "genPrice", "genPrice.empty",
 				"Empty general Price");
 
-			
 		if (transport.getSeatclass1() == 0) {
 			error.rejectValue("seatclass1", "seatclass1.required");
 		}
-		
+
 		if (transport.getSeatclass2() == 0) {
 			error.rejectValue("seatclass2", "seatclass2.required");
 		}
-		
+
 		if (transport.getSeatclass3() == 0) {
 			error.rejectValue("seatclass3", "seatclass3.required");
 		}
-		
+
 		if (transport.getGenPrice() == 0.0) {
 			error.rejectValue("genPrice", "genPrice.required");
 		}
-		
-		try{
+
+		try {
 			transport.getSeatclass1();
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			error.rejectValue("seatclass1", "seatclass1.required");
 		}
-		
 	}
-
 }

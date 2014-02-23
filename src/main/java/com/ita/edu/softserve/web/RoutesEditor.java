@@ -10,9 +10,7 @@ import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.RoutesManager;
 
 /**
- * 
  * @author Roman
- * 
  */
 public class RoutesEditor extends PropertyEditorSupport {
 
@@ -21,8 +19,9 @@ public class RoutesEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new RoutesEditor instance, using the given RoutesManager for
 	 * parsing and rendering.
-	 * 
 	 * @param routesManager
+	 *            the RoutesManager to get the Routes as String and set the
+	 *            String as Routes.
 	 */
 	public RoutesEditor(RoutesManager routesManager) {
 		this.routesManager = routesManager;
@@ -44,6 +43,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 
 	/**
 	 * Format the Routes as String.
+	 * @see java.beans.PropertyEditorSupport#getAsText()
 	 */
 	@Override
 	public String getAsText() {

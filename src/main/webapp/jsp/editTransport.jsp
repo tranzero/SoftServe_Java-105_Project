@@ -17,38 +17,35 @@
 				value="${transport.getTransportId()}" onfocus="checkpostal()" />
 			
 			<p><spring:message code="label.transport.transportcode"/></p>
-			<p><form:errors path="transportCode" cssclass="error"/></p>
 			<p><form:input type="text" path="transportCode" 
-				onfocus="checkpostal()" value="${transport.getTransportCode()}"/></p>
+				onfocus="checkpostal()" value="${transport.getTransportCode()}"/>
+			<form:errors path="transportCode" cssClass="error" /></p>
 
 			<p><spring:message code="label.transport.starttime" /></p>
-			<p><form:errors path="startTime" cssclass="error"/></p>
 			<p><form:input type="text" path="startTime" 
-				class="startTime" placeholder="HH:MM:SS" value="${transport.getStartTime()}"/></p>
+				cssClass="startTime" placeholder="HH:MM:SS" value="${transport.getStartTime()}"/>
+			<form:errors path="startTime" cssClass="error"/></p>
 	
 			<p><spring:message code="label.routes.routecode"/></p>
 			<p><form:input path="routes"
-				value="${transport.getRoutes().getRouteId()}" /></p>
+				value="${transport.getRoutes().getRouteId()}" />
+			<form:errors path="routes" cssClass="error"/></p>
 				
 			<p><spring:message code="label.transport.seatclass1"/></p>
-			<p><form:errors path="seatclass1" cssclass="error"/></p>
-			<p><form:input path="seatclass1" 
-				value="${transport.getSeatclass1()}" /></p>
+			<p><form:input path="seatclass1" value="${transport.getSeatclass1()}" />
+			<form:errors path="seatclass1" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.seatclass2"/></p>
-			<p><form:errors path="seatclass2" cssclass="error"/></p>
-			<p><form:input path="seatclass2" 
-				value="${transport.getSeatclass1()}" /></p>
+			<p><form:input path="seatclass2" value="${transport.getSeatclass2()}" />
+			<form:errors path="seatclass2" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.seatclass3"/></p>
-			<p><form:errors path="seatclass3" cssclass="error"/></p>
-			<p><form:input path="seatclass3" 
-				value="${transport.getSeatclass2()}" /></p>
+			<p><form:input path="seatclass3" value="${transport.getSeatclass3()}" />
+			<form:errors path="seatclass3" cssClass="error"/></p>
 			
 			<p><spring:message code="label.transport.genprice"/></p>
-			<p><form:errors path="genPrice" cssclass="error"/></p>
-			<p><form:input path="genPrice" 
-				value="${transport.getGenPrice()}"/></p>
+			<p><form:input path="genPrice" value="${transport.getGenPrice()}"/>
+			<form:errors path="genPrice" cssClass="error"/></p>
 	
 			<p><input name="control" type="submit" value="Update" />
 			

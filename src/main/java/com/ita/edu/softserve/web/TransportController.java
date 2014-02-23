@@ -31,10 +31,9 @@ import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 /**
- * Base controller class for transport.
+ * Base controller class for Transports.
  * 
  * @author Roman
- * 
  */
 @Controller
 public class TransportController {
@@ -182,18 +181,18 @@ public class TransportController {
 	private static final String TRANSPORT_URL_PATTERN = "/transport";
 
 	/**
-	 * Defines orderBy attribute
+	 * Defines orderBy attribute.
 	 */
 	private static final String ORDER_BY = "orderBy";
 
 	/**
-	 * Defines orderBy attribute
+	 * Defines orderBy attribute.
 	 */
 	private static final String START_DATE = "sDate";
 
 	/**
 	 * Field for using paging-related controller-level methods (class realized
-	 * using singleton)
+	 * using singleton).
 	 */
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
@@ -249,7 +248,7 @@ public class TransportController {
 	 *            Amount of results per page.
 	 * @param modelMap
 	 *            Model map to fill.
-	 * @return
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_VIEW_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransportPageView(
@@ -266,8 +265,8 @@ public class TransportController {
 	 * Displays transports in browser with button to edit and delete rows.
 	 * 
 	 * @param modelMap
-	 *            Model map to fill.
-	 * @return transport jsp to use.
+	 *            The Model map to fill.
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransports(
@@ -289,7 +288,7 @@ public class TransportController {
 	 *            Amount of results per page.
 	 * @param modelMap
 	 *            Model map to fill.
-	 * @return transportpage jsp to use.
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = TRANSPORTPAGE_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransportPage(
@@ -352,7 +351,7 @@ public class TransportController {
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
 	 * 
-	 * @return addTransport jsp to use.
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String transportForm(ModelMap modelMap) {
@@ -371,7 +370,7 @@ public class TransportController {
 	 * 
 	 * @param transportCode
 	 *            Transport code.
-	 * @return redirect:/transport
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
@@ -419,7 +418,7 @@ public class TransportController {
 	 * Displays getting a transport object and saves it into the Transports
 	 * table.
 	 * 
-	 * @return redirect:/transport
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
@@ -441,7 +440,7 @@ public class TransportController {
 	 * Displays deleting a transport from the Transports table.
 	 * 
 	 * @param transportId
-	 * @return redirect:/transport
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = REMOVE_TRANSPORT_TRANSPORT_TO_REMOVE, method = RequestMethod.GET)
 	public String removeTransport(
@@ -458,7 +457,7 @@ public class TransportController {
 	 *            Line ID.
 	 * @param modelMap
 	 *            Model Map to fill.
-	 * @return listOfStationsOnLine
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
 	public String displayStationOnLine(
@@ -474,14 +473,13 @@ public class TransportController {
 
 	/**
 	 * Controller method for displaying getting Transport by two stations page.
-	 * 
 	 * @param stationName1
 	 *            Name of station 1.
 	 * @param stationName2
 	 *            Name of station 2.
 	 * @param modelMap
 	 *            Model map to fill.
-	 * @return
+	 * @return the jsp name.
 	 */
 	@RequestMapping(value = TRANSPORT_TRAVEL_URL_PATTERN, method = RequestMethod.GET)
 	public String getTransportByTwoStations(
@@ -493,7 +491,7 @@ public class TransportController {
 			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			Map<String, Object> modelMap) {
 
-		if (stationName1 == null || stationName2 == null
+		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
@@ -516,6 +514,16 @@ public class TransportController {
 		return TRANSPORT_TRAVEL_JSP;
 	}
 
+	/**
+	 * @param stationName1
+	 * @param stationName2
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param sDate
+	 * @param orderBy
+	 * @param modelMap
+	 * @return the jsp name.
+	 */
 	@RequestMapping(value = TRANSPORT_TRAVEL_PAGE_URL_PATTERN, method = RequestMethod.GET)
 	public String getTransportByTwoStationsPage(
 			@RequestParam(value = STATION_NAME1_REQUEST_PARAM, required = false) String stationName1,
@@ -526,7 +534,7 @@ public class TransportController {
 			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			Map<String, Object> modelMap) {
 
-		if (stationName1 == null || stationName2 == null
+		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
@@ -548,5 +556,4 @@ public class TransportController {
 
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}
-
 }
