@@ -42,13 +42,13 @@ public class TicketController {
 	
 	
 	@RequestMapping(value = "/reservationTicket/{tripId}", method = RequestMethod.GET)
-	public String reservationTicket(@PathVariable("tripsId") Integer tripId,
+	public String reservationTicket(@PathVariable("tripId") Integer tripId,
 			Map<String, Object> modelMap) {
 	
 		Trips trip = tripsManager.findByTripId(tripId);
 		Transports transport = transportsManager.findTransportsById(trip.getTransport().getTransportId());
-		modelMap.put("Trip", trip);
-		modelMap.put("Transport", transport);
+		modelMap.put("trip", trip);
+		modelMap.put("transport", transport);
 		return "reservationTicket";
 	}
 
