@@ -117,7 +117,8 @@ public class TransportController {
 	/**
 	 * URL pattern that map controller updateTransportToDB.
 	 */
-	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "/editTransport/{transportId}";
+	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "editTransport/addTransport.htm";
+	
 	/**
 	 * The name of jsp that defines Spring.
 	 */
@@ -357,14 +358,10 @@ public class TransportController {
 
 		modelMap.addAttribute("transport", new Transports());
 
-		transportForm2(modelMap);
-
-		return ADD_TRANSPORT_JSP;
-	}
-
-	public void transportForm2(ModelMap modelMap) {
 		List<Routes> routesList = routesManager.getAllRoutes();
 		modelMap.put("routesList", routesList);
+		
+		return ADD_TRANSPORT_JSP;
 	}
 
 	/**
@@ -383,7 +380,9 @@ public class TransportController {
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			transportForm2(modelMap);
+			List<Routes> routesList = routesManager.getAllRoutes();
+			modelMap.put("routesList", routesList);
+			
 			return ADD_TRANSPORT_JSP;
 		}
 
@@ -391,8 +390,6 @@ public class TransportController {
 
 		return REDIRECT_TRANSPORT;
 	}
-
-	/*-----------------------------------------------------------*/
 
 	/**
 	 * Controller for displaying getting transports ID from the Transports table
@@ -408,9 +405,8 @@ public class TransportController {
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
 			ModelMap modelMap) {
-		// TODO:
-		Transports transport = transportsManager
-				.findTransportsById(transportId);
+		
+		Transports transport = transportsManager.findTransportsById(transportId);
 
 		modelMap.put(TRANSPORT_TO_UPDATE, transport);
 
@@ -426,12 +422,11 @@ public class TransportController {
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
 			@ModelAttribute(TRANSPORT_TO_UPDATE) Transports transport,
-			BindingResult bindingResult, ModelMap modelMap) {
-		// TODO:
+			BindingResult bindingResult) {
+
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-//			transportForm2(modelMap);
 			return EDIT_TRANSPORT_JSP;
 		}
 
@@ -439,9 +434,6 @@ public class TransportController {
 
 		return REDIRECT_TRANSPORT;
 	}
-
-	/*-------------------------------------------------------*/
-
 
 	/**
 	 * Displays deleting a transport from the Transports table.
