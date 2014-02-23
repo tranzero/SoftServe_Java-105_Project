@@ -64,7 +64,7 @@ public final class ValidatorUtil {
 			} else {
 				return DEFAULT_DATE_FORMATTER.parse(dateString);
 			}
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			try {
 				return DEFAULT_DATE_FORMATTER.parse(defualtString);
 			} catch (ParseException e1) {// if correct arguments, should never
@@ -73,6 +73,17 @@ public final class ValidatorUtil {
 				return null;
 			}
 		}
+	}
+
+	/**
+	 * Checks if given string is empty or null
+	 * 
+	 * @param checkedString
+	 *            string to check
+	 * @return result of check
+	 */
+	public static boolean isEmptyString(String checkedString) {
+		return checkedString == null || checkedString.equals("");
 	}
 
 }

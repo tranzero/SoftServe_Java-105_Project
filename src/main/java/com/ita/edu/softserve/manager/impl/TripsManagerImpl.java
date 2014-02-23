@@ -6,17 +6,14 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDAO;
-import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
-import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.utils.Validator;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
@@ -71,6 +68,18 @@ public class TripsManagerImpl implements TripsManager {
 				remSeatClass2, remSeatClass3, minDate, maxDate);
 	}
 	
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
+			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate,
+			String orderByParam, String orderByDirection){
+		return getTripsForCriteria((pageNumber - 1) * count, count,
+				 transportCode,  remSeatClass1,  remSeatClass2,
+				 remSeatClass3,  minDate,  maxDate,
+				 orderByParam,  orderByDirection);
+	}
 	
 	
 	@Transactional(readOnly = true)
@@ -127,23 +136,23 @@ public class TripsManagerImpl implements TripsManager {
 				year = Integer.parseInt(datesplit1[2]);
 				day = Integer.parseInt(datesplit1[0]);
 				month = Integer.parseInt(datesplit1[1]);
-				startDate = new Date(year, month, day);
+				startDate = new Date(year-1900, month, day);
 				String datesplit2[] = maxDate.split("\\.");
 				year = Integer.parseInt(datesplit2[2]);
 				day = Integer.parseInt(datesplit2[0]);
 				month = Integer.parseInt(datesplit2[1]);
-				endDate = new Date(year, month, day);
+				endDate = new Date(year-1900, month, day);
 			} else {
 				String datesplit1[] = minDate.split("/");
 				year = Integer.parseInt(datesplit1[2]);
 				day = Integer.parseInt(datesplit1[1]);
 				month = Integer.parseInt(datesplit1[0]);
-				startDate = new Date(year, month, day);
+				startDate = new Date(year-1900, month, day);
 				String datesplit2[] = maxDate.split("/");
 				year = Integer.parseInt(datesplit2[2]);
 				day = Integer.parseInt(datesplit2[1]);
 				month = Integer.parseInt(datesplit2[0]);
-				endDate = new Date(year, month, day);
+				endDate = new Date(year-1900, month, day);
 			}
 
 			Calendar start = Calendar.getInstance();

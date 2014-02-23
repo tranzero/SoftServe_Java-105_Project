@@ -33,6 +33,30 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
 		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY) })
 public class Trips extends BaseEntity {
+	/**
+	 * Defines the name of transport code parameter
+	 */
+	public static final String TRANSPORT_CODE_NAME = "transportCode";
+	/**
+	 * Defines the name of remaining seat class 1 parameter
+	 */
+	public static final String REM_SEAT_CLASS_1_NAME = "remSeatClass1";
+	/**
+	 * Defines the name of remaining seat class 2 parameter
+	 */
+	public static final String REM_SEAT_CLASS_2_NAME = "remSeatClass2";
+	/**
+	 * Defines the name of remaining seat class 3 parameter
+	 */
+	public static final String REM_SEAT_CLASS_3_NAME = "remSeatClass3";
+	/**
+	 * Defines the name of minimum date parameter
+	 */
+	public static final String MIN_DATE_NAME = "minDate";
+	/**
+	 * Defines the name of maximum date parameter
+	 */
+	public static final String MAX_DATE_NAME = "maxDate";
 
 	/**
 	 * Name of query which is used for selecting trips from DB. Compatible with
@@ -43,34 +67,55 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting trips from DB. Compatible with paging.
 	 */
 	public static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
-	
-	
-//	/**
-//	 * Name of query which is used for selecting trips from DB using criteria. Compatible with
-//	 * paging.
-//	 */
-//	public static final String TRIPS_FIND_BY_CRITERIA = "Trips.findByCriteria";
+
+	// /**
+	// * Name of query which is used for selecting trips from DB using criteria.
+	// Compatible with
+	// * paging.
+	// */
+	// public static final String TRIPS_FIND_BY_CRITERIA =
+	// "Trips.findByCriteria";
 	/**
-	 * Query which is used for selecting trips from DB using criteria. Compatible with paging.
+	 * Query which is used for selecting trips from DB using criteria.
+	 * Compatible with paging.
 	 */
-	public static final String TRIPS_FIND_BY_CRITERIA_QUERY = "SELECT tr FROM Trips tr WHERE" 
-			+ " tr.transport.transportCode LIKE :transportCode AND tr.remSeatClass1 > :remSeatClass1"
-			+" AND tr.remSeatClass2 > :remSeatClass2  AND tr.remSeatClass3 > :remSeatClass3"
-			+ " AND tr.startDate BETWEEN :minDate AND :maxDate ORDER BY ";
-	
+	public static final String TRIPS_FIND_BY_CRITERIA_QUERY = "SELECT tr FROM Trips tr WHERE"
+			+ " tr.transport.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND tr.remSeatClass1 > :"
+			+ REM_SEAT_CLASS_1_NAME
+			+ " AND tr.remSeatClass2 > :"
+			+ REM_SEAT_CLASS_2_NAME
+			+ "  AND tr.remSeatClass3 > :"
+			+ REM_SEAT_CLASS_3_NAME
+			+ " AND tr.startDate BETWEEN :"
+			+ MIN_DATE_NAME
+			+ " AND :"
+			+ MAX_DATE_NAME + " ORDER BY ";
+
 	/**
-	 * Name of query which is used for selecting count of trips from DB with criteria. Used in
-	 * paging.
+	 * Name of query which is used for selecting count of trips from DB with
+	 * criteria. Used in paging.
 	 */
 	public static final String TRIPS_FIND_CRITERIA_COUNT = "Trips.findCriteriaCount";
 
 	/**
-	 * Query which is used for selecting count of trips from DB with criteria. Used in paging.
+	 * Query which is used for selecting count of trips from DB with criteria.
+	 * Used in paging.
 	 */
-	public static final String TRIPS_FIND_CRITERIA_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE" 
-			+ " tr.transport.transportCode LIKE :transportCode AND tr.remSeatClass1 > :remSeatClass1"
-			+" AND tr.remSeatClass2 > :remSeatClass2  AND tr.remSeatClass3 > :remSeatClass3"
-			+ " AND tr.startDate BETWEEN :minDate AND :maxDate";
+	public static final String TRIPS_FIND_CRITERIA_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE"
+			+ " tr.transport.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND tr.remSeatClass1 > :"
+			+ REM_SEAT_CLASS_1_NAME
+			+ " AND tr.remSeatClass2 > :"
+			+ REM_SEAT_CLASS_2_NAME
+			+ "  AND tr.remSeatClass3 > :"
+			+ REM_SEAT_CLASS_3_NAME
+			+ " AND tr.startDate BETWEEN :"
+			+ MIN_DATE_NAME
+			+ " AND :"
+			+ MAX_DATE_NAME;
 
 	/**
 	 * Name of query which is used for selecting count of trips from DB. Used in
@@ -109,7 +154,7 @@ public class Trips extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRANSPORTID")
-	private Transports transport ;
+	private Transports transport;
 
 	/**
 	 * Remaining quantity of seats (class 1)
@@ -145,7 +190,7 @@ public class Trips extends BaseEntity {
 
 	public Trips() {
 		super();
-		
+
 	}
 
 	/**
@@ -272,22 +317,21 @@ public class Trips extends BaseEntity {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	
+
 	/**
 	 * Hash code function for trips
 	 */
-	
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(transport).append(startDate)
 				.hashCode();
 	}
 
-	
 	/**
 	 * Equals function for trips
 	 */
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
