@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -50,6 +49,8 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			entityManager.merge(entity);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> findByDate(String date) {
 		Query query = entityManager
@@ -58,7 +59,6 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 		return (List<Transports>) query.getResultList();
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -71,6 +71,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (List<TransportTravel>) query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimits(
 			String stationName1, String stationName2, int firstElement,

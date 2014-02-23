@@ -16,12 +16,11 @@ import com.ita.edu.softserve.manager.RoutesManager;
  */
 public class RoutesEditor extends PropertyEditorSupport {
 
-	/**
-	 * 
-	 */
 	RoutesManager routesManager;
 
 	/**
+	 * Create a new RoutesEditor instance, using the given RoutesManager for
+	 * parsing and rendering.
 	 * 
 	 * @param routesManager
 	 */
@@ -30,7 +29,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 	}
 
 	/**
-	 * Parse the Date from the given text, using the specified DateFormat.
+	 * Parse the Routes from the given text.
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
