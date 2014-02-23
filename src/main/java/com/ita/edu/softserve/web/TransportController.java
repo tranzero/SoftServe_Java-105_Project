@@ -1,11 +1,13 @@
 package com.ita.edu.softserve.web;
 
 import java.sql.Time;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -118,7 +120,7 @@ public class TransportController {
 	 * URL pattern that map controller updateTransportToDB.
 	 */
 	private static final String EDIT_TRANSPORT_TRANSPORT_ID = "editTransport/addTransport.htm";
-	
+
 	/**
 	 * The name of jsp that defines Spring.
 	 */
@@ -163,12 +165,12 @@ public class TransportController {
 	 * The name of key with which the transports value is to be associated.
 	 */
 	private static final String TRANSPORTS_LIST_NAME = "transportsList";
-	
+
 	/**
 	 * The name of jsp that defines Spring.
 	 */
 	private static final String TRANSPORT_TO_UPDATE = "transport";
-	
+
 	/**
 	 * The name of jsp that defines Spring.
 	 */
@@ -188,7 +190,7 @@ public class TransportController {
 	 * Defines orderBy attribute
 	 */
 	private static final String START_DATE = "sDate";
-	
+
 	/**
 	 * Field for using paging-related controller-level methods (class realized
 	 * using singleton)
@@ -219,6 +221,7 @@ public class TransportController {
 
 	@Autowired
 	Validator transportsValidator;
+
 	/**
 	 * Display transports in browser.
 	 * 
@@ -324,20 +327,18 @@ public class TransportController {
 		modelMap.put(TRANSPORTS_LIST_NAME, transports);
 	}
 
-	/*--------------------------------------------------------*/
-
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(transportsValidator);
 
-		// NumberFormat numberFormat = NumberFormat.getInstance();
-		// numberFormat.setGroupingUsed(false);
-		//
-		// binder.registerCustomEditor(Integer.class, new CustomNumberEditor(
-		// Integer.class, numberFormat, true));
-		//
-		// binder.registerCustomEditor(Double.class, new CustomNumberEditor(
-		// Double.class, numberFormat, true));
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		numberFormat.setGroupingUsed(false);
+
+		binder.registerCustomEditor(Integer.class, new CustomNumberEditor(
+				Integer.class, numberFormat, true));
+
+		binder.registerCustomEditor(Double.class, new CustomNumberEditor(
+				Double.class, numberFormat, true));
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
 		dateFormat.setLenient(false);
@@ -360,7 +361,7 @@ public class TransportController {
 
 		List<Routes> routesList = routesManager.getAllRoutes();
 		modelMap.put("routesList", routesList);
-		
+
 		return ADD_TRANSPORT_JSP;
 	}
 
@@ -382,7 +383,7 @@ public class TransportController {
 		if (bindingResult.hasErrors()) {
 			List<Routes> routesList = routesManager.getAllRoutes();
 			modelMap.put("routesList", routesList);
-			
+
 			return ADD_TRANSPORT_JSP;
 		}
 
@@ -405,8 +406,9 @@ public class TransportController {
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
 			ModelMap modelMap) {
-		
-		Transports transport = transportsManager.findTransportsById(transportId);
+
+		Transports transport = transportsManager
+				.findTransportsById(transportId);
 
 		modelMap.put(TRANSPORT_TO_UPDATE, transport);
 
@@ -526,7 +528,7 @@ public class TransportController {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
-			return TRANSPORT_TRAVEL_JSP; 
+			return TRANSPORT_TRAVEL_JSP;
 		}
 		if (orderBy == null) {
 			orderBy = 0;
