@@ -44,36 +44,37 @@
 
 		<thead>
 			<tr>
-				<th align="center"><spring:message code="label.users.num" /></th>
-				<th align="center"><spring:message code="label.users.userName" /></th>
-				<th align="center"><spring:message code="label.users.firstName" /></th>
-				<th align="center"><spring:message code="label.users.lastName" /></th>
-				<th align="center"><spring:message code="label.users.email" /></th>
-				<th align="center"><spring:message code="label.users.role" /></th>
-				<th align="center"><spring:message code="label.users.dateOfReg" /></th>
-
+				<th><spring:message code="label.users.num" /></th>
+				<th><spring:message code="label.users.userName" /></th>
+				<th><spring:message code="label.users.firstName" /></th>
+				<th><spring:message code="label.users.lastName" /></th>
+				<th><spring:message code="label.users.email" /></th>
+				<th><spring:message code="label.users.role" /></th>
+				<th><spring:message code="label.users.dateOfReg" /></th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<c:forEach var="user" items="${userList}">
 				<tr>
-					<td align="center" id="generate"></td>
-					<td align="center">${user.getUserName() }</td>
-					<td align="center">${user.getFirstName()}</td>
-					<td align="center">${user.getLastName() }</td>
-					<td align="center">${user.getEmail() }</td>
-					<td align="center">${user.getRole().getDescription()}</td>
-					<td align="center">${user.getRegDate()}</td>
+					<td id="generate"></td>
+					<td>${user.getUserName() }</td>
+					<td>${user.getFirstName()}</td>
+					<td>${user.getLastName() }</td>
+					<td>${user.getEmail() }</td>
+					<td>${user.getRole().getDescription()}</td>
+					<td>${user.getRegDate()}</td>
 
 					<td><a href="userEditpg/${user.getUserId()}"> <input
 							id="userEdit" type="button" name="userEdit" value="<spring:message code="label.edit"/>">
-					</a></br></td>
+					</a></td>
 
 					<td><a href="userdelpg/${user.getUserId()}"
 						onclick="return confirm_delete_user()"> <input id="userdel"
 							type="button" name="userdel" value="<spring:message code="label.delete"/>">
-					</a></br></td>
+					</a></td>
 
 				</tr>
 			</c:forEach>

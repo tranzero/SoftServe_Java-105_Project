@@ -19,36 +19,37 @@
 	
 		<thead>
 			<tr>
-				<th align="center">Num</th>
-				<th align="center">Username</th>
-				<th align="center">First name</th>
-				<th align="center">Last name</th>
-				<th align="center">Email</th>				
-				<th align="center">Role</th>
-				<th align="center">Date of Regist</th>
-
+				<th>Num</th>
+				<th>Username</th>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Email</th>				
+				<th>Role</th>
+				<th>Date of Regist</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		
 		<tbody>
 			<c:forEach var="user" items="${userList}">
 				<tr>
-					<td align="center">${user.getUserId()}</td>
-					<td align="center">${user.getUserName() }</td>
-					<td align="center">${user.getFirstName()}</td>
-					<td align="center">${user.getLastName() }</td>
-					<td align="center">${user.getEmail() }</td>					
-					<td align="center">${user.getRole().getDescription()}</td>
-					<td align="center">${user.getRegDate()}</td>
+					<td>${user.getUserId()}</td>
+					<td>${user.getUserName() }</td>
+					<td>${user.getFirstName()}</td>
+					<td>${user.getLastName() }</td>
+					<td>${user.getEmail() }</td>					
+					<td>${user.getRole().getDescription()}</td>
+					<td>${user.getRegDate()}</td>
 
 					<td><a href="userEdit/${user.getUserId()}"> <input
 							id="userEdit" type="button" name="userEdit" value="EDIT User">
-					</a></br></td>					
+					</a></td>					
 
 					<td><a href="userdel/${user.getUserId()}" 
 					onclick="return confirm_delete_user()"> <input
 							id="userdel" type="button" name="userdel" value="DELETE">
-					</a></br></td>
+					</a></td>
 
 				</tr>
 			</c:forEach>
