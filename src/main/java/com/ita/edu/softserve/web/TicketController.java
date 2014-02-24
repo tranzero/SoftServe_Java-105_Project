@@ -51,6 +51,21 @@ public class TicketController {
 		modelMap.put("transport", transport);
 		return "reservationTicket";
 	}
+	
+	@RequestMapping(value = "/reservationTicketNext/{tripId}", method = RequestMethod.POST)
+	public String reservationTicketNext(@PathVariable("tripId") Integer tripId,
+			@ModelAttribute("customerInfo") String customerInfo,
+			@ModelAttribute("isSeatClass1") boolean isSeatClass1,
+			@ModelAttribute("isSeatClass2") boolean isSeatClass2,
+			@ModelAttribute("isSeatClass3") boolean isSeatClass3,
+			Map<String, Object> modelMap) {
+	 
+		Trips trip = tripsManager.findByTripId(tripId);
+		Transports transport = transportsManager.findTransportsById(trip.getTransport().getTransportId());
+		modelMap.put("trip", trip);
+		modelMap.put("transport", transport);
+		return "reservationTicket";
+	}
 
 
 }
