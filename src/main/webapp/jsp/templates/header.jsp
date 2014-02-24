@@ -12,10 +12,9 @@
 		<div id="login">
 			<ul>
 				<sec:authorize access="isAuthenticated()">
-					<li><p>
-							Hello,
-							<sec:authentication property="principal.username" />
-						</p></li>
+					<li>Hello, <sec:authentication property="principal.username" />
+					</li>
+					<li>|</li>
 					<li><a href="<c:url value="j_spring_security_logout" />"><spring:message
 								code="label.header.logout" /></a></li>
 				</sec:authorize>
