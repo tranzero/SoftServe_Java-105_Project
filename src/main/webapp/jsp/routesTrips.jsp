@@ -93,6 +93,8 @@
 			</div>
 		</c:if>
 	</div>
+	
+	<c:if test="${not empty param.nameStation  && not empty param.timeMin && not empty param.timeMax}">
 	<script>
 		function showRoutesTripPage(stationName_, timeMin_, timeMax_, findBy_,
 				pageNumber_, resultsPerPage_) {
@@ -130,9 +132,6 @@
 							"${param.findBy}", "${pageNumber}",
 							"${resultsPerPage}");
 				});
-		
-
 	</script>
-
-
+	</c:if>
 </section>

@@ -99,6 +99,15 @@
 		<put-attribute name="content" value="/jsp/login.jsp" />
 	</definition>
 
+	<definition name="routesTrips" extends="base-template">
+		<put-attribute name="title" value="View: News" />
+		<put-attribute name="content" value="/jsp/routesTrips.jsp" />
+	</definition>
+	<definition name="routesTripsPage" extends="ajax">
+		<put-attribute name="title" value="View: routesTripsPage" />
+		<put-attribute name="content" value="/jsp/routesTripsPage.jsp" />
+	</definition>
+	
 	<!-- <definition name="managenews" extends="base-template"> -->
 	<!-- <put-attribute name = "title" value = "View: News Maneger"/> -->
 	<!-- <put-attribute name="content" value="/jsp/managenews.jsp" /> -->

@@ -22,15 +22,14 @@
 					</c:forEach>
 				</table>
 				<hr />
-		</c:if>
-		<c:if
-				test="${empty RoutesTripsList && not empty param.nameStation  && not empty param.timeMin && not empty param.timeMax}">
-				<hr />
-					<h3>Sorry. No results was found</h3>
-				<hr />
-		</c:if>
+</c:if>
+<c:if test="${empty RoutesTripsList && not empty param.nameStation  && not empty param.timeMin && not empty param.timeMax}">
+		<hr />
+			 <h3>Sorry. No results was found</h3>
+		<hr />
+</c:if>
 	
-<c:if test="${not empty param.nameStation  && not empty param.timeMin && not empty param.timeMax}">
+
 	<div class="pagination">
 		<ul class="bootpag">
 			<c:if test="${pageNumber>1}">
@@ -79,4 +78,3 @@
 			</c:if>
 		</ul>
 	</div>
-</c:if>
