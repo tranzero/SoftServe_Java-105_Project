@@ -20,31 +20,43 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 	 * @return
 	 */
 	Routes findByCode(String routeCode);
-	
-	Routes findByLineId(int id);
-	
-	List<Routes> getRoutesForLimits(int currentPaget, int count);
-	
-	long getRoutesListCount();
 
+	Routes findByLineId(int id);
+
+	List<Routes> getRoutesForLimits(int currentPaget, int count,
+			String orderByParam, String orderByDirection);
+
+	long getRoutesListCount();
+	
+	
+	
+
+	
+	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count);
+	
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax);
+
+	
+	
+	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count);
+	
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax);
+	
+	
+	
+	
+	
 	public List<RouteTrip> findRoutersListByStationNameArriving(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax);
 
 	public List<RouteTrip> findRoutersListByStationNameDeparting(
 			String stationNameDeparture, Time timeDepartureMin,
 			Time timeDepartureMax);
-	
-	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
-			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
-			int currentPaget, int count);
 
-	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
-			String stationNameDeparture, Time timeDepartureMin,
-			Time timeDepartureMax, int currentPaget, int count);
-	
-	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
-			Time timeArrivalMin, Time timeArrivalMax);
-	
-	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
-			Time timeDepartureMin, Time timeDepartureMax);
 }

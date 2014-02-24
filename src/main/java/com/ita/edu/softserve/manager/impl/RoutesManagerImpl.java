@@ -50,10 +50,56 @@ public class RoutesManagerImpl implements RoutesManager {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Routes findRoutesById(int id) {
-		return routeDao.findById(id);
+	public List<Routes> getRoutesForPage(int currentPage, int count, String orderByParam, String orderByDirection) {
+		return routeDao.getRoutesForLimits((currentPage - 1) * count, count, orderByParam, orderByDirection);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutesListCount() {
+		return routeDao.getRoutesListCount();
+	}
+	
+	
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
+			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
+			int currentPaget, int count){
+		return routeDao.getRoutersListByStNameArrivingForLimits(stationNameArrival, timeArrivalMin, timeArrivalMax,
+				(currentPaget - 1) * count, count);
+	}
+		
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
+			Time timeArrivalMin, Time timeArrivalMax){
+		return routeDao.getRoutersListByStationNameArrivingCount(stationNameArrival, timeArrivalMin, timeArrivalMax);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<RouteTrip> getRoutersListByStNameDepartingForPage(
+			String stationNameDeparture, Time timeDepartureMin,
+			Time timeDepartureMax, int currentPaget, int count){
+		return routeDao.getRoutersListByStNameDepartingForLimits(stationNameDeparture, timeDepartureMin, timeDepartureMax,
+				(currentPaget - 1) * count, count);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
+			Time timeDepartureMin, Time timeDepartureMax){
+		return routeDao.getRoutersListByStationNameDepartingCount(stationNameDeparture, timeDepartureMin, timeDepartureMax);
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Transactional
 	@Override
 	public void createRoute(String lines, String routeCode) {
@@ -82,23 +128,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		}
 	}
 
-	@Transactional
-	@Override
-	public List<Routes> getAllRoutes() {
-		return routeDao.getAllEntities();
-	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Routes> getRoutesForPage(int currentPage, int count) {
-		return routeDao.getRoutesForLimits((currentPage - 1) * count, count);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public long getRoutesListCount() {
-		return routeDao.getRoutesListCount();
-	}
+	
 
 	/**
 	 * Return Routes of transports that are arriving to certain station during
@@ -193,39 +224,21 @@ public class RoutesManagerImpl implements RoutesManager {
 	
 	
 	
-	@Transactional(readOnly = true)
-	@Override
-	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
-			Time timeArrivalMin, Time timeArrivalMax){
-		return routeDao.getRoutersListByStationNameArrivingCount(stationNameArrival, timeArrivalMin, timeArrivalMax);
-	}
 	
-	@Transactional(readOnly = true)
-	@Override
-	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
-			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
-			int currentPaget, int count){
-		System.out.println("go data to manager");
-		return routeDao.getRoutersListByStNameArrivingForLimits(stationNameArrival, timeArrivalMin, timeArrivalMax,
-				(currentPaget - 1) * count, count);
-	}
-	
-	@Transactional(readOnly = true)
-	@Override
-	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
-			Time timeDepartureMin, Time timeDepartureMax){
-		return routeDao.getRoutersListByStationNameDepartingCount(stationNameDeparture, timeDepartureMin, timeDepartureMax);
-	}
-	
-	@Transactional(readOnly = true)
-	@Override
-	public List<RouteTrip> getRoutersListByStNameDepartingForPage(
-			String stationNameDeparture, Time timeDepartureMin,
-			Time timeDepartureMax, int currentPaget, int count){
-		return routeDao.getRoutersListByStNameDepartingForLimits(stationNameDeparture, timeDepartureMin, timeDepartureMax,
-				(currentPaget - 1) * count, count);
-	}
 
+	@Transactional
+	@Override
+	public List<Routes> getAllRoutes() {
+		return routeDao.getAllEntities();
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Routes findRoutesById(int id) {
+		return routeDao.findById(id);
+	}
+	
+	
 	public static RoutesManager getInstance() {
 		return ManagerFactory.getManager(RoutesManager.class);
 	}

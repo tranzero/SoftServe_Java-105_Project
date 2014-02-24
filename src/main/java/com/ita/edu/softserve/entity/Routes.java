@@ -31,6 +31,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "routes")
 @NamedQueries({
 		@NamedQuery(name = Routes.ROUTES_FIND_ALL, query = Routes.ROUTES_FIND_ALL_QUERY),
+		@NamedQuery(name = Routes.ROUTES_ALL_ORDER_BY, query = Routes.ROUTES_ALL_ORDER_BY_QUERY),
 		@NamedQuery(name = Routes.FIND_BY_CODE, query = Routes.FIND_BY_CODE_QUERY),
 		@NamedQuery(name = Routes.ROUTES_FIND_COUNT, query = Routes.ROUTES_FIND_COUNT_QUERY),
 		@NamedQuery(name = Routes.FIND_BY_LINEID, query = Routes.FIND_BY_LINEID_QUERY),
@@ -42,9 +43,12 @@ public class Routes extends BaseEntity {
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT r FROM Routes r WHERE r.routeCode = ?1";
-
+	
 	public static final String ROUTES_FIND_ALL = "Routes.RoutesfindAll";
 	public static final String ROUTES_FIND_ALL_QUERY = "SELECT r FROM Routes r";
+
+	public static final String ROUTES_ALL_ORDER_BY = "Routes.RoutesAllOrderBy";
+	public static final String ROUTES_ALL_ORDER_BY_QUERY = "SELECT r FROM Routes r ORDER BY r.routeCode";//ORDER BY ?1
 
 	public static final String ROUTES_FIND_COUNT = "Routes.findCount";
 	public static final String ROUTES_FIND_COUNT_QUERY = "SELECT COUNT (r.routeId) FROM Routes r";

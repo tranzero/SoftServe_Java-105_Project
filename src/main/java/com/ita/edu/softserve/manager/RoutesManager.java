@@ -18,16 +18,9 @@ import com.ita.edu.softserve.manager.impl.RouteTrip;
 public interface RoutesManager extends BaseManager {
 
 	Routes findRoutesById(int id);
-
-	List<Routes> getAllRoutes();
-
-	void createRoute(String lines, String routeCode);
-
-	void updateRoute(Integer routeId, String lines, String routeCode);
-
-	void removeRouteById(Integer routeId);
-
-	public List<Routes> getRoutesForPage(int currentPage, int count);
+	
+	public List<Routes> getRoutesForPage(int currentPage, int count,
+			String orderByParam, String orderByDirection);
 
 	long getRoutesListCount();
 	
@@ -44,6 +37,17 @@ public interface RoutesManager extends BaseManager {
 	
 	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
 			Time timeDepartureMin, Time timeDepartureMax);
+
+	
+	
+	
+	void createRoute(String lines, String routeCode);
+
+	void updateRoute(Integer routeId, String lines, String routeCode);
+
+	void removeRouteById(Integer routeId);
+	
+	
 
 	/**
 	 * Return Routes of transports that are arriving to certain station during
@@ -75,4 +79,6 @@ public interface RoutesManager extends BaseManager {
 	public List<RouteTrip> findRoutersListByStationNameDeparting(
 			String stationNameDeparture, Time timeDepartureMin,
 			Time timeDepartureMax);
+	
+	List<Routes> getAllRoutes();
 }
