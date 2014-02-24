@@ -17,8 +17,8 @@
 	<c:forEach var="line" items="${lines}">
 		<tr>
 			<td align="center">${line.getLineName()}</td>
-			<td align="center"><a href="editline/${line.getLineId()}">edit</a></td>
-			<td align="center"><a href="deleteline/${line.getLineId()}">delete</a></td>
+			<td align="center"><a href="editline/${line.getLineId()}"><spring:message code="label.lines.editline"/></a></td>
+			<td align="center"><a href="deleteline/${line.getLineId()}"><spring:message code="label.lines.deleteline"/></a></td>
 		</tr>
 	</c:forEach>
 </table>
