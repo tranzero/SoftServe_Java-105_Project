@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.web;
 
-import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
+import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 
 import java.io.Console;
 import java.sql.Time;
@@ -256,10 +256,10 @@ public class RoutesController {
 
 		long count = 0;
 		if (findBy.equals("findByArr")) {
-			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}
 		if (findBy.equals("findByDep")) {
-			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}		
 	
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -270,13 +270,13 @@ public class RoutesController {
 		if (findBy.equals("findByArr")) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager.getRoutersListByStNameArrivingForPage(
 					nameStation,
-					timeParse(timeMin), timeParse(timeMax), (int)container.getPageNumber(),(int) container.getResultsPerPage()));
+					parseStringToTime(timeMin), parseStringToTime(timeMax), (int)container.getPageNumber(),(int) container.getResultsPerPage()));
 		}
 		
 		if (findBy.equals("findByDep")) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager.getRoutersListByStNameDepartingForPage(
 					nameStation,
-					timeParse(timeMin), timeParse(timeMax), (int)container.getPageNumber(), (int)container.getResultsPerPage()));
+					parseStringToTime(timeMin), parseStringToTime(timeMax), (int)container.getPageNumber(), (int)container.getResultsPerPage()));
 		}
 
 		return ROUTES_TRIPS_JSP;
@@ -300,10 +300,10 @@ public class RoutesController {
 		long count = 0;
 		
 		if (findBy.equals("findByArr")) {
-			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+			count=routesManager.getRoutersListByStationNameArrivingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}
 		if (findBy.equals("findByDep")) {
-			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,timeParse(timeMin), timeParse(timeMax));
+			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}	
 		
 		PageInfoContainer container = new PageInfoContainer(pageNumber,
@@ -315,13 +315,13 @@ public class RoutesController {
 		if (findBy.equals("findByArr")) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager.getRoutersListByStNameArrivingForPage(
 					nameStation,
-					timeParse(timeMin), timeParse(timeMax), (int)container.getPageNumber(),(int) container.getResultsPerPage()));
+					parseStringToTime(timeMin), parseStringToTime(timeMax), (int)container.getPageNumber(),(int) container.getResultsPerPage()));
 		}
 		
 		if (findBy.equals("findByDep")) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager.getRoutersListByStNameDepartingForPage(
 					nameStation,
-					timeParse(timeMin), timeParse(timeMax), (int)container.getPageNumber(), (int)container.getResultsPerPage()));
+					parseStringToTime(timeMin), parseStringToTime(timeMax), (int)container.getPageNumber(), (int)container.getResultsPerPage()));
 		}
 		return ROUTES_TRIPS_PAGE_JSP ;
 	}
