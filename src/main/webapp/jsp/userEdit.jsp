@@ -5,15 +5,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
 <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
 <script type="text/javascript"
 	src="resources/js/usersEdit-validation.js"></script>
 
 <jsp:directive.page import="java.util.*" />
-
-
 
 <section id="content">
 	<h2 align="center">
@@ -22,49 +19,49 @@
 	<hr />
 
 	<form id="userEdit" method="post" action="" name="/userEdit"
-		style="text-align: center">
+		style="text-align: left">
+
 		<input id="userId" type="hidden" name="userId"
 			value="${user.getUserId()}">
 
 		<div>
-			<label for="firstName"><spring:message
-					code="label.users.firstName" />: </label> <input id="userFirstName"
-				type="text" name="userFirstName" value="${user.getFirstName()}">
-		</div>
-		<br>
+			<p>
+				<spring:message code="label.users.firstName" />
+				: <input id="userFirstName" type="text" name="userFirstName"
+					value="${user.getFirstName()}">
+			</p>
 
-		<div>
-			<label for="lastName"><spring:message
-					code="label.users.lastName" />: </label> <input id="lastName" type="text"
-				name="lastName" value="${user.getLastName()}"><br>
+			<p>
+				<spring:message code="label.users.lastName" />
+				: <input id="lastName" type="text" name="lastName"
+					value="${user.getLastName()}"><br>
+			</p>
 
-		</div>
-		<br>
+			<p>
+				<spring:message code="label.users.email" />
+				: <input id="email" type="text" name="email"
+					value="${user.getEmail()}">
+			</p>
 
-		<div>
-			<label for="email"><spring:message code="label.users.email" />:
-			</label> <input id="email" type="text" name="email"
-				value="${user.getEmail()}"> <br>
-		</div>
-		<br>
 
-		<div>
-			<label for="password"><spring:message
-					code="label.users.password" />: </label> <input id="password"
-				type="password" name="password" value="${user.getPassword()}"><br>
-		</div>
-		<br>
 
-		<div>
-			<label for="role"><spring:message code="label.users.role" />:
-			</label>
-			<form:select id="role" name="role" path="user.role">
-				<form:options itemLabel="description" />
-			</form:select>
+			<p>
+				<spring:message code="label.users.password" />
+				: <input id="password" type="password" name="password"
+					value="${user.getPassword()}">
+			</p>
 
-		</div>
-		<br /> <br />
-		<div>
+			<p>
+				<spring:message code="label.users.role" />
+				:
+
+				<form:select id="role" name="role" path="user.role">
+					<form:options itemLabel="description" />
+				</form:select>
+			</p>
+
+			<br>
+
 			<p align="center">
 				<input type="submit"
 					value="<spring:message
