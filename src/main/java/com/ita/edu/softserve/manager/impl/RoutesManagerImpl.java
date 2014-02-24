@@ -1,9 +1,7 @@
 package com.ita.edu.softserve.manager.impl;
 
-import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -15,15 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
-import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.dao.StopsDAO;
-import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Stops;
-import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 
