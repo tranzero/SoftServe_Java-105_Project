@@ -27,7 +27,7 @@
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-		<form:form id="addTransport.htm" method="POST" action="addTransport.htm" commandName="transport">
+		<form:form id="transports" method="POST" action="addTransport.htm" commandName="transport">
 			<form:errors path="*" cssClass="errorblock" element="div" />
 
 			<p><spring:message code="label.transport.transportcode"/></p>
@@ -38,6 +38,15 @@
 			<p><form:input id="startTime" type="text" path="startTime" 
 				cssClass="startTime" placeholder="HH:MM:SS" />
 			<form:errors path="startTime" cssClass="error"/></p>
+	
+			<spring:message code="label.routes.routecode"/>
+			<p><form:errors path="routes" cssClass="error"/>
+			<form:select path="routes" name="routes">
+				<c:forEach var="route" items="${routesList}">
+					<option value="${route.getRouteId()}">
+						${route.getRouteCode()}&emsp; ${route.getLineId().getLineName()}</option>
+				</c:forEach>
+			</form:select><form:errors path="routes" cssClass="error"/></p>
 	
 			<p><spring:message code="label.transport.seatclass1"/></p>
 			<p><form:input id="seatclass1" path="seatclass1"/>
@@ -55,18 +64,11 @@
 			<p><form:input id="genPrice" path="genPrice"/>
 			<form:errors path="genPrice" cssClass="error"/></p>
 	
-			<spring:message code="label.routes.routecode"/>
-			
-			<p><form:errors path="routes" cssClass="error"/>
-			<form:select path="routes" name="routes">
-				<c:forEach var="route" items="${routesList}">
-					<option value="${route.getRouteId()}">
-						${route.getRouteCode()}&emsp; ${route.getLineId().getLineName()}</option>
-				</c:forEach>
-			</form:select>
-				
 		<form:input path="" type="submit" value="Add" />
 		
+		<input type="button" value="<spring:message code="label.stations.cancel"/>" 
+				onclick="window.location='/SoftServe_Java-105/transport';"></p>
+				
 	</form:form>
 	
 	<script src="resources/js/jquery.js"></script>

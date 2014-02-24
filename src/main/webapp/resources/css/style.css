@@ -269,3 +269,17 @@ form#loginform {
 	padding: 40px;
 	border: 1px solid #a2a2a2;
 }
+
+<!--for error -->
+.error {
+	color: #ff0000;
+}
+
+<!--for error too -->
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}

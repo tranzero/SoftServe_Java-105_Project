@@ -410,9 +410,10 @@ public class TransportController {
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
 			ModelMap modelMap) {
 
-		Transports transport = transportsManager
-				.findTransportsById(transportId);
-
+		Transports transport = transportsManager.findTransportsById(transportId);
+		List<Routes> routesList = routesManager.getAllRoutes();
+		
+		modelMap.put(ROUTES_LIST, routesList);
 		modelMap.put(MODEL_TRANSPORT, transport);
 
 		return EDIT_TRANSPORT_JSP;
@@ -427,11 +428,12 @@ public class TransportController {
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, ModelMap modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
+			modelMap.put(ROUTES_LIST, routesManager.getAllRoutes());
 			return EDIT_TRANSPORT_JSP;
 		}
 

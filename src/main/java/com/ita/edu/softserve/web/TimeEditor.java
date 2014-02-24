@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.web;
 
-import static com.ita.edu.softserve.utils.ParseUtil.timeParse;
+import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 
 import java.beans.PropertyEditorSupport;
 import java.text.DateFormat;
@@ -107,7 +107,7 @@ public class TimeEditor extends PropertyEditorSupport {
 					COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY
 							+ this.exactDateLength + CHARACTERS_LONG);
 		} else {
-			setValue(timeParse(text));
+			setValue(parseStringToTime(text));
 		}
 	}
 

@@ -30,9 +30,9 @@ public final class ParseUtil {
 	 *            the string object to parse.
 	 * @return the sql time object.
 	 */
-	public static Time timeParse(final String time) {
+	public static Time parseStringToTime(String time) {
 		if (time == null) {
-			LOGGER.error("The param time is null");
+			LOGGER.error("The String object is null");
 			return null;
 		}
 
@@ -46,5 +46,19 @@ public final class ParseUtil {
 		}
 
 		return new Time(date.getTime());
+	}
+	
+	/**
+	 * Formats a time in JDBC time escape format.
+	 * @param time the Time object to parse.
+	 * @return a String in hh:mm:ss format.
+	 */
+	public static String parseTimeToString(Time time) {
+		if (time == null) {
+			LOGGER.error("The Time object is null");
+			return null;
+		}
+
+		return time.toString();
 	}
 }
