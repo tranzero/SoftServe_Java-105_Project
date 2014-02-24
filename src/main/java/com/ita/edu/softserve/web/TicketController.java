@@ -52,7 +52,7 @@ public class TicketController {
 		return "reservationTicket";
 	}
 	
-	@RequestMapping(value = "/reservationTicketNext/{tripId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/reservationTicketNext/{tripId}", method = RequestMethod.GET)
 	public String reservationTicketNext(@PathVariable("tripId") Integer tripId,
 			@ModelAttribute("customerInfo") String customerInfo,
 			@ModelAttribute("isSeatClass1") boolean isSeatClass1,
@@ -61,9 +61,6 @@ public class TicketController {
 			Map<String, Object> modelMap) {
 	 
 		Trips trip = tripsManager.findByTripId(tripId);
-		Transports transport = transportsManager.findTransportsById(trip.getTransport().getTransportId());
-		modelMap.put("trip", trip);
-		modelMap.put("transport", transport);
 		return "reservationTicket";
 	}
 

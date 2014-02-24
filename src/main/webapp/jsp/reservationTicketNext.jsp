@@ -8,18 +8,31 @@
 	<h2 align="center">Input data</h2>
 	<hr />
 
-	<form id="reservationInputData" method="post" name="/addStation" action="addstat"
+	<form id="reservationInputData" method="get"
+		name="/reservationTicketNext" action="reservTicket"
 		style="text-align: center">
-		<div>
-			<p><spring:message code="label.stations.stationcode" /></p>
-			<input id="stationCode" type="text" name="stationCode">
-
-			<p><spring:message code="label.stations.stationname" /></p>
-			<input id="stationName" type="text" name="stationName"> <br>
-			<p>
-				<input type="submit" value="<spring:message code="label.navigation.addStation"/>"> 
-				<input type="button" value="<spring:message code="label.stations.cancel"/>" onclick="window.location='stations';">
-			</p>
-		</div>
+		<table>
+			<tr align=center>
+				<td align=center>
+					<p>
+						FirstName: <input id="firstName" type="text"
+							name="firstName"><br> 
+							<p>
+						LastName: <input id="lastName" type="text" name="lastName"><br>
+						<p>
+						Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="email"><br>
+						<p>
+						Phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="phone"><br>
+						<p>
+						Credit Cart Number: <input type="text" name="credit_card_number">
+						<p>
+					<p>
+						<input type="submit" value="Buy"> <input type="button"
+							value="<spring:message code="label.stations.cancel"/>"
+							onclick="window.location='reservationTicket';">
+					</p>
+				</td>
+			</tr>
+		</table>
 	</form>
 </section>
