@@ -16,7 +16,9 @@
 
 
 <section id="content">
-	<h2 align="center"><spring:message code="label.users.userEdit"/></h2>
+	<h2 align="center">
+		<spring:message code="label.users.userEdit" />
+	</h2>
 	<hr />
 
 	<form id="userEdit" method="post" action="" name="/userEdit"
@@ -25,31 +27,50 @@
 			value="${user.getUserId()}">
 
 		<div>
-			<p>First name:</p>
-			<input id="userFirstName" type="text" name="userFirstName"
-				value="${user.getFirstName()}">
+			<label for="firstName"><spring:message
+					code="label.users.firstName" />: </label> <input id="userFirstName"
+				type="text" name="userFirstName" value="${user.getFirstName()}">
+		</div>
+		<br>
 
-			<p>Last name:</p>
-			<input id="lastName" type="text" name="lastName"
-				value="${user.getLastName()}">
+		<div>
+			<label for="lastName"><spring:message
+					code="label.users.lastName" />: </label> <input id="lastName" type="text"
+				name="lastName" value="${user.getLastName()}"><br>
 
-			<p>Email:</p>
-			<input id="email" type="text" name="email" value="${user.getEmail()}">
+		</div>
+		<br>
 
-			<p>Password:</p>
-			<input id="password" type="password" name="password"
-				value="${user.getPassword()}">
+		<div>
+			<label for="email"><spring:message code="label.users.email" />:
+			</label> <input id="email" type="text" name="email"
+				value="${user.getEmail()}"> <br>
+		</div>
+		<br>
 
-			<p>Role:</p>
+		<div>
+			<label for="password"><spring:message
+					code="label.users.password" />: </label> <input id="password"
+				type="password" name="password" value="${user.getPassword()}"><br>
+		</div>
+		<br>
+
+		<div>
+			<label for="role"><spring:message code="label.users.role" />:
+			</label>
 			<form:select id="role" name="role" path="user.role">
 				<form:options itemLabel="description" />
 			</form:select>
 
-
-			<br /> <br />
+		</div>
+		<br /> <br />
+		<div>
 			<p align="center">
-				<input type="submit" value="Update USER"> <input
-					type="button" value="Cancel"
+				<input type="submit"
+					value="<spring:message
+					code="label.update" />"> <input
+					type="button" value="<spring:message
+					code="label.cancel" />"
 					onclick="window.location='/SoftServe_Java-105/userlist2';">
 			</p>
 
