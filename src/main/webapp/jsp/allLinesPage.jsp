@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page session="true"%>
 <div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 <div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
 <table>
 	<thead>
 		<tr>
-			<th align="center">Line Name</th>
+			<th align="center"><spring:message code="label.lines.alllines"/></th>
 			<th align="center"></th>
 			<th align="center"></th>
 		</tr>
@@ -21,4 +23,4 @@
 	</c:forEach>
 </table>
 <br>
-<a class="button" href="addline">Add Line</a>
+<a class="button" href="addline"><spring:message code="label.lines.addlines"/></a>
