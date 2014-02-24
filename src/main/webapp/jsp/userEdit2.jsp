@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <section id="content">
-	<h1>Edit2 User</h1>
+	<h1>Edit2 User(without password)</h1>
 	<hr />
 
 	<hr>

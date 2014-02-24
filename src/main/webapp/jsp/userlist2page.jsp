@@ -31,6 +31,9 @@
 
 
 <c:if test="${!empty userList}">
+	<h2 align="center">
+		<spring:message code="label.users.userList" />
+	</h2>
 
 	<p>Search user</p>
 	<p>
@@ -44,7 +47,6 @@
 
 		<thead>
 			<tr>
-
 				<th><spring:message code="label.users.userName" /></th>
 				<th><spring:message code="label.users.firstName" /></th>
 				<th><spring:message code="label.users.lastName" /></th>
