@@ -44,7 +44,7 @@
 
 		<thead>
 			<tr>
-				<th><spring:message code="label.users.num" /></th>
+
 				<th><spring:message code="label.users.userName" /></th>
 				<th><spring:message code="label.users.firstName" /></th>
 				<th><spring:message code="label.users.lastName" /></th>
@@ -59,7 +59,7 @@
 		<tbody>
 			<c:forEach var="user" items="${userList}">
 				<tr>
-					<td id="generate"></td>
+
 					<td>${user.getUserName() }</td>
 					<td>${user.getFirstName()}</td>
 					<td>${user.getLastName() }</td>
@@ -68,12 +68,14 @@
 					<td>${user.getRegDate()}</td>
 
 					<td><a href="userEditpg/${user.getUserId()}"> <input
-							id="userEdit" type="button" name="userEdit" value="<spring:message code="label.edit"/>">
+							id="userEdit" type="button" name="userEdit"
+							value="<spring:message code="label.edit"/>">
 					</a></td>
 
 					<td><a href="userdelpg/${user.getUserId()}"
 						onclick="return confirm_delete_user()"> <input id="userdel"
-							type="button" name="userdel" value="<spring:message code="label.delete"/>">
+							type="button" name="userdel"
+							value="<spring:message code="label.delete"/>">
 					</a></td>
 
 				</tr>

@@ -43,12 +43,12 @@
 					<td>${user.getRegDate()}</td>
 
 					<td><a href="userEdit/${user.getUserId()}"> <input
-							id="userEdit" type="button" name="userEdit" value="EDIT User">
+							id="userEdit" type="button" name="userEdit" value="<spring:message code="label.edit"/>">
 					</a></td>					
 
 					<td><a href="userdel/${user.getUserId()}" 
 					onclick="return confirm_delete_user()"> <input
-							id="userdel" type="button" name="userdel" value="DELETE">
+							id="userdel" type="button" name="userdel" value="<spring:message code="label.delete"/>">
 					</a></td>
 
 				</tr>
