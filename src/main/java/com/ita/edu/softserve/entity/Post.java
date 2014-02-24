@@ -20,16 +20,13 @@ import com.ibm.icu.text.SimpleDateFormat;
 @NamedQueries(value = {
 		@NamedQuery(name = Post.FIND_POST_LIST_COUNT, query = Post.FIND_POST_LIST_COUNT_QUERY),
 		@NamedQuery(name = Post.FIND_POST_LIST_FOR_PAGING, query = Post.FIND_POST_LIST_FOR_PAGING_QUERY) })
-public class Post extends BaseEntity {
+	public class Post extends BaseEntity {
 	public static final String FIND_POST_LIST_COUNT = "Post.findPostListCount";
 	public static final String FIND_POST_LIST_COUNT_QUERY = "SELECT COUNT (news.postId) from Post news";
 
 	public static final String FIND_POST_LIST_FOR_PAGING = "Post.findPostListForPaging";
 	public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.date DESC";
-	// public static final String FIND_POST_LIST_FOR_PAGING =
-	// "Post.findPostListForPaging";
-	// public static final String FIND_POST_LIST_FOR_PAGING_QUERY =
-	// "SELECT news from Post news ORDER BY news.title";
+	
 
 	@Id
 	@Column(name = "POSTID", nullable = false)
@@ -88,7 +85,7 @@ public class Post extends BaseEntity {
 
 	public void setDate() {
 
-		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+		String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 				.format(new Date());
 
 		this.date = date;
