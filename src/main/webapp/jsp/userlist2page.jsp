@@ -27,8 +27,7 @@
 	}
 </script>
 
-<!-- userlist -->
-
+<!-- Search userlist -->
 
 <c:if test="${!empty userList}">
 	<h2 align="center">
@@ -42,7 +41,8 @@
 
 	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
-
+	
+<!-- Table userlist -->
 	<table id="tableUsers">
 
 		<thead>

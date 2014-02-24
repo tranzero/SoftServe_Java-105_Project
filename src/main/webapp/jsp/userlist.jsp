@@ -8,15 +8,21 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
-<!-- users list -->
+<!-- JS for confirm_delete_user -->
 <script type="text/javascript">
 	function confirm_delete_user() {
 		return confirm('Delete this User?');
 	}
 </script>
 
+<!-- userlist -->
+
 <section id="content">
 
+	<h2 align="center">
+		<spring:message code="label.users.userList" />
+	</h2>
+	
 	<table class='table'>
 
 		<thead>
