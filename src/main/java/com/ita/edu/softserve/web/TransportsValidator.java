@@ -57,7 +57,7 @@ public class TransportsValidator implements Validator {
 
 		validateTransportCode(transport.getTransportCode(), error);
 
-		validateIfTransportCodeIsUnique(transport.getTransportCode(), error);
+		validateIfTransportCodeIsUnique(transport, transport.getTransportCode(), error);
 
 		validateStartTime(transport.getStartTime(), error);
 
@@ -80,6 +80,7 @@ public class TransportsValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateTransportCode(String transportCode, Errors error) {
+
 		if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 		}
@@ -88,16 +89,23 @@ public class TransportsValidator implements Validator {
 	/**
 	 * Finds out if Transports object exist in database with such transport
 	 * code.
+	 * 
 	 * @param transportCode
 	 *            the transport code to check.
 	 * @param error
 	 *            the error to register message.
 	 */
-	private void validateIfTransportCodeIsUnique(String transportCode,
-			Errors error) {
+	private void validateIfTransportCodeIsUnique(Transports transports,
+			String transportCode, Errors error) {
+
 		if (transportCode != null && transportCode != "") {
+
 			try {
-				transportsManager.findTransportsByCode(transportCode);
+				Transports transport = transportsManager.findTransportsByCode(transportCode);
+
+				if ((transport.getTransportId().equals(transports.getTransportId()))) {
+					return;
+				}
 				error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
 			} catch (RuntimeException e) {
 			}
@@ -116,6 +124,7 @@ public class TransportsValidator implements Validator {
 			error.rejectValue(START_TIME, START_TIME_NULL);
 		} else {
 			String time = ParseUtil.parseTimeToString(startTime);
+
 			if (time.matches(START_TIME_PATERN) == false) {
 				error.rejectValue(START_TIME, START_TIME_MATCHER);
 			}
