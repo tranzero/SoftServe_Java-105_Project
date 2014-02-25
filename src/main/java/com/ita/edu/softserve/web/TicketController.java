@@ -39,10 +39,7 @@ public class TicketController {
 	
 	private ShoppingBag shoppingBag = new ShoppingBag();
 	
-	private Tickets tickets = new Tickets();
-	
-	@Autowired
-	private TransportsManager transportsManager;
+	private Tickets tickets;
 	
 	@Autowired 
 	private TicketsManager ticketsManager;
@@ -62,30 +59,13 @@ public class TicketController {
 		modelMap.put("trip", trip);
 		modelMap.put("transport", trip.getTransport());
 		System.out.println("get");
-		
+		tickets = new Tickets();
 		tickets.setTicketName(trip.getTransport().getRoutes().getRouteName());
 		tickets.setTrip(trip);
 		return "reservationTicket";
 	}
 	
-//	@RequestMapping(value = "/reservationTicketNext/{tripId}", method = RequestMethod.GET)
-//	public String reservationTicketNext(@PathVariable("tripId") Integer tripId,
-//			@ModelAttribute("customerInfo") String customerInfo,
-//			@ModelAttribute("isSeatClass1") boolean isSeatClass1,
-//			@ModelAttribute("isSeatClass2") boolean isSeatClass2,
-//			@ModelAttribute("isSeatClass3") boolean isSeatClass3,
-//			Map<String, Object> modelMap) {
-//	 
-//		Trips trip = tripsManager.findByTripId(tripId);
-//		return "reservationTicket";
-//	}
-//	
-//	@RequestMapping(value = "/reservationTicketNext", method = RequestMethod.GET)
-//	public String reservationTicketNext(){
-//		return "/reservationTicketNext";
-//	}
-	
-	
+
 	@RequestMapping(value = "/reservationTicket", method = RequestMethod.POST)
 	public String reservationTicketPost(
 			@RequestParam(value ="customerInfo", required = false) String customerInfo,
@@ -135,7 +115,7 @@ public class TicketController {
 		ordersManager.createOrder(1, order.getTripId().getTripId());
 		for(Tickets tmp: shoppingBag.getTickets()){
 			tmp.setOrder(order);
-			ticketsManager.saveTicket(tmp);
+			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getIsSeatClass1(), tmp.getIsSeatClass2(), tmp.getIsSeatClass3());
 		}
 		
 		return "";
