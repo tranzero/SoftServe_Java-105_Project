@@ -1,7 +1,7 @@
 package com.ita.edu.softserve.web;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
-
+import static com.ita.edu.softserve.web.TransportsValidator.*;
 import java.beans.PropertyEditorSupport;
 import java.text.DateFormat;
 import java.util.Date;
@@ -32,9 +32,8 @@ import org.springframework.util.StringUtils;
  */
 public class TimeEditor extends PropertyEditorSupport {
 
-	private static final String CHARACTERS_LONG = "characters long";
-
-	private static final String COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY = "Could not parse date: it is not exactly";
+//	private static final String CHARACTERS_LONG = "characters long";
+//	private static final String COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY = "Could not parse date: it is not exactly";
 
 	private final DateFormat dateFormat;
 
@@ -101,11 +100,14 @@ public class TimeEditor extends PropertyEditorSupport {
 		if (this.allowEmpty && !StringUtils.hasText(text)) {
 			// Treat empty String as null value.
 			setValue(null);
-		} else if (text != null && this.exactDateLength >= 0
-				&& text.length() != this.exactDateLength) {
-			throw new IllegalArgumentException(
-					COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY
-							+ this.exactDateLength + CHARACTERS_LONG);
+		} else if ((text != null) && (this.exactDateLength >= 0)
+				&& (text.length() != this.exactDateLength)) {
+			// throw new IllegalArgumentException(
+			// COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY
+			// + this.exactDateLength + CHARACTERS_LONG);
+			setValue(null);
+		} else if (text.matches(START_TIME_PATERN) == false) {
+			setValue(null);
 		} else {
 			setValue(parseStringToTime(text));
 		}

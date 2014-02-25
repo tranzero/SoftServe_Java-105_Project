@@ -20,6 +20,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new RoutesEditor instance, using the given RoutesManager for
 	 * parsing and rendering.
+	 * 
 	 * @param routesManager
 	 *            the RoutesManager to get the Routes as String and set the
 	 *            String as Routes.
@@ -33,17 +34,23 @@ public class RoutesEditor extends PropertyEditorSupport {
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
-		Assert.notNull(text, TEXT_MUST_NOT_BE_NULL);
+		// Assert.notNull(text, TEXT_MUST_NOT_BE_NULL);
+		if (text == null) {
+			setValue(null);
+		} else if (text.matches("^[0-9]*$") == false) {
+			setValue(null);
+		} else {
+			String trimmed = StringUtils.trimAllWhitespace(text);
+			// Use default valueOf methods for parsing text.
+			Integer numb = NumberUtils.parseNumber(trimmed, Integer.class);
 
-		String trimmed = StringUtils.trimAllWhitespace(text);
-		// Use default valueOf methods for parsing text.
-		Integer numb = NumberUtils.parseNumber(trimmed, Integer.class);
-
-		setValue(this.routesManager.findRoutesById(numb));
+			setValue(this.routesManager.findRoutesById(numb));
+		}
 	}
 
 	/**
 	 * Format the Routes as String.
+	 * 
 	 * @see java.beans.PropertyEditorSupport#getAsText()
 	 */
 	@Override
