@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.manager;
 
+import java.sql.Time;
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 
@@ -16,6 +18,13 @@ public interface TransportsManager extends BaseManager {
 	 * @return the transport fond by Id.
 	 */
 	Transports findTransportsById(int id);
+
+	/**
+	 * Finds transports by transport code.
+	 * @param code the transport code to find.
+	 * @return the transport fond by code.
+	 */
+	Transports findTransportsByCode(String code);
 
 	/**
 	 * Saves transports.
@@ -114,9 +123,13 @@ public interface TransportsManager extends BaseManager {
 	 */
 	long getTransportsListCount();
 
+//	List<Transports> getTransportsListByCriteria(int firstElement, int count,
+//			String transportCode, Time time, Routes routes, Integer seatClass1,
+//			Integer seatClass2, Integer seatClass3, Double price);
+
 	/**
 	 * Gets List of Transports in descending order.
 	 * @return the List of Transports in descending order.
 	 */
-	List<Transports> getAllTransportsDESC();
+//	List<Transports> getAllTransportsDESC();
 }
