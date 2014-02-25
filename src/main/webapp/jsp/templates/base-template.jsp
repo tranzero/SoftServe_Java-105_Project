@@ -13,13 +13,13 @@
 	type="text/css" />
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
-<link rel="stylesheet" href="resources/css/news.css">
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/news.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/paging.css" />">
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet" href="resources/css/paging.css">
+	href="resources/js/jquery-ui.css">
+
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/jquery-ui.js"></script>
 <script src="resources/js/jquery.bootpag.js"></script>
 <script src="resources/js/initPaging.js"></script>
 <script src="resources/js/jquery.ui.datepicker-ua.js"></script>
@@ -57,8 +57,8 @@
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="navigation" />
 	<div id="container">
-		<tiles:insertAttribute name="sidebar" />
-		<tiles:insertAttribute name="content" />
+<%-- 		<tiles:insertAttribute name="sidebar" />
+ --%>		<tiles:insertAttribute name="content" />
 	</div>
 	<tiles:insertAttribute name="footer" />
 </body>

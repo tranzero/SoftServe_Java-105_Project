@@ -31,8 +31,8 @@
 		</div>
 		<div class="control-group">
 			<div class="center">
-				<input type="submit" name="submit" value="Login" class="btn" /> <a
-					href='mainpage'><input type="button" name="cancel"
+				<input type="submit" name="submit" value="Login" id="lsubmit" /> <a
+					href='mainpage'><input type="button" id="lcancel" name="cancel"
 					value="Cancel"></a>
 			</div>
 		</div>
