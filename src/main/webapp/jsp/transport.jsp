@@ -15,10 +15,12 @@
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
+	<p>
 	<a href="/SoftServe_Java-105/formTransport.htm"> <input id="Add"
 		type="button" name="add"
 		value="<spring:message code="label.transport.add"/>">
 	</a>
+	</p>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
@@ -31,6 +33,8 @@
 					<th><spring:message code="label.transport.seatclass2" /></th>
 					<th><spring:message code="label.transport.seatclass3" /></th>
 					<th><spring:message code="label.transport.genprice" /></th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>

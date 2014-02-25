@@ -14,6 +14,8 @@
 			<th><spring:message code="label.transport.seatclass2" /></th>
 			<th><spring:message code="label.transport.seatclass3" /></th>
 			<th><spring:message code="label.transport.genprice" /></th>
+			<th></th>
+			<th></th>			
 		</tr>
 	</thead>
 	<tbody>

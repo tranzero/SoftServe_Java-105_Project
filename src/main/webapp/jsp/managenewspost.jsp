@@ -5,13 +5,17 @@
 <c:if test="${!empty newsList}">
 		<div id = "maxPageCount" style="display : none;">${maxPageCount}</div>
 		<div id = "resultsPerPage" style="display : none;">${resultsPerPage}</div>
+<p>
 <a href='addnews'><input id="addnews" type="button" name="addnewsr" value="<spring:message code='label.navigation.addNews'/>"/></a>
+</p>
 <table>
 	<thead>
 	<tr>
 	<th><spring:message code="label.navigation.news.title"/></th>
 	<th><spring:message code="label.navigation.news.description"/></th>
 	<th><spring:message code="label.navigation.news.data"/></th>
+	<th></th>
+	<th></th>	
 	</tr>
 	</thead>
 	<tbody>
