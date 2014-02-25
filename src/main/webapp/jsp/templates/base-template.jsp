@@ -14,9 +14,11 @@
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet" href="<c:url value="/resources/css/news.css" />">
-<link rel="stylesheet" href="<c:url value="/resources/css/paging.css" />">
 <link rel="stylesheet"
-	href="resources/js/jquery-ui.css">
+	href="<c:url value="/resources/css/login.css" />">
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/paging.css" />">
+<link rel="stylesheet" href="resources/js/jquery-ui.css">
 
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
@@ -57,8 +59,9 @@
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="navigation" />
 	<div id="container">
-<%-- 		<tiles:insertAttribute name="sidebar" />
- --%>		<tiles:insertAttribute name="content" />
+		<%-- 		<tiles:insertAttribute name="sidebar" />
+ --%>
+		<tiles:insertAttribute name="content" />
 	</div>
 	<tiles:insertAttribute name="footer" />
 </body>
