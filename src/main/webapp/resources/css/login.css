@@ -1,5 +1,5 @@
 form#loginform {
-	z-index: 1000;
+	z-index: 100;
 	-webkit-box-shadow: 0 1px 0 #fff inset;
 	-moz-box-shadow: 0 1px 0 #fff inset;
 	-ms-box-shadow: 0 1px 0 #fff inset;
@@ -13,9 +13,11 @@ form#loginform {
 	height: 250px;
 	margin: auto;
 }
+form#loginform {color: #474747;}
 form#loginform input[type="button"],input[type="submit"],input[type="reset"] {
 	width: 120px;
 	font-size: 1.0em;
+	color: #474747;
 }
 #loginform h1 {
 	color: #7E7E7E;
