@@ -8,4 +8,6 @@ public interface UserNameService {
 	public String getLoggedUsername();
 	
 	public boolean isUserFromDb();
+	
+	public Integer getLoggedUserId();
 }
