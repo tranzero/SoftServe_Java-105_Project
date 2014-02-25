@@ -26,15 +26,15 @@
 </script>
 <section id="content">
 	<h2>Choose Class-Seat</h2>
-	<form:form action="reservationTicket" method="get">
+	<form:form action="reservationTicket" method="post">
 		<table>
 			<tr>
 				<td><b>Choose Seat-Class you want : </b> <Br> <input
-					type="radio" id="seat1" name="seat-class" value="seat1"
+					type="radio" id="seat1" name="seat1" value="seat1"
 					onchange="toggle_visibility('div1');"> <strong>SeatClass
-						№1</strong> <Br> <input type="radio" id="seat2" name="seat-class"
+						№1</strong> <Br> <input type="radio" id="seat2" name="seat2"
 					value="seat2" onchange="toggle_visibility('div2');"> <strong>SeatClass
-						№2</strong> <Br> <input type="radio" id="seat3" name="seat-class"
+						№2</strong> <Br> <input type="radio" id="seat3" name="seat3"
 					value="seat3" onchange="toggle_visibility('div3');"> <strong>SeatClass
 						№3</strong> <br /> <Br></td>
 			</tr>
@@ -42,21 +42,44 @@
 		<div id="div1" class="list" style="display: none;">
 			<p>
 
-				<label><strong>(${trip.getRemSeatClass1()})</strong> - free
+				<label><strong>${trip.getRemSeatClass1()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
 		</div>
 		<div id="div2" class="list" style="display: none;">
 			<p>
-				<label><strong>(${trip.getRemSeatClass2()})</strong> - free
+				<label><strong>${trip.getRemSeatClass2()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
 		</div>
 		<div id="div3" class="list" style="display: none;">
 			<p>
-				<label><strong>(${trip.getRemSeatClass3()})</strong> - free
+				<label><strong>${trip.getRemSeatClass3()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
 		</div>
 		<br>
-		<a href="/SoftServe_Java-105/reservationTicketNext/${trip.getTripId()}">Make a booking</a>&nbsp
+	
+	<table>
+			<tr align=center>
+				<td align=center>
+					<p>
+						Enter passenger first and last name: <input id="customerInfo" type="text"
+							name="customerInfo"><br> 
+					
+		</table>
+		<table>
+			<tr align=center>
+				<td align=center>
+					<p>
+						<label> Route name <strong>${trip.getTransport().getRoutes().getRouteName()}</strong></label></p>
+						<br>
+							<p>
+						<label> Trip date <strong>${trip.getStartDate()}</strong></label></p>
+						<br>
+						<p>
+						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label></p>
+						
+		</table>
+						 <a href="/SoftServe_Java-105/bag"> <input type="BUTTON" value ="Add to bag"></a>&nbsp 
+ 		<!-- <input type="submit" value="Add to bag"> -->
  		<input type="reset" value="Cancel">
 		<br>
 	</form:form>
