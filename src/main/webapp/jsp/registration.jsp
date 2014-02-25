@@ -5,18 +5,28 @@
 
 <section id="content">
 	<form action="regUser" method="post">
-		<div>
-			<p>UserName:</p>
+		<div class="control-group">
+			<label for="userName">UserName:</label>
 			<input id="userName" type="text" name="userName">
-			<p>FirstName:</p>
+		</div>
+		<div class="control-group">
+			<label for="firstName">FirstName:</label>
 			<input id="firstName" type="text" name="firstName">
-			<p>LastName:</p>
+		</div>
+		<div class="control-group">
+			<label for="lastName">LastName:</label>
 			<input id="lastName" type="text" name="lastName">
-			<p>Email:</p>
+		</div>
+		<div class="control-group">
+			<label for="email">Email:</label>
 			<input id="email" type="text" name="email">
-			<p>Password:</p>
-			<input id="password" type="text" name="password"> <br> <input
-				type="submit" value="Register">
+		</div>
+		<div class="control-group">
+			<label for="password">Password:</label>
+			<input id="password" type="text" name="password">
+		</div>
+		<div class="control-group">
+			<input type="submit" value="Register">
 		</div>
 	</form>
 </section>

@@ -61,6 +61,13 @@ public class TicketsManagerImpl implements TicketsManager{
 		
 	}
 	
+
+	@Transactional
+	@Override
+	public void saveTicket (Tickets ticket){
+		ticketsDao.save(ticket);
+	}
+	
 	@Transactional
 	@Override
 	public void createTicket (String ticketName, Integer orderId, Integer tripId,

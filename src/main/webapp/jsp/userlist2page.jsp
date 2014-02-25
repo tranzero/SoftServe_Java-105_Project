@@ -34,10 +34,8 @@
 		<spring:message code="label.users.userList" />
 	</h2>
 
-	<p>Search user</p>
-	<p>
-		<input id="inputSearchUser" type="text" />
-	</p>
+	<p><label for="inputSearchUser">Search user:</label>
+	<input id="inputSearchUser" type="text" /></p>
 
 	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>

@@ -14,6 +14,8 @@
 				<tr>
 					<th><spring:message code="label.routes.routecode" /></th>
 					<th><spring:message code="label.lines.linename" /></th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
