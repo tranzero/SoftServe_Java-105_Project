@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +19,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "tickets")
-public class Tickets extends BaseEntity{
+public class Tickets extends BaseEntity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5039457734811028773L;
+
 	@Id
 	@Column(name = "TICKETID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,6 +66,18 @@ public class Tickets extends BaseEntity{
 		super();
 		this.ticketName = ticketName;
 		this.order = order;
+		this.trip = trip;
+		this.customerInfo = customerInfo;
+		this.isSeatClass1 = isSeatClass1;
+		this.isSeatClass2 = isSeatClass2;
+		this.isSeatClass3 = isSeatClass3;
+	}
+	
+	public Tickets(String ticketName, Trips trip,
+			String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
+			Boolean isSeatClass3) {
+		super();
+		this.ticketName = ticketName;
 		this.trip = trip;
 		this.customerInfo = customerInfo;
 		this.isSeatClass1 = isSeatClass1;
