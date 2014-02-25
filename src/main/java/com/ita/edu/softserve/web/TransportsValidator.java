@@ -1,23 +1,24 @@
 package com.ita.edu.softserve.web;
 
-import com.ita.edu.softserve.utils.ParseUtil;
-
 import java.sql.Time;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.utils.ParseUtil;
 
 @Component("transportsValidator")
 public class TransportsValidator implements Validator {
 
-	private static final String TRANSPORT_CODE_PATERN = "^[a-zA-Z0-9]{5,15}$";
-	private static final String START_TIME_PATERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+	public static final String TRANSPORT_CODE_PATERN = "^[a-zA-Z0-9]{5,15}$";
+	public static final String START_TIME_PATERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
 
 	private static final String TRANSPORT_CODE = "transportCode";
 	private static final String START_TIME = "startTime";
+	private static final String ROUTES = "routes";
 	private static final String SEATCLASS1 = "seatclass1";
 	private static final String SEATCLASS2 = "seatclass2";
 	private static final String SEATCLASS3 = "seatclass3";
@@ -49,6 +50,8 @@ public class TransportsValidator implements Validator {
 
 		validateStartTime(transport.getStartTime(), error);
 
+		validateRoutes(transport.getRoutes(), error);
+
 		validateSeatClasses(transport.getSeatclass1(),
 				transport.getSeatclass2(), transport.getSeatclass3(), error);
 
@@ -66,7 +69,7 @@ public class TransportsValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateTransportCode(String transportCode, Errors error) {
-		if (!transportCode.matches(TRANSPORT_CODE_PATERN)) {
+		if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 		}
 	}
@@ -83,9 +86,24 @@ public class TransportsValidator implements Validator {
 			error.rejectValue(START_TIME, START_TIME_NULL);
 		} else {
 			String time = ParseUtil.parseTimeToString(startTime);
-			if (!time.matches(START_TIME_PATERN)) {
+			if (time.matches(START_TIME_PATERN) == false) {
 				error.rejectValue(START_TIME, START_TIME_MATCHER);
 			}
+		}
+	}
+
+	/**
+	 * If routes is <code>null</code> that mean it is not in database.
+	 * 
+	 * @param routes
+	 *            the Routes to verify.
+	 * @param error
+	 *            the Errors object that stores and exposes information about
+	 *            data-binding and validation errors for a specific object.
+	 */
+	private void validateRoutes(Routes routes, Errors error) {
+		if (routes == null) {
+			error.rejectValue(ROUTES, GEN_PRICE_REQUIRED);
 		}
 	}
 
@@ -124,6 +142,7 @@ public class TransportsValidator implements Validator {
 
 	/**
 	 * Verifies if price is not less then 0 or equals to 0.
+	 * 
 	 * @param genPrice
 	 *            price to check.
 	 * @param error
