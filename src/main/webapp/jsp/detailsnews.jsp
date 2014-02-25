@@ -3,14 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <section id="content">
-		<div>
-		<p>News Title</p>
-		<p>${News.getTitle()}</p>	
-		<p>News Description</p>
-		<p>${News.getDescription()}</p>	
-		<p>News Date update</p>
-		<p>${News.getDate()}</p>		
-		</div>
-		<br>
-	
-</section>	
+	<div id="details_news">
+		<div class="news_title_details">${News.getTitle()}</div>
+		<div class="news_date_details">${News.getDate()}</div>
+		<div class="news_description_details">${News.getDescription()}</div>
+	</div>
+</section>

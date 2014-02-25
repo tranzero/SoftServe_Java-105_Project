@@ -26,7 +26,9 @@
 			<input id="password" type="text" name="password">
 		</div>
 		<div class="control-group">
-			<input type="submit" value="Register">
+			<div class="center">
+				<input type="submit" value="Register">
+			</div>
 		</div>
 	</form>
 </section>
