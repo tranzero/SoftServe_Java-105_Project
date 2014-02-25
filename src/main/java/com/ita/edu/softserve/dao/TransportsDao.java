@@ -8,6 +8,10 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
 /**
  * @author Roman
  */
+/**
+ * @author Роман
+ *
+ */
 public interface TransportsDao extends AbstractDAOIface<Transports> {
 
 	/**
@@ -18,6 +22,13 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 * @return the route with Id from argument.
 	 */
 	Transports findByRouteId(int id);
+
+	/**
+	 * Finds Transport by transport code.
+	 * @param code the code to find transport by.
+	 * @return the transport if exist.
+	 */
+	Transports findByCode(String code);
 
 	/**
 	 * Saves a Transport into the Transports table if not exist or updates
@@ -77,9 +88,13 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 */
 	List<Transports> findByDate(String date);
 
+//	List<Transports> getTransportsListByCriteria(int firstElement, int count,
+//			String transportCode, Time time, Routes routes, Integer seatClass1,
+//			Integer seatClass2, Integer seatClass3, Double price);
+
 	/**
 	 * @return the list of entities in descending order.
 	 */
-	List<Transports> getEntityDESC();
+//	List<Transports> getEntityDESC();
 
 }
