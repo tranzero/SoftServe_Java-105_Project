@@ -32,6 +32,7 @@ public class TransportsValidator implements Validator {
 	private static final String START_TIME_MATCHER = "startTime.matcher";
 	private static final String START_TIME_NULL = "startTime.null";
 	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
+	private static final String ROUTES_NOT_EXIST = "routes.exist";
 
 	/**
 	 * Field for using transports-related controller-level methods.
@@ -57,7 +58,7 @@ public class TransportsValidator implements Validator {
 
 		validateTransportCode(transport.getTransportCode(), error);
 
-		validateIfTransportCodeIsUnique(transport, transport.getTransportCode(), error);
+		validateIfTransportExist(transport, transport.getTransportCode(), error);
 
 		validateStartTime(transport.getStartTime(), error);
 
@@ -95,7 +96,7 @@ public class TransportsValidator implements Validator {
 	 * @param error
 	 *            the error to register message.
 	 */
-	private void validateIfTransportCodeIsUnique(Transports transports,
+	private void validateIfTransportExist(Transports transports,
 			String transportCode, Errors error) {
 
 		if (transportCode != null && transportCode != "") {
@@ -103,7 +104,7 @@ public class TransportsValidator implements Validator {
 			try {
 				Transports transport = transportsManager.findTransportsByCode(transportCode);
 
-				if ((transport.getTransportId().equals(transports.getTransportId()))) {
+				if (transport.getTransportId().equals(transports.getTransportId())) {
 					return;
 				}
 				error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
@@ -142,7 +143,7 @@ public class TransportsValidator implements Validator {
 	 */
 	private void validateRoutes(Routes routes, Errors error) {
 		if (routes == null) {
-			error.rejectValue(ROUTES, GEN_PRICE_REQUIRED);
+			error.rejectValue(ROUTES, ROUTES_NOT_EXIST);
 		}
 	}
 
