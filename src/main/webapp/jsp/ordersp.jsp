@@ -10,9 +10,11 @@
 <c:if test="${!empty ordersList}">
 	<div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
+	<p>
 	<a href=""> <input id="addOrder" type="button" name="addOrder"
 		value="<spring:message code="label.orders.addOrder"/>">
 	</a>
+	</p>
 	<table>
 		<thead>
 			<tr>

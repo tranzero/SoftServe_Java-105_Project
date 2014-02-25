@@ -10,6 +10,8 @@
 				<th>User Name</th>
 				<th>Comment</th>
 				<th>Date</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
