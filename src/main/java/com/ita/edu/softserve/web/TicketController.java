@@ -23,6 +23,7 @@ import com.ita.edu.softserve.manager.OrdersManager;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
@@ -40,6 +41,9 @@ public class TicketController {
 	private ShoppingBag shoppingBag = new ShoppingBag();
 	
 	private Tickets tickets;
+	
+	@Autowired
+	private  UserNameService userNameService;
 	
 	@Autowired 
 	private TicketsManager ticketsManager;
@@ -62,20 +66,25 @@ public class TicketController {
 		tickets = new Tickets();
 		tickets.setTicketName(trip.getTransport().getRoutes().getRouteName());
 		tickets.setTrip(trip);
+		tickets.setCustomerInfo("");
+		tickets.setIsSeatClass1(false);
+		tickets.setIsSeatClass2(false);
+		tickets.setIsSeatClass3(false);
+		tickets.setOrder(ordersManager.findOrder(1));
 		return "reservationTicket";
 	}
 	
 
-	@RequestMapping(value = "/reservationTicket", method = RequestMethod.POST)
+	@RequestMapping(value = "/reservationTicket/reservationTicket", method = RequestMethod.POST)
 	public String reservationTicketPost(
 			@RequestParam(value ="customerInfo", required = false) String customerInfo,
-			@RequestParam(value ="seat1", required = false) boolean isSeatClass1,
-			@RequestParam(value ="seat2", required = false) boolean isSeatClass2,
-			@RequestParam(value ="seat3", required = false) boolean isSeatClass3,
+			@RequestParam(value ="seat1") boolean isSeatClass1,
+			@RequestParam(value ="seat2") boolean isSeatClass2,
+			@RequestParam(value ="seat3") boolean isSeatClass3,
 			Map<String, Object> modelMap) {
+		
 		Trips trip = tripsManager.findByTripId(tickets.getTrip().getTripId());
-		modelMap.put("trip", trip);
-		modelMap.put("transport", trip.getTransport());
+		
 		if(isSeatClass1){
 			trip.setRemSeatClass1(tickets.getTrip().getRemSeatClass1()-1);
 		}
@@ -112,7 +121,7 @@ public class TicketController {
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		Orders order = new Orders();
 		order.setTripId(shoppingBag.getTickets().get(0).getTrip());
-		ordersManager.createOrder(1, order.getTripId().getTripId());
+		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
 		for(Tickets tmp: shoppingBag.getTickets()){
 			tmp.setOrder(order);
 			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getIsSeatClass1(), tmp.getIsSeatClass2(), tmp.getIsSeatClass3());
