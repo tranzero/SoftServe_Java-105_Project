@@ -78,7 +78,7 @@
 						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label></p>
 						
 		</table>
-						 <a href="/SoftServe_Java-105/bag"> <input type="BUTTON">Add to bag</a>&nbsp 
+						 <a href="/SoftServe_Java-105/bag"> <input type="BUTTON" value ="Add to bag"></a>&nbsp 
  		<!-- <input type="submit" value="Add to bag"> -->
  		<input type="reset" value="Cancel">
 		<br>
