@@ -73,3 +73,23 @@ div.news_content_primary {
 .news_content_secondary {
 	
 }
+
+#details_news {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.news_title_details {
+	font-size: 1.50em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.news_date_details {
+	font-size: 0.8em;
+	padding: 10px 0px;
+}
+
+.news_description_details {
+	font-size: 1.0em;
+}

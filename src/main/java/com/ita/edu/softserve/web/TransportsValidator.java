@@ -2,12 +2,14 @@ package com.ita.edu.softserve.web;
 
 import java.sql.Time;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.ParseUtil;
 
 @Component("transportsValidator")
@@ -29,6 +31,14 @@ public class TransportsValidator implements Validator {
 	private static final String TRANSPORT_CODE_MATCHER = "transportCode.matcher";
 	private static final String START_TIME_MATCHER = "startTime.matcher";
 	private static final String START_TIME_NULL = "startTime.null";
+	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
+	private static final String ROUTES_NOT_EXIST = "routes.exist";
+
+	/**
+	 * Field for using transports-related controller-level methods.
+	 */
+	@Autowired
+	private TransportsManager transportsManager;
 
 	/**
 	 * This Validator validates *just* Transports instance
@@ -47,6 +57,8 @@ public class TransportsValidator implements Validator {
 		Transports transport = (Transports) obj;
 
 		validateTransportCode(transport.getTransportCode(), error);
+
+		validateIfTransportExist(transport, transport.getTransportCode(), error);
 
 		validateStartTime(transport.getStartTime(), error);
 
@@ -69,8 +81,35 @@ public class TransportsValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateTransportCode(String transportCode, Errors error) {
+
 		if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
+		}
+	}
+
+	/**
+	 * Finds out if Transports object exist in database with such transport
+	 * code.
+	 * 
+	 * @param transportCode
+	 *            the transport code to check.
+	 * @param error
+	 *            the error to register message.
+	 */
+	private void validateIfTransportExist(Transports transports,
+			String transportCode, Errors error) {
+
+		if (transportCode != null && transportCode != "") {
+
+			try {
+				Transports transport = transportsManager.findTransportsByCode(transportCode);
+
+				if (transport.getTransportId().equals(transports.getTransportId())) {
+					return;
+				}
+				error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
+			} catch (RuntimeException e) {
+			}
 		}
 	}
 
@@ -86,6 +125,7 @@ public class TransportsValidator implements Validator {
 			error.rejectValue(START_TIME, START_TIME_NULL);
 		} else {
 			String time = ParseUtil.parseTimeToString(startTime);
+
 			if (time.matches(START_TIME_PATERN) == false) {
 				error.rejectValue(START_TIME, START_TIME_MATCHER);
 			}
@@ -103,7 +143,7 @@ public class TransportsValidator implements Validator {
 	 */
 	private void validateRoutes(Routes routes, Errors error) {
 		if (routes == null) {
-			error.rejectValue(ROUTES, GEN_PRICE_REQUIRED);
+			error.rejectValue(ROUTES, ROUTES_NOT_EXIST);
 		}
 	}
 

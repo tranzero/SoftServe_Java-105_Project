@@ -10,7 +10,7 @@
 					<li class="footer_col_title">SoftServe</li>
 					<li></li>
 					<li><a href="http://softserve.ua/university/it-academy/"><span
-							class="ss_icon"></span></a>SoftServe IT Acatemy</li>
+							class="ss_icon"></span>SoftServe IT Acatemy</a></li>
 				</ul>
 			</div>
 			<div id="footer_col">
@@ -19,7 +19,7 @@
 					<li></li>
 					<li><a
 						href="https://github.com/tranzero/SoftServe_Java-105_Project/"><span
-							class="github_icon"></span></a>Source Code</li>
+							class="github_icon"></span>Source Code</a></li>
 				</ul>
 			</div>
 			<div id="footer_col">
