@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 
 @Controller
 public class StationsController {
@@ -113,7 +113,7 @@ public class StationsController {
 			Map<String, Object> modelMap) {
 
 		long count = stationsManager.getStationsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);

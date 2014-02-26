@@ -16,7 +16,7 @@ import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 
 @Controller
 public class LinesController {
@@ -171,7 +171,7 @@ public class LinesController {
 
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
 				stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
@@ -202,7 +202,7 @@ public class LinesController {
 
 		long count = linesManager.getLinesByTwoStListCount(stationName1,
 				stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
@@ -227,7 +227,7 @@ public class LinesController {
 		}
 
 		long count = linesManager.getLinesByStationCount(stationName);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
@@ -255,7 +255,7 @@ public class LinesController {
 		}
 
 		long count = linesManager.getLinesByStationCount(stationName);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);

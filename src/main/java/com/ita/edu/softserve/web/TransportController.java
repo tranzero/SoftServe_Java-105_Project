@@ -28,7 +28,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 
 /**
  * Base controller class for Transports.
@@ -320,7 +320,7 @@ public class TransportController {
 			Map<String, Object> modelMap) {
 
 		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -507,7 +507,7 @@ public class TransportController {
 
 		long count = transportsManager.getTransportByTwoStListCount(
 				stationName1, stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -550,7 +550,7 @@ public class TransportController {
 
 		long count = transportsManager.getTransportByTwoStListCount(
 				stationName1, stationName2);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);

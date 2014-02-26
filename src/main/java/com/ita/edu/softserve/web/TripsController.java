@@ -21,10 +21,14 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Controller
 public class TripsController {
+	
+	@Autowired
+	PageInfoContainer container;
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -253,7 +257,7 @@ public class TripsController {
 	private void completeMapForAddTrip(Integer pageNumber,
 			Integer resultsPerPage, Map<String, Object> modelMap, Locale locale) {
 		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -290,8 +294,10 @@ public class TripsController {
 		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
 		long count = tripsManager
 				.getTripsListCriteriaCountUsingContainers(tripsCriteriaContainer);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
+		
+		container.setPageNumber(pageNumber);
+		container.setResultsPerPage(resultsPerPage);
+		container.setCount(count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);
