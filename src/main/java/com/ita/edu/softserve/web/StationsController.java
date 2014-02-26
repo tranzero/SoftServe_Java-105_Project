@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -46,7 +49,7 @@ public class StationsController {
 
 	private static final String STATION_EDIT_JSP_PAGE = "stationEdit";
 
-	private static final String STATION_EDIT_URL_POST = "/stationEdit/{stationToEdit}";
+	private static final String STATION_EDIT_URL_POST = "/stationEdit/addStation";
 
 	private static final String STATION_TO_EDIT = "stationToEdit";
 
@@ -54,13 +57,16 @@ public class StationsController {
 
 	private static final String ADD_STATION_JSP_PAGE = "addStation";
 
-	private static final String ADD_STATION_URL_POST = "/addstat";
+	private static final String ADD_STATION_URL_POST = "/addStation";
 
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
 	@Autowired
 	private StationsManager stationsManager;
+
+	@Autowired
+	private StationsValidator stationsValidator;
 
 	/**
 	 * Prints all stations.
@@ -132,7 +138,7 @@ public class StationsController {
 	 */
 	@RequestMapping(value = DELETE_STATION_ID_URL, method = RequestMethod.GET)
 	public String deleteStation(@PathVariable(STATION_ID) Integer stationId,
-			Map<String, Object> map) {
+			ModelMap map) {
 
 		stationsManager.removeStations(stationId);
 
@@ -148,7 +154,7 @@ public class StationsController {
 	 */
 	@RequestMapping(value = STATION_EDIT_URL_GET, method = RequestMethod.GET)
 	public String editStation(@PathVariable("station") Integer stationId,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		Stations station = stationsManager.findStationsById(stationId);
 		modelMap.put(STATION, station);
@@ -159,21 +165,21 @@ public class StationsController {
 	/**
 	 * Update station to DB - RequestMethod.POST
 	 * 
-	 * @param stationId
-	 * @param stationCode
-	 * @param stationName
+	 * @param station
+	 * @param bindingResult
 	 * @param modelMap
 	 * @return
 	 */
 	@RequestMapping(value = STATION_EDIT_URL_POST, method = RequestMethod.POST)
-	public String updateStationToDB(
-			@PathVariable(STATION_TO_EDIT) Integer stationId,
-			@ModelAttribute(STATION_CODE) String stationCode,
-			@ModelAttribute(STATION_NAME) String stationName,
-			Map<String, Object> modelMap) {
+	public String updateStationToDB(@ModelAttribute(STATION) Stations station,
+			BindingResult bindingResult, ModelMap modelMap) {
 
-		stationsManager.editStation(stationId, stationCode, stationName);
+		stationsValidator.validate(station, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return STATION_EDIT_JSP_PAGE;
+		}
 
+		stationsManager.saveOrUpdateStation(station);
 		return REDIRECT_STATIONS;
 	}
 
@@ -181,7 +187,8 @@ public class StationsController {
 	 * @return jsp page addStation.
 	 */
 	@RequestMapping(value = ADD_STATION_URL_GET, method = RequestMethod.GET)
-	public String addStations() {
+	public String addStations(ModelMap model) {
+		model.addAttribute(STATION, new Stations());
 		return ADD_STATION_JSP_PAGE;
 	}
 
@@ -194,12 +201,14 @@ public class StationsController {
 	 * @return
 	 */
 	@RequestMapping(value = ADD_STATION_URL_POST, method = RequestMethod.POST)
-	public String addStationToBD(
-			@RequestParam(STATION_CODE) String stationCode,
-			@RequestParam(STATION_NAME) String stationName,
-			Map<String, Object> modelMap) {
+	public String addStationToBD(@ModelAttribute(STATION) Stations station,
+			BindingResult result, ModelMap modelMap) {
 
-		stationsManager.createStation(stationCode, stationName);
+		stationsValidator.validate(station, result);
+		if (result.hasErrors()) {
+			return ADD_STATION_JSP_PAGE;
+		}
+		stationsManager.saveOrUpdateStation(station);
 
 		return REDIRECT_STATIONS;
 	}

@@ -65,8 +65,7 @@ public interface StationsManager extends BaseManager {
 	/**
 	 * Save station if not exist or update if exist.
 	 */
-	void saveOrUpdateStation(Integer stationId, String stationCode,
-			String stationName);
+	public void saveOrUpdateStation(Stations station);
 	
 
 }

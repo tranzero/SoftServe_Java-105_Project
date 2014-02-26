@@ -32,6 +32,7 @@ public class StationsManagerImpl implements StationsManager {
 	private final String createStationMsg = "Could not create Station";
 	private final String removeStationMsg = "Could not remove Station";
 	private final String updateStationMsg = "Could not update Station";
+	private final String saveOrUpdateStationMsg = "Could not save or update Station";
 	private final String stationsForLimitsMsg = "Could not get Stations for limits";
 	private final String stationsForOnePageMsg = "Could not get Stations for one page";
 	private final String stationsListCountMsg = "Could not get Stations List count";
@@ -127,21 +128,16 @@ public class StationsManagerImpl implements StationsManager {
 
 	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateStation(Integer stationId, String stationCode,
-			String stationName) {
+	public void saveOrUpdateStation(Stations station) {
 
-		Stations station = null;
-
-		if (stationId == null) {
-			station = new Stations();
-		} else {
-			station = stationDao.findById(stationId);
+		try {
+			stationDao.saveOrUpdate(station);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new StationManagerException(saveOrUpdateStationMsg, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
 		}
-
-		station.setStationCode(stationCode);
-		station.setStationName(stationName);
-
-		stationDao.saveOrUpdate(station);
 	}
 
 	/**
