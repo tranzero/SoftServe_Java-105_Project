@@ -21,10 +21,14 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Controller
 public class TripsController {
+	
+	@Autowired
+	PageInfoContainer container;
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -48,7 +52,7 @@ public class TripsController {
 	/**
 	 * String for default date format
 	 */
-	public static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd";
+	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
 	/**
 	 * Part of URL that defines trips web page
 	 */
@@ -225,11 +229,11 @@ public class TripsController {
 				(tripsCriteriaContainer.getRemSeatClass1() == null)
 						|| (tripsCriteriaContainer.getRemSeatClass1() < 0));
 		modelMap.put(IS_CLASS2_ATTRIBUTE_NAME,
-				(tripsCriteriaContainer.getRemSeatClass1() == null)
-						|| (tripsCriteriaContainer.getRemSeatClass1() < 0));
+				(tripsCriteriaContainer.getRemSeatClass2() == null)
+						|| (tripsCriteriaContainer.getRemSeatClass2() < 0));
 		modelMap.put(IS_CLASS3_ATTRIBUTE_NAME,
-				(tripsCriteriaContainer.getRemSeatClass1() == null)
-						|| (tripsCriteriaContainer.getRemSeatClass1() < 0));
+				(tripsCriteriaContainer.getRemSeatClass3() == null)
+						|| (tripsCriteriaContainer.getRemSeatClass3() < 0));
 		modelMap.put(IS_MIN_DATE_ATTRIBUTE_NAME, ValidatorUtil
 				.isEmptyString(tripsCriteriaContainer.getMinDateString()));
 		modelMap.put(IS_MAX_DATE_ATTRIBUTE_NAME, ValidatorUtil
@@ -253,7 +257,7 @@ public class TripsController {
 	private void completeMapForAddTrip(Integer pageNumber,
 			Integer resultsPerPage, Map<String, Object> modelMap, Locale locale) {
 		long count = transportsManager.getTransportsListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -290,8 +294,10 @@ public class TripsController {
 		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
 		long count = tripsManager
 				.getTripsListCriteriaCountUsingContainers(tripsCriteriaContainer);
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
-				resultsPerPage, count);
+		
+		container.setPageNumber(pageNumber);
+		container.setResultsPerPage(resultsPerPage);
+		container.setCount(count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);

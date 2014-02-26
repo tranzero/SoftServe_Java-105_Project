@@ -46,6 +46,8 @@
 	<context:component-scan base-package="com.ita.edu.softserve.manager.impl" />
 	<context:component-scan base-package="com.ita.edu.softserve.utils" />
 	<context:component-scan base-package="com.ita.edu.softserve.utils.property" />
+	<context:component-scan base-package="com.ita.edu.softserve.validationcontainers" />
+	
 	
 	<!-- Spring Security -->
 	<import resource="security-context.xml" />

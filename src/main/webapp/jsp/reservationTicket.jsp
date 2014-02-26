@@ -25,20 +25,35 @@
 	}
 </script>
 <section id="content">
+
+		
 	<h2>Choose Class-Seat</h2>
-	<form:form action="reservationTicket" method="post">
-		<table>
-			<tr>
-				<td><b>Choose Seat-Class you want : </b> <Br> <input
-					type="radio" id="seat1" name="seat1" value="seat1"
-					onchange="toggle_visibility('div1');"> <strong>SeatClass
-						№1</strong> <Br> <input type="radio" id="seat2" name="seat2"
-					value="seat2" onchange="toggle_visibility('div2');"> <strong>SeatClass
-						№2</strong> <Br> <input type="radio" id="seat3" name="seat3"
-					value="seat3" onchange="toggle_visibility('div3');"> <strong>SeatClass
-						№3</strong> <br /> <Br></td>
-			</tr>
+	<form:form id = "add to bag" action= "addToBag" method="post" modelAttribute = "ticket">
+	
+	<table>
+			<tr align=center>
+				<td align=center>
+					<p>
+						Enter passenger first and last name: <form:input path="customerInfo"></form:input> <br> 
 		</table>
+		
+		 <table>
+			<tr>
+				<td><b>Choose Seat-Class you want : </b> 
+				<Br> <form:radiobutton path="isSeatClass1" value="true"
+				 onchange="toggle_visibility('div1');"/> 
+				<strong>SeatClass№1</strong> 
+				<Br> <form:radiobutton path="isSeatClass2" value="true"
+				 onchange="toggle_visibility('div2');"/> 
+				<strong>SeatClass№1</strong> 
+				<Br> <form:radiobutton path="isSeatClass3" value="true"
+				 onchange="toggle_visibility('div3');"/> 
+				<strong>SeatClass№1</strong> 
+					 
+					<%--  <td><form:radiobuttons items="${seatList}" path="seatList">
+						</form:radiobuttons></td> --%>
+			</tr>
+		</table> 
 		<div id="div1" class="list" style="display: none;">
 			<p>
 
@@ -57,14 +72,7 @@
 		</div>
 		<br>
 	
-	<table>
-			<tr align=center>
-				<td align=center>
-					<p>
-						Enter passenger first and last name: <input id="customerInfo" type="text"
-							name="customerInfo"><br> 
-					
-		</table>
+
 		<table>
 			<tr align=center>
 				<td align=center>

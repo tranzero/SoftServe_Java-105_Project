@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.sql.Time;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
@@ -213,16 +215,16 @@ public class TransportsManagerImpl implements TransportsManager {
 	// }
 	// }
 
-//	 @Override
-//	public List<Transports> getTransportsListByCriteria(int firstElement,
-//			int count, String transportCode, Time time, Routes routes,
-//			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-//			Double price) {
-//
-//		return (List<Transports>) transportsDao.getTransportsListByCriteria(
-//				firstElement, count, transportCode, time, routes, seatClass1,
-//				seatClass2, seatClass3, price);
-//	}
+	 @Override
+	public List<Transports> getTransportsListByCriteria(int firstElement,
+			int count, String transportCode, Time time, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price) {
+
+		return (List<Transports>) transportsDao.getTransportsListByCriteria(
+				firstElement, count, transportCode, time, routesCode, seatClass1,
+				seatClass2, seatClass3, price);
+	}
 
 	/**
 	 * Saves the Transport object to database if not exist or updates it. <br/>

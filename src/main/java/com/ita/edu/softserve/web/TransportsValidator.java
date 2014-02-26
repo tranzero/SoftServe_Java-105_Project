@@ -35,7 +35,7 @@ public class TransportsValidator implements Validator {
 	private static final String ROUTES_NOT_EXIST = "routes.exist";
 
 	/**
-	 * Field for using transports-related controller-level methods.
+	 * Field for using transports-related methods.
 	 */
 	@Autowired
 	private TransportsManager transportsManager;
@@ -58,7 +58,7 @@ public class TransportsValidator implements Validator {
 
 		validateTransportCode(transport.getTransportCode(), error);
 
-		validateIfTransportExist(transport, transport.getTransportCode(), error);
+		validateIfTransportExist(transport.getTransportId(), transport.getTransportCode(), error);
 
 		validateStartTime(transport.getStartTime(), error);
 
@@ -89,22 +89,22 @@ public class TransportsValidator implements Validator {
 
 	/**
 	 * Finds out if Transports object exist in database with such transport
-	 * code.
+	 * code. 
 	 * 
 	 * @param transportCode
 	 *            the transport code to check.
 	 * @param error
 	 *            the error to register message.
 	 */
-	private void validateIfTransportExist(Transports transports,
-			String transportCode, Errors error) {
+	private void validateIfTransportExist(Integer transportId, String transportCode, Errors error) {
 
-		if (transportCode != null && transportCode != "") {
+		if ((transportCode != null) && (transportCode != "")) {
+			Transports transport = null;
 
 			try {
-				Transports transport = transportsManager.findTransportsByCode(transportCode);
+				transport = transportsManager.findTransportsByCode(transportCode);
 
-				if (transport.getTransportId().equals(transports.getTransportId())) {
+				if ((transport.getTransportId()).equals(transportId)) {
 					return;
 				}
 				error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);

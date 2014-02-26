@@ -105,6 +105,20 @@ span.icon {
 	background-size: 40px 40px;
 	opacity: 0.55;
 }
+.sortasc {
+	background: url("../images/downarrow.png") no-repeat;	
+	background-size: 10px 10px;
+	width: 10px;
+	height: 10px;
+	opacity: 1.0;
+}
+.sortdesc {
+	background: url("../images/uparrow.png") no-repeat;	
+	background-size: 10px 10px;
+	width: 10px;
+	height: 10px;
+	opacity: 1.0;
+}
 .fb_icon:hover,.twitter_icon:hover,.rss_icon:hover {
 	opacity: 1.0;
 }

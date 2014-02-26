@@ -1,8 +1,10 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 
@@ -79,25 +81,30 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 //		return (List<Transports>) query.getResultList();
 //	}
 
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public List<Transports> getTransportsListByCriteria(int firstElement, int count,
-//			String transportCode, Time time, Routes routes, Integer seatClass1, Integer seatClass2,
-//			Integer seatClass3, Double price) {
-//
-//		Query query = entityManager
-//				.createQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA)
-//				.setParameter("transportCode", transportCode)
-//				.setParameter("startTime", time)
-//				.setParameter("routes", routes)
-//				.setParameter("seatclass1", seatClass1)
-//				.setParameter("seatclass2", seatClass2)
-//				.setParameter("seatclass3", seatClass3)
-//				.setParameter("genPrice", price)
-//				.setFirstResult(firstElement).setMaxResults(count);
-//		
-//		return (List<Transports>) query.getResultList();
-//	}
+	/**
+	 * Finds Transport by criteria.
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListByCriteria(int, int, java.lang.String, java.sql.Time, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Double)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transports> getTransportsListByCriteria(int firstElement, int count,
+			String transportCode, Time time, String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price) {
+
+		Query query = entityManager
+				.createNamedQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA)
+				.setParameter("transportCode", "%" + transportCode + "%")
+				.setParameter("startTime", time, TemporalType.TIME)
+				.setParameter("routeCode", "%" + routeCode + "%")
+				.setParameter("seatclass1", seatClass1)
+				.setParameter("seatclass2", seatClass2)
+				.setParameter("seatclass3", seatClass3)
+				.setParameter("genPrice", price)
+				.setFirstResult(firstElement).setMaxResults(count)
+				;
+		
+		return (List<Transports>) query.getResultList();
+	}
 
 	/**
 	 * @see com.ita.edu.softserve.dao.TransportsDao#findByDate(java.lang.String)

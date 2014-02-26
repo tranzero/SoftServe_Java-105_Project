@@ -33,13 +33,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE, query = Transports.FIND_BY_TRANSPORTCODE_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
 
-//		@NamedQuery(name = Transports.FIND_BY_STARTTIME, query = Transports.FIND_BY_STARTTIME_QUERY),
-//		@NamedQuery(name = Transports.FIND_BY_SEATCLASS1, query = Transports.FIND_BY_SEATCLASS1_QUERY),
-//		@NamedQuery(name = Transports.FIND_BY_SEATCLASS2, query = Transports.FIND_BY_SEATCLASS2_QUERY),
-//		@NamedQuery(name = Transports.FIND_BY_SEATCLASS3, query = Transports.FIND_BY_SEATCLASS3_QUERY),
-//		@NamedQuery(name = Transports.FIND_BY_GENPRICE, query = Transports.FIND_BY_GENPRICE_QUERY),
-
-//		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY),
+		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY),
 		
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*,
@@ -61,36 +55,29 @@ public class Transports extends BaseEntity {
 	public static final String TRANSPORTS_FIND_COUNT = "Transports.findCount";
 	public static final String TRANSPORTS_FIND_COUNT_QUERY = "SELECT COUNT (t.transportId) FROM Transports t";
 	
-	public static final String FIND_BY_TRANSPORTCODE = "Transport.findByTransportCode";
+	public static final String FIND_BY_TRANSPORTCODE = "Transports.findByTransportCode";
 	public static final String FIND_BY_TRANSPORTCODE_QUERY = "SELECT t FROM Transports t WHERE t.transportCode = ?1";
 	
-//	public static final String FIND_BY_STARTTIME = "Transport.findByStartTime";
-//	public static final String FIND_BY_STARTTIME_QUERY = "SELECT t FROM Transports t WHERE t.startTime = ?1";
-	 
-	public static final String FIND_BY_ROUTEID = "Transport.findByRouteId";
+	public static final String FIND_BY_ROUTEID = "Transports.findByRouteId";
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 		
-//	public static final String FIND_BY_SEATCLASS1 = "Transport.findBySeatclass1";
-//	public static final String FIND_BY_SEATCLASS1_QUERY = "SELECT t FROM Transports t WHERE t.seatclass1 = ?1";
-//	
-//	public static final String FIND_BY_SEATCLASS2 = "Transport.findBySeatclass2";
-//	public static final String FIND_BY_SEATCLASS2_QUERY = "SELECT t FROM Transports t WHERE t.seatclass2 = ?1";
-//	
-//	public static final String FIND_BY_SEATCLASS3 = "Transport.findBySeatclass3";
-//	public static final String FIND_BY_SEATCLASS3_QUERY = "SELECT t FROM Transports t WHERE t.seatclass3 = ?1";
-//	
-//	public static final String FIND_BY_GENPRICE = "Transport.findByGenPrice";
-//	public static final String FIND_BY_GENPRICE_QUERY = "SELECT t FROM Transports t WHERE t.genPrice = ?1";
-	
-/*	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA = "Transport.findTransportsListByCriteria";
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA = "Transports.findTransportsListByCriteria";
 	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY = "SELECT t FROM Transports t "
-			+ "WHERE t.transportCode = :transportCode"
-			+ "OR t.startTime = :startTime"
-			+ "OR t.routes = :routes"
-			+ "OR t.seatclass1 = :seatclass1"
-			+ "OR t.seatclass2 = :seatclass2"
-			+ "OR t.seatclass3 = :seatclass3"
-			+ "OR t.genPrice = :genPrice";*/
+			+ "WHERE "
+			+ "t.transportCode LIKE :transportCode "
+			+ "AND "
+			+ "t.startTime = :startTime "
+			+ "AND "
+			+ "t.routes.routeCode LIKE :routeCode "
+			+ "AND "
+			+ "t.seatclass1 > :seatclass1 "
+			+ "AND "
+			+ "t.seatclass2 > :seatclass2 "
+			+ "AND "
+			+ "t.seatclass3 > :seatclass3 "
+			+ "AND "
+			+ "t.genPrice > :genPrice "
+			;
 
 	/*------------------------------------------------------------------------------------------------------------*/
 

@@ -23,7 +23,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
 
 @Controller
 public class RoutesController {
@@ -72,7 +72,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -87,7 +87,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -102,7 +102,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -117,7 +117,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -262,7 +262,7 @@ public class RoutesController {
 			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}		
 	
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -306,7 +306,7 @@ public class RoutesController {
 			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}	
 		
-		PageInfoContainer container = new PageInfoContainer(pageNumber,
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
