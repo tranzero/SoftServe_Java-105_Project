@@ -14,7 +14,7 @@ form#loginform {
 	margin: auto;
 }
 form#loginform {color: #474747;}
-form#loginform input[type="button"],input[type="submit"],input[type="reset"] {
+input#lsubmit, input#lcancel {
 	width: 120px;
 	font-size: 1.0em;
 	color: #474747;
