@@ -123,9 +123,9 @@ public interface TransportsManager extends BaseManager {
 	 */
 	long getTransportsListCount();
 
-//	List<Transports> getTransportsListByCriteria(int firstElement, int count,
-//			String transportCode, Time time, Routes routes, Integer seatClass1,
-//			Integer seatClass2, Integer seatClass3, Double price);
+	List<Transports> getTransportsListByCriteria(int firstElement, int count,
+			String transportCode, Time time, String routesCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price);
 
 	/**
 	 * Gets List of Transports in descending order.
