@@ -1,10 +1,12 @@
 package com.ita.edu.softserve.validationcontainers.impl;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 
 @Component
+@Scope("request")
 public class PageInfoContainerImpl implements PageInfoContainer {
 	private Integer pageNumber;
 	private Integer resultsPerPage;

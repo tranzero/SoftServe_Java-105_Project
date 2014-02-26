@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,7 @@ import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
 @Controller
 public class TripsController {
 	
-	@Autowired
-	PageInfoContainer container;
+	
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -200,6 +200,13 @@ public class TripsController {
 
 	@Autowired
 	private TransportsManager transportsManager;
+	
+	/**
+	 * Container of trips search and sorting information
+	 */
+	@Autowired
+	
+	PageInfoContainer container;
 
 	/**
 	 * Field for using paging-related controller-level methods (class realized

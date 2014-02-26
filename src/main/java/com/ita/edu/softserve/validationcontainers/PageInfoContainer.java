@@ -1,8 +1,10 @@
 package com.ita.edu.softserve.validationcontainers;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("request")
 public interface PageInfoContainer {
 
 	void setResultsPerPage(Integer resultsPerPage);
