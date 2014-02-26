@@ -8,9 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.Transports;
 
 /**
  * 
@@ -37,6 +35,13 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		return (Stations) query.getSingleResult();
 	}
 
+	/**
+	 * Saves a Station into table if not exist or update
+	 * existing one.
+	 * 
+	 * @param entity
+	 *            the entity to save or update into Stations table.
+	 */
 	@Override
 	public void saveOrUpdate(final Stations entity) {
 		if (entity.getStationId() == null) {
