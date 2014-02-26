@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.components.impl.Encoder;
+import com.ita.edu.softserve.components.Encoder;
+import com.ita.edu.softserve.components.impl.EncoderImpl;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
@@ -215,6 +216,9 @@ public class TripsController {
 	@Autowired
 	TripsCriteriaContainer tripsCriteriaContainer; 
 
+	@Autowired
+	Encoder encoder;
+	
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -310,7 +314,7 @@ public class TripsController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);
-		modelMap.put(ENCODER_ATTRIBUTE_NAME, new Encoder());
+		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
 		String lang = locale.getLanguage();
 		modelMap.put(TRIPSLIST_NAME, tripsManager
 				.getTripsForCriteriaUsingContainers(tripsCriteriaContainer,

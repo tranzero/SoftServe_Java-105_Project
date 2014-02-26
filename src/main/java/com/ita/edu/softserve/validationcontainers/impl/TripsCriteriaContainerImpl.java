@@ -17,12 +17,13 @@ import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
  */
 
 @Component
-//@Scope("request")
-public class TripsCriteriaContainerImpl implements TripsCriteriaContainer{
+// @Scope("request")
+public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 
 	public static final String[] TRIPS_ORDER_BY_COLUMNS = {
-			"tr.transport.transportCode", "tr.transport.routes.routeName", "tr.remSeatClass1",
-			"tr.remSeatClass2", "tr.remSeatClass3", "tr.startDate", "tr.transport.startTime" };
+			"tr.transport.transportCode", "tr.transport.routes.routeName",
+			"tr.remSeatClass1", "tr.remSeatClass2", "tr.remSeatClass3",
+			"tr.startDate", "tr.transport.startTime" };
 
 	private String transportCode;
 	private String routeName;
@@ -35,17 +36,34 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer{
 	private Date maxDate;
 	private String orderByParam;
 	private String orderByDirection;
-	
-	public TripsCriteriaContainerImpl(){
-		
+
+	public TripsCriteriaContainerImpl() {
+
 	}
-	
-	@Override
-	public void setValuableInfo(String transportCode, String routeName, Integer remSeatClass1,
-			Integer remSeatClass2, Integer remSeatClass3, String minDateString,
-			String maxDateString, String orderByParam, String orderByDirection) {
+
+	public TripsCriteriaContainerImpl(String transportCode, String routeName,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, String minDateString, String maxDateString,
+			String orderByParam, String orderByDirection) {
+		super();
 		this.transportCode = transportCode;
-		this.routeName=routeName;
+		this.routeName = routeName;
+		this.remSeatClass1 = remSeatClass1;
+		this.remSeatClass2 = remSeatClass2;
+		this.remSeatClass3 = remSeatClass3;
+		this.minDateString = minDateString;
+		this.maxDateString = maxDateString;
+		this.orderByParam = orderByParam;
+		this.orderByDirection = orderByDirection;
+	}
+
+	@Override
+	public void setValuableInfo(String transportCode, String routeName,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, String minDateString, String maxDateString,
+			String orderByParam, String orderByDirection) {
+		this.transportCode = transportCode;
+		this.routeName = routeName;
 		this.remSeatClass1 = remSeatClass1;
 		this.remSeatClass2 = remSeatClass2;
 		this.remSeatClass3 = remSeatClass3;
@@ -81,13 +99,14 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer{
 	}
 
 	/**
-	 * @param routeName the routeName to set
+	 * @param routeName
+	 *            the routeName to set
 	 */
 	@Override
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
 	}
-	
+
 	/**
 	 * @return the remSeatClass1
 	 */
