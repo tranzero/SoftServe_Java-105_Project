@@ -22,8 +22,9 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 
 @Controller
 public class TripsController {
@@ -205,13 +206,14 @@ public class TripsController {
 	 * Container of trips search and sorting information
 	 */
 	@Autowired
-	
 	PageInfoContainer container;
 
 	/**
 	 * Field for using paging-related controller-level methods (class realized
 	 * using singleton)
 	 */
+	@Autowired
+	TripsCriteriaContainer tripsCriteriaContainer; 
 
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
@@ -294,7 +296,7 @@ public class TripsController {
 			Integer remSeatClass3, String minDate, String maxDate,
 			String orderByParam, String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
-		TripsCriteriaContainer tripsCriteriaContainer = new TripsCriteriaContainer(
+		tripsCriteriaContainer.setValuableInfo(
 				transportCode, routeName, remSeatClass1, remSeatClass2,
 				remSeatClass3, minDate, maxDate, orderByParam, orderByDirection);
 		putFillElementsOptions(tripsCriteriaContainer, modelMap);

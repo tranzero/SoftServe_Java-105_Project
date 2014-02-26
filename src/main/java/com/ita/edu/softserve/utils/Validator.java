@@ -12,8 +12,9 @@ import java.util.TreeSet;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 import com.ita.edu.softserve.web.TripsController;
 
 /**
@@ -91,12 +92,12 @@ public class Validator {
 			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
 		Set<String> fieldsSet = new TreeSet<String>();
 		Collections.addAll(fieldsSet,
-				TripsCriteriaContainer.TRIPS_ORDER_BY_COLUMNS);
+				TripsCriteriaContainerImpl.TRIPS_ORDER_BY_COLUMNS);
 		if ((tripsCriteriaContainer.getOrderByParam() == null)
 				|| !(fieldsSet.contains(tripsCriteriaContainer
 						.getOrderByParam()))) {
 			tripsCriteriaContainer
-					.setOrderByParam(TripsCriteriaContainer.TRIPS_ORDER_BY_COLUMNS[0]);
+					.setOrderByParam(TripsCriteriaContainerImpl.TRIPS_ORDER_BY_COLUMNS[0]);
 		}
 		if ((tripsCriteriaContainer.getOrderByDirection() == null)
 				|| !(tripsCriteriaContainer.getOrderByDirection()

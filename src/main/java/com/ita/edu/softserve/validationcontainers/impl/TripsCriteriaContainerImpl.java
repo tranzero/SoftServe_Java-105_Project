@@ -2,6 +2,11 @@ package com.ita.edu.softserve.validationcontainers.impl;
 
 import java.util.Date;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+
 /**
  * 
  * @author dnycktc
@@ -11,7 +16,9 @@ import java.util.Date;
  * 
  */
 
-public class TripsCriteriaContainer {
+@Component
+//@Scope("request")
+public class TripsCriteriaContainerImpl implements TripsCriteriaContainer{
 
 	public static final String[] TRIPS_ORDER_BY_COLUMNS = {
 			"tr.transport.transportCode", "tr.transport.routes.routeName", "tr.remSeatClass1",
@@ -28,11 +35,15 @@ public class TripsCriteriaContainer {
 	private Date maxDate;
 	private String orderByParam;
 	private String orderByDirection;
-
-	public TripsCriteriaContainer(String transportCode, String routeName, Integer remSeatClass1,
+	
+	public TripsCriteriaContainerImpl(){
+		
+	}
+	
+	@Override
+	public void setValuableInfo(String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, String minDateString,
 			String maxDateString, String orderByParam, String orderByDirection) {
-		super();
 		this.transportCode = transportCode;
 		this.routeName=routeName;
 		this.remSeatClass1 = remSeatClass1;
@@ -47,6 +58,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the transportCode
 	 */
+	@Override
 	public String getTransportCode() {
 		return transportCode;
 	}
@@ -55,6 +67,7 @@ public class TripsCriteriaContainer {
 	 * @param transportCode
 	 *            the transportCode to set
 	 */
+	@Override
 	public void setTransportCode(String transportCode) {
 		this.transportCode = transportCode;
 	}
@@ -62,6 +75,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the routeName
 	 */
+	@Override
 	public String getRouteName() {
 		return routeName;
 	}
@@ -69,6 +83,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @param routeName the routeName to set
 	 */
+	@Override
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
 	}
@@ -76,6 +91,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the remSeatClass1
 	 */
+	@Override
 	public Integer getRemSeatClass1() {
 		return remSeatClass1;
 	}
@@ -84,6 +100,7 @@ public class TripsCriteriaContainer {
 	 * @param remSeatClass1
 	 *            the remSeatClass1 to set
 	 */
+	@Override
 	public void setRemSeatClass1(Integer remSeatClass1) {
 		this.remSeatClass1 = remSeatClass1;
 	}
@@ -91,6 +108,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the remSeatClass2
 	 */
+	@Override
 	public Integer getRemSeatClass2() {
 		return remSeatClass2;
 	}
@@ -99,6 +117,7 @@ public class TripsCriteriaContainer {
 	 * @param remSeatClass2
 	 *            the remSeatClass2 to set
 	 */
+	@Override
 	public void setRemSeatClass2(Integer remSeatClass2) {
 		this.remSeatClass2 = remSeatClass2;
 	}
@@ -106,6 +125,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the remSeatClass3
 	 */
+	@Override
 	public Integer getRemSeatClass3() {
 		return remSeatClass3;
 	}
@@ -114,6 +134,7 @@ public class TripsCriteriaContainer {
 	 * @param remSeatClass3
 	 *            the remSeatClass3 to set
 	 */
+	@Override
 	public void setRemSeatClass3(Integer remSeatClass3) {
 		this.remSeatClass3 = remSeatClass3;
 	}
@@ -121,6 +142,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the minDateString
 	 */
+	@Override
 	public String getMinDateString() {
 		return minDateString;
 	}
@@ -129,6 +151,7 @@ public class TripsCriteriaContainer {
 	 * @param minDateString
 	 *            the minDateString to set
 	 */
+	@Override
 	public void setMinDateString(String minDateString) {
 		this.minDateString = minDateString;
 	}
@@ -136,6 +159,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the maxDateString
 	 */
+	@Override
 	public String getMaxDateString() {
 		return maxDateString;
 	}
@@ -144,6 +168,7 @@ public class TripsCriteriaContainer {
 	 * @param maxDateString
 	 *            the maxDateString to set
 	 */
+	@Override
 	public void setMaxDateString(String maxDateString) {
 		this.maxDateString = maxDateString;
 	}
@@ -151,6 +176,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the minDate
 	 */
+	@Override
 	public Date getMinDate() {
 		return minDate;
 	}
@@ -159,6 +185,7 @@ public class TripsCriteriaContainer {
 	 * @param minDate
 	 *            the minDate to set
 	 */
+	@Override
 	public void setMinDate(Date minDate) {
 		this.minDate = minDate;
 	}
@@ -166,6 +193,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the maxDate
 	 */
+	@Override
 	public Date getMaxDate() {
 		return maxDate;
 	}
@@ -174,6 +202,7 @@ public class TripsCriteriaContainer {
 	 * @param maxDate
 	 *            the maxDate to set
 	 */
+	@Override
 	public void setMaxDate(Date maxDate) {
 		this.maxDate = maxDate;
 	}
@@ -181,6 +210,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the orderByParam
 	 */
+	@Override
 	public String getOrderByParam() {
 		return orderByParam;
 	}
@@ -189,6 +219,7 @@ public class TripsCriteriaContainer {
 	 * @param orderByParam
 	 *            the orderByParam to set
 	 */
+	@Override
 	public void setOrderByParam(String orderByParam) {
 		this.orderByParam = orderByParam;
 	}
@@ -196,6 +227,7 @@ public class TripsCriteriaContainer {
 	/**
 	 * @return the orderByDirection
 	 */
+	@Override
 	public String getOrderByDirection() {
 		return orderByDirection;
 	}
@@ -204,6 +236,7 @@ public class TripsCriteriaContainer {
 	 * @param orderByDirection
 	 *            the orderByDirection to set
 	 */
+	@Override
 	public void setOrderByDirection(String orderByDirection) {
 		this.orderByDirection = orderByDirection;
 	}
