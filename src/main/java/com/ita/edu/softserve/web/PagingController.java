@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 
 public class PagingController {

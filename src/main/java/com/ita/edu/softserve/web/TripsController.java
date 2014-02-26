@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.components.Encoder;
+import com.ita.edu.softserve.components.impl.Encoder;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
@@ -21,8 +21,8 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
 
 @Controller
 public class TripsController {

@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 @Controller
 public class StationsController {

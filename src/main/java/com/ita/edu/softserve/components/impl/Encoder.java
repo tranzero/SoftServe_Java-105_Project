@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.components;
+package com.ita.edu.softserve.components.impl;
 
 import java.io.UnsupportedEncodingException;
 

@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.validationcontainers;
+package com.ita.edu.softserve.validationcontainers.impl;
 
 import java.util.Date;
 

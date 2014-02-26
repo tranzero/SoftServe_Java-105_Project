@@ -17,8 +17,8 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.utils.Validator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
 
 @Service
 public class TripsManagerImpl implements TripsManager {

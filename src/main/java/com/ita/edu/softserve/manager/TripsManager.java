@@ -6,8 +6,8 @@ import java.util.Locale;
 
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
 
 public interface TripsManager extends BaseManager {
 

@@ -28,7 +28,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 /**
  * Base controller class for Transports.

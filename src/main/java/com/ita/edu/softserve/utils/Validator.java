@@ -12,8 +12,8 @@ import java.util.TreeSet;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainer;
 import com.ita.edu.softserve.web.TripsController;
 
 /**
