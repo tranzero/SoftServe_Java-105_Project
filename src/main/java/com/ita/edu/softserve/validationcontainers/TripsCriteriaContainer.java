@@ -18,6 +18,7 @@ public class TripsCriteriaContainer {
 			"tr.remSeatClass2", "tr.remSeatClass3", "tr.startDate", "tr.transport.startTime" };
 
 	private String transportCode;
+	private String routeName;
 	private Integer remSeatClass1;
 	private Integer remSeatClass2;
 	private Integer remSeatClass3;
@@ -28,11 +29,12 @@ public class TripsCriteriaContainer {
 	private String orderByParam;
 	private String orderByDirection;
 
-	public TripsCriteriaContainer(String transportCode, Integer remSeatClass1,
+	public TripsCriteriaContainer(String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, String minDateString,
 			String maxDateString, String orderByParam, String orderByDirection) {
 		super();
 		this.transportCode = transportCode;
+		this.routeName=routeName;
 		this.remSeatClass1 = remSeatClass1;
 		this.remSeatClass2 = remSeatClass2;
 		this.remSeatClass3 = remSeatClass3;
@@ -57,6 +59,20 @@ public class TripsCriteriaContainer {
 		this.transportCode = transportCode;
 	}
 
+	/**
+	 * @return the routeName
+	 */
+	public String getRouteName() {
+		return routeName;
+	}
+
+	/**
+	 * @param routeName the routeName to set
+	 */
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
+	
 	/**
 	 * @return the remSeatClass1
 	 */

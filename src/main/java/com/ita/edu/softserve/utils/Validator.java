@@ -108,6 +108,8 @@ public class Validator {
 		}
 		tripsCriteriaContainer.setTransportCode((String) ValidatorUtil
 				.defaultForNull(tripsCriteriaContainer.getTransportCode(), ""));
+		tripsCriteriaContainer.setRouteName((String) ValidatorUtil
+				.defaultForNull(tripsCriteriaContainer.getRouteName(), ""));
 		tripsCriteriaContainer.setRemSeatClass1((Integer) ValidatorUtil
 				.defaultForNull(tripsCriteriaContainer.getRemSeatClass1(), -1));
 		tripsCriteriaContainer.setRemSeatClass2((Integer) ValidatorUtil

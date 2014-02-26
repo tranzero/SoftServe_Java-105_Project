@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 public interface TripsManager extends BaseManager {
@@ -80,6 +81,8 @@ public interface TripsManager extends BaseManager {
 	 * 
 	 * @param transportCode
 	 *            transport code for matching
+	 * @param routeName
+	 *            route name for matching
 	 * @param remSeatClass1
 	 *            count of remaining seats of class 1 for matching
 	 * @param remSeatClass2
@@ -90,12 +93,12 @@ public interface TripsManager extends BaseManager {
 	 *            minimum date for date range
 	 * @param maxDate
 	 *            maximum date for date range
-	 * @return List of trips according given limits and criteria
+	 * @return List of trips size according given limits and criteria
 	 */
 
-	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
-			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
-			Date maxDate);
+	long getTripsListCriteriaCount(String transportCode, String routeName,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate);
 
 	/**
 	 * 
@@ -105,6 +108,8 @@ public interface TripsManager extends BaseManager {
 	 *            capacity of result list
 	 * @param transportCode
 	 *            transport code for matching
+	 * @param routeName
+	 *            route name for matching
 	 * @param remSeatClass1
 	 *            count of remaining seats of class 1 for matching
 	 * @param remSeatClass2
@@ -123,12 +128,10 @@ public interface TripsManager extends BaseManager {
 	 */
 
 	List<Trips> getTripsForCriteria(int firstElement, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
-			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection);
-	
-	
-	
+			String transportCode, String routeName, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection);
+
 	/**
 	 * 
 	 * @param pageNumber
@@ -137,6 +140,8 @@ public interface TripsManager extends BaseManager {
 	 *            capacity of result list
 	 * @param transportCode
 	 *            transport code for matching
+	 * @param routeName
+	 *            route name for matching
 	 * @param remSeatClass1
 	 *            count of remaining seats of class 1 for matching
 	 * @param remSeatClass2
@@ -154,10 +159,30 @@ public interface TripsManager extends BaseManager {
 	 * @return List of trips according given limits and criteria
 	 */
 	List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
-			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection);
-	
+			String transportCode, String routeName, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection);
+
+	/**
+	 * 
+	 * @param tripsCriteriaContainer
+	 *            container with given limits and criteria
+	 * @return List of trips size according given limits and criteria
+	 */
+	long getTripsListCriteriaCountUsingContainers(
+			TripsCriteriaContainer tripsCriteriaContainer);
+
+	/**
+	 * 
+	 * @param tripsCriteriaContainer
+	 *            container with given limits and criteria
+	 * @param container
+	 *            container with information for paging
+	 * @return List of trips according given limits and criteria
+	 */
+	List<Trips> getTripsForCriteriaUsingContainers(
+			TripsCriteriaContainer tripsCriteriaContainer,
+			PageInfoContainer container);
 
 	public Trips findByTripId(Integer id);
 

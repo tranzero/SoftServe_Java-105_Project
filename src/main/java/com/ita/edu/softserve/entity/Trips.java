@@ -38,6 +38,11 @@ public class Trips extends BaseEntity {
 	 */
 	public static final String TRANSPORT_CODE_NAME = "transportCode";
 	/**
+	 * Defines the name of route name parameter
+	 */
+	public static final String ROUTE_NAME_NAME = "routeName";
+
+	/**
 	 * Defines the name of remaining seat class 1 parameter
 	 */
 	public static final String REM_SEAT_CLASS_1_NAME = "remSeatClass1";
@@ -82,6 +87,8 @@ public class Trips extends BaseEntity {
 	public static final String TRIPS_FIND_BY_CRITERIA_QUERY = "SELECT tr FROM Trips tr WHERE"
 			+ " tr.transport.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
+			+ " AND tr.transport.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
 			+ " AND tr.remSeatClass1 > :"
 			+ REM_SEAT_CLASS_1_NAME
 			+ " AND tr.remSeatClass2 > :"
@@ -106,6 +113,8 @@ public class Trips extends BaseEntity {
 	public static final String TRIPS_FIND_CRITERIA_COUNT_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE"
 			+ " tr.transport.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
+			+ " AND tr.transport.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
 			+ " AND tr.remSeatClass1 > :"
 			+ REM_SEAT_CLASS_1_NAME
 			+ " AND tr.remSeatClass2 > :"
