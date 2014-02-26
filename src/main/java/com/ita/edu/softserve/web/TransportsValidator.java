@@ -35,7 +35,7 @@ public class TransportsValidator implements Validator {
 	private static final String ROUTES_NOT_EXIST = "routes.exist";
 
 	/**
-	 * Field for using transports-related controller-level methods.
+	 * Field for using transports-related methods.
 	 */
 	@Autowired
 	private TransportsManager transportsManager;
