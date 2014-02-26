@@ -26,18 +26,15 @@
 </script>
 <section id="content">
 
-		
-	<h2>Choose Class-Seat</h2>
-	<form:form id = "add to bag" action= "addToBag" method="post" modelAttribute = "ticket">
+	<form:form id = "add to bag" action= "/SoftServe_Java-105/addToBag/${tripId}/${seatType}" method="post" >
 	
 	<table>
 			<tr align=center>
 				<td align=center>
-					<p>
-						Enter passenger first and last name: <form:input path="customerInfo"></form:input> <br> 
+					<p><input id="customerInfo" type="text" name="customerInfo"><br>
 		</table>
 		
-		 <table>
+	<%-- 	 <table>
 			<tr>
 				<td><b>Choose Seat-Class you want : </b> 
 				<Br> <form:radiobutton path="isSeatClass1" value="true"
@@ -50,10 +47,9 @@
 				 onchange="toggle_visibility('div3');"/> 
 				<strong>SeatClass№1</strong> 
 					 
-					<%--  <td><form:radiobuttons items="${seatList}" path="seatList">
-						</form:radiobuttons></td> --%>
+					
 			</tr>
-		</table> 
+		</table>  --%>
 		<div id="div1" class="list" style="display: none;">
 			<p>
 
