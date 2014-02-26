@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
@@ -178,6 +179,11 @@ public class TripsController {
 	private static final String CRITERIA_CONTAINER_ATTRIBUTE_NAME = "container";
 	
 	/**
+	 * name for encoder attribute name
+	 */
+	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
+	
+	/**
 	 * Field for using trips-related controller-level methods
 	 */
 
@@ -289,6 +295,7 @@ public class TripsController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);
+		modelMap.put(ENCODER_ATTRIBUTE_NAME, new Encoder());
 		String lang = locale.getLanguage();
 		modelMap.put(TRIPSLIST_NAME, tripsManager
 				.getTripsForCriteriaUsingContainers(tripsCriteriaContainer,
@@ -299,7 +306,7 @@ public class TripsController {
 						lang.equalsIgnoreCase(UKRAINIAN)
 								|| lang.equalsIgnoreCase(SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
-		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
+		modelMap.put(LANGUAGE_NAME, lang);
 	}
 
 	/**

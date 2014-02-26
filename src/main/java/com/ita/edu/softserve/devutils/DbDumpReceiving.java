@@ -118,6 +118,7 @@ public class DbDumpReceiving {
                 		}
                 		if (typeOfColumn.matches("DATE..") 
                 				|| typeOfColumn.matches("TIME..")
+                				|| typeOfColumn.matches("BIT..")
                 				|| typeOfColumn.matches("DATETIME..")
                 				|| typeOfColumn.matches("TIMESTAMP..")){
                 			typeOfColumn=typeOfColumn.replaceAll(" \\(", "");

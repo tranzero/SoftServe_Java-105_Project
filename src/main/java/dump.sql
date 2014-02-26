@@ -2,6 +2,33 @@ DROP DATABASE IF EXISTS `test`;
 CREATE DATABASE  IF NOT EXISTS `test`;
  use `test`;
 -- 
+-- Table structure for table `users`
+-- 
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+    `USERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERNAME` VARCHAR (100) NOT NULL , 
+    `FIRSTNAME` VARCHAR (100) NOT NULL , 
+    `LASTNAME` VARCHAR (100) NOT NULL , 
+    `EMAIL` VARCHAR (100) NOT NULL , 
+    `PASSWD` VARCHAR (100) NOT NULL , 
+    `REGDATE` TIMESTAMP NOT NULL , 
+    `ROLE` enum('REGUSER','MANAGER','ADMIN') NOT NULL ,
+    PRIMARY KEY (USERID),
+    UNIQUE KEY `USERNAME` (`USERNAME`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `users`
+-- 
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-02-10 19:24:50.0', 'MANAGER'), ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '', '2014-02-10 19:56:13.0', 'ADMIN'), ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7s233', '2014-01-14 01:42:46.0', 'MANAGER'), ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '568355', '2014-01-14 02:41:35.0', 'REGUSER'), ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '467888', '2014-01-14 03:43:46.0', 'ADMIN'), ('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '432567sd', '2014-01-14 03:41:38.0', 'ADMIN'), ('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '', '2014-01-14 04:42:46.0', 'MANAGER'), ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '', '2014-01-14 04:43:46.0', 'REGUSER'), ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4e5155', '2014-01-14 04:44:35.0', 'REGUSER'), ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '', '2014-01-14 04:44:46.0', 'REGUSER'), ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '8754325', '2014-01-14 04:44:46.0', 'REGUSER');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+ 
+-- 
 -- Table structure for table `lines`
 -- 
 
@@ -21,36 +48,6 @@ INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3
 /*!40000 ALTER TABLE `lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
--- 
--- Table structure for table `orders`
--- 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL ,
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 -- 
 -- Table structure for table `posts`
@@ -72,40 +69,6 @@ LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
 INSERT INTO `posts` VALUES ('2', 'Merkel condemns US over EU insult', 'U insultPolice in Kiev, 6 FebMasked protesters march through Kiev, 6 FebruaryPrevious image | Pause | Next image3 / 4Germanys Angela Merkel says a US officials apparent insult of the EUs work in Ukraine in a leaked recording is "totally unacceptable". ', '24-02-2014 11:43:36'), ('3', 'Earliest UK human footprints found', 'Scientists discover the earliest evidence of human footprints outside of Africa on the Norfolk coast in Eastern England. ', '2014-02-21 15:18:46'), ('4', 'Sochi prepares for opening ceremony', 'The costliest Winter Olympics in history officially open in Russia on Friday with a lavish ceremony in Sochi.', '2014-02-21 15:18:48'), ('5', 'Environment chief faces floods anger', 'There is anger directed at Environment Agency chairman Lord Smith ahead of his visit to the flood-hit Somerset Levels.', '2014-02-21 15:18:52'), ('6', 'Cameron: Seven months to save UK', 'David Cameron makes an emotional appeal to Scottish voters to "save the most extraordinary country in history" in Septembers independence vote.', '2014-02-21 15:18:59'), ('7', 'Violent clashes at Rio fares protest', 'Hundreds of Brazilian demonstrators clash with riot police in Rio de Janeiro, in a protest against a rise in public transport fares. ', '2014-02-21 15:19:03'), ('8', 'Mass grave found in Michoacan state', 'Mexico police find four severed heads and a mass grave in the troubled western state of Michoacan, where vigilantes are fighting a notorious drug cartel. ', '24-02-2014 11:44:25'), ('9', 'Pacific castaway health worsens', 'The castaway who says he survived more than a year adrift in the Pacific has been readmitted to hospital for health checks. ', '24-02-2014 11:44:19'), ('10', 'Anderson film opens Berlin festival', 'Wes Andersons latest movie The Grand Budapest Hotel opens the Berlin Film Festival to rave reviews.', '24-02-2014 11:44:12'), ('11', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '24-02-2014 11:44:06'), ('12', 'US TV legend Jay Leno bows out', 'Veteran television host Jay Leno tapes his final episode of The Tonight Show after 22 years, with help from a few celebrity guests. ', '24-02-2014 11:43:47'), ('13', 'National Gallery buys first US work', 'The National Gallery makes its first ever acquisition of a painting by an American artist - a 1912 work by George Bellows. ', '24-02-2014 11:43:22'), ('14', '\'No target\' in UK animal tests plan', 'The UK government launches its plan to replace, refine and reduce animals in research, but campaigners are disappointed. ', '24-02-2014 11:43:29'), ('15', 'Salmon born with \'magnetic map\'', 'Scientists believe that Pacific salmon sense changes in intensity and angle of the Earths magnetic field to find their way in the ocean.', '24-02-2014 11:43:33'), ('16', 'US military funds vanishing tech', 'The US military is funding a project to develop electronics that can self-destruct like the secret messages in the Mission Impossible TV show. ', '24-02-2014 11:43:42');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- 
--- Table structure for table `responses`
--- 
-
-DROP TABLE IF EXISTS `responses`;
-CREATE TABLE `responses` (
-    `RESPONSEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
-    `COMMENT` VARCHAR (200) NOT NULL , 
-    `DATE` DATE NULL , 
-    `checked` BIT (null) NOT NULL ,
-    PRIMARY KEY (RESPONSEID),
-    CONSTRAINT `USER_ID_fk1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `TRIP_ID_fk1`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `responses`
--- 
-LOCK TABLES `responses` WRITE;
-/*!40000 ALTER TABLE `responses` DISABLE KEYS */;
-INSERT INTO `responses` VALUES ('1', '1', '2', 'good', '2014-02-04', 'true'), ('2', '1', '6', 'wonderful', '2014-02-11', 'true'), ('3', '10', '11', 'good', '2014-02-04', 'true'), ('4', '8', '13', 'wonderful', '2014-02-18', 'true'), ('5', '4', '2', 'wonderful', '2014-02-05', 'true'), ('6', '7', '9', 'This was a wonderful trip', '2014-02-11', 'true'), ('7', '9', '9', 'wonderful', '2014-02-05', 'true'), ('8', '4', '4', 'This was a wonderful trip', '2014-02-05', 'true');
-/*!40000 ALTER TABLE `responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- 
@@ -221,41 +184,8 @@ INSERT INTO `stops` VALUES ('1', '1', '1', '00:00:00', '00:00:00'), ('2', '1', '
 /*!40000 ALTER TABLE `stops` ENABLE KEYS */;
 UNLOCK TABLES;
 
--- 
--- Table structure for table `tickets`
--- 
 
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE `tickets` (
-    `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `TICKETNAME` VARCHAR (100) NOT NULL , 
-    `ORDERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
-    `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
-    `ISSEATCLASS1` BIT (null) NULL , 
-    `ISSEATCLASS2` BIT (null) NULL , 
-    `ISSEATCLASS3` BIT (null) NULL ,
-    PRIMARY KEY (TICKETID),
-    CONSTRAINT `fk1`
-    FOREIGN KEY (`ORDERID`)
-    REFERENCES `orders` (`ORDERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `fk2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `tickets`
--- 
-LOCK TABLES `tickets` WRITE;
-/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES ;
-/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
-UNLOCK TABLES;
 
 -- 
 -- Table structure for table `transports`
@@ -332,29 +262,108 @@ INSERT INTO `trips` VALUES ('1', '1', '10', '50', '150', '2013-02-20'), ('2', '1
 /*!40000 ALTER TABLE `trips` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
+
 -- 
--- Table structure for table `users`
+-- Table structure for table `orders`
 -- 
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-    `USERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERNAME` VARCHAR (100) NOT NULL , 
-    `FIRSTNAME` VARCHAR (100) NOT NULL , 
-    `LASTNAME` VARCHAR (100) NOT NULL , 
-    `EMAIL` VARCHAR (100) NOT NULL , 
-    `PASSWD` VARCHAR (100) NOT NULL , 
-    `REGDATE` TIMESTAMP NOT NULL , 
-    `ROLE` enum('REGUSER','MANAGER','ADMIN') NOT NULL ,
-    PRIMARY KEY (USERID),
-    UNIQUE KEY `USERNAME` (`USERNAME`)
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL ,
+    PRIMARY KEY (ORDERID),
+    CONSTRAINT `ORDERID_ibfk_1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `ORDERID_ibfk_2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 
--- Dumping data for table `users`
+-- Dumping data for table `orders`
 -- 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1', 'tanzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-02-10 19:24:50.0', 'MANAGER'), ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '', '2014-02-10 19:56:13.0', 'ADMIN'), ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7s233', '2014-01-14 01:42:46.0', 'MANAGER'), ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '568355', '2014-01-14 02:41:35.0', 'REGUSER'), ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '467888', '2014-01-14 03:43:46.0', 'ADMIN'), ('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '432567sd', '2014-01-14 03:41:38.0', 'ADMIN'), ('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '', '2014-01-14 04:42:46.0', 'MANAGER'), ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '', '2014-01-14 04:43:46.0', 'REGUSER'), ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4e5155', '2014-01-14 04:44:35.0', 'REGUSER'), ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '', '2014-01-14 04:44:46.0', 'REGUSER'), ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '8754325', '2014-01-14 04:44:46.0', 'REGUSER');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- 
+-- Table structure for table `tickets`
+-- 
+
+
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE `tickets` (
+    `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `TICKETNAME` VARCHAR (100) NOT NULL , 
+    `ORDERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
+    `ISSEATCLASS1` BIT NULL , 
+    `ISSEATCLASS2` BIT NULL , 
+    `ISSEATCLASS3` BIT NULL ,
+    PRIMARY KEY (TICKETID),
+    CONSTRAINT `fk1`
+    FOREIGN KEY (`ORDERID`)
+    REFERENCES `orders` (`ORDERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `fk2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `tickets`
+-- 
+LOCK TABLES `tickets` WRITE;
+/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- 
+-- Table structure for table `responses`
+-- 
+
+DROP TABLE IF EXISTS `responses`;
+
+CREATE TABLE `responses` (
+    `RESPONSEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `COMMENT` VARCHAR (200) NOT NULL , 
+    `DATE` DATE NULL , 
+    `checked` BIT NOT NULL ,
+    PRIMARY KEY (RESPONSEID),
+    CONSTRAINT `fk1_`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `fk2_`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `responses`
+-- 
+LOCK TABLES `responses` WRITE;
+/*!40000 ALTER TABLE `responses` DISABLE KEYS */;
+INSERT INTO `responses` VALUES ('1', '1', '2', 'good', '2014-02-04', true), ('2', '1', '6', 'wonderful', '2014-02-11', true), ('3', '10', '11', 'good', '2014-02-04', true), ('4', '8', '13', 'wonderful', '2014-02-18', true), ('5', '4', '2', 'wonderful', '2014-02-05', true), ('6', '7', '9', 'This was a wonderful trip', '2014-02-11', true), ('7', '9', '9', 'wonderful', '2014-02-05', true), ('8', '4', '4', 'This was a wonderful trip', '2014-02-05', true);
+/*!40000 ALTER TABLE `responses` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -6,6 +6,76 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
+	<form id="searchForm">
+		<p>
+		<h3><spring:message code="label.trips.setsearchparameters" />:</h3>
+		<p>
+			<spring:message code="label.transport.transportcode" />
+			:
+			<c:if test="${isTransportCode}">
+				<input type="text" id="transportCode" name="transportCode">
+			</c:if>
+			<c:if test="${!isTransportCode}">
+				<input type="text" id="transportCode" name="transportCode"
+					value="${container.getTransportCode()}">
+			</c:if>
+			<spring:message code="label.trips.routename" />
+			:
+			<c:if test="${isRouteName}">
+				<input type="text" id="routeName" name="routeName">
+			</c:if>
+			<c:if test="${!isRouteName}">
+				<input type="text" id="routeName" name="routeName"
+					value="${container.getRouteName()}">
+			</c:if>
+		<p><spring:message code="label.trips.minimalremainingseatsbyclasses" />:
+		<p>
+			<label for="remSeatClass1">1:</label>
+			<c:if test="${isClass1}">
+				<input type="text" id="remSeatClass1" name="remSeatClass1">
+			</c:if>
+			<c:if test="${!isClass1}">
+				<input type="text" id="remSeatClass1" name="remSeatClass1"
+					value="${container.getRemSeatClass1}">
+			</c:if>
+			<label for="remSeatClass2">2:</label>
+			<c:if test="${isClass2}">
+				<input type="text" id="remSeatClass2" name="remSeatClass2">
+			</c:if>
+			<c:if test="${!isClass2}">
+				<input type="text" id="remSeatClass2" name="remSeatClass2"
+					value="${container.getRemSeatClass2}">
+			</c:if>
+			<label for="remSeatClass3">3:</label>
+			<c:if test="${isClass3}">
+				<input type="text" id="remSeatClass3" name="remSeatClass3">
+			</c:if>
+			<c:if test="${!isClass3}">
+				<input type="text" id="remSeatClass3" name="remSeatClass3"
+					value="${container.getRemSeatClass3}">
+			</c:if>
+		<p><spring:message code="label.trips.daterange" />:
+		<p>
+			<label for="minDate"><spring:message
+					code="label.addtrips.from" /></label>
+			<c:if test="${isMinDate}">
+				<input type="text" id="from" name="minDate">
+			</c:if>
+			<c:if test="${!isMinDate}">
+				<input type="text" id="from" name="minDate"
+					value="${container.getMinDateString()}">
+			</c:if>
+
+
+			<label for="maxDate"><spring:message code="label.addtrips.to" /></label>
+			<c:if test="${isMaxDate}">
+				<input type="text" id="to" name="maxDate">
+			</c:if>
+			<c:if test="${!isMaxDate}">
+				<input type="text" id="to" name="maxDate"
+					value="${container.getMaxDateString()}">
+			</c:if>
+	</form>
 	<div id="result">
 		<table style="align: center">
 			<tr>
@@ -79,36 +149,57 @@
 			</ul>
 		</div>
 	</div>
-	
 
-		<script>
+
+	<script>
+		function formDatePicker() {
+			$.datepicker.setDefaults($.datepicker.regional['${language}']);
+			$("#from").datepicker({
+				defaultDate : "+0w",
+				changeMonth : true,
+				numberOfMonths : 3,
+				onClose : function(selectedDate) {
+					$("#to").datepicker("option", "minDate", selectedDate);
+				}
+			});
+			$("#to").datepicker({
+				defaultDate : "+1w",
+				changeMonth : true,
+				numberOfMonths : 3,
+				onClose : function(selectedDate) {
+					$("#from").datepicker("option", "maxDate", selectedDate);
+				}
+			});
+
+		}
 		function showTripsPage(pageNumber_, resultsPerPage_) {
 
-			$.ajax({
-				async : true,
-				beforeSend : function() {
-					$("div#result")
-					.html(
-							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-					},
-					type : "GET",
-					url : "tripspage",
-					data : {
-						pageNumber : pageNumber_,
-						resultsPerPage : resultsPerPage_
-						}
-					}).done(function(msg) {
+			$
+					.ajax(
+							{
+								async : true,
+								beforeSend : function() {
+									$("div#result")
+											.html(
+													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+								},
+								type : "GET",
+								url : "tripspage",
+								data : {
+									pageNumber : pageNumber_,
+									resultsPerPage : resultsPerPage_
+								}
+							}).done(function(msg) {
 						$("div#result").html(msg);
-						});
+					});
 
-			
 		}
 
 		$(window).load(function() {
+			formDatePicker();
 
-			showTripsPage("${pageNumber}", "${resultsPerPage}");
+			// 			showTripsPage("${pageNumber}", "${resultsPerPage}");
 
 		});
-		
 	</script>
 </section>
