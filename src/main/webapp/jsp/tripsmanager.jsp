@@ -90,10 +90,11 @@
 			<input type="submit"
 				value="<spring:message code="label.trips.tripsearch"/>">
 		</div>
-		
+		<br>
 	</form>
 
 <p>
+<br>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<tr>
