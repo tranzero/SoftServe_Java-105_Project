@@ -16,11 +16,11 @@ import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Service
 public class TripsManagerImpl implements TripsManager {
-
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -62,35 +62,65 @@ public class TripsManagerImpl implements TripsManager {
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCriteriaCount(String transportCode,
-			Integer remSeatClass1, Integer remSeatClass2,
+			String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate) {
-		return tripsDao.getTripsListCriteriaCount(transportCode, remSeatClass1,
-				remSeatClass2, remSeatClass3, minDate, maxDate);
+		return tripsDao.getTripsListCriteriaCount(transportCode, routeName,
+				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate);
 	}
-	
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
-			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection){
-		return getTripsForCriteria((pageNumber - 1) * count, count,
-				 transportCode,  remSeatClass1,  remSeatClass2,
-				 remSeatClass3,  minDate,  maxDate,
-				 orderByParam,  orderByDirection);
+	public long getTripsListCriteriaCountUsingContainers(TripsCriteriaContainer tripsCriteriaContainer) {
+		return getTripsListCriteriaCount("%"
+				+ tripsCriteriaContainer.getTransportCode() + "%", "%"
+				+ tripsCriteriaContainer.getRouteName() + "%",
+				tripsCriteriaContainer.getRemSeatClass1(),
+				tripsCriteriaContainer.getRemSeatClass2(),
+				tripsCriteriaContainer.getRemSeatClass3(),
+				tripsCriteriaContainer.getMinDate(),
+				tripsCriteriaContainer.getMaxDate());
 	}
+	
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
+			String transportCode, String routeName, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
+		return getTripsForCriteria((pageNumber - 1) * count, count,
+				transportCode, routeName, remSeatClass1, remSeatClass2,
+				remSeatClass3, minDate, maxDate, orderByParam, orderByDirection);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Trips> getTripsForCriteriaUsingContainers(TripsCriteriaContainer tripsCriteriaContainer, PageInfoContainer container) {
+		return getTripsForCriteriaWithPage(
+				container.getPageNumber(), container.getResultsPerPage(), "%"
+						+ tripsCriteriaContainer.getTransportCode() + "%", "%"
+						+ tripsCriteriaContainer.getRouteName() + "%",
+				tripsCriteriaContainer.getRemSeatClass1(),
+				tripsCriteriaContainer.getRemSeatClass2(),
+				tripsCriteriaContainer.getRemSeatClass3(),
+				tripsCriteriaContainer.getMinDate(),
+				tripsCriteriaContainer.getMaxDate(),
+				tripsCriteriaContainer.getOrderByParam(),
+				tripsCriteriaContainer.getOrderByDirection());
+	}
+
 	
 	
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForCriteria(int firstElement, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
-			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection) {
-		return tripsDao.getTripsListCriteria(firstElement, count,
-				transportCode, remSeatClass1, remSeatClass2, remSeatClass3,
-				minDate, maxDate, orderByParam, orderByDirection);
+			String transportCode, String routeName, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
+		return tripsDao
+				.getTripsListCriteria(firstElement, count, transportCode,
+						routeName, remSeatClass1, remSeatClass2, remSeatClass3,
+						minDate, maxDate, orderByParam, orderByDirection);
 	}
 
 	@Transactional(readOnly = true)
@@ -110,9 +140,10 @@ public class TripsManagerImpl implements TripsManager {
 	public List<Trips> getTripsForLimit(int firstElement, int count) {
 		return tripsDao.getTripsForLimits(firstElement, count);
 	}
-	
+
 	@Override
-	public void validateTripsCriteria(TripsCriteriaContainer tripsCriteriaContainer, Locale locale){
+	public void validateTripsCriteria(
+			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
 		Validator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
@@ -136,23 +167,23 @@ public class TripsManagerImpl implements TripsManager {
 				year = Integer.parseInt(datesplit1[2]);
 				day = Integer.parseInt(datesplit1[0]);
 				month = Integer.parseInt(datesplit1[1]);
-				startDate = new Date(year-1900, month, day);
+				startDate = new Date(year - 1900, month, day);
 				String datesplit2[] = maxDate.split("\\.");
 				year = Integer.parseInt(datesplit2[2]);
 				day = Integer.parseInt(datesplit2[0]);
 				month = Integer.parseInt(datesplit2[1]);
-				endDate = new Date(year-1900, month, day);
+				endDate = new Date(year - 1900, month, day);
 			} else {
 				String datesplit1[] = minDate.split("/");
 				year = Integer.parseInt(datesplit1[2]);
 				day = Integer.parseInt(datesplit1[1]);
 				month = Integer.parseInt(datesplit1[0]);
-				startDate = new Date(year-1900, month, day);
+				startDate = new Date(year - 1900, month, day);
 				String datesplit2[] = maxDate.split("/");
 				year = Integer.parseInt(datesplit2[2]);
 				day = Integer.parseInt(datesplit2[1]);
 				month = Integer.parseInt(datesplit2[0]);
-				endDate = new Date(year-1900, month, day);
+				endDate = new Date(year - 1900, month, day);
 			}
 
 			Calendar start = Calendar.getInstance();

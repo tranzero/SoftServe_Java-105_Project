@@ -5,17 +5,13 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
-import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDAO;
-import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
-import com.ita.edu.softserve.utils.ValidatorUtil;
+
 
 /**
  * @author dnycktc
@@ -23,7 +19,6 @@ import com.ita.edu.softserve.utils.ValidatorUtil;
 @Repository
 public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 
-	
 	/**
 	 * Defines the name of order by column parameter
 	 */
@@ -32,6 +27,7 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 	 * Defines the name of order by column direction parameter
 	 */
 	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
+
 	@Override
 	public Class<Trips> getEntityClass() {
 		return Trips.class;
@@ -44,22 +40,23 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 	}
 
 	@Override
-	public long getTripsListCriteriaCount(String transportCode,
+	public long getTripsListCriteriaCount(String transportCode, String routeName,
 			Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate) {
 		return (long) find((Query) entityManager
 				.createNamedQuery(Trips.TRIPS_FIND_CRITERIA_COUNT)
 				.setParameter(Trips.TRANSPORT_CODE_NAME, transportCode)
+				.setParameter(Trips.ROUTE_NAME_NAME, routeName)
 				.setParameter(Trips.REM_SEAT_CLASS_1_NAME, remSeatClass1)
 				.setParameter(Trips.REM_SEAT_CLASS_2_NAME, remSeatClass2)
 				.setParameter(Trips.REM_SEAT_CLASS_3_NAME, remSeatClass3)
 				.setParameter(Trips.MIN_DATE_NAME, minDate, TemporalType.DATE)
 				.setParameter(Trips.MAX_DATE_NAME, maxDate, TemporalType.DATE));
-		
+
 	}
 
 	public List<Trips> getTripsListCriteria(int firstElement, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			String transportCode, String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate,
 			String orderByParam, String orderByDirection) {
 
@@ -68,13 +65,14 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 						Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam + " "
 								+ orderByDirection)
 				.setParameter(Trips.TRANSPORT_CODE_NAME, transportCode)
+				.setParameter(Trips.ROUTE_NAME_NAME, routeName)
 				.setParameter(Trips.REM_SEAT_CLASS_1_NAME, remSeatClass1)
 				.setParameter(Trips.REM_SEAT_CLASS_2_NAME, remSeatClass2)
 				.setParameter(Trips.REM_SEAT_CLASS_3_NAME, remSeatClass3)
 				.setParameter(Trips.MIN_DATE_NAME, minDate, TemporalType.DATE)
 				.setParameter(Trips.MAX_DATE_NAME, maxDate, TemporalType.DATE)
 				.setFirstResult(firstElement).setMaxResults(count);
-		return (List<Trips>) query.getResultList(); 
+		return (List<Trips>) query.getResultList();
 
 	}
 

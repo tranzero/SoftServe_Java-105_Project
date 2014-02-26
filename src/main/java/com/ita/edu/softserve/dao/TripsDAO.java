@@ -43,6 +43,8 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 * 
 	 * @param transportCode
 	 *            transport code for matching
+	 * @param routeName
+	 *            route name for matching
 	 * @param remSeatClass1
 	 *            count of remaining seats of class 1 for matching
 	 * @param remSeatClass2
@@ -56,7 +58,7 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 * @return count of matching DB records
 	 */
 
-	long getTripsListCriteriaCount(String transportCode, Integer remSeatClass1,
+	long getTripsListCriteriaCount(String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
 			Date maxDate);
 
@@ -68,6 +70,8 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 *            capacity of result list
 	 * @param transportCode
 	 *            transport code for matching
+	 * @param routeName
+	 *            route name for matching
 	 * @param remSeatClass1
 	 *            count of remaining seats of class 1 for matching
 	 * @param remSeatClass2
@@ -86,7 +90,7 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 */
 
 	List<Trips> getTripsListCriteria(int firstElement, int count,
-			String transportCode, Integer remSeatClass1, Integer remSeatClass2,
+			String transportCode, String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate,
 			String orderByParam, String orderByDirection);
 
