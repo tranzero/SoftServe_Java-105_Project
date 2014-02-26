@@ -18,21 +18,18 @@
  		<table class="form" >
 			<tbody>
 			<tr>
-				<td><form:label path="transportCode" for="transportCode">
-				<spring:message code="label.transport.transportcode"/></form:label></td>
+				<td><spring:message code="label.transport.transportcode"/></td>
 				<td><form:input id="transportCode" type="text" path="transportCode" name="transportCode" onfocus="checkpostal()" /></td>
 				<td><form:errors path="transportCode" cssClass="error"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="startTime" for="startTime" >
-				<spring:message code="label.transport.starttime"/></form:label></td>
+				<td><spring:message code="label.transport.starttime"/></td>
 				<td><form:input id="startTime" type="text" path="startTime" name="startTime"
 					cssClass="startTime" placeholder="HH:MM:SS" /></td>
 				<td><form:errors path="startTime" cssClass="error"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="routes" for="routes" >
-				<spring:message code="label.routes.routecode"/></form:label></td>
+				<td><spring:message code="label.routes.routecode"/></td>
 				<td><form:select path="routes" name="routes" >
 					<c:forEach var="route" items="${routesList}">
 						<option value="${route.getRouteId()}">
@@ -42,26 +39,22 @@
 				<td><form:errors path="routes" cssClass="error"/></td>
 			</tr>
 			<tr>
-			<td><form:label path="seatclass1" for="seatclass1" >
-				<spring:message code="label.transport.seatclass1"/></form:label></td>
+				<td><spring:message code="label.transport.seatclass1"/></td>
 				<td><form:input id="seatclass1" path="seatclass1"/></td>
 				<td><form:errors path="seatclass1" cssClass="error"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="seatclass2" for="seatclass2" >
-				<spring:message code="label.transport.seatclass2"/></form:label></td>
+				<td><spring:message code="label.transport.seatclass2"/></td>
 				<td><form:input id="seatclass2" path="seatclass2" /></td>
 				<td><form:errors path="seatclass2" cssClass="error"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="seatclass3" for="seatclass3" >
-				<spring:message code="label.transport.seatclass3"/></form:label></td>
+				<td><spring:message code="label.transport.seatclass3"/></td>
 				<td><form:input  id="seatclass3" path="seatclass3"/></td>
 				<td><form:errors path="seatclass3" cssClass="error"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="genPrice" for="genPrice" >
-				<spring:message code="label.transport.genprice"/></form:label></td>
+				<td><spring:message code="label.transport.genprice"/></td>
 				<td><form:input id="genPrice" path="genPrice"/></td>
 				<td><form:errors path="genPrice" cssClass="error"/></td>
 			</tr>
