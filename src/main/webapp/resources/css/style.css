@@ -172,16 +172,18 @@ table .table th,td{
 
 
 /* BUTTON STYLES */
-input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"], input[type="reset"] {
+    font-size: 1.0em;
+    font-weight: 700;
     font-family: inherit;
     padding: 0.5em 1em;
-    color: #444; 
-    color: rgba(0, 0, 0, 0.80); 
     border: 1px solid #999;  
     background-color: #E6E6E6;
     text-decoration: none;
     border-radius: 2px;
     min-width: 80px;
+    line-height: 18px;
+    color: #414141;
 }
 
 input[type="submit"]:hover,
@@ -227,7 +229,7 @@ input[type="password"]{
     -moz-box-shadow: 0 0 2px #DDDDDD;
     -webkit-box-shadow: 0 0 2px #DDDDDD;
     box-shadow: 0 0 2px #DDDDDD;
-
+    line-height: 18px;
 }
 input[type="text"]:hover,
 input[type="password"]:hover

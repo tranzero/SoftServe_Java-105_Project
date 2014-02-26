@@ -18,7 +18,7 @@
 	href="<c:url value="/resources/css/login.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/paging.css" />">
-<link rel="stylesheet" href="resources/js/jquery-ui.css">
+<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />">
 
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
