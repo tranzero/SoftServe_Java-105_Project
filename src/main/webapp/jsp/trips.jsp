@@ -3,6 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <section id="content">
+<script>
+var defaultDomElement = "div#result"; 
+var defaultTargetPage = "tripspage"; 
+var defaultGetData={
+		pageNumber: "${pageNumber}",
+		resultsPerPage: "${resultsPerPage}",
+		transportCode: "${container.getTransportCode()}",
+		routeName: "${container.getRouteName()}",
+		remSeatClass1: "${container.getRemSeatClass1()}",
+		remSeatClass2: "${container.getRemSeatClass2()}",
+		remSeatClass3: "${container.getRemSeatClass3()}",
+		minDate: "${container.getMinDateString()}",
+		maxDate: "${container.getMaxDateString()}",
+		orderByParam: "${container.getOrderByParam()}",
+		orderByDirection :"${container.getOrderByDirection()}"
+};
+
+</script>
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
@@ -478,28 +496,28 @@
 			});
 
 		}
-		function showTripsPage(pageNumber_, resultsPerPage_) {
+// 		function showTripsPage(pageNumber_, resultsPerPage_) {
 
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#result")
-											.html(
-													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-								},
-								type : "GET",
-								url : "tripspage",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
-							}).done(function(msg) {
-						$("div#result").html(msg);
-					});
+// 			$
+// 					.ajax(
+// 							{
+// 								async : true,
+// 								beforeSend : function() {
+// 									$("div#result")
+// 											.html(
+// 													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+// 								},
+// 								type : "GET",
+// 								url : "tripspage",
+// 								data : {
+// 									pageNumber : pageNumber_,
+// 									resultsPerPage : resultsPerPage_
+// 								}
+// 							}).done(function(msg) {
+// 						$("div#result").html(msg);
+// 					});
 
-		}
+// 		}
 
 		$(window).load(function() {
 			formDatePicker();

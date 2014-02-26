@@ -81,10 +81,10 @@
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">
 			<li class="prev"><a href="javascript:void(0);"
-				onclick="showTripsManagerPage(1, ${resultsPerPage})"> « </a></li>
+				id="firstpage"> « </a></li>
 			<li class="prev"><a href="javascript:void(0);"
-				onclick="showTripsManagerPage(${pageNumber-1},${resultsPerPage})">
-					<spring:message code="label.prev" />
+				id="prevpage"> <spring:message
+						code="label.prev" />
 			</a></li>
 		</c:if>
 		<c:if test="${pageNumber==1}">
@@ -97,7 +97,7 @@
 			varStatus="status">
 			<c:if test="${pageNumber!=i}">
 				<li><a href="javascript:void(0);"
-					onclick="showTripsManagerPage(${i},${resultsPerPage})"> ${i} </a></li>
+					id="page${i}"> ${i} </a></li>
 			</c:if>
 			<c:if test="${pageNumber==i}">
 				<li class="disabled"><a href="javascript:void(0);"> ${i} </a></li>
@@ -106,12 +106,11 @@
 
 		<c:if test="${pageNumber<maxPages}">
 			<li class="next"><a href="javascript:void(0);"
-				onclick="showTripsManagerPage(${pageNumber+1},${resultsPerPage})">
-					<spring:message code="label.next" />
+				id="nextpage"> <spring:message
+						code="label.next" />
 			</a></li>
 			<li class="next"><a href="javascript:void(0);"
-				onclick="showTripsManagerPage(${maxPages},${resultsPerPage})"> »
-			</a></li>
+				id="lastpage"> » </a></li>
 		</c:if>
 		<c:if test="${pageNumber==maxPages}">
 			<li class="next disabled"><a href="javascript:void(0);"> <spring:message

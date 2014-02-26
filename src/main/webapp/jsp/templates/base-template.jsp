@@ -14,11 +14,11 @@
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet" href="<c:url value="/resources/css/news.css" />">
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/login.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/login.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/paging.css" />">
-<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />">
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/jquery-ui.css" />">
 
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
@@ -29,25 +29,83 @@
 <script>
 	function onPagingEvent(event, num, resultsPerPage) {
 		var elementSelectorForResult = "div#pagingcontent";
-		$.ajax(
-				{
-				async : false,
-				beforeSend : function() {
-				$(elementSelectorForResult)
-				.html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-				},
-				type : "POST",
-				url : pageUrl,
-				data : {
-					pageNumber : num - 1,
-					resultsPerPage : resultsPerPage
-					}
+		$
+				.ajax(
+						{
+							async : false,
+							beforeSend : function() {
+								$(elementSelectorForResult)
+										.html(
+												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+							},
+							type : "POST",
+							url : pageUrl,
+							data : {
+								pageNumber : num - 1,
+								resultsPerPage : resultsPerPage
+							}
 						}).done(function(msg) {
 					$(elementSelectorForResult).html(msg);
 				});
 	}
+
+	// 	function showTripsPage(pageNumber_, resultsPerPage_) {
+
+	// 		$
+	// 				.ajax(
+	// 						{
+	// 							async : true,
+	// 							beforeSend : function() {
+	// 								$("div#result")
+	// 										.html(
+	// 												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+	// 							},
+	// 							type : "GET",
+	// 							url : "tripspage",
+	// 							data : {
+	// 								pageNumber : pageNumber_,
+	// 								resultsPerPage : resultsPerPage_
+	// 							}
+	// 						}).done(function(msg) {
+	// 					$("div#result").html(msg);
+	// 				});
+
+	// 	}
+
+	function ajaxLoader(domElement, targetPage, getData) {
+		
+		$
+				.ajax(
+						{
+							async : false,
+							beforeSend : function() {
+								$(domElement)
+										.html(
+												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+							},
+							type : "GET",
+							url : targetPage,
+							data : getData
+
+						}).done(function(msg) {
+							
+							
+					$(domElement).html(msg);
+				}
+
+				);
+
+	}
+
 	$(document).ready(
 			function() {
+
+				if ((typeof (defaultDomElement) != "undefined")
+						&& (typeof (defaultTargetPage) != "undefined")
+						&& (typeof (defaultGetData) != "undefined")) {
+					
+					ajaxLoader(defaultDomElement, defaultTargetPage, defaultGetData);
+				}
 				initPageWithPaging('${maxPageCount}', '${sizeOfPaging}',
 						onPagingEvent, pageUrl);
 			});

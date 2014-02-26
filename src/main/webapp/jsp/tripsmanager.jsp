@@ -3,6 +3,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <section id="content">
+<script>
+var defaultDomElement = "div#pagingcontent"; 
+var defaultTargetPage = "tripsmanagerpage"; 
+var defaultGetData={
+		pageNumber: "${pageNumber}",
+		resultsPerPage: "${resultsPerPage}",
+		transportCode: "${container.getTransportCode()}",
+		routeName: "${container.getRouteName()}",
+		remSeatClass1: "${container.getRemSeatClass1()}",
+		remSeatClass2: "${container.getRemSeatClass2()}",
+		remSeatClass3: "${container.getRemSeatClass3()}",
+		minDate: "${container.getMinDateString()}",
+		maxDate: "${container.getMaxDateString()}",
+		orderByParam: "${container.getOrderByParam()}",
+		orderByDirection :"${container.getOrderByDirection()}"
+};
+
+</script>
+
+
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
@@ -471,7 +491,7 @@
 
 
 	<script>
-		function showTripsManagerPage(pageNumber_, resultsPerPage_) {
+
 			function formDatePicker() {
 				$.datepicker.setDefaults($.datepicker.regional['${language}']);
 				$("#from").datepicker({
@@ -494,33 +514,12 @@
 						});
 
 			}
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#pagingcontent")
-											.html(
-													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-								},
-								type : "GET",
-								url : "tripsmanagerpage",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
-
-							}).done(function(msg) {
-						$("div#pagingcontent").html(msg);
-
-					});
-
-		}
+		
 
 		$(window).load(function() {
 			formDatePicker();
 
-			// 			showTripsManagerPage("${pageNumber}", "${resultsPerPage}");
+			
 
 		});
 	</script>
