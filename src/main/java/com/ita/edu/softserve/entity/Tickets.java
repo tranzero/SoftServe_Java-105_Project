@@ -59,7 +59,14 @@ public class Tickets extends BaseEntity implements Serializable{
 		
 	}
 	
-
+	public Tickets( String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
+			Boolean isSeatClass3) {
+		super();
+		this.customerInfo = customerInfo;
+		this.isSeatClass1 = isSeatClass1;
+		this.isSeatClass2 = isSeatClass2;
+		this.isSeatClass3 = isSeatClass3;
+	}
 
 	public Tickets(String ticketName, Orders order, Trips trip,
 			String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
@@ -106,7 +113,6 @@ public class Tickets extends BaseEntity implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		if (obj == null) return false;
 	    return obj instanceof Tickets &&
 	        Objects.equal(this.getTicketId(), ((Tickets) obj).getTicketId());
 	}

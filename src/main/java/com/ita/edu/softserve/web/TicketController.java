@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,7 @@ public class TicketController {
 	
 	private ShoppingBag shoppingBag = new ShoppingBag();
 	
-	private Tickets tickets;
+	Integer currentTripId;
 	
 	@Autowired
 	private  UserNameService userNameService;
@@ -57,42 +59,42 @@ public class TicketController {
 	
 	@RequestMapping(value = "/reservationTicket/{tripId}", method = RequestMethod.GET)
 	public String reservationTicket(@PathVariable("tripId") Integer tripId,
-			Map<String, Object> modelMap) {
+			//Map<String, Object> modelMap
+			Model model
+			) {
 	 
 		Trips trip = tripsManager.findByTripId(tripId);
-		modelMap.put("trip", trip);
-		modelMap.put("transport", trip.getTransport());
-		System.out.println("get");
-		tickets = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,"",false,false,false);
-	
+//		modelMap.put("trip", trip);
+//		modelMap.put("transport", trip.getTransport());
+//		modelMap.put("ticket", new Tickets());
+//		System.out.println("get");
+		currentTripId = tripId;
+		model.addAttribute("trip", trip);
+		model.addAttribute("transport", trip.getTransport());
+		model.addAttribute("ticket", new Tickets());
 		return "reservationTicket";
 	}
 	
 
-	@RequestMapping(value = "/reservationTicket/reservationTicket", method = RequestMethod.POST)
-	public String reservationTicketPost(
-			@RequestParam(value ="customerInfo") String customerInfo,
-			@RequestParam(value ="seat1") boolean isSeatClass1,
-			@RequestParam(value ="seat2") boolean isSeatClass2,
-			@RequestParam(value ="seat3") boolean isSeatClass3,
+	@RequestMapping(value = "/reservationTicket/addToBag", method = RequestMethod.POST)
+	public String reservationTicketPost(@ModelAttribute( value = "ticket") Tickets ticket,
+			BindingResult result,
 			Map<String, Object> modelMap) {
+		Trips trip = tripsManager.findByTripId(currentTripId);
 		
-		Trips trip = tripsManager.findByTripId(tickets.getTrip().getTripId());
-		
-		if(isSeatClass1){
-			trip.setRemSeatClass1(tickets.getTrip().getRemSeatClass1()-1);
+		if(ticket.getIsSeatClass1()){
+			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
 		}
-		if(isSeatClass2){
-			trip.setRemSeatClass2(tickets.getTrip().getRemSeatClass2()-1);
+		if(ticket.getIsSeatClass2()){
+			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
 		}
-		if(isSeatClass3){
-			trip.setRemSeatClass3(tickets.getTrip().getRemSeatClass3()-1);
+		if(ticket.getIsSeatClass3()){
+			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
 		}
-		tickets.setCustomerInfo(customerInfo);
-		tickets.setIsSeatClass1(isSeatClass1);
-		tickets.setIsSeatClass2(isSeatClass2);
-		tickets.setIsSeatClass3(isSeatClass3);
-		shoppingBag.addTicket(tickets);
+		 
+		ticket.setTrip(trip);
+		ticket.setTicketName(trip.getTransport().getRoutes().getRouteName());
+		shoppingBag.addTicket(ticket);
 		System.out.println("post");
 		return "bag";
 	}
