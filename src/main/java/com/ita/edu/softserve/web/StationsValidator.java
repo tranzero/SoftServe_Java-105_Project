@@ -11,7 +11,6 @@ import org.springframework.validation.Validator;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.StationsManager;
 
-
 /**
  * @author admin
  * 
@@ -50,11 +49,6 @@ public class StationsValidator implements Validator {
 					"stationCode must not be empty");
 		}
 
-		if ((stationCode.length()) > 16) {
-			errors.rejectValue("stationCode", "stationCode.tooLong",
-					"stationCode must not more than 16 characters");
-		}
-
 		if (stationCode.matches(STATIONS_CODE_PATERN) == false) {
 			errors.rejectValue("stationCode", "stationCode.matcher",
 					"stationCode must contain only digits");
@@ -66,11 +60,6 @@ public class StationsValidator implements Validator {
 		if (stationName == null || stationName == "") {
 			errors.rejectValue("stationName", "stationName.empty",
 					"stationName must not be empty");
-		}
-
-		if ((stationName.length()) > 16) {
-			errors.rejectValue("stationName", "stationName.tooLong",
-					"stationName must not more than 16 characters");
 		}
 
 		if (stationName.matches(STATIONS_NAME_PATERN) == false) {

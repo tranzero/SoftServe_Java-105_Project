@@ -34,7 +34,8 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Update"> <input
+					<td><input type="submit" value="<spring:message
+							code="label.stations.edit" />"> <input
 						type="button"
 						value="<spring:message code="label.stations.cancel"/>"
 						onclick="window.location='/SoftServe_Java-105/stations';">
