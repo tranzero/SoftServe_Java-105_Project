@@ -7,6 +7,7 @@
 <table style="align: center">
 	<tr>
 		<th><spring:message code="label.transport.transportcode" /></th>
+		<th><spring:message code="label.trips.routename" /></th>
 		<th><spring:message code="label.trips.remseatclass1" /></th>
 		<th><spring:message code="label.trips.remseatclass2" /></th>
 		<th><spring:message code="label.trips.remseatclass3" /></th>
@@ -16,6 +17,7 @@
 	<c:forEach items="${tripsList}" var="trip">
 		<tr>
 			<td align="center">${trip.getTransport().getTransportCode()}</td>
+			<td align="center">${trip.getTransport().getRoutes().getRouteName()}</td>
 			<td align="center">${trip.getRemSeatClass1()}</td>
 			<td align="center">${trip.getRemSeatClass2()}</td>
 			<td align="center">${trip.getRemSeatClass3()}</td>
