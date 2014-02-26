@@ -89,11 +89,11 @@ public class Trips extends BaseEntity {
 			+ TRANSPORT_CODE_NAME
 			+ " AND tr.transport.routes.routeName LIKE :"
 			+ ROUTE_NAME_NAME
-			+ " AND tr.remSeatClass1 > :"
+			+ " AND tr.remSeatClass1 >= :"
 			+ REM_SEAT_CLASS_1_NAME
-			+ " AND tr.remSeatClass2 > :"
+			+ " AND tr.remSeatClass2 >= :"
 			+ REM_SEAT_CLASS_2_NAME
-			+ "  AND tr.remSeatClass3 > :"
+			+ "  AND tr.remSeatClass3 >= :"
 			+ REM_SEAT_CLASS_3_NAME
 			+ " AND tr.startDate BETWEEN :"
 			+ MIN_DATE_NAME
@@ -115,11 +115,11 @@ public class Trips extends BaseEntity {
 			+ TRANSPORT_CODE_NAME
 			+ " AND tr.transport.routes.routeName LIKE :"
 			+ ROUTE_NAME_NAME
-			+ " AND tr.remSeatClass1 > :"
+			+ " AND tr.remSeatClass1 >= :"
 			+ REM_SEAT_CLASS_1_NAME
-			+ " AND tr.remSeatClass2 > :"
+			+ " AND tr.remSeatClass2 >= :"
 			+ REM_SEAT_CLASS_2_NAME
-			+ "  AND tr.remSeatClass3 > :"
+			+ "  AND tr.remSeatClass3 >= :"
 			+ REM_SEAT_CLASS_3_NAME
 			+ " AND tr.startDate BETWEEN :"
 			+ MIN_DATE_NAME

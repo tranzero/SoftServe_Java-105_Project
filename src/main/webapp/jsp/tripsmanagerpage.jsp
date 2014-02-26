@@ -5,16 +5,58 @@
 
 <table style="align: center">
 	<tr>
-		<th><spring:message code="label.transport.transportcode" /></th>
-		<th><spring:message code="label.trips.routename" /></th>
-		<th><spring:message code="label.trips.remseatclass1" /></th>
-		<th><spring:message code="label.trips.remseatclass2" /></th>
-		<th><spring:message code="label.trips.remseatclass3" /></th>
-		<th><spring:message code="label.trips.date" /></th>
-		<th><spring:message code="label.transport.starttime" /></th>
-		<th></th>
-		<th></th>
-	</tr>
+				<th><div style="float: left">
+						<spring:message code="label.transport.transportcode" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"> 
+						<img alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.trips.routename" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"> <img
+							alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.trips.remseatclass1" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"> <img
+							alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.trips.remseatclass2" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png">
+						<img alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.trips.remseatclass3" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"> <img
+							alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.trips.date" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"> <img
+							alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th><div style="float: left">
+						<spring:message code="label.transport.starttime" />
+					</div>
+					<div style="float: right">
+						<img alt="^" src="resources/images/downarrow.png"><img
+							alt="v" src="resources/images/uparrow.png">
+					</div></th>
+				<th></th>
+				<th></th>
+			</tr>
 	<c:forEach items="${tripsList}" var="trip">
 		<tr>
 			<td align="center">${trip.getTransport().getTransportCode()}</td>
