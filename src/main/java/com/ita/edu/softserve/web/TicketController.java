@@ -3,6 +3,7 @@
  */
 package com.ita.edu.softserve.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +82,13 @@ public class TicketController {
 			Map<String, Object> modelMap) {
 		Trips trip = tripsManager.findByTripId(currentTripId);
 		
-		if(ticket.getIsSeatClass1()){
+		if(ticket.getSeatType().equals(1)){
 			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
 		}
-		if(ticket.getIsSeatClass2()){
+		if(ticket.getSeatType().equals(2)){
 			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
 		}
-		if(ticket.getIsSeatClass3()){
+		if(ticket.getSeatType().equals(3)){
 			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
 		}
 		 
@@ -115,7 +116,7 @@ public class TicketController {
 		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
 		for(Tickets tmp: shoppingBag.getTickets()){
 			tmp.setOrder(order);
-			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getIsSeatClass1(), tmp.getIsSeatClass2(), tmp.getIsSeatClass3());
+			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
 		}
 		
 		return "";
