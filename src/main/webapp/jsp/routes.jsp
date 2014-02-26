@@ -20,6 +20,7 @@
 				<tr>
 					<th><spring:message code="label.routes.routecode" /></th>
 					<th><spring:message code="label.lines.linename" /></th>
+					<th><spring:message code="label.routes.routename" /></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,7 +28,8 @@
 					<tr>
 						<td align="center">${route.getRouteCode()}</td>
 						<td align="center">${route.getLineId().getLineName()}</td>
-					</tr>	
+						<td align="center">${route.getRouteName()}</td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
