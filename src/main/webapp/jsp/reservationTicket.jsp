@@ -35,7 +35,6 @@
 				<td align=center>
 					<p>
 						Enter passenger first and last name: <form:input path="customerInfo"></form:input> <br> 
-					
 		</table>
 		
 		< <table>

@@ -74,7 +74,6 @@ public class TicketController {
 		model.addAttribute("ticket", new Tickets());
 		return "reservationTicket";
 	}
-	
 
 	@RequestMapping(value = "/reservationTicket/addToBag", method = RequestMethod.POST)
 	public String reservationTicketPost(@ModelAttribute( value = "ticket") Tickets ticket,
