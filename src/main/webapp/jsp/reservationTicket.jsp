@@ -37,7 +37,7 @@
 						Enter passenger first and last name: <form:input path="customerInfo"></form:input> <br> 
 		</table>
 		
-		< <table>
+		 <table>
 			<tr>
 				<td><b>Choose Seat-Class you want : </b> 
 				<Br> <form:radiobutton path="isSeatClass1" value="true"
@@ -49,7 +49,9 @@
 				<Br> <form:radiobutton path="isSeatClass3" value="true"
 				 onchange="toggle_visibility('div3');"/> 
 				<strong>SeatClass№1</strong> 
-					
+					 
+					<%--  <td><form:radiobuttons items="${seatList}" path="seatList">
+						</form:radiobuttons></td> --%>
 			</tr>
 		</table> 
 		<div id="div1" class="list" style="display: none;">

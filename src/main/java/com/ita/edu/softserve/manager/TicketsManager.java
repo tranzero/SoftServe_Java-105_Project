@@ -2,6 +2,7 @@ package com.ita.edu.softserve.manager;
 
 
 import java.util.List;
+
 import com.ita.edu.softserve.entity.Tickets;
 
 
@@ -14,8 +15,7 @@ public interface TicketsManager extends BaseManager {
 	public void saveTicket (Tickets ticket);
 	
 	public void createTicket (String ticketName, Integer orderId, Integer tripId,
-			String customerInfo, Boolean isSeatClass1,
-			Boolean isSeatClass2, Boolean isSeatClass3);
+			String customerInfo, Integer seatType);
 	
 	public void removeTicket (Integer ticketId);
 	

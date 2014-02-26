@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import com.google.common.base.Objects;
 
 
@@ -46,59 +47,84 @@ public class Tickets extends BaseEntity implements Serializable{
 	@Column(name = "CUSTOMERINFO")
 	private String customerInfo;
 	
-	@Column (name = "ISSEATCLASS1")
-	private Boolean isSeatClass1;
+	@Column (name = "SETATYPE")
+	private Integer seatType;
 	
-	@Column (name = "ISSEATCLASS2")
-	private Boolean isSeatClass2;
-	
-	@Column (name = "ISSEATCLASS3")
-	private Boolean isSeatClass3;
-
 	public Tickets(){
 		
 	}
 	
-	public Tickets( String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
-			Boolean isSeatClass3) {
-		super();
-		this.customerInfo = customerInfo;
-		this.isSeatClass1 = isSeatClass1;
-		this.isSeatClass2 = isSeatClass2;
-		this.isSeatClass3 = isSeatClass3;
-	}
-
 	public Tickets(String ticketName, Orders order, Trips trip,
-			String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
-			Boolean isSeatClass3) {
+			String customerInfo, Integer seatType) {
 		super();
 		this.ticketName = ticketName;
 		this.order = order;
 		this.trip = trip;
 		this.customerInfo = customerInfo;
-		this.isSeatClass1 = isSeatClass1;
-		this.isSeatClass2 = isSeatClass2;
-		this.isSeatClass3 = isSeatClass3;
+		this.seatType = seatType;
 	}
 	
-	public Tickets(String ticketName, Trips trip,
-			String customerInfo, Boolean isSeatClass1, Boolean isSeatClass2,
-			Boolean isSeatClass3) {
+
+	public Tickets(Integer ticketId, String ticketName, Trips trip,
+			String customerInfo, Integer seatType) {
 		super();
+		this.ticketId = ticketId;
 		this.ticketName = ticketName;
 		this.trip = trip;
 		this.customerInfo = customerInfo;
-		this.isSeatClass1 = isSeatClass1;
-		this.isSeatClass2 = isSeatClass2;
-		this.isSeatClass3 = isSeatClass3;
+		this.seatType = seatType;
+	}
+
+	public String getTicketName() {
+		return ticketName;
+	}
+
+	public void setTicketName(String ticketName) {
+		this.ticketName = ticketName;
 	}
 
 
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(this.getTicketId(), this.getTicketName());
+	public Orders getOrder() {
+		return order;
 	}
+
+
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
+
+
+	public Trips getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trips trip) {
+		this.trip = trip;
+	}
+
+
+	public String getCustomerInfo() {
+		return customerInfo;
+	}
+
+	public void setCustomerInfo(String customerInfo) {
+		this.customerInfo = customerInfo;
+	}
+
+	public Integer getSeatType() {
+		return seatType;
+	}
+
+
+	public void setSeatType(Integer seatType) {
+		this.seatType = seatType;
+	}
+
+
+	public Integer getTicketId() {
+		return ticketId;
+	}
+
 
 	@Override
 	public String toString() {
@@ -117,63 +143,9 @@ public class Tickets extends BaseEntity implements Serializable{
 	        Objects.equal(this.getTicketId(), ((Tickets) obj).getTicketId());
 	}
 
-	public String getTicketName() {
-		return ticketName;
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.getTicketId(), this.getTicketName());
 	}
 
-	public void setTicketName(String ticketName) {
-		this.ticketName = ticketName;
-	}
-	
-	public Trips getTrip() {
-		return trip;
-	}
-
-	public void setTrip(Trips trip) {
-		this.trip = trip;
-	}
-
-	public Orders getOrder() {
-		return order;
-	}
-
-	public void setOrder(Orders order) {
-		this.order = order;
-	}
-
-	public String getCustomerInfo() {
-		return customerInfo;
-	}
-
-	public void setCustomerInfo(String customerInfo) {
-		this.customerInfo = customerInfo;
-	}
-
-	public Boolean getIsSeatClass1() {
-		return isSeatClass1;
-	}
-
-	public void setIsSeatClass1(Boolean isSeatClass1) {
-		this.isSeatClass1 = isSeatClass1;
-	}
-
-	public Boolean getIsSeatClass2() {
-		return isSeatClass2;
-	}
-
-	public void setIsSeatClass2(Boolean isSeatClass2) {
-		this.isSeatClass2 = isSeatClass2;
-	}
-
-	public Boolean getIsSeatClass3() {
-		return isSeatClass3;
-	}
-
-	public void setIsSeatClass3(Boolean isSeatClass3) {
-		this.isSeatClass3 = isSeatClass3;
-	}
-
-	public Integer getTicketId() {
-		return ticketId;
-	}
 }
