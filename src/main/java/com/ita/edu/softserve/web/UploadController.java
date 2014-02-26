@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ita.edu.softserve.utils.FileValidator;
@@ -26,7 +27,7 @@ public class UploadController {
 	@Autowired
 	UploadedFile uploadedFile;
 
-	@RequestMapping("/fileUploadForm")
+	@RequestMapping(value ="/fileUploadForm", method=RequestMethod.POST)
 	public String getUploadForm(
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result) {

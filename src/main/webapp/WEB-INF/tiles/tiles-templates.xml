@@ -15,6 +15,9 @@
 	<definition name="ajax" template="/jsp/templates/ajaxLayout.jsp">
 		<put-attribute name="content" value="" />
 	</definition>
+	<definition name="file" template="/jsp/templates/fileLayout.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
 	<definition name="mainpage" extends="base-template">
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpage.jsp" />
@@ -23,13 +26,23 @@
 		<put-attribute name="title" value="View: News Manager" />
 		<put-attribute name="content" value="/jsp/managenews.jsp" />
 	</definition>
+	<definition name="addnews" extends="base-template">
+		<put-attribute name="title" value="View: Add News" />
+		<put-attribute name="content" value="/jsp/addnews.jsp" />
+	</definition>
 	<definition name="mainpagepost" extends="ajax">
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />
 	</definition>
+	
 	<definition name="managenewspost" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/managenewspost.jsp" />
+	</definition>
+	
+	<definition name="uploadForm" extends="file">
+		<put-attribute name="title" value="View: News" />
+		<put-attribute name="content" value="/jsp/uploadForm.jsp" />
 	</definition>
 	<definition name="userlist2" extends="base-template">
 		<put-attribute name="title" value="View: News" />

@@ -29,21 +29,19 @@
 <script>
 	function onPagingEvent(event, num, resultsPerPage) {
 		var elementSelectorForResult = "div#pagingcontent";
-		$
-				.ajax(
-						{
-							async : false,
-							beforeSend : function() {
-								$(elementSelectorForResult)
-										.html(
-												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-							},
-							type : "POST",
-							url : pageUrl,
-							data : {
-								pageNumber : num - 1,
-								resultsPerPage : resultsPerPage
-							}
+		$.ajax(
+				{
+				async : false,
+				beforeSend : function() {
+				$(elementSelectorForResult)
+				.html('<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+				},
+				type : "POST",
+				url : pageUrl,
+				data : {
+					pageNumber : num - 1,
+					resultsPerPage : resultsPerPage
+					}
 						}).done(function(msg) {
 					$(elementSelectorForResult).html(msg);
 				});
