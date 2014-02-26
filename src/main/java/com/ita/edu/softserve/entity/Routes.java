@@ -107,7 +107,7 @@ public class Routes extends BaseEntity {
 	@Column(name = "ROUTECODE", length = 20)
 	private String routeCode;
 	
-	@Column(name = "ROUTENAME", length = 50)
+	@Column(name = "ROUTENAME", length = 53)
 	private String routeName;
 
 	@OneToMany(mappedBy = "routes", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
