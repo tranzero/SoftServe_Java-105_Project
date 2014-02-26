@@ -12,9 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.google.common.base.Objects;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+
 
 
 @Entity
@@ -24,6 +24,7 @@ public class Tickets extends BaseEntity implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -5039457734811028773L;
 
 	@Id
@@ -89,27 +90,25 @@ public class Tickets extends BaseEntity implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(ticketId).append(ticketName)
-				.hashCode();
+		return Objects.hashCode(this.getTicketId(), this.getTicketName());
 	}
 
 	@Override
 	public String toString() {
-		return "" + ticketName + " orderId=" + order.getOrderId()+ " tripId="+ trip.getTripId();
+		 return Objects.toStringHelper(this)  
+	                .addValue(this.getTicketName())  
+	                .addValue(this.getTrip().getTripId())  
+	                .addValue(this.getOrder().getOrderId())  
+	                .toString();  
 	}
 	
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tickets other = (Tickets) obj;
-
-		return new EqualsBuilder().append(ticketId, other.ticketId).isEquals();
+		if (obj == this) return true;
+		if (obj == null) return false;
+	    return obj instanceof Tickets &&
+	        Objects.equal(this.getTicketId(), ((Tickets) obj).getTicketId());
 	}
 
 	public String getTicketName() {

@@ -63,21 +63,15 @@ public class TicketController {
 		modelMap.put("trip", trip);
 		modelMap.put("transport", trip.getTransport());
 		System.out.println("get");
-		tickets = new Tickets();
-		tickets.setTicketName(trip.getTransport().getRoutes().getRouteName());
-		tickets.setTrip(trip);
-		tickets.setCustomerInfo("");
-		tickets.setIsSeatClass1(false);
-		tickets.setIsSeatClass2(false);
-		tickets.setIsSeatClass3(false);
-		tickets.setOrder(ordersManager.findOrder(1));
+		tickets = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,"",false,false,false);
+	
 		return "reservationTicket";
 	}
 	
 
 	@RequestMapping(value = "/reservationTicket/reservationTicket", method = RequestMethod.POST)
 	public String reservationTicketPost(
-			@RequestParam(value ="customerInfo", required = false) String customerInfo,
+			@RequestParam(value ="customerInfo") String customerInfo,
 			@RequestParam(value ="seat1") boolean isSeatClass1,
 			@RequestParam(value ="seat2") boolean isSeatClass2,
 			@RequestParam(value ="seat3") boolean isSeatClass3,
@@ -103,16 +97,12 @@ public class TicketController {
 		return "bag";
 	}
 	
-
-	
-	
 	@RequestMapping(value="/bag",method = RequestMethod.GET)
 	public String shoppingBagGET(
 			Map<String, Object> modelMap){
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		return "bag";
 	}
-	
 
 	@RequestMapping(value="/bag",method = RequestMethod.POST)
 	public String shoppingBagPOST(
@@ -130,6 +120,4 @@ public class TicketController {
 		return "";
 	}
 	
-
-
 }

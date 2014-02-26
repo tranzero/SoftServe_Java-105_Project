@@ -25,6 +25,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
  -->
+ <beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
  	<beans:bean id="loginController"
     	class="org.springframework.web.servlet.mvc.ParameterizableViewController">
     	<beans:property name="viewName" value="login" />
@@ -47,6 +49,7 @@
 	<beans:bean id = "viewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
 	</beans:bean>
+	
 
 	<!-- Spring localization -->
  	<mvc:interceptors>
