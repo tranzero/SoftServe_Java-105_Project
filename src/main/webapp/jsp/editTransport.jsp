@@ -5,12 +5,6 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/jquery.datetimepicker.css"/>
 
-<style>
-.error {
-	color: #ff0000;
-}
-</style>
-
 <section id="content">
 	<h1 align="center"><spring:message code="label.transport.editTransport"/></h1>
 

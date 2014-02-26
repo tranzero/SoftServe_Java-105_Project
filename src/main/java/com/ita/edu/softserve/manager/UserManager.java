@@ -92,4 +92,6 @@ public interface UserManager extends BaseManager {
 	public List<Users> getUsersForPage(int from, int count)
 			throws UsersManagerExeption;
 
+	void saveOrUpdateUser(Users user);
+
 }

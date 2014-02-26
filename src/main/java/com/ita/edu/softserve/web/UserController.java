@@ -4,12 +4,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.ita.edu.softserve.entity.Role;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 
@@ -24,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	private UserManager usersmanage;
+
+	@Autowired
+	Validator userEditValidator;
 
 	/**
 	 * Shows userlist
@@ -53,7 +62,7 @@ public class UserController {
 	}
 
 	/**
-	 * Update user to DB - RequestMethod.POST
+	// * Update user to DB - RequestMethod.POST
 	 * 
 	 * @param userId
 	 * @param firstName
@@ -63,17 +72,18 @@ public class UserController {
 	 * @param role
 	 * @return userEdit
 	 */
-	@RequestMapping(value = "/userEdit/{userToEdit}", method = RequestMethod.POST)
-	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
-			@ModelAttribute("userFirstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password,
-			@ModelAttribute("role") Role role
-
-	) {
-		usersmanage
-				.updateUser(userId, firstName, lastName, email, password, role);
+	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
+	public String updateUserToDB(
+			@ModelAttribute("user") Users user,
+			BindingResult bindingResult, ModelMap modelMap) {
+		user.setRole(Role.REGUSER);
+		userEditValidator.validate(user, bindingResult);
+		
+		if(bindingResult.hasErrors()){
+			modelMap.put("user", user);
+			return "userEdit";
+		}
+		usersmanage.saveOrUpdateUser(user);
 		return "redirect:/userlist";
 	}
 
@@ -140,6 +150,16 @@ public class UserController {
 	) {
 		usersmanage.updateUser2(userId, firstName, lastName, email, password);
 		return "redirect:/mainpage";
+	}
+
+	// -------------------------------------------------------
+	// for Validator
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(userEditValidator);
+		binder.registerCustomEditor(Role.class, new RoleEditor());
+
 	}
 
 }

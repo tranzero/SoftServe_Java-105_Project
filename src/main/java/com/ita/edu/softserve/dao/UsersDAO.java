@@ -39,4 +39,8 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	public long getUsersListCount();
 	
 	public List<Users> getUsersForOnePage (int from, int count);
+	
+	
+	///---
+	public void saveOrUpdate(Users entity) ;
 }

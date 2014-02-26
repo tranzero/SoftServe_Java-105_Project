@@ -19,6 +19,15 @@ import com.ita.edu.softserve.entity.Users;
  */
 @Repository("usersDao")
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
+	
+	//--- update for validator
+	public void saveOrUpdate(final Users entity) {
+		if (entity.getUserId() == null) {
+			entityManager.persist(entity);
+		} else {
+			entityManager.merge(entity);
+		}
+	}
 
 	/**
 	 * Find user by name

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.UsersDAO;
-
 import com.ita.edu.softserve.entity.Role;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Users;
-
+import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
@@ -95,6 +95,24 @@ public class UserManagerImpl implements UserManager {
 		user.setRole(role);
 
 		userDao.update(user);
+	}
+	
+	///
+	
+	@Transactional(readOnly = false)
+	@Override
+	public void saveOrUpdateUser(Users user) {
+		userDao.saveOrUpdate(user);
+		
+		/*try {
+			userDao.saveOrUpdate(transport);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					saveOrUpdateTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}*/
 	}
 
 	/**
