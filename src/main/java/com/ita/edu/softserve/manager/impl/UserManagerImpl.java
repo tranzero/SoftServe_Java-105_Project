@@ -1,6 +1,8 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.NoResultException;
 
@@ -17,6 +19,8 @@ import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
  * UserManagerImpl
@@ -96,23 +100,20 @@ public class UserManagerImpl implements UserManager {
 
 		userDao.update(user);
 	}
-	
-	///
-	
+
+	// /
+
 	@Transactional(readOnly = false)
 	@Override
 	public void saveOrUpdateUser(Users user) {
 		userDao.saveOrUpdate(user);
-		
-		/*try {
-			userDao.saveOrUpdate(transport);
-		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					saveOrUpdateTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
-		}*/
+
+		/*
+		 * try { userDao.saveOrUpdate(transport); } catch (RuntimeException e) {
+		 * RuntimeException ex = new TransprtsManagerException(
+		 * saveOrUpdateTransportMessage, e); LOGGER.error(e); LOGGER.error(ex);
+		 * throw ex; }
+		 */
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class UserManagerImpl implements UserManager {
 	 */
 	@Override
 	@Transactional
-	public Users findByUsername(String username){		
+	public Users findByUsername(String username) {
 		try {
 			return (Users) userDao.findByUsername(username);
 		} catch (NoResultException e) {
@@ -154,6 +155,54 @@ public class UserManagerImpl implements UserManager {
 		}
 		return null;
 	}
+
+	// --- Validator
+	@Override
+	public void validateUserListCriteria(
+			UserCriteriaContainer userCriteriaContainer, Locale locale) {
+		Validator.validateUserListCriteria(userCriteriaContainer, locale);
+	}
+
+	// /-----for paging
+	@Override
+	public long getUsersListCountUsingContainer(
+			UserCriteriaContainer userCriteriaContainer) {
+
+		return getUsersListCountWithCriteria(
+				"%"+userCriteriaContainer.getSearchString()+"%",
+				userCriteriaContainer.getRoleArray(),
+				userCriteriaContainer.getMinDate(),
+				userCriteriaContainer.getMaxDate()
+				);
+	}
+
+	@Override
+	public long getUsersListCountWithCriteria(String searchString,
+			List<Role> roleArray, Date minDate, Date maxDate) {
+
+		return userDao.getUsersListCountWithCriteria(searchString, roleArray,
+				minDate, maxDate);
+	}
+
+	@Override
+	public List<Users> getUsersForLimitWithCriteria(int firstElement,
+			int count, String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
+
+		return userDao.getUsersForOnePageWithCriteria(firstElement, count,
+				searchString, roleArray, minDate, maxDate, orderByParam,
+				orderByDirection);
+	}
+
+	public List<Users> getUsersForPageWithCriteria(int pageNumber, int count,
+			String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
+		return getUsersForLimitWithCriteria((pageNumber - 1) * count, count,
+				searchString, roleArray, minDate, maxDate, orderByParam,
+				orderByDirection);
+	}
+
+	// /-----for paging
 
 	/**
 	 * For paging- get userlist Count

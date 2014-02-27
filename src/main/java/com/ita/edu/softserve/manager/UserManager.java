@@ -1,12 +1,15 @@
 package com.ita.edu.softserve.manager;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
+import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
  * interface UserManager
@@ -93,5 +96,18 @@ public interface UserManager extends BaseManager {
 			throws UsersManagerExeption;
 
 	void saveOrUpdateUser(Users user);
+
+	long getUsersListCountWithCriteria(String searchString,
+			List<Role> roleArray, Date minDate, Date maxDate);
+
+	List<Users> getUsersForLimitWithCriteria(int firstElement, int count,
+			String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection);
+
+	void validateUserListCriteria(UserCriteriaContainer userCriteriaContainer,
+			Locale locale);
+
+	long getUsersListCountUsingContainer(
+			UserCriteriaContainer userCriteriaContainer);
 
 }
