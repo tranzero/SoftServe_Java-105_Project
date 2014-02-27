@@ -27,12 +27,21 @@ import org.springframework.util.Assert;
 @NamedQueries({
 		@NamedQuery(name = Users.FIND_BY_NAME, query = Users.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Users.FIND_BY_USERNAME, query = Users.FIND_BY_USERNAME_QUERY),
-		
-		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY),
-		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY)
 
+		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY),
+		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY),
+
+		@NamedQuery(name = Users.GET_COUNT_USERS_WITH_CRITERIA  , query = Users.GET_COUNT_USERS_WITH_CRITERIA_QUERY)
 })
 public class Users extends BaseEntity {
+
+	public static final String SEARCH_STRING_NAME = "searchstring";
+
+	public static final String ROLE_ARRAY_NAME = "rolearray";
+
+	public static final String MIN_DATE_NAME = "minDate";
+
+	public static final String MAX_DATE_NAME = "maxDate";
 
 	public static final String FIND_BY_NAME = "Users.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.lastName = ?1";
@@ -46,6 +55,35 @@ public class Users extends BaseEntity {
 	public static final String GET_COUNT_ALL_USERS = "Users.getCountAllUsers";
 	public static final String GET_COUNT_ALL_USERS_QUERY = "SELECT COUNT(user) FROM Users user";
 
+	public static final String GET_COUNT_USERS_WITH_CRITERIA = "Users.getCountAllUsersWithCriteria";
+	public static final String GET_COUNT_USERS_WITH_CRITERIA_QUERY = "SELECT COUNT(u.userId) FROM Users u WHERE (u.userName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.firstName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.lastName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.email LIKE :"
+			+ SEARCH_STRING_NAME
+			+ ") AND u.role IN (:"
+			+ ROLE_ARRAY_NAME
+			+ ") AND u.regDate BETWEEN :"
+			+ MIN_DATE_NAME
+			+ " AND :"+MAX_DATE_NAME;
+
+	public static final String GET_USERS_WITH_CRITERIA_QUERY = "SELECT u FROM Users u WHERE (u.userName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.firstName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.lastName LIKE :"
+			+ SEARCH_STRING_NAME
+			+ " OR u.email LIKE :"
+			+ SEARCH_STRING_NAME
+			+ ") AND u.role IN (:"
+			+ ROLE_ARRAY_NAME
+			+ ") AND u.regDate BETWEEN :"
+			+ MIN_DATE_NAME
+			+ " AND :"+MAX_DATE_NAME+" ORDER BY ";
+	
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
