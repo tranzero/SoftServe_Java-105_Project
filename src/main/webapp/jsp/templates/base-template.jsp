@@ -53,13 +53,13 @@
 		return JSON.parse(JSON.stringify(obj));		
 	}
 
-	serialize = function(obj) {
-		  var str = [];
-		  for(var p in obj)
-		    if (obj.hasOwnProperty(p)) {
-		      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	function serialize(object) {
+		  var strings = [];
+		  for(var prop in object)
+		    if (object.hasOwnProperty(prop)) {
+		    	strings.push(encodeURIComponent(prop) + "=" + encodeURIComponent(object[prop]));
 		    }
-		  return str.join("&");
+		  return strings.join("&");
 		}
 	
 	function ajaxLoader(domElement, targetPage, getData) {
