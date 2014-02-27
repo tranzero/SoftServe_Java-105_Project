@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 
 /**
@@ -43,4 +45,11 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	
 	///---
 	public void saveOrUpdate(Users entity) ;
+
+	long getUsersListCountWithCriteria(String searchString,
+			List<Role> roleArray, Date minDate, Date maxDate);
+
+	List<Users> getUsersForOnePageWithCriteria(int firstElement, int count,
+			String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection);
 }
