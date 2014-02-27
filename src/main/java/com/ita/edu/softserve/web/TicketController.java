@@ -127,11 +127,13 @@ public class TicketController {
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
 			@PathVariable(value="tripId") Integer tripId,
 			Map<String,Object> modelMap){
+		if(!(shoppingBag.getTickets().isEmpty())){
 		List<Tickets> ticketsList = shoppingBag.getTickets();
 		for(Tickets ticket: ticketsList){
 			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
 				shoppingBag.removeTicket(ticket);
 			}
+		}
 		}
 
 		modelMap.put("ticketsList", shoppingBag.getTickets());
