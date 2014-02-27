@@ -11,8 +11,8 @@
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="transportcodeasc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="transportcodedesc"><img alt="v"
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="transportcodedesc"><img alt="v"
 					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
@@ -20,8 +20,8 @@
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="routenameasc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="routenamedesc"><img alt="v"
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="routenamedesc"><img alt="v"
 					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
@@ -29,40 +29,45 @@
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="class1asc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="class1desc"><img alt="v" src="resources/images/uparrow.png"></a>
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="class1desc"><img alt="v"
+					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
 				<spring:message code="label.trips.remseatclass2" />
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="class2asc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="class2desc"><img alt="v" src="resources/images/uparrow.png"></a>
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="class2desc"><img alt="v"
+					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
 				<spring:message code="label.trips.remseatclass3" />
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="class3asc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="class3desc"><img alt="v" src="resources/images/uparrow.png"></a>
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="class3desc"><img alt="v"
+					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
 				<spring:message code="label.trips.date" />
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="dateasc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="datedesc"><img alt="v" src="resources/images/uparrow.png"></a>
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="datedesc"><img alt="v"
+					src="resources/images/uparrow.png"></a>
 			</div></th>
 		<th><div style="float: left">
 				<spring:message code="label.transport.starttime" />
 			</div>
 			<div style="float: right">
 				<a href="javascript:void(0);" id="timeasc"><img alt="^"
-					src="resources/images/downarrow.png"></a> <a href="javascript:void(0);"
-					id="timedesc"><img alt="v" src="resources/images/uparrow.png"></a>
+					src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);" id="timedesc"><img alt="v"
+					src="resources/images/uparrow.png"></a>
 			</div></th>
 	</tr>
 	<c:forEach items="${tripsList}" var="trip">
@@ -187,29 +192,28 @@
 	$("a#lastpage").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, lastPageData);
 	});
-	
-	resultPerPage10Data  = clone(defaultGetData);
+
+	resultPerPage10Data = clone(defaultGetData);
 	resultPerPage10Data.resultsPerPage = 10;
 	resultPerPage10Data.pageNumber = 1;
 	$("a#resultsPerPage10").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage10Data);
 	});
-	
-	resultPerPage20Data  = clone(defaultGetData);
+
+	resultPerPage20Data = clone(defaultGetData);
 	resultPerPage20Data.resultsPerPage = 20;
 	resultPerPage20Data.pageNumber = 1;
 	$("a#resultsPerPage20").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage20Data);
 	});
 
-	resultPerPage50Data  = clone(defaultGetData);
+	resultPerPage50Data = clone(defaultGetData);
 	resultPerPage50Data.resultsPerPage = 50;
 	resultPerPage50Data.pageNumber = 1;
 	$("a#resultsPerPage50").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage50Data);
 	});
-	
-	
+
 	transportcodeascData = clone(defaultGetData);
 	transportcodeascData.orderByParam = "tr.transport.transportCode";
 	transportcodeascData.pageNumber = 1;
@@ -217,15 +221,17 @@
 	$("a#transportcodeasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, transportcodeascData);
 	});
-	
+
 	transportcodedescData = clone(defaultGetData);
 	transportcodedescData.orderByParam = "tr.transport.transportCode";
 	transportcodedescData.orderByDirection = "DESC";
 	transportcodedescData.pageNumber = 1;
-	$("a#transportcodedesc").click(function() {
-		ajaxLoader(defaultDomElement, defaultTargetPage, transportcodedescData);
-	});
-	
+	$("a#transportcodedesc").click(
+			function() {
+				ajaxLoader(defaultDomElement, defaultTargetPage,
+						transportcodedescData);
+			});
+
 	routenameascData = clone(defaultGetData);
 	routenameascData.orderByParam = "tr.transport.routes.routeName";
 	routenameascData.orderByDirection = "ASC";
@@ -233,7 +239,7 @@
 	$("a#routenameasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, routenameascData);
 	});
-	
+
 	routenamedescData = clone(defaultGetData);
 	routenamedescData.orderByParam = "tr.transport.routes.routeName";
 	routenamedescData.orderByDirection = "DESC";
@@ -241,7 +247,7 @@
 	$("a#routenamedesc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, routenamedescData);
 	});
-	
+
 	class1ascData = clone(defaultGetData);
 	class1ascData.orderByParam = "tr.remSeatClass1";
 	class1ascData.orderByDirection = "ASC";
@@ -249,7 +255,7 @@
 	$("a#class1asc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, class1ascData);
 	});
-	
+
 	class1descData = clone(defaultGetData);
 	class1descData.orderByParam = "tr.remSeatClass1";
 	class1descData.orderByDirection = "DESC";
@@ -265,7 +271,7 @@
 	$("a#class2asc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, class2ascData);
 	});
-	
+
 	class2descData = clone(defaultGetData);
 	class2descData.orderByParam = "tr.remSeatClass2";
 	class2descData.orderByDirection = "DESC";
@@ -281,7 +287,7 @@
 	$("a#class3asc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, class3ascData);
 	});
-	
+
 	class3descData = clone(defaultGetData);
 	class3descData.orderByParam = "tr.remSeatClass3";
 	class3descData.orderByDirection = "DESC";
@@ -297,7 +303,7 @@
 	$("a#dateasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, dateascData);
 	});
-	
+
 	datedescData = clone(defaultGetData);
 	datedescData.orderByParam = "tr.startDate";
 	datedescData.orderByDirection = "DESC";
@@ -313,7 +319,7 @@
 	$("a#timeasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, timeascData);
 	});
-	
+
 	timedescData = clone(defaultGetData);
 	timedescData.orderByParam = "tr.transport.startTime";
 	timedescData.orderByDirection = "DESC";
@@ -321,6 +327,9 @@
 	$("a#timedesc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, timedescData);
 	});
-	
-	
+
+	window.history.pushState(getparams, document.title, location.protocol
+			+ '//' + location.host + location.pathname + "?"
+			+ serialize(defaultGetData));
+	window.history.pathname = document.location.href;
 </script>

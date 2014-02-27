@@ -319,5 +319,9 @@
 		ajaxLoader(defaultDomElement, defaultTargetPage, timedescData);
 	});
 	
-	
+
+	window.history.pushState(getparams, document.title, location.protocol
+			+ '//' + location.host + location.pathname + "?"
+			+ serialize(defaultGetData));
+	window.history.pathname = document.location.href;
 </script>
