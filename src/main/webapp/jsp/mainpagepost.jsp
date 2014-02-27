@@ -7,18 +7,19 @@
 	<div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
 	<div id="news_main">
 		<c:forEach var="News" items="${newsList}" varStatus="status">
-			<c:choose>
-				<c:when test="${status.index == 0 && param.pageNumber == 0}">
-					<div class="news_primary">
-						<div class="test_image_primary"></div>
-						<div class="news_content_primary">
-				</c:when>
-				<c:otherwise>
-					<div class="news_secondary">
-						<div class="test_image_secondary"></div>
-						<div class="news_content_secondary">
-				</c:otherwise>
-			</c:choose>
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${status.index == 0 && param.pageNumber == 0}"> --%>
+<!-- 					<div class="news_primary"> -->
+<!-- 						<div class="test_image_primary"></div> -->
+<!-- 						<div class="news_content_primary"> -->
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 					<div class="news_secondary"> -->
+<!-- 						<div class="test_image_secondary"></div> -->
+<!-- 						<div class="news_content_secondary"> -->
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
+			<div class="news_img"><img src="${mainImgPath}${News.getImgSrc()}"/></div>
 			<div class="news_title"><a href="detailsnews/${News.getPostId()}">${News.getTitle()}</a></div>
 			<div class="news_date">${News.getDate()}</div>
 			<div class="news_description">${News.getDescription().substring(0, News.getDescription().length()/2)}
