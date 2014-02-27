@@ -16,10 +16,10 @@ public class TransportManagerMain {
 
 		TransportsManager transportManager = (TransportsManager) TransportsManagerImpl
 				.getInstance();
-		
-//		getTransportsList(transportManager);
-		
-//		getTransportByTwoStForPage(transportManager);
+
+		// getTransportsList(transportManager);
+
+		// getTransportByTwoStForPage(transportManager);
 
 		getTransportsListByCriteria(transportManager);
 	}
@@ -32,12 +32,18 @@ public class TransportManagerMain {
 		Routes route = new Routes();
 		route.setRouteId(1);
 		List<Transports> transportsList2 = transportManager
-				.getTransportsListByCriteria(1, 10, "T0", time,
-						"1000000000003", 10, 10, 10, 0.0);
+				.getTransportsListByCriteria(1, 30, "T0", time,
+						"1000000000003", 100, 10, 10, 0.0);
+
+		System.out.println("Transport code" + "  Time      " + "Routes Code " + "Seats");
 		for (Transports transport : transportsList2) {
-			System.out.println(transport.getRoutes().getLineId().getClass()
-					.getSimpleName()
-					+ ":	" + transport.getRoutes().getLineId().getLineName());
+			System.out.print(transport.getTransportCode() + "	");
+			System.out.print(transport.getStartTime()+" ");
+			System.out.print(transport.getRoutes().getRouteCode()+" ");
+			System.out.print(transport.getSeatclass1()+" ");
+			System.out.print(transport.getSeatclass2()+" ");
+			System.out.print(transport.getSeatclass3()+" ");
+			System.out.println(transport.getGenPrice());
 		}
 	}
 
@@ -60,8 +66,9 @@ public class TransportManagerMain {
 					+ tt.getDuration());
 		}
 	}
-	
-	private static void getTransportByTwoStForPage(TransportsManager transportManager) {
+
+	private static void getTransportByTwoStForPage(
+			TransportsManager transportManager) {
 		System.out.println("************************************************");
 		List<TransportTravel> trTravelList = transportManager
 				.getTransportByTwoStForPage("Pisochne", "Sknyliv", 1, 10,
