@@ -496,34 +496,9 @@ var defaultGetData={
 			});
 
 		}
-// 		function showTripsPage(pageNumber_, resultsPerPage_) {
-
-// 			$
-// 					.ajax(
-// 							{
-// 								async : true,
-// 								beforeSend : function() {
-// 									$("div#result")
-// 											.html(
-// 													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-// 								},
-// 								type : "GET",
-// 								url : "tripspage",
-// 								data : {
-// 									pageNumber : pageNumber_,
-// 									resultsPerPage : resultsPerPage_
-// 								}
-// 							}).done(function(msg) {
-// 						$("div#result").html(msg);
-// 					});
-
-// 		}
 
 		$(window).load(function() {
 			formDatePicker();
-
-			// 			showTripsPage("${pageNumber}", "${resultsPerPage}");
-
 		});
 	</script>
 </section>

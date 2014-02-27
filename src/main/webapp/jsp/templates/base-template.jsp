@@ -49,31 +49,11 @@
 				});
 	}
 
-	// 	function showTripsPage(pageNumber_, resultsPerPage_) {
-
-	// 		$
-	// 				.ajax(
-	// 						{
-	// 							async : true,
-	// 							beforeSend : function() {
-	// 								$("div#result")
-	// 										.html(
-	// 												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-	// 							},
-	// 							type : "GET",
-	// 							url : "tripspage",
-	// 							data : {
-	// 								pageNumber : pageNumber_,
-	// 								resultsPerPage : resultsPerPage_
-	// 							}
-	// 						}).done(function(msg) {
-	// 					$("div#result").html(msg);
-	// 				});
-
-	// 	}
+	function clone(obj){
+		return JSON.parse(JSON.stringify(obj));		
+	}
 
 	function ajaxLoader(domElement, targetPage, getData) {
-		
 		$
 				.ajax(
 						{
@@ -88,8 +68,7 @@
 							data : getData
 
 						}).done(function(msg) {
-							
-							
+					defaultGetData=clone(getData);
 					$(domElement).html(msg);
 				}
 
@@ -99,13 +78,14 @@
 
 	$(document).ready(
 			function() {
-
+				
 				if ((typeof (defaultDomElement) != "undefined")
 						&& (typeof (defaultTargetPage) != "undefined")
 						&& (typeof (defaultGetData) != "undefined")) {
-					
 					ajaxLoader(defaultDomElement, defaultTargetPage, defaultGetData);
-				}
+					}
+					
+				
 				initPageWithPaging('${maxPageCount}', '${sizeOfPaging}',
 						onPagingEvent, pageUrl);
 			});
