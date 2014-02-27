@@ -9,12 +9,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.ShoppingBag;
 import com.ita.edu.softserve.entity.Tickets;
@@ -85,30 +86,32 @@ public class TicketController {
 //		}
 		Tickets ticket = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,customerInfo,seatType);
 		shoppingBag.addTicket(ticket);
+		modelMap.put("ticketsList", shoppingBag.getTickets());
 		System.out.println("post");
-		return "redirect:bag";
+		System.out.println(shoppingBag.getTickets().get(0).toString());
+		return "bag";
 	}
 	
 	@RequestMapping(value="/bag",method = RequestMethod.GET)
-	public String shoppingBagGET(
+	public String shoppingBagGET(@RequestParam(value= "customerInfo",required = false) String customerInfo,
 			Map<String, Object> modelMap){
 		modelMap.put("ticketsList", shoppingBag.getTickets());
+		System.out.println("bag");
 		return "bag";
+		
 	}
 
 	@RequestMapping(value="/bag",method = RequestMethod.POST)
 	public String shoppingBagPOST(
 			Map<String, Object> modelMap){
 		
-		modelMap.put("ticketsList", shoppingBag.getTickets());
-		Orders order = new Orders();
-		order.setTripId(shoppingBag.getTickets().get(0).getTrip());
-		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
-		for(Tickets tmp: shoppingBag.getTickets()){
-			tmp.setOrder(order);
-			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
-		}
 		
+//		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
+//		for(Tickets tmp: shoppingBag.getTickets()){
+//			tmp.setOrder(order);
+//			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
+//		}
+//		
 		return "";
 	}
 	
