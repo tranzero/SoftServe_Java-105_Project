@@ -8,10 +8,27 @@ $(window).load(function() {
 	$.ajax({
 		async : false,
 		type: "POST",
-		url: "fileUploadForm",
+		url: "fileUploadForm"
 		}).done(function( msg ) {
 			$(elementSelectorForResult).html(msg);
 	});
+});
+$(function () {
+	var elementSelectorForImgName = "input#newsImg";
+    $('input#uploadFileButton').on('click', function () {
+        
+        $.ajax({
+        	async : false,
+    		type: "POST",
+            url: 'fileUpload',
+            data: {
+            	uploadedFile: $("input[name=file]").val()
+               
+            }
+        }).done(function( msg ) {
+			$(elementSelectorForImgName).html(msg);
+    });
+});
 });
 </script>
 <section id="content">
