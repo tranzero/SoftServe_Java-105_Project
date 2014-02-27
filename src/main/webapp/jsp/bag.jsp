@@ -25,7 +25,11 @@
 						<td align="center">${ticket.getTrip().getTransport().getRoutes().getRouteName()}</td>
 						<td align="center">${ticket.getTrip().getStartDate()}</td>
 						<td align="center">${ticket.getTrip().getTransport().getGenPrice()}</td>
-								</tr>
+						<td align="center"><a href="delete/${ticket.getTicketName()}/${ticket.getTrip().getTripId()}"><input
+								id="delete" type="button" name="delete"
+								value="delete"/>
+						</a></td>
+						</tr>
 
 			</tbody>
 </c:forEach>

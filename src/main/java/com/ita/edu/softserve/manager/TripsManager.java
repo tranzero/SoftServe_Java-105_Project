@@ -187,5 +187,7 @@ public interface TripsManager extends BaseManager {
 			PageInfoContainer container);
 
 	public Trips findByTripId(Integer id);
+	
+	public void updateTrip(Trips trip);
 
 }

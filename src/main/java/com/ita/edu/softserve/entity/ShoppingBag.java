@@ -35,7 +35,7 @@ public class ShoppingBag implements Serializable{
 		
 	if(tickets.contains(ticket)){
 		
-		tickets.remove(tickets.indexOf(ticket));
+		tickets.remove(ticket);
 		
 	}
 	}
