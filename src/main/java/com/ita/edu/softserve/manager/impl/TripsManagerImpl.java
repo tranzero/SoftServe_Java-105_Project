@@ -206,6 +206,10 @@ public class TripsManagerImpl implements TripsManager {
 
 	}
 
+	@Override
+	public void updateTrip(Trips trip){
+		tripsDao.saveOrUpdate(trip);
+	}
 	public static TripsManager getInstance() {
 		return ManagerFactory.getManager(TripsManager.class);
 	}

@@ -4,6 +4,7 @@
 package com.ita.edu.softserve.web;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,21 +75,23 @@ public class TicketController {
 			BindingResult result,
 			Map<String, Object> modelMap) {
 		Trips trip = tripsManager.findByTripId(tripId);
-//		
-//		if(ticket.getSeatType().equals(1)){
-//			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
-//		}
-//		if(ticket.getSeatType().equals(2)){
-//			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
-//		}
-//		if(ticket.getSeatType().equals(3)){
-//			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
-//		}
+		
+		if(seatType.equals(1)){
+			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
+		}
+		if(seatType.equals(1)){
+			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
+		}
+		
+		if(seatType.equals(1)){
+			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
+		}
+		
+		tripsManager.updateTrip(trip);
 		Tickets ticket = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,customerInfo,seatType);
 		shoppingBag.addTicket(ticket);
 		modelMap.put("ticketsList", shoppingBag.getTickets());
-		System.out.println("post");
-		System.out.println(shoppingBag.getTickets().get(0).toString());
+		
 		return "bag";
 	}
 	
@@ -113,6 +116,21 @@ public class TicketController {
 //		}
 //		
 		return "";
+	}
+	
+	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)
+	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
+			@PathVariable(value="tripId") Integer tripId,
+			Map<String,Object> modelMap){
+		List<Tickets> ticketsList = shoppingBag.getTickets();
+		for(Tickets ticket: ticketsList){
+			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
+				shoppingBag.removeTicket(ticket);
+			}
+		}
+
+		modelMap.put("ticketsList", shoppingBag.getTickets());
+		return "bag";
 	}
 	
 }
