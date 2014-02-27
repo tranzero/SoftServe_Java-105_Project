@@ -9,6 +9,8 @@ import com.ita.edu.softserve.entity.Role;
 @Component
 public interface UserCriteriaContainer {
 
+	
+	
 	void setValuableInfo(String searchString, String minDateString,
 			String maxDateString, Boolean isRegUser, Boolean isManager,
 			Boolean isAdmin, String orderByParam, String orderByDirection);

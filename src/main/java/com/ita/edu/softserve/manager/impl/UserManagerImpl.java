@@ -19,7 +19,8 @@ import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;
-import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.utils.StaticValidator;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
@@ -160,7 +161,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public void validateUserListCriteria(
 			UserCriteriaContainer userCriteriaContainer, Locale locale) {
-		Validator.validateUserListCriteria(userCriteriaContainer, locale);
+		StaticValidator.validateUserListCriteria(userCriteriaContainer, locale);
 	}
 
 	// /-----for paging
@@ -169,11 +170,24 @@ public class UserManagerImpl implements UserManager {
 			UserCriteriaContainer userCriteriaContainer) {
 
 		return getUsersListCountWithCriteria(
-				"%"+userCriteriaContainer.getSearchString()+"%",
+				"%" + userCriteriaContainer.getSearchString() + "%",
 				userCriteriaContainer.getRoleArray(),
 				userCriteriaContainer.getMinDate(),
-				userCriteriaContainer.getMaxDate()
-				);
+				userCriteriaContainer.getMaxDate());
+	}
+
+	@Override
+	public List<Users> getUsersForLimitUsingContainers(
+			UserCriteriaContainer userCriteriaContainer,
+			PageInfoContainer container) {
+		return getUsersForPageWithCriteria(container.getPageNumber(),
+				container.getResultsPerPage(),
+				"%" + userCriteriaContainer.getSearchString() + "%",
+				userCriteriaContainer.getRoleArray(),
+				userCriteriaContainer.getMinDate(),
+				userCriteriaContainer.getMaxDate(),
+				userCriteriaContainer.getOrderByParam(),
+				userCriteriaContainer.getOrderByDirection());
 	}
 
 	@Override
@@ -186,18 +200,19 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public List<Users> getUsersForLimitWithCriteria(int firstElement,
-			int count, String searchString, List<Role> roleArray, Date minDate,
+			long count, String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
 
-		return userDao.getUsersForOnePageWithCriteria(firstElement, count,
+		return userDao.getUsersForOnePageWithCriteria(firstElement, (int) count,
 				searchString, roleArray, minDate, maxDate, orderByParam,
 				orderByDirection);
 	}
 
-	public List<Users> getUsersForPageWithCriteria(int pageNumber, int count,
+	@Override
+	public List<Users> getUsersForPageWithCriteria(int pageNumber, long count,
 			String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
-		return getUsersForLimitWithCriteria((pageNumber - 1) * count, count,
+		return getUsersForLimitWithCriteria((int) ((pageNumber - 1) * count), count,
 				searchString, roleArray, minDate, maxDate, orderByParam,
 				orderByDirection);
 	}

@@ -19,6 +19,7 @@ import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.UsersCriteriaContainerImpl;
 import com.ita.edu.softserve.web.TripsController;
 
 /**
@@ -29,7 +30,7 @@ import com.ita.edu.softserve.web.TripsController;
  * 
  */
 
-public class Validator {
+public class StaticValidator {
 
 	/**
 	 * Array contains the ways of sorting using jpql "sort by" instruction: asc
@@ -132,14 +133,37 @@ public class Validator {
 
 	public static void validateUserListCriteria(
 			UserCriteriaContainer userCriteriaContainer, Locale locale) {
-		userCriteriaContainer.setSearchString((String)ValidatorUtil.defaultForNull(
-				userCriteriaContainer.getSearchString(), ""));
-		userCriteriaContainer.setIsAdmin((Boolean)ValidatorUtil.defaultForNull(
-				userCriteriaContainer.getIsAdmin(), new Boolean(true)));
-		userCriteriaContainer.setIsManager((Boolean)ValidatorUtil.defaultForNull(
-				userCriteriaContainer.getIsManager(), new Boolean(true)));
-		userCriteriaContainer.setIsRegUser((Boolean)ValidatorUtil.defaultForNull(
-				userCriteriaContainer.getIsRegUser(), new Boolean(true)));
+
+		Set<String> fieldsSet = new TreeSet<String>();
+		Collections.addAll(fieldsSet,
+				UsersCriteriaContainerImpl.USERS_ORDER_BY_COLUMNS);
+		if ((userCriteriaContainer.getOrderByParam() == null)
+				|| !(fieldsSet
+						.contains(userCriteriaContainer.getOrderByParam()))) {
+			userCriteriaContainer
+					.setOrderByParam(UsersCriteriaContainerImpl.USERS_ORDER_BY_COLUMNS[0]);
+		}
+		if ((userCriteriaContainer.getOrderByDirection() == null)
+				|| !(userCriteriaContainer.getOrderByDirection()
+						.equalsIgnoreCase(ORDER_BY_SORTING_TYPES[0]) || userCriteriaContainer
+						.getOrderByDirection().equalsIgnoreCase(
+								ORDER_BY_SORTING_TYPES[1]))) {
+			userCriteriaContainer
+					.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
+
+		}
+
+		userCriteriaContainer.setSearchString((String) ValidatorUtil
+				.defaultForNull(userCriteriaContainer.getSearchString(), ""));
+		userCriteriaContainer.setIsAdmin((Boolean) ValidatorUtil
+				.defaultForNull(userCriteriaContainer.getIsAdmin(),
+						new Boolean(false)));
+		userCriteriaContainer.setIsManager((Boolean) ValidatorUtil
+				.defaultForNull(userCriteriaContainer.getIsManager(),
+						new Boolean(false)));
+		userCriteriaContainer.setIsRegUser((Boolean) ValidatorUtil
+				.defaultForNull(userCriteriaContainer.getIsRegUser(),
+						new Boolean(false)));
 		userCriteriaContainer.setMinDate(ValidatorUtil.getDateWithFormat(
 				userCriteriaContainer.getMinDateString(), locale,
 				MIN_DATE_STRING));
@@ -147,18 +171,21 @@ public class Validator {
 				userCriteriaContainer.getMaxDateString(), locale,
 				MAX_DATE_STRING));
 		List<Role> arrayOfRoles = new LinkedList<Role>();
-		if (userCriteriaContainer.getIsAdmin()){
+		if (userCriteriaContainer.getIsAdmin()) {
 			arrayOfRoles.add(Role.ADMIN);
 		}
-		if (userCriteriaContainer.getIsManager()){
+		if (userCriteriaContainer.getIsManager()) {
 			arrayOfRoles.add(Role.MANAGER);
 		}
-		if (userCriteriaContainer.getIsRegUser()){
+		if (userCriteriaContainer.getIsRegUser()) {
 			arrayOfRoles.add(Role.REGUSER);
 		}
+		if (arrayOfRoles.isEmpty()){
+			arrayOfRoles.add(Role.REGUSER);
+			userCriteriaContainer.setIsRegUser(true);
+		}
 		userCriteriaContainer.setRoleArray(arrayOfRoles);
-		
-		
+
 	}
 
 }

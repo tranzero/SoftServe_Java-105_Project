@@ -7,8 +7,13 @@ import org.springframework.stereotype.Component;
 
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
+
 @Component
 public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
+
+	public static final String[] USERS_ORDER_BY_COLUMNS = {"u.userName",
+			"u.firstName", "u.lastName", "u.email", "u.role", "u.regDate"};
+
 	private String searchString;
 	private List<Role> roleArray;
 	private Date minDate;
@@ -20,11 +25,11 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	private Boolean isAdmin;
 	private String orderByParam;
 	private String orderByDirection;
-	
-	public UsersCriteriaContainerImpl(){
+
+	public UsersCriteriaContainerImpl() {
 		super();
 	}
-	
+
 	@Override
 	public void setValuableInfo(String searchString, String minDateString,
 			String maxDateString, Boolean isRegUser, Boolean isManager,
@@ -38,11 +43,11 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 		this.orderByParam = orderByParam;
 		this.orderByDirection = orderByDirection;
 	}
-	
-	
-	public UsersCriteriaContainerImpl(String searchString, String minDateString,
-			String maxDateString, Boolean isRegUser, Boolean isManager,
-			Boolean isAdmin, String orderByParam, String orderByDirection) {
+
+	public UsersCriteriaContainerImpl(String searchString,
+			String minDateString, String maxDateString, Boolean isRegUser,
+			Boolean isManager, Boolean isAdmin, String orderByParam,
+			String orderByDirection) {
 		super();
 		this.searchString = searchString;
 		this.minDateString = minDateString;
@@ -53,6 +58,7 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 		this.orderByParam = orderByParam;
 		this.orderByDirection = orderByDirection;
 	}
+
 	/**
 	 * @return the searchString
 	 */
@@ -60,13 +66,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public String getSearchString() {
 		return searchString;
 	}
+
 	/**
-	 * @param searchString the searchString to set
+	 * @param searchString
+	 *            the searchString to set
 	 */
 	@Override
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
+
 	/**
 	 * @return the roleArray
 	 */
@@ -74,13 +83,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public List<Role> getRoleArray() {
 		return roleArray;
 	}
+
 	/**
-	 * @param roleArray the roleArray to set
+	 * @param roleArray
+	 *            the roleArray to set
 	 */
 	@Override
 	public void setRoleArray(List<Role> roleArray) {
 		this.roleArray = roleArray;
 	}
+
 	/**
 	 * @return the minDate
 	 */
@@ -88,13 +100,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public Date getMinDate() {
 		return minDate;
 	}
+
 	/**
-	 * @param minDate the minDate to set
+	 * @param minDate
+	 *            the minDate to set
 	 */
 	@Override
 	public void setMinDate(Date minDate) {
 		this.minDate = minDate;
 	}
+
 	/**
 	 * @return the maxDate
 	 */
@@ -102,13 +117,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public Date getMaxDate() {
 		return maxDate;
 	}
+
 	/**
-	 * @param maxDate the maxDate to set
+	 * @param maxDate
+	 *            the maxDate to set
 	 */
 	@Override
 	public void setMaxDate(Date maxDate) {
 		this.maxDate = maxDate;
 	}
+
 	/**
 	 * @return the minDateString
 	 */
@@ -116,13 +134,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public String getMinDateString() {
 		return minDateString;
 	}
+
 	/**
-	 * @param minDateString the minDateString to set
+	 * @param minDateString
+	 *            the minDateString to set
 	 */
 	@Override
 	public void setMinDateString(String minDateString) {
 		this.minDateString = minDateString;
 	}
+
 	/**
 	 * @return the maxDateString
 	 */
@@ -130,13 +151,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public String getMaxDateString() {
 		return maxDateString;
 	}
+
 	/**
-	 * @param maxDateString the maxDateString to set
+	 * @param maxDateString
+	 *            the maxDateString to set
 	 */
 	@Override
 	public void setMaxDateString(String maxDateString) {
 		this.maxDateString = maxDateString;
 	}
+
 	/**
 	 * @return the isRegUser
 	 */
@@ -144,13 +168,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public Boolean getIsRegUser() {
 		return isRegUser;
 	}
+
 	/**
-	 * @param isRegUser the isRegUser to set
+	 * @param isRegUser
+	 *            the isRegUser to set
 	 */
 	@Override
 	public void setIsRegUser(Boolean isRegUser) {
 		this.isRegUser = isRegUser;
 	}
+
 	/**
 	 * @return the isManager
 	 */
@@ -158,13 +185,16 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public Boolean getIsManager() {
 		return isManager;
 	}
+
 	/**
-	 * @param isManager the isManager to set
+	 * @param isManager
+	 *            the isManager to set
 	 */
 	@Override
 	public void setIsManager(Boolean isManager) {
 		this.isManager = isManager;
 	}
+
 	/**
 	 * @return the isAdmin
 	 */
@@ -172,8 +202,10 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
+
 	/**
-	 * @param isAdmin the isAdmin to set
+	 * @param isAdmin
+	 *            the isAdmin to set
 	 */
 	@Override
 	public void setIsAdmin(Boolean isAdmin) {
@@ -189,7 +221,8 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	}
 
 	/**
-	 * @param orderByParam the orderByParam to set
+	 * @param orderByParam
+	 *            the orderByParam to set
 	 */
 	@Override
 	public void setOrderByParam(String orderByParam) {
@@ -205,13 +238,12 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	}
 
 	/**
-	 * @param orderByDirection the orderByDirection to set
+	 * @param orderByDirection
+	 *            the orderByDirection to set
 	 */
 	@Override
 	public void setOrderByDirection(String orderByDirection) {
 		this.orderByDirection = orderByDirection;
 	}
-	
-	
-	
+
 }

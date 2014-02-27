@@ -2,7 +2,7 @@ package com.ita.edu.softserve.manager.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
@@ -19,7 +19,7 @@ public final class PaginationManager {
 	public static final String LAST_PAGE_NAME = "lastPage";
 
 	public void validatePaging(PageInfoContainer container) {
-		Validator.validatePaging(container, SingletonHolder.HOLDER_INSTANCE);
+		StaticValidator.validatePaging(container, SingletonHolder.HOLDER_INSTANCE);
 	}
 
 	public static class SingletonHolder {

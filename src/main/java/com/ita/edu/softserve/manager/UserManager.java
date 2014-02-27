@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
@@ -100,7 +101,7 @@ public interface UserManager extends BaseManager {
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
 
-	List<Users> getUsersForLimitWithCriteria(int firstElement, int count,
+	List<Users> getUsersForLimitWithCriteria(int firstElement, long count,
 			String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection);
 
@@ -109,5 +110,13 @@ public interface UserManager extends BaseManager {
 
 	long getUsersListCountUsingContainer(
 			UserCriteriaContainer userCriteriaContainer);
+
+	List<Users> getUsersForPageWithCriteria(int pageNumber, long count,
+			String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection);
+
+	List<Users> getUsersForLimitUsingContainers(
+			UserCriteriaContainer userCriteriaContainer,
+			PageInfoContainer container);
 
 }

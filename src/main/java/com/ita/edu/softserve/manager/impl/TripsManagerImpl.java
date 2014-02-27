@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TripsManager;
-import com.ita.edu.softserve.utils.Validator;
+import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
@@ -145,7 +145,7 @@ public class TripsManagerImpl implements TripsManager {
 	@Override
 	public void validateTripsCriteria(
 			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
-		Validator.validateTripsCriteria(tripsCriteriaContainer, locale);
+		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
 	@SuppressWarnings("deprecation")

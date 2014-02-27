@@ -4,6 +4,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +49,10 @@ public class UserControllerPg {
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
+	
+	
+	@Autowired
+	Validator userEditValidator;
 
 	/**
 	 * For paging userList
@@ -168,5 +175,16 @@ public class UserControllerPg {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist2";
 	}
+	
+	
+	// -------------------------------------------------------
+		// for Validator
+
+		@InitBinder
+		public void initBinder(WebDataBinder binder) {
+			binder.setValidator(userEditValidator);
+			binder.registerCustomEditor(Role.class, new RoleEditor());
+
+		}
 
 }

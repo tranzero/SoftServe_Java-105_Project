@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Routes;
@@ -23,6 +25,7 @@ import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
@@ -35,6 +38,12 @@ import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 @Controller
 public class UserController {
 
+	private PaginationManager paginationManager = PaginationManager
+			.getInstance();
+
+	@Autowired
+	PageInfoContainer container;
+
 	@Autowired
 	private UserManager usersmanage;
 
@@ -43,6 +52,9 @@ public class UserController {
 
 	@Autowired
 	UserCriteriaContainer userCriteriaContainer;
+
+	@Autowired
+	Encoder encoder;
 
 	private void putFillElementsOptions(
 			UserCriteriaContainer usersCriteriaContainer,
@@ -65,6 +77,20 @@ public class UserController {
 				orderByDirection);
 		putFillElementsOptions(userCriteriaContainer, modelMap);
 		usersmanage.validateUserListCriteria(userCriteriaContainer, locale);
+
+		long count = usersmanage
+				.getUsersListCountUsingContainer(userCriteriaContainer);
+//		long count = 100;
+		container.setPageNumber(pageNumber);
+		container.setResultsPerPage(resultsPerPage);
+		container.setCount(count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put("container", userCriteriaContainer);
+		modelMap.put("encoder", encoder);
+		modelMap.put("userList", usersmanage.getUsersForLimitUsingContainers(
+				userCriteriaContainer, container));
+		modelMap.put("language", locale.getLanguage());
 
 	}
 
@@ -90,7 +116,7 @@ public class UserController {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-		modelMap.put("userList", usersmanage.findAllUsers());
+//		modelMap.put("userList", usersmanage.findAllUsers());
 		return "userlist";
 	}
 
@@ -110,7 +136,7 @@ public class UserController {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-		modelMap.put("userList", usersmanage.findAllUsers());
+//		modelMap.put("userList", usersmanage.findAllUsers());
 		return "userListPage";
 	}
 
@@ -121,13 +147,13 @@ public class UserController {
 	 * @param modelMap
 	 * @return userEdit
 	 */
-	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
 		Users user = usersmanage.findUser(usId);
 		modelMap.put("user", user);
 		return "userEdit";
-	}
+	}*/
 
 	/**
 	 * // * Update user to DB - RequestMethod.POST
@@ -140,7 +166,7 @@ public class UserController {
 	 * @param role
 	 * @return userEdit
 	 */
-	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
 		user.setRole(Role.REGUSER);
@@ -152,7 +178,7 @@ public class UserController {
 		}
 		usersmanage.saveOrUpdateUser(user);
 		return "redirect:/userlist";
-	}
+	}*/
 
 	/**
 	 * updateUserToDB2 - RequestMethod.GET
@@ -219,7 +245,7 @@ public class UserController {
 		return "redirect:/mainpage";
 	}
 
-	// -------------------------------------------------------
+	/*// -------------------------------------------------------
 	// for Validator
 
 	@InitBinder
@@ -227,6 +253,6 @@ public class UserController {
 		binder.setValidator(userEditValidator);
 		binder.registerCustomEditor(Role.class, new RoleEditor());
 
-	}
+	}*/
 
 }
