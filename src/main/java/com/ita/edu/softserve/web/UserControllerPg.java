@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -131,13 +133,54 @@ public class UserControllerPg {
 	 * @param modelMap
 	 * @return userEdit
 	 */
-	@RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
+	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
 		Users user = usersmanage.findUser(usId);
 		modelMap.put("user", user);
 		return "userEdit";
 	}
+
+	/**
+	 * // * Update user to DB - RequestMethod.POST
+	 * 
+	 * @param userId
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param parole
+	 * @param role
+	 * @return userEdit
+	 */
+	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
+	public String updateUserToDB(@ModelAttribute("user") Users user,
+			BindingResult bindingResult, ModelMap modelMap) {
+		user.setRole(Role.REGUSER);
+		userEditValidator.validate(user, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			modelMap.put("user", user);
+			return "userEdit";
+		}
+		usersmanage.saveOrUpdateUser(user);
+		return "redirect:/userlist2";
+	}
+	
+	//---------------
+	/**
+	 * Update user to DB - RequestMethod.GET
+	 * 
+	 * @param usId
+	 * @param modelMap
+	 * @return userEdit
+	 */
+	/*@RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
+	public String editUser(@PathVariable("user") Integer usId,
+			Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
+		return "userEdit";
+	}*/
 
 	/**
 	 * Update user to DB - RequestMethod.POST
@@ -150,7 +193,7 @@ public class UserControllerPg {
 	 * @param role
 	 * @return userEdit
 	 */
-	@RequestMapping(value = "/userEditpg/{userToEdit}", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/userEditpg/{userToEdit}", method = RequestMethod.POST)
 	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
 			@ModelAttribute("userFirstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
@@ -162,7 +205,7 @@ public class UserControllerPg {
 		usersmanage
 				.updateUser(userId, firstName, lastName, email, password, role);
 		return "redirect:/userlist2";
-	}
+	}*/
 
 	/**
 	 * Delete user
