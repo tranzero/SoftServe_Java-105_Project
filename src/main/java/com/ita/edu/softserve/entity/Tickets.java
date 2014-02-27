@@ -131,7 +131,6 @@ public class Tickets extends BaseEntity implements Serializable{
 		 return Objects.toStringHelper(this)  
 	                .addValue(this.getTicketName())  
 	                .addValue(this.getTrip().getTripId())  
-	                .addValue(this.getOrder().getOrderId())  
 	                .toString();  
 	}
 	

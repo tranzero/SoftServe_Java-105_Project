@@ -17,6 +17,8 @@
 					<li>|</li>
 					<li><a href="<c:url value="j_spring_security_logout" />"><spring:message
 								code="label.header.logout" /></a></li>
+					<li>|</li>
+					<li><a href="<c:url value="/bag" />">Bag</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="login"><spring:message
