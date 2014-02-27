@@ -3,9 +3,11 @@ package com.ita.edu.softserve.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component(value="shoppingBag")
+//@Scope("session")
 public class ShoppingBag implements Serializable{
 	
 	/**

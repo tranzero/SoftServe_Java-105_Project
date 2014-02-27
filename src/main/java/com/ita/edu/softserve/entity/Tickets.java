@@ -65,10 +65,10 @@ public class Tickets extends BaseEntity implements Serializable{
 	}
 	
 
-	public Tickets(Integer ticketId, String ticketName, Trips trip,
+	public Tickets( String ticketName, Trips trip,
 			String customerInfo, Integer seatType) {
 		super();
-		this.ticketId = ticketId;
+		
 		this.ticketName = ticketName;
 		this.trip = trip;
 		this.customerInfo = customerInfo;
