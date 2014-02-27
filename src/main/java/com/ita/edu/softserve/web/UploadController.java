@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ita.edu.softserve.utils.FileValidator;
@@ -35,10 +34,11 @@ public class UploadController {
 		return "uploadForm";
 	}
 
-	@RequestMapping(value="/fileUpload", method=RequestMethod.POST)
+	@RequestMapping("/fileUpload")
 	public String fileUploaded(
-			@RequestParam("uploadedFile") UploadedFile uploadedFile,
+			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result, Map<String, String> modelMap) {
+		System.out.println("тут був я");
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
@@ -48,7 +48,7 @@ public class UploadController {
 		String fileName = file.getOriginalFilename();
 		modelMap.put("filename", fileName);
 		if (result.hasErrors()) {
-			return "uploadForm";
+			return "addnews";
 		}
 
 		try {
@@ -71,7 +71,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 
-		return "showFile";
+		return "addnews";
 	}
 
 }
