@@ -27,7 +27,7 @@
  -->
  <beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
- 	<beans:bean id="loginController"
+ 	<beans:bean id="LoginController"
     	class="org.springframework.web.servlet.mvc.ParameterizableViewController">
     	<beans:property name="viewName" value="login" />
 	</beans:bean>
@@ -36,7 +36,7 @@
   		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
   		<beans:property name="mappings">
   			 <beans:props>    
-   				 <beans:prop key="/login.html">loginController</beans:prop>
+   				 <beans:prop key="/login.html">LoginController</beans:prop>
    			</beans:props>
   		</beans:property>
  	</beans:bean>
