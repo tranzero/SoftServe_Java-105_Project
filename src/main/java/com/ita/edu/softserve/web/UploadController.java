@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ita.edu.softserve.manager.PropertiesManager;
 import com.ita.edu.softserve.utils.FileValidator;
 import com.ita.edu.softserve.utils.UploadedFile;
 
@@ -26,6 +27,9 @@ public class UploadController {
 
 	@Autowired
 	UploadedFile uploadedFile;
+	
+	@Autowired
+	PropertiesManager propertyManager;
 
 	@RequestMapping(value ="/fileUploadForm", method=RequestMethod.POST)
 	public String getUploadForm(
@@ -38,6 +42,7 @@ public class UploadController {
 	public String fileUploaded(
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result, Map<String, String> modelMap) {
+		
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
@@ -47,13 +52,13 @@ public class UploadController {
 		String fileName = file.getOriginalFilename();
 		modelMap.put("filename", fileName);
 		if (result.hasErrors()) {
-			return "uploadForm";
+			return "addnews";
 		}
 
 		try {
 			inputStream = file.getInputStream();
 
-			File newFile = new File("c:" + fileName);
+			File newFile = new File(propertyManager.getImgPath() + fileName);
 			if (!newFile.exists()) {
 				newFile.createNewFile();
 			}
@@ -70,7 +75,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 
-		return "showFile";
+		return "addnews";
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
@@ -17,6 +18,7 @@ public class ShoppingBag implements Serializable{
 	private List<Tickets> tickets;
 
 	public ShoppingBag() {
+		this.tickets = new ArrayList<Tickets>();
 		
 	}
 
@@ -33,7 +35,7 @@ public class ShoppingBag implements Serializable{
 		
 	if(tickets.contains(ticket)){
 		
-		tickets.remove(tickets.indexOf(ticket));
+		tickets.remove(ticket);
 		
 	}
 	}

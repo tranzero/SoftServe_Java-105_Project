@@ -67,7 +67,7 @@
 					<td>${user.getRole().getDescription()}</td>
 					<td>${user.getRegDate()}</td>
 
-					<td><a href="userEditpg/${user.getUserId()}"> <input
+					<td><a href="userEdit/${user.getUserId()}"> <input
 							id="userEdit" type="button" name="userEdit"
 							value="<spring:message code="label.edit"/>">
 					</a></td>

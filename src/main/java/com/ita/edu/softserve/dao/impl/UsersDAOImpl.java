@@ -1,14 +1,17 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.UsersDAO;
-
+import com.ita.edu.softserve.entity.Role;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.entity.Users;
 
 /**
@@ -19,8 +22,8 @@ import com.ita.edu.softserve.entity.Users;
  */
 @Repository("usersDao")
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
-	
-	//--- update for validator
+
+	// --- update for validator
 	public void saveOrUpdate(final Users entity) {
 		if (entity.getUserId() == null) {
 			entityManager.persist(entity);
@@ -71,6 +74,34 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 		return (long) find((Query) entityManager
 				.createNamedQuery(Users.GET_COUNT_ALL_USERS));
 
+	}
+
+	@Override
+	public long getUsersListCountWithCriteria(String searchString,
+			List<Role> roleArray, Date minDate, Date maxDate) {
+		Query query = entityManager
+				.createNamedQuery(Users.GET_COUNT_USERS_WITH_CRITERIA)
+				.setParameter(Users.SEARCH_STRING_NAME, searchString)
+				.setParameter(Users.ROLE_ARRAY_NAME, roleArray)
+				.setParameter(Users.MIN_DATE_NAME, minDate, TemporalType.DATE)
+				.setParameter(Users.MAX_DATE_NAME, maxDate, TemporalType.DATE);
+		return (long) find(query);
+	}
+@Override
+	public List<Users> getUsersForOnePageWithCriteria(int firstElement,
+			int count, String searchString, List<Role> roleArray, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
+
+		Query query = entityManager
+				.createQuery(
+						Users.GET_USERS_WITH_CRITERIA_QUERY + orderByParam
+								+ " " + orderByDirection)
+				.setParameter(Users.SEARCH_STRING_NAME, searchString)
+				.setParameter(Users.ROLE_ARRAY_NAME, roleArray)
+				.setParameter(Users.MIN_DATE_NAME, minDate, TemporalType.DATE)
+				.setParameter(Users.MAX_DATE_NAME, maxDate, TemporalType.DATE)
+				.setFirstResult(firstElement).setMaxResults(count);
+		return (List<Users>) query.getResultList();
 	}
 
 	/**

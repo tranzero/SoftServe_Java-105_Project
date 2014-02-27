@@ -8,18 +8,21 @@ $(window).load(function() {
 	$.ajax({
 		async : false,
 		type: "POST",
-		url: "fileUploadForm",
+		url: "fileUploadForm"
 		}).done(function( msg ) {
 			$(elementSelectorForResult).html(msg);
 	});
 });
+
 </script>
 <section id="content">
 <div id="imgUploadForm"></div>	
 	
 	<form id="addnews" method="post" name="/addnews" action="addnews">
 		<div>
-		<input id="newsImg" type="text" name="newsImg" size="50" maxlength="100" value = "">
+		<p>Image name</p>
+		<input id="fileName" name="fileName" type="text" value="${filename}" size="50" maxlength="100">
+		
 		<p><spring:message code="label.navigation.addNews.title"/></p>
 		
 		<input id="newsTitle" type="text" name="newsTitle" size="50" maxlength="100" value = "">

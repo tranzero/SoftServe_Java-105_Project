@@ -26,7 +26,7 @@
 </script>
 <section id="content">
 
-	<form:form id = "add to bag" action= "/SoftServe_Java-105/addToBag/${tripId}/${seatType}" method="post" >
+	<form:form id = "addtobag" action= "/SoftServe_Java-105/addToBag/${tripId}/${seatType}" method="post" >
 	
 	<table>
 			<tr align=center>

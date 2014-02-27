@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.PropertiesManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.utils.property.PreferenceUtil;
 
 @Controller
 public class IndexPageController {
@@ -67,6 +69,9 @@ public class IndexPageController {
 
 	@Autowired
 	private PostForMainPageManager posts;
+	
+	@Autowired
+	private PropertiesManager propertyManager;
 
 	@RequestMapping(value = mainPageInGet, method = RequestMethod.GET)
 	public String mainPage(Map<String, Object> modelMap) {
@@ -97,7 +102,8 @@ public class IndexPageController {
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
-
+		modelMap.put("mainImgPath", propertyManager.getImgPath());
+		System.out.println(propertyManager.getImgPath());
 		return mainPageOutPost;
 
 	}
@@ -131,6 +137,7 @@ public class IndexPageController {
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
+		
 
 		return managePageNewsOutPost;
 
@@ -145,9 +152,10 @@ public class IndexPageController {
 	public String addNewsToBD(
 			@ModelAttribute(modelAttributeNewsTitle) String newsTitle,
 			@ModelAttribute(modelAttributeNewsDescription) String newsDescription,
+			@ModelAttribute("fileName") String fileName,
 			Map<String, Object> modelMap) {
 
-		posts.createNews(newsTitle, newsDescription);
+		posts.createNews(newsTitle, newsDescription, fileName);
 		return addNewsOutPost;
 	}
 
@@ -181,9 +189,10 @@ public class IndexPageController {
 			@ModelAttribute(modelAttributeIdTitle) Integer newsId,
 			@ModelAttribute(modelAttributeNewsTitle) String newsTitle,
 			@ModelAttribute(modelAttributeNewsDescription) String newsDescription,
+			@ModelAttribute("filename") String filename,
 			Map<String, Object> modelMap) {
 
-		posts.updateNews(newsId, newsTitle, newsDescription);
+		posts.updateNews(newsId, newsTitle, newsDescription, filename);
 
 		return editNewsPost;
 	}
