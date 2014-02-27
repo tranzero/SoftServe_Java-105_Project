@@ -38,6 +38,7 @@ public class UploadController {
 	public String fileUploaded(
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result, Map<String, String> modelMap) {
+		System.out.println("тут був я");
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
@@ -47,7 +48,7 @@ public class UploadController {
 		String fileName = file.getOriginalFilename();
 		modelMap.put("filename", fileName);
 		if (result.hasErrors()) {
-			return "uploadForm";
+			return "addnews";
 		}
 
 		try {
@@ -70,7 +71,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 
-		return "showFile";
+		return "addnews";
 	}
 
 }
