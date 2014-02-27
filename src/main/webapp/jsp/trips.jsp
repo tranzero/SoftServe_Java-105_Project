@@ -34,19 +34,19 @@ var defaultGetData={
 			<spring:message code="label.transport.transportcode" />
 			:
 			<c:if test="${isTransportCode}">
-				<input type="text" id="transportCode" name="transportCode">
+				<input class="autosearch" type="text" id="transportCode" name="transportCode">
 			</c:if>
 			<c:if test="${!isTransportCode}">
-				<input type="text" id="transportCode" name="transportCode"
+				<input class="autosearch" type="text" id="transportCode" name="transportCode"
 					value="${container.getTransportCode()}">
 			</c:if>
 			<spring:message code="label.trips.routename" />
 			:
 			<c:if test="${isRouteName}">
-				<input type="text" id="routeName" name="routeName">
+				<input class="autosearch" type="text" id="routeName" name="routeName">
 			</c:if>
 			<c:if test="${!isRouteName}">
-				<input type="text" id="routeName" name="routeName"
+				<input class="autosearch" type="text" id="routeName" name="routeName"
 					value="${container.getRouteName()}">
 			</c:if>
 		<p>
@@ -55,26 +55,26 @@ var defaultGetData={
 		<p>
 			<label for="remSeatClass1">1:</label>
 			<c:if test="${isClass1}">
-				<input type="text" id="remSeatClass1" name="remSeatClass1">
+				<input class="autosearch" type="number" id="remSeatClass1" name="remSeatClass1">
 			</c:if>
 			<c:if test="${!isClass1}">
-				<input type="text" id="remSeatClass1" name="remSeatClass1"
+				<input class="autosearch" type="number" id="remSeatClass1" name="remSeatClass1"
 					value="${container.getRemSeatClass1()}">
 			</c:if>
 			<label for="remSeatClass2">2:</label>
 			<c:if test="${isClass2}">
-				<input type="text" id="remSeatClass2" name="remSeatClass2">
+				<input class="autosearch" type="number" id="remSeatClass2" name="remSeatClass2">
 			</c:if>
 			<c:if test="${!isClass2}">
-				<input type="text" id="remSeatClass2" name="remSeatClass2"
+				<input class="autosearch" type="number" id="remSeatClass2" name="remSeatClass2"
 					value="${container.getRemSeatClass2()}">
 			</c:if>
 			<label for="remSeatClass3">3:</label>
 			<c:if test="${isClass3}">
-				<input type="text" id="remSeatClass3" name="remSeatClass3">
+				<input class="autosearch" type="number" id="remSeatClass3" name="remSeatClass3">
 			</c:if>
 			<c:if test="${!isClass3}">
-				<input type="text" id="remSeatClass3" name="remSeatClass3"
+				<input class="autosearch" type="number" id="remSeatClass3" name="remSeatClass3"
 					value="${container.getRemSeatClass3()}">
 			</c:if>
 		<p>
@@ -84,20 +84,20 @@ var defaultGetData={
 			<label for="minDate"><spring:message
 					code="label.addtrips.from" /></label>
 			<c:if test="${isMinDate}">
-				<input type="text" id="from" name="minDate">
+				<input class="autosearch" type="text" id="from" name="minDate">
 			</c:if>
 			<c:if test="${!isMinDate}">
-				<input type="text" id="from" name="minDate"
+				<input class="autosearch" type="text" id="from" name="minDate"
 					value="${container.getMinDateString()}">
 			</c:if>
 
 
 			<label for="maxDate"><spring:message code="label.addtrips.to" /></label>
 			<c:if test="${isMaxDate}">
-				<input type="text" id="to" name="maxDate">
+				<input class="autosearch" type="text" id="to" name="maxDate">
 			</c:if>
 			<c:if test="${!isMaxDate}">
-				<input type="text" id="to" name="maxDate"
+				<input class="autosearch" type="text" id="to" name="maxDate"
 					value="${container.getMaxDateString()}">
 			</c:if>
 		<div style="float: right">
@@ -499,6 +499,32 @@ var defaultGetData={
 
 		$(window).load(function() {
 			formDatePicker();
+ 			$("input#remSeatClass1").ForceNumericOnly();
+ 			$("input#remSeatClass2").ForceNumericOnly();
+ 			$("input#remSeatClass3").ForceNumericOnly();
+ 			setInterval(function(){
+ 				var curVal;
+ 				var prevVal;
+ 			    curVal = $(".autosearch").serialize();
+ 			    prevVal  = $(".autosearch").data("prevVal") || null;
+ 			    $(".autosearch").data("prevVal",curVal);
+ 			    if ((prevVal!= null) && (prevVal !== curVal)) {
+ 			    	var searchData={
+ 			    			pageNumber: 1,
+ 			    			resultsPerPage: "${resultsPerPage}",
+ 			    			transportCode: $("input#transportCode").val(), 
+ 			    			routeName: $("input#routeName").val(), 
+ 			    			remSeatClass1: $("input#remSeatClass1").val(),
+ 			    			remSeatClass2: $("input#remSeatClass2").val(),
+ 			    			remSeatClass3: $("input#remSeatClass3").val(),
+ 			    			minDate: $("input#from").val(),
+ 			    			maxDate: $("input#to").val(),
+ 			    			orderByParam: "${container.getOrderByParam()}",
+ 			    			orderByDirection :"${container.getOrderByDirection()}"
+ 			    	};
+ 			    	ajaxLoader(defaultDomElement, defaultTargetPage, searchData);
+ 			    }
+ 			}, 3000);
 		});
 	</script>
 </section>

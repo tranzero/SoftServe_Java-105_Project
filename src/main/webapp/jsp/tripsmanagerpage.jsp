@@ -321,7 +321,7 @@
 	
 
 	window.history.pushState(defaultGetData, document.title, location.protocol
-			+ '//' + location.host + location.pathname + "?"
-			+ serialize(defaultGetData));
+			+ '//' + location.host + location.pathname + '?'
+			+ serialize(defaultGetData)+'&lang=${language}');
 	window.history.pathname = document.location.href;
 </script>
