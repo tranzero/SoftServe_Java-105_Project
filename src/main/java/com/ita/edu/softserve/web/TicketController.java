@@ -56,16 +56,19 @@ public class TicketController {
 	@RequestMapping(value = "/reservationTicket/{tripId}/{seatType}", method = RequestMethod.GET)
 	public String reservationTicket(@PathVariable("tripId") Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
-			Map<String, Object> modelMap
-			//Model model
-			) {
+			Map<String, Object> modelMap) {
 	 
+		if(!(seatType.equals(1)) &&  !(seatType.equals(2)) && !(seatType.equals(3))){
+			return "redirect:/";
+		}
+		else{
 		Trips trip = tripsManager.findByTripId(tripId);
 		modelMap.put("trip", trip);
 		modelMap.put("transport", trip.getTransport());
 		modelMap.put("tripId", tripId);
 		modelMap.put("seatType", seatType);
 		return "reservationTicket";
+		}
 	}
 
 	@RequestMapping(value = "/addToBag/{tripId}/{seatType}", method = RequestMethod.POST)
@@ -79,13 +82,14 @@ public class TicketController {
 		if(seatType.equals(1)){
 			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
 		}
-		if(seatType.equals(1)){
+		if(seatType.equals(2)){
 			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
 		}
 		
-		if(seatType.equals(1)){
+		if(seatType.equals(3)){
 			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
 		}
+		
 		
 		tripsManager.updateTrip(trip);
 		Tickets ticket = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,customerInfo,seatType);
@@ -93,6 +97,7 @@ public class TicketController {
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		
 		return "bag";
+		
 	}
 	
 	@RequestMapping(value="/bag",method = RequestMethod.GET)
