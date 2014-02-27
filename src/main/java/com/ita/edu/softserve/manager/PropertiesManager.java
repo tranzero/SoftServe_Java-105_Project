@@ -13,5 +13,9 @@ public interface PropertiesManager {
 
 	void setLogsPath(String path);
 
+	String getImgPath();
+
+	void setImgPath(String path);
+
 	
 }

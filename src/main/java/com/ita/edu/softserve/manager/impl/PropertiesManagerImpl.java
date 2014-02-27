@@ -42,5 +42,13 @@ public class PropertiesManagerImpl implements PropertiesManager {
 		preferenceUtil.setValue(PropertyKeys.LOGS_PATH_PROPERTY_NAME, path);
 	}
 
-	
+	@Override
+	public String getImgPath() {
+		return preferenceUtil
+				.checkPathExistance(PropertyKeys.IMG_PATH_PROPERTY_NAME);
+	}
+	@Override
+	public void setImgPath(String path) {
+		preferenceUtil.setValue(PropertyKeys.IMG_PATH_PROPERTY_NAME, path);
+	}
 }

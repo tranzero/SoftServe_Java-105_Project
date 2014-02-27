@@ -55,10 +55,10 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 	@Transactional
 	@Override
-	public void createNews(String newsTitle, String newsDescription) {
+	public void createNews(String newsTitle, String newsDescription, String imageSrc) {
 
 		try {
-			Post post = new Post(newsTitle, newsDescription);
+			Post post = new Post(newsTitle, newsDescription, imageSrc);
 			postDao.save(post);
 			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
@@ -102,13 +102,14 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	@Transactional
 	@Override
 	public void updateNews(Integer newsId, String newsTitle,
-			String newsDescription) {
+			String newsDescription, String imageSrc) {
 
 		try {
 			Post post = postDao.findById(newsId);
 			post.setTitle(newsTitle);
 			post.setDescription(newsDescription);
 			post.setDate();
+			post.setImgSrc(imageSrc);
 			postDao.update(post);
 			LOGGER.info(entityName + post.getPostId() + changeMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {

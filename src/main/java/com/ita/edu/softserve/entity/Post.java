@@ -41,16 +41,22 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 	@Column(name = "DATE", nullable = true, length = 60)
 	private String date;
+	
+	@Column(name = "IMGSRC", nullable = true, length = 60)
+	private String imgSrc;
+
+	
 
 	public Post() {
 		this.setDate();
 	}
 
-	public Post(String title, String description)
+	public Post(String title, String description, String imageSrc)
 			throws IllegalArgumentException {
 		this();
 		this.setTitle(title);
 		this.setDescription(description);
+		this.setImgSrc(imageSrc);
 
 	}
 
@@ -89,6 +95,20 @@ import com.ibm.icu.text.SimpleDateFormat;
 				.format(new Date());
 
 		this.date = date;
+	}
+	
+	/**
+	 * @return the imgSrc
+	 */
+	public String getImgSrc() {
+		return imgSrc;
+	}
+
+	/**
+	 * @param imgSrc the imgSrc to set
+	 */
+	public void setImgSrc(String imgSrc) {
+		this.imgSrc = imgSrc;
 	}
 
 }
