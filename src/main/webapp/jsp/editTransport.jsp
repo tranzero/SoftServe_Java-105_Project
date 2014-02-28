@@ -8,47 +8,57 @@
 <section id="content">
 	<h1 align="center"><spring:message code="label.transport.editTransport"/></h1>
 
-	<form:form id="transport" action="addTransport.htm" method="POST" commandName="transport">
+	<form:form action="addTransport.htm" method="POST" commandName="transport">
 	
-			<p><form:hidden path="transportId" value="${transport.getTransportId()}" />
-				
-			<p><spring:message code="label.transport.transportcode"/></p>
-			<p><form:input type="text" path="transportCode" onfocus="checkpostal()" />
-			<form:errors path="transportCode" cssClass="error" /></p>
+			<form:hidden path="transportId" />
+			
+		<table class="form">
+			<tbody>
+				<tr>
+					<td><spring:message code="label.transport.transportcode" /></td>
+					<td><form:input path="transportCode" onfocus="checkpostal()" /></td>
+					<td><form:errors path="transportCode" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.transport.starttime" /></td>
+					<td><form:input id="startTime" path="startTime" cssClass="startTime"
+						placeholder="HH:MM:SS" /></td>
+					<td><form:errors path="startTime" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.routes.routecode" /></td>
+					<td><form:select path="routes">
+						<form:options items="${routesList}" itemValue="routeId"	itemLabel="routeCode" />
+					</form:select></td>
+					<td><form:errors path="routes" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.transport.seatclass1" /></td>
+					<td><form:input path="seatclass1" /></td>
+					<td><form:errors path="seatclass1" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.transport.seatclass2" /></td>
+					<td><form:input path="seatclass2" /></td>
+					<td><form:errors path="seatclass2" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.transport.seatclass3" /></td>
+					<td><form:input path="seatclass3" /></td>
+					<td><form:errors path="seatclass3" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><spring:message code="label.transport.genprice" /></td>
+					<td><form:input path="genPrice" /></td>
+					<td><form:errors path="genPrice" cssClass="error" /></td>
+				</tr>
+			</tbody>
+		</table>
 
-			<p><spring:message code="label.transport.starttime" /></p>
-			<p><form:input id="startTime" path="startTime" cssClass="startTime" placeholder="HH:MM:SS" />
-			<form:errors path="startTime" cssClass="error"/></p>
+		<input name="control" type="submit" value="<spring:message code="label.update"/>" />
+		<input type="button" value="<spring:message code="label.cancel"/>"
+			onclick="window.location='/SoftServe_Java-105/transport';">
 
-			<p><spring:message code="label.routes.routecode"/></p>
-			<p><form:select path="routes" name="routes">
-				<c:forEach var="route" items="${routesList}">
-					<option value="${route.getRouteId()}">
-						${route.getRouteCode()}&emsp; ${route.getLineId().getLineName()}</option>
-				</c:forEach>
-			</form:select><form:errors path="routes" cssClass="error"/></p>
-
-			<p><spring:message code="label.transport.seatclass1"/></p>
-			<p><form:input path="seatclass1" />
-			<form:errors path="seatclass1" cssClass="error"/></p>
-			
-			<p><spring:message code="label.transport.seatclass2"/></p>
-			<p><form:input path="seatclass2" />
-			<form:errors path="seatclass2" cssClass="error"/></p>
-			
-			<p><spring:message code="label.transport.seatclass3"/></p>
-			<p><form:input path="seatclass3" />
-			<form:errors path="seatclass3" cssClass="error"/></p>
-			
-			<p><spring:message code="label.transport.genprice"/></p>
-			<p><form:input path="genPrice" />
-			<form:errors path="genPrice" cssClass="error"/></p>
-	
-			<p><input name="control" type="submit" value="Update" />
-			
-			<input type="button" value="<spring:message code="label.stations.cancel"/>" 
-				onclick="window.location='/SoftServe_Java-105/transport';"></p>
-			
 	</form:form>
 
 	<script src="resources/js/jquery.js"></script>

@@ -12,14 +12,15 @@
 	
 	<!-- JS for table searching -->
 	<script src="resources/js/jquery.searcher.js"></script>
-
+	
+<p align="right"><b><spring:message code="label.transport.tableSearchInput"/></b>
+	<input id="tableSearchInput" type="text" /></p>
+	
 <section id="content">
+
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
-	
-	<p><spring:message code="label.transport.tableSearchInput"/>
-	<input id="tableSearchInput" type="text" /></p>
 	
 	<div id="pagingcontent">
 		<table style="align: center" id="transportTable">
@@ -101,7 +102,7 @@
 		</div>
 	</div>
 			<script>
-		function showTripsPage(pageNumber_, resultsPerPage_) {
+		function showTransportPage(pageNumber_, resultsPerPage_) {
 
 			$.ajax({
 				async : true,
@@ -123,7 +124,7 @@
 
 		$(window).load(function() {
 
-			showTripsPage("${pageNumber}", "${resultsPerPage}");
+			showTransportPage("${pageNumber}", "${resultsPerPage}");
 
 		});
 		
