@@ -168,8 +168,30 @@ table#tableUsers th,td{
 table .table th,td{
     max-width: 80px;
 }
-/* TABLE STYLES END */
+/* TABLE FORM STYLES */
 
+/* TABLE FORM STYLES END */
+table.form tr {
+	border-bottom: 1px;
+}
+
+table.form tr:nth-child(odd) td {
+	background-color: white;
+}
+
+table.form tr:nth-child(even) td {
+	background-color: white;
+}
+
+table.form td, th {
+    border-left: 1px;
+    border-top: 1px;
+    padding: 10px;
+    text-align: left;
+    font-weight: 600;
+    width: 33%;
+}
+/* TABLE FORM STYLES END */
 
 /* BUTTON STYLES */
 input[type="button"], input[type="submit"] {
@@ -264,13 +286,9 @@ div.center {
 	color: #ff0000;
 }
 
-/* for error too */
-.errorblock {
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
+/* for red stars in form */
+em.star {
+	color:red
 }
 
 .clear {
