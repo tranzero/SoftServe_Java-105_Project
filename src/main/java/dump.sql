@@ -273,16 +273,11 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
     `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
     `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL ,
+    `ORDERDATE` TIMESTAMP NOT NULL, 
     PRIMARY KEY (ORDERID),
     CONSTRAINT `ORDERID_ibfk_1`
     FOREIGN KEY (`USERID`)
     REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `ORDERID_ibfk_2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -292,7 +287,7 @@ CREATE TABLE `orders` (
 -- 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '1'), ('2', '1', '1'), ('3', '1', '2'), ('4', '3', '2'), ('5', '2', '3');
+INSERT INTO `orders` VALUES ('1', '1', '2014-02-10 19:24:50.0'), ('2', '1', '2014-02-10 19:24:52.0'), ('3', '1', '2014-02-10 21:24:50.0'), ('4', '3', '2014-02-10 23:24:50.0'), ('5', '2', '2014-02-10 17:24:50.0');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 

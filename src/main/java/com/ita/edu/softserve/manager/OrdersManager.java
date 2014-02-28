@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +38,6 @@ public interface OrdersManager extends BaseManager {
 
 	public List<Orders> getOrdersForPage(int from, int count);
 	
-	public void createOrder(Integer userId,Integer tripId);
+	public void createOrder(Integer userId);
 	
 }

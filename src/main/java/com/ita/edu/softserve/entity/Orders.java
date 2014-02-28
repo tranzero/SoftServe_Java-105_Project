@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,16 +51,16 @@ public class Orders extends BaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USERID")
 	private Users userId;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "TRIPID")
-	private Trips tripId;
-
+	
+	@Column(name = "ORDERDATE")
+	private Date orderDate;
+	
+	
 	/**
 	 * Default Constructor
 	 */
 	public Orders() {
-		super();
+		this.setOrderDate();
 	}
 
 	/**
@@ -68,10 +70,9 @@ public class Orders extends BaseEntity {
 	 * @param userId
 	 * @param tripId
 	 */
-	public Orders( Users userId, Trips tripId) {
+	public Orders(Users userId) {
 		super();
-		this.setTripId(tripId);
-		this.setUserId(userId);
+		this.userId=userId;
 	}
 
 	/**
@@ -103,21 +104,19 @@ public class Orders extends BaseEntity {
 	public void setUserId(Users userId) {
 		this.userId = userId;
 	}
-
-	/**
-	 * @return the tripId
-	 */
-	public Trips getTripId() {
-		return tripId;
+	
+	public Date getOrderDate() {
+		return orderDate;
 	}
 
-	/**
-	 * @param the
-	 *            tripId the tripId to set
-	 */
-	public void setTripId(Trips tripId) {
-		this.tripId = tripId;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
+	
+	private void setOrderDate() {
+		this.orderDate=new Date();
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -138,8 +137,9 @@ public class Orders extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "orderId=" + orderId + ", userId=" + userId.getUserId() + ", tripId="
-				+ tripId.getTripId() + " ";
+		return "orderId=" + orderId + ", userId=" + userId.getUserId() + ", oderDate="
+				+ orderDate + " ";
 	}
 
+	
 }

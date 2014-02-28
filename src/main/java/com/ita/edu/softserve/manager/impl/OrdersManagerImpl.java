@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +75,8 @@ public class OrdersManagerImpl implements OrdersManager {
 	
 	@Transactional
 	@Override
-	public void createOrder(Integer userId,Integer tripId){
+	public void createOrder(Integer userId){
 		Orders order = new Orders();
-		order.setTripId(tripsDao.findById(tripId));
 		order.setUserId(usersDao.findById(userId));
 		ordersDao.save(order);
 	}
