@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%--<div id = "navigation" >
 <h2><spring:message code="label.navigation.title"/>[WIP]</h2> --%>
 <nav id="navigation">
@@ -35,6 +36,7 @@
 								code="label.navigation.routes" /></a></li>
 				</ul>
 			</li>
+			<sec:authorize access="hasRole('MANAGER')">
 			<li><spring:message code="label.navigation.editing" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/managenews"><spring:message
@@ -53,6 +55,8 @@
 								code="label.navigation.checkresponses" /></a></li>
 				</ul>
 			</li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ADMIN')">
 			<li><spring:message code="label.navigation.users" />
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/userlist"><spring:message
@@ -61,6 +65,7 @@
 								code="label.navigation.userlist" />2</a></li>
 				</ul>
 			</li>
+			</sec:authorize>
 		</ul>
 	</div>
 </nav>

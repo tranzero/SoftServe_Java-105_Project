@@ -114,7 +114,15 @@
 		<put-attribute name="content" value="/jsp/error/errorPage.jsp" />
 	</definition>
 
+	<definition name="accessDenied" extends="base-template">
+		<put-attribute name="title" value="Forbidden" />
+		<put-attribute name="navigation" value="/jsp/templates/nonavigation.jsp" />
+		<put-attribute name="content" value="/jsp/error/accessDenied.jsp" />
+	</definition>
+
 	<definition name="login" extends="base-template">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="navigation" value="/jsp/templates/nonavigation.jsp" />
 		<put-attribute name="content" value="/jsp/login.jsp" />
 	</definition>
 
