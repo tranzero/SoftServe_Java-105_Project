@@ -109,10 +109,10 @@ public class TicketController {
 		
 	}
 
-	@RequestMapping(value="/bag",method = RequestMethod.POST)
-	public String shoppingBagPOST(
+	@RequestMapping(value="/bagPay",method = RequestMethod.GET)
+	public String shoppingBagPOST(@RequestParam(value= "customerInfo",required = false) String customerInfo,
 			Map<String, Object> modelMap){
-		
+		modelMap.put("ticketsList", shoppingBag.getTickets());
 		
 //		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
 //		for(Tickets tmp: shoppingBag.getTickets()){
@@ -120,7 +120,7 @@ public class TicketController {
 //			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
 //		}
 //		
-		return "";
+		return "bagPay";
 	}
 	
 	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)

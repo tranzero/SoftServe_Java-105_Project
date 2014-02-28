@@ -13,7 +13,7 @@
 	        <intercept-url pattern="/edit*" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/manage*" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/user*" access="hasRole('ADMIN')"/>	  -->    
-	   		<form-login login-page="/login.html" default-target-url="/mainpage"					
+	   		<form-login login-page="/login.html" default-target-url="/loginsuccess"					
 						authentication-failure-url="/login.html?error=true" 
 						always-use-default-target="true"/>										
 			<logout logout-success-url="/" />		

@@ -21,7 +21,7 @@ public class StationsValidator implements Validator {
 
 	public static final String STATIONS_CODE_PATERN = "^[0-9]{5,15}$";
 	public static final String STATIONS_NAME_PATERN = "^[a-zA-Z0-9]{5,15}$";
-	
+
 	/**
 	 * For using some methods from StationManager.
 	 */
@@ -36,8 +36,9 @@ public class StationsValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Stations station = (Stations) target;
-		
-		validateStationExist(station.getStationId(), station.getStationName(), errors);
+
+		validateStationExist(station.getStationId(), station.getStationName(),
+				errors);
 		validateStationCode(station.getStationCode(), errors);
 		validateStationName(station.getStationName(), errors);
 	}
@@ -45,30 +46,27 @@ public class StationsValidator implements Validator {
 	private void validateStationCode(String stationCode, Errors errors) {
 
 		if (stationCode == null || stationCode == "") {
-			errors.rejectValue("stationCode", "stationCode.empty",
-					"stationCode must not be empty");
-		}
-
-		if (stationCode.matches(STATIONS_CODE_PATERN) == false) {
-			errors.rejectValue("stationCode", "stationCode.matcher",
-					"stationCode must contain only digits");
+			errors.rejectValue("stationCode", "stationCode.empty");
+		} else {
+			if (stationCode.matches(STATIONS_CODE_PATERN) == false) {
+				errors.rejectValue("stationCode", "stationCode.matcher");
+			}
 		}
 	}
 
 	private void validateStationName(String stationName, Errors errors) {
 
 		if (stationName == null || stationName == "") {
-			errors.rejectValue("stationName", "stationName.empty",
-					"stationName must not be empty");
-		}
-
-		if (stationName.matches(STATIONS_NAME_PATERN) == false) {
-			errors.rejectValue("stationName", "stationName.matcher",
-					"stationName must contain only letters and digits");
+			errors.rejectValue("stationName", "stationName.empty");
+		} else {
+			if (stationName.matches(STATIONS_NAME_PATERN) == false) {
+				errors.rejectValue("stationName", "stationName.matcher");
+			}
 		}
 	}
-	
-	private void validateStationExist(Integer stationId, String stationName, Errors error) {
+
+	private void validateStationExist(Integer stationId, String stationName,
+			Errors error) {
 
 		if ((stationName != null) && (stationName != "")) {
 			Stations station = null;

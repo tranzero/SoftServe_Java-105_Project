@@ -36,7 +36,7 @@ public class UserNameServiceImpl implements UserNameService {
 		if (isUserFromDb()){			
 			return usersmanager.findByUsername(getLoggedUsername()).getUserId();
 		} 		
-			return null;		
+		return null;		
 	}	
 	
 	/**  

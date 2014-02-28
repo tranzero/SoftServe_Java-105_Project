@@ -88,7 +88,7 @@ public class StationsManagerImpl implements StationsManager {
 	/**
 	 * @return Station found by ID.
 	 */
-	@Transactional
+	@Transactional(readOnly = true)
 	@Override
 	public Stations findStationsById(Integer id) {
 		try {
@@ -191,6 +191,8 @@ public class StationsManagerImpl implements StationsManager {
 	/**
 	 * Finds station by Name.
 	 */
+	@Transactional(readOnly = true)
+	@Override
 	public Stations findByStationName(String stationName) {
 
 		try {

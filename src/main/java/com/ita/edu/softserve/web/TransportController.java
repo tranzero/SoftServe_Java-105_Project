@@ -27,6 +27,7 @@ import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
+import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
@@ -221,6 +222,9 @@ public class TransportController {
 	 */
 	@Autowired
 	private RoutesDAO routesDao;
+	
+	@Autowired
+	private TripsManager tripsManager;
 
 	@Autowired
 	Validator transportsValidator;
