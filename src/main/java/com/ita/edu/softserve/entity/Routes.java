@@ -1,8 +1,5 @@
 package com.ita.edu.softserve.entity;
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,9 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
 
@@ -196,7 +190,7 @@ public class Routes extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(routeId).hashCode();
+		return routeId.hashCode();
 	}
 
 	@Override
@@ -208,7 +202,8 @@ public class Routes extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Routes other = (Routes) obj;
-		return new EqualsBuilder().append(routeId, other.routeId).isEquals();
+
+		return routeId.equals(other.routeId);
 	}
 
 }
