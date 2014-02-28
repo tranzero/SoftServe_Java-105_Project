@@ -183,7 +183,7 @@ table.form tr:nth-child(even) td {
 	background-color: white;
 }
 
-table.form td, th {
+table.form td {
     border-left: 1px;
     border-top: 1px;
     padding: 10px;
