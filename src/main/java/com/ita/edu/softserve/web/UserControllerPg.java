@@ -155,7 +155,7 @@ public class UserControllerPg {
 	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
-		user.setRole(Role.REGUSER);
+		//user.setRole(Role.REGUSER);
 		userEditValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {
