@@ -4,16 +4,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ita.edu.softserve.manager.LinesManager;
-import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.entity.Responses;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ResponsesManager;
-import com.ita.edu.softserve.manager.StationOnLineManager;
-import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 
 @Controller
 public class ResponsesController {
@@ -60,6 +62,12 @@ public class ResponsesController {
 	@Autowired
 	private ResponsesManager responsesManager;
 
+	@Autowired
+	private UserNameService userNameService;
+	
+	@Autowired
+	private Validator responsesValidator;
+	
 	@RequestMapping(value = ROUTE_RESPONSES, method = RequestMethod.GET)
 	public String routeResponses(@PathVariable("routeId") Integer routeId,
 			Map<String, Object> modelMap) {
@@ -92,19 +100,23 @@ public class ResponsesController {
 	}
 
 	@RequestMapping(value = ADD_COMMENT, method = RequestMethod.GET)
-	public String addCommentPage(Map<String, Object> modelMap) {
+	public String addCommentPage(ModelMap modelMap) {
+		modelMap.addAttribute("responses", new Responses());
+
 		return ADD_COMMENT_JSP_PAGE;
 	}
 
 	@RequestMapping(value = ADD_COMMENT, method = RequestMethod.POST)
 	public String addComment(@PathVariable(TRIP_ID_PARAM) Integer tripId,
-			@ModelAttribute(COMMENT_TEXT_PARAM) String commentText,
-			Map<String, Object> modelMap) {
+			@ModelAttribute("responses") Responses responses,
+			BindingResult bindingResult, ModelMap modelMap) {
 
-		// here instead of 1, must be something like getCurrentUser{Logged},
-		// that
-		// returns Users Object or userId
-		responsesManager.addResponse(1, tripId, commentText);
+		responsesValidator.validate(responses, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			return ADD_COMMENT_JSP_PAGE;
+		}
+		responsesManager.addResponse(userNameService.getLoggedUserId(), tripId, responses.getComment());
 
 		return RESPONSES_INFO_JSP_PAGE;
 	}
