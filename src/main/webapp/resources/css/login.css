@@ -15,6 +15,7 @@ form#loginform {
 }
 form#loginform {color: #474747;}
 input#lsubmit, input#lcancel {
+	border: 1px solid #c8c8c8;
 	width: 120px;
 	font-size: 1.0em;
 	color: #474747;
@@ -115,13 +116,14 @@ form#loginform  input[type="password"] {
 }
 form#loginform  input[type="text"]:focus,
 form#loginform  input[type="password"]:focus {
-	-webkit-box-shadow: 0 0 2px #ed1c24 inset;
-	-moz-box-shadow: 0 0 2px #ed1c24 inset;
-	-ms-box-shadow: 0 0 2px #ed1c24 inset;
-	-o-box-shadow: 0 0 2px #ed1c24 inset;
-	box-shadow: 0 0 2px #ed1c24 inset;
-	background-color: #fff;
-	border: 1px solid #ed1c24;
+	-webkit-box-shadow: 0 0 2px #57bcff inset;
+	-moz-box-shadow: 0 0 2px #57bcff inset;
+	-ms-box-shadow: 0 0 2px #57bcff inset;
+	-o-box-shadow: 0 0 2px #57bcff inset;
+	box-shadow: 0 0 2px #57bcff inset;
+    	background-color: #F5F5F5;
+/*	border: 1px solid #57bcff;
+*/
 	outline: none;
 }
 #username { background-position: 10px 10px !important }

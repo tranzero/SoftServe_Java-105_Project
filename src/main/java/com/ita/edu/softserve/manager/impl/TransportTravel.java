@@ -2,11 +2,10 @@ package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashSet;
 
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 
 public class TransportTravel {
 
@@ -20,9 +19,7 @@ public class TransportTravel {
 
 	private Object duration;
 
-	private Object sDate;
-	
-	private Integer tripId;
+	private Trips trip;
 	
 	public TransportTravel() {
 		this.transport = null;
@@ -30,8 +27,7 @@ public class TransportTravel {
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
-		this.sDate = null;
-		this.tripId = null;
+		trip = null;
 	}
 
 	public TransportTravel(Transports transport) {
@@ -40,8 +36,7 @@ public class TransportTravel {
 		this.departureTime = null;
 		this.arrivalTime = null;
 		this.duration = null;
-		this.sDate = null;
-		this.tripId = null;
+		this.trip = null;
 	}
 
 	public TransportTravel(Transports transport, Object departureTime,
@@ -56,12 +51,11 @@ public class TransportTravel {
 		this.duration = duration;
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);
-		this.sDate = null;
-		this.tripId = null;
+		this.trip = null;
 	}
 
 	public TransportTravel(Transports transport, Object departureTime,
-			Object arrivalTime, Object duration, Object sDate, Integer tripId) {
+			Object arrivalTime, Object duration, Trips trip) {
 		this();
 		if (transport == null || departureTime == null || duration == null) {
 			return;
@@ -72,8 +66,7 @@ public class TransportTravel {
 		this.duration = duration;
 		this.arrivalTime = TransportTravel.sumTimes((Time) this.departureTime,
 				(Time) duration);
-		this.sDate = sDate;
-		this.tripId = tripId;
+		this.trip = trip;
 	}
 	
 	public Transports getTransport() {
@@ -96,6 +89,14 @@ public class TransportTravel {
 		return departureTime;
 	}
 
+	public Trips getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trips trip) {
+		this.trip = trip;
+	}
+
 	public void setDepartureTime(Time departureTime) {
 		this.departureTime = departureTime;
 	}
@@ -114,14 +115,6 @@ public class TransportTravel {
 
 	public void setDuration(Time duration) {
 		this.duration = duration;
-	}
-
-	public Integer getTripId() {
-		return tripId;
-	}
-
-	public void setTripId(Integer tripId) {
-		this.tripId = tripId;
 	}
 	
 	/*

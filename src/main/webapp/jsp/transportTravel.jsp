@@ -34,9 +34,9 @@
 					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
 							Duration</a></th>
-							
+
 					<c:if test="${not empty param.sDate}">
-						<th></th>
+						<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
 					</c:if>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
@@ -49,10 +49,15 @@
 						</td>
 						<td>${transport.getDuration()}</td>
 						<c:if test="${not empty param.sDate}">
-						
-						<td><a href = "/SoftServe_Java-105/reservationTicket/${transport.getTripId()}/1">Class 1</a> </td>
-						<td><a href = "/SoftServe_Java-105/reservationTicket/${transport.getTripId()}/2">Class 2</a> </td>
-						<td><a href = "/SoftServe_Java-105/reservationTicket/${transport.getTripId()}/3">Class 3</a> </td>
+							<td><a
+								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
+									1</a></td>
+							<td><a
+								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/2">Class
+									2</a></td>
+							<td><a
+								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
+									3</a></td>
 							<%-- <td><a
 								href="/SoftServe_Java-105/reservationTicket/${transport.getTripId()}"><input
 									type="button"

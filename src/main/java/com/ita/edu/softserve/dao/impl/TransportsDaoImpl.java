@@ -128,7 +128,8 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			String stationName2) {
 		Query query = entityManager
 				.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
-				.setParameter(1, stationName1).setParameter(2, stationName2);
+				.setParameter(1, "%" + stationName1 + "%")
+				.setParameter(2, "%" + stationName2 + "%");
 
 		return (List<TransportTravel>) query.getResultList();
 	}
@@ -148,14 +149,15 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		if (sDate == null || sDate.equals("")) {
 			query = entityManager
 					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
-					.setParameter(1, stationName1)
-					.setParameter(2, stationName2).setFirstResult(firstElement)
+					.setParameter(1, "%" + stationName1 + "%")
+					.setParameter(2, "%" + stationName2 + "%")
+					.setFirstResult(firstElement)
 					.setMaxResults(count);
 		} else {
 			query = entityManager
 					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS_AND_DATE)
-					.setParameter(1, stationName1)
-					.setParameter(2, stationName2)
+					.setParameter(1, "%" + stationName1 + "%")
+					.setParameter(2, "%" + stationName2 + "%")
 					.setParameter(3, java.sql.Date.valueOf(sDate))
 					.setFirstResult(firstElement).setMaxResults(count);
 		}

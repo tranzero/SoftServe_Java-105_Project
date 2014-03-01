@@ -9,7 +9,7 @@
     line-height: 44px;
     height: 44px;
     width: 970px;
-    background: #434343;
+    background-color: #333;
     border-left: 3px solid rgba(0, 0, 0, 0);
     color: #fff;
     display: block;
@@ -18,7 +18,6 @@
 }
 .menu li {
     padding: 0 25px;
-    background: none repeat scroll 0 0 #434343;
     min-width: 140px;
     z-index: 120;
 }
@@ -30,12 +29,11 @@
 
 .menu li:hover {
     background: none repeat scroll 0 0 #11ABB0;
-/*
+    transition: all 0.2s ease-out;
     -webkit-transition: all 0.2s ease-out;
     -moz-transition: all 0.2s ease-out;
     -ms-transition: all 0.2s ease-out;
     -o-transition: all 0.2s ease-out;
-*/
 }
 
 .menu a {
@@ -63,6 +61,11 @@
     opacity: 0;
 }
 .menu > li:hover .submenu li, .menu > li:focus .submenu li {
+    transition: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
     display: block;
     opacity: 1;
 }
