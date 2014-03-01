@@ -20,13 +20,23 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/jquery-ui.css" />">
 
-<script src="resources/js/jquery.min.js"></script>
-<script src="resources/js/jquery-ui.js"></script>
-<script src="resources/js/jquery.bootpag.js"></script>
-<script src="resources/js/initPaging.js"></script>
-<script src="resources/js/jquery.ui.datepicker-ua.js"></script>
-<script src="resources/js/jquery.ui.datepicker-es.js"></script>
+<script src="/SoftServe_Java-105/resources/js/jquery.min.js"></script>
+<script src="/SoftServe_Java-105/resources/js/jquery-ui.js"></script>
+<script src="/SoftServe_Java-105/resources/js/jquery.bootpag.js"></script>
+<script src="/SoftServe_Java-105/resources/js/initPaging.js"></script>
+<script src="/SoftServe_Java-105/resources/js/jquery.ui.datepicker-ua.js"></script>
+<script src="/SoftServe_Java-105/resources/js/jquery.ui.datepicker-es.js"></script>
 <script>
+function imagesLoader(){
+	var elementSelectorForResult = "div#imgUploadForm";
+	$.ajax({
+		async : false,
+		type: "POST",
+		url: "fileUploadForm"
+		}).done(function( msg ) {
+			$(elementSelectorForResult).html(msg);
+	});
+	}
 	function onPagingEvent(event, num, resultsPerPage) {
 		var elementSelectorForResult = "div#pagingcontent";
 		$
@@ -104,10 +114,11 @@
 				);
 
 	}
+	
 
 	$(document).ready(
 			function() {
-				
+				imagesLoader();
 				if ((typeof (defaultDomElement) != "undefined")
 						&& (typeof (defaultTargetPage) != "undefined")
 						&& (typeof (defaultGetData) != "undefined")) {
@@ -117,6 +128,7 @@
 				
 				initPageWithPaging('${maxPageCount}', '${sizeOfPaging}',
 						onPagingEvent, pageUrl);
+				
 			});
 </script>
 </head>

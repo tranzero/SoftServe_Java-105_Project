@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset= UTF-8"
+<%@ page language="java" contentType="text/html; charset= UTF 8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <section id="content">
+<div id="imgUploadForm"></div>		
 	
-	
-	<form id="editnews" method="post" name="/editnews">
+	<form id="editnews" method="post" name="updatenews" action="updatenews">
 		<div>
+		<p>Image name</p>
+		<input id="fileName" name="fileName" type="text" size="50" maxlength="100" value="${post.getImgSrc()}" >
 		<input id="idTitle" type="hidden" name="idTitle" size="10" maxlength="10" value = "${post.getPostId()}">
 		
 		<p><spring:message code="label.navigation.editNews.title"/></p>

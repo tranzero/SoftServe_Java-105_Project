@@ -40,7 +40,8 @@ import com.ibm.icu.text.SimpleDateFormat;
 	private String description;
 
 	@Column(name = "DATE", nullable = true, length = 60)
-	private String date;
+	@GeneratedValue
+	private Date date;
 	
 	@Column(name = "IMGSRC", nullable = true, length = 60)
 	private String imgSrc;
@@ -86,15 +87,13 @@ import com.ibm.icu.text.SimpleDateFormat;
 	}
 
 	public String getDate() {
-		return date;
+		String formatDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+		.format(this.date);
+		return formatDate;
 	}
 
 	public void setDate() {
-
-		String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
-				.format(new Date());
-
-		this.date = date;
+		this.date = new Date();
 	}
 	
 	/**

@@ -63,14 +63,14 @@ span.flag {
 }
 
 a, a:link, a:active {
-	color: #464646;
+	color: #1E0FBE;
 	-moz-transition:  color 0.3s linear 0s;
 	-webkit-transition:  color 0.3s linear 0s;
 	transition:  color 0.3s linear 0s;	
 	text-decoration:none;
 }
 a:visited {
-	color: #464646;
+	color: #003366;
 } 
 
 a:hover{
@@ -293,4 +293,16 @@ em.star {
 
 .clear {
 	clear: both;
+}
+
+#newsIdForm {
+    background-color: #E6E6E6;
+    border: 0 none;
+    border-radius: 0;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: inherit;
+    margin: -10%;
+    min-width: 0;
+    padding: 0;
+    text-decoration: none;
 }

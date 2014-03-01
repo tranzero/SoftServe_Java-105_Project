@@ -19,10 +19,10 @@
 <!-- 						<div class="news_content_secondary"> -->
 <%-- 				</c:otherwise> --%>
 <%-- 			</c:choose> --%>
-			<div class="news_img"><img src="${mainImgPath}${News.getImgSrc()}"/></div>
+			<div class="news_img"><img src="file:///${mainImgPath}${News.getImgSrc()}"/></div>
 			<div class="news_title"><a href="detailsnews/${News.getPostId()}">${News.getTitle()}</a></div>
 			<div class="news_date">${News.getDate()}</div>
-			<div class="news_description">${News.getDescription().substring(0, News.getDescription().length()/2)}
+			<div class="news_description">${News.getDescription().substring(0, News.getDescription().length()/3.5)}
 				<a href="detailsnews/${News.getPostId()}">Details...</a>
 			</div>
 	</div>
