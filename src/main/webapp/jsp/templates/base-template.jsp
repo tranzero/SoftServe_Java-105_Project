@@ -13,12 +13,14 @@
 	type="text/css" />
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
-<link rel="stylesheet" href="<c:url value="/resources/css/news.css" />">
-<link rel="stylesheet" href="<c:url value="/resources/css/login.css" />">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/paging.css" />">
+	href="<c:url value="/resources/css/news.css" />" type="text/css" />
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/jquery-ui.css" />">
+	href="<c:url value="/resources/css/login.css" />" type="text/css" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/paging.css" />" type="text/css" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/jquery-ui.css" />" type="text/css" />
 
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/jquery-ui.js"></script>
@@ -49,39 +51,35 @@
 				});
 	}
 
-	function clone(obj){
-		return JSON.parse(JSON.stringify(obj));		
+	function clone(obj) {
+		return JSON.parse(JSON.stringify(obj));
 	}
 
-	jQuery.fn.ForceNumericOnly =
-		function()
-		{
-		    return this.each(function()
-		    {
-		        $(this).keydown(function(e)
-		        {
-		            var key = e.charCode || e.keyCode || 0;
-		            return (
-		                key == 8 ||
-		                key == 9 ||
-		                key == 46 ||
-		                (key >= 37 && key <= 40) ||
-		                (key >= 48 && key <= 57) ||
-		                (key >= 96 && key <= 105));
-		        });
-		    });
-		};
-	
-	
+	jQuery.fn.ForceNumericOnly = function() {
+		return this
+				.each(function() {
+					$(this)
+							.keydown(
+									function(e) {
+										var key = e.charCode || e.keyCode || 0;
+										return (key == 8 || key == 9
+												|| key == 46
+												|| (key >= 37 && key <= 40)
+												|| (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+									});
+				});
+	};
+
 	function serialize(object) {
-		  var strings = [];
-		  for(var prop in object)
-		    if (object.hasOwnProperty(prop)) {
-		    	strings.push(encodeURIComponent(prop) + "=" + encodeURIComponent(object[prop]));
-		    }
-		  return strings.join("&");
-		}
-	
+		var strings = [];
+		for ( var prop in object)
+			if (object.hasOwnProperty(prop)) {
+				strings.push(encodeURIComponent(prop) + "="
+						+ encodeURIComponent(object[prop]));
+			}
+		return strings.join("&");
+	}
+
 	function ajaxLoader(domElement, targetPage, getData) {
 		$
 				.ajax(
@@ -97,7 +95,7 @@
 							data : getData
 
 						}).done(function(msg) {
-					defaultGetData=clone(getData);
+					defaultGetData = clone(getData);
 					$(domElement).html(msg);
 				}
 
@@ -107,14 +105,14 @@
 
 	$(document).ready(
 			function() {
-				
+
 				if ((typeof (defaultDomElement) != "undefined")
 						&& (typeof (defaultTargetPage) != "undefined")
 						&& (typeof (defaultGetData) != "undefined")) {
-					ajaxLoader(defaultDomElement, defaultTargetPage, defaultGetData);
-					}
-					
-				
+					ajaxLoader(defaultDomElement, defaultTargetPage,
+							defaultGetData);
+				}
+
 				initPageWithPaging('${maxPageCount}', '${sizeOfPaging}',
 						onPagingEvent, pageUrl);
 			});

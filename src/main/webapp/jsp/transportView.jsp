@@ -3,25 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-	<!-- JS for table sorting -->
-  <link rel="shortcut icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
-  <link rel="icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+<!-- JS for table sorting -->
+<link rel="shortcut icon"
+	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+<link rel="icon"
+	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
 <!--   <link rel="stylesheet" type="text/css" media="all" href="resources/css/styles.css"> -->
-  <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
-  <script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
-	
-	<!-- JS for table searching -->
-	<script src="resources/js/jquery.searcher.js"></script>
-	
-<p align="right"><b><spring:message code="label.transport.tableSearchInput"/></b>
-	<input id="tableSearchInput" type="text" /></p>
-	
+<script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/jquery.tablesorter.min.js"></script>
+
+<!-- JS for table searching -->
+<script src="resources/js/jquery.searcher.js"></script>
+
 <section id="content">
+
+	<p>
+		<label for="tableSearchInput"><spring:message
+				code="label.transport.tableSearchInput" /></label> <input
+			id="tableSearchInput" type="text" />
+	</p>
 
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
-	
+
 	<div id="pagingcontent">
 		<table style="align: center" id="transportTable">
 			<thead>
@@ -101,25 +107,27 @@
 			</ul>
 		</div>
 	</div>
-			<script>
+	<script>
 		function showTransportPage(pageNumber_, resultsPerPage_) {
 
-			$.ajax({
-				async : true,
-				beforeSend : function() {
-					$("div#result")
-					.html(
-							'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-					},
-					type : "GET",
-					url : "transportpageView",
-					data : {
-						pageNumber : pageNumber_,
-						resultsPerPage : resultsPerPage_
-						}
-					}).done(function(msg) {
+			$
+					.ajax(
+							{
+								async : true,
+								beforeSend : function() {
+									$("div#result")
+											.html(
+													'_$tag_______________________________________________________');
+								},
+								type : "GET",
+								url : "transportpageView",
+								data : {
+									pageNumber : pageNumber_,
+									resultsPerPage : resultsPerPage_
+								}
+							}).done(function(msg) {
 						$("div#result").html(msg);
-						});
+					});
 		}
 
 		$(window).load(function() {
@@ -127,9 +135,8 @@
 			showTransportPage("${pageNumber}", "${resultsPerPage}");
 
 		});
-		
 	</script>
-	
+
 	<!-- JS for table sorting -->
 	<script type="text/javascript">
 		$(function() {
@@ -144,6 +151,5 @@
 		// itemSelector (tbody > tr) and textSelector (td) already have proper default values
 		});
 	</script>
-	
+
 </section>
- 

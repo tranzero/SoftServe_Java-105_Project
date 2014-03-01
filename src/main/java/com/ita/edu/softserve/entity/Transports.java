@@ -92,16 +92,16 @@ public class Transports extends BaseEntity {
 			+ "WHERE t.routes.routeId in "
 			+ "(SELECT s1.routeId.routeId "
 			+ "FROM Stops s1, Stops s2 "
-			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
-			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName LIKE ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName LIKE ?2 "
 			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId "
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum"
-			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
+			+ ") and (sol.stationId.stationName LIKE ?1 or sol.stationId.stationName LIKE ?2) "
 			+ "GROUP BY t.transportId";
 	
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE = "Transports.findByTwoStationsAndDate";
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY ="SELECT "
-			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr.startDate, tr.tripId) " 
+			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr) " 
 			+ "FROM Trips tr "  
 			+ "JOIN tr.transport t " 
 			+ "JOIN t.routes r " 
@@ -111,13 +111,13 @@ public class Transports extends BaseEntity {
 			+ "WHERE tr.transport.routes.routeId in " 
 			+ "(SELECT s1.routeId.routeId "
 			+ "FROM Stops s1, Stops s2 "
-			+ "WHERE s1.stationOnLineId.stationId.stationName = ?1 "
-			+ "and s2.stationOnLineId.stationId.stationName = ?2 "
+			+ "WHERE s1.stationOnLineId.stationId.stationName LIKE ?1 "
+			+ "and s2.stationOnLineId.stationId.stationName LIKE ?2 "
 			+ "and s1.stationOnLineId.lineId.lineId = s2.stationOnLineId.lineId.lineId " 
 			+ "and s2.stationOnLineId.stationOrderNum > s1.stationOnLineId.stationOrderNum "
 			+ "and tr.startDate = ?3"
-			+ ") and (sol.stationId.stationName=?1 or sol.stationId.stationName=?2) "
-			+ "GROUP BY t.transportId"; 	
+			+ ") and (sol.stationId.stationName LIKE ?1 or sol.stationId.stationName LIKE ?2) "
+			+ "GROUP BY tr.tripId"; 	
 /*
 	public static final String FIND_BY_TS_ORDER_BY_LNAME = "Transports.findByTSOrderByLName";
     public static final String FIND_BY_TS_ORDER_BY_LNAME_QUERY ="SELECT "
