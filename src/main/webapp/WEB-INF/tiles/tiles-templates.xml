@@ -30,6 +30,10 @@
 		<put-attribute name="title" value="View: Add News" />
 		<put-attribute name="content" value="/jsp/addnews.jsp" />
 	</definition>
+	<definition name="editnews" extends="base-template">
+		<put-attribute name="title" value="View: Edit News" />
+		<put-attribute name="content" value="/jsp/editnews.jsp" />
+	</definition>
 	<definition name="mainpagepost" extends="ajax">
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />

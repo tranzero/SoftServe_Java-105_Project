@@ -1,10 +1,11 @@
 body {
-        background: url("../images/content_bg.png") repeat-x scroll 0 0 #D2D1D0;
-	font-family: Helvetica,arial,freesans,clean,sans-serif;;
+    background: url("../images/content_bg.png") repeat-x scroll 0 0 #D2D1D0;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	font-weight: 200;
 	color: #343434;
 }
+
 /* layout end */
 #generate:after {
 	counter-increment: n;
@@ -62,14 +63,14 @@ span.flag {
 }
 
 a, a:link, a:active {
-	color: #464646;
+	color: #1E0FBE;
 	-moz-transition:  color 0.3s linear 0s;
 	-webkit-transition:  color 0.3s linear 0s;
 	transition:  color 0.3s linear 0s;	
 	text-decoration:none;
 }
 a:visited {
-	color: #464646;
+	color: #003366;
 } 
 
 a:hover{
@@ -209,7 +210,7 @@ input[type="submit"]:hover,
 input[type="submit"]:focus,
 input[type="button"]:hover,
 input[type="button"]:focus {
-    cursor: pointer;
+	cursor: pointer;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000',GradientType=0);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.10)));
     background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
@@ -293,3 +294,16 @@ em.star {
 .clear {
 	clear: both;
 }
+
+#newsIdForm {
+    background-color: #E6E6E6;
+    border: 0 none;
+    border-radius: 0;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: inherit;
+    margin: -10%;
+    min-width: 0;
+    padding: 0;
+    text-decoration: none;
+}
+

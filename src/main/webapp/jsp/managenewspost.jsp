@@ -14,6 +14,7 @@
 	<th><spring:message code="label.navigation.news.title"/></th>
 	<th><spring:message code="label.navigation.news.description"/></th>
 	<th><spring:message code="label.navigation.news.data"/></th>
+	<th><spring:message code="label.navigation.news.img"/></th>
 	<th></th>
 	<th></th>	
 	</tr>
@@ -22,12 +23,25 @@
 	<c:forEach var="News" items="${newsList}">
 		<tr>
 			<td>${News.getTitle()}</td>
-			<td>${News.getDescription()}
+			<td>${News.getDescription().substring(0, News.getDescription().length()/4)}
 				<a href="detailsnews/${News.getPostId()}">Details...</a>
 			</td>
 			<td>${News.getDate()}</td>
-			<td><a href='editnews/${News.getPostId()}'><input id="editnews" type="button" name="editnews" value='<spring:message code="label.edit"/>'></a></td>
-			<td><a href='delnews/${News.getPostId()}'><input id="delnews" type="button" name="delnewsr" value="<spring:message code="label.delete"/>"></a></td>
+			<td>${mainImgPath}${News.getImgSrc()}</td>
+			<td>
+				<form id="newsIdForm" method="post" 
+   						name="newsIdForm" action="editnews">  
+   					<input id="newsId" type="hidden" name="newsId" value="${News.getPostId()}" />
+     				<input id="newsIdButton" type="submit" value='<spring:message code="label.edit"/>' /> 
+  				</form> 
+			</td>
+			<td>
+			<form id="newsIdDelForm" method="post" 
+   						name="newsIdForm" action="delnews">  
+   					<input id="newsId" type="hidden" name="newsId" value="${News.getPostId()}" />
+     				<input id="newsIdButton" type="submit" value='<spring:message code="label.delete"/>' />
+  				</form> 
+			</td>
 		</tr>
 	</c:forEach>
 	</tbody>

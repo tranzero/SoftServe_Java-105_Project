@@ -31,7 +31,7 @@ public class UploadController {
 	@Autowired
 	PropertiesManager propertyManager;
 
-	@RequestMapping(value ="/fileUploadForm", method=RequestMethod.POST)
+	@RequestMapping(value ="fileUploadForm", method=RequestMethod.POST)
 	public String getUploadForm(
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result) {

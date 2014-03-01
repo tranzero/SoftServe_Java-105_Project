@@ -2,19 +2,6 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<script type="text/javascript">
-$(window).load(function() {
-	var elementSelectorForResult = "div#imgUploadForm";
-	$.ajax({
-		async : false,
-		type: "POST",
-		url: "fileUploadForm"
-		}).done(function( msg ) {
-			$(elementSelectorForResult).html(msg);
-	});
-});
-
-</script>
 <section id="content">
 <div id="imgUploadForm"></div>	
 	

@@ -14,55 +14,55 @@ import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 import com.ita.edu.softserve.manager.PropertiesManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
-import com.ita.edu.softserve.utils.property.PreferenceUtil;
 
 @Controller
 public class IndexPageController {
 
 	// modelMap String Keys
-	final String pageNumberKey = "pageNumber";
+	final static String pageNumberKey = "pageNumber";
 
-	final String sizeOfPagingKey = "sizeOfPaging";
-	final String maxPageCountKey = "maxPageCount";
-	final String maxResultCountKey = "maxResultCount";
-	final String newsListKey = "newsList";
-	final String newsNameListKey = "post";
-	final String postNameListKey = "News";
+	final static String sizeOfPagingKey = "sizeOfPaging";
+	final static String maxPageCountKey = "maxPageCount";
+	final static String maxResultCountKey = "maxResultCount";
+	final static String newsListKey = "newsList";
+	final static String newsNameListKey = "post";
+	final static String postNameListKey = "News";
+	final static String mainImgPathKey = "mainImgPath";
 
 	// RequesMapping input & output String value
-	final String mainPageInGet = "/mainpage";
-	final String mainPageOutGet = "mainpage";
-	final String resultOut = "result";
-	final String mainPageInPost = "/mainpagepost";
-	final String mainPageOutPost = "mainpagepost";
-	final String managePageNewsInGet = "/managenews";
-	final String managePageNewsGet = "managenews";
-	final String managePageNewsInPost = "/managenewspost";
-	final String managePageNewsOutPost = "managenewspost";
-	final String addNewsInGet = "/addnews";
-	final String addNewsOutGet = "addnews";
-	final String addNewsInPost = "/addnews";
-	final String addNewsOutPost = "redirect:/managenews";
-	final String delNewsInGet = "/delnews/{delnews}";
-	final String delNewsGet = "redirect:/managenews";
-	final String editNewsRedirectGet = "/editnews/managenews";
-	final String editNewsRedirectOutGet = "redirect:/managenews";
-	final String editNewsInGet = "editnews/{editnews}";
-	final String editNewsGet = "editnews";
-	final String editNewsPost = "redirect:/managenews";
-	final String detailsNewsInGet = "/detailsnews/{detailsId}";
-	final String detailsNewsGet = "detailsnews";
-	final String resultsPerPageKey = "/errorinput";
+	final static String mainPageInGet = "/mainpage";
+	final static String mainPageOutGet = "mainpage";
+	final static String resultOut = "result";
+	final static String mainPageInPost = "/mainpagepost";
+	final static String mainPageOutPost = "mainpagepost";
+	final static String managePageNewsInGet = "/managenews";
+	final static String managePageNewsGet = "managenews";
+	final static String managePageNewsInPost = "/managenewspost";
+	final static String managePageNewsOutPost = "managenewspost";
+	final static String addNewsInGet = "/addnews";
+	final static String addNewsOutGet = "addnews";
+	final static String addNewsInPost = "/addnews";
+	final static String addNewsOutPost = "redirect:/managenews";
+	final static String delNewsIn = "delnews";
+	final static String delNewsGet = "redirect:/managenews";
+	final static String editNewsRedirectOutGet = "redirect:/managenews";
+	final static String editNewsIn = "editnews";
+	final static String updateNews = "updatenews";
+	final static String editNewsPostOut = "redirect:/managenews";
+	final static String detailsNewsInGet = "/detailsnews/{detailsId}";
+	final static String detailsNewsGet = "detailsnews";
+	final static String resultsPerPageKey = "/errorinput";
 
 	// Request params Keys
-	final String requestParamPageNumber = "pageNumber";
-	final String requestParamResultsPerPage = "resultsPerPage";
-	final String modelAttributeNewsTitle = "newsTitle";
-	final String modelAttributeIdTitle = "idTitle";
-	final String modelAttributeNewsDescription = "newsDescription";
-	final String pathVariableDelnews = "delnews";
-	final String pathVariableEditnews = "editnews";
-	final String pathVariableDetailsId = "detailsId";
+	final static String requestParamPageNumber = "pageNumber";
+	final static String requestParamResultsPerPage = "resultsPerPage";
+	final static String modelAttributeNewsTitle = "newsTitle";
+	final static String modelAttributeIdTitle = "idTitle";
+	final static String modelAttributeNewsDescription = "newsDescription";
+	final static String modelAttributeEditnews = "newsId";
+	final static String modelAttributefileName = "fileName";
+	final static String pathVariableDelnews = "delnews";
+	final static String pathVariableDetailsId = "detailsId";
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
@@ -102,8 +102,7 @@ public class IndexPageController {
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
-		modelMap.put("mainImgPath", propertyManager.getImgPath());
-		System.out.println(propertyManager.getImgPath());
+		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
 		return mainPageOutPost;
 
 	}
@@ -137,8 +136,7 @@ public class IndexPageController {
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
-		
-
+		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
 		return managePageNewsOutPost;
 
 	}
@@ -152,49 +150,42 @@ public class IndexPageController {
 	public String addNewsToBD(
 			@ModelAttribute(modelAttributeNewsTitle) String newsTitle,
 			@ModelAttribute(modelAttributeNewsDescription) String newsDescription,
-			@ModelAttribute("fileName") String fileName,
+			@ModelAttribute(modelAttributefileName) String fileName,
 			Map<String, Object> modelMap) {
 
 		posts.createNews(newsTitle, newsDescription, fileName);
 		return addNewsOutPost;
 	}
 
-	@RequestMapping(value = delNewsInGet, method = RequestMethod.GET)
-	public String delNews(@PathVariable(pathVariableDelnews) Integer postId,
-			Map<String, Object> map) {
+	@RequestMapping(value = delNewsIn, method = RequestMethod.POST)
+	public String delNews(@ModelAttribute(modelAttributeEditnews) Integer postId) {
 
 		posts.removeNews(postId);
 		return delNewsGet;
 
 	}
 
-	@RequestMapping(value = editNewsRedirectGet, method = RequestMethod.GET)
-	public String cancelAction() {
-
-		return editNewsRedirectOutGet;
-	}
-
-	@RequestMapping(value = editNewsInGet, method = RequestMethod.GET)
-	public String editNews(@PathVariable(pathVariableEditnews) Integer postId,
+		@RequestMapping(value = editNewsIn, method = RequestMethod.POST)
+	public String editNewsPost(@ModelAttribute(modelAttributeEditnews) Integer postId,
 			Map<String, Object> modelMap) {
 
 		Post post;
 		post = posts.findNews(postId);
 		modelMap.put(newsNameListKey, post);
-		return editNewsGet;
+		return editNewsIn;
 	}
-
-	@RequestMapping(value = editNewsInGet, method = RequestMethod.POST)
+		
+	@RequestMapping(value = updateNews, method = RequestMethod.POST)
 	public String updateNewsToBD(
+			@ModelAttribute(modelAttributefileName) String filename,
 			@ModelAttribute(modelAttributeIdTitle) Integer newsId,
 			@ModelAttribute(modelAttributeNewsTitle) String newsTitle,
 			@ModelAttribute(modelAttributeNewsDescription) String newsDescription,
-			@ModelAttribute("filename") String filename,
 			Map<String, Object> modelMap) {
 
 		posts.updateNews(newsId, newsTitle, newsDescription, filename);
 
-		return editNewsPost;
+		return editNewsPostOut;
 	}
 
 	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.GET)
@@ -205,7 +196,7 @@ public class IndexPageController {
 		Post post;
 		post = posts.findNews(postId);
 		modelMap.put(postNameListKey, post);
-
+		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
 		return detailsNewsGet;
 	}
 
