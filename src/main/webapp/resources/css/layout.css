@@ -202,6 +202,16 @@ footer {
 footer a:link {
 	color: #999;
 }
+footer a:active {
+	color: #999;
+}
+footer a:visited {
+	color: #999;
+}
+footer a:hover {
+	color: #d1d1d1;
+}
+
 footer ul li{
 	list-style-type: none;
 	padding-bottom: 8px;
@@ -258,7 +268,7 @@ li.github_block:hover {
 }
 
 #footer_col {
-	padding-right: 8%;
+	padding-right: 6%;
 	display: block;
 	float: left;
 }
@@ -300,4 +310,24 @@ footer#footer div#footer_primary div#container{
 #footer_secondary #footer_second_col {
 	float: right;
 	padding-right: 200px;
+}
+
+span.icon_f {
+	display: inline-block;
+	margin-left: 10px;
+}
+.tw_icon_f {
+        background: url("../images/icons.png") no-repeat -39px 0;	
+        height: 15px;
+        width: 16px;
+}
+.fb_icon_f {
+        background: url("../images/icons.png") no-repeat -60px 0;	
+        height: 17px;
+        width: 9px;
+}
+.rss_icon_f {
+        background: url("../images/icons.png") no-repeat -73px 0;	
+        height: 14px;
+        width: 14px;
 }

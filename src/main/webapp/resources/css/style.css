@@ -164,9 +164,10 @@ table#tableUsers th,td{
     max-width: 100px;
     word-wrap:break-word;
 }
-table .table th,td{
+table.table th, td {
     max-width: 80px;
 }
+
 /* TABLE FORM STYLES */
 
 /* TABLE FORM STYLES END */

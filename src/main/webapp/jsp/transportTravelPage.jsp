@@ -9,20 +9,23 @@
 	<hr />
 	<table>
 		<tr>
-			<th>Number</th>
+			<th>N</th>
 			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '${param.sDate}', '1')">
-					Station / Stop</a></th>
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
+					<spring:message code="label.transportTravel.stationStop" />
+			</a></th>
 			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '${param.sDate}', '2')">
-					Number</a></th>
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
+					<spring:message code="label.transportTravel.number" />
+			</a></th>
 			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '${param.sDate}', '3')">
-					Departure / Arrival time</a></th>
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
+					<spring:message code="label.transportTravel.depArr" />
+			</a></th>
 			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '${param.sDate}', '4')">
-					Duration</a></th>
-
+				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
+					<spring:message code="label.transportTravel.duration" />
+			</a></th>
 			<c:if test="${not empty param.sDate}">
 				<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
 			</c:if>
@@ -32,9 +35,9 @@
 				<td id="generate"></td>
 				<td>${transport.getLineName()}</td>
 				<td>${transport.getTransport().getTransportCode()}</td>
-				<td>dep ${transport.getDepartureTime()}<br />arr
-					${transport.getArrivalTime()}
-				</td>
+				<td><spring:message code="label.transportTravel.dep" />
+					${transport.getDepartureTime()}<br /> <spring:message
+						code="label.transportTravel.arr" /> ${transport.getArrivalTime()}</td>
 				<td>${transport.getDuration()}</td>
 				<c:if test="${not empty param.sDate}">
 					<td><a
