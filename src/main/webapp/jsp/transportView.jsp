@@ -15,7 +15,41 @@
 
 <!-- JS for table searching -->
 <script src="resources/js/jquery.searcher.js"></script>
+<style>
+/* #transportTable {
+  margin: 0 auto;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
 
+#transportTable thead {
+  cursor: pointer;
+  background: #c9dff0;
+}
+#transportTable thead tr th { 
+  font-weight: bold;
+  padding: 12px 30px;
+  padding-left: 42px;
+} */
+#transportTable thead tr th span {
+	padding-right: 20px;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+}
+
+#transportTable thead tr th.headerSortUp,#transportTable thead tr th.headerSortDown
+	{
+	background: #acc8dd;
+}
+
+#transportTable thead tr th.headerSortUp span {
+	background-image: url('resources/images/up-arrow.png');
+}
+
+#transportTable thead tr th.headerSortDown span {
+	background-image: url('resources/images/down-arrow.png');
+}
+</style>
 <section id="content">
 
 	<p>
@@ -32,14 +66,14 @@
 		<table style="align: center" id="transportTable">
 			<thead>
 				<tr>
-					<th><spring:message code="label.transport.transportcode" /></th>
-					<th><spring:message code="label.transport.starttime" /></th>
-					<th><spring:message code="label.routes.routecode" /></th>
-					<th><spring:message code="label.lines.linename" /></th>
-					<th><spring:message code="label.transport.seatclass1" /></th>
-					<th><spring:message code="label.transport.seatclass2" /></th>
-					<th><spring:message code="label.transport.seatclass3" /></th>
-					<th><spring:message code="label.transport.genprice" /></th>
+					<th><span><spring:message code="label.transport.transportcode" /></span></th>
+					<th><span><spring:message code="label.transport.starttime" /></span></th>
+					<th><span><spring:message code="label.routes.routecode" /></span></th>
+					<th><span><spring:message code="label.lines.linename" /></span></th>
+					<th><span><spring:message code="label.transport.seatclass1" /></span></th>
+					<th><span><spring:message code="label.transport.seatclass2" /></span></th>
+					<th><span><spring:message code="label.transport.seatclass3" /></span></th>
+					<th><span><spring:message code="label.transport.genprice" /></span></th>
 				</tr>
 			</thead>
 			<tbody>
