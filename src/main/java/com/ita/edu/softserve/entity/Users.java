@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -111,6 +112,9 @@ public class Users extends BaseEntity {
 		this.regDate = regDate;
 	}
 
+	@Transient
+	public String confirmPassword;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "enum('REGUSER','MANAGER', 'ADMIN')")
 	private Role role;
@@ -200,8 +204,7 @@ public class Users extends BaseEntity {
 	 * @param userName
 	 *            the userName to set
 	 */
-	private void setUserName(String userName) {
-		Assert.hasText(userName, "Username must not be empty!");
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
@@ -247,7 +250,6 @@ public class Users extends BaseEntity {
 	 *            the eMail to set
 	 */
 	public void setEmail(String email) {
-		Assert.hasText(email, "Email adress must not be empty!");
 		this.email = email;
 	}
 
@@ -263,7 +265,6 @@ public class Users extends BaseEntity {
 	 *            the passwd to set
 	 */
 	public void setPassword(String password) {
-		// Assert.hasText(passwd, "Password must not be empty!");
 		this.password = password;
 	}
 
@@ -289,6 +290,14 @@ public class Users extends BaseEntity {
 		return role;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 	/**
 	 * @param role
 	 *            the role to set
@@ -315,4 +324,6 @@ public class Users extends BaseEntity {
 		return new EqualsBuilder().append(userName, other.userName)
 				.append(userId, other.userId).isEquals();
 	}
+
+
 }
