@@ -36,8 +36,7 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 	}
 
 	/**
-	 * Saves a Station into table if not exist or update
-	 * existing one.
+	 * Saves a Station into table if not exist or update existing one.
 	 * 
 	 * @param entity
 	 *            the entity to save or update into Stations table.
@@ -78,6 +77,7 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		return Stations.class;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Stations> findByLineName(String lineName) {
 		Query query = entityManager
@@ -85,5 +85,29 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 						lineName);
 		List<Stations> list = query.getResultList();
 		return list;
+	}
+
+	@Override
+	public long getStationsListCriteriaCount(String searchString) {
+		Query query = entityManager.createNamedQuery(
+				Stations.GET_COUNT_STATIONS_WITH_CRITERIA).setParameter(
+				Stations.SEARCH_STRING, searchString);
+
+		return (long) find(query);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stations> getStationsForOnePageWithCriteria(int firstElement,
+			int count, String searchString, String orderByParam,
+			String orderByDirection) {
+
+		Query query = entityManager
+				.createQuery(
+						Stations.FIND_STATIONS_LIST_BY_CRITERIA + orderByParam
+								+ " " + orderByDirection)
+				.setParameter(Stations.SEARCH_STRING, searchString)
+				.setFirstResult(firstElement).setMaxResults(count);
+		return (List<Stations>) query.getResultList();
 	}
 }

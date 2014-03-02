@@ -2,6 +2,7 @@ package com.ita.edu.softserve.manager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.utils.StaticValidator;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 
 /**
  * This is station service class.
@@ -66,6 +70,11 @@ public class StationsManagerImpl implements StationsManager {
 	 * Constructor without arguments.
 	 */
 	public StationsManagerImpl() {
+	}
+	
+	
+	public static StationsManager getInstance() {
+		return ManagerFactory.getManager(StationsManager.class);
 	}
 
 	/**
@@ -290,9 +299,55 @@ public class StationsManagerImpl implements StationsManager {
 			throw ex;
 		}
 	}
-
-	public static StationsManager getInstance() {
-		return ManagerFactory.getManager(StationsManager.class);
+	
+	
+	@Override
+	public void validateStationListCriteria(
+			StationsCriteriaContainer stationsCriteriaContainer, Locale locale) {
+		StaticValidator.validateStationListCriteria(stationsCriteriaContainer, locale);
 	}
+	
+	@Override
+	public long getStationsListCountWithCriteria(String searchString) {
+
+		return stationDao.getStationsListCriteriaCount(searchString);
+	}
+
+	@Override
+	public long getStationsListCountUsingContainer(
+			StationsCriteriaContainer stationsCriteriaContainer) {
+
+		return getStationsListCountWithCriteria("%"
+				+ stationsCriteriaContainer.getSearchString() + "%");
+	}
+
+	@Override
+	public List<Stations> getStationsForLimitUsingContainers(
+			StationsCriteriaContainer stationsCriteriaContainer,
+			PageInfoContainer container) {
+		return getStationsForPageWithCriteria(container.getPageNumber(),
+				container.getResultsPerPage(),
+				"%" + stationsCriteriaContainer.getSearchString() + "%",
+				stationsCriteriaContainer.getOrderByParam(),
+				stationsCriteriaContainer.getOrderByDirection());
+	}
+
+	@Override
+	public List<Stations> getStationsForLimitWithCriteria(int firstElement,
+			long count, String searchString, String orderByParam,
+			String orderByDirection) {
+		return stationDao.getStationsForOnePageWithCriteria(firstElement,
+				(int) count, searchString, orderByParam, orderByDirection);
+
+	}
+
+	@Override
+	public List<Stations> getStationsForPageWithCriteria(int pageNumber, long count,
+			String searchString, String orderByParam, String orderByDirection) {
+		return getStationsForLimitWithCriteria((int) ((pageNumber - 1) * count),
+				count, searchString, orderByParam,
+				orderByDirection);
+	}
+
 
 }
