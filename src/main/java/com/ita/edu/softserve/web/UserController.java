@@ -144,42 +144,10 @@ public class UserController {
 		return "userListPage";
 	}
 
-	/**
-	 * Update user to DB - RequestMethod.GET
-	 * 
-	 * @param usId
-	 * @param modelMap
-	 * @return userEdit
-	 */
-	/*
-	 * @RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
-	 * public String editUser(@PathVariable("user") Integer usId, Map<String,
-	 * Object> modelMap) { Users user = usersmanage.findUser(usId);
-	 * modelMap.put("user", user); return "userEdit"; }
-	 */
+	
 
-	/**
-	 * // * Update user to DB - RequestMethod.POST
-	 * 
-	 * @param userId
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param parole
-	 * @param role
-	 * @return userEdit
-	 */
-	/*
-	 * @RequestMapping(value = "/userEdit/userEdit.htm", method =
-	 * RequestMethod.POST) public String updateUserToDB(@ModelAttribute("user")
-	 * Users user, BindingResult bindingResult, ModelMap modelMap) {
-	 * user.setRole(Role.REGUSER); userEditValidator.validate(user,
-	 * bindingResult);
-	 * 
-	 * if (bindingResult.hasErrors()) { modelMap.put("user", user); return
-	 * "userEdit"; } usersmanage.saveOrUpdateUser(user); return
-	 * "redirect:/userlist"; }
-	 */
+	
+	
 
 	/**
 	 * updateUserToDB2 - RequestMethod.GET
@@ -244,15 +212,6 @@ public class UserController {
 		return "redirect:/mainpage";
 	}
 
-	/*
-	 * // ------------------------------------------------------- // for
-	 * Validator
-	 * 
-	 * @InitBinder public void initBinder(WebDataBinder binder) {
-	 * binder.setValidator(userEditValidator);
-	 * binder.registerCustomEditor(Role.class, new RoleEditor());
-	 * 
-	 * }
-	 */
+	
 
 }

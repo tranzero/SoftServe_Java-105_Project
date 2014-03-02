@@ -51,13 +51,121 @@ public class UserControllerPg {
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
-	
-	
+
 	@Autowired
 	Validator userEditValidator;
 
+	// ----userEdit Validator---------------------------------
 	/**
-	 * For paging userList
+	 * Update user to DB - RequestMethod.GET
+	 * 
+	 * @param usId
+	 * @param modelMap
+	 * @return userEdit
+	 */
+	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
+	public String editUser(@PathVariable("user") Integer usId,
+			Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(usId);
+		modelMap.put("user", user);
+		return "userEdit";
+	}
+
+	/**
+	 *  Update user to DB - RequestMethod.POST
+	 * 
+	 * @param userId
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param parole
+	 * @param role
+	 * @return userEdit
+	 */
+	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
+	public String updateUserToDB(@ModelAttribute("user") Users user,
+			BindingResult bindingResult, ModelMap modelMap) {
+		// user.setRole(Role.REGUSER);
+		userEditValidator.validate(user, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			modelMap.put("user", user);
+			return "userEdit";
+		}
+		usersmanage.saveOrUpdateUser(user);
+		return "redirect:/userlist2";
+	}
+
+	/**
+	 * Delete user
+	 * 
+	 * @param userId
+	 * @return userlist
+	 */
+	@RequestMapping("/userdelpg/{user}")
+	public String deleteUser(@PathVariable("user") Integer userId) {
+		usersmanage.removeUser(userId);
+		return "redirect:/userlist2";
+	}
+
+	// ---------------
+	/**
+	 * Update user to DB - RequestMethod.GET
+	 * 
+	 * @param usId
+	 * @param modelMap
+	 * @return userEdit
+	 */
+	/*
+	 * @RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
+	 * public String editUser(@PathVariable("user") Integer usId, Map<String,
+	 * Object> modelMap) { Users user = usersmanage.findUser(usId);
+	 * modelMap.put("user", user); return "userEdit"; }
+	 */
+
+	/**
+	 * Update user to DB - RequestMethod.POST
+	 * 
+	 * @param userId
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param parole
+	 * @param role
+	 * @return userEdit
+	 */
+	/*
+	 * @RequestMapping(value = "/userEditpg/{userToEdit}", method =
+	 * RequestMethod.POST) public String
+	 * updateUserToDB(@PathVariable("userToEdit") Integer userId,
+	 * 
+	 * @ModelAttribute("userFirstName") String firstName,
+	 * 
+	 * @ModelAttribute("lastName") String lastName,
+	 * 
+	 * @ModelAttribute("email") String email,
+	 * 
+	 * @ModelAttribute("password") String password,
+	 * 
+	 * @ModelAttribute("role") Role role
+	 * 
+	 * ) { usersmanage .updateUser(userId, firstName, lastName, email, password,
+	 * role); return "redirect:/userlist2"; }
+	 */
+
+	// -------------------------------------------------------
+	// for Validator- userEdit
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(userEditValidator);
+		binder.registerCustomEditor(Role.class, new RoleEditor());
+
+	}
+
+	// ----for paging userlist 2---------------------------------
+	/**
+	 * For paging userList 2
 	 * 
 	 * @param modelMap
 	 * @return userlist2
@@ -85,7 +193,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * For paging userList
+	 * For paging userList 2
 	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
@@ -124,110 +232,5 @@ public class UserControllerPg {
 		}
 
 	}
-
-	// -------------------------------------
-	/**
-	 * Update user to DB - RequestMethod.GET
-	 * 
-	 * @param usId
-	 * @param modelMap
-	 * @return userEdit
-	 */
-	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
-	public String editUser(@PathVariable("user") Integer usId,
-			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
-		modelMap.put("user", user);
-		return "userEdit";
-	}
-
-	/**
-	 * // * Update user to DB - RequestMethod.POST
-	 * 
-	 * @param userId
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param parole
-	 * @param role
-	 * @return userEdit
-	 */
-	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
-	public String updateUserToDB(@ModelAttribute("user") Users user,
-			BindingResult bindingResult, ModelMap modelMap) {
-		//user.setRole(Role.REGUSER);
-		userEditValidator.validate(user, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			modelMap.put("user", user);
-			return "userEdit";
-		}
-		usersmanage.saveOrUpdateUser(user);
-		return "redirect:/userlist2";
-	}
-	
-	//---------------
-	/**
-	 * Update user to DB - RequestMethod.GET
-	 * 
-	 * @param usId
-	 * @param modelMap
-	 * @return userEdit
-	 */
-	/*@RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
-	public String editUser(@PathVariable("user") Integer usId,
-			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
-		modelMap.put("user", user);
-		return "userEdit";
-	}*/
-
-	/**
-	 * Update user to DB - RequestMethod.POST
-	 * 
-	 * @param userId
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param parole
-	 * @param role
-	 * @return userEdit
-	 */
-	/*@RequestMapping(value = "/userEditpg/{userToEdit}", method = RequestMethod.POST)
-	public String updateUserToDB(@PathVariable("userToEdit") Integer userId,
-			@ModelAttribute("userFirstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password,
-			@ModelAttribute("role") Role role
-
-	) {
-		usersmanage
-				.updateUser(userId, firstName, lastName, email, password, role);
-		return "redirect:/userlist2";
-	}*/
-
-	/**
-	 * Delete user
-	 * 
-	 * @param userId
-	 * @return userlist
-	 */
-	@RequestMapping("/userdelpg/{user}")
-	public String deleteUser(@PathVariable("user") Integer userId) {
-		usersmanage.removeUser(userId);
-		return "redirect:/userlist2";
-	}
-	
-	
-	// -------------------------------------------------------
-		// for Validator
-
-		@InitBinder
-		public void initBinder(WebDataBinder binder) {
-			binder.setValidator(userEditValidator);
-			binder.registerCustomEditor(Role.class, new RoleEditor());
-
-		}
 
 }
