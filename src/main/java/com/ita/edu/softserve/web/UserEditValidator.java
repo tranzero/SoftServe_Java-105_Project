@@ -42,14 +42,10 @@ public class UserEditValidator implements Validator {
 				"Empty lastName");
 		ValidationUtils.rejectIfEmptyOrWhitespace(error, "email", null,
 				"Empty email");
+		ValidationUtils.rejectIfEmptyOrWhitespace(error, "password", null,
+				"Empty password");
 		
-		// for pasword
 		
-		
-		//		validateFirstName(user.getFirstName(), error);
-//		validateLastName(user.getLastName(), error);
-//		validateEmail(user.getEmail(), error);
-//		validatePassword(user.getPassword(), error);
 
 	}
 

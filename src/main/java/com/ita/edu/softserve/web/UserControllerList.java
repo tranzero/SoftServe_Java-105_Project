@@ -5,9 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
-import com.ita.edu.softserve.manager.UserNameService;
+
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
@@ -41,7 +39,7 @@ public class UserControllerList {
 
 	@Autowired
 	private UserManager usersmanage;
-	
+
 	@Autowired
 	Encoder encoder;
 
@@ -101,7 +99,7 @@ public class UserControllerList {
 		modelMap.put("language", locale.getLanguage());
 
 	}
-	
+
 	/**
 	 * Shows userlist
 	 * 
@@ -127,7 +125,7 @@ public class UserControllerList {
 		// modelMap.put("userList", usersmanage.findAllUsers());
 		return "userlist";
 	}
-	
+
 	/**
 	 * Get all users
 	 * 
