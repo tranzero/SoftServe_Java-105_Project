@@ -3,6 +3,8 @@ package com.ita.edu.softserve.dao;
 import java.sql.Time;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
@@ -28,9 +30,7 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 
 	long getRoutesListCount();
 	
-	
-	
-
+	public List<String> getStationNameListCriteria(String stationName);
 	
 	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,

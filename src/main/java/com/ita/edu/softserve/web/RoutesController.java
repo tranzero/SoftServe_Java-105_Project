@@ -4,7 +4,13 @@ import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 
 import java.io.Console;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.StationManagerException;
@@ -23,6 +31,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 @Controller
@@ -87,7 +96,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+		PageInfoContainerImpl  container = new PageInfoContainerImpl (pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -102,7 +111,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+		PageInfoContainerImpl  container = new PageInfoContainerImpl (pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -117,7 +126,7 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
 		long count = routesManager.getRoutesListCount();
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+		PageInfoContainerImpl  container = new PageInfoContainerImpl (pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -225,19 +234,21 @@ public class RoutesController {
 		}
 		return "routesTrips";
 	}
-	
-	
 	*/
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "getStationAutoCompleteList", method = RequestMethod.GET)
+	@ResponseBody
+	public String getStationsList(
+			@RequestParam(value = "stationStartsWith", required = false) String stationStartsWith,
+			Map<String, Object> modelMap) {
+
+		List<String> stationList = routesManager
+				.getStationNameListCriteria(stationStartsWith);
+
+		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
+		stationMap.put("stations", stationList);
+		return new Gson().toJson(stationMap);
+	}
 	
 	@RequestMapping(value = ROUTES_TRIP_URL_PATTERN, method = RequestMethod.GET)
 	public String getRoutesTripsByStation(
@@ -262,7 +273,7 @@ public class RoutesController {
 			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}		
 	
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+		PageInfoContainerImpl  container = new PageInfoContainerImpl (pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -306,7 +317,7 @@ public class RoutesController {
 			count=routesManager.getRoutersListByStationNameDepartingCount(nameStation,parseStringToTime(timeMin), parseStringToTime(timeMax));
 		}	
 		
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+		PageInfoContainerImpl  container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -323,6 +334,7 @@ public class RoutesController {
 					nameStation,
 					parseStringToTime(timeMin), parseStringToTime(timeMax), (int)container.getPageNumber(), (int)container.getResultsPerPage()));
 		}
+		
 		return ROUTES_TRIPS_PAGE_JSP ;
 	}
 }

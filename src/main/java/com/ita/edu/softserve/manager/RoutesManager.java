@@ -24,6 +24,8 @@ public interface RoutesManager extends BaseManager {
 
 	long getRoutesListCount();
 	
+	public List<String> getStationNameListCriteria(String stationName);
+	
 	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
 			int currentPaget, int count);
