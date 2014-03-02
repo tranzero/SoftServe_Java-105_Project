@@ -69,6 +69,7 @@
 					href="javascript:void(0);" id="timedesc"><img alt="v"
 					src="resources/images/uparrow.png"></a>
 			</div></th>
+			<th></th>
 	</tr>
 	<c:forEach items="${tripsList}" var="trip">
 		<tr>
@@ -79,7 +80,8 @@
 			<td align="center">${trip.getRemSeatClass3()}</td>
 			<td align="center">${dateFormat.format(trip.getStartDate())}</td>
 			<td align="center">${trip.getTransport().getStartTime()}</td>
-
+			<td><a href=" tripResponses/${trip.getTripId()}"><spring:message
+							code="label.navigation.checkresponses" />...</a></td>
 		</tr>
 	</c:forEach>
 </table>
