@@ -23,6 +23,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
@@ -47,6 +48,9 @@ public class UserController {
 	@Autowired
 	private UserManager usersmanage;
 
+	@Autowired
+	private UserNameService userService;
+	
 	@Autowired
 	Validator userEditValidator;
 
@@ -80,7 +84,7 @@ public class UserController {
 
 		long count = usersmanage
 				.getUsersListCountUsingContainer(userCriteriaContainer);
-//		long count = 100;
+		// long count = 100;
 		container.setPageNumber(pageNumber);
 		container.setResultsPerPage(resultsPerPage);
 		container.setCount(count);
@@ -116,7 +120,7 @@ public class UserController {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-//		modelMap.put("userList", usersmanage.findAllUsers());
+		// modelMap.put("userList", usersmanage.findAllUsers());
 		return "userlist";
 	}
 
@@ -136,7 +140,7 @@ public class UserController {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-//		modelMap.put("userList", usersmanage.findAllUsers());
+		// modelMap.put("userList", usersmanage.findAllUsers());
 		return "userListPage";
 	}
 
@@ -147,13 +151,12 @@ public class UserController {
 	 * @param modelMap
 	 * @return userEdit
 	 */
-	/*@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
-	public String editUser(@PathVariable("user") Integer usId,
-			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
-		modelMap.put("user", user);
-		return "userEdit";
-	}*/
+	/*
+	 * @RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
+	 * public String editUser(@PathVariable("user") Integer usId, Map<String,
+	 * Object> modelMap) { Users user = usersmanage.findUser(usId);
+	 * modelMap.put("user", user); return "userEdit"; }
+	 */
 
 	/**
 	 * // * Update user to DB - RequestMethod.POST
@@ -166,19 +169,17 @@ public class UserController {
 	 * @param role
 	 * @return userEdit
 	 */
-	/*@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
-	public String updateUserToDB(@ModelAttribute("user") Users user,
-			BindingResult bindingResult, ModelMap modelMap) {
-		user.setRole(Role.REGUSER);
-		userEditValidator.validate(user, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			modelMap.put("user", user);
-			return "userEdit";
-		}
-		usersmanage.saveOrUpdateUser(user);
-		return "redirect:/userlist";
-	}*/
+	/*
+	 * @RequestMapping(value = "/userEdit/userEdit.htm", method =
+	 * RequestMethod.POST) public String updateUserToDB(@ModelAttribute("user")
+	 * Users user, BindingResult bindingResult, ModelMap modelMap) {
+	 * user.setRole(Role.REGUSER); userEditValidator.validate(user,
+	 * bindingResult);
+	 * 
+	 * if (bindingResult.hasErrors()) { modelMap.put("user", user); return
+	 * "userEdit"; } usersmanage.saveOrUpdateUser(user); return
+	 * "redirect:/userlist"; }
+	 */
 
 	/**
 	 * updateUserToDB2 - RequestMethod.GET
@@ -225,34 +226,33 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/editProfile/{userId}", method = RequestMethod.GET)
-	public String editProfile(@PathVariable("userId") Integer usId,
-			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
+	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
+	public String editProfile(Map<String, Object> modelMap) {
+		Users user = usersmanage.findUser(userService.getLoggedUserId());
 		modelMap.put("user", user);
 		return "editProfile";
 	}
 
-	@RequestMapping(value = "/editProfile/{userId}", method = RequestMethod.POST)
-	public String updateProfile(@PathVariable("userId") Integer userId,
+	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
+	public String updateProfile(
 			@ModelAttribute("firstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("email") String email,
 			@ModelAttribute("password") String password
-
 	) {
-		usersmanage.updateUser2(userId, firstName, lastName, email, password);
+		usersmanage.updateUser2(userService.getLoggedUserId(), firstName, lastName, email, password);
 		return "redirect:/mainpage";
 	}
 
-	/*// -------------------------------------------------------
-	// for Validator
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(userEditValidator);
-		binder.registerCustomEditor(Role.class, new RoleEditor());
-
-	}*/
+	/*
+	 * // ------------------------------------------------------- // for
+	 * Validator
+	 * 
+	 * @InitBinder public void initBinder(WebDataBinder binder) {
+	 * binder.setValidator(userEditValidator);
+	 * binder.registerCustomEditor(Role.class, new RoleEditor());
+	 * 
+	 * }
+	 */
 
 }
