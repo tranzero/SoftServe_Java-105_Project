@@ -108,7 +108,7 @@ public class UserControllerPg {
 		return "redirect:/userlist2";
 	}
 
-	// ---------------
+	
 
 	// -------------------------------------------------------
 	// for Validator- userEdit

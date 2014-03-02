@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.components.Encoder;
-
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -24,38 +22,32 @@ import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
- * Controller - UserController
+ * UserController for List
  * 
  * @author iryna
  * 
  */
 @Controller
-public class UserController {
+public class UserControllerList {
 
-	/*private PaginationManager paginationManager = PaginationManager
+	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
 	@Autowired
-	PageInfoContainer container;*/
+	PageInfoContainer container;
+
+	@Autowired
+	UserCriteriaContainer userCriteriaContainer;
 
 	@Autowired
 	private UserManager usersmanage;
-
+	
 	@Autowired
-	Validator userEditValidator;
-
-	/*@Autowired
-	UserCriteriaContainer userCriteriaContainer;*/
-
-	/*@Autowired
-	Encoder encoder;*/
-
-	@Autowired
-	private UserNameService userService;
+	Encoder encoder;
 
 	/**
 	 * Put Fill Elements Options
-	 *//*
+	 */
 	private void putFillElementsOptions(
 			UserCriteriaContainer usersCriteriaContainer,
 			Map<String, Object> modelMap) {
@@ -65,7 +57,7 @@ public class UserController {
 				.isEmptyString(userCriteriaContainer.getMaxDateString()));
 		modelMap.put("isMaxDate", ValidatorUtil
 				.isEmptyString(userCriteriaContainer.getMinDateString()));
-	}*/
+	}
 
 	/**
 	 * Deploy Users Parameters
@@ -82,7 +74,7 @@ public class UserController {
 	 * @param orderByDirection
 	 * @param modelMap
 	 * @param locale
-	 *//*
+	 */
 	private void deployUsersParameters(Integer pageNumber,
 			Integer resultsPerPage, String searchString, String minDateString,
 			String maxDateString, Boolean isRegUser, Boolean isManager,
@@ -108,14 +100,14 @@ public class UserController {
 				userCriteriaContainer, container));
 		modelMap.put("language", locale.getLanguage());
 
-	}*/
-
+	}
+	
 	/**
 	 * Shows userlist
 	 * 
 	 * @param modelMap
 	 * @return userlist
-	 *//*
+	 */
 	@RequestMapping(value = "userlist", method = RequestMethod.GET)
 	public String getAllUser(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -134,8 +126,8 @@ public class UserController {
 				orderByParam, orderByDirection, modelMap, locale);
 		// modelMap.put("userList", usersmanage.findAllUsers());
 		return "userlist";
-	}*/
-
+	}
+	
 	/**
 	 * Get all users
 	 * 
@@ -152,7 +144,7 @@ public class UserController {
 	 * @param modelMap
 	 * @param locale
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value = "userListPage", method = RequestMethod.GET)
 	public String getAllUserPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -171,42 +163,6 @@ public class UserController {
 				orderByParam, orderByDirection, modelMap, locale);
 		// modelMap.put("userList", usersmanage.findAllUsers());
 		return "userListPage";
-	}*/
-
-	/**
-	 * Delete user
-	 * 
-	 * @param userId
-	 * @return userlist
-	 */
-	@RequestMapping("/userDelete/{user}")
-	public String deleteUser(@PathVariable("user") Integer userId) {
-		usersmanage.removeUser(userId);
-		return "redirect:/userlist";
-	}
-
-	/**
-	 * Edit Profile
-	 * 
-	 * @param usId
-	 * @param modelMap
-	 * @return
-	 */
-	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
-	public String editProfile(Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(userService.getLoggedUserId());
-		modelMap.put("user", user);
-		return "editProfile";
-	}
-
-	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute("firstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password) {
-		usersmanage.updateUser2(userService.getLoggedUserId(), firstName,
-				lastName, email, password);
-		return "redirect:/mainpage";
 	}
 
 }
