@@ -4,66 +4,47 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!-- JS for table sorting -->
-<link rel="shortcut icon"
-	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
-<link rel="icon"
-	href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
-<!--   <link rel="stylesheet" type="text/css" media="all" href="resources/css/styles.css"> -->
+<link rel="shortcut icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
+<link rel="icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
 <script type="text/javascript" src="resources/js/jquery-1.5.2.min.js"></script>
-<script type="text/javascript"
-	src="resources/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
 
 <!-- JS for table searching -->
 <script src="resources/js/jquery.searcher.js"></script>
-<style>
-/* #transportTable {
-  margin: 0 auto;
-  font-size: 1.2em;
-  margin-bottom: 15px;
-}
 
-#transportTable thead {
-  cursor: pointer;
-  background: #c9dff0;
-}
-#transportTable thead tr th { 
-  font-weight: bold;
-  padding: 12px 30px;
-  padding-left: 42px;
-} */
-#transportTable thead tr th span {
+<style>
+<!--
+.transportTableArrows thead tr th span {
 	padding-right: 20px;
 	background-repeat: no-repeat;
 	background-position: 100% 100%;
 }
 
-#transportTable thead tr th.headerSortUp,#transportTable thead tr th.headerSortDown
+.transportTableArrows thead tr th.headerSortUp,.transportTableArrows thead tr th.headerSortDown
 	{
 	background: #acc8dd;
 }
 
-#transportTable thead tr th.headerSortUp span {
+.transportTableArrows thead tr th.headerSortUp span {
 	background-image: url('resources/images/up-arrow.png');
 }
 
-#transportTable thead tr th.headerSortDown span {
+.transportTableArrows thead tr th.headerSortDown span {
 	background-image: url('resources/images/down-arrow.png');
 }
+-->
 </style>
+
 <section id="content">
-
 	<p>
-		<label for="tableSearchInput"><spring:message
-				code="label.transport.tableSearchInput" /></label> <input
-			id="tableSearchInput" type="text" />
+		<label for="tableSearchInput"><spring:message code="label.transport.tableSearchInput" /></label>
+		<input id="tableSearchInput" type="text" />
 	</p>
-
 	<h2 align="center">
 		<spring:message code="label.navigation.transport" />
 	</h2>
-
 	<div id="pagingcontent">
-		<table style="align: center" id="transportTable">
+		<table id="transportTable" class="transportTableArrows">
 			<thead>
 				<tr>
 					<th><span><spring:message code="label.transport.transportcode" /></span></th>
@@ -142,48 +123,45 @@
 		</div>
 	</div>
 	<script>
+	<!--
 		function showTransportPage(pageNumber_, resultsPerPage_) {
-
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#result")
-											.html(
-													'_$tag_______________________________________________________');
-								},
-								type : "GET",
-								url : "transportpageView",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
-							}).done(function(msg) {
-						$("div#result").html(msg);
-					});
+			$.ajax({
+						async : true,
+						beforeSend : function() {
+							$("div#result").html(
+											'_$tag_______________________________________________________');
+									},
+						type : "GET",
+						url : "transportpageView",
+						data : {
+							pageNumber : pageNumber_,
+							resultsPerPage : resultsPerPage_
+						}
+					}).done(function(msg) {
+				$("div#result").html(msg);
+			});
 		}
 
 		$(window).load(function() {
-
 			showTransportPage("${pageNumber}", "${resultsPerPage}");
-
 		});
+		//-->
 	</script>
-
 	<!-- JS for table sorting -->
 	<script type="text/javascript">
+	<!--
 		$(function() {
 			$('#transportTable').tablesorter();
 		});
+	//-->
 	</script>
-
 	<!-- JS for table searching -->
 	<script type="text/javascript">
+	<!--
 		$("#transportTable").searcher({
 			inputSelector : "#tableSearchInput"
 		// itemSelector (tbody > tr) and textSelector (td) already have proper default values
 		});
+	//-->
 	</script>
-
 </section>
