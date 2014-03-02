@@ -21,20 +21,36 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Stations.STATIONS_FIND_ALL, query = Stations.STATIONS_FIND_ALL_QUERY),
 		@NamedQuery(name = Stations.STATIONS_FIND_COUNT, query = Stations.STATIONS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Stations.FIND_BY_NAME, query = Stations.FIND_BY_NAME_QUERY),
-		@NamedQuery(name = Stations.FIND_BY_LINE_NAME, query = Stations.FIND_BY_LINE_NAME_QUERY)})
+		@NamedQuery(name = Stations.FIND_BY_LINE_NAME, query = Stations.FIND_BY_LINE_NAME_QUERY),
+		@NamedQuery(name = Stations.GET_COUNT_STATIONS_WITH_CRITERIA, query = Stations.GET_COUNT_STATIONS_WITH_CRITERIA_QUERY) })
 public class Stations extends BaseEntity {
-	
+
+	public static final String SEARCH_STRING = "searchstring";
+
 	public static final String STATIONS_FIND_ALL = "Stations.findAll";
 	public static final String STATIONS_FIND_ALL_QUERY = "SELECT s FROM Stations s";
 
 	public static final String STATIONS_FIND_COUNT = "Stations.findCount";
 	public static final String STATIONS_FIND_COUNT_QUERY = "SELECT COUNT(s.stationId) FROM Stations s";
-	
+
 	public static final String FIND_BY_NAME = "Stations.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Stations u WHERE u.stationName = ?1";
-	
+
 	public static final String FIND_BY_LINE_NAME = "Stations.findByLineName";
 	public static final String FIND_BY_LINE_NAME_QUERY = "select s from StationsOnLine stln inner join stln.stationId as s inner join stln.lineId as l where l.lineName = ?1";
+
+	public static final String FIND_STATIONS_LIST_BY_CRITERIA = "SELECT s FROM Stations s WHERE s.stationCode LIKE :"
+			+ SEARCH_STRING
+			+ " OR s.stationName LIKE :"
+			+ SEARCH_STRING
+			+ " ORDER BY ";
+
+	public static final String GET_COUNT_STATIONS_WITH_CRITERIA = "Stations.getCountAllStationsWithCriteria";
+
+	public static final String GET_COUNT_STATIONS_WITH_CRITERIA_QUERY = "SELECT COUNT(s.stationId) FROM Stations s WHERE (s.stationCode LIKE :"
+			+ SEARCH_STRING 
+			+ " OR s.stationName LIKE :" 
+			+ SEARCH_STRING + ")";
 
 	@Id
 	@Column(name = "STATIONID", nullable = false)
@@ -144,7 +160,8 @@ public class Stations extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Stations other = (Stations) obj;
-		return new EqualsBuilder().append(stationName, other.stationName).isEquals();
+		return new EqualsBuilder().append(stationName, other.stationName)
+				.isEquals();
 	}
 
 }
