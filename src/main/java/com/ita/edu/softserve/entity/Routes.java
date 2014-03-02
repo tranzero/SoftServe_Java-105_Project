@@ -34,15 +34,24 @@ import javax.persistence.Table;
 		@NamedQuery(name = Routes.GET_ROUTES_BY_ARRIVING_STATION_NAME_AND_TIME_INTERVAL_COUNT, query = Routes.GET_ROUTES_BY_ARRIVING_STATION_NAME_AND_TIME_INTERVAL_QUERY),
 		@NamedQuery(name = Routes.GET_ROUTES_BY_DEPARTING_STATION_NAME_AND_TIME_INTERVAL_COUNT, query = Routes.GET_ROUTES_BY_DEPARTING_STATION_NAME_AND_TIME_INTERVAL_QUERY) })
 public class Routes extends BaseEntity {
+	/**
+	 * Defines the name of station name parameter
+	 */
+	public static final String STATION_NAME = "stationName";
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT r FROM Routes r WHERE r.routeCode = ?1";
 	
 	public static final String ROUTES_FIND_ALL = "Routes.RoutesfindAll";
 	public static final String ROUTES_FIND_ALL_QUERY = "SELECT r FROM Routes r";
+	
+	public static final String STATIONS_NAME_FIND_BY_CRITERIA_QUERY = "SELECT st.stationName FROM Stations st WHERE"
+			+ " st.stationName LIKE :"
+			+ STATION_NAME
+			+ " ORDER BY st.stationName";
 
 	public static final String ROUTES_ALL_ORDER_BY = "Routes.RoutesAllOrderBy";
-	public static final String ROUTES_ALL_ORDER_BY_QUERY = "SELECT r FROM Routes r ORDER BY r.routeCode";//ORDER BY ?1
+	public static final String ROUTES_ALL_ORDER_BY_QUERY = "SELECT r FROM Routes r ORDER BY r.routeCode";
 
 	public static final String ROUTES_FIND_COUNT = "Routes.findCount";
 	public static final String ROUTES_FIND_COUNT_QUERY = "SELECT COUNT (r.routeId) FROM Routes r";

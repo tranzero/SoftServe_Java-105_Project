@@ -1,9 +1,11 @@
 package com.ita.edu.softserve.dao.impl;
 
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,7 @@ import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
 /**
@@ -35,14 +38,12 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return Routes.class;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Routes> getRoutesForLimits(int currentPaget, int count,
 			String orderByParam, String orderByDirection) {
 		Query query = entityManager
 				.createNamedQuery(
 						Routes.ROUTES_ALL_ORDER_BY)
-				//.setParameter(1, orderByParam)
 				.setFirstResult(currentPaget).setMaxResults(count);
 		return (List<Routes>) query.getResultList();
 	}
@@ -52,8 +53,15 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (long) find((Query)entityManager
 				.createNamedQuery(Routes.ROUTES_FIND_COUNT));
 	}
+	
+	public List<String> getStationNameListCriteria(String stationName) {
+		Query query = entityManager
+				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
+				.setParameter(Routes.STATION_NAME, stationName)
+				.setMaxResults(10);
+		return (List<String>) query.getResultList();
+	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
@@ -74,7 +82,6 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				timeArrivalMin, timeArrivalMax).size();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
 			String stationNameDeparture, Time timeDepartureMin,

@@ -2,6 +2,7 @@ package com.ita.edu.softserve.manager.impl;
 
 
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 
@@ -50,7 +52,11 @@ public class RoutesManagerImpl implements RoutesManager {
 		return routeDao.getRoutesListCount();
 	}
 	
-	
+	@Transactional(readOnly = true)
+	@Override
+	public List<String> getStationNameListCriteria(String stationName) {
+		return routeDao.getStationNameListCriteria(stationName + "%");
+	}
 
 	@Transactional(readOnly = true)
 	@Override
