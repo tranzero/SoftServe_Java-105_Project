@@ -102,7 +102,7 @@ public class UserControllerPg {
 	 * @param userId
 	 * @return userlist
 	 */
-	@RequestMapping("/userdelpg/{user}")
+	@RequestMapping("/userdelete/{user}")
 	public String deleteUser(@PathVariable("user") Integer userId) {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist2";

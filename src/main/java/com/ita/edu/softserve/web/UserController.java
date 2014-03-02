@@ -179,7 +179,7 @@ public class UserController {
 	 * @param userId
 	 * @return userlist
 	 */
-	@RequestMapping("/userdel/{user}")
+	@RequestMapping("/userDelete/{user}")
 	public String deleteUser(@PathVariable("user") Integer userId) {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist";
