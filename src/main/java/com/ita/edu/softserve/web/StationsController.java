@@ -1,30 +1,27 @@
 package com.ita.edu.softserve.web;
 
-import java.sql.Time;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.utils.ValidatorUtil;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 @Controller
@@ -70,10 +67,49 @@ public class StationsController {
 			.getInstance();
 
 	@Autowired
+	PageInfoContainer container;
+	
+	@Autowired
 	private StationsManager stationsManager;
 
 	@Autowired
 	private StationsValidator stationsValidator;
+	
+	@Autowired
+	StationsCriteriaContainer stationsCriteriaContainer;
+	
+	@Autowired
+	Encoder encoder;
+
+	private void putFillElementsOptions(
+			StationsCriteriaContainer stationsCriteriaContainer,
+			Map<String, Object> modelMap) {
+		modelMap.put("isSearchString", ValidatorUtil
+				.isEmptyString(stationsCriteriaContainer.getSearchString()));
+	}
+
+	private void deployStationsParameters(Integer pageNumber,
+			Integer resultsPerPage, String searchString, String orderByParam, String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
+		stationsCriteriaContainer.setValuableInfo(searchString, orderByParam,
+				orderByDirection);
+		putFillElementsOptions(stationsCriteriaContainer, modelMap);
+		stationsManager.validateStationListCriteria(stationsCriteriaContainer, locale);
+		long count = stationsManager.getStationsListCountUsingContainer(stationsCriteriaContainer);
+//		long count = 100;
+		container.setPageNumber(pageNumber);
+		container.setResultsPerPage(resultsPerPage);
+		container.setCount(count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put("container", stationsCriteriaContainer);
+		modelMap.put("encoder", encoder);
+		modelMap.put("stationsList", stationsManager.getStationsForLimitUsingContainers(stationsCriteriaContainer, container));
+
+		modelMap.put("language", locale.getLanguage());
+
+	}
+	
 
 	/**
 	 * Prints all stations.
@@ -85,12 +121,39 @@ public class StationsController {
 	public String listStations(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
+			@RequestParam(value = "orderByParam", required = false) String orderByParam,
+			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
 
-		paggingForStations(pageNumber, resultsPerPage, modelMap);
+		deployStationsParameters(pageNumber, resultsPerPage, searchString, orderByParam, orderByDirection, modelMap, locale);
 
 		return STATIONS_FOR_USERS_JSP_PAGE;
 	}
+	
+	
+	/**
+	 * Prints all stations.
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "stationsForUsersPage", method = RequestMethod.GET)
+	public String listStationsPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
+			@RequestParam(value = "orderByParam", required = false) String orderByParam,
+			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
+
+		deployStationsParameters(pageNumber, resultsPerPage, searchString, orderByParam, orderByDirection, modelMap, locale);
+
+		return "stationsForUsersPage";
+	}
+
+
+
 
 	/**
 	 * \ Print all Stations where manager can manage them.

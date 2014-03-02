@@ -1,8 +1,11 @@
 package com.ita.edu.softserve.manager;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 
 /**
  * Service interface for stations.
@@ -66,6 +69,25 @@ public interface StationsManager extends BaseManager {
 	 * Save station if not exist or update if exist.
 	 */
 	public void saveOrUpdateStation(Stations station);
+
+	void validateStationListCriteria(
+			StationsCriteriaContainer stationsCriteriaContainer, Locale locale);
+
+	long getStationsListCountWithCriteria(String searchString);
+
+	long getStationsListCountUsingContainer(
+			StationsCriteriaContainer stationsCriteriaContainer);
+
+	List<Stations> getStationsForLimitUsingContainers(
+			StationsCriteriaContainer stationsCriteriaContainer,
+			PageInfoContainer container);
+
+	List<Stations> getStationsForLimitWithCriteria(int firstElement,
+			long count, String searchString, String orderByParam,
+			String orderByDirection);
+
+	List<Stations> getStationsForPageWithCriteria(int pageNumber, long count,
+			String searchString, String orderByParam, String orderByDirection);
 	
 
 }

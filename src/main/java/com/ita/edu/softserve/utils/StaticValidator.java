@@ -1,11 +1,7 @@
 package com.ita.edu.softserve.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -15,12 +11,12 @@ import java.util.TreeSet;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.UsersCriteriaContainerImpl;
-import com.ita.edu.softserve.web.TripsController;
 
 /**
  * 
@@ -180,11 +176,39 @@ public class StaticValidator {
 		if (userCriteriaContainer.getIsRegUser()) {
 			arrayOfRoles.add(Role.REGUSER);
 		}
-		if (arrayOfRoles.isEmpty()){
+		if (arrayOfRoles.isEmpty()) {
 			arrayOfRoles.add(Role.REGUSER);
 			userCriteriaContainer.setIsRegUser(true);
 		}
 		userCriteriaContainer.setRoleArray(arrayOfRoles);
+
+	}
+
+	public static void validateStationListCriteria(
+			StationsCriteriaContainer stationsCriteriaContainer, Locale locale) {
+
+		Set<String> fieldsSet = new TreeSet<String>();
+		Collections.addAll(fieldsSet,
+				StationsCriteriaContainerImpl.STATIONS_ORDER_BY_COLUMNS);
+		if ((stationsCriteriaContainer.getOrderByParam() == null)
+				|| !(fieldsSet.contains(stationsCriteriaContainer
+						.getOrderByParam()))) {
+			stationsCriteriaContainer
+					.setOrderByParam(StationsCriteriaContainerImpl.STATIONS_ORDER_BY_COLUMNS[0]);
+		}
+		if ((stationsCriteriaContainer.getOrderByDirection() == null)
+				|| !(stationsCriteriaContainer.getOrderByDirection()
+						.equalsIgnoreCase(ORDER_BY_SORTING_TYPES[0]) || stationsCriteriaContainer
+						.getOrderByDirection().equalsIgnoreCase(
+								ORDER_BY_SORTING_TYPES[1]))) {
+			stationsCriteriaContainer
+					.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
+
+		}
+
+		stationsCriteriaContainer
+				.setSearchString((String) ValidatorUtil.defaultForNull(
+						stationsCriteriaContainer.getSearchString(), ""));
 
 	}
 
