@@ -72,7 +72,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 *  Update user to DB - RequestMethod.POST
+	 * Update user to DB - RequestMethod.POST
 	 * 
 	 * @param userId
 	 * @param firstName
@@ -93,7 +93,7 @@ public class UserControllerPg {
 			return "userEdit";
 		}
 		usersmanage.saveOrUpdateUser(user);
-		return "redirect:/userlist2";
+		return "redirect:/userlist";
 	}
 
 	/**
@@ -109,49 +109,6 @@ public class UserControllerPg {
 	}
 
 	// ---------------
-	/**
-	 * Update user to DB - RequestMethod.GET
-	 * 
-	 * @param usId
-	 * @param modelMap
-	 * @return userEdit
-	 */
-	/*
-	 * @RequestMapping(value = "/userEditpg/{user}", method = RequestMethod.GET)
-	 * public String editUser(@PathVariable("user") Integer usId, Map<String,
-	 * Object> modelMap) { Users user = usersmanage.findUser(usId);
-	 * modelMap.put("user", user); return "userEdit"; }
-	 */
-
-	/**
-	 * Update user to DB - RequestMethod.POST
-	 * 
-	 * @param userId
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param parole
-	 * @param role
-	 * @return userEdit
-	 */
-	/*
-	 * @RequestMapping(value = "/userEditpg/{userToEdit}", method =
-	 * RequestMethod.POST) public String
-	 * updateUserToDB(@PathVariable("userToEdit") Integer userId,
-	 * 
-	 * @ModelAttribute("userFirstName") String firstName,
-	 * 
-	 * @ModelAttribute("lastName") String lastName,
-	 * 
-	 * @ModelAttribute("email") String email,
-	 * 
-	 * @ModelAttribute("password") String password,
-	 * 
-	 * @ModelAttribute("role") Role role
-	 * 
-	 * ) { usersmanage .updateUser(userId, firstName, lastName, email, password,
-	 * role); return "redirect:/userlist2"; }
-	 */
 
 	// -------------------------------------------------------
 	// for Validator- userEdit
