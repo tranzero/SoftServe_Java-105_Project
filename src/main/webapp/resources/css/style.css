@@ -1,8 +1,7 @@
 body {
-    background: url("../images/content_bg.png") repeat-x scroll 0 0 #D2D1D0;
+        background: url("../images/content_bg.png") repeat-x scroll 0 0 #D2D1D0;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
-	font-weight: 200;
 	color: #343434;
 }
 
@@ -63,14 +62,14 @@ span.flag {
 }
 
 a, a:link, a:active {
-	color: #1E0FBE;
+	color: #232323;
 	-moz-transition:  color 0.3s linear 0s;
 	-webkit-transition:  color 0.3s linear 0s;
 	transition:  color 0.3s linear 0s;	
 	text-decoration:none;
 }
 a:visited {
-	color: #003366;
+	color: #232323;
 } 
 
 a:hover{

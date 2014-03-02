@@ -258,7 +258,7 @@ li.github_block:hover {
 }
 
 #footer_col {
-	padding-left: 100px;
+	padding-right: 8%;
 	display: block;
 	float: left;
 }
@@ -268,20 +268,28 @@ li.github_block:hover {
 	color: #ffe;
 	font-weight: 800;
 }
+footer#footer div#footer_primary div#container{
+	width: 840px;
+	height: 140px;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px solid #595A5C;
+	border-top: 1px solid #595A5C;
+}
 #footer_primary {
 	border-top: 8px solid rgb(17,181,232);
         padding: 0;
         margin: 0;
 	height: 140px;
-        background-color: #333;
+	background-color: #212121;
         padding: 30px 0;
 }
 #footer_secondary {
-	height: 40px;
+	height: 20px;
 	background-color: #212121;
 	color: #837E76;
 	font-size: 0.9em;
-	padding: 30px 0 10px 0;
+	padding: 0px 0px 20px 0px;
 }
 #footer_secondary #footer_first_col {
 	clear: both;

@@ -52,8 +52,3 @@
 		</div>
 	</div>
 </footer>
-<%--
-<div id = "footer" >
-<h2><spring:message code="label.footer.title"/>[WIP]</h2>
-</div>
---%>
