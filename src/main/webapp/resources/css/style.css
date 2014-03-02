@@ -326,3 +326,9 @@ em.star {
 .transportTableArrows thead tr th.headerSortDown span {
 	background-image: url('resources/images/down-arrow.png');
 }
+
+/*TRANSPORT FORM SELECT TAG*/
+form select.selectRoutes {
+	border: 1px solid #006;
+	width: 198px;
+}

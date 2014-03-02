@@ -6,9 +6,6 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/jquery.datetimepicker.css"/>
 
-<style>
-</style>
-
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
