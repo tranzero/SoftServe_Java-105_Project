@@ -42,13 +42,12 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 	@Override
 	public Transports findByCode(String code) {
-		Query query = entityManager
-				.createNamedQuery(Transports.FIND_BY_TRANSPORTCODE).setParameter(1,
-						code);
+		Query query = entityManager.createNamedQuery(
+				Transports.FIND_BY_TRANSPORTCODE).setParameter(1, code);
 
 		return (Transports) query.getSingleResult();
 	}
-	
+
 	/**
 	 * Saves a Transport into the Transports table if not exist or updates
 	 * existing one.
@@ -72,27 +71,32 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	 *            the Id to find object in Transport table.
 	 * @see com.ita.edu.softserve.dao.TransportsDao#getEntityDESC()
 	 */
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public List<Transports> getEntityDESC() {
-//		Query query = entityManager
-//				.createNamedQuery(Transports.FIND_BY_TRANSPORTCODE_DESC);
-//
-//		return (List<Transports>) query.getResultList();
-//	}
+	// @SuppressWarnings("unchecked")
+	// @Override
+	// public List<Transports> getEntityDESC() {
+	// Query query = entityManager
+	// .createNamedQuery(Transports.FIND_BY_TRANSPORTCODE_DESC);
+	//
+	// return (List<Transports>) query.getResultList();
+	// }
 
 	/**
 	 * Finds Transport by criteria.
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListByCriteria(int, int, java.lang.String, java.sql.Time, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Double)
+	 * 
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListByCriteria(int,
+	 *      int, java.lang.String, java.sql.Time, java.lang.String,
+	 *      java.lang.Integer, java.lang.Integer, java.lang.Integer,
+	 *      java.lang.Double)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Transports> getTransportsListByCriteria(int firstElement, int count,
-			String transportCode, Time time, String routeCode, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price) {
+	public List<Transports> getTransportsListByCriteria(int firstElement,
+			int count, String transportCode, Time time, String routeCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price) {
 
 		Query query = entityManager
-				.createNamedQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA)
+				.createQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY)
 				.setParameter("transportCode", "%" + transportCode + "%")
 				.setParameter("startTime", time, TemporalType.TIME)
 				.setParameter("routeCode", "%" + routeCode + "%")
@@ -100,10 +104,28 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter("seatclass2", seatClass2)
 				.setParameter("seatclass3", seatClass3)
 				.setParameter("genPrice", price)
-				.setFirstResult(firstElement).setMaxResults(count)
+				.setFirstResult(firstElement)
+				.setMaxResults(count)
 				;
-		
+
 		return (List<Transports>) query.getResultList();
+	}
+
+	 @Override
+	public long getTransportsListByCriteriaCount(String transportCode, Time time, String routeCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price) {
+
+		return (long) find((Query) entityManager
+				.createNamedQuery(
+						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
+				.setParameter("transportCode", transportCode + "%")
+				.setParameter("startTime", time, TemporalType.TIME)
+				.setParameter("routeCode", routeCode + "%")
+				.setParameter("seatclass1", seatClass1)
+				.setParameter("seatclass2", seatClass2)
+				.setParameter("seatclass3", seatClass3)
+				.setParameter("genPrice", price));
 	}
 
 	/**
@@ -151,8 +173,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS)
 					.setParameter(1, "%" + stationName1 + "%")
 					.setParameter(2, "%" + stationName2 + "%")
-					.setFirstResult(firstElement)
-					.setMaxResults(count);
+					.setFirstResult(firstElement).setMaxResults(count);
 		} else {
 			query = entityManager
 					.createNamedQuery(Transports.FIND_BY_TWO_STATIONS_AND_DATE)

@@ -1,51 +1,6 @@
 DROP DATABASE IF EXISTS `test`;
 CREATE DATABASE  IF NOT EXISTS `test`;
  use `test`;
--- 
--- Table structure for table `lines`
--- 
-
-DROP TABLE IF EXISTS `lines`;
-CREATE TABLE `lines` (
-    `LINEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `LINENAME` VARCHAR (100) NOT NULL ,
-    PRIMARY KEY (LINEID)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `lines`
--- 
-LOCK TABLES `lines` WRITE;
-/*!40000 ALTER TABLE `lines` DISABLE KEYS */;
-INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv'), ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1'), ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2'), ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3'), ('13', 'L\'viv - Stryy3'), ('14', 'L\'viv - Stryy3'), ('15', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('17', 'Stryy - L\'viv3'), ('18', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3'), ('20', 'Pisochne - Sknyliv3'), ('21', 'Pisochne - Sknyliv3');
-/*!40000 ALTER TABLE `lines` ENABLE KEYS */;
-UNLOCK TABLES;
-
--- 
--- Table structure for table `orders`
--- 
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `ORDERDATE` TIMESTAMP NOT NULL ,
-    PRIMARY KEY (ORDERID),
-    CONSTRAINT `ORDERID_ibfk_1`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `orders`
--- 
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES ('1', '1', '2014-02-10 19:24:50.0'), ('2', '1', '2014-02-10 19:24:52.0'), ('3', '1', '2014-02-10 21:24:50.0'), ('4', '3', '2014-02-10 23:24:50.0'), ('5', '2', '2014-02-10 17:24:50.0');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 -- 
 -- Table structure for table `posts`
@@ -70,39 +25,28 @@ INSERT INTO `posts` VALUES ('2', 'Merkel condemns US over EU insult', 'U insultP
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 -- 
--- Table structure for table `responses`
+-- Table structure for table `lines`
 -- 
 
-DROP TABLE IF EXISTS `responses`;
-CREATE TABLE `responses` (
-    `RESPONSEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `USERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
-    `COMMENT` VARCHAR (200) NOT NULL , 
-    `DATE` DATE NULL , 
-    `checked` BIT NOT NULL ,
-    PRIMARY KEY (RESPONSEID),
-    CONSTRAINT `fk1_`
-    FOREIGN KEY (`USERID`)
-    REFERENCES `users` (`USERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `fk2_`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+DROP TABLE IF EXISTS `lines`;
+CREATE TABLE `lines` (
+    `LINEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `LINENAME` VARCHAR (100) NOT NULL ,
+    PRIMARY KEY (LINEID)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- 
--- Dumping data for table `responses`
+-- Dumping data for table `lines`
 -- 
-LOCK TABLES `responses` WRITE;
-/*!40000 ALTER TABLE `responses` DISABLE KEYS */;
-INSERT INTO `responses` VALUES ('1', '1', '2', 'good', '2014-02-04', 'true'), ('2', '1', '6', 'wonderful', '2014-02-11', 'true'), ('3', '10', '11', 'good', '2014-02-04', 'true'), ('4', '8', '13', 'wonderful', '2014-02-18', 'true'), ('5', '4', '2', 'wonderful', '2014-02-05', 'true'), ('6', '7', '9', 'This was a wonderful trip', '2014-02-11', 'true'), ('7', '9', '9', 'wonderful', '2014-02-05', 'true'), ('8', '4', '4', 'This was a wonderful trip', '2014-02-05', 'true');
-/*!40000 ALTER TABLE `responses` ENABLE KEYS */;
+LOCK TABLES `lines` WRITE;
+/*!40000 ALTER TABLE `lines` DISABLE KEYS */;
+INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv'), ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1'), ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2'), ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3'), ('13', 'L\'viv - Stryy3'), ('14', 'L\'viv - Stryy3'), ('15', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('17', 'Stryy - L\'viv3'), ('18', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3'), ('20', 'Pisochne - Sknyliv3'), ('21', 'Pisochne - Sknyliv3');
+/*!40000 ALTER TABLE `lines` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 
 -- 
 -- Table structure for table `routes`
@@ -217,39 +161,7 @@ INSERT INTO `stops` VALUES ('1', '1', '1', '00:00:00', '00:00:00'), ('2', '1', '
 /*!40000 ALTER TABLE `stops` ENABLE KEYS */;
 UNLOCK TABLES;
 
--- 
--- Table structure for table `tickets`
--- 
 
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE `tickets` (
-    `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
-    `TICKETNAME` VARCHAR (100) NOT NULL , 
-    `ORDERID` INT (10) unsigned NOT NULL , 
-    `TRIPID` INT (10) unsigned NOT NULL , 
-    `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
-    `SEATTYPE` INT (10) unsigned NOT NULL ,
-    PRIMARY KEY (TICKETID),
-    CONSTRAINT `fk1`
-    FOREIGN KEY (`ORDERID`)
-    REFERENCES `orders` (`ORDERID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `fk2`
-    FOREIGN KEY (`TRIPID`)
-    REFERENCES `trips` (`TRIPID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `tickets`
--- 
-LOCK TABLES `tickets` WRITE;
-/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES ;
-/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
-UNLOCK TABLES;
 
 -- 
 -- Table structure for table `transports`
@@ -334,6 +246,126 @@ CREATE TABLE `users` (
 -- 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1', 'tranzero', 'Oleg', 'Lesniak', 'test@mail.first', '', '2014-02-10 19:24:50.0', 'MANAGER'), ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '', '2014-02-10 19:56:13.0', 'ADMIN'), ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7s233', '2014-01-14 01:42:46.0', 'MANAGER'), ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '568355', '2014-01-14 02:41:35.0', 'REGUSER'), ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail', '', '2014-02-10 19:56:13.0', 'MANAGER'), ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '467888', '2014-01-14 03:43:46.0', 'ADMIN'), ('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '432567sd', '2014-01-14 03:41:38.0', 'ADMIN'), ('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '', '2014-01-14 04:42:46.0', 'MANAGER'), ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '', '2014-01-14 04:43:46.0', 'REGUSER'), ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4e5155', '2014-01-14 04:44:35.0', 'REGUSER'), ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '', '2014-01-14 04:44:46.0', 'REGUSER'), ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '8754325', '2014-01-14 04:44:46.0', 'REGUSER');
+INSERT INTO `users` VALUES 
+('1', 'tranzero', 'Oleg', 'Lesniak', 'test@mail.first', '1144', '2014-03-02 00:25:26.0', 'MANAGER'),
+ ('2', 'garasym', 'Yaroslav', 'Garasym', 'test@mail.second', '2555', '2014-03-02 00:25:26.0', 'MANAGER'), 
+('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test@mail.third', '3544', '2014-03-02 00:25:26.0', 'ADMIN'),
+ ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7733', '2014-03-02 00:25:26.0', 'ADMIN'),
+ ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.first', '5533', '2014-03-02 00:25:26.0', 'REGUSER'), 
+('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail', '13777', '2014-03-02 00:25:26.0', 'MANAGER'), 
+('7', 'taras', 'Taras', 'Savitskyy', 'taras7@mail.third', '1133', '2014-03-02 00:25:26.0', 'ADMIN'), 
+('8', 'roman', 'Roman', 'Parashchak', 'test8@mail.first', '2244', '2014-03-02 00:25:26.0', 'ADMIN'), 
+('9', 'petro', 'Petro', 'Matyash', 'test9@mail.second', '8899', '2014-03-02 00:25:26.0', 'MANAGER'), 
+('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '8877', '2014-03-02 00:25:26.0', 'REGUSER'),
+ ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4699', '2014-03-02 00:25:26.0', 'REGUSER'), 
+('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '1277', '2014-03-02 00:25:26.0', 'REGUSER'), 
+('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '17888', '2014-03-02 00:25:26.0', 'REGUSER'), 
+('14', 'test1', 'Test1', 'Test1', 'test01@mail.second', '1144', '2014-03-02 00:25:26.0', 'ADMIN'), 
+('15', 'test2', 'Test2', 'Test2', 'test02@mail.second', '1144', '2014-03-02 00:25:26.0', 'REGUSER');
+
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- 
+-- Table structure for table `orders`
+-- 
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    `ORDERID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `ORDERDATE` TIMESTAMP NOT NULL ,
+    PRIMARY KEY (ORDERID),
+    CONSTRAINT `ORDERID_ibfk_1`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `orders`
+-- 
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('1', '1', '2014-02-10 19:24:50.0'), ('2', '1', '2014-02-10 19:24:52.0'), ('3', '1', '2014-02-10 21:24:50.0'), ('4', '3', '2014-02-10 23:24:50.0'), ('5', '2', '2014-02-10 17:24:50.0');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- 
+-- Table structure for table `responses`
+-- 
+
+DROP TABLE IF EXISTS `responses`;
+CREATE TABLE `responses` (
+    `RESPONSEID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `USERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `COMMENT` VARCHAR (200) NOT NULL , 
+    `DATE` DATE NULL , 
+    `checked` BIT NOT NULL ,
+    PRIMARY KEY (RESPONSEID),
+    CONSTRAINT `fk1_`
+    FOREIGN KEY (`USERID`)
+    REFERENCES `users` (`USERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `fk2_`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `responses`
+-- 
+LOCK TABLES `responses` WRITE;
+/*!40000 ALTER TABLE `responses` DISABLE KEYS */;
+INSERT INTO `responses` VALUES ('1', '1', '2', 'good', '2014-02-04', true),
+ ('2', '1', '6', 'wonderful', '2014-02-11', true), 
+('3', '10', '11', 'good', '2014-02-04', true),
+ ('4', '8', '13', 'wonderful', '2014-02-18', true),
+ ('5', '4', '2', 'wonderful', '2014-02-05', true), 
+('6', '7', '9', 'This was a wonderful trip', '2014-02-11', true),
+ ('7', '9', '9', 'wonderful', '2014-02-05', true), 
+('8', '4', '4', 'This was a wonderful trip', '2014-02-05', true);
+/*!40000 ALTER TABLE `responses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- 
+-- Table structure for table `tickets`
+-- 
+
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE `tickets` (
+    `TICKETID` INT (10) unsigned NOT NULL AUTO_INCREMENT, 
+    `TICKETNAME` VARCHAR (100) NOT NULL , 
+    `ORDERID` INT (10) unsigned NOT NULL , 
+    `TRIPID` INT (10) unsigned NOT NULL , 
+    `CUSTOMERINFO` VARCHAR (100) NOT NULL , 
+    `SEATTYPE` INT (10) unsigned NOT NULL ,
+    PRIMARY KEY (TICKETID),
+    CONSTRAINT `fk1`
+    FOREIGN KEY (`ORDERID`)
+    REFERENCES `orders` (`ORDERID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT `fk2`
+    FOREIGN KEY (`TRIPID`)
+    REFERENCES `trips` (`TRIPID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `tickets`
+-- 
+LOCK TABLES `tickets` WRITE;
+/*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
+INSERT INTO `tickets` VALUES ('1', 'Bogdan', '1', '1', 'Info', '1');
+
+/*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;

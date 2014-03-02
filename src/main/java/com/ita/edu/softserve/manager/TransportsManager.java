@@ -127,6 +127,10 @@ public interface TransportsManager extends BaseManager {
 			String transportCode, Time time, String routesCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
 
+	long getTransportsListByCriteriaCount(String transportCode, Time time, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price);
+
 	/**
 	 * Gets List of Transports in descending order.
 	 * @return the List of Transports in descending order.

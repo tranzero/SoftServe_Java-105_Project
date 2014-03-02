@@ -3,24 +3,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <section id="content">
-<script>
-var defaultDomElement = "div#result"; 
-var defaultTargetPage = "tripspage"; 
-var defaultGetData={
-		pageNumber: "${pageNumber}",
-		resultsPerPage: "${resultsPerPage}",
-		transportCode: "${container.getTransportCode()}",
-		routeName: "${container.getRouteName()}",
-		remSeatClass1: "${container.getRemSeatClass1()}",
-		remSeatClass2: "${container.getRemSeatClass2()}",
-		remSeatClass3: "${container.getRemSeatClass3()}",
-		minDate: "${container.getMinDateString()}",
-		maxDate: "${container.getMaxDateString()}",
-		orderByParam: "${container.getOrderByParam()}",
-		orderByDirection :"${container.getOrderByDirection()}"
-};
-
-</script>
+	<script>
+		var defaultDomElement = "div#result";
+		var defaultTargetPage = "tripspage";
+		var defaultGetData = {
+			pageNumber : "${pageNumber}",
+			resultsPerPage : "${resultsPerPage}",
+			transportCode : "${container.getTransportCode()}",
+			routeName : "${container.getRouteName()}",
+			remSeatClass1 : "${container.getRemSeatClass1()}",
+			remSeatClass2 : "${container.getRemSeatClass2()}",
+			remSeatClass3 : "${container.getRemSeatClass3()}",
+			minDate : "${container.getMinDateString()}",
+			maxDate : "${container.getMaxDateString()}",
+			orderByParam : "${container.getOrderByParam()}",
+			orderByDirection : "${container.getOrderByDirection()}"
+		};
+	</script>
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
@@ -34,20 +33,22 @@ var defaultGetData={
 			<spring:message code="label.transport.transportcode" />
 			:
 			<c:if test="${isTransportCode}">
-				<input class="autosearch" type="text" id="transportCode" name="transportCode">
+				<input class="autosearch" type="text" id="transportCode"
+					name="transportCode">
 			</c:if>
 			<c:if test="${!isTransportCode}">
-				<input class="autosearch" type="text" id="transportCode" name="transportCode"
-					value="${container.getTransportCode()}">
+				<input class="autosearch" type="text" id="transportCode"
+					name="transportCode" value="${container.getTransportCode()}">
 			</c:if>
 			<spring:message code="label.trips.routename" />
 			:
 			<c:if test="${isRouteName}">
-				<input class="autosearch" type="text" id="routeName" name="routeName">
+				<input class="autosearch" type="text" id="routeName"
+					name="routeName">
 			</c:if>
 			<c:if test="${!isRouteName}">
-				<input class="autosearch" type="text" id="routeName" name="routeName"
-					value="${container.getRouteName()}">
+				<input class="autosearch" type="text" id="routeName"
+					name="routeName" value="${container.getRouteName()}">
 			</c:if>
 		<p>
 			<spring:message code="label.trips.minimalremainingseatsbyclasses" />
@@ -55,27 +56,30 @@ var defaultGetData={
 		<p>
 			<label for="remSeatClass1">1:</label>
 			<c:if test="${isClass1}">
-				<input class="autosearch" type="number" id="remSeatClass1" name="remSeatClass1">
+				<input class="autosearch" type="number" id="remSeatClass1"
+					name="remSeatClass1">
 			</c:if>
 			<c:if test="${!isClass1}">
-				<input class="autosearch" type="number" id="remSeatClass1" name="remSeatClass1"
-					value="${container.getRemSeatClass1()}">
+				<input class="autosearch" type="number" id="remSeatClass1"
+					name="remSeatClass1" value="${container.getRemSeatClass1()}">
 			</c:if>
 			<label for="remSeatClass2">2:</label>
 			<c:if test="${isClass2}">
-				<input class="autosearch" type="number" id="remSeatClass2" name="remSeatClass2">
+				<input class="autosearch" type="number" id="remSeatClass2"
+					name="remSeatClass2">
 			</c:if>
 			<c:if test="${!isClass2}">
-				<input class="autosearch" type="number" id="remSeatClass2" name="remSeatClass2"
-					value="${container.getRemSeatClass2()}">
+				<input class="autosearch" type="number" id="remSeatClass2"
+					name="remSeatClass2" value="${container.getRemSeatClass2()}">
 			</c:if>
 			<label for="remSeatClass3">3:</label>
 			<c:if test="${isClass3}">
-				<input class="autosearch" type="number" id="remSeatClass3" name="remSeatClass3">
+				<input class="autosearch" type="number" id="remSeatClass3"
+					name="remSeatClass3">
 			</c:if>
 			<c:if test="${!isClass3}">
-				<input class="autosearch" type="number" id="remSeatClass3" name="remSeatClass3"
-					value="${container.getRemSeatClass3()}">
+				<input class="autosearch" type="number" id="remSeatClass3"
+					name="remSeatClass3" value="${container.getRemSeatClass3()}">
 			</c:if>
 		<p>
 			<spring:message code="label.trips.daterange" />
@@ -104,11 +108,11 @@ var defaultGetData={
 			<input type="submit"
 				value="<spring:message code="label.trips.tripsearch"/>">
 		</div>
-<br>
+		<br>
 	</form>
 	<p>
-	<br>
-	<div id="result">
+		<br>
+		<div id="result">
 		<table style="align: center">
 			<tr>
 				<th><div style="float: left">
@@ -138,13 +142,14 @@ var defaultGetData={
 						}&orderByParam=tr.transport.transportCode&orderByDirection=DESC">
 							<img alt="v" src="resources/images/uparrow.png">
 						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.trips.routename" />
 					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+		</th>
+		<th><div style="float: left">
+				<spring:message code="label.trips.routename" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -153,9 +158,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.transport.routes.routeName&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -164,15 +169,15 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.transport.routes.routeName&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.trips.remseatclass1" />
-					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th><div style="float: left">
+				<spring:message code="label.trips.remseatclass1" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -181,9 +186,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass1&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -192,15 +197,15 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass1&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.trips.remseatclass2" />
-					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th><div style="float: left">
+				<spring:message code="label.trips.remseatclass2" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -209,9 +214,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass2&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -220,15 +225,15 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass2&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.trips.remseatclass3" />
-					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th><div style="float: left">
+				<spring:message code="label.trips.remseatclass3" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -237,9 +242,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass3&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -248,15 +253,15 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.remSeatClass3&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.trips.date" />
-					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th><div style="float: left">
+				<spring:message code="label.trips.date" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -265,9 +270,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.startDate&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -276,15 +281,15 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.startDate&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
-				<th><div style="float: left">
-						<spring:message code="label.transport.starttime" />
-					</div>
-					<div style="float: right">
-						<a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th><div style="float: left">
+				<spring:message code="label.transport.starttime" />
+			</div>
+			<div style="float: right">
+				<a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -293,9 +298,9 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.transport.startTime&orderByDirection=ASC">
-							<img alt="^" src="resources/images/downarrow.png">
-						</a> <a
-							href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
+					<img alt="^" src="resources/images/downarrow.png">
+				</a> <a
+					href="?resultsPerPage=${resultsPerPage}&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
 						container.getRouteName())}&remSeatClass1=${
 						container.getRemSeatClass1()}&remSeatClass2=${
@@ -304,22 +309,24 @@ var defaultGetData={
 						container.getMinDateString())}&maxDate=${encoder.encode(
 						container.getMaxDateString())
 						}&orderByParam=tr.transport.startTime&orderByDirection=DESC">
-							<img alt="v" src="resources/images/uparrow.png">
-						</a>
-					</div></th>
+					<img alt="v" src="resources/images/uparrow.png">
+				</a>
+			</div></th>
+		<th></th>
+		</tr>
+		<c:forEach items="${tripsList}" var="trip">
+			<tr>
+				<td align="center">${trip.getTransport().getTransportCode()}</td>
+				<td align="center">${trip.getTransport().getRoutes().getRouteName()}</td>
+				<td align="center">${trip.getRemSeatClass1()}</td>
+				<td align="center">${trip.getRemSeatClass2()}</td>
+				<td align="center">${trip.getRemSeatClass3()}</td>
+				<td align="center">${dateFormat.format(trip.getStartDate())}</td>
+				<td align="center">${trip.getTransport().getStartTime()}</td>
+				<td><a href=" tripResponses/${trip.getTripId()}"><spring:message
+							code="label.navigation.checkresponses" />...</a></td>
 			</tr>
-			<c:forEach items="${tripsList}" var="trip">
-				<tr>
-					<td align="center">${trip.getTransport().getTransportCode()}</td>
-					<td align="center">${trip.getTransport().getRoutes().getRouteName()}</td>
-					<td align="center">${trip.getRemSeatClass1()}</td>
-					<td align="center">${trip.getRemSeatClass2()}</td>
-					<td align="center">${trip.getRemSeatClass3()}</td>
-					<td align="center">${dateFormat.format(trip.getStartDate())}</td>
-					<td align="center">${trip.getTransport().getStartTime()}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		</c:forEach></table>
 
 		<div class="pagination">
 			<ul class="bootpag">
@@ -416,9 +423,9 @@ var defaultGetData={
 			</ul>
 			<p>
 			<p>
-			<br>
-			<spring:message code="label.trips.resultsperpage" />
-			:
+				<br>
+				<spring:message code="label.trips.resultsperpage" />
+				:
 			<ul class="bootpag">
 				<c:if test="${resultsPerPage!=10}">
 					<li><a
@@ -453,7 +460,8 @@ var defaultGetData={
 				</c:if>
 				<c:if test="${resultsPerPage==20}">
 					<li class="disabled"><a href="javascript:void(0);">20</a></li>
-				</c:if><c:if test="${resultsPerPage!=50}">
+				</c:if>
+				<c:if test="${resultsPerPage!=50}">
 					<li><a
 						href="?resultsPerPage=50&transportCode=${encoder.encode(
 						container.getTransportCode())}&routeName=${encoder.encode(
@@ -497,34 +505,52 @@ var defaultGetData={
 
 		}
 
-		$(window).load(function() {
-			formDatePicker();
- 			$("input#remSeatClass1").ForceNumericOnly();
- 			$("input#remSeatClass2").ForceNumericOnly();
- 			$("input#remSeatClass3").ForceNumericOnly();
- 			setInterval(function(){
- 				var curVal;
- 				var prevVal;
- 			    curVal = $(".autosearch").serialize();
- 			    prevVal  = $(".autosearch").data("prevVal") || null;
- 			    $(".autosearch").data("prevVal",curVal);
- 			    if ((prevVal!= null) && (prevVal !== curVal)) {
- 			    	var searchData={
- 			    			pageNumber: 1,
- 			    			resultsPerPage: "${resultsPerPage}",
- 			    			transportCode: $("input#transportCode").val(), 
- 			    			routeName: $("input#routeName").val(), 
- 			    			remSeatClass1: $("input#remSeatClass1").val(),
- 			    			remSeatClass2: $("input#remSeatClass2").val(),
- 			    			remSeatClass3: $("input#remSeatClass3").val(),
- 			    			minDate: $("input#from").val(),
- 			    			maxDate: $("input#to").val(),
- 			    			orderByParam: "${container.getOrderByParam()}",
- 			    			orderByDirection :"${container.getOrderByDirection()}"
- 			    	};
- 			    	ajaxLoader(defaultDomElement, defaultTargetPage, searchData);
- 			    }
- 			}, 3000);
-		});
+		$(window)
+				.load(
+						function() {
+							formDatePicker();
+							$("input#remSeatClass1").ForceNumericOnly();
+							$("input#remSeatClass2").ForceNumericOnly();
+							$("input#remSeatClass3").ForceNumericOnly();
+							setInterval(
+									function() {
+										var curVal;
+										var prevVal;
+										curVal = $(".autosearch").serialize();
+										prevVal = $(".autosearch").data(
+												"prevVal")
+												|| null;
+										$(".autosearch")
+												.data("prevVal", curVal);
+										if ((prevVal != null)
+												&& (prevVal !== curVal)) {
+											var searchData = {
+												pageNumber : 1,
+												resultsPerPage : "${resultsPerPage}",
+												transportCode : $(
+														"input#transportCode")
+														.val(),
+												routeName : $("input#routeName")
+														.val(),
+												remSeatClass1 : $(
+														"input#remSeatClass1")
+														.val(),
+												remSeatClass2 : $(
+														"input#remSeatClass2")
+														.val(),
+												remSeatClass3 : $(
+														"input#remSeatClass3")
+														.val(),
+												minDate : $("input#from").val(),
+												maxDate : $("input#to").val(),
+												orderByParam : "${container.getOrderByParam()}",
+												orderByDirection : "${container.getOrderByDirection()}"
+											};
+											ajaxLoader(defaultDomElement,
+													defaultTargetPage,
+													searchData);
+										}
+									}, 3000);
+						});
 	</script>
 </section>

@@ -306,3 +306,28 @@ em.star {
     text-decoration: none;
 }
 
+/*FOR TRANSPORT TABLE HEAD ARROWS ICON*/
+.transportTableArrows thead tr th span {
+	padding-right: 20px;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+}
+
+.transportTableArrows thead tr th.headerSortUp, .transportTableArrows thead tr th.headerSortDown
+	{
+	background: #acc8dd;
+}
+
+.transportTableArrows thead tr th.headerSortUp span {
+	background-image: url('resources/images/up-arrow.png');
+}
+
+.transportTableArrows thead tr th.headerSortDown span {
+	background-image: url('resources/images/down-arrow.png');
+}
+
+/*TRANSPORT FORM SELECT TAG*/
+form select.selectRoutes {
+	border: 1px solid #006;
+	width: 198px;
+}

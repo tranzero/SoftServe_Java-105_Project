@@ -23,7 +23,9 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 
 	/**
 	 * Finds Transport by transport code.
-	 * @param code the code to find transport by.
+	 * 
+	 * @param code
+	 *            the code to find transport by.
 	 * @return the transport if exist.
 	 */
 	Transports findByCode(String code);
@@ -87,18 +89,31 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	List<Transports> findByDate(String date);
 
 	/**
-	 * @param firstElement 
-	 * @param count the number of items on a page.
-	 * @param transportCode the transport code to filter.
-	 * @param time time to filter.
-	 * @param routesCode the route code to filter.
-	 * @param seatClass1 the seat class 1 to filter.
-	 * @param seatClass2 the seat class 2 to filter.
-	 * @param seatClass3 the seat class 3 to filter.
-	 * @param price price to filter.
+	 * @param firstElement
+	 * @param count
+	 *            the number of items on a page.
+	 * @param transportCode
+	 *            the transport code to filter.
+	 * @param time
+	 *            time to filter.
+	 * @param routesCode
+	 *            the route code to filter.
+	 * @param seatClass1
+	 *            the seat class 1 to filter.
+	 * @param seatClass2
+	 *            the seat class 2 to filter.
+	 * @param seatClass3
+	 *            the seat class 3 to filter.
+	 * @param price
+	 *            price to filter.
 	 * @return the list of transport filtered by criteria.
 	 */
 	List<Transports> getTransportsListByCriteria(int firstElement, int count,
-			String transportCode, Time time, String routesCode, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price);
+			String transportCode, Time time, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price);
+
+	long getTransportsListByCriteriaCount(String transportCode, Time time,
+			String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price);
 }

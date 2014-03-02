@@ -3,19 +3,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<link rel="stylesheet" type="text/css" href="resources/css/jquery.datetimepicker.css"/>
+<link rel="stylesheet" href="resources/css/jquery-ui.css" type="text/css" />
+
 <section id="content">
+	<script src="resources/js/jquery.js"></script>
+	<script src="resources/js/jquery.datetimepicker.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="resources/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="resources/js/routesTripSearch.js"></script>
+
+
+	<script>
+	$(function(){
+        $('#btnFindRoutes').click(
+        		 function(){
+        			
+        	}
+		);
+	});	
+		
+	</script>
+	
 	<h2 align="center"><spring:message code="label.navigation.routes" /></h2>
+		
 		<form:form action="routesTrips" method="get">
-			<spring:message code="label.navigation.minTime" /> <input type="text" name="timeMin" placeholder="1:00:15" ></input>
-			<spring:message code="label.navigation.maxTime" /> <input type="text" name="timeMax" placeholder="23:00:30" ></input>
+		
+			<spring:message code="label.navigation.minTime" /> <input type="text" id="timeMin" name="timeMin" ></input>
+			<spring:message code="label.navigation.maxTime" /> <input type="text" id="timeMax" name="timeMax" ></input>
 			<spring:message code="label.navigation.arrival" /> <input name="findBy" type="radio" value="findByArr" checked>
             <spring:message code="label.navigation.departure" /> <input name="findBy" type="radio" value="findByDep">
             <p/>
-			<spring:message code="label.stations.stationname" /> <input type="text" name="nameStation" placeholder="Pisochne" ></input>
-
-			<input class="button" type="submit" name="submit" value =<spring:message code="label.navigation.findrouts" />></input>
+			<spring:message code="label.stations.stationname" /> <input type="text" id="stationList" name="nameStation"></input>
+			<input class="button" id="btnFindRoutes" type="submit" name="submit" value =<spring:message code="label.navigation.findrouts" />></input>
+			
 		</form:form>
-	
 	<div id="result">
 		<%-- Results --%>
 		<c:if test="${!empty RoutesTripsList}">
@@ -96,6 +120,9 @@
 	
 	<c:if test="${not empty param.nameStation  && not empty param.timeMin && not empty param.timeMax}">
 	<script>
+		$(function(){
+		  	getStationList();
+		});	
 		function showRoutesTripPage(stationName_, timeMin_, timeMax_, findBy_,
 				pageNumber_, resultsPerPage_) {
 			if (stationName_ == "" || timeMin_ == "" || timeMax_ == "") {
