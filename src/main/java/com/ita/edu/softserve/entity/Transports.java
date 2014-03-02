@@ -33,7 +33,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE, query = Transports.FIND_BY_TRANSPORTCODE_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
 
-		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY),
+//		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY),
+		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY),
 		
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*,
@@ -65,20 +66,37 @@ public class Transports extends BaseEntity {
 	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY = "SELECT t FROM Transports t "
 			+ "WHERE "
 			+ "t.transportCode LIKE :transportCode "
-			+ "OR "
-			+ "t.startTime = :startTime "
-			+ "OR "
+			+ "AND "
+//			+ "t.startTime = :startTime "
+//			+ "AND "
 			+ "t.routes.routeCode LIKE :routeCode "
-			+ "OR "
-			+ "t.seatclass1 > :seatclass1 "
-			+ "OR "
-			+ "t.seatclass2 > :seatclass2 "
-			+ "OR "
-			+ "t.seatclass3 > :seatclass3 "
-			+ "OR "
+			+ "AND "
+			+ "t.seatclass1 >= :seatclass1 "
+			+ "AND "
+			+ "t.seatclass2 >= :seatclass2 "
+			+ "AND "
+			+ "t.seatclass3 >= :seatclass3 "
+			+ "AND "
 			+ "t.genPrice < :genPrice "
 			;
-
+	
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT = "Transports.findTransportsListByCriteria";
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t "
+			+ "WHERE "
+			+ "t.transportCode LIKE :transportCode "
+			+ "AND "
+			+ "t.startTime = :startTime "
+			+ "AND "
+			+ "t.routes.routeCode LIKE :routeCode "
+			+ "AND "
+			+ "t.seatclass1 > :seatclass1 "
+			+ "AND "
+			+ "t.seatclass2 > :seatclass2 "
+			+ "AND "
+			+ "t.seatclass3 > :seatclass3 "
+			+ "AND "
+			+ "t.genPrice < :genPrice "
+			;
 	/*------------------------------------------------------------------------------------------------------------*/
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";

@@ -95,7 +95,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			throw ex;
 		}
 	}
-	
+
 	/**
 	 * Saves Transports in database.
 	 * 
@@ -196,34 +196,24 @@ public class TransportsManagerImpl implements TransportsManager {
 		}
 	}
 
-	/**
-	 * Gets the list of all transports in descending order.
-	 * 
-	 * @return the list of all transports.
-	 */
-	// @Transactional
-	// @Override
-	// public List<Transports> getAllTransportsDESC() {
-	// try {
-	// return transportsDao.getEntityDESC();
-	// } catch (RuntimeException e) {
-	// RuntimeException ex = new TransprtsManagerException(
-	// getAllTransportsMessage, e);
-	// LOGGER.error(e);
-	// LOGGER.error(ex);
-	// throw ex;
-	// }
-	// }
-
-	 @Override
+	@Override
 	public List<Transports> getTransportsListByCriteria(int firstElement,
 			int count, String transportCode, Time time, String routesCode,
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
 			Double price) {
 
-		return (List<Transports>) transportsDao.getTransportsListByCriteria(
-				firstElement, count, transportCode, time, routesCode, seatClass1,
-				seatClass2, seatClass3, price);
+		return transportsDao.getTransportsListByCriteria(firstElement, count,
+				transportCode, time, routesCode, seatClass1, seatClass2,
+				seatClass3, price);
+	}
+
+	@Override
+	public long getTransportsListByCriteriaCount(String transportCode,
+			Time time, String routesCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price) {
+
+		return transportsDao.getTransportsListByCriteriaCount(transportCode,
+				time, routesCode, seatClass1, seatClass2, seatClass3, price);
 	}
 
 	/**
