@@ -1,33 +1,26 @@
 package com.ita.edu.softserve.web;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import com.ita.edu.softserve.components.Encoder;
-import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
-import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.entity.Routes;
+
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
@@ -49,9 +42,6 @@ public class UserController {
 	private UserManager usersmanage;
 
 	@Autowired
-	private UserNameService userService;
-	
-	@Autowired
 	Validator userEditValidator;
 
 	@Autowired
@@ -60,6 +50,12 @@ public class UserController {
 	@Autowired
 	Encoder encoder;
 
+	@Autowired
+	private UserNameService userService;
+
+	/**
+	 * Put Fill Elements Options
+	 */
 	private void putFillElementsOptions(
 			UserCriteriaContainer usersCriteriaContainer,
 			Map<String, Object> modelMap) {
@@ -71,6 +67,22 @@ public class UserController {
 				.isEmptyString(userCriteriaContainer.getMinDateString()));
 	}
 
+	/**
+	 * Deploy Users Parameters
+	 * 
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param searchString
+	 * @param minDateString
+	 * @param maxDateString
+	 * @param isRegUser
+	 * @param isManager
+	 * @param isAdmin
+	 * @param orderByParam
+	 * @param orderByDirection
+	 * @param modelMap
+	 * @param locale
+	 */
 	private void deployUsersParameters(Integer pageNumber,
 			Integer resultsPerPage, String searchString, String minDateString,
 			String maxDateString, Boolean isRegUser, Boolean isManager,
@@ -124,6 +136,23 @@ public class UserController {
 		return "userlist";
 	}
 
+	/**
+	 * Get all users
+	 * 
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param searchString
+	 * @param minDateString
+	 * @param maxDateString
+	 * @param isRegUser
+	 * @param isManager
+	 * @param isAdmin
+	 * @param orderByParam
+	 * @param orderByDirection
+	 * @param modelMap
+	 * @param locale
+	 * @return
+	 */
 	@RequestMapping(value = "userListPage", method = RequestMethod.GET)
 	public String getAllUserPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -144,44 +173,13 @@ public class UserController {
 		return "userListPage";
 	}
 
-	
-
-	
-	
-
-	/**
-	 * updateUserToDB2 - RequestMethod.GET
-	 */
-	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
-	public String editUser2(@PathVariable("user") Integer usId,
-			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
-		modelMap.put("user", user);
-		return "userEdit2";
-	}
-
-	/**
-	 * updateUserToDB2 - RequestMethod.POST
-	 */
-	@RequestMapping(value = "/userEdit2/{userToEdit}", method = RequestMethod.POST)
-	public String updateUserToDB2(@PathVariable("userToEdit") Integer userId,
-			@ModelAttribute("userFirstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("eMail") String eMail,
-			@ModelAttribute("password") String password
-
-	) {
-		usersmanage.updateUser2(userId, firstName, lastName, eMail, password);
-		return "redirect:/userlist";
-	}
-
 	/**
 	 * Delete user
 	 * 
 	 * @param userId
 	 * @return userlist
 	 */
-	@RequestMapping("/userdel/{user}")
+	@RequestMapping("/userDelete/{user}")
 	public String deleteUser(@PathVariable("user") Integer userId) {
 		usersmanage.removeUser(userId);
 		return "redirect:/userlist";
@@ -202,16 +200,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
-	public String updateProfile(
-			@ModelAttribute("firstName") String firstName,
+	public String updateProfile(@ModelAttribute("firstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password
-	) {
-		usersmanage.updateUser2(userService.getLoggedUserId(), firstName, lastName, email, password);
+			@ModelAttribute("password") String password) {
+		usersmanage.updateUser2(userService.getLoggedUserId(), firstName,
+				lastName, email, password);
 		return "redirect:/mainpage";
 	}
-
-	
 
 }
