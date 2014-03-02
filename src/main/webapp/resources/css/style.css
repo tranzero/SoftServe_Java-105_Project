@@ -332,3 +332,61 @@ form select.selectRoutes {
 	border: 1px solid #006;
 	width: 198px;
 }
+
+
+/* Responses Styles */
+div#tripInfo {
+	padding: 20px;
+	height: 90px;
+    	width: 580px;
+    	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 5px;
+    	box-shadow: 0 0 2px #E7E7E7;
+}
+div#tripInfo h3{
+	font-size: 1.4em;
+	font-weight: bold;
+}
+div#tripInfo div#live_resp_btn {
+	float: right;
+	margin-top: -10px;
+	padding-right: 10px;	
+}
+div#response {
+	padding: 15px 10px;
+	margin-top: 15px;
+	margin-left: 80px;
+    	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 5px;
+    	box-shadow: 0 0 2px #E7E7E7;
+    	width: 570px;
+}
+div#postedBy {
+	height: 64px;
+}
+span.user_avatar {
+	display: inline-block;
+	float: left;
+	padding-right: 10px;
+}
+.user_avatar {
+        background: url("../images/default_avatar.png") no-repeat;	
+        background-size: 60px 60px;	
+        height: 60px;
+        width: 60px;
+}
+div.user_name {
+	padding-top: 5px;
+	font-size: 1.0em;
+	font-weight: bold;
+}
+div.response_date {
+	padding-top: 5px;
+	font-size: 0.8em;
+}
+div.commentText {
+	padding: 10px 0 10px 10px;
+	word-wrap: break-word;
+	max-width: 570px;
+}
+/* Responses Styles END */

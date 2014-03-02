@@ -4,18 +4,19 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
 	<c:if test="${not empty ResponsesList}">
-		<div>
-			<h3>${ResponsesList.get(0).getTrip().getTransport().getTransportCode()}
-				-
-				${ResponsesList.get(0).getTrip().getTransport().getRoutes().getRouteName()}</h3>
+		<div id="tripInfo">
+			<h3>${ResponsesList.get(0).getTrip().getTransport().getRoutes().getRouteName()}
+				(${ResponsesList.get(0).getTrip().getTransport().getTransportCode()})</h3>
+			<div id="live_resp_btn">
+				<a href="/SoftServe_Java-105/addComment/${ResponsesList.get(0).getTrip().getTripId()}"><input type="button"
+					value="<spring:message code="label.responses.leaveComment" />" /></a>
+			</div>
 		</div>
 		<c:forEach var="responses" items="${ResponsesList}">
 			<c:if test="${responses.isChecked()}">
-				<div class="response">
+				<div id="response">
 					<div id="postedBy">
-						<div class="avatar">
-							<span class="user_avatar"></span>
-						</div>
+						<span class="user_avatar"></span>
 						<div class="user_name">${responses.getUser().getFirstName()}
 							${responses.getUser().getLastName().substring(0,1)}.</div>
 						<div class="response_date">${responses.getDate().toString().substring(0,10)}</div>
