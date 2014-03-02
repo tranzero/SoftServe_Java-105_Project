@@ -5,35 +5,27 @@
 <%@ page session="true"%>
 
 <section id="content">
-	<h1>
-		<spring:message code="label.profile.myProfile" />
-	</h1>
 	<form id="profileEdit" method="post">
-		<div>
-			<table>
-				<tr>
-					<td><spring:message code="label.profile.firstName" /></td>
-					<td><input id="firstName" type="text" name="firstName"
-						value="${user.getFirstName()}"></td>
-				</tr>
-				<tr>
-					<td><spring:message code="label.profile.lastName" /></td>
-					<td><input id="lastName" type="text" name="lastName"
-						value="${user.getLastName()}"></td>
-				</tr>
-				<tr>
-					<td><spring:message code="label.profile.eMail" /></td>
-					<td><input id="email" type="text" name="email"
-						value="${user.getEmail()}"></td>
-				</tr>
-				<tr>
-					<td><spring:message code="label.profile.password" /></td>
-					<td><input id="password" type="text" name="password"
-						value="${user.getPassword()}"></td>
-				</tr>
-			</table>
-			<input type="submit"
-				value="<spring:message code="label.profile.updateProfile"/>">
+		<div class="control-group">
+			<label for="firstName"><spring:message code="label.profile.firstName" /></label>
+			<input id="firstName" type="text" name="firstName" value="${user.getFirstName()}">
+		</div>
+		<div class="control-group">
+			<label for="lastName"><spring:message code="label.profile.lastName" /></label> 
+			<input id="lastName" type="text" name="lastName" value="${user.getLastName()}">
+		</div>
+		<div class="control-group">
+			<label for="email"><spring:message code="label.profile.eMail" /></label>
+			<input id="email" type="text" name="email" value="${user.getEmail()}">
+		</div>
+		<div class="control-group">
+			<label for="password"><spring:message code="label.profile.password" /></label> 
+			<input id="password" type="text" name="password" value="${user.getPassword()}">
+		</div>
+		<div class="control-group">
+			<div class="center">
+				<input type="submit" value="<spring:message code="label.profile.updateProfile"/>">
+			</div>
 		</div>
 	</form>
 </section>
