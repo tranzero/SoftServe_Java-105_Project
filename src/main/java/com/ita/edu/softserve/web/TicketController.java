@@ -4,6 +4,7 @@
 package com.ita.edu.softserve.web;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +35,10 @@ import com.ita.edu.softserve.manager.UserNameService;
  */
 
 @Controller("ticketController")
-@Scope("session")
+//@Scope("session")
 public class TicketController {
 	
-	
+	@Autowired
 	private ShoppingBag shoppingBag = new ShoppingBag();
 	
 	@Autowired
@@ -77,21 +78,8 @@ public class TicketController {
 			@PathVariable(value= "seatType") Integer seatType,
 			BindingResult result,
 			Map<String, Object> modelMap) {
+		
 		Trips trip = tripsManager.findByTripId(tripId);
-		
-		if(seatType.equals(1)){
-			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
-		}
-		if(seatType.equals(2)){
-			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
-		}
-		
-		if(seatType.equals(3)){
-			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
-		}
-		
-		
-		tripsManager.updateTrip(trip);
 		Tickets ticket = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,customerInfo,seatType);
 		shoppingBag.addTicket(ticket);
 		modelMap.put("ticketsList", shoppingBag.getTickets());
@@ -103,6 +91,7 @@ public class TicketController {
 	@RequestMapping(value="/bag",method = RequestMethod.GET)
 	public String shoppingBagGET(@RequestParam(value= "customerInfo",required = false) String customerInfo,
 			Map<String, Object> modelMap){
+		
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		System.out.println("bag");
 		return "bag";
@@ -113,13 +102,13 @@ public class TicketController {
 	public String shoppingBagPOST(@RequestParam(value= "customerInfo",required = false) String customerInfo,
 			Map<String, Object> modelMap){
 		modelMap.put("ticketsList", shoppingBag.getTickets());
+		Date orderDate = new Date();
+		ordersManager.createOrder(userNameService.getLoggedUserId(),orderDate);
+		for(Tickets tmp: shoppingBag.getTickets()){
+		//	tmp.setOrder(order);
+			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
+		}
 		
-//		ordersManager.createOrder(userNameService.getLoggedUserId(), order.getTripId().getTripId());
-//		for(Tickets tmp: shoppingBag.getTickets()){
-//			tmp.setOrder(order);
-//			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
-//		}
-//		
 		return "bagPay";
 	}
 	
@@ -131,7 +120,8 @@ public class TicketController {
 		List<Tickets> ticketsList = shoppingBag.getTickets();
 		for(Tickets ticket: ticketsList){
 			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
-				shoppingBag.removeTicket(ticket);
+				
+				shoppingBag.removeTicket(ticketsList.indexOf(ticket));
 			}
 		}
 		}

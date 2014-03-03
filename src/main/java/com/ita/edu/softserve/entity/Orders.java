@@ -74,6 +74,13 @@ public class Orders extends BaseEntity {
 		super();
 		this.userId=userId;
 	}
+	
+
+	public Orders(Users userId, Date orderDate) {
+		super();
+		this.userId = userId;
+		this.orderDate = orderDate;
+	}
 
 	/**
 	 * @return the orderId

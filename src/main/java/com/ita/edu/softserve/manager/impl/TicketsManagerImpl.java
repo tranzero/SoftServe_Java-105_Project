@@ -78,28 +78,9 @@ public class TicketsManagerImpl implements TicketsManager{
 		
 		ticketsDao.save(ticket);
 		
-		Trips trip = ordersDao.findById(orderId).getTripId();
 		
-		if(seatType.equals(1)){
-			
-			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
-			
-		}
 		
-		if(seatType.equals(2)){
-			
-			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
-			
-		}
-		
-		if(seatType.equals(3)){
-			
-			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
-			
-		}
-		tripsDao.update(trip);
-		
-	}
+}
 	
 	@Transactional
 	@Override
