@@ -75,7 +75,7 @@ public class UserController {
 			return "userEdit";
 		}
 		usersmanage.saveOrUpdateUser(user);
-		return "redirect:/userlist";
+		return "redirect:/userlist2";
 	}
 
 	// for Validator- userEdit

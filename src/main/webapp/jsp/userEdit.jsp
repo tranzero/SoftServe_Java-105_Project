@@ -61,7 +61,7 @@
 		<p>
 			<input name="control" type="submit" value="Update" /> <input
 				type="button" value="<spring:message code="label.stations.cancel"/>"
-				onclick="window.location='/SoftServe_Java-105/userlist';">
+				onclick="window.location='/SoftServe_Java-105/userlist2';">
 		</p>
 
 	</form:form>
