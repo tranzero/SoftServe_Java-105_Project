@@ -8,6 +8,12 @@
 	<h2 align="center">
 		<spring:message code="label.navigation.route" />
 	</h2>
+	<p>
+	<a href="/SoftServe_Java-105/formRoute"> <input id="Add"
+		type="button" name="add"
+		value="<spring:message code="label.navigation.addRoute"/>">
+	</a>
+	</p>
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
