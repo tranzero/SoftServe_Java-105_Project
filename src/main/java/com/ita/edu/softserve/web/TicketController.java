@@ -120,6 +120,7 @@ public class TicketController {
 					ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
 		}
 		
+		shoppingBag.clear();
 		return "redirect:/";
 	}
 	
@@ -128,16 +129,9 @@ public class TicketController {
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
 			@PathVariable(value="tripId") Integer tripId,
 			Map<String,Object> modelMap){
-		if(!(shoppingBag.getTickets().isEmpty())){
-		List<Tickets> ticketsList = shoppingBag.getTickets();
-		for(Tickets ticket: ticketsList){
-			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
-				
-				shoppingBag.removeTicket(ticketsList.indexOf(ticket));
-			}
-		}
-		}
-
+		
+		shoppingBag.removeTicket(ticketName, tripId);
+		
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		return "bag";
 	}

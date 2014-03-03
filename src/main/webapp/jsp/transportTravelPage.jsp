@@ -27,8 +27,10 @@
 					<spring:message code="label.transportTravel.duration" />
 			</a></th>
 			<c:if test="${not empty param.sDate}">
-				<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
-			</c:if>
+				<c:if test="${not empty user}">
+						<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
+						</c:if>
+					</c:if>
 		</tr>
 		<c:forEach var="transport" items="${TransportTravelList}">
 			<tr>
@@ -40,6 +42,7 @@
 						code="label.transportTravel.arr" /> ${transport.getArrivalTime()}</td>
 				<td>${transport.getDuration()}</td>
 				<c:if test="${not empty param.sDate}">
+					<c:if test="${not empty user}">
 					<td><a
 						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
 							1</a></td>
@@ -49,11 +52,9 @@
 					<td><a
 						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
 							3</a></td>
-					<%-- <td><a
-						href="/SoftServe_Java-105/reservationTicket/${transport.getTripId()}"><input
-							type="button"
-							value="<spring:message code='label.tickets.purchase' />" /></a></td> --%>
-				</c:if>
+			
+							</c:if>
+					</c:if>
 			</tr>
 		</c:forEach>
 	</table>

@@ -28,6 +28,7 @@ import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.StationOnLineManager;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
@@ -222,6 +223,9 @@ public class TransportController {
 	 */
 	@Autowired
 	private RoutesDAO routesDao;
+	
+	@Autowired
+	private  UserNameService userNameService;
 	
 	@Autowired
 	private TripsManager tripsManager;
@@ -520,7 +524,8 @@ public class TransportController {
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
 						(int) container.getResultsPerPage(), sDate, orderBy));
-
+		modelMap.put("user", userNameService.getLoggedUserId());
+		
 		return TRANSPORT_TRAVEL_JSP;
 	}
 
@@ -563,7 +568,8 @@ public class TransportController {
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
 						(int) container.getResultsPerPage(), sDate, orderBy));
-
+		modelMap.put("user", userNameService.getLoggedUserId());
+		
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}
 }

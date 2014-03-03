@@ -61,10 +61,14 @@ public class ShoppingBag implements Serializable {
 		tickets.add(ticket);
 	}
 
-	public void removeTicket(Integer index) {
+	public void removeTicket(String ticketName,Integer tripId) {
 
-		tickets.remove(index);
-
+		for(Tickets ticket:tickets){
+			
+			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
+				tickets.remove(ticket);
+				}
+		}
 	}
 
 	@Scheduled(fixedDelay = 15000)
