@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,7 +33,11 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
 		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY) })
-public class Trips extends BaseEntity {
+public class Trips extends BaseEntity  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 591034921846030666L;
 	/**
 	 * Defines the name of transport code parameter
 	 */

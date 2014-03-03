@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.components.impl.ShoppingBag;
 import com.ita.edu.softserve.entity.Orders;
-import com.ita.edu.softserve.entity.ShoppingBag;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.OrdersManager;
@@ -35,11 +35,11 @@ import com.ita.edu.softserve.manager.UserNameService;
  */
 
 @Controller("ticketController")
-//@Scope("session")
+@Scope("request")
 public class TicketController {
 	
-	//@Autowired(required=true)
-	private ShoppingBag shoppingBag = new ShoppingBag();
+	@Autowired
+	private ShoppingBag shoppingBag;
 	
 	@Autowired
 	private  UserNameService userNameService;
