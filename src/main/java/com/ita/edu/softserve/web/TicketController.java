@@ -82,8 +82,10 @@ public class TicketController {
 			Map<String, Object> modelMap) {
 		
 		Trips trip = tripsManager.findByTripId(tripId);
-		Tickets ticket = new Tickets(trip.getTransport().getRoutes().getRouteName(),trip,customerInfo,seatType);
-		shoppingBag.addTicket(ticket);
+		
+		shoppingBag.addTicket(ticketsManager.getTicket(tripsManager.findByTripId(tripId)
+				.getTransport().getRoutes().getRouteName(), 
+				 tripsManager.findByTripId(tripId), customerInfo, seatType));
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		
 		return "bag";
@@ -101,9 +103,16 @@ public class TicketController {
 	}
 
 	@RequestMapping(value="/bagPay",method = RequestMethod.GET)
-	public String shoppingBagPOST(@RequestParam(value= "customerInfo",required = false) String customerInfo,
+	public String payingGet(@RequestParam(value= "customerInfo",required = false) String customerInfo,
 			Map<String, Object> modelMap){
-		modelMap.put("ticketsList", shoppingBag.getTickets());
+		
+		
+		return "bagPay";
+	}
+	
+	@RequestMapping(value="/bagPay",method=RequestMethod.POST)
+	public String payingPost(Map <String,Object> modelMap){
+		
 		Date orderDate = new Date();
 		ordersManager.createOrder(userNameService.getLoggedUserId(),orderDate);
 		Orders order = ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate);
@@ -112,8 +121,9 @@ public class TicketController {
 			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
 		}
 		
-		return "bagPay";
+		return "";
 	}
+	
 	
 	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,

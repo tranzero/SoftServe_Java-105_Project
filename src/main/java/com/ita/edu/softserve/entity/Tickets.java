@@ -47,7 +47,7 @@ public class Tickets extends BaseEntity implements Serializable{
 	@Column(name = "CUSTOMERINFO")
 	private String customerInfo;
 	
-	@Column (name = "SETATYPE")
+	@Column (name = "SEATTYPE")
 	private Integer seatType;
 	
 	public Tickets(){

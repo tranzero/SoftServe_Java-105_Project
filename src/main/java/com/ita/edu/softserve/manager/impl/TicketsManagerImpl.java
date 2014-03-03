@@ -90,6 +90,17 @@ public class TicketsManagerImpl implements TicketsManager{
 		ticketsDao.remove(ticket);
 		
 	}
+	
+	
+	@Override
+	public Tickets getTicket(String ticketName, Trips trip,
+			String customerInfo, Integer seatType){
+	
+			return new Tickets(ticketName, trip,
+			customerInfo, seatType);
+	
+	
+}
 
 	
 }
