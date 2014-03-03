@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -45,10 +44,8 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			
 			return postDao.getAllEntities();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(findPostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(findPostMsg , e);
+			throw e;
 		}
 	
 	}
@@ -62,10 +59,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			postDao.save(post);
 			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(createPostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(createPostMsg,e);
 		}
 
 	}
@@ -78,10 +72,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			postDao.remove(post);
 			LOGGER.info(entityName + id + removeMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(removePostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(removePostMsg ,e);
 		}
 	}
 
@@ -92,10 +83,8 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		try {
 			return postDao.findById(postId);
 		} catch (RuntimeException e) {
-			RuntimeException ex= new PostManagerException(findByIdPostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(findByIdPostMsg, e);
+			throw e;
 		}
 	}
 
@@ -113,10 +102,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			postDao.update(post);
 			LOGGER.info(entityName + post.getPostId() + changeMsg + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(updatePostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(updatePostMsg ,e);
 		}
 
 	}
@@ -126,10 +112,8 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		try {
 			return postDao.getPostListCount();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(countPostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(countPostMsg,e);
+			throw e;
 		}
 	}
 
@@ -138,10 +122,8 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		try {
 			return postDao.getPostForOnePage(from, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new PostManagerException(resultPerPagePostMsg, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(resultPerPagePostMsg,e);
+			throw e;
 		}
 	}
 

@@ -46,6 +46,7 @@ public class PreferenceUtil {
 
 		standartValues = pathUtil.getPathMap();
 
+		this.getHostName();
 		this.initPreferences();
 		this.createMainPath();
 		this.createPaths();
@@ -57,9 +58,15 @@ public class PreferenceUtil {
 	public String getValue(String key) {
 		return pref.get(key, "empty");
 	}
+	
+
 
 	public void setValue(String key, String value) {
 		pref.put(key, value);
+	}
+	
+	public String getHostName(){
+		return this.getValue(PropertyKeys.HOST_PATH_PROPERTY_NAME);
 	}
 
 	public String getAbsolutePath(String path) {
@@ -75,7 +82,6 @@ public class PreferenceUtil {
 					.getValue(PropertyKeys.MAIN_PATH_PROPERTY_NAME);
 			if (mainPathString.charAt(mainPathString.length() - 1) != '/')
 				mainPathString += "/";
-
 			return mainPathString + path;
 		}
 

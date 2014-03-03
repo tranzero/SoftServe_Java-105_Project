@@ -1,9 +1,17 @@
 package com.ita.edu.softserve.web;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +36,7 @@ public class IndexPageController {
 	final static String newsNameListKey = "post";
 	final static String postNameListKey = "News";
 	final static String mainImgPathKey = "mainImgPath";
+	final static String hostNameKey = "hostName";
 
 	// RequesMapping input & output String value
 	final static String mainPageInGet = "/mainpage";
@@ -49,7 +58,7 @@ public class IndexPageController {
 	final static String editNewsIn = "editnews";
 	final static String updateNews = "updatenews";
 	final static String editNewsPostOut = "redirect:/managenews";
-	final static String detailsNewsInGet = "/detailsnews/{detailsId}";
+	final static String detailsNewsInGet = "/detailsnews";
 	final static String detailsNewsGet = "detailsnews";
 	final static String resultsPerPageKey = "/errorinput";
 
@@ -85,7 +94,7 @@ public class IndexPageController {
 		return mainPageOutGet;
 
 	}
-
+		
 	@RequestMapping(value = mainPageInPost, method = RequestMethod.POST)
 	public String mainPagePost(
 			@RequestParam(requestParamPageNumber) int pageNumber,
@@ -103,6 +112,7 @@ public class IndexPageController {
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
 		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
+		modelMap.put(hostNameKey, propertyManager.getHostPath());
 		return mainPageOutPost;
 
 	}
@@ -188,16 +198,31 @@ public class IndexPageController {
 		return editNewsPostOut;
 	}
 
-	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.GET)
+	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.POST)
 	public String detailsNews(
-			@PathVariable(pathVariableDetailsId) Integer postId,
+			@ModelAttribute(pathVariableDetailsId) Integer postId,
 			Map<String, Object> modelMap) {
 
 		Post post;
 		post = posts.findNews(postId);
 		modelMap.put(postNameListKey, post);
 		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
+		modelMap.put(hostNameKey, propertyManager.getHostPath());
 		return detailsNewsGet;
+	}
+	
+	@RequestMapping(value = "news/images/{img}.{res}", method = RequestMethod.GET)
+	public void showImg(HttpServletResponse response,
+			@PathVariable("img") String img,
+			@PathVariable("res") String res) throws IOException {
+		
+		File file = new File(propertyManager.getImgPath()+img+"."+res);
+
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() +"\""); 
+        InputStream inputStream = null; 
+        inputStream = new FileInputStream(file); 
+        FileCopyUtils.copy(inputStream, response.getOutputStream()); 
+		
 	}
 
 }

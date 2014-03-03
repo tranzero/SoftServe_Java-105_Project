@@ -17,5 +17,6 @@ public interface PropertiesManager {
 
 	void setImgPath(String path);
 
+	String getHostPath();
 	
 }

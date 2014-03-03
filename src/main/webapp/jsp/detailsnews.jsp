@@ -4,7 +4,7 @@
 
 <section id="content">
 	<div id="details_news">
-		<div class="news_img"><img src="file:///${mainImgPath}${News.getImgSrc()}"/></div>
+		<div class="news_img"><img src="news/images/${News.getImgSrc()}"/></div>
 		<div class="news_title_details">${News.getTitle()}</div>
 		<div class="news_date_details">${News.getDate()}</div>
 		<div class="news_description_details">${News.getDescription()}</div>

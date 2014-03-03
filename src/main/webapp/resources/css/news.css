@@ -20,17 +20,16 @@
 	float: left;
 	padding: 20px 20px 20px 0px;
 }
-div.test_image_primary {
+.primary_images {
 	display: block;
 	padding-right: 4px;
 	width: 500px;
 	height: 300px;
-	background: url("../images/bbc.jpg") no-repeat;	
 	background-size: 500px 300px;
 	float: left;
 }
 
-div.test_image_secondary {
+.secondary_images {
 	display: block;
 	padding-right: 4px;
 	width: 250px;
