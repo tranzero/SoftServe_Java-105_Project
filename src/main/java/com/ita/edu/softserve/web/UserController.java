@@ -68,6 +68,7 @@ public class UserController {
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
 		// user.setRole(Role.REGUSER);
+		// System.out.println(user.getFirstName());
 		userEditValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {
@@ -78,8 +79,11 @@ public class UserController {
 		return "redirect:/userlist2";
 	}
 
-	// for Validator- userEdit
-
+	/**
+	 * for Validation - userEdit
+	 * 
+	 * @param binder
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(userEditValidator);
