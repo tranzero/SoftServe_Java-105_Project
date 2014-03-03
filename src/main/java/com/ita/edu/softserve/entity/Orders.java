@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,6 +33,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Orders.FIND_BY_USERID_AND_ORDER_DATE, query = Orders.FIND_BY_USERID_AND_ORDER_DATE_QUERY)})
 public class Orders extends BaseEntity {
 
+	
+	
 	public static final String FIND_ORDER_LIST_COUNT = "Orders.findOrdersListCount";
 	public static final String FIND_ORDER_LIST_COUNT_QUERY = "SELECT COUNT (o.orderId) FROM Orders o";
 
