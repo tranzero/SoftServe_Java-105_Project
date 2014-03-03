@@ -38,7 +38,7 @@ import com.ita.edu.softserve.manager.UserNameService;
 //@Scope("session")
 public class TicketController {
 	
-	@Autowired
+	//@Autowired(required=true)
 	private ShoppingBag shoppingBag = new ShoppingBag();
 	
 	@Autowired
