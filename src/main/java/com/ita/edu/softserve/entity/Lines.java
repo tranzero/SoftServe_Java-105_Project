@@ -20,6 +20,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @NamedQueries({
 	@NamedQuery(name = Lines.GET_LINES_LIST_FOR_PAGING, query = Lines.GET_LINES_LIST_FOR_PAGING_QUERY),
 	@NamedQuery(name = Lines.GET_LINES_LIST_COUNT, query = Lines.GET_LINES_LIST_QUERY_COUNT),
+	@NamedQuery(name = Lines.GET_LINES_ASC, query = Lines.GET_LINES_ASC_QUERY),
+	@NamedQuery(name = Lines.GET_LINES_DESC, query = Lines.GET_LINES_DESC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_ASC, query = Lines.FIND_BY_STATION_NAME_ASC_QUERY),
@@ -41,6 +43,12 @@ public class Lines extends BaseEntity {
 	
 	public static final String GET_LINES_LIST_COUNT = "Lines.findLinesListCount";
 	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) from Lines ln";
+	
+	public static final String GET_LINES_ASC ="Lines.getLinesAsc";
+	public static final String GET_LINES_ASC_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId ASC";
+	
+	public static final String GET_LINES_DESC ="Lines.getLinesDesc";
+	public static final String GET_LINES_DESC_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId DESC";
 	
 	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
 	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";

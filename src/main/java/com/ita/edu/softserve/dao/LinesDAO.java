@@ -81,4 +81,6 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 * @param count how match elements will be in the list 
 	 */
 	public List<Lines> getLinesForOnePage(int from, int count);
+	
+	public List<Lines> getLinesForLimits(int firstElement, int count, int sortOrder);
 }
