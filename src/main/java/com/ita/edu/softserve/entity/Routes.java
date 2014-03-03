@@ -38,6 +38,8 @@ public class Routes extends BaseEntity {
 	 * Defines the name of station name parameter
 	 */
 	public static final String STATION_NAME = "stationName";
+	public static final String LINE_NAME = "lineName";
+	public static final String LINE_ID = "lineId";
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT r FROM Routes r WHERE r.routeCode = ?1";
@@ -49,6 +51,26 @@ public class Routes extends BaseEntity {
 			+ " st.stationName LIKE :"
 			+ STATION_NAME
 			+ " ORDER BY st.stationName";
+	
+	public static final String STATIONS_NAME_ON_LINE_FIND_BY_CRITERIA_QUERY = 
+			 "SELECT st.stationName FROM StationOnLine sol"+
+			" INNER JOIN sol.stationOnLineId st";
+			// + " FROM StationOnLine sol "
+			// + "INNER JOIN sol.stationOnLineId st "
+			// + "INNER JOIN sol.stationId st ";
+	
+		//	  "SELECT stl.lineId.lineName"
+			//+ " FROM StationOnLine stl"
+		//	+ " INNER JOIN stl.stationId st";
+		/*	+ " WHERE st.stationName LIKE :"
+			+ STATION_NAME
+			+ " AND sol.lineId = 1"
+			+ " ORDER BY st.stationName";*/
+	
+	public static final String LINE_NAME_FIND_BY_CRITERIA_QUERY = "SELECT l.lineName FROM Lines l WHERE"
+			+ " l.lineName LIKE :"
+			+ LINE_NAME
+			+ " ORDER BY l.lineName";
 
 	public static final String ROUTES_ALL_ORDER_BY = "Routes.RoutesAllOrderBy";
 	public static final String ROUTES_ALL_ORDER_BY_QUERY = "SELECT r FROM Routes r ORDER BY r.routeCode";
@@ -112,6 +134,14 @@ public class Routes extends BaseEntity {
 	
 	@Column(name = "ROUTENAME", length = 53)
 	private String routeName;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "STATIONSTARTID")
+	private Stations stationStartId;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "STATIONENDID")
+	private Stations stationEndId;
 
 	@OneToMany(mappedBy = "routes", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Set<Transports> transports;
@@ -195,6 +225,36 @@ public class Routes extends BaseEntity {
 	 */
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
+	}
+	
+	/**
+	 * @return the stationStartId
+	 */
+	public Stations getStationStartId() {
+		return stationStartId;
+	}
+
+	/**
+	 * @param stationStartId
+	 *            the stationStartId to set
+	 */
+	public void setStationStartId(Stations stationStartId) {
+		this.stationStartId = stationStartId;
+	}
+	
+	/**
+	 * @return the stationEndId
+	 */
+	public Stations getStationEndId() {
+		return stationEndId;
+	}
+
+	/**
+	 * @param stationEndId
+	 *            the stationEndId to set
+	 */
+	public void setStationEndId(Stations stationEndId) {
+		this.stationEndId = stationEndId;
 	}
 
 	@Override
