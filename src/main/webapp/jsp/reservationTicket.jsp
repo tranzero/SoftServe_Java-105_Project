@@ -28,28 +28,17 @@
 
 	<form:form id = "addtobag" action= "/SoftServe_Java-105/addToBag/${tripId}/${seatType}" method="post" >
 	
-	<table>
+	 <table>
 			<tr align=center>
 				<td align=center>
 					<p><input id="customerInfo" type="text" name="customerInfo"><br>
-		</table>
 		
-	<%-- 	 <table>
-			<tr>
-				<td><b>Choose Seat-Class you want : </b> 
-				<Br> <form:radiobutton path="isSeatClass1" value="true"
-				 onchange="toggle_visibility('div1');"/> 
-				<strong>SeatClass№1</strong> 
-				<Br> <form:radiobutton path="isSeatClass2" value="true"
-				 onchange="toggle_visibility('div2');"/> 
-				<strong>SeatClass№1</strong> 
-				<Br> <form:radiobutton path="isSeatClass3" value="true"
-				 onchange="toggle_visibility('div3');"/> 
-				<strong>SeatClass№1</strong> 
-					 
-					
-			</tr>
-		</table>  --%>
+				</p>
+				</td>
+				</tr>
+				</table>
+		
+
 		<div id="div1" class="list" style="display: none;">
 			<p>
 
@@ -82,7 +71,7 @@
 						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label></p>
 						
 		</table>
-						<!--  <a href="/SoftServe_Java-105/bag"> <input type="BUTTON" value ="Add to bag"></a>&nbsp  -->
+					
  		<input type="submit" value="Add to bag">
  	<!-- 	<input type="reset" value="Cancel"> -->
 		<br>

@@ -40,4 +40,6 @@ public interface OrdersManager extends BaseManager {
 	
 	public void createOrder(Integer userId,Date date);
 	
+	public Orders findByUserIdAndOrderDate(Integer userId,Date date);
+	
 }
