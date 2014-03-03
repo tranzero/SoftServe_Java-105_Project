@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.Order;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -104,9 +106,10 @@ public class TicketController {
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		Date orderDate = new Date();
 		ordersManager.createOrder(userNameService.getLoggedUserId(),orderDate);
-		for(Tickets tmp: shoppingBag.getTickets()){
-		//	tmp.setOrder(order);
-			ticketsManager.createTicket(tmp.getTicketName(), tmp.getOrder().getOrderId(), tmp.getTrip().getTripId(), tmp.getCustomerInfo(), tmp.getSeatType());
+		Orders order = ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate);
+		for(Tickets ticket: shoppingBag.getTickets()){
+			ticket.setOrder(order);
+			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
 		}
 		
 		return "bagPay";

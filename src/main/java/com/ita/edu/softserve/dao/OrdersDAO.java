@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Orders;
@@ -30,4 +31,6 @@ public interface OrdersDAO extends AbstractDAOIface<Orders> {
 	 * @return List of lines witch will be printed on one page
 	 */
 	public List<Orders> getOrdersForOnePage(int from, int count);
+	
+	public Orders findByUserIdAndOrderDate(Integer userId, Date date);
 }

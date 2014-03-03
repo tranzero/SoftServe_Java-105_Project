@@ -81,5 +81,12 @@ public class OrdersManagerImpl implements OrdersManager {
 		ordersDao.save(order);
 		
 	}
+	
+	@Transactional
+	@Override
+	public Orders findByUserIdAndOrderDate(Integer userId,Date date){
+		
+		return (Orders)ordersDao.findByUserIdAndOrderDate(userId, date);
+	}
 
 }

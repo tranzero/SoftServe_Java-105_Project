@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -51,5 +52,13 @@ public class OrdersDAOImpl extends AbstractDAO<Orders> implements OrdersDAO {
 			.setFirstResult(from).setMaxResults(count);
 		return (List<Orders>)getRange(from, count, query);
 	    }
+	
+	@Override
+	public Orders findByUserIdAndOrderDate(Integer userId, Date date){
+		
+		Query query = entityManager.createNamedQuery(Orders.FIND_BY_USERID_AND_ORDER_DATE).setParameter(1, userId).setParameter(2, date);
+		
+		return (Orders) query.getSingleResult();
+	}
 
 }
