@@ -127,6 +127,30 @@ function imagesLoader(){
 						onPagingEvent, pageUrl);
 				
 			});
+	function savepic()
+	{
+		var elementSelectorForResult = "div#fileNameInput";
+//		var uploadFile = "#uploadFileInput".files[0];
+// 		 var uploadFile = new FormData();
+// 		 uploadFile.append(uploadFileInput.files[0]);
+		$.ajax({
+//			data: uploadFile,
+		  
+//		    processData: false,
+//		    contentType: false,
+			async : false,
+			type: "POST",
+			url: "fileUpload",
+			
+			data: {
+ //				"uploadFile" : uploadFile
+				}
+			}).done(function( msg ) {
+				$(elementSelectorForResult).html(msg);
+		});
+
+
+		}
 </script>
 </head>
 <body>

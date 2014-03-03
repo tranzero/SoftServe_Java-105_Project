@@ -3,12 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <section id="content">
+
 <div id="imgUploadForm"></div>	
 	
 	<form id="addnews" method="post" name="/addnews" action="addnews">
 		<div>
 		<p>Image name</p>
-		<input id="fileName" name="fileName" type="text" value="${filename}" size="50" maxlength="100">
+		<div id="fileNameInput"><input id="fileName" name="fileName" type="text" value="${filename}" size="50" maxlength="100"></div>
 		
 		<p><spring:message code="label.navigation.addNews.title"/></p>
 		

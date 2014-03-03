@@ -1,19 +1,10 @@
 package com.ita.edu.softserve.web;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,7 +62,7 @@ public class IndexPageController {
 	final static String modelAttributeEditnews = "newsId";
 	final static String modelAttributefileName = "fileName";
 	final static String pathVariableDelnews = "delnews";
-	final static String pathVariableDetailsId = "detailsId";
+	final static String ModelAttributeDetailsId = "detailsId";
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
@@ -200,7 +191,7 @@ public class IndexPageController {
 
 	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.POST)
 	public String detailsNews(
-			@ModelAttribute(pathVariableDetailsId) Integer postId,
+			@ModelAttribute(ModelAttributeDetailsId) Integer postId,
 			Map<String, Object> modelMap) {
 
 		Post post;
@@ -210,19 +201,4 @@ public class IndexPageController {
 		modelMap.put(hostNameKey, propertyManager.getHostPath());
 		return detailsNewsGet;
 	}
-	
-	@RequestMapping(value = "news/images/{img}.{res}", method = RequestMethod.GET)
-	public void showImg(HttpServletResponse response,
-			@PathVariable("img") String img,
-			@PathVariable("res") String res) throws IOException {
-		
-		File file = new File(propertyManager.getImgPath()+img+"."+res);
-
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() +"\""); 
-        InputStream inputStream = null; 
-        inputStream = new FileInputStream(file); 
-        FileCopyUtils.copy(inputStream, response.getOutputStream()); 
-		
-	}
-
 }
