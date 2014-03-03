@@ -157,9 +157,8 @@ function imagesLoader(){
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="navigation" />
 	<div id="container">
-		<%-- 		<tiles:insertAttribute name="sidebar" />
- --%>
-		<tiles:insertAttribute name="content" />
+<%-- 		<tiles:insertAttribute name="sidebar" />
+ --%>		<tiles:insertAttribute name="content" />
 	</div>
 	<tiles:insertAttribute name="footer" />
 </body>

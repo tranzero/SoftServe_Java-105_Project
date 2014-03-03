@@ -18,9 +18,8 @@ body {
 	border-radius: 3px 3px 3px 3px;
 	box-shadow: 0 0 1px 1px #F6F6F6 inset;
 	color: #333333;
-	font: bold 12px;
-	margin: 0 5px;
-	padding: 8px 0 9px;
+        font-size: 0.9em;
+	padding: 8px 12px 9px;
 	text-align: center;
 	text-shadow: 0 1px 0 #FFFFFF;
 	width: 150px;
@@ -99,6 +98,7 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	border-size: 1px;
+	font-size: 0.8em;
     border-spacing: 0;
     border: solid #ccc 1px;
     -moz-border-radius: 6px;
@@ -204,6 +204,7 @@ input[type="button"], input[type="submit"] {
     text-decoration: none;
     border-radius: 2px;
     min-width: 80px;
+    font-size: 0.9em;
 }
 
 input[type="submit"]:hover,
@@ -295,6 +296,7 @@ em.star {
 	clear: both;
 }
 
+/*
 #newsIdForm {
     background-color: #E6E6E6;
     border: 0 none;
@@ -306,7 +308,7 @@ em.star {
     padding: 0;
     text-decoration: none;
 }
-
+*/
 /*FOR TRANSPORT TABLE HEAD ARROWS ICON*/
 .transportTableArrows thead tr th span {
 	padding-right: 20px;
@@ -339,7 +341,7 @@ div#tripInfo {
 	padding: 20px;
 	height: 90px;
     	width: 580px;
-    	background: none repeat scroll 0 0 #FFFFFF;
+    	background: none repeat scroll 0 0 #FEFEFE;
 	border-radius: 5px;
     	box-shadow: 0 0 2px #E7E7E7;
 }
@@ -356,13 +358,12 @@ div#response {
 	padding: 15px 10px;
 	margin-top: 15px;
 	margin-left: 80px;
-    	background: none repeat scroll 0 0 #FFFFFF;
+    	background: none repeat scroll 0 0 #FEFEFE;
 	border-radius: 5px;
     	box-shadow: 0 0 2px #E7E7E7;
     	width: 570px;
 }
 div#postedBy {
-	height: 64px;
 }
 span.user_avatar {
 	display: inline-block;
@@ -380,13 +381,18 @@ div.user_name {
 	font-size: 1.0em;
 	font-weight: bold;
 }
-div.response_date {
-	padding-top: 5px;
+span.response_date {
+	padding-left: 5px;
+	font-weight: 100;
 	font-size: 0.8em;
 }
 div.commentText {
-	padding: 10px 0 10px 10px;
+	padding: 10px 0 10px 70px;
 	word-wrap: break-word;
-	max-width: 570px;
+	max-width: 540px;
 }
 /* Responses Styles END */
+
+form.pad_top_bottom {
+	padding: 10px 0;
+}

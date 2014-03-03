@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +63,32 @@ public class RoutesController {
 	 */
 	private static final String ROUTES_TRIPS_PAGE_JSP = "routesTripsPage";
 	
-		private static final Logger LOGGER = Logger
+	/**
+	 * The name of jsp that defines Spring.
+	 */
+	private static final String MODEL_ROUTE = "routes";
+	
+	/**
+	 * The name of jsp that defines Spring to redirect.
+	 */
+	private static final String REDIRECT_ROUTES_EDIT = "redirect:/routesAllEdit";
+	
+	/**
+	 * URL pattern that map controller addRouteToBD.
+	 */
+	private static final String ADD_ROUTE_URL_PATTERN = "/addRoutePage";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
+	private static final String ADD_ROUTE_JSP = "addRoute";
+	/**
+	 * URL pattern that map controller routeForm.
+	 */
+	private static final String FORM_ROUTE_URL_PATTERN = "/formRoute";
+	
+	
+	private static final Logger LOGGER = Logger
 			.getLogger(RoutesController.class);
 
 	private PaginationManager paginationManager = PaginationManager
@@ -71,6 +99,9 @@ public class RoutesController {
 
 	@Autowired
 	private LinesManager linesManager;
+	
+	@Autowired
+	Validator routesValidator;
 	
 	/**
 	 * Return all routes
@@ -135,18 +166,69 @@ public class RoutesController {
 		return "routesPage";
 	}
 
-	@RequestMapping(value = "/addRt", method = RequestMethod.GET)
+	
+	/**
+	 * Map name of jsp addRoute to formRoute.
+	 * 
+	 * @return the jsp name.
+	 */
+	@RequestMapping(value = FORM_ROUTE_URL_PATTERN, method = RequestMethod.GET)
+	public String routeForm(ModelMap modelMap) {
+		//modelMap.addAttribute(MODEL_ROUTE, new Routes());
+		return ADD_ROUTE_JSP;
+	}
+
+	/**
+	 * Controller method for displaying adding route page. Adds new
+	 * route into the Routes table.
+	 * 
+	 * @param routeCode
+	 *            Route code.
+	 * @return the jsp name.
+	 */
+	@RequestMapping(value =  ADD_ROUTE_URL_PATTERN, method = RequestMethod.POST)
+	public String addRouteToBD(@ModelAttribute("routeCode") String routeCode,
+			@ModelAttribute("lineName") String lineName,
+			@ModelAttribute("stationStart") String stationStart,
+			@ModelAttribute("stationEnd") String stationEnd) {
+
+			routesManager.createRoute(lineName, routeCode, stationStart, stationEnd);// return json
+		return REDIRECT_ROUTES_EDIT;
+	}
+	
+	/*@RequestMapping(value = ADD_ROUTE_URL_PATTERN, method = RequestMethod.POST)
+	public String addRouteToBD(
+			@ModelAttribute(MODEL_ROUTE)Routes route,
+			BindingResult bindingResult, ModelMap modelMap) {
+
+		routesValidator.validate(route, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			return ADD_ROUTE_JSP;
+		}
+
+		routesManager.createRoute(route);
+
+		return REDIRECT_ROUTES_EDIT;
+	}*/
+	
+	
+	
+	
+	
+	
+	/*@RequestMapping(value = "/addRt", method = RequestMethod.GET)
 	public String transportForm() {
 		return "addRoute";
 	}
-	
+	*/
 	/**
 	 * Add route to DB
 	 * 
 	 * @param routeCode
 	 * @param lineNam
 	 */
-	@RequestMapping(value = "/addRoute", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/addRoute", method = RequestMethod.POST)
 	public String addRouteToBD(@ModelAttribute("routeCode") String routeCode,
 			@ModelAttribute("lineName") String lineName) {
 		try {
@@ -155,7 +237,7 @@ public class RoutesController {
 		}
 
 		return "redirect:/routesAllEdit";
-	}
+	}*/
 
 	@RequestMapping(value = "/editRoute/{route}", method = RequestMethod.GET)
 	public String editRoute(@PathVariable("route") Integer routeId,
@@ -193,10 +275,57 @@ public class RoutesController {
 		return "redirect:/routesAllEdit";
 	}
 
-/*	@RequestMapping(value = "/routesTrips", method = RequestMethod.GET)
-	public String findRoutersListByStationIdArriving(Map<String, Object> model) {
-		return "routesTrips";
-	}*/
+	
+	/**
+	 * Find stations from DB
+	 * 
+	 * @param stationStartsWith
+	 */
+	@RequestMapping(value = "getStationAutoCompleteList", method = RequestMethod.GET)
+	@ResponseBody
+	public String getStationsList(
+			@RequestParam(value = "stationStartsWith", required = false) String stationStartsWith,
+			Map<String, Object> modelMap) {
+
+		List<String> stationList = routesManager
+				.getStationNameListCriteria(stationStartsWith);
+
+		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
+		stationMap.put("stations", stationList);
+		return new Gson().toJson(stationMap);
+	}
+	
+	
+	@RequestMapping(value = "getStationOnLineAutoCompleteList", method = RequestMethod.GET)
+	@ResponseBody
+	public String getStationsOnLineList(
+			@RequestParam(value = "stationStartsWith", required = false) String stationStartsWith,
+			@RequestParam(value = "lineName", required = false) String lineName,
+			Map<String, Object> modelMap) {
+
+		List<String> stationList = routesManager
+				.getStationNameByLineListCriteria(stationStartsWith, lineName);
+
+		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
+		stationMap.put("stations", stationList);
+		System.out.println(new Gson().toJson(stationMap));
+		return new Gson().toJson(stationMap);
+	}
+	
+	
+	@RequestMapping(value = "getLineAutoCompleteList", method = RequestMethod.GET)
+	@ResponseBody
+	public String getLinesList(
+			@RequestParam(value = "lineStartsWith", required = false) String lineStartsWith,
+			Map<String, Object> modelMap) {
+
+		List<String> lineList = routesManager
+				.getLineNameListCriteria(lineStartsWith);
+
+		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
+		stationMap.put("lines", lineList);
+		return new Gson().toJson(stationMap);
+	}
 	
 	/**
 	 * Find Routes of transports that are arriving/departing to certain station during
@@ -212,43 +341,6 @@ public class RoutesController {
 	 *            - chose arrival or departing
 	 * 
 	 */
-	/*@RequestMapping(value = "/routesFind", method = RequestMethod.GET)
-	/*public String findRoutersListByStationIdArriving(
-			@RequestParam("nameStation") String nameStation,
-			@RequestParam("timeMin") String timeMin,
-			@RequestParam("timeMax") String timeMax,
-			@RequestParam("findBy") String findBy, Map<String, Object> model) {
-		if (nameStation.equals("") || timeMin.equals("") || timeMax.equals("")) {
-			return "routesTrips";
-		}
-
-		if (findBy.equals("findByArr")) {
-			model.put("RouteTripsList", routesManager
-					.findRoutersListByStationNameArriving(nameStation,
-							timeParse(timeMin), timeParse(timeMax)));
-		}
-		if (findBy.equals("findByDep")) {
-			model.put("RouteTripsList", routesManager
-					.findRoutersListByStationNameDeparting(nameStation,
-							timeParse(timeMin), timeParse(timeMax)));
-		}
-		return "routesTrips";
-	}
-	*/
-	
-	@RequestMapping(value = "getStationAutoCompleteList", method = RequestMethod.GET)
-	@ResponseBody
-	public String getStationsList(
-			@RequestParam(value = "stationStartsWith", required = false) String stationStartsWith,
-			Map<String, Object> modelMap) {
-
-		List<String> stationList = routesManager
-				.getStationNameListCriteria(stationStartsWith);
-
-		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
-		stationMap.put("stations", stationList);
-		return new Gson().toJson(stationMap);
-	}
 	
 	@RequestMapping(value = ROUTES_TRIP_URL_PATTERN, method = RequestMethod.GET)
 	public String getRoutesTripsByStation(

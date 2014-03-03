@@ -19,12 +19,19 @@ public interface RoutesManager extends BaseManager {
 
 	Routes findRoutesById(int id);
 	
+	Routes findByCode(String routeCode);
+	
 	public List<Routes> getRoutesForPage(int currentPage, int count,
 			String orderByParam, String orderByDirection);
 
 	long getRoutesListCount();
 	
 	public List<String> getStationNameListCriteria(String stationName);
+	
+	List<String> getStationNameByLineListCriteria(String stationName,
+			String lineName);
+	
+	public List<String> getLineNameListCriteria(String lineName);
 	
 	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
@@ -41,14 +48,21 @@ public interface RoutesManager extends BaseManager {
 			Time timeDepartureMin, Time timeDepartureMax);
 
 	
+	void createRoute(Routes route);
+
+	void updateRoute(Routes route);
 	
+	void removeRouteById(Integer routeId);
+	
+	
+	//**********************
+	void createRoute(String lines, String routeCode, String stationStart,
+			String stationEnd);
 	
 	void createRoute(String lines, String routeCode);
 
 	void updateRoute(Integer routeId, String lines, String routeCode);
-
-	void removeRouteById(Integer routeId);
-	
+	//*************************************
 	
 
 	/**
@@ -83,4 +97,5 @@ public interface RoutesManager extends BaseManager {
 			Time timeDepartureMax);
 	
 	List<Routes> getAllRoutes();
+
 }

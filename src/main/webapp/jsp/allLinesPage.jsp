@@ -6,6 +6,7 @@
 <%@ page session="true"%>
 <div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 <div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
+<p><a class="button" href="addline"><spring:message code="label.lines.addlines"/></a></p>
 <table style="align: center">
 	<thead>
 		<tr>
@@ -28,5 +29,3 @@
 		</tr>
 	</c:forEach>
 </table>
-<br>
-<a class="button" href="addline"><spring:message code="label.lines.addlines"/></a>

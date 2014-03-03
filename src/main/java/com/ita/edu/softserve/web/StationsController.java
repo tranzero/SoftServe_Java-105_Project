@@ -1,7 +1,5 @@
 package com.ita.edu.softserve.web;
 
-
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -22,7 +20,6 @@ import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 @Controller
 public class StationsController {
@@ -68,20 +65,20 @@ public class StationsController {
 
 	@Autowired
 	PageInfoContainer container;
-	
+
 	@Autowired
 	private StationsManager stationsManager;
 
 	@Autowired
 	private StationsValidator stationsValidator;
-	
+
 	@Autowired
 	StationsCriteriaContainer stationsCriteriaContainer;
-	
+
 	@Autowired
 	Encoder encoder;
 
-	private void putFillElementsOptions(
+	private void putSearchStringIsEmpty(
 			StationsCriteriaContainer stationsCriteriaContainer,
 			Map<String, Object> modelMap) {
 		modelMap.put("isSearchString", ValidatorUtil
@@ -89,27 +86,33 @@ public class StationsController {
 	}
 
 	private void deployStationsParameters(Integer pageNumber,
-			Integer resultsPerPage, String searchString, String orderByParam, String orderByDirection,
-			Map<String, Object> modelMap, Locale locale) {
+			Integer resultsPerPage, String searchString, String orderByParam,
+			String orderByDirection, Map<String, Object> modelMap, Locale locale) {
+
 		stationsCriteriaContainer.setValuableInfo(searchString, orderByParam,
 				orderByDirection);
-		putFillElementsOptions(stationsCriteriaContainer, modelMap);
-		stationsManager.validateStationListCriteria(stationsCriteriaContainer, locale);
-		long count = stationsManager.getStationsListCountUsingContainer(stationsCriteriaContainer);
-//		long count = 100;
+		putSearchStringIsEmpty(stationsCriteriaContainer, modelMap);
+		stationsManager.validateStationListCriteria(stationsCriteriaContainer,
+				locale);
+		long count = stationsManager
+				.getStationsListCountUsingContainer(stationsCriteriaContainer);
+
 		container.setPageNumber(pageNumber);
 		container.setResultsPerPage(resultsPerPage);
 		container.setCount(count);
 		paginationManager.validatePaging(container);
+
 		PagingController.deployPaging(modelMap, container, paginationManager);
+
 		modelMap.put("container", stationsCriteriaContainer);
 		modelMap.put("encoder", encoder);
-		modelMap.put("stationsList", stationsManager.getStationsForLimitUsingContainers(stationsCriteriaContainer, container));
+		modelMap.put("stationsList", stationsManager
+				.getStationsForLimitUsingContainers(stationsCriteriaContainer,
+						container));
 
 		modelMap.put("language", locale.getLanguage());
 
 	}
-	
 
 	/**
 	 * Prints all stations.
@@ -126,12 +129,12 @@ public class StationsController {
 			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
-		deployStationsParameters(pageNumber, resultsPerPage, searchString, orderByParam, orderByDirection, modelMap, locale);
+		deployStationsParameters(pageNumber, resultsPerPage, searchString,
+				orderByParam, orderByDirection, modelMap, locale);
 
 		return STATIONS_FOR_USERS_JSP_PAGE;
 	}
-	
-	
+
 	/**
 	 * Prints all stations.
 	 * 
@@ -147,13 +150,11 @@ public class StationsController {
 			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
-		deployStationsParameters(pageNumber, resultsPerPage, searchString, orderByParam, orderByDirection, modelMap, locale);
+		deployStationsParameters(pageNumber, resultsPerPage, searchString,
+				orderByParam, orderByDirection, modelMap, locale);
 
 		return "stationsForUsersPage";
 	}
-
-
-
 
 	/**
 	 * \ Print all Stations where manager can manage them.
@@ -167,14 +168,41 @@ public class StationsController {
 	public String manageStations(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
+			@RequestParam(value = "orderByParam", required = false) String orderByParam,
+			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
 
-		paggingForStations(pageNumber, resultsPerPage, modelMap);
+		deployStationsParameters(pageNumber, resultsPerPage, searchString,
+				orderByParam, orderByDirection, modelMap, locale);
 
 		return STATIONS_JSP_PAGE;
 	}
 
 	/**
+	 * \ Print all Stations where manager can manage them.
+	 * 
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "/stationsPage", method = RequestMethod.GET)
+	public String manageStationsPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
+			@RequestParam(value = "orderByParam", required = false) String orderByParam,
+			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			Map<String, Object> modelMap, Locale locale) {
+
+		deployStationsParameters(pageNumber, resultsPerPage, searchString,
+				orderByParam, orderByDirection, modelMap, locale);
+
+		return "stationsPage";
+	}
+
+	/*	*//**
 	 * Method genered pagging for Satations and filled modalMap to display
 	 * filling model map.
 	 * 
@@ -185,19 +213,19 @@ public class StationsController {
 	 * @param modelMap
 	 *            Model map to fill.
 	 */
-	private void paggingForStations(Integer pageNumber, Integer resultsPerPage,
-			Map<String, Object> modelMap) {
-
-		long count = stationsManager.getStationsListCount();
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-
-		List<Stations> stations = stationsManager.getStationsForPage(
-				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put(STATIONS_LIST, stations);
-	}
+	/*
+	 * private void paggingForStations(Integer pageNumber, Integer
+	 * resultsPerPage, Map<String, Object> modelMap) {
+	 * 
+	 * long count = stationsManager.getStationsListCount();
+	 * PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+	 * resultsPerPage, count); paginationManager.validatePaging(container);
+	 * PagingController.deployPaging(modelMap, container, paginationManager);
+	 * 
+	 * List<Stations> stations = stationsManager.getStationsForPage(
+	 * container.getPageNumber(), container.getResultsPerPage());
+	 * modelMap.put(STATIONS_LIST, stations); }
+	 */
 
 	/**
 	 * Delete Station by Id.
@@ -292,6 +320,5 @@ public class StationsController {
 
 		return STATIONS_JSP_PAGE;
 	}
-	
 
 }

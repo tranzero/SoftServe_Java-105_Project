@@ -61,6 +61,25 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				.setMaxResults(10);
 		return (List<String>) query.getResultList();
 	}
+	
+	public List<String> getStationNameByLineListCriteria(String stationName, int lineId) {
+		System.out.println(lineId);
+		Query query = entityManager
+				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
+				//.setParameter(Routes.STATION_NAME, stationName)
+				//.setParameter(Routes.LINE_ID, lineId)
+				.setMaxResults(10);
+		System.out.println(((List<String>) query.getResultList()).size());
+		return (List<String>) query.getResultList();
+	}
+	
+	public List<String> getLineNameListCriteria(String lineName) {
+		Query query = entityManager
+				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
+				.setParameter(Routes.STATION_NAME, lineName)
+				.setMaxResults(10);
+		return (List<String>) query.getResultList();
+	}
 
 	@Override
 	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(

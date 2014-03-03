@@ -127,6 +127,12 @@ span.cart_icon {
 	height: 10px;
 	opacity: 1.0;
 }
+a img {
+	padding-left: 4px;
+	display: block;
+	float: right;
+	vertical-align: top;
+}
 .fb_icon:hover,.twitter_icon:hover,.rss_icon:hover {
     transition: all 0.4s ease-out;
     -webkit-transition: all 0.4s ease-out;

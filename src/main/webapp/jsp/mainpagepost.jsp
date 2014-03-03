@@ -10,28 +10,31 @@
 			<c:choose>
 				<c:when test="${status.index == 0 && param.pageNumber == 0}">
 					<div class="news_primary">
-						<div class="test_image_primary">
-							<img class="primary_images" src="news/images/${News.getImgSrc()}"/>
+						<div>
+							<img class="image_primary" src="news/images/${News.getImgSrc()}" />
 						</div>
 						<div class="news_content_primary">
 				</c:when>
 				<c:otherwise>
 					<div class="news_secondary">
-						<div class="test_image_secondary">
-							<img class="secondary_images" src="news/images/${News.getImgSrc()}"/>
+						<div>
+							<img class="image_secondary"
+								src="news/images/${News.getImgSrc()}" />
 						</div>
 						<div class="news_content_secondary">
 				</c:otherwise>
 			</c:choose>
-<%-- 			<div class="news_img"><img src="news/images/${News.getImgSrc()}"/></div> --%>
-			<div class="news_title"><a href="detailsnews/${News.getPostId()}">${News.getTitle()}</a></div>
+			<%-- 			<div class="news_img"><img src="news/images/${News.getImgSrc()}"/></div> --%>
+			<div class="news_title">
+				<a href="detailsnews/${News.getPostId()}">${News.getTitle()}</a>
+			</div>
 			<div class="news_date">${News.getDate()}</div>
 			<div class="news_description">${News.getDescription().substring(0, News.getDescription().length()/3.5)}
-<%-- 				<a href="detailsnews/${News.getPostId()}">Details...</a> --%>
-				<form method="post" name="detailsnews"  action="detailsnews">
-   				<input  type="hidden" name="detailsId" value="${News.getPostId()}">
-  				 <input value="Details..." name="hidden" type="submit"/>
- 				 </form>
+				<%-- 				<a href="detailsnews/${News.getPostId()}">Details...</a> --%>
+				<form method="post" name="detailsnews" action="detailsnews">
+					<input type="hidden" name="detailsId" value="${News.getPostId()}">
+					<input value="Details..." name="hidden" type="submit" />
+				</form>
 			</div>
 	</div>
 	</div>
