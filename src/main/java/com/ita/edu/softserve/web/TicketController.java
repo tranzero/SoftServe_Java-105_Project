@@ -65,9 +65,8 @@ public class TicketController {
 			return "redirect:/";
 		}
 		else{
-		Trips trip = tripsManager.findByTripId(tripId);
-		modelMap.put("trip", trip);
-		modelMap.put("transport", trip.getTransport());
+		modelMap.put("trip",tripsManager.findByTripId(tripId));
+		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
 		modelMap.put("tripId", tripId);
 		modelMap.put("seatType", seatType);
 		return "reservationTicket";
@@ -81,7 +80,6 @@ public class TicketController {
 			BindingResult result,
 			Map<String, Object> modelMap) {
 		
-		Trips trip = tripsManager.findByTripId(tripId);
 		
 		shoppingBag.addTicket(ticketsManager.getTicket(tripsManager.findByTripId(tripId)
 				.getTransport().getRoutes().getRouteName(), 
@@ -97,7 +95,7 @@ public class TicketController {
 			Map<String, Object> modelMap){
 		
 		modelMap.put("ticketsList", shoppingBag.getTickets());
-		System.out.println("bag");
+		
 		return "bag";
 		
 	}
@@ -115,13 +113,14 @@ public class TicketController {
 		
 		Date orderDate = new Date();
 		ordersManager.createOrder(userNameService.getLoggedUserId(),orderDate);
-		Orders order = ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate);
+		
 		for(Tickets ticket: shoppingBag.getTickets()){
-			ticket.setOrder(order);
-			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
+			ticket.setOrder(ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate));
+			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), 
+					ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
 		}
 		
-		return "";
+		return "redirect:/";
 	}
 	
 	
