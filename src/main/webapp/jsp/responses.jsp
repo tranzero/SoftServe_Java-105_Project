@@ -8,7 +8,9 @@
 			<h3>${ResponsesList.get(0).getTrip().getTransport().getRoutes().getRouteName()}
 				(${ResponsesList.get(0).getTrip().getTransport().getTransportCode()})</h3>
 			<div id="live_resp_btn">
-				<a href="/SoftServe_Java-105/addComment/${ResponsesList.get(0).getTrip().getTripId()}"><input type="button"
+				<a
+					href="/SoftServe_Java-105/addComment/${ResponsesList.get(0).getTrip().getTripId()}"><input
+					type="button"
 					value="<spring:message code="label.responses.leaveComment" />" /></a>
 			</div>
 		</div>
@@ -18,10 +20,11 @@
 					<div id="postedBy">
 						<span class="user_avatar"></span>
 						<div class="user_name">${responses.getUser().getFirstName()}
-							${responses.getUser().getLastName().substring(0,1)}.</div>
-						<div class="response_date">${responses.getDate().toString().substring(0,10)}</div>
+							${responses.getUser().getLastName().substring(0,1)}. <span
+								class="response_date">${responses.getDate().toString().substring(0,10)}</span>
+						</div>
+						<div class="commentText">${responses.getComment()}</div>
 					</div>
-					<div class="commentText">${responses.getComment()}</div>
 				</div>
 			</c:if>
 		</c:forEach>

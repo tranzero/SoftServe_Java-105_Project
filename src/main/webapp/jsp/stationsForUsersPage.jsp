@@ -4,43 +4,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-	<table class='table'>
-		<thead>
+<table class='table'>
+	<thead>
+		<tr>
+			<th><spring:message code="label.stations.stationcode" />
+				<div style="float: right">
+					<a id="stationcodeasc" href="javascript:void(0);"> <img alt="^"
+						src="resources/images/downarrow.png">
+					</a> <a id="stationcodedesc" href="javascript:void(0);"> <img
+						alt="^" src="resources/images/uparrow.png">
+					</a>
+				</div></th>
+			<th><spring:message code="label.stations.stationname" />
+				<div style="float: right">
+					<a id="stationnameasc" href="javascript:void(0);"> <img alt="^"
+						src="resources/images/downarrow.png">
+					</a> <a id="stationnamedesc" href="javascript:void(0);"> <img
+						alt="v" src="resources/images/uparrow.png">
+					</a>
+				</div></th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="station" items="${stationsList}">
 			<tr>
-				<th><spring:message code="label.stations.stationcode" />
-				<div style="float: right">
-							<a id="stationcodeasc"
-								href="javascript:void(0);">
-								<img alt="^" src="resources/images/downarrow.png">
-							</a> <a id="stationcodedesc"
-								href="javascript:void(0);">
-								<img alt="^" src="resources/images/uparrow.png">
-							</a>
-						</div></th>
-				<th><spring:message code="label.stations.stationname" />
-				<div style="float: right">
-							<a id="stationnameasc"
-								href="javascript:void(0);">
-								<img alt="^" src="resources/images/downarrow.png">
-							</a> <a id="stationnamedesc"
-								href="javascript:void(0);">
-								<img alt="v" src="resources/images/uparrow.png">
-							</a>
-						</div></th>
-
+				<td align="center">${station.getStationCode()}</td>
+				<td align="center">${station.getStationName()}</td>
 			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="station" items="${stationsList}">
-				<tr>
-					<td align="center">${station.getStationCode()}</td>
-					<td align="center">${station.getStationName()}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+		</c:forEach>
+	</tbody>
+</table>
 
-	<div class="pagination">
+<div class="pagination">
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">
 			<li class="prev"><a href="javascript:void(0);" id="firstpage">
@@ -79,12 +75,8 @@
 			<li class="next disabled"><a href="javascript:void(0);"> » </a></li>
 		</c:if>
 	</ul>
-
-	<p>
-	<p>
-		<br>
-		<spring:message code="label.trips.resultsperpage" />
-		:
+	<br />
+	<p><spring:message code="label.trips.resultsperpage" />:</p>
 	<ul class="bootpag">
 		<c:if test="${resultsPerPage!=10}">
 			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
@@ -109,57 +101,57 @@
 </div>
 
 <script>
-firstPageData = clone(defaultGetData);
-firstPageData.pageNumber = 1;
+	firstPageData = clone(defaultGetData);
+	firstPageData.pageNumber = 1;
 
-$("a#firstpage").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, firstPageData);
-});
-
-prevPageData = clone(defaultGetData);
-prevPageData.pageNumber = '${pageNumber-1}';
-
-$("a#prevpage").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, prevPageData);
-});
-
-var pageElement = {};
-for (var temp = '${firstPage}' * 1; temp <= '${lastPage}' * 1; temp = temp + 1) {
-	pageElement[temp] = clone(defaultGetData);
-	pageElement[temp].pageNumber = temp;
-}
-
-$.each(pageElement, function(index, value) {
-	$("a#page" + index).click(function() {
-		ajaxLoader(defaultDomElement, defaultTargetPage, value);
+	$("a#firstpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, firstPageData);
 	});
-});
 
-nextPageData = clone(defaultGetData);
-nextPageData.pageNumber = '${pageNumber+1}';
-$("a#nextpage").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, nextPageData);
-});
+	prevPageData = clone(defaultGetData);
+	prevPageData.pageNumber = '${pageNumber-1}';
 
-lastPageData = clone(defaultGetData);
-lastPageData.pageNumber = '${maxPages}';
-$("a#lastpage").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, lastPageData);
-});
+	$("a#prevpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, prevPageData);
+	});
 
-resultPerPage10Data = clone(defaultGetData);
-resultPerPage10Data.resultsPerPage = 10;
-resultPerPage10Data.pageNumber = 1;
-$("a#resultsPerPage10").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage10Data);
-});
+	var pageElement = {};
+	for (var temp = '${firstPage}' * 1; temp <= '${lastPage}' * 1; temp = temp + 1) {
+		pageElement[temp] = clone(defaultGetData);
+		pageElement[temp].pageNumber = temp;
+	}
 
-resultPerPage20Data = clone(defaultGetData);
-resultPerPage20Data.resultsPerPage = 20;
-resultPerPage20Data.pageNumber = 1;
-$("a#resultsPerPage20").click(function() {
-	ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage20Data);
-});
+	$.each(pageElement, function(index, value) {
+		$("a#page" + index).click(function() {
+			ajaxLoader(defaultDomElement, defaultTargetPage, value);
+		});
+	});
+
+	nextPageData = clone(defaultGetData);
+	nextPageData.pageNumber = '${pageNumber+1}';
+	$("a#nextpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, nextPageData);
+	});
+
+	lastPageData = clone(defaultGetData);
+	lastPageData.pageNumber = '${maxPages}';
+	$("a#lastpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, lastPageData);
+	});
+
+	resultPerPage10Data = clone(defaultGetData);
+	resultPerPage10Data.resultsPerPage = 10;
+	resultPerPage10Data.pageNumber = 1;
+	$("a#resultsPerPage10").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage10Data);
+	});
+
+	resultPerPage20Data = clone(defaultGetData);
+	resultPerPage20Data.resultsPerPage = 20;
+	resultPerPage20Data.pageNumber = 1;
+	$("a#resultsPerPage20").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage20Data);
+	});
 
 	resultPerPage50Data = clone(defaultGetData);
 	resultPerPage50Data.resultsPerPage = 50;
@@ -167,41 +159,41 @@ $("a#resultsPerPage20").click(function() {
 	$("a#resultsPerPage50").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage50Data);
 	});
-	
+
 	stationcodeascData = clone(defaultGetData);
 	stationcodeascData.orderByParam = "s.stationCode";
 	stationcodeascData.orderByDirection = "ASC";
 	stationcodeascData.pageNumber = 1;
 	$("a#stationcodeasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, stationcodeascData);
-	});	
-	
+	});
+
 	stationcodedescData = clone(defaultGetData);
 	stationcodedescData.orderByParam = "s.stationCode";
 	stationcodedescData.orderByDirection = "DESC";
 	stationcodedescData.pageNumber = 1;
 	$("a#stationcodedesc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, stationcodedescData);
-	});	
-	
+	});
+
 	stationnameascData = clone(defaultGetData);
 	stationnameascData.orderByParam = "s.stationName";
 	stationnameascData.orderByDirection = "ASC";
 	stationnameascData.pageNumber = 1;
 	$("a#stationnameasc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, stationnameascData);
-	});	
-	
+	});
+
 	stationnamedescData = clone(defaultGetData);
 	stationnamedescData.orderByParam = "s.stationName";
 	stationnamedescData.orderByDirection = "DESC";
 	stationnamedescData.pageNumber = 1;
 	$("a#stationnamedesc").click(function() {
 		ajaxLoader(defaultDomElement, defaultTargetPage, stationnamedescData);
-	});	
-	
+	});
+
 	window.history.pushState(defaultGetData, document.title, location.protocol
 			+ '//' + location.host + location.pathname + '?'
-			+ serialize(defaultGetData)+'&lang=${language}');
+			+ serialize(defaultGetData) + '&lang=${language}');
 	window.history.pathname = document.location.href;
 </script>

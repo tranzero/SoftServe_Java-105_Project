@@ -36,13 +36,13 @@
 </style>
 
 <section id="content">
+	<h2 align="center">
+		<spring:message code="label.navigation.transport" />
+	</h2>
 	<p>
 		<label for="tableSearchInput"><spring:message code="label.transport.tableSearchInput" /></label>
 		<input id="tableSearchInput" type="text" />
 	</p>
-	<h2 align="center">
-		<spring:message code="label.navigation.transport" />
-	</h2>
 	<div id="pagingcontent">
 		<table id="transportTable" class="transportTableArrows">
 			<thead>
