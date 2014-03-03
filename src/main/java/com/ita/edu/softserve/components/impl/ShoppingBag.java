@@ -21,9 +21,7 @@ public class ShoppingBag implements Serializable {
 
 	private static final long serialVersionUID = -4741144366790593201L;
 
-	/**
-	 * 
-	 */
+
 	@Autowired
 	TripsManager tripsManager;
 
@@ -69,8 +67,9 @@ public class ShoppingBag implements Serializable {
 
 	}
 
-	@Scheduled(fixedDelay = 900000000)
+	@Scheduled(fixedDelay = 15000)
 	public void clear() {
+		System.out.println("scheduler");
 		tickets.clear();
 	}
 
@@ -78,28 +77,29 @@ public class ShoppingBag implements Serializable {
 	public void preDestroy() {
 		for (Tickets ticket : tickets) {
 
-			Trips trip = ticket.getTrip();
 			if (ticket.getSeatType().equals(1)) {
 
-				trip.setRemSeatClass1(ticket.getTrip().getRemSeatClass1() + 1);
+				ticket.getTrip().setRemSeatClass1(ticket.getTrip().getRemSeatClass1() + 1);
 
 			}
 
 			if (ticket.getSeatType().equals(2)) {
 
-				trip.setRemSeatClass2(ticket.getTrip().getRemSeatClass2() + 1);
+				ticket.getTrip().setRemSeatClass2(ticket.getTrip().getRemSeatClass2() + 1);
 
 			}
 
 			if (ticket.getSeatType().equals(3)) {
 
-				trip.setRemSeatClass3(ticket.getTrip().getRemSeatClass3() + 1);
+				ticket.getTrip().setRemSeatClass3(ticket.getTrip().getRemSeatClass3() + 1);
 
 			}
 
-			tripsManager.updateTrip(trip);
-			tickets.clear();
+			tripsManager.updateTrip(ticket.getTrip());
+			
 		}
-
+		
+		tickets.clear();
+		System.out.println("destroy");
 	}
 }
