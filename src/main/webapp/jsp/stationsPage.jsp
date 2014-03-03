@@ -1,104 +1,214 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<script type="text/javascript">
-	function confirm_delete() {
-		return confirm('Are you sure?');
-	}
-</script>
+<table class='table'>
+	<thead>
+		<tr>
+			<th><spring:message code="label.stations.stationcode" />
+				<div style="float: right">
+					<a id="stationcodeasc" href="javascript:void(0);"> <img alt="^"
+						src="resources/images/downarrow.png">
+					</a> <a id="stationcodedesc" href="javascript:void(0);"> <img
+						alt="^" src="resources/images/uparrow.png">
+					</a>
+				</div></th>
+			<th><spring:message code="label.stations.stationname" />
+				<div style="float: right">
+					<a id="stationnameasc" href="javascript:void(0);"> <img alt="^"
+						src="resources/images/downarrow.png">
+					</a> <a id="stationnamedesc" href="javascript:void(0);"> <img
+						alt="v" src="resources/images/uparrow.png">
+					</a>
+				</div></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="station" items="${stationsList}">
+			<tr>
+				<td align="center">${station.getStationCode()}</td>
+				<td align="center">${station.getStationName()}</td>
+				<td align="center"><a
+					href="stationEdit/${station.getStationId()}"> <input id="edit"
+						type="button" name="edit"
+						value="<spring:message code="label.stations.edit"/>">
+				</a></td>
+				<td align="center"><a href="delete/${station.getStationId()}"><input
+						id="delete" type="button" name="delete"
+						onclick="return confirm_delete()"
+						value="<spring:message code="label.stations.delete"/>"> </a></td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+<div class="pagination">
+	<ul class="bootpag">
+		<c:if test="${pageNumber>1}">
+			<li class="prev"><a href="javascript:void(0);" id="firstpage">
+					Â« </a></li>
+			<li class="prev"><a href="javascript:void(0);" id="prevpage">
+					<spring:message code="label.prev" />
+			</a></li>
+		</c:if>
+		<c:if test="${pageNumber==1}">
+			<li class="prev disabled"><a href="javascript:void(0);"> Â«
+			</a></li>
+			<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
+						code="label.prev" />
+			</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${firstPage}" end="${lastPage}" step="1"
+			varStatus="status">
+			<c:if test="${pageNumber!=i}">
+				<li><a href="javascript:void(0);" id="page${i}"> ${i} </a></li>
+			</c:if>
+			<c:if test="${pageNumber==i}">
+				<li class="disabled"><a href="javascript:void(0);"> ${i} </a></li>
+			</c:if>
+		</c:forEach>
 
-<section id="content">
-	<h2 align="center">
-		<spring:message code="label.navigation.stations" />
-	</h2>
-	<a href="addStation"> <input id="addstation" type="button"
-		name="addstation"
-		value="<spring:message code="label.navigation.addStation"/>">
-	</a>
+		<c:if test="${pageNumber<maxPages}">
+			<li class="next"><a href="javascript:void(0);" id="nextpage">
+					<spring:message code="label.next" />
+			</a></li>
+			<li class="next"><a href="javascript:void(0);" id="lastpage">
+					Â» </a></li>
+		</c:if>
+		<c:if test="${pageNumber==maxPages}">
+			<li class="next disabled"><a href="javascript:void(0);"> <spring:message
+						code="label.next" />
+			</a></li>
+			<li class="next disabled"><a href="javascript:void(0);"> Â»
+			</a></li>
+		</c:if>
+	</ul>
+
 	<p>
-	<div id="pagingcontent">
-		<table style="align: center">
-			<thead>
-				<tr>
-					<th align="center"><spring:message
-							code="label.stations.number" /></th>
-					<th><spring:message code="label.stations.stationcode" /></th>
-					<th><spring:message code="label.stations.stationname" /></th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="station" items="${stationsList}">
-					<tr>
-						<td align="center" id="generate"></td>
-						<td align="center">${station.getStationCode()}</td>
-						<td align="center">${station.getStationName()}</td>
-						<td align="center"><a
-							href="stationEdit/${station.getStationId()}"> <input
-								id="edit" type="button" name="edit"
-								value="<spring:message code="label.stations.edit"/>">
-						</a></td>
-						<td align="center"><a href="delete/${station.getStationId()}"><input
-								id="delete" type="button" name="delete"
-								onclick="return confirm_delete()"
-								value="<spring:message code="label.stations.delete"/>">
-						</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+	<p>
+		<br>
+		<spring:message code="label.trips.resultsperpage" />
+		:
+	<ul class="bootpag">
+		<c:if test="${resultsPerPage!=10}">
+			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==10}">
+			<li class="disabled"><a href="javascript:void(0);">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=20}">
+			<li><a href="javascript:void(0);" id="resultsPerPage20">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==20}">
+			<li class="disabled"><a href="javascript:void(0);">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=50}">
+			<li><a href="javascript:void(0);" id="resultsPerPage50">50</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==50}">
+			<li class="disabled"><a href="javascript:void(0);">50</a></li>
+		</c:if>
+	</ul>
 
-		<div class="pagination">
-			<ul class="bootpag">
-				<c:if test="${pageNumber>1}">
-					<li class="prev"><a href="javascript:void(0);"
-						onclick="showStationsManagerPage(1, ${resultsPerPage})"> « </a></li>
-					<li class="prev"><a href="javascript:void(0);"
-						onclick="showStationsManagerPage(${pageNumber-1},${resultsPerPage})">
-							<spring:message code="label.prev" />
-					</a></li>
-				</c:if>
-				<c:if test="${pageNumber==1}">
-					<li class="prev disabled"><a href="javascript:void(0);"> «
-					</a></li>
-					<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
-								code="label.prev" />
-					</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${firstPage}" end="${lastPage}" step="1"
-					varStatus="status">
-					<c:if test="${pageNumber!=i}">
-						<li><a href="javascript:void(0);"
-							onclick="showStationsManagerPage(${i},${resultsPerPage})">
-								${i} </a></li>
-					</c:if>
-					<c:if test="${pageNumber==i}">
-						<li class="disabled"><a href="javascript:void(0);"> ${i}
-						</a></li>
-					</c:if>
-				</c:forEach>
-
-				<c:if test="${pageNumber<maxPages}">
-					<li class="next"><a href="javascript:void(0);"
-						onclick="showStationsManagerPage(${pageNumber+1},${resultsPerPage})">
-							<spring:message code="label.next" />
-					</a></li>
-					<li class="next"><a href="javascript:void(0);"
-						onclick="showStationsManagerPage(${maxPages},${resultsPerPage})">
-							» </a></li>
-				</c:if>
-				<c:if test="${pageNumber==maxPages}">
-					<li class="next disabled"><a href="javascript:void(0);"> <spring:message
-								code="label.next" />
-					</a></li>
-					<li class="next disabled"><a href="javascript:void(0);"> »
-					</a></li>
-				</c:if>
-			</ul>
-		</div>
 </div>
-</section>
+
+<script>
+	firstPageData = clone(defaultGetData);
+	firstPageData.pageNumber = 1;
+
+	$("a#firstpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, firstPageData);
+	});
+
+	prevPageData = clone(defaultGetData);
+	prevPageData.pageNumber = '${pageNumber-1}';
+
+	$("a#prevpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, prevPageData);
+	});
+
+	var pageElement = {};
+	for (var temp = '${firstPage}' * 1; temp <= '${lastPage}' * 1; temp = temp + 1) {
+		pageElement[temp] = clone(defaultGetData);
+		pageElement[temp].pageNumber = temp;
+	}
+
+	$.each(pageElement, function(index, value) {
+		$("a#page" + index).click(function() {
+			ajaxLoader(defaultDomElement, defaultTargetPage, value);
+		});
+	});
+
+	nextPageData = clone(defaultGetData);
+	nextPageData.pageNumber = '${pageNumber+1}';
+	$("a#nextpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, nextPageData);
+	});
+
+	lastPageData = clone(defaultGetData);
+	lastPageData.pageNumber = '${maxPages}';
+	$("a#lastpage").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, lastPageData);
+	});
+
+	resultPerPage10Data = clone(defaultGetData);
+	resultPerPage10Data.resultsPerPage = 10;
+	resultPerPage10Data.pageNumber = 1;
+	$("a#resultsPerPage10").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage10Data);
+	});
+
+	resultPerPage20Data = clone(defaultGetData);
+	resultPerPage20Data.resultsPerPage = 20;
+	resultPerPage20Data.pageNumber = 1;
+	$("a#resultsPerPage20").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage20Data);
+	});
+
+	resultPerPage50Data = clone(defaultGetData);
+	resultPerPage50Data.resultsPerPage = 50;
+	resultPerPage50Data.pageNumber = 1;
+	$("a#resultsPerPage50").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, resultPerPage50Data);
+	});
+
+	stationcodeascData = clone(defaultGetData);
+	stationcodeascData.orderByParam = "s.stationCode";
+	stationcodeascData.orderByDirection = "ASC";
+	stationcodeascData.pageNumber = 1;
+	$("a#stationcodeasc").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, stationcodeascData);
+	});
+
+	stationcodedescData = clone(defaultGetData);
+	stationcodedescData.orderByParam = "s.stationCode";
+	stationcodedescData.orderByDirection = "DESC";
+	stationcodedescData.pageNumber = 1;
+	$("a#stationcodedesc").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, stationcodedescData);
+	});
+
+	stationnameascData = clone(defaultGetData);
+	stationnameascData.orderByParam = "s.stationName";
+	stationnameascData.orderByDirection = "ASC";
+	stationnameascData.pageNumber = 1;
+	$("a#stationnameasc").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, stationnameascData);
+	});
+
+	stationnamedescData = clone(defaultGetData);
+	stationnamedescData.orderByParam = "s.stationName";
+	stationnamedescData.orderByDirection = "DESC";
+	stationnamedescData.pageNumber = 1;
+	$("a#stationnamedesc").click(function() {
+		ajaxLoader(defaultDomElement, defaultTargetPage, stationnamedescData);
+	});
+
+	window.history.pushState(defaultGetData, document.title, location.protocol
+			+ '//' + location.host + location.pathname + '?'
+			+ serialize(defaultGetData) + '&lang=${language}');
+	window.history.pathname = document.location.href;
+</script>

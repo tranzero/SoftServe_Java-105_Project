@@ -86,6 +86,11 @@
 		<put-attribute name="content" value="/jsp/transportpage.jsp" />
 	</definition>
 	
+	<definition name="stationsPage" extends="ajax">
+		<put-attribute name="title" value="View: Stations Manager" />
+		<put-attribute name="content" value="/jsp/stationsPage.jsp" />
+	</definition>
+	
 	<definition name="stationsForUsersPage" extends="ajax">
 		<put-attribute name="title" value="View: Stations" />
 		<put-attribute name="content" value="/jsp/stationsForUsersPage.jsp" />
