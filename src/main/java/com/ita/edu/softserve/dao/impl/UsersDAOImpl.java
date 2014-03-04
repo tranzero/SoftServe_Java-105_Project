@@ -24,7 +24,10 @@ import com.ita.edu.softserve.entity.Users;
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 
 	// --- update for validator
-	public void saveOrUpdate(final Users entity) {
+	/**
+	 * Update User Data
+	 */
+	public void updateUserData(final Users entity) {
 		if (entity.getUserId() == null) {
 			entityManager.persist(entity);
 		} else {
@@ -87,7 +90,8 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 				.setParameter(Users.MAX_DATE_NAME, maxDate, TemporalType.DATE);
 		return (long) find(query);
 	}
-@Override
+
+	@Override
 	public List<Users> getUsersForOnePageWithCriteria(int firstElement,
 			int count, String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {

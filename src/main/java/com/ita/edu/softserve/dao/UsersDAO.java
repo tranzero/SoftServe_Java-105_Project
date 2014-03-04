@@ -36,16 +36,20 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	 * @return
 	 */
 	Long getCountAllUsers();
-	
-	//for paging
-	public long getUsersListCount();
-	
-	public List<Users> getUsersForOnePage (int from, int count);
-	
-	
-	///---
-	public void saveOrUpdate(Users entity) ;
 
+	// for paging
+	public long getUsersListCount();
+
+	public List<Users> getUsersForOnePage(int from, int count);
+
+	/**
+	 * Update User Data
+	 * 
+	 * @param entity
+	 */
+	public void updateUserData(Users entity);
+
+	// for pagging 1
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
 

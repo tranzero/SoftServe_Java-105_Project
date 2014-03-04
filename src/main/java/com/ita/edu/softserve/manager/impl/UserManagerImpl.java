@@ -102,12 +102,13 @@ public class UserManagerImpl implements UserManager {
 		userDao.update(user);
 	}
 
-	// /
-
+	/**
+	 * Update The User Data
+	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateUser(Users user) {
-		userDao.saveOrUpdate(user);
+	public void updateTheUserData(Users user) {
+		userDao.updateUserData(user);
 
 		/*
 		 * try { userDao.saveOrUpdate(transport); } catch (RuntimeException e) {
@@ -200,20 +201,21 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public List<Users> getUsersForLimitWithCriteria(int firstElement,
-			long count, String searchString, List<Role> roleArray, Date minDate,
-			Date maxDate, String orderByParam, String orderByDirection) {
+			long count, String searchString, List<Role> roleArray,
+			Date minDate, Date maxDate, String orderByParam,
+			String orderByDirection) {
 
-		return userDao.getUsersForOnePageWithCriteria(firstElement, (int) count,
-				searchString, roleArray, minDate, maxDate, orderByParam,
-				orderByDirection);
+		return userDao.getUsersForOnePageWithCriteria(firstElement,
+				(int) count, searchString, roleArray, minDate, maxDate,
+				orderByParam, orderByDirection);
 	}
 
 	@Override
 	public List<Users> getUsersForPageWithCriteria(int pageNumber, long count,
 			String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
-		return getUsersForLimitWithCriteria((int) ((pageNumber - 1) * count), count,
-				searchString, roleArray, minDate, maxDate, orderByParam,
+		return getUsersForLimitWithCriteria((int) ((pageNumber - 1) * count),
+				count, searchString, roleArray, minDate, maxDate, orderByParam,
 				orderByDirection);
 	}
 
