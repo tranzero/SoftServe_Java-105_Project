@@ -19,26 +19,27 @@ import com.ita.edu.softserve.manager.RoutesManager;
 public class UserRoleEditor extends PropertyEditorSupport {
 
 	/**
-	 * Parse the Role from the given text.
-	 */
-	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
-		if (text == null) {
-			setValue(null);
-		} else {
-			setValue(Role.valueOf(text));
-		}
-	}
-
-	/**
-	 * Format the Role as String.
+	 * Format the Role as String.- return valueOfRole.name()
 	 * 
 	 * @see java.beans.PropertyEditorSupport#getAsText()
 	 */
 	@Override
 	public String getAsText() {
-		Role value = (Role) getValue();
-		return (value != null ? value.getDescription() : "");
+		Role valueOfRole = (Role) getValue();
+		// return (valueOfRole != null ? valueOfRole.getDescription() : "");
+		return (valueOfRole != null ? valueOfRole.name() : "");
+	}
+
+	/**
+	 * Parse the Role from the given text.
+	 */
+	@Override
+	public void setAsText(String text) throws IllegalArgumentException {
+		if (text != null) {
+			setValue(Role.valueOf(text));
+		} else {
+			setValue(null);
+		}
 	}
 
 }
