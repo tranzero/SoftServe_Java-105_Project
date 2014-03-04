@@ -15,22 +15,21 @@ import com.ita.edu.softserve.entity.Users;
 @Component("userEditValidator")
 public class UserEditValidator implements Validator {
 
-	public static final String USER_FIRSTNAME_PATERN = "^[a-zA-Z]{3,35}$";
-	public static final String USER_LASTNAME_PATERN = "^[a-zA-Z]{3,}$";
+	public static final String USER_FIRSTNAME_PATERN = "^[a-zA-Z]{3,25}$";
+	public static final String USER_LASTNAME_PATERN = "^[a-zA-Z]{3,25}$";
 	private static final String USER_EMAIL_PATERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-	private static final String USER_PASSWORD_PATERN = "^[a-zA-Z0-9]{4,15}$";
+	private static final String USER_PASSWORD_PATERN = "^[a-zA-Z0-9]{4,}$";
 
 	/*
 	 * private static final String FIRSTNAME = "firstName"; private static final
 	 * String LASTNAME = "lastName"; private static final String EMAIL =
 	 * "email"; private static final String PASSWORD = "password";
 	 */
-	private static final String USER_FIRSTNAME_MATCHER = "user.firstName.matcher";
-	private static final String USER_LASTNAME_MATCHER = "user.lastName.matcher";
-	private static final String USER_EMAIL_MATCHER = "user.email.matcher";
-	private static final String USER_PASSWORD_MATCHER = "user.password.matcher";
+	private static final String USER_FIRSTNAME_MATCHER = "msg.user.firstName.matcher";
+	private static final String USER_LASTNAME_MATCHER = "msg.user.lastName.matcher";
+	private static final String USER_EMAIL_MATCHER = "msg.user.email.matcher";
+	private static final String USER_PASSWORD_MATCHER = "msg.user.password.matcher";
 
 	public boolean supports(Class<?> clazz) {
 		return Users.class.equals(clazz);
@@ -66,7 +65,7 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validateFirstName(String firstName, Errors error) {
 		if (firstName.matches(USER_FIRSTNAME_PATERN) == false) {
-			error.rejectValue("firstName", "transportCode.matcher");
+			error.rejectValue("firstName", USER_FIRSTNAME_MATCHER);
 		}
 
 	}
@@ -79,19 +78,19 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validateLastName(String lastName, Errors error) {
 		if (lastName.matches(USER_LASTNAME_PATERN) == false) {
-			error.rejectValue("lastName", "transportCode.matcher");
+			error.rejectValue("lastName", USER_LASTNAME_MATCHER);
 		}
 	}
 
 	private void validateEmail(String email, Errors error) {
 		if (email.matches(USER_EMAIL_PATERN) == false) {
-			error.rejectValue("email", "transportCode.matcher");
+			error.rejectValue("email", USER_EMAIL_MATCHER);
 		}
 	}
 
 	private void validatePassword(String password, Errors error) {
 		if (password.matches(USER_PASSWORD_PATERN) == false) {
-			error.rejectValue("password", "transportCode.matcher");
+			error.rejectValue("password", USER_PASSWORD_MATCHER);
 		}
 	}
 
