@@ -15,7 +15,7 @@ import com.ita.edu.softserve.entity.Users;
 public interface UsersDAO extends AbstractDAOIface<Users> {
 
 	/**
-	 * Finds Users by name
+	 * Finds User by name
 	 * 
 	 * @param name
 	 * @return
@@ -23,24 +23,12 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	Users findByName(String name);
 
 	/**
-	 * Finds Users by username
+	 * Finds User by username
 	 * 
 	 * @param username
 	 * @return
 	 */
 	Users findByUsername(String username);
-
-	/**
-	 * Finds the number of Users *
-	 * 
-	 * @return
-	 */
-	Long getCountAllUsers();
-
-	// for paging
-	public long getUsersListCount();
-
-	public List<Users> getUsersForOnePage(int from, int count);
 
 	/**
 	 * Update User Data
@@ -49,11 +37,23 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	 */
 	public void updateUserData(Users entity);
 
-	// for pagging 1
+	// For pagging1
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
 
 	List<Users> getUsersForOnePageWithCriteria(int firstElement, int count,
 			String searchString, List<Role> roleArray, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection);
+
+	/**
+	 * Finds the number of Users
+	 * 
+	 * @return
+	 */
+	Long getCountAllUsers();
+
+	// For pagging2
+	public long getUsersListCount();
+
+	public List<Users> getUsersForOnePage(int from, int count);
 }
