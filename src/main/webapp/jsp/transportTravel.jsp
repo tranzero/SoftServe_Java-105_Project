@@ -61,16 +61,16 @@
 						<td>${transport.getDuration()}</td>
 						<c:if test="${not empty param.sDate}">
 							<c:if test="${not empty user}">
-					<td><a
-						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
-							1</a></td>
-					<td><a
-						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/2">Class
-							2</a></td>
-					<td><a
-						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
-							3</a></td>
-			
+								<td><a
+									href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
+										1</a><br />(${transport.getTrip().getRemSeatClass1()})</td>
+								<td><a
+									href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/2">Class
+										2</a><br />(${transport.getTrip().getRemSeatClass2()})</td>
+
+								<td><a
+									href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
+										3</a><br />(${transport.getTrip().getRemSeatClass3()})</td>
 							</c:if>
 							</c:if>
 					</tr>
