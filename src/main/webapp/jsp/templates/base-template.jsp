@@ -131,20 +131,26 @@ function imagesLoader(){
 	{
 		var elementSelectorForResult = "div#fileNameInput";
 //		var uploadFile = "#uploadFileInput".files[0];
-// 		 var uploadFile = new FormData();
-// 		 uploadFile.append(uploadFileInput.files[0]);
+//		var file_data = $("#uploadFileInput").prop("files")[0];
+//		var uploadFile = new FormData();
+//		uploadFile.append("file", file_data);
+		var uploadFile = $("#uploadFileInput").val();
 		$.ajax({
 //			data: uploadFile,
-		  
+//	dataType: 'script',
+
+//cache: false,	  
 //		    processData: false,
 //		    contentType: false,
 			async : false,
+			
 			type: "POST",
 			url: "fileUpload",
 			
 			data: {
- //				"uploadFile" : uploadFile
+ 				"uploadFile" : uploadFile
 				}
+//			data: $("#uploadedFile").serialize()
 			}).done(function( msg ) {
 				$(elementSelectorForResult).html(msg);
 		});
