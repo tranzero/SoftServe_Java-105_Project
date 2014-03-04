@@ -39,7 +39,7 @@ public class UploadController {
 		return "uploadForm";
 	}
 
-	@RequestMapping("/fileUpload")
+	@RequestMapping(value ="fileUpload", method=RequestMethod.POST)
 	public String fileUploaded(
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result, Map<String, String> modelMap) {
@@ -79,12 +79,12 @@ public class UploadController {
 		return "addnews";
 	}
 	
-	@RequestMapping(value ="fileUpload", method=RequestMethod.POST)
-	public String fileUploadedtest(
-			@RequestParam("uploadFile") String uploadedFile,
-			Map<String, String> modelMap) {
-		System.out.println(uploadedFile);
-		modelMap.put("filename", uploadedFile);
-		return "showFile";
-	}
+//	@RequestMapping(value ="fileUpload", method=RequestMethod.POST)
+//	public String fileUploadedtest(
+//			@RequestParam("uploadFile") String uploadedFile,
+//			Map<String, String> modelMap) {
+//		System.out.println(uploadedFile);
+//		modelMap.put("filename", uploadedFile);
+//		return "showFile";
+//	}
 }

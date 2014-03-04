@@ -130,29 +130,24 @@ function imagesLoader(){
 	function savepic()
 	{
 		var elementSelectorForResult = "div#fileNameInput";
-//		var uploadFile = "#uploadFileInput".files[0];
+		var uploadFile = $("#uploadFile").files;
 //		var file_data = $("#uploadFileInput").prop("files")[0];
 //		var uploadFile = new FormData();
 //		uploadFile.append("file", file_data);
-		var uploadFile = $("#uploadFileInput").val();
+//		var uploadFile = $("#uploadFileInput");
 		$.ajax({
-//			data: uploadFile,
-//	dataType: 'script',
-
-//cache: false,	  
-//		    processData: false,
-//		    contentType: false,
+			cache: false,
+			contentType: false,
 			async : false,
 			
 			type: "POST",
 			url: "fileUpload",
-			
-			data: {
- 				"uploadFile" : uploadFile
+ 			data: {
+  				"uploadedFile" : uploadFile
 				}
-//			data: $("#uploadedFile").serialize()
 			}).done(function( msg ) {
 				$(elementSelectorForResult).html(msg);
+				
 		});
 
 
