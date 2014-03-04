@@ -248,14 +248,7 @@ public class LinesManagerImpl implements LinesManager {
 				firstElement, count, sortOrder);
 	}
 
-	
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getLinesForLimits(int firstElement, int count, int sortOrder){
-		return lineDao.getLinesForLimits(firstElement, count, sortOrder);
-	}
-	
-	
+
 	/**
 	 * @author MatyashPetro
 	 * @return size of list with all lines

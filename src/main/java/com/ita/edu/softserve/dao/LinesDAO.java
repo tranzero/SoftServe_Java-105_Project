@@ -82,5 +82,4 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	 */
 	public List<Lines> getLinesForOnePage(int from, int count);
 	
-	public List<Lines> getLinesForLimits(int firstElement, int count, int sortOrder);
 }

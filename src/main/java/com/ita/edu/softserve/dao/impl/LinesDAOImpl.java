@@ -131,31 +131,6 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		return (List<Lines>) query.getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Lines> getLinesForLimits(int firstElement, int count, int sortOrder) {
-
-		Query query = null;
-		
-		if (sortOrder == 1) {
-			query = entityManager
-					.createNamedQuery(Lines.GET_LINES_ASC)
-					.setFirstResult(firstElement).setMaxResults(count);
-		}
-		else if (sortOrder == 2) {
-			query = entityManager
-					.createNamedQuery(Lines.GET_LINES_DESC)
-					.setFirstResult(firstElement).setMaxResults(count);			
-		}
-		else {
-			query = entityManager
-					.createNamedQuery(Lines.GET_LINES_LIST_FOR_PAGING)
-					.setFirstResult(firstElement).setMaxResults(count);
-		}
-		
-		return (List<Lines>) query.getResultList();
-	}
-
 	/**
 	 * @param stationName1
 	 * @param stationName2
