@@ -58,7 +58,7 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	}
 
 	/**
-	 * For pagging 1
+	 * Set Valuable Info of Users (For pagging 1)
 	 */
 	@Override
 	public void setValuableInfo(String searchString, String minDateString,

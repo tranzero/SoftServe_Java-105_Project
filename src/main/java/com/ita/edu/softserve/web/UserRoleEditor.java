@@ -11,10 +11,12 @@ import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.RoutesManager;
 
 /**
- * @author Roman
+ * class UserRoleEditor
+ * 
+ * @author Iryna
  */
-//@Component("roleEditor")
-public class RoleEditor extends PropertyEditorSupport {
+
+public class UserRoleEditor extends PropertyEditorSupport {
 
 	/**
 	 * Parse the Role from the given text.
@@ -24,7 +26,7 @@ public class RoleEditor extends PropertyEditorSupport {
 		if (text == null) {
 			setValue(null);
 		} else {
-	        setValue(Role.valueOf(text));
+			setValue(Role.valueOf(text));
 		}
 	}
 

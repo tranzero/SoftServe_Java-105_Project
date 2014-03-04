@@ -85,7 +85,7 @@ public class UserController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(userEditValidator);
-		binder.registerCustomEditor(Role.class, new RoleEditor());
+		binder.registerCustomEditor(Role.class, new UserRoleEditor());
 
 	}
 
