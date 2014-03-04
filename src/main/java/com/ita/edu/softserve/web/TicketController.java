@@ -30,6 +30,7 @@ import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.OrdersManager;
+import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -61,6 +62,9 @@ public class TicketController {
 	
 	@Autowired
 	private OrdersManager ordersManager;
+	
+	@Autowired
+	private StationsManager stationsManager;
 	
 	@Autowired
 	private Validator ticketValidator;
@@ -119,6 +123,17 @@ public class TicketController {
 		return "bag";
 		
 	}
+	
+	
+	@RequestMapping(value = "/listOfStationsOnLine/{lineName}", method = RequestMethod.GET)
+	public String stationsOnLine(@PathVariable("lineName") String lineName,
+			Map<String, Object> modelMap) {
+
+		modelMap.put("listOfStationsOnLine", stationsManager.getStationsOnCertainLine(lineName));
+
+		return "listOfStationsOnLine";
+	}
+	
 	
 	@RequestMapping(value="/bag",method = RequestMethod.GET)
 	public String shoppingBagGET(@RequestParam(value= "customerInfo",required = false) String customerInfo,
