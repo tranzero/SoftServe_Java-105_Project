@@ -17,10 +17,12 @@ public class RegistrationValidator implements Validator {
 	Pattern pattern;
 	Matcher matcher;
 
+	private static final String USERNAME_PATTERN = "[a-zA-Z]{5,15}$";
 	private static final String STRING_PATTERN = "[a-zA-Z]+";
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	@Override
+	
+    @Override
 	public boolean supports(Class<?> clazz) {
 		return Users.class.equals(clazz);
 	}
@@ -43,10 +45,10 @@ public class RegistrationValidator implements Validator {
 
 	private void validateUserName(String userName, Errors error) {
 		if (!(userName != null && userName.isEmpty())) {
-			pattern = Pattern.compile(STRING_PATTERN);
+			pattern = Pattern.compile(USERNAME_PATTERN);
 			matcher = pattern.matcher(userName);
 			if (!matcher.matches()) {
-				error.rejectValue("userName", "userName.containNonChar", "Enter correct User Name");
+				error.rejectValue("userName", "userName.containNonChar", "At least 5 characters required in User Name");
 			}
 		}
 	}

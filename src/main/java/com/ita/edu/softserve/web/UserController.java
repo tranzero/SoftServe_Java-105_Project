@@ -192,14 +192,14 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profileEdit", method = RequestMethod.GET)
 	public String editProfile(Map<String, Object> modelMap) {
 		Users user = usersmanage.findUser(userService.getLoggedUserId());
 		modelMap.put("user", user);
-		return "editProfile";
+		return "profileEdit";
 	}
 
-	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
+	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
 	public String updateProfile(@ModelAttribute("firstName") String firstName,
 			@ModelAttribute("lastName") String lastName,
 			@ModelAttribute("email") String email,
