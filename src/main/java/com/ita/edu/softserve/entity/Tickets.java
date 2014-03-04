@@ -134,12 +134,7 @@ public class Tickets extends BaseEntity implements Serializable {
 		this.seatType = seatType;
 	}
 
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this).addValue(this.getTicketName())
-				.addValue(this.getTrip().getTripId()).toString();
-	}
-
+	
 	
 	@Override
 	public int hashCode() {
