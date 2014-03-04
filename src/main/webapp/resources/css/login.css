@@ -25,7 +25,7 @@ input#lsubmit, input#lcancel {
 	font: bold 25px Helvetica, Arial, sans-serif;
 	letter-spacing: -0.05em;
 	line-height: 20px;
-	margin: 10px 0 30px;
+	margin: 10px 0 15px;
 }
 #loginform h1:before,
 #loginform h1:after {
