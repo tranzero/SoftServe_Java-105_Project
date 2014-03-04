@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,9 +29,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Orders.FIND_ALL, query = Orders.FIND_ALL_QUERY),
 		@NamedQuery(name = Orders.FIND_BY_USERID, query = Orders.FIND_BY_USERID_QUERY),
 		@NamedQuery(name = Orders.FIND_ORDER_LIST_COUNT, query = Orders.FIND_ORDER_LIST_COUNT_QUERY),
-		@NamedQuery(name = Orders.FIND_ORDER_LIST_FOR_PAGING, query = Orders.FIND_ORDER_LIST_FOR_PAGING_QUERY) })
+		@NamedQuery(name = Orders.FIND_ORDER_LIST_FOR_PAGING, query = Orders.FIND_ORDER_LIST_FOR_PAGING_QUERY),
+		@NamedQuery(name = Orders.FIND_BY_USERID_AND_ORDER_DATE, query = Orders.FIND_BY_USERID_AND_ORDER_DATE_QUERY)})
 public class Orders extends BaseEntity {
 
+	
+	
 	public static final String FIND_ORDER_LIST_COUNT = "Orders.findOrdersListCount";
 	public static final String FIND_ORDER_LIST_COUNT_QUERY = "SELECT COUNT (o.orderId) FROM Orders o";
 
@@ -42,6 +46,9 @@ public class Orders extends BaseEntity {
 
 	public static final String FIND_ALL = "Orders.findAll";
 	public static final String FIND_ALL_QUERY = "SELECT o FROM Orders o";
+	
+	public static final String FIND_BY_USERID_AND_ORDER_DATE = "Orders.findByUserIdAndOrderDate";
+	public static final String FIND_BY_USERID_AND_ORDER_DATE_QUERY = "select o from Orders o where o.userId.userId = ?1 and o.orderDate = ?2";
 
 	@Id
 	@Column(name = "ORDERID")
@@ -73,6 +80,13 @@ public class Orders extends BaseEntity {
 	public Orders(Users userId) {
 		super();
 		this.userId=userId;
+	}
+	
+
+	public Orders(Users userId, Date orderDate) {
+		super();
+		this.userId = userId;
+		this.orderDate = orderDate;
 	}
 
 	/**

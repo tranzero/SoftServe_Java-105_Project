@@ -12,8 +12,10 @@
 						code="label.navigation.news" /></a></li>
 			<li><spring:message code="label.navigation.timetable" />
 				<ul class="submenu">
+					<sec:authorize access="hasRole('MANAGER')">
 					<li><a href="/SoftServe_Java-105/allLines"><spring:message
 								code="label.navigation.allLines" /></a></li>
+					</sec:authorize>			
 					<li><a href="/SoftServe_Java-105/stationsForUsers"><spring:message
 								code="label.navigation.stationsForUsers" /></a></li>
 					<li><a href="/SoftServe_Java-105/trips"><spring:message

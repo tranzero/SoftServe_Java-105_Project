@@ -44,6 +44,7 @@ public class PropertiesManagerImpl implements PropertiesManager {
 
 	@Override
 	public String getImgPath() {
+			
 		return preferenceUtil
 				.checkPathExistance(PropertyKeys.IMG_PATH_PROPERTY_NAME);
 	}
@@ -51,4 +52,12 @@ public class PropertiesManagerImpl implements PropertiesManager {
 	public void setImgPath(String path) {
 		preferenceUtil.setValue(PropertyKeys.IMG_PATH_PROPERTY_NAME, path);
 	}
+	
+	@Override
+	public String getHostPath() {
+//		return preferenceUtil
+//				.checkPathExistance(PropertyKeys.HOST_PATH_PROPERTY_NAME);
+		return preferenceUtil.getHostName();
+	}
+	
 }

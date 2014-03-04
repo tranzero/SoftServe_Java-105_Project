@@ -87,5 +87,5 @@ public interface LinesManager extends BaseManager {
 	 * @return List of lines
 	 */
 	public List<Lines> getLinesForPage(int from, int count);
-
+	
 }

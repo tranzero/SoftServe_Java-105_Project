@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
+import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.exception.RoutesManagerException;
+import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 
@@ -30,12 +35,20 @@ public class RoutesManagerImpl implements RoutesManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(RoutesManagerImpl.class);
-
+	
+	private String entityName = Routes.class.getSimpleName();
+	private final String saveRouteMessage = "Could not save Route";
+	private final String updateRouteMessage = "Could not update Route";
+	private String removeMessage = " was remove from DB by ";
+	private final String removeRouteByIdMessage = "Could not remove Route by id ";
 	@Autowired
 	private RoutesDAO routeDao;
 
 	@Autowired
 	private LinesDAO lineDao;
+	
+	@Autowired
+	private StationsDAO stationDao;
 
 	public RoutesManagerImpl() {
 	}
@@ -56,6 +69,20 @@ public class RoutesManagerImpl implements RoutesManager {
 	@Override
 	public List<String> getStationNameListCriteria(String stationName) {
 		return routeDao.getStationNameListCriteria(stationName + "%");
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<String> getStationNameByLineListCriteria(String stationName,
+			String lineName) {
+		return routeDao.getStationNameByLineListCriteria(stationName + "%",
+				lineDao.findByName(lineName).getLineId());
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<String> getLineNameListCriteria(String lineName) {
+		return routeDao.getLineNameListCriteria(lineName + "%");
 	}
 
 	@Transactional(readOnly = true)
@@ -92,9 +119,73 @@ public class RoutesManagerImpl implements RoutesManager {
 	
 	
 	
+	/**
+	 * Saves the Route object to database
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void createRoute(Routes route) {
+		try {
+			routeDao.save(route);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new RoutesManagerException(
+					saveRouteMessage , e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
 	
+	/**
+	 * Updates the Route object in database
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void updateRoute(Routes route) {
+		try {
+			routeDao.update(route);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new RoutesManagerException(
+					updateRouteMessage , e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
 	
+	/**
+	 * Removes Route by Id from database.
+	 */
+	@Transactional
+	@Override
+	public void removeRouteById(Integer routeId) {
+		try {
+			routeDao.remove(routeDao.findById(routeId));
+			LOGGER.info(entityName + routeId + "was fond");
+			LOGGER.info(entityName + removeMessage);
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new RoutesManagerException(
+					removeRouteByIdMessage + routeId, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
 	
+	//***********************************************
+	@Transactional
+	@Override
+	public void createRoute(String lines, String routeCode,
+			String stationStart, String stationEnd) {
+		Routes route = new Routes();
+		route.setRouteCode(routeCode);
+		route.setLineId(lineDao.findByName(lines));
+		route.setRouteName(stationStart + "-" + stationEnd);
+		route.setStationStartId(stationDao.findByName(stationStart));
+		route.setStationEndId(stationDao.findByName(stationEnd));
+		routeDao.save(route);
+	}
 	
 	@Transactional
 	@Override
@@ -113,17 +204,7 @@ public class RoutesManagerImpl implements RoutesManager {
 		route.setLineId(lineDao.findByName(lines));
 		routeDao.update(route);
 	}
-
-	@Transactional
-	@Override
-	public void removeRouteById(Integer routeId) {
-		try {
-			routeDao.remove(routeDao.findById(routeId));
-		} catch (NoResultException e) {
-			LOGGER.error("No routes", e);
-		}
-	}
-
+	//***************************************************
 
 	
 
@@ -234,6 +315,11 @@ public class RoutesManagerImpl implements RoutesManager {
 		return routeDao.findById(id);
 	}
 	
+	@Transactional(readOnly = true)
+	@Override
+	public Routes findByCode(String routeCode) {
+		return routeDao.findByCode(routeCode);
+	}
 	
 	public static RoutesManager getInstance() {
 		return ManagerFactory.getManager(RoutesManager.class);

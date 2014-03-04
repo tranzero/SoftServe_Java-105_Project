@@ -75,10 +75,18 @@ public class OrdersManagerImpl implements OrdersManager {
 	
 	@Transactional
 	@Override
-	public void createOrder(Integer userId){
-		Orders order = new Orders();
-		order.setUserId(usersDao.findById(userId));
+	public void createOrder(Integer userId,Date date){
+		
+		Orders order = new Orders(usersDao.findById(userId),date);
 		ordersDao.save(order);
+		
+	}
+	
+	@Transactional
+	@Override
+	public Orders findByUserIdAndOrderDate(Integer userId,Date date){
+		
+		return (Orders)ordersDao.findByUserIdAndOrderDate(userId, date);
 	}
 
 }

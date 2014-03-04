@@ -71,35 +71,17 @@ public class TicketsManagerImpl implements TicketsManager{
 	@Transactional
 	@Override
 	public void createTicket (String ticketName, Integer orderId, Integer tripId,
-			String customerInfo, Integer seatType){
+			String customerFirstName,
+			String customerLastName, Integer seatType){
 		
 		Tickets ticket = new Tickets(ticketName, ordersDao.findById(orderId), tripsDao.findById(tripId),
-				customerInfo, seatType);
+				customerFirstName,customerLastName, seatType);
 		
 		ticketsDao.save(ticket);
 		
-		Trips trip = ordersDao.findById(orderId).getTripId();
 		
-		if(seatType.equals(1)){
-			
-			trip.setRemSeatClass1(trip.getRemSeatClass1()-1);
-			
-		}
 		
-		if(seatType.equals(2)){
-			
-			trip.setRemSeatClass2(trip.getRemSeatClass2()-1);
-			
-		}
-		
-		if(seatType.equals(3)){
-			
-			trip.setRemSeatClass3(trip.getRemSeatClass3()-1);
-			
-		}
-		tripsDao.update(trip);
-		
-	}
+}
 	
 	@Transactional
 	@Override
@@ -109,6 +91,18 @@ public class TicketsManagerImpl implements TicketsManager{
 		ticketsDao.remove(ticket);
 		
 	}
+	
+	
+	@Override
+	public Tickets getTicket(String ticketName, Trips trip,
+			String customerFirstName,
+			String customerLastName, Integer seatType){
+	
+			return new Tickets(ticketName, trip,
+					customerFirstName,customerLastName, seatType);
+	
+	
+}
 
 	
 }

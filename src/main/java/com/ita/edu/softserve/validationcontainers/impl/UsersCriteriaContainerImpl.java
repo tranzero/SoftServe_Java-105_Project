@@ -8,11 +8,17 @@ import org.springframework.stereotype.Component;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
+/**
+ * class UsersCriteriaContainerImpl
+ * 
+ * @author iryna
+ * 
+ */
 @Component
 public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 
-	public static final String[] USERS_ORDER_BY_COLUMNS = {"u.userName",
-			"u.firstName", "u.lastName", "u.email", "u.role", "u.regDate"};
+	public static final String[] USERS_ORDER_BY_COLUMNS = { "u.userName",
+			"u.firstName", "u.lastName", "u.email", "u.role", "u.regDate" };
 
 	private String searchString;
 	private List<Role> roleArray;
@@ -26,14 +32,21 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 	private String orderByParam;
 	private String orderByDirection;
 
+	/**
+	 * Default Constructor
+	 */
 	public UsersCriteriaContainerImpl() {
 		super();
 	}
 
-	@Override
-	public void setValuableInfo(String searchString, String minDateString,
-			String maxDateString, Boolean isRegUser, Boolean isManager,
-			Boolean isAdmin, String orderByParam, String orderByDirection) {
+	/**
+	 * Constructor with parametrs
+	 */
+	public UsersCriteriaContainerImpl(String searchString,
+			String minDateString, String maxDateString, Boolean isRegUser,
+			Boolean isManager, Boolean isAdmin, String orderByParam,
+			String orderByDirection) {
+		super();
 		this.searchString = searchString;
 		this.minDateString = minDateString;
 		this.maxDateString = maxDateString;
@@ -44,11 +57,13 @@ public class UsersCriteriaContainerImpl implements UserCriteriaContainer {
 		this.orderByDirection = orderByDirection;
 	}
 
-	public UsersCriteriaContainerImpl(String searchString,
-			String minDateString, String maxDateString, Boolean isRegUser,
-			Boolean isManager, Boolean isAdmin, String orderByParam,
-			String orderByDirection) {
-		super();
+	/**
+	 * For pagging 1
+	 */
+	@Override
+	public void setValuableInfo(String searchString, String minDateString,
+			String maxDateString, Boolean isRegUser, Boolean isManager,
+			Boolean isAdmin, String orderByParam, String orderByDirection) {
 		this.searchString = searchString;
 		this.minDateString = minDateString;
 		this.maxDateString = maxDateString;

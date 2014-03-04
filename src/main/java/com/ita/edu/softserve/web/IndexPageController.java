@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +27,7 @@ public class IndexPageController {
 	final static String newsNameListKey = "post";
 	final static String postNameListKey = "News";
 	final static String mainImgPathKey = "mainImgPath";
+	final static String hostNameKey = "hostName";
 
 	// RequesMapping input & output String value
 	final static String mainPageInGet = "/mainpage";
@@ -49,7 +49,7 @@ public class IndexPageController {
 	final static String editNewsIn = "editnews";
 	final static String updateNews = "updatenews";
 	final static String editNewsPostOut = "redirect:/managenews";
-	final static String detailsNewsInGet = "/detailsnews/{detailsId}";
+	final static String detailsNewsInGet = "/detailsnews";
 	final static String detailsNewsGet = "detailsnews";
 	final static String resultsPerPageKey = "/errorinput";
 
@@ -62,7 +62,7 @@ public class IndexPageController {
 	final static String modelAttributeEditnews = "newsId";
 	final static String modelAttributefileName = "fileName";
 	final static String pathVariableDelnews = "delnews";
-	final static String pathVariableDetailsId = "detailsId";
+	final static String ModelAttributeDetailsId = "detailsId";
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
@@ -85,7 +85,7 @@ public class IndexPageController {
 		return mainPageOutGet;
 
 	}
-
+		
 	@RequestMapping(value = mainPageInPost, method = RequestMethod.POST)
 	public String mainPagePost(
 			@RequestParam(requestParamPageNumber) int pageNumber,
@@ -103,6 +103,7 @@ public class IndexPageController {
 		modelMap.put(newsListKey,
 				posts.getPostForPage(currentPagingPosition - 1, resultsPerPage));
 		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
+		modelMap.put(hostNameKey, propertyManager.getHostPath());
 		return mainPageOutPost;
 
 	}
@@ -188,16 +189,16 @@ public class IndexPageController {
 		return editNewsPostOut;
 	}
 
-	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.GET)
+	@RequestMapping(value = detailsNewsInGet, method = RequestMethod.POST)
 	public String detailsNews(
-			@PathVariable(pathVariableDetailsId) Integer postId,
+			@ModelAttribute(ModelAttributeDetailsId) Integer postId,
 			Map<String, Object> modelMap) {
 
 		Post post;
 		post = posts.findNews(postId);
 		modelMap.put(postNameListKey, post);
 		modelMap.put(mainImgPathKey, propertyManager.getImgPath());
+		modelMap.put(hostNameKey, propertyManager.getHostPath());
 		return detailsNewsGet;
 	}
-
 }

@@ -4,21 +4,29 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
 	<c:if test="${not empty ResponsesList}">
-		<hr />
-		<h3>${ResponsesList.get(0).getTrip().getTransport().getTransportCode()}</h3>
-		<h3>${ResponsesList.get(0).getTrip().getTransport().getRoutes().getRouteName()}</h3>
-		<hr />
-		<table>
-			<c:forEach var="responses" items="${ResponsesList}">
-				<c:if test="${responses.isChecked()}">
-					<tr>
-						<td>${responses.getUser().getFirstName()}</td>
-						<td>${responses.getUser().getLastName().substring(0,1)}.</td>
-						<td>${responses.getDate().toString().substring(0,10)}</td>
-						<td>${responses.getComment()}</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-		</table>
+		<div id="tripInfo">
+			<h3>${ResponsesList.get(0).getTrip().getTransport().getRoutes().getRouteName()}
+				(${ResponsesList.get(0).getTrip().getTransport().getTransportCode()})</h3>
+			<div id="live_resp_btn">
+				<a
+					href="/SoftServe_Java-105/addComment/${ResponsesList.get(0).getTrip().getTripId()}"><input
+					type="button"
+					value="<spring:message code="label.responses.leaveComment" />" /></a>
+			</div>
+		</div>
+		<c:forEach var="responses" items="${ResponsesList}">
+			<c:if test="${responses.isChecked()}">
+				<div id="response">
+					<div id="postedBy">
+						<span class="user_avatar"></span>
+						<div class="user_name">${responses.getUser().getFirstName()}
+							${responses.getUser().getLastName().substring(0,1)}. <span
+								class="response_date">${responses.getDate().toString().substring(0,10)}</span>
+						</div>
+						<div class="commentText">${responses.getComment()}</div>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
 	</c:if>
 </section>

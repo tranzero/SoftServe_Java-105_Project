@@ -32,6 +32,10 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 	
 	public List<String> getStationNameListCriteria(String stationName);
 	
+	public List<String> getStationNameByLineListCriteria(String stationName, int lineId);
+	
+	public List<String> getLineNameListCriteria(String lineName);
+	
 	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
 			int currentPaget, int count);

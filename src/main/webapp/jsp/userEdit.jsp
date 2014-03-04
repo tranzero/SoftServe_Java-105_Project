@@ -15,8 +15,19 @@
 		<p>
 			<form:hidden path="userId" />
 		<p>
+			<%-- <p>
+			<spring:message code="label.users.userName" />
+		</p> --%>
+
+			<%-- 	<p>
+			<form:input type="text" path="userName" onfocus="checkpostal()" />
+			<form:errors path="userName" cssClass="error" />
+		</p> --%>
+
+
 			<spring:message code="label.users.firstName" />
 		</p>
+
 
 		<p>
 			<form:input type="text" path="firstName" onfocus="checkpostal()" />
@@ -59,9 +70,12 @@
 		</p>
 
 		<p>
-			<input name="control" type="submit" value="Update" /> <input
-				type="button" value="<spring:message code="label.stations.cancel"/>"
-				onclick="window.location='/SoftServe_Java-105/userlist';">
+			<input name="control" type="submit"
+				value="<spring:message code ="label.update" />" /> 
+				
+				<input
+				type="button" value="<spring:message code="label.cancel"/>"
+				onclick="window.location='/SoftServe_Java-105/userlist2';">
 		</p>
 
 	</form:form>

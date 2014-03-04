@@ -32,18 +32,15 @@ import org.springframework.util.Assert;
 		@NamedQuery(name = Users.GET_ALL_USERS, query = Users.GET_ALL_USERS_QUERY),
 		@NamedQuery(name = Users.GET_COUNT_ALL_USERS, query = Users.GET_COUNT_ALL_USERS_QUERY),
 
-		@NamedQuery(name = Users.GET_COUNT_USERS_WITH_CRITERIA  , query = Users.GET_COUNT_USERS_WITH_CRITERIA_QUERY)
-})
+		@NamedQuery(name = Users.GET_COUNT_USERS_WITH_CRITERIA, query = Users.GET_COUNT_USERS_WITH_CRITERIA_QUERY) })
 public class Users extends BaseEntity {
 
 	public static final String SEARCH_STRING_NAME = "searchstring";
-
 	public static final String ROLE_ARRAY_NAME = "rolearray";
-
 	public static final String MIN_DATE_NAME = "minDate";
-
 	public static final String MAX_DATE_NAME = "maxDate";
 
+	// Queries
 	public static final String FIND_BY_NAME = "Users.findByName";
 	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Users u WHERE u.lastName = ?1";
 
@@ -69,7 +66,7 @@ public class Users extends BaseEntity {
 			+ ROLE_ARRAY_NAME
 			+ ") AND u.regDate BETWEEN :"
 			+ MIN_DATE_NAME
-			+ " AND :"+MAX_DATE_NAME;
+			+ " AND :" + MAX_DATE_NAME;
 
 	public static final String GET_USERS_WITH_CRITERIA_QUERY = "SELECT u FROM Users u WHERE (u.userName LIKE :"
 			+ SEARCH_STRING_NAME
@@ -83,8 +80,8 @@ public class Users extends BaseEntity {
 			+ ROLE_ARRAY_NAME
 			+ ") AND u.regDate BETWEEN :"
 			+ MIN_DATE_NAME
-			+ " AND :"+MAX_DATE_NAME+" ORDER BY ";
-	
+			+ " AND :" + MAX_DATE_NAME + " ORDER BY ";
+
 	@Id
 	@Column(name = "USERID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -114,7 +111,7 @@ public class Users extends BaseEntity {
 
 	@Transient
 	public String confirmPassword;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "enum('REGUSER','MANAGER', 'ADMIN')")
 	private Role role;
@@ -135,7 +132,6 @@ public class Users extends BaseEntity {
 	 */
 	public Users(String userName, String email, String password) {
 		this();
-
 		this.setUserName(userName);
 		this.setEmail(email);
 		this.setPassword(password);
@@ -186,8 +182,10 @@ public class Users extends BaseEntity {
 	}
 
 	/**
+	 * The userId to set
+	 * 
 	 * @param userId
-	 *            the userId to set
+	 * 
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -201,8 +199,10 @@ public class Users extends BaseEntity {
 	}
 
 	/**
+	 * The userName to set
+	 * 
 	 * @param userName
-	 *            the userName to set
+	 * 
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -216,8 +216,10 @@ public class Users extends BaseEntity {
 	}
 
 	/**
+	 * The firstName to set
+	 * 
 	 * @param firstName
-	 *            the firstName to set
+	 * 
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -231,53 +233,61 @@ public class Users extends BaseEntity {
 	}
 
 	/**
+	 * The lastName to set
+	 * 
 	 * @param lastName
-	 *            the lastName to set
+	 * 
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/**
-	 * @return the eMail
+	 * @return the email
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
+	 * The email to set
+	 * 
 	 * @param email
-	 *            the eMail to set
+	 * 
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @return the passwd
+	 * @return the Password
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
-	 * @param password
-	 *            the passwd to set
+	 * The Password to set
+	 * 
+	 * @param Password
+	 * 
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	/**
-	 * @return the regDate
+	 * @return the Registration Date
 	 */
 	public Date getRegDate() {
 		return regDate;
 	}
 
 	/**
+	 * The Registration Date to set
+	 * 
 	 * @param regDate
-	 *            the regDate to set
+	 * 
 	 */
 	private void setRegDate() {
 		this.regDate = new Date();
@@ -290,20 +300,31 @@ public class Users extends BaseEntity {
 		return role;
 	}
 
+	/**
+	 * The role to set
+	 * 
+	 * @param role
+	 * 
+	 */
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	/**
+	 * 
+	 * @return confirmPassword
+	 */
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
 
+	/**
+	 * ConfirmPassword to set
+	 * 
+	 * @param confirmPassword
+	 */
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
-	}
-	
-	/**
-	 * @param role
-	 *            the role to set
-	 */
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	@Override
@@ -324,6 +345,5 @@ public class Users extends BaseEntity {
 		return new EqualsBuilder().append(userName, other.userName)
 				.append(userId, other.userId).isEquals();
 	}
-
 
 }

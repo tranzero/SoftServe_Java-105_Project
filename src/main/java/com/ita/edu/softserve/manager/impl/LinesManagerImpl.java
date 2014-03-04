@@ -248,6 +248,7 @@ public class LinesManagerImpl implements LinesManager {
 				firstElement, count, sortOrder);
 	}
 
+
 	/**
 	 * @author MatyashPetro
 	 * @return size of list with all lines

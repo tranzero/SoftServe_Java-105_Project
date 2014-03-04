@@ -130,7 +130,7 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		
 		return (List<Lines>) query.getResultList();
 	}
-
+	
 	/**
 	 * @param stationName1
 	 * @param stationName2

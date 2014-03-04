@@ -4,11 +4,8 @@ package com.ita.edu.softserve.exception;
  * @author Lyubomyr
  * 
  */
-public class RoutesManagerException extends DBException {
+public class RoutesManagerException  extends RuntimeException{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6672761590257032954L;
 
 	public RoutesManagerException() {
@@ -18,7 +15,7 @@ public class RoutesManagerException extends DBException {
 		super(msg);
 	}
 
-	public RoutesManagerException(String msg, Exception e) {
+	public RoutesManagerException(String msg, RuntimeException e) {
 		super(msg, e);
 	}
 }

@@ -8,12 +8,23 @@
 <c:if test="${!empty LinesList}">
 	<hr />
 	<table>
+		<tr>
+			<td>N</td>
+			<td><spring:message code="label.lines.linename" /> <a
+				href="javascript:void(0);"
+				onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')"><img
+					alt="^" src="resources/images/downarrow.png"></a> <a
+				href="javascript:void(0);"
+				onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')"><img
+					alt="^" src="resources/images/uparrow.png"></a></td>
+			<td></td>
+		</tr>
 		<c:forEach var="lines" items="${LinesList}">
 			<tr>
 				<td id="generate"></td>
 				<td>${lines.getLineName()}</td>
-				<td><a href="stationsoncertainline/${lines.getLineName()}">Show
-						stations</a></td>
+				<td><a href="stationsoncertainline/${lines.getLineName()}"><spring:message
+							code="label.stations.showStations" /> </a></td>
 			</tr>
 		</c:forEach>
 	</table>

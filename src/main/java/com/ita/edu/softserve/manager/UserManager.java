@@ -96,8 +96,16 @@ public interface UserManager extends BaseManager {
 	public List<Users> getUsersForPage(int from, int count)
 			throws UsersManagerExeption;
 
-	void saveOrUpdateUser(Users user);
+	/**
+	 * Update The User Data
+	 * 
+	 * @param user
+	 */
+	void updateTheUserData(Users user);
 
+	/**
+	 * For pagging 1
+	 */
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
 

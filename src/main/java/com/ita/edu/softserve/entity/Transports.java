@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.entity;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Set;
 
@@ -45,8 +46,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
         */
 		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY),
 })
-public class Transports extends BaseEntity {
-
+public class Transports extends BaseEntity{
+	
+	
 	public static final String FIND_BY_DATE = "Transports.findByDate";
 	public static final String FIND_BY_DATE_QUERY = "SELECT t FROM Transports t JOIN t.trips tr WHERE tr.startDate  = ?1";
 

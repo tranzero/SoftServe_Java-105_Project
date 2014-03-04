@@ -38,6 +38,8 @@ public interface OrdersManager extends BaseManager {
 
 	public List<Orders> getOrdersForPage(int from, int count);
 	
-	public void createOrder(Integer userId);
+	public void createOrder(Integer userId,Date date);
+	
+	public Orders findByUserIdAndOrderDate(Integer userId,Date date);
 	
 }

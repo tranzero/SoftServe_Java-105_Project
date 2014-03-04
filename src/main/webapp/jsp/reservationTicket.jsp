@@ -4,67 +4,44 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<script>
-	function toggle_visibility(id) {
-		var e = document.getElementById(id);
-		if (e.style.display == 'block')
-			e.style.display = 'none';
-		else
-			e.style.display = 'block';
-
-		hideAllBut(id);
-	}
-
-	function hideAllBut(id) {
-		var lists = document.querySelectorAll('.list');
-		for (var i = lists.length; i--;) {
-			if (lists[i].id != id) {
-				lists[i].style.display = 'none';
-			}
-		}
-	}
-</script>
 <section id="content">
 
-	<form:form id = "addtobag" action= "/SoftServe_Java-105/addToBag/${tripId}/${seatType}" method="post" >
-	
-	<table>
-			<tr align=center>
-				<td align=center>
-					<p><input id="customerInfo" type="text" name="customerInfo"><br>
-		</table>
-		
-	<%-- 	 <table>
+	<form:form id="addtobag"
+		action="/SoftServe_Java-105/addToBag/${tripId}/${seatType}" modelAttribute = "ticket"
+		method="post">
+
+		<table class="form">
 			<tr>
-				<td><b>Choose Seat-Class you want : </b> 
-				<Br> <form:radiobutton path="isSeatClass1" value="true"
-				 onchange="toggle_visibility('div1');"/> 
-				<strong>SeatClass№1</strong> 
-				<Br> <form:radiobutton path="isSeatClass2" value="true"
-				 onchange="toggle_visibility('div2');"/> 
-				<strong>SeatClass№1</strong> 
-				<Br> <form:radiobutton path="isSeatClass3" value="true"
-				 onchange="toggle_visibility('div3');"/> 
-				<strong>SeatClass№1</strong> 
-					 
-					
-			</tr>
-		</table>  --%>
+				<td align=center><label> Enter first name: </label>
+					<td>	<form:input path="customerFirstName" /></td>
+						<td><form:errors path="customerFirstName" cssClass="error"/></td>
+						</tr>
+						<tr>
+						<td><label> Enter last name: </label></td>
+						<td><form:input path="customerLastName" /></td>
+						<td><form:errors path="customerLastName" cssClass="error"/></td>
+				</tr>
+				</table>
+		
+
 		<div id="div1" class="list" style="display: none;">
 			<p>
 
 				<label><strong>${trip.getRemSeatClass1()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
+		
 		</div>
 		<div id="div2" class="list" style="display: none;">
 			<p>
 				<label><strong>${trip.getRemSeatClass2()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
+		
 		</div>
 		<div id="div3" class="list" style="display: none;">
 			<p>
 				<label><strong>${trip.getRemSeatClass3()}</strong> - free
 					spaces</label><br /> Price : <strong>${transport.getGenPrice()}</strong>
+		
 		</div>
 		<br>
 	
@@ -73,16 +50,20 @@
 			<tr align=center>
 				<td align=center>
 					<p>
-						<label> Route name <strong>${trip.getTransport().getRoutes().getRouteName()}</strong></label></p>
+						<label> Route name <strong>${trip.getTransport().getRoutes().getRouteName()}</strong></label>
+					</p>
 						<br>
 							<p>
-						<label> Trip date <strong>${trip.getStartDate()}</strong></label></p>
+						<label> Trip date <strong>${trip.getStartDate()}</strong></label>
+					</p>
 						<br>
 						<p>
-						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label></p>
+						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label>
+					</p>
 						
+		
 		</table>
-						<!--  <a href="/SoftServe_Java-105/bag"> <input type="BUTTON" value ="Add to bag"></a>&nbsp  -->
+					
  		<input type="submit" value="Add to bag">
  	<!-- 	<input type="reset" value="Cancel"> -->
 		<br>

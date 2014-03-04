@@ -4,14 +4,19 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
-	<h2>Transport find</h2>
+	<h2>
+		<spring:message code="label.transport.find" />
+	</h2>
 	<form:form action="transportTravel" method="get">
-			From: <input type="text" name="stationName1" placeholder="Pisochne" />&nbsp;&nbsp;&nbsp;
-			To: <input type="text" name="stationName2" placeholder="Sknyliv" />&nbsp;&nbsp;&nbsp;
+		<spring:message code="label.from" />
+		<input type="text" name="stationName1" placeholder="Pisochne" />&nbsp;&nbsp;&nbsp;
+			<spring:message code="label.to" />
+		<input type="text" name="stationName2" placeholder="Sknyliv" />&nbsp;&nbsp;&nbsp;
 		<%-- Select Date Field --%>
-			Date:&nbsp;&nbsp;<input type="text" id="sDate" name="sDate" />&nbsp;&nbsp;&nbsp;
+		<spring:message code="label.date" />&nbsp;&nbsp;<input type="text"
+			id="sDate" name="sDate" />&nbsp;&nbsp;&nbsp;
 		<%-- Select Date Field END --%>
-		<input class="button" type="submit" name="submit" value="Find" />
+		<input class="button" type="submit" name="submit" value="<spring:message code="label.find" />" />
 		<br />
 		<br />
 	</form:form>
@@ -21,22 +26,27 @@
 			<hr />
 			<table>
 				<tr>
-					<th>Number</th>
+					<th>N</th>
 					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
-							Station / Stop</a></th>
+							<spring:message code="label.transportTravel.stationStop" />
+					</a></th>
 					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
-							Number</a></th>
+							<spring:message code="label.transportTravel.number" />
+					</a></th>
 					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
-							Departure / Arrival time</a></th>
+							<spring:message code="label.transportTravel.depArr" />
+					</a></th>
 					<th><a href="javascript:void(0);"
 						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
-							Duration</a></th>
-
+							<spring:message code="label.transportTravel.duration" />
+					</a></th>
 					<c:if test="${not empty param.sDate}">
+						<c:if test="${not empty user}">
 						<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
+						</c:if>
 					</c:if>
 				</tr>
 				<c:forEach var="transport" items="${TransportTravelList}">
@@ -44,25 +54,25 @@
 						<td id="generate"></td>
 						<td>${transport.getLineName()}</td>
 						<td>${transport.getTransport().getTransportCode()}</td>
-						<td>dep ${transport.getDepartureTime()}<br />arr
-							${transport.getArrivalTime()}
-						</td>
+						<td><spring:message code="label.transportTravel.dep" />
+							${transport.getDepartureTime()}<br />
+						<spring:message code="label.transportTravel.arr" />
+							${transport.getArrivalTime()}</td>
 						<td>${transport.getDuration()}</td>
 						<c:if test="${not empty param.sDate}">
-							<td><a
-								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
-									1</a></td>
-							<td><a
-								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/2">Class
-									2</a></td>
-							<td><a
-								href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
-									3</a></td>
-							<%-- <td><a
-								href="/SoftServe_Java-105/reservationTicket/${transport.getTripId()}"><input
-									type="button"
-									value="<spring:message code='label.tickets.purchase' />" /></a></td> --%>
-						</c:if>
+							<c:if test="${not empty user}">
+					<td><a
+						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/1">Class
+							1</a></td>
+					<td><a
+						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/2">Class
+							2</a></td>
+					<td><a
+						href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
+							3</a></td>
+			
+							</c:if>
+							</c:if>
 					</tr>
 				</c:forEach>
 			</table>

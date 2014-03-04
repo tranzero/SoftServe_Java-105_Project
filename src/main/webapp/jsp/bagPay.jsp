@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<title>Shopping bag</title>
+<title>Checkout</title>
 <section id="content">
 
 	<form:form id="paying" action="/SoftServe_Java-105/bagPay" method="post">

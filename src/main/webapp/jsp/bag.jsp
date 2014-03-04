@@ -11,7 +11,8 @@
 			<table>
 				<thead>
 					<tr>
-						<th align="center">Customer info</th>
+						<th align="center">Customer first name</th>
+						<th align="center">Customer last name</th>
 						<th align="center">Route</th>
 						<th align="center">Date</th>
 						<th align="center">Price</th>
@@ -21,7 +22,8 @@
 				<c:forEach var="ticket" items="${ticketsList}">
 					<tbody>
 						<tr>
-							<td align="center">${ticket.getCustomerInfo()}</td>
+					     	<td align="center">${ticket.getCustomerFirstName()}</td>
+							<td align="center">${ticket.getCustomerLastName()}</td>
 							<td align="center">${ticket.getTrip().getTransport().getRoutes().getRouteName()}</td>
 							<td align="center">${ticket.getTrip().getStartDate()}</td>
 							<td align="center">${ticket.getTrip().getTransport().getGenPrice()}</td>

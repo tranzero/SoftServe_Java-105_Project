@@ -9,8 +9,9 @@
 				<ul>
 					<li class="footer_col_title">SoftServe</li>
 					<li></li>
-					<li class="ss_block"><a href="http://softserve.ua/university/it-academy/"><span
-							class="ss_icon"></span>SoftServe IT Acatemy</a></li>
+					<li class="ss_block"><a
+						href="http://softserve.ua/university/it-academy/"><span
+							class="ss_icon"></span><spring:message code="label.ssItAcademy" /></a></li>
 				</ul>
 			</div>
 			<div id="footer_col">
@@ -19,20 +20,23 @@
 					<li></li>
 					<li class="github_block"><a
 						href="https://github.com/tranzero/SoftServe_Java-105_Project/"><span
-							class="github_icon"></span>Source Code</a></li>
+							class="github_icon"></span> <spring:message
+								code="label.sourceCode" /></a></li>
 				</ul>
 			</div>
 			<div id="footer_col">
 				<ul>
-					<li class="footer_col_title">Help and Support</li>
+					<li class="footer_col_title"><spring:message
+							code="label.helpAndSupport" /></li>
 					<li></li>
-					<li>Contact Support</li>
-					<li>About</li>
+					<li><a href="#"><spring:message code="label.contactSupport" /></a></li>
+					<li><a href="#"><spring:message code="label.about" /></a></li>
 				</ul>
 			</div>
 			<div id="footer_col">
 				<ul>
-					<li class="footer_col_title">Contact Us</li>
+					<li class="footer_col_title"><spring:message
+							code="label.contactUs" /></li>
 					<li></li>
 					<li>1234 Fictional Road Suite #5432</li>
 					<li>Nashville, Tennessee 00000-0000</li>
@@ -43,17 +47,15 @@
 	</div>
 	<div id="footer_secondary">
 		<div id="container">
-
-			<div id="footer_first_col">&copy; Copyright LV-105 Java. All
-				rights reserved.</div>
+			<div id="footer_first_col">
+				&copy; Copyright LV-105 Java.
+				<spring:message code="label.copyright" />
+			</div>
 			<div id="footer_second_col">
-				<spring:message code="label.footer.title" />
+				<a href="#"><span class="icon_f tw_icon_f"></span></a>
+				<a href="#"><span class="icon_f fb_icon_f"></span></a>
+				<a href="#"><span class="icon_f rss_icon_f"></span></a>
 			</div>
 		</div>
 	</div>
 </footer>
-<%--
-<div id = "footer" >
-<h2><spring:message code="label.footer.title"/>[WIP]</h2>
-</div>
---%>

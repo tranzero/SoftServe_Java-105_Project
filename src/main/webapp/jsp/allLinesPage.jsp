@@ -6,10 +6,17 @@
 <%@ page session="true"%>
 <div id="maxPageCount" style="display: none;">${maxPageCount}</div>
 <div id="resultsPerPage" style="display: none;">${resultsPerPage}</div>
+<p><a class="button" href="addline"><spring:message code="label.lines.addlines"/></a></p>
 <table style="align: center">
 	<thead>
 		<tr>
-			<th align="center"><spring:message code="label.lines.alllines"/></th>
+			<th align="center"><spring:message code="label.lines.linename" /> <a
+				href="javascript:void(0);"
+				onclick="showLinesPage(${pageNumber},${resultsPerPage}, '1')"><img
+					alt="^" src="resources/images/downarrow.png"></a> <a
+				href="javascript:void(0);"
+				onclick="showLinesPage(${pageNumber},${resultsPerPage}, '2')"><img
+					alt="^" src="resources/images/uparrow.png"></a></th>
 			<th align="center"></th>
 			<th align="center"></th>
 		</tr>
@@ -22,5 +29,3 @@
 		</tr>
 	</c:forEach>
 </table>
-<br>
-<a class="button" href="addline"><spring:message code="label.lines.addlines"/></a>

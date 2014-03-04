@@ -21,8 +21,7 @@
 		<spring:message code="label.navigation.stationsForUsers" />
 	</h2>
 
-	<form method="get">
-
+	<form method="get" class="pad_top_bottom">
 		Search for:
 		<c:if test="${isSearchString}">
 			<input name="searchstring" id="searchstring" class="autosearch"
@@ -32,14 +31,8 @@
 			<input name="searchstring" id="searchstring" class="autosearch"
 				type="text" value="${container.getSearchString()}">
 		</c:if>
-		<p>
-		<div style="float: right">
-			<input type="submit" value="Search">
-		</div>
+		<input type="submit" value="Search">
 	</form>
-	<p>
-	<p>
-		<br> <br>
 	<div id="result">
 		<table class='table'>
 			<thead>
@@ -146,11 +139,8 @@
 					</a></li>
 				</c:if>
 			</ul>
-			<p>
-			<p>
-				<br>
-				<spring:message code="label.trips.resultsperpage" />
-				:
+			<br />
+			<p><spring:message code="label.trips.resultsperpage" />:</p>
 			<ul class="bootpag">
 				<c:if test="${resultsPerPage!=10}">
 					<li><a
@@ -188,7 +178,6 @@
 			</ul>
 		</div>
 	</div>
-	<hr />
 	<script type="text/javascript">
 
 		$(window)
