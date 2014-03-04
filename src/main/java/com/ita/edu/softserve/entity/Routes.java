@@ -39,7 +39,7 @@ public class Routes extends BaseEntity {
 	 */
 	public static final String STATION_NAME = "stationName";
 	public static final String LINE_NAME = "lineName";
-	public static final String LINE_ID = "lineId";
+	public static final String LINE_ID = "lineid";
 
 	public static final String FIND_BY_CODE = "Routes.findByCode";
 	public static final String FIND_BY_CODE_QUERY = "SELECT r FROM Routes r WHERE r.routeCode = ?1";
@@ -52,20 +52,13 @@ public class Routes extends BaseEntity {
 			+ STATION_NAME
 			+ " ORDER BY st.stationName";
 	
-	public static final String STATIONS_NAME_ON_LINE_FIND_BY_CRITERIA_QUERY = 
-			 "SELECT st.stationName FROM StationOnLine sol"+
-			" INNER JOIN sol.stationOnLineId st";
-			// + " FROM StationOnLine sol "
-			// + "INNER JOIN sol.stationOnLineId st "
-			// + "INNER JOIN sol.stationId st ";
-	
-		//	  "SELECT stl.lineId.lineName"
-			//+ " FROM StationOnLine stl"
-		//	+ " INNER JOIN stl.stationId st";
-		/*	+ " WHERE st.stationName LIKE :"
+	public static final String STATIONS_NAME_ON_LINE_FIND_BY_CRITERIA_QUERY = "SELECT st.stationName FROM StationsOnLine sol "
+			+ "INNER JOIN sol.stationId st "
+			+ "WHERE sol.lineId.lineId = :"
+			+ LINE_ID
+			+ " AND st.stationName LIKE :"
 			+ STATION_NAME
-			+ " AND sol.lineId = 1"
-			+ " ORDER BY st.stationName";*/
+			+ " ORDER BY st.stationName";
 	
 	public static final String LINE_NAME_FIND_BY_CRITERIA_QUERY = "SELECT l.lineName FROM Lines l WHERE"
 			+ " l.lineName LIKE :"

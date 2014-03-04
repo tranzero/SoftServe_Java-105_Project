@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.dao.impl;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.StationsOnLine;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
@@ -63,20 +65,18 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 	}
 	
 	public List<String> getStationNameByLineListCriteria(String stationName, int lineId) {
-		System.out.println(lineId);
 		Query query = entityManager
-				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
-				//.setParameter(Routes.STATION_NAME, stationName)
-				//.setParameter(Routes.LINE_ID, lineId)
+				.createQuery(Routes.STATIONS_NAME_ON_LINE_FIND_BY_CRITERIA_QUERY)
+				.setParameter(Routes.LINE_ID, lineId)
+				.setParameter(Routes.STATION_NAME, stationName)
 				.setMaxResults(10);
-		System.out.println(((List<String>) query.getResultList()).size());
 		return (List<String>) query.getResultList();
 	}
 	
 	public List<String> getLineNameListCriteria(String lineName) {
 		Query query = entityManager
-				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
-				.setParameter(Routes.STATION_NAME, lineName)
+				.createQuery(Routes.LINE_NAME_FIND_BY_CRITERIA_QUERY)
+				.setParameter(Routes.LINE_NAME, lineName)
 				.setMaxResults(10);
 		return (List<String>) query.getResultList();
 	}

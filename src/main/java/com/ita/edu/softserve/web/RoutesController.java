@@ -308,7 +308,6 @@ public class RoutesController {
 
 		Map<String, List<String>> stationMap = new HashMap<String, List<String>>();
 		stationMap.put("stations", stationList);
-		System.out.println(new Gson().toJson(stationMap));
 		return new Gson().toJson(stationMap);
 	}
 	
@@ -318,7 +317,6 @@ public class RoutesController {
 	public String getLinesList(
 			@RequestParam(value = "lineStartsWith", required = false) String lineStartsWith,
 			Map<String, Object> modelMap) {
-
 		List<String> lineList = routesManager
 				.getLineNameListCriteria(lineStartsWith);
 

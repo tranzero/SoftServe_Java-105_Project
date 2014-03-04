@@ -182,8 +182,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		route.setRouteCode(routeCode);
 		route.setLineId(lineDao.findByName(lines));
 		route.setRouteName(stationStart + "-" + stationEnd);
-		//route.setStationStartId(stationDao.findByName(stationStart));
-		//route.setStationEndId(stationDao.findByName(stationEnd));
+		route.setStationStartId(stationDao.findByName(stationStart));
+		route.setStationEndId(stationDao.findByName(stationEnd));
 		routeDao.save(route);
 	}
 	
