@@ -40,6 +40,8 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
+	private static final String TRIP_ID = "tripId";
+
 	@Autowired
 	private ShoppingBag shoppingBag;
 	
@@ -57,7 +59,7 @@ public class TicketController {
 	
 	
 	@RequestMapping(value = "/reservationTicket/{tripId}/{seatType}", method = RequestMethod.GET)
-	public String reservationTicket(@PathVariable("tripId") Integer tripId,
+	public String reservationTicket(@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
 			Map<String, Object> modelMap) {
 	 
@@ -67,15 +69,16 @@ public class TicketController {
 		else{
 		modelMap.put("trip",tripsManager.findByTripId(tripId));
 		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
-		modelMap.put("tripId", tripId);
+		modelMap.put(TRIP_ID, tripId);
 		modelMap.put("seatType", seatType);
 		return "reservationTicket";
 		}
 	}
 
 	@RequestMapping(value = "/addToBag/{tripId}/{seatType}", method = RequestMethod.POST)
-	public String reservationTicketPost(@ModelAttribute( value = "customerInfo") String customerInfo,
-			@PathVariable("tripId") Integer tripId,
+	public String reservationTicketPost(@ModelAttribute( value = "customerFirstName") String customerFirstName,
+			@ModelAttribute(value = "customerLastName") String customerLastName,
+			@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
 			BindingResult result,
 			Map<String, Object> modelMap) {
@@ -83,7 +86,7 @@ public class TicketController {
 		
 		shoppingBag.addTicket(ticketsManager.getTicket(tripsManager.findByTripId(tripId)
 				.getTransport().getRoutes().getRouteName(), 
-				 tripsManager.findByTripId(tripId), customerInfo, seatType));
+				 tripsManager.findByTripId(tripId), customerFirstName,customerLastName, seatType));
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		
 		return "bag";
@@ -117,17 +120,17 @@ public class TicketController {
 		for(Tickets ticket: shoppingBag.getTickets()){
 			ticket.setOrder(ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate));
 			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), 
-					ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
+					ticket.getTrip().getTripId(), ticket.getCustomerFirstName(),ticket.getCustomerLastName(), ticket.getSeatType());
 		}
 		
-		shoppingBag.clear();
+		shoppingBag.clearBag();
 		return "redirect:/";
 	}
 	
 	
 	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
-			@PathVariable(value="tripId") Integer tripId,
+			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
 		shoppingBag.removeTicket(ticketName, tripId);

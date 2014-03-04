@@ -71,10 +71,11 @@ public class TicketsManagerImpl implements TicketsManager{
 	@Transactional
 	@Override
 	public void createTicket (String ticketName, Integer orderId, Integer tripId,
-			String customerInfo, Integer seatType){
+			String customerFirstName,
+			String customerLastName, Integer seatType){
 		
 		Tickets ticket = new Tickets(ticketName, ordersDao.findById(orderId), tripsDao.findById(tripId),
-				customerInfo, seatType);
+				customerFirstName,customerLastName, seatType);
 		
 		ticketsDao.save(ticket);
 		
@@ -94,10 +95,11 @@ public class TicketsManagerImpl implements TicketsManager{
 	
 	@Override
 	public Tickets getTicket(String ticketName, Trips trip,
-			String customerInfo, Integer seatType){
+			String customerFirstName,
+			String customerLastName, Integer seatType){
 	
 			return new Tickets(ticketName, trip,
-			customerInfo, seatType);
+					customerFirstName,customerLastName, seatType);
 	
 	
 }
