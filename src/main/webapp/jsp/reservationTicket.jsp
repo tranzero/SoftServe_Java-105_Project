@@ -7,17 +7,19 @@
 <section id="content">
 
 	<form:form id="addtobag"
-		action="/SoftServe_Java-105/addToBag/${tripId}/${seatType}"
+		action="/SoftServe_Java-105/addToBag/${tripId}/${seatType}" modelAttribute = "ticket"
 		method="post">
 
-		<table>
-			<tr align=center>
+		<table class="form">
+			<tr>
 				<td align=center><label> Enter first name: </label>
-					<p>
-						<input id="customerFirstName" type="text" name="customerFirstName"><br>
-						<label> Enter first name: </label>
-					<p>
-						<input id="customerLastName" type="text" name="customerLastName"><br></td>
+					<td>	<form:input path="customerFirstName" /></td>
+						<td><form:errors path="customerFirstName" cssClass="error"/></td>
+						</tr>
+						<tr>
+						<td><label> Enter last name: </label></td>
+						<td><form:input path="customerLastName" /></td>
+						<td><form:errors path="customerLastName" cssClass="error"/></td>
 				</tr>
 				</table>
 		

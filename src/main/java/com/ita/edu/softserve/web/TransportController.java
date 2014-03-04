@@ -231,7 +231,7 @@ public class TransportController {
 	private TripsManager tripsManager;
 
 	@Autowired
-	Validator transportsValidator;
+	private Validator transportsValidator;
 
 	/**
 	 * Display transports in browser.
