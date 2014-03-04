@@ -20,7 +20,7 @@ import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 
 /**
- * Controller - UserController
+ * Controller for Users
  * 
  * @author iryna
  * 
@@ -37,7 +37,6 @@ public class UserController {
 	@Autowired
 	private UserNameService userService;
 
-	// ----userEdit with Validator----------
 	/**
 	 * Update user to DB - RequestMethod.GET
 	 * 
@@ -67,8 +66,7 @@ public class UserController {
 	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
-		// user.setRole(Role.REGUSER);
-		// System.out.println(user.getFirstName());
+
 		userEditValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {

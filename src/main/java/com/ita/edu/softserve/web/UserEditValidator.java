@@ -31,12 +31,15 @@ public class UserEditValidator implements Validator {
 	private static final String USER_EMAIL_MATCHER = "msg.user.email.matcher";
 	private static final String USER_PASSWORD_MATCHER = "msg.user.password.matcher";
 
+	/**
+	 * This Validator validates Users instance
+	 */
 	public boolean supports(Class<?> clazz) {
 		return Users.class.equals(clazz);
 	}
 
 	/**
-	 * validate
+	 * Method that provide validation for Users objects.
 	 */
 	public void validate(Object obj, Errors error) {
 		Users user = (Users) obj;
@@ -46,19 +49,10 @@ public class UserEditValidator implements Validator {
 		validateEmail(user.getEmail(), error);
 		validatePassword(user.getPassword(), error);
 
-		/*
-		 * ValidationUtils.rejectIfEmptyOrWhitespace(error, "firstName", null,
-		 * "Empty firstName"); ValidationUtils.rejectIfEmptyOrWhitespace(error,
-		 * "lastName", null, "Empty lastName");
-		 * ValidationUtils.rejectIfEmptyOrWhitespace(error, "email", null,
-		 * "Empty email"); ValidationUtils.rejectIfEmptyOrWhitespace(error,
-		 * "password", null, "Empty password");
-		 */
-
 	}
 
 	/**
-	 * Validate FirstName
+	 * Method that verify if FirstName is correct inputted.
 	 * 
 	 * @param firstName
 	 * @param error
@@ -71,7 +65,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Validate LastName
+	 * Method that verify if LastName is correct inputted.
 	 * 
 	 * @param lastName
 	 * @param error
@@ -82,12 +76,24 @@ public class UserEditValidator implements Validator {
 		}
 	}
 
+	/**
+	 * Method that verify if Email is correct inputted.
+	 * 
+	 * @param email
+	 * @param error
+	 */
 	private void validateEmail(String email, Errors error) {
 		if (email.matches(USER_EMAIL_PATERN) == false) {
 			error.rejectValue("email", USER_EMAIL_MATCHER);
 		}
 	}
 
+	/**
+	 * Method that verify if the Password is correct inputted.
+	 * 
+	 * @param password
+	 * @param error
+	 */
 	private void validatePassword(String password, Errors error) {
 		if (password.matches(USER_PASSWORD_PATERN) == false) {
 			error.rejectValue("password", USER_PASSWORD_MATCHER);
