@@ -24,6 +24,9 @@ public interface TicketsManager extends BaseManager {
 	public Tickets getTicket(String ticketName, Trips trip,
 			String customerFirstName,
 			String customerLastName, Integer seatType);
+   
+	public List<Tickets> findTicketsByOrderId(Integer id);
 	
+	List<Tickets> ticketsForPage(Integer id);	
 
 }

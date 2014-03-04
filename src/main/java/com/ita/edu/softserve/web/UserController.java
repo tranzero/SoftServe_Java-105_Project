@@ -32,6 +32,9 @@ public class UserController {
 	private UserManager usersmanage;
 
 	@Autowired
+	private  ProfileEditValidator profileEditValidator;
+	
+	@Autowired
 	Validator userEditValidator;
 
 	@Autowired
@@ -118,12 +121,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute("firstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password) {
-		usersmanage.updateUser2(userService.getLoggedUserId(), firstName,
-				lastName, email, password);
+	public String updateProfile(@ModelAttribute("user") Users user, BindingResult result, ModelMap model){
+		profileEditValidator.validate(user, result);
+		if (result.hasErrors()) {
+			return "profileEdit";
+		}
+		usersmanage.updateUser2(user.getUserId(), user.getFirstName(),
+				user.getLastName(), user.getEmail(), user.getPassword());
 		return "redirect:/mainpage";
 	}
 
