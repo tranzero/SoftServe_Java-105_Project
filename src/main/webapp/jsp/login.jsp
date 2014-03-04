@@ -14,15 +14,12 @@
 	<form id="loginform" name='loginForm'
 		action="<c:url value="/j_spring_security_check"/>" method='POST'>
 		<h1>Login</h1>
-		<div>
-			<%-- 			<label for="username"><spring:message code="label.login.username" /></label>
- --%>
+		<div>			
 			<input type="text" id="username"
 				placeholder="Username" name='j_username' value='' />
 		</div>
 		<div>
-<%-- 			<label for="password"><spring:message code="label.login.password" /></label>
- --%>			<input type="password"
+			<input type="password"
 				id="password" placeholder="Password" name='j_password' />
 		</div>
 		<div id="rememberme">
