@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.ita.edu.softserve.entity.Tickets;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.TripsManager;
 
 @Component
@@ -38,26 +37,25 @@ public class ShoppingBag implements Serializable {
 
 	public void addTicket(Tickets ticket) {
 
-		Trips trip = ticket.getTrip();
 		if (ticket.getSeatType().equals(1)) {
 
-			trip.setRemSeatClass1(ticket.getTrip().getRemSeatClass1() - 1);
+			ticket.getTrip().setRemSeatClass1(ticket.getTrip().getRemSeatClass1() - 1);
 
 		}
 
 		if (ticket.getSeatType().equals(2)) {
 
-			trip.setRemSeatClass2(ticket.getTrip().getRemSeatClass2() - 1);
+			ticket.getTrip().setRemSeatClass2(ticket.getTrip().getRemSeatClass2() - 1);
 
 		}
 
 		if (ticket.getSeatType().equals(3)) {
 
-			trip.setRemSeatClass3(ticket.getTrip().getRemSeatClass3() - 1);
+			ticket.getTrip().setRemSeatClass3(ticket.getTrip().getRemSeatClass3() - 1);
 
 		}
 
-		tripsManager.updateTrip(trip);
+		tripsManager.updateTrip(ticket.getTrip());
 		tickets.add(ticket);
 	}
 
@@ -66,12 +64,17 @@ public class ShoppingBag implements Serializable {
 		for(Tickets ticket:tickets){
 			
 			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
-				tickets.remove(ticket);
+				
+					tickets.remove(ticket);
+				
 				}
 		}
 	}
+	public void clearBag(){
+		tickets.clear();
+	}
 
-	@Scheduled(fixedDelay = 15000)
+	@Scheduled(fixedDelay = 5000)
 	public void clear() {
 		System.out.println("scheduler");
 		tickets.clear();

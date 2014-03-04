@@ -17,7 +17,6 @@ public class UserEditValidator implements Validator {
 
 	public static final String USER_FIRSTNAME_PATERN = "^[a-zA-Z]{3,35}$";
 	public static final String USER_LASTNAME_PATERN = "^[a-zA-Z]{3,}$";
-	// private static final String USER_EMAIL_PATERN = "^[a-zA-Z0-9]{2,35}$";
 	private static final String USER_EMAIL_PATERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -79,14 +78,9 @@ public class UserEditValidator implements Validator {
 	 * @param error
 	 */
 	private void validateLastName(String lastName, Errors error) {
-		//System.out.println(lastName);
 		if (lastName.matches(USER_LASTNAME_PATERN) == false) {
-			// System.out.println(lastName+ "2");
 			error.rejectValue("lastName", "transportCode.matcher");
-			// System.out.println(lastName+ "3");
-
 		}
-
 	}
 
 	private void validateEmail(String email, Errors error) {
@@ -100,7 +94,5 @@ public class UserEditValidator implements Validator {
 			error.rejectValue("password", "transportCode.matcher");
 		}
 	}
-
-	// -------------------------------------------------------
 
 }

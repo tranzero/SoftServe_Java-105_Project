@@ -176,11 +176,11 @@ table.form tr {
 }
 
 table.form tr:nth-child(odd) td {
-	background-color: white;
+	background-color: #f5f5f5;
 }
 
 table.form tr:nth-child(even) td {
-	background-color: white;
+	background-color: #f5f5f5;
 }
 
 table.form td {

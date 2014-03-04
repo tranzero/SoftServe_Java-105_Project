@@ -75,7 +75,7 @@ public class UserController {
 			modelMap.put("user", user);
 			return "userEdit";
 		}
-		usersmanage.saveOrUpdateUser(user);
+		usersmanage.updateTheUserData(user);
 		return "redirect:/userlist2";
 	}
 

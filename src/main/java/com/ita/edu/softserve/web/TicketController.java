@@ -13,7 +13,11 @@ import javax.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.components.impl.ShoppingBag;
 import com.ita.edu.softserve.entity.Orders;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.OrdersManager;
@@ -40,6 +45,8 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
+	private static final String TRIP_ID = "tripId";
+
 	@Autowired
 	private ShoppingBag shoppingBag;
 	
@@ -55,35 +62,58 @@ public class TicketController {
 	@Autowired
 	private OrdersManager ordersManager;
 	
+	@Autowired
+	private Validator ticketValidator;
+
+	
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.setValidator(ticketValidator);
+//	}
 	
 	@RequestMapping(value = "/reservationTicket/{tripId}/{seatType}", method = RequestMethod.GET)
-	public String reservationTicket(@PathVariable("tripId") Integer tripId,
+	public String reservationTicket(@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
-			Map<String, Object> modelMap) {
+			Model model) {
 	 
 		if(!(seatType.equals(1)) &&  !(seatType.equals(2)) && !(seatType.equals(3))){
 			return "redirect:/";
 		}
 		else{
-		modelMap.put("trip",tripsManager.findByTripId(tripId));
-		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
-		modelMap.put("tripId", tripId);
-		modelMap.put("seatType", seatType);
+//		modelMap.put("trip",tripsManager.findByTripId(tripId));
+//		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
+//		modelMap.put(TRIP_ID, tripId);
+//		modelMap.put("seatType", seatType);
+			model.addAttribute("ticket", new Tickets());
+			model.addAttribute("trip",tripsManager.findByTripId(tripId));
+			model.addAttribute("transport", tripsManager.findByTripId(tripId).getTransport());
+			model.addAttribute(TRIP_ID, tripId);
 		return "reservationTicket";
 		}
 	}
 
 	@RequestMapping(value = "/addToBag/{tripId}/{seatType}", method = RequestMethod.POST)
-	public String reservationTicketPost(@ModelAttribute( value = "customerInfo") String customerInfo,
-			@PathVariable("tripId") Integer tripId,
+	public String reservationTicketPost(@ModelAttribute( value = "ticket") Tickets ticket,
+			@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
 			BindingResult result,
 			Map<String, Object> modelMap) {
 		
+		ticketValidator.validate(ticket , result);
+
+		if (result.hasErrors()) {
+			modelMap.put("trip",tripsManager.findByTripId(tripId));
+			modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
+			modelMap.put(TRIP_ID, tripId);
+			modelMap.put("seatType", seatType);
+
+
+			return "reservationTicket";
+		}
 		
 		shoppingBag.addTicket(ticketsManager.getTicket(tripsManager.findByTripId(tripId)
 				.getTransport().getRoutes().getRouteName(), 
-				 tripsManager.findByTripId(tripId), customerInfo, seatType));
+				 tripsManager.findByTripId(tripId), ticket.getCustomerFirstName(),ticket.getCustomerLastName(), seatType));
 		modelMap.put("ticketsList", shoppingBag.getTickets());
 		
 		return "bag";
@@ -117,17 +147,17 @@ public class TicketController {
 		for(Tickets ticket: shoppingBag.getTickets()){
 			ticket.setOrder(ordersManager.findByUserIdAndOrderDate(userNameService.getLoggedUserId(), orderDate));
 			ticketsManager.createTicket(ticket.getTicketName(), ticket.getOrder().getOrderId(), 
-					ticket.getTrip().getTripId(), ticket.getCustomerInfo(), ticket.getSeatType());
+					ticket.getTrip().getTripId(), ticket.getCustomerFirstName(),ticket.getCustomerLastName(), ticket.getSeatType());
 		}
 		
-		shoppingBag.clear();
+		shoppingBag.clearBag();
 		return "redirect:/";
 	}
 	
 	
 	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
-			@PathVariable(value="tripId") Integer tripId,
+			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
 		shoppingBag.removeTicket(ticketName, tripId);

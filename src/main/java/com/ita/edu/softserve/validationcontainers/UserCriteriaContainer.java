@@ -6,11 +6,16 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.ita.edu.softserve.entity.Role;
+
+/**
+ * interface UserCriteriaContainer - for pagging 1
+ * 
+ * @author iryna
+ * 
+ */
 @Component
 public interface UserCriteriaContainer {
 
-	
-	
 	void setValuableInfo(String searchString, String minDateString,
 			String maxDateString, Boolean isRegUser, Boolean isManager,
 			Boolean isAdmin, String orderByParam, String orderByDirection);

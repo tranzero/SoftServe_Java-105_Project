@@ -13,66 +13,77 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.google.common.base.Objects;
-
-
-
 
 @Entity
 @Table(name = "tickets")
-public class Tickets extends BaseEntity implements Serializable{
-	
+public class Tickets extends BaseEntity implements Serializable {
+
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = -5039457734811028773L;
 
 	@Id
 	@Column(name = "TICKETID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ticketId;
-	
+
 	@Column(name = "TICKETNAME")
 	private String ticketName;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ORDERID")
 	private Orders order;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRIPID")
 	private Trips trip;
 
-	@Column(name = "CUSTOMERINFO")
-	private String customerInfo;
-	
-	@Column (name = "SEATTYPE")
+	@Column(name = "CUSTOMERFIRSTNAME")
+	private String customerFirstName;
+
+	@Column(name = "CUSTOMERLASTNAME")
+	private String customerLastName;
+
+	@Column(name = "SEATTYPE")
 	private Integer seatType;
-	
-	public Tickets(){
-		
+
+	public Tickets() {
+
 	}
-	
+
+	public Tickets(String ticketName, Trips trip, String customerFirstName,
+			String customerLastName, Integer seatType) {
+		super();
+		this.ticketName = ticketName;
+		this.trip = trip;
+		this.customerFirstName = customerFirstName;
+		this.customerLastName = customerLastName;
+		this.seatType = seatType;
+	}
+
 	public Tickets(String ticketName, Orders order, Trips trip,
-			String customerInfo, Integer seatType) {
+			String customerFirstName, String customerLastName, Integer seatType) {
 		super();
 		this.ticketName = ticketName;
 		this.order = order;
 		this.trip = trip;
-		this.customerInfo = customerInfo;
+		this.customerFirstName = customerFirstName;
+		this.customerLastName = customerLastName;
 		this.seatType = seatType;
 	}
-	
 
-	public Tickets( String ticketName, Trips trip,
-			String customerInfo, Integer seatType) {
-		super();
-		
-		this.ticketName = ticketName;
-		this.trip = trip;
-		this.customerInfo = customerInfo;
-		this.seatType = seatType;
+	public Integer getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Integer ticketId) {
+		this.ticketId = ticketId;
 	}
 
 	public String getTicketName() {
@@ -83,16 +94,13 @@ public class Tickets extends BaseEntity implements Serializable{
 		this.ticketName = ticketName;
 	}
 
-
 	public Orders getOrder() {
 		return order;
 	}
 
-
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
-
 
 	public Trips getTrip() {
 		return trip;
@@ -102,49 +110,48 @@ public class Tickets extends BaseEntity implements Serializable{
 		this.trip = trip;
 	}
 
-
-	public String getCustomerInfo() {
-		return customerInfo;
+	public String getCustomerFirstName() {
+		return customerFirstName;
 	}
 
-	public void setCustomerInfo(String customerInfo) {
-		this.customerInfo = customerInfo;
+	public void setCustomerFirstName(String customerFirstName) {
+		this.customerFirstName = customerFirstName;
+	}
+
+	public String getCustomerLastName() {
+		return customerLastName;
+	}
+
+	public void setCustomerLastName(String customerLastName) {
+		this.customerLastName = customerLastName;
 	}
 
 	public Integer getSeatType() {
 		return seatType;
 	}
 
-
 	public void setSeatType(Integer seatType) {
 		this.seatType = seatType;
 	}
 
-
-	public Integer getTicketId() {
-		return ticketId;
-	}
-
-
-	@Override
-	public String toString() {
-		 return Objects.toStringHelper(this)  
-	                .addValue(this.getTicketName())  
-	                .addValue(this.getTrip().getTripId())  
-	                .toString();  
-	}
 	
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(ticketId).append(ticketName).hashCode();
+	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == this) return true;
-	    return obj instanceof Tickets &&
-	        Objects.equal(this.getTicketId(), ((Tickets) obj).getTicketId());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(this.getTicketId(), this.getTicketName());
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tickets other = (Tickets) obj;
+		return new EqualsBuilder().append(ticketId, other.ticketId).isEquals();
 	}
 
 }
+
