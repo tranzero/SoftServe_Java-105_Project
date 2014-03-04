@@ -48,6 +48,10 @@
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/uploadForm.jsp" />
 	</definition>
+	<definition name="showFile" extends="file">
+		<put-attribute name="title" value="View: News" />
+		<put-attribute name="content" value="/jsp/showFile.jsp" />
+	</definition>
 	<definition name="userlist2" extends="base-template">
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/userlist2.jsp" />
