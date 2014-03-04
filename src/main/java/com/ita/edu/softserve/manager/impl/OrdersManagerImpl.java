@@ -31,8 +31,6 @@ public class OrdersManagerImpl implements OrdersManager {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(OrdersManagerImpl.class);
-
-	private String entityName = Transports.class.getSimpleName();
 	
 	private final String findOrderMessage = "Could not find such order";
 	private final String findOrdersByUserId = "Could not find Orders list by such User id";
