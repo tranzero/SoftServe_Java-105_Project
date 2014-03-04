@@ -19,7 +19,8 @@
 	        <intercept-url pattern="/transport" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/tripsmanager" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>
-	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>	        	    
+	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>	
+	        <intercept-url pattern="/allLines" access="hasRole('MANAGER')"/>        	    
 	   		<form-login login-page="/login.html" default-target-url="/loginsuccess"					
 						authentication-failure-url="/login.html?error=true" 
 						always-use-default-target="true"/>										
