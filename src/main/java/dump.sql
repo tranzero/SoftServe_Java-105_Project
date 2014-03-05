@@ -42,7 +42,7 @@ CREATE TABLE `lines` (
 -- 
 LOCK TABLES `lines` WRITE;
 /*!40000 ALTER TABLE `lines` DISABLE KEYS */;
-INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv'), ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1'), ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2'), ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3'), ('13', 'L\'viv - Stryy3'), ('14', 'L\'viv - Stryy3'), ('15', 'L\'viv - Stryy3'), ('16', 'Stryy - L\'viv3'), ('17', 'Stryy - L\'viv3'), ('18', 'Stryy - L\'viv3'), ('19', 'Pisochne - Sknyliv3'), ('20', 'Pisochne - Sknyliv3'), ('21', 'Pisochne - Sknyliv3');
+INSERT INTO `lines` VALUES ('1', 'L\'viv - Stryy'), ('2', 'Stryy - L\'viv'), ('3', 'Pisochne - Sknyliv'), ('4', 'L\'viv - Stryy1'), ('5', 'Stryy - L\'viv1'), ('6', 'Pisochne - Sknyliv1'), ('7', 'L\'viv - Stryy2'), ('8', 'Stryy - L\'viv2'), ('9', 'Pisochne - Sknyliv2'), ('10', 'L\'viv - Stryy3'), ('11', 'Stryy - L\'viv3'), ('12', 'Pisochne - Sknyliv3'), ('13', 'L\'viv - Stryy4'), ('14', 'L\'viv - Stryy5'), ('15', 'L\'viv - Stryy6'), ('16', 'Stryy - L\'viv7'), ('17', 'Stryy - L\'viv8'), ('18', 'Stryy - L\'viv9'), ('19', 'Pisochne - Sknyliv4'), ('20', 'Pisochne - Sknyliv5'), ('21', 'Pisochne - Sknyliv6');
 /*!40000 ALTER TABLE `lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
