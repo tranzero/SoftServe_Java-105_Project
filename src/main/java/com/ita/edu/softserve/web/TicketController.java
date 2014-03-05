@@ -46,7 +46,7 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
-	private static final String REDIRECT_TO_MAIN_PAGE = "redirect:/";
+	private static final String REDIRECT_TO_MAIN_PAGE = "redirect:/orders";
 
 	private static final String RESERVATION_TICKET_PAGE = "reservationTicket";
 
