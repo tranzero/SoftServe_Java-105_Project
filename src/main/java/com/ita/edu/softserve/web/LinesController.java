@@ -48,21 +48,55 @@ public class LinesController {
 	private StationOnLineManager stationOnLineManager;
 
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
-	public String allLines(Map<String, Object> modelMap) {
+	public String allLines(@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
+			Map<String, Object> modelMap) {
+
+	if (sortOrder == null) {
+		sortOrder = 0;
+	}
+
+	long count = linesManager.getAllLinesCount();
+	PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+			resultsPerPage, count);
+	pageMan.validatePaging(container);
+	PagingController.deployPaging(modelMap, container, pageMan);
+
+	modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
+			(int) container.getResultsPerPage(), sortOrder));
+		
+		/*
 		modelMap.put(pageNumberKey, pageMan.getDefaultPageNumber());
 		modelMap.put(resultsPerPageKey, pageMan.getDefaultResultPerPage());
 		modelMap.put(sizeOfPagingKey, pageMan.getDefaultPageCount());
 		int maxPageCount = pageMan.getMaxPageCount(
 				pageMan.getDefaultResultPerPage(),
 				linesManager.getLinesListCount());
-		modelMap.put(maxPageCountKey, maxPageCount);
+		modelMap.put(maxPageCountKey, maxPageCount);*/
 		return allLines;
 	}
 
-	@RequestMapping(value = "/allLinesPage", method = RequestMethod.POST)
-	public String allLinesPage(@RequestParam("pageNumber") int pageNumber,
-			@RequestParam("resultsPerPage") int resultsPerPage,
+	@RequestMapping(value = "/allLinesPage", method = RequestMethod.GET)
+	public String allLinesPage(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			@RequestParam(value = "sortOrder", required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
+		if (sortOrder == null) {
+			sortOrder = 0;
+		}
+
+		long count = linesManager.getAllLinesCount();
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+				resultsPerPage, count);
+		pageMan.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, pageMan);
+
+		modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
+				(int) container.getResultsPerPage(), sortOrder));
+		
+		/*
 		long resultCount = linesManager.getLinesListCount();
 		modelMap.put(maxResultCountKey, resultCount);
 		int maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
@@ -72,7 +106,7 @@ public class LinesController {
 		modelMap.put(pageNumberKey, pageNumber);
 		modelMap.put(resultsPerPageKey, resultsPerPage);
 		modelMap.put("lines", linesManager.getLinesForPage(
-				currentPagingPosition, resultsPerPage));
+				currentPagingPosition, resultsPerPage));*/
 
 		return allLinesPage;
 	}

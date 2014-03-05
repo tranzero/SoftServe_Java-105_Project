@@ -253,31 +253,26 @@ public class LinesManagerImpl implements LinesManager {
 	 * @author MatyashPetro
 	 * @return size of list with all lines
 	 */
+	@Transactional(readOnly = true)
 	@Override
-	public long getLinesListCount() {
+	public long getAllLinesCount() {
 		try{
-		return lineDao.getLinesListCount();
+		return lineDao.getAllLinesCount();
 		} catch (RuntimeException e){
 			LOGGER.error(e);
 			throw new LinesManagerException(countLinesMsg, e);
 		}
 	}
-
-	/**
-	 * @author MatyashPetro
-	 * @param from
-	 *            from what element will be start next list
-	 * @param count
-	 *            how match elements will be in the list
-	 * @return List of lines
-	 */
+	
+	@Transactional(readOnly = true)
 	@Override
-	public List<Lines> getLinesForPage(int from, int count) {
-		try{
-			return lineDao.getLinesForOnePage(from - 1, count);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(resultPerPageLinesMsg, e);
-		}
+	public List<Lines> getAllLinesForPage(int pageNumber, int count, int sortOrder) {
+		return getAllLinesForLimit((pageNumber - 1) * count, count, sortOrder);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getAllLinesForLimit(int firstElement, int count, int sortOrder) {
+		return lineDao.getAllLinesForLimits(firstElement, count, sortOrder);
 	}
 }
