@@ -45,7 +45,7 @@
 			</div>
 			<p>
 		</fieldset>
-		<div>
+		<div class="pad_top_bottom">
 			<input type="submit" value="Pay" onclick="submitForm();" /> <input
 				type="button" value="Cancel" onclick="window.history.back()" />
 		</div>
