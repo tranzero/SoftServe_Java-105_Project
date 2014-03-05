@@ -40,6 +40,7 @@
 					<input type="text" name="transportCode" id="transportCode"
 						class="autosearch" value="${container.getTransportCode()}">
 				</c:if>
+				<p><br>
 				<label for="routeName"> <spring:message
 						code="label.routes.routename" />:
 				</label>
@@ -51,6 +52,7 @@
 					<input type="text" name="routeName" id="routeName"
 						class="autosearch" value="${container.getRouteName()}">
 				</c:if>
+				<p><br>
 				<label for="routeCode"> <spring:message
 						code="label.routes.routecode" />:
 				</label>
@@ -170,7 +172,7 @@
 
 						</th>
 						<th>
-						<div style="float: left">
+							<div style="float: left">
 								<spring:message code="label.transport.starttime" />
 							</div>
 							<div style="float: right">
@@ -200,7 +202,7 @@
 							</div>
 						</th>
 						<th>
-						<div style="float: left">
+							<div style="float: left">
 								<spring:message code="label.routes.routecode" />
 							</div>
 							<div style="float: right">
@@ -227,9 +229,10 @@
 									container.getPriceName())}&orderByCriteria=t.routes.routeCode&orderByDirection=DESC">
 									<img alt="v" src="resources/images/uparrow.png">
 								</a>
-							</div></th>
+							</div>
+						</th>
 						<th>
-						<div style="float: left">
+							<div style="float: left">
 								<spring:message code="label.trips.routename" />
 							</div>
 							<div style="float: right">
@@ -256,9 +259,10 @@
 									container.getPriceName())}&orderByCriteria=t.routes.routeName&orderByDirection=DESC">
 									<img alt="v" src="resources/images/uparrow.png">
 								</a>
-							</div></th>
+							</div>
+						</th>
 						<th>
-						<div style="float: left">
+							<div style="float: left">
 								<spring:message code="label.transport.seatclass1" />
 							</div>
 							<div style="float: right">
@@ -285,7 +289,8 @@
 									container.getPriceName())}&orderByCriteria=t.seatclass1&orderByDirection=DESC">
 									<img alt="v" src="resources/images/uparrow.png">
 								</a>
-							</div></th>
+							</div>
+						</th>
 						<th><div style="float: left">
 								<spring:message code="label.transport.seatclass2" />
 							</div>
@@ -343,7 +348,7 @@
 								</a>
 							</div></th>
 						<th>
-						<div style="float: left">
+							<div style="float: left">
 								<spring:message code="label.transport.genprice" />
 							</div>
 							<div style="float: right">
@@ -370,7 +375,8 @@
 									container.getPriceName())}&orderByCriteria=t.genPrice&orderByDirection=DESC">
 									<img alt="v" src="resources/images/uparrow.png">
 								</a>
-							</div></th>
+							</div>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -577,8 +583,55 @@
 
 		}
 
-		$(window).load(function() {
-			formDatePicker();
-		});
+		$(window)
+				.load(
+						function() {
+							formDatePicker();
+							$("input#seatClass1").ForceNumericOnly();
+							$("input#seatClass2").ForceNumericOnly();
+							$("input#seatClass3").ForceNumericOnly();
+							setInterval(
+									function() {
+										var curVal;
+										var prevVal;
+										curVal = $(".autosearch").serialize();
+										prevVal = $(".autosearch").data(
+												"prevVal")
+												|| null;
+										$(".autosearch")
+												.data("prevVal", curVal);
+										if (prevVal !== curVal) {
+											var searchData = {
+												pageNumber : 1,
+												resultsPerPage : "${resultsPerPage}",
+												transportCode : $(
+														"input#transportCode")
+														.val(),
+												routeName : $("input#routeName")
+														.val(),
+												routesCode : $(
+														"input#routesCode")
+														.val(),
+												seatClass1 : $(
+														"input#seatClass1")
+														.val(),
+												seatClass2 : $(
+														"input#seatClass2")
+														.val(),
+												seatClass3 : $(
+														"input#seatClass3")
+														.val(),
+												priceName : $(
+														"input#priceName")
+														.val(),
+												orderByCriteria : "${container.getOrderByCriteria()}",
+												orderByDirection : "${container.getOrderByDirection()}"
+											};
+											ajaxLoader(defaultDomElement,
+													defaultTargetPage,
+													searchData);
+										}
+									}, 3000);
+						});
 	</script>
 </section>
