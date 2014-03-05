@@ -16,19 +16,39 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Controller
 public class OrdersController {
 	
+	/**
+	 * String that defines orders web page
+	 */
 	final static String PageOrdersCall = "/orders";
+	
+	/**
+	 * Spring response that defines trips jsp page
+	 */
 	final static String PageOrdersGet = "orders";
 	
-
+	/**
+	 * Get access to Orders Manager
+	 */
 	@Autowired
 	private OrdersManager ordersManager;
 
+	/**
+	 * Get access to Tickets Manager
+	 */
 	@Autowired
 	private TicketsManager ticketsManager;
 
+	/**
+	 * Get access to User Name Serice
+	 */
 	@Autowired
 	private UserNameService userNameService;
 
+	/**
+	 * Displays orders page in browser
+	 * @param modelMap Model map to fill
+	 * @return the jsp name
+	 */
 	@RequestMapping(value = PageOrdersCall, method = RequestMethod.GET)
 	public String orders(Map<String, Object> modelMap) {
 		List<Tickets> tlist = ticketsManager.ticketsForPage(userNameService.getLoggedUserId());

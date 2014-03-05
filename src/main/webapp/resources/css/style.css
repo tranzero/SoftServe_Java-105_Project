@@ -92,6 +92,7 @@ div#error404 span#sub404 {
 
 /* TABLE STYLES */
 table {
+	clear: both;
 	counter-reset: n;
 	margin-left: auto;
 	margin-right: auto;
@@ -284,6 +285,7 @@ div.center {
 
 /* for error */
 .error {
+	padding-left: 10px;
 	color: #ff0000;
 }
 
@@ -399,6 +401,9 @@ form.pad_top_bottom {
 .pad_top_bottom {
 	padding: 10px 0;
 }
+.pad_top_bottom4 {
+	padding: 4px 0;
+}
 
 fieldset {
   border: 3px solid #aaa;
@@ -412,12 +417,59 @@ fieldset legend {
     box-shadow: 0 0 0 3px #aaa;
     margin-left: 20px;
 }
-label {
+fieldset div label {
   float:left;
   width:25%;
   margin-right:0.5em;
-  padding-top:0.2em;
+  padding-top:0.7em;
   text-align:right;
   font-weight:bold;
 }
 
+.half_width {
+	width: 50%;
+	margin-bottom: -80px;
+}
+
+#res_per_page {
+	float: right;
+	margin-right: -100px;
+}
+#res_per_page_label {
+	vertical-align: 10px;
+}
+
+form#regForm {
+	font-size: 1.1em;
+	font-weight: 100;
+}
+
+#routesTrips {
+	width: 78%;
+}
+.clear {
+	clear: both;
+}
+.right {
+	float: right;
+}
+input#btnFindRoutes {
+	float: right;
+	margin-top: -70px;
+}
+.pad_right{
+	padding-right: 5px;
+}
+div#btnFindUsers input {
+	float: right;
+	margin-top: -72px;
+}
+div.group_c1 {
+	max-width: 300px;
+}
+div.group_c2 {
+	float: right;
+	padding-right: 170px;
+	margin-top: -58px;
+	max-width: 500px;
+}

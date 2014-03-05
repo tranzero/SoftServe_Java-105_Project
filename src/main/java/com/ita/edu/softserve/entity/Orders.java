@@ -119,14 +119,23 @@ public class Orders extends BaseEntity {
 		this.userId = userId;
 	}
 	
+	/**
+	 * @return the orderDate
+	 */
 	public Date getOrderDate() {
 		return orderDate;
 	}
 
+	/**
+	 * @param orderDate the orderDate to set
+	 */
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 	
+	/**
+	 * @param orderDate the orderDate to set
+	 */
 	private void setOrderDate() {
 		this.orderDate=new Date();
 	}

@@ -16,13 +16,13 @@
 						<th align="center">Route</th>
 						<th align="center">Date</th>
 						<th align="center">Price</th>
+						<th></th>
 					</tr>
 				</thead>
-
 				<c:forEach var="ticket" items="${ticketsList}">
 					<tbody>
 						<tr>
-					     	<td align="center">${ticket.getCustomerFirstName()}</td>
+							<td align="center">${ticket.getCustomerFirstName()}</td>
 							<td align="center">${ticket.getCustomerLastName()}</td>
 							<td align="center">${ticket.getTrip().getTransport().getRoutes().getRouteName()}</td>
 							<td align="center">${ticket.getTrip().getStartDate()}</td>
@@ -31,13 +31,14 @@
 								href="delete/${ticket.getTicketName()}/${ticket.getTrip().getTripId()}"><input
 									id="delete" type="button" name="delete" value="delete" /> </a></td>
 						</tr>
-
 					</tbody>
 				</c:forEach>
 			</table>
-			<a href="/SoftServe_Java-105/bagPay"> <input id="cartData" type="button"
-				name="cartData" value="Buy Tickets">
-			</a>
+			<div class="pad_top_bottom">
+				<a href="/SoftServe_Java-105/bagPay"><input id="cartData"
+					type="button" name="cartData" value="Buy Tickets">
+				</a>
+			</div>
 		</c:if>
 	</form:form>
 

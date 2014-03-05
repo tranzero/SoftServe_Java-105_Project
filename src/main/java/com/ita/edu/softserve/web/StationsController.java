@@ -319,7 +319,7 @@ public class StationsController {
 		modelMap.put(STATIONS_LIST,
 				stationsManager.getStationsOnCertainLine(lineName));
 
-		return STATIONS_JSP_PAGE;
+		return STATIONS_FOR_USERS_JSP_PAGE;
 	}
 
 }
