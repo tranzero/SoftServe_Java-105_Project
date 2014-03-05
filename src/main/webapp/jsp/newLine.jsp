@@ -33,6 +33,9 @@
 		</c:if>
 		<input type="submit" value="Search">
 	</form>
+	<form action="confirmcreating" method="post">
+	<spring:message code="label.lines.linename" />
+	: <input type="text" name="newLineName"><br>
 	<div id="result">
 		<div id="res_per_page" class="pagination half_width">
 			<span id="res_per_page_label"><spring:message code="label.trips.resultsperpage" />
@@ -180,6 +183,10 @@
 			</ul>
 		</div>
 	</div>
+		<input type="submit"
+		value="<spring:message
+			code="label.lines.apply" />">
+</form>
 	<script type="text/javascript">
 		$(window)
 				.load(
