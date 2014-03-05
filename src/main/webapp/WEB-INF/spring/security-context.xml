@@ -10,6 +10,7 @@
 	  	<http access-denied-page="/accessDenied" use-expressions="true"> 
 	  		<intercept-url pattern="/login" access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')"/>
 	    	<intercept-url pattern="/profileEdit" access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')"/>
+	    	<intercept-url pattern="/orders" access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')"/>
 	    	<intercept-url pattern="/bag*" access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')"/>	 
 	    	<intercept-url pattern="/user*" access="hasRole('ADMIN')"/>		    	
 	        <intercept-url pattern="/add*"  access="hasRole('MANAGER')"/>
