@@ -17,8 +17,10 @@ import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.StaticValidator;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.web.PagingController;
 
 /**
  * This is transports manager class.
@@ -64,12 +66,12 @@ public class TransportsManagerImpl implements TransportsManager {
 	public TransportsManagerImpl() {
 		super();
 	}
-	
-	
+
 	@Override
 	public void validateTransportForAddTripsCriteria(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
-		StaticValidator.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer); 
+		StaticValidator
+				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
 	}
 
 	/**
@@ -225,6 +227,38 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		return transportsDao.getTransportsListByCriteriaCount(transportCode,
 				time, routesCode, seatClass1, seatClass2, seatClass3, price);
+	}
+
+	@Override
+	public List<Transports> getTransportsListForAddTripsWithContainers(
+			PageInfoContainer container,
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
+
+		return getTransportsListForAddTripsWithPaging(
+				container.getPageNumber(), container.getResultsPerPage(),
+				transportForAddTripsCriteriaContainer.getTransportCode(),
+				transportForAddTripsCriteriaContainer.getRouteName(),
+				transportForAddTripsCriteriaContainer.getRoutesCode(),
+				transportForAddTripsCriteriaContainer.getSeatClass1(),
+				transportForAddTripsCriteriaContainer.getSeatClass2(),
+				transportForAddTripsCriteriaContainer.getSeatClass3(),
+				transportForAddTripsCriteriaContainer.getPrice(),
+				transportForAddTripsCriteriaContainer.getOrderByCriteria(),
+				transportForAddTripsCriteriaContainer.getOrderByDirection());
+	}
+
+	
+	@Override
+	public long getTransportsListForAddTripsCountWithContainers(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
+		return getTransportsListForAddTripsCount(
+				transportForAddTripsCriteriaContainer.getTransportCode(),
+				transportForAddTripsCriteriaContainer.getRouteName(),
+				transportForAddTripsCriteriaContainer.getRoutesCode(),
+				transportForAddTripsCriteriaContainer.getSeatClass1(),
+				transportForAddTripsCriteriaContainer.getSeatClass2(),
+				transportForAddTripsCriteriaContainer.getSeatClass3(),
+				transportForAddTripsCriteriaContainer.getPrice());
 	}
 
 	@Transactional(readOnly = true)

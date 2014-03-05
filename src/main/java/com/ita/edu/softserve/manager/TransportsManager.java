@@ -6,6 +6,7 @@ import java.util.List;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 
 /**
@@ -148,6 +149,13 @@ public interface TransportsManager extends BaseManager {
 			String orderByDirection);
 
 	void validateTransportForAddTripsCriteria(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
+
+	List<Transports> getTransportsListForAddTripsWithContainers(
+			PageInfoContainer container,
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
+
+	long getTransportsListForAddTripsCountWithContainers(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
 
 	/**
