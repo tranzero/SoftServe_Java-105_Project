@@ -14,8 +14,8 @@
 			remSeatClass1 : "${container.getRemSeatClass1()}",
 			remSeatClass2 : "${container.getRemSeatClass2()}",
 			remSeatClass3 : "${container.getRemSeatClass3()}",
-			minDate : "${container.getMinDateString()}",
-			maxDate : "${container.getMaxDateString()}",
+			minDate : "${container.getMinDate()}",
+			maxDate : "${container.getMaxDate()}",
 			orderByParam : "${container.getOrderByParam()}",
 			orderByDirection : "${container.getOrderByDirection()}"
 		};
@@ -92,7 +92,7 @@
 			</c:if>
 			<c:if test="${!isMinDate}">
 				<input class="autosearch" type="text" id="from" name="minDate"
-					value="${container.getMinDateString()}">
+					value="${container.getMinDate()}">
 			</c:if>
 
 
@@ -102,7 +102,7 @@
 			</c:if>
 			<c:if test="${!isMaxDate}">
 				<input class="autosearch" type="text" id="to" name="maxDate"
-					value="${container.getMaxDateString()}">
+					value="${container.getMaxDate()}">
 			</c:if>
 		<div style="float: right">
 			<input type="submit"
@@ -126,8 +126,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.transportCode&orderByDirection=ASC">
 							<img alt="^" src="resources/images/downarrow.png">
 						</a> <a
@@ -137,8 +137,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.transportCode&orderByDirection=DESC">
 							<img alt="v" src="resources/images/uparrow.png">
 						</a>
@@ -155,8 +155,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.routes.routeName&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -166,8 +166,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.routes.routeName&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -183,8 +183,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass1&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -194,8 +194,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass1&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -211,8 +211,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass2&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -222,8 +222,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass2&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -239,8 +239,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass3&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -250,8 +250,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.remSeatClass3&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -267,8 +267,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.startDate&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -278,8 +278,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.startDate&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -295,8 +295,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.startTime&orderByDirection=ASC">
 					<img alt="^" src="resources/images/downarrow.png">
 				</a> <a
@@ -306,8 +306,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())
 						}&orderByParam=tr.transport.startTime&orderByDirection=DESC">
 					<img alt="v" src="resources/images/uparrow.png">
 				</a>
@@ -338,8 +338,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							« </a></li>
@@ -350,8 +350,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							<spring:message code="label.prev" />
@@ -374,8 +374,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 								${i} </a></li>
@@ -394,8 +394,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							<spring:message code="label.next" />
@@ -407,8 +407,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							» </a></li>
@@ -435,8 +435,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							10</a></li>
@@ -452,8 +452,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							20</a></li>
@@ -469,8 +469,8 @@
 						container.getRemSeatClass1()}&remSeatClass2=${
 						container.getRemSeatClass2()}&remSeatClass3=${
 						container.getRemSeatClass3()}&minDate=${encoder.encode(
-						container.getMinDateString())}&maxDate=${encoder.encode(
-						container.getMaxDateString())}&orderByParam=${encoder.encode(
+						container.getMinDate())}&maxDate=${encoder.encode(
+						container.getMaxDate())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
 							50</a></li>

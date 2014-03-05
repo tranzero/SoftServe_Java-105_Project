@@ -232,7 +232,7 @@ public class TransportForAddTripsCriteriaContainerImpl implements TransportForAd
 	@Override
 	public void setValuableParams(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, String priceName,
+			Integer seatClass2, Integer seatClass3, String price,
 			String orderByCriteria, String orderByDirection) {
 		this.transportCode = transportCode;
 		this.routeName = routeName;
@@ -240,7 +240,7 @@ public class TransportForAddTripsCriteriaContainerImpl implements TransportForAd
 		this.seatClass1 = seatClass1;
 		this.seatClass2 = seatClass2;
 		this.seatClass3 = seatClass3;
-		this.priceName = priceName;
+		this.priceName = price;
 		this.orderByCriteria = orderByCriteria;
 		this.orderByDirection = orderByDirection;
 	}

@@ -31,21 +31,21 @@ public interface TripsCriteriaContainer {
 	
 	void setRemSeatClass3(Integer remSeatClass3);
 	
-	String getMinDateString();
+	String getMinDate();
 	
-	void setMinDateString(String minDateString);
+	void setMinDate(String minDateString);
 
-	String getMaxDateString();
+	String getMaxDate();
 	
-	void setMaxDateString(String maxDateString);
+	void setMaxDate(String maxDateString);
 	
-	Date getMinDate();
+	Date getMinDateValue();
 	
-	void setMinDate(Date minDate);
+	void setMinDateValue(Date minDate);
 	
-	Date getMaxDate();
+	Date getMaxDateValue();
 	
-	void setMaxDate(Date maxDate);
+	void setMaxDateValue(Date maxDate);
 	
 	String getOrderByParam();
 	
@@ -58,6 +58,8 @@ public interface TripsCriteriaContainer {
 	void setValuableInfo(String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, String minDateString,
 			String maxDateString, String orderByParam, String orderByDirection);
+
+
 	
 	
 }
