@@ -4,6 +4,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<div id="res_per_page" class="pagination half_width">
+	<span id="res_per_page_label"><spring:message
+			code="label.trips.resultsperpage" /> :</span>
+	<ul class="bootpag">
+		<c:if test="${resultsPerPage!=10}">
+			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==10}">
+			<li class="disabled"><a href="javascript:void(0);">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=20}">
+			<li><a href="javascript:void(0);" id="resultsPerPage20">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==20}">
+			<li class="disabled"><a href="javascript:void(0);">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=50}">
+			<li><a href="javascript:void(0);" id="resultsPerPage50">50</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==50}">
+			<li class="disabled"><a href="javascript:void(0);">50</a></li>
+		</c:if>
+	</ul>
+</div>
 <table class='table'>
 	<thead>
 		<tr>
@@ -75,29 +99,6 @@
 			<li class="next disabled"><a href="javascript:void(0);"> » </a></li>
 		</c:if>
 	</ul>
-	<br />
-	<p><spring:message code="label.trips.resultsperpage" />:</p>
-	<ul class="bootpag">
-		<c:if test="${resultsPerPage!=10}">
-			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==10}">
-			<li class="disabled"><a href="javascript:void(0);">10</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage!=20}">
-			<li><a href="javascript:void(0);" id="resultsPerPage20">20</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==20}">
-			<li class="disabled"><a href="javascript:void(0);">20</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage!=50}">
-			<li><a href="javascript:void(0);" id="resultsPerPage50">50</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==50}">
-			<li class="disabled"><a href="javascript:void(0);">50</a></li>
-		</c:if>
-	</ul>
-
 </div>
 
 <script>
