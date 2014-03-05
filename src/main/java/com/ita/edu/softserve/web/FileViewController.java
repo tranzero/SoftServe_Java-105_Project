@@ -23,11 +23,13 @@ public class FileViewController {
 	PropertiesManager propertyManager;
 
 	public static final String imageInputRequestValue = "news/images/{img}.{res}";
+	public static final String nonImageInputRequestValue = "news/images/";
 	public static final String pathVariableImgValue = "img";
 	public static final String pathVariableResValue = "res";
 	public static final String headerComtentsDispositionValue = "Content-Disposition";
 	public static final String headerAttachmentValue = "attachment; filename=\"";
 	public static final String headerAttachmentEndOfStringValue = "\"";
+	public static final String defaultNewsimage = "default.jpg";
 
 	@RequestMapping(value = imageInputRequestValue, method = RequestMethod.GET)
 	public void showImg(HttpServletResponse response,
@@ -35,6 +37,21 @@ public class FileViewController {
 			@PathVariable(pathVariableResValue) String res) throws IOException {
 
 		File file = new File(propertyManager.getImgPath() + img + "." + res);
+
+		response.setHeader(headerComtentsDispositionValue,
+				headerAttachmentValue + file.getName()
+						+ headerAttachmentEndOfStringValue);
+		InputStream inputStream = null;
+		inputStream = new FileInputStream(file);
+		FileCopyUtils.copy(inputStream, response.getOutputStream());
+
+	}
+	
+	@RequestMapping(value = nonImageInputRequestValue, method = RequestMethod.GET)
+	public void showNonImg(HttpServletResponse response
+			) throws IOException {
+
+		File file = new File(propertyManager.getImgPath() + defaultNewsimage);
 
 		response.setHeader(headerComtentsDispositionValue,
 				headerAttachmentValue + file.getName()

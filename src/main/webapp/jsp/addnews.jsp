@@ -8,8 +8,8 @@
 	
 	<form id="addnews" method="post" name="/addnews" action="addnews">
 		<div>
-		<p>Image name</p>
-		<div id="fileNameInput"><input id="fileName" name="fileName" type="text" value="${filename}" size="50" maxlength="100"></div>
+		<p><spring:message code="label.navigation.addNews.imagename"/></p>
+		<div id="fileNameInput"><input id="fileName" name="fileName" type="text" value="" size="50" maxlength="100"></div>
 		
 		<p><spring:message code="label.navigation.addNews.title"/></p>
 		
