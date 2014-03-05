@@ -30,10 +30,10 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 	private Integer remSeatClass1;
 	private Integer remSeatClass2;
 	private Integer remSeatClass3;
-	private String minDateString;
-	private String maxDateString;
-	private Date minDate;
-	private Date maxDate;
+	private String minDate;
+	private String maxDate;
+	private Date minDateValue;
+	private Date maxDateValue;
 	private String orderByParam;
 	private String orderByDirection;
 
@@ -43,7 +43,7 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 
 	public TripsCriteriaContainerImpl(String transportCode, String routeName,
 			Integer remSeatClass1, Integer remSeatClass2,
-			Integer remSeatClass3, String minDateString, String maxDateString,
+			Integer remSeatClass3, String minDate, String maxDate,
 			String orderByParam, String orderByDirection) {
 		super();
 		this.transportCode = transportCode;
@@ -51,8 +51,8 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 		this.remSeatClass1 = remSeatClass1;
 		this.remSeatClass2 = remSeatClass2;
 		this.remSeatClass3 = remSeatClass3;
-		this.minDateString = minDateString;
-		this.maxDateString = maxDateString;
+		this.minDate = minDate;
+		this.maxDate = maxDate;
 		this.orderByParam = orderByParam;
 		this.orderByDirection = orderByDirection;
 	}
@@ -67,8 +67,8 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 		this.remSeatClass1 = remSeatClass1;
 		this.remSeatClass2 = remSeatClass2;
 		this.remSeatClass3 = remSeatClass3;
-		this.minDateString = minDateString;
-		this.maxDateString = maxDateString;
+		this.minDate = minDateString;
+		this.maxDate = maxDateString;
 		this.orderByParam = orderByParam;
 		this.orderByDirection = orderByDirection;
 	}
@@ -159,44 +159,10 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 	}
 
 	/**
-	 * @return the minDateString
-	 */
-	@Override
-	public String getMinDateString() {
-		return minDateString;
-	}
-
-	/**
-	 * @param minDateString
-	 *            the minDateString to set
-	 */
-	@Override
-	public void setMinDateString(String minDateString) {
-		this.minDateString = minDateString;
-	}
-
-	/**
-	 * @return the maxDateString
-	 */
-	@Override
-	public String getMaxDateString() {
-		return maxDateString;
-	}
-
-	/**
-	 * @param maxDateString
-	 *            the maxDateString to set
-	 */
-	@Override
-	public void setMaxDateString(String maxDateString) {
-		this.maxDateString = maxDateString;
-	}
-
-	/**
 	 * @return the minDate
 	 */
 	@Override
-	public Date getMinDate() {
+	public String getMinDate() {
 		return minDate;
 	}
 
@@ -205,15 +171,18 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 	 *            the minDate to set
 	 */
 	@Override
-	public void setMinDate(Date minDate) {
-		this.minDate = minDate;
+	public void setMinDate(String minDateString) {
+		this.minDate = minDateString;
 	}
 
+
+
+	
 	/**
 	 * @return the maxDate
 	 */
 	@Override
-	public Date getMaxDate() {
+	public String getMaxDate() {
 		return maxDate;
 	}
 
@@ -222,8 +191,44 @@ public class TripsCriteriaContainerImpl implements TripsCriteriaContainer {
 	 *            the maxDate to set
 	 */
 	@Override
-	public void setMaxDate(Date maxDate) {
-		this.maxDate = maxDate;
+	public void setMaxDate(String maxDateString) {
+		this.maxDate = maxDateString;
+	}
+	
+
+
+	/**
+	 * @return the minDateValue
+	 */
+	@Override
+	public Date getMinDateValue() {
+		return minDateValue;
+	}
+
+	/**
+	 * @param minDateValue
+	 *            the minDateValue to set
+	 */
+	@Override
+	public void setMinDateValue(Date minDate) {
+		this.minDateValue = minDate;
+	}
+
+	/**
+	 * @return the maxDateValue
+	 */
+	@Override
+	public Date getMaxDateValue() {
+		return maxDateValue;
+	}
+
+	/**
+	 * @param maxDateValue
+	 *            the maxDateValue to set
+	 */
+	@Override
+	public void setMaxDateValue(Date maxDate) {
+		this.maxDateValue = maxDate;
 	}
 
 	/**
