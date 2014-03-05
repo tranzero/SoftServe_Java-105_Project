@@ -96,6 +96,8 @@
 		</div>
 
 	</form>
+	<p>
+		<br>
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
@@ -120,14 +122,239 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th><spring:message code="label.transport.transportcode" /></th>
-						<th><spring:message code="label.transport.starttime" /></th>
-						<th><spring:message code="label.routes.routecode" /></th>
-						<th><spring:message code="label.trips.routename" /></th>
-						<th><spring:message code="label.transport.seatclass1" /></th>
-						<th><spring:message code="label.transport.seatclass2" /></th>
-						<th><spring:message code="label.transport.seatclass3" /></th>
-						<th><spring:message code="label.transport.genprice" /></th>
+						<th>
+							<div style="float: left">
+								<spring:message code="label.transport.transportcode" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div>
+
+						</th>
+						<th>
+						<div style="float: left">
+								<spring:message code="label.transport.starttime" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.startTime&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.startTime&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div>
+						</th>
+						<th>
+						<div style="float: left">
+								<spring:message code="label.routes.routecode" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.routes.routeCode&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.routes.routeCode&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
+						<th>
+						<div style="float: left">
+								<spring:message code="label.trips.routename" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.routes.routeName&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.routes.routeName&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
+						<th>
+						<div style="float: left">
+								<spring:message code="label.transport.seatclass1" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass1&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass1&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
+						<th><div style="float: left">
+								<spring:message code="label.transport.seatclass2" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass2&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass2&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
+						<th><div style="float: left">
+								<spring:message code="label.transport.seatclass3" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass3&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.seatclass3&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
+						<th>
+						<div style="float: left">
+								<spring:message code="label.transport.genprice" />
+							</div>
+							<div style="float: right">
+								<a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.genPrice&orderByDirection=ASC">
+									<img alt="^" src="resources/images/downarrow.png">
+								</a> <a
+									href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=t.genPrice&orderByDirection=DESC">
+									<img alt="v" src="resources/images/uparrow.png">
+								</a>
+							</div></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -246,67 +473,67 @@
 								» </a></li>
 					</c:if>
 				</ul>
-				
+
+
+				<p>
+				<p>
+					<br>
+					<spring:message code="label.trips.resultsperpage" />
+					:
+				<ul class="bootpag">
+					<c:if test="${resultsPerPage!=10}">
+						<li><a
+							href="?resultsPerPage=10&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+								10</a></li>
+					</c:if>
+					<c:if test="${resultsPerPage==10}">
+						<li class="disabled"><a href="javascript:void(0);">10</a></li>
+					</c:if>
+					<c:if test="${resultsPerPage!=20}">
+						<li><a
+							href="?&resultsPerPage=20&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+								20</a></li>
+					</c:if>
+					<c:if test="${resultsPerPage==20}">
+						<li class="disabled"><a href="javascript:void(0);">20</a></li>
+					</c:if>
+					<c:if test="${resultsPerPage!=50}">
+						<li><a
+							href="&resultsPerPage=50&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+								50</a></li>
+					</c:if>
+					<c:if test="${resultsPerPage==50}">
+						<li class="disabled"><a href="javascript:void(0);">50</a></li>
+					</c:if>
+				</ul>
 			</div>
-			<p>
-			<p>
-				<br>
-				<spring:message code="label.trips.resultsperpage" />
-				:
-			<ul class="bootpag">
-				<c:if test="${resultsPerPage!=10}">
-					<li><a
-						href="?resultsPerPage=10&transportCode=${encoder.encode(
-									container.getTransportCode())}&routeName=${encoder.encode(
-									container.getRouteName())}&routesCode=${encoder.encode(
-									container.getRoutesCode())}&seatClass1=${
-									container.getSeatClass1()}&seatClass2=${
-									container.getSeatClass2()}&seatClass3=${
-									container.getSeatClass3()}&priceName=${encoder.encode(
-									container.getPriceName())}&orderByCriteria=${encoder.encode(
-									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
-									container.getOrderByDirection())}">
-							10</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==10}">
-					<li class="disabled"><a href="javascript:void(0);">10</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage!=20}">
-					<li><a
-						href="?&resultsPerPage=20&transportCode=${encoder.encode(
-									container.getTransportCode())}&routeName=${encoder.encode(
-									container.getRouteName())}&routesCode=${encoder.encode(
-									container.getRoutesCode())}&seatClass1=${
-									container.getSeatClass1()}&seatClass2=${
-									container.getSeatClass2()}&seatClass3=${
-									container.getSeatClass3()}&priceName=${encoder.encode(
-									container.getPriceName())}&orderByCriteria=${encoder.encode(
-									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
-									container.getOrderByDirection())}">
-							20</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==20}">
-					<li class="disabled"><a href="javascript:void(0);">20</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage!=50}">
-					<li><a
-						href="&resultsPerPage=50&transportCode=${encoder.encode(
-									container.getTransportCode())}&routeName=${encoder.encode(
-									container.getRouteName())}&routesCode=${encoder.encode(
-									container.getRoutesCode())}&seatClass1=${
-									container.getSeatClass1()}&seatClass2=${
-									container.getSeatClass2()}&seatClass3=${
-									container.getSeatClass3()}&priceName=${encoder.encode(
-									container.getPriceName())}&orderByCriteria=${encoder.encode(
-									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
-									container.getOrderByDirection())}">
-							50</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==50}">
-					<li class="disabled"><a href="javascript:void(0);">50</a></li>
-				</c:if>
-			</ul>
-			
 
 		</div>
 		<input type="submit"
