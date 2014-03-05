@@ -38,12 +38,12 @@
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/mainpagepost.jsp" />
 	</definition>
-	
+
 	<definition name="managenewspost" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/managenewspost.jsp" />
 	</definition>
-	
+
 	<definition name="uploadForm" extends="file">
 		<put-attribute name="title" value="View: News" />
 		<put-attribute name="content" value="/jsp/uploadForm.jsp" />
@@ -60,11 +60,11 @@
 		<put-attribute name="title" value="View: userlist2page" />
 		<put-attribute name="content" value="/jsp/userlist2page.jsp" />
 	</definition>
-<definition name="linesByStation" extends="base-template">
+	<definition name="linesByStation" extends="base-template">
 		<put-attribute name="title" value="View: Lines search" />
 		<put-attribute name="content" value="/jsp/linesByStation.jsp" />
 	</definition>
-	<definition name="linesByStationRresult" extends="ajax">
+	<definition name="linesByStationResult" extends="ajax">
 		<put-attribute name="title" value="View: Lines search" />
 		<put-attribute name="content" value="/jsp/linesByStationResult.jsp" />
 	</definition>
@@ -84,12 +84,12 @@
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/transportpage.jsp" />
 	</definition>
-	
+
 	<definition name="stationsPage" extends="ajax">
 		<put-attribute name="title" value="View: Stations Manager" />
 		<put-attribute name="content" value="/jsp/stationsPage.jsp" />
 	</definition>
-	
+
 	<definition name="stationsForUsersPage" extends="ajax">
 		<put-attribute name="title" value="View: Stations" />
 		<put-attribute name="content" value="/jsp/stationsForUsersPage.jsp" />
@@ -112,17 +112,17 @@
 		<put-attribute name="title" value="View: Transport Search" />
 		<put-attribute name="content" value="/jsp/transportTravelPage.jsp" />
 	</definition>
-	
+
 	<definition name="userListPage" extends="ajax">
 		<put-attribute name="title" value="View: Users" />
 		<put-attribute name="content" value="/jsp/userListPage.jsp" />
 	</definition>
-	
+
 	<definition name="transportListPage" extends="ajax">
 		<put-attribute name="title" value="View: Transports" />
 		<put-attribute name="content" value="/jsp/transportListPage.jsp" />
 	</definition>
-	
+
 	<definition name="addTripPage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/addTripPage.jsp" />
@@ -155,7 +155,7 @@
 		<put-attribute name="title" value="View: routesTripsPage" />
 		<put-attribute name="content" value="/jsp/routesTripsPage.jsp" />
 	</definition>
-	
+
 	<!-- <definition name="managenews" extends="base-template"> -->
 	<!-- <put-attribute name = "title" value = "View: News Maneger"/> -->
 	<!-- <put-attribute name="content" value="/jsp/managenews.jsp" /> -->
