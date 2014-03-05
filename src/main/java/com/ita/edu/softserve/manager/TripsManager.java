@@ -194,4 +194,6 @@ public interface TripsManager extends BaseManager {
 	
 	void updateTrip(Trips trip);
 
+	void removeTrip(Integer id);
+
 }

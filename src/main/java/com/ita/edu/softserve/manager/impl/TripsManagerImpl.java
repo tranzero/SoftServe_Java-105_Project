@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +14,12 @@ import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.exception.TripsManagerException;
+import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
@@ -22,6 +27,12 @@ import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 
 @Service
 public class TripsManagerImpl implements TripsManager {
+	/**
+	 * Logger for manager
+	 */
+	
+	private static final Logger LOGGER = Logger
+			.getLogger(TripsManagerImpl.class);
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -36,9 +47,17 @@ public class TripsManagerImpl implements TripsManager {
 	 */
 
 	private static final String SPAIN = "es";
+	/**
+	 * 
+	 */
+	
+	private static final String COULD_NOT_REMOVE_TRIP = "Could not remove trip. Caused by actions of user ";
 
 	@Autowired
 	private TripsDAO tripsDao;
+	
+	@Autowired
+	private UserNameService userNameService;
 
 	@Autowired
 	private TransportsDao transportsDao;
@@ -250,5 +269,25 @@ public class TripsManagerImpl implements TripsManager {
 	
 	public static TripsManager getInstance() {
 		return ManagerFactory.getManager(TripsManager.class);
+	}
+	
+	
+	/**
+	 * Delete trip from DB
+	 */
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void removeTrip(Integer id) {
+		try {
+			tripsDao.remove(tripsDao.findById(id));
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TripsManagerException(
+					COULD_NOT_REMOVE_TRIP+userNameService.getLoggedUsername(), e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+
 	}
 }

@@ -69,7 +69,7 @@
 			<td align="center"><a> <input id="edit" type="button"
 					name="edit" value="<spring:message code="label.edit"/>">
 			</a></td>
-			<td align="center"><a> <input id="delete" type="button"
+			<td align="center"><a href="tripDelete/${trip.getTripId()}"> <input id="delete${trip.getTripId()}" type="button" onclick="return confirm_delete()"
 					name="delete" value="<spring:message code="label.delete"/>">
 			</a>
 		</tr>

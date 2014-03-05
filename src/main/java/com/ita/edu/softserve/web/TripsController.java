@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,6 +60,17 @@ public class TripsController {
 	 * Part of URL that defines web page for trips AJAX paging
 	 */
 	private static final String TRIPSPAGE_WEB_NAME = "/tripspage";
+	/**
+	 * Part of any redirect spring jsp definition
+	 */
+	
+	private static final String REDIRECT_SUBSTRING = "redirect:/";
+	
+	/**
+	 * Part of any redirect spring jsp definition that is on same level with caller controller maping
+	 */
+	
+	private static final String REDIRECT_SAME_LEVEL_SUBSTRING = "redirect:";
 	/**
 	 * Part of URL that defines trips manager web page
 	 */
@@ -167,6 +179,11 @@ public class TripsController {
 	 * name for showing Class1 places count attribute name
 	 */
 	private static final String IS_CLASS3_ATTRIBUTE_NAME = "isClass3";
+	
+	/**
+	 * Constant for mapping variable for REST request
+	 */
+	private static final String TRIPID_PATH_VARIABLE = "tripId";
 
 	/**
 	 * name for showing minimal date count attribute name
@@ -194,8 +211,17 @@ public class TripsController {
 	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
 
 	/**
+	 * Constant for mapping trips delete
+	 */
+	
+	private static final String TRIP_DELETE_PATH = "/tripDelete/{tripId}";
+	
+	
+	/**
 	 * Field for using trips-related controller-level methods
 	 */
+	
+	
 
 	@Autowired
 	private TripsManager tripsManager;
@@ -507,7 +533,7 @@ public class TripsController {
 			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
 		if (transportId == null) {
 			// completeMapForAddTrip(null, null, modelMap, locale);
-			modelMap.put(ERRORMARK, true);
+			//modelMap.put(ERRORMARK, true);
 			return ADDTRIP_SPRING_NAME;
 		}
 		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
@@ -516,13 +542,19 @@ public class TripsController {
 			// completeMapForTrips(null, null, null, null, null, null, null,
 			// null,
 			// null, null, null, modelMap, locale);
-			return MANAGETRIPS_SPRING_NAME;
+			return REDIRECT_SAME_LEVEL_SUBSTRING+MANAGETRIPS_SPRING_NAME;
 		} else {
 			// completeMapForAddTrip(null, null, modelMap, locale);
-			modelMap.put(ERRORMARK, true);
+			//modelMap.put(ERRORMARK, true);
 			return ADDTRIP_SPRING_NAME;
 		}
 
+	}
+	
+	@RequestMapping(TRIP_DELETE_PATH)
+	public String deleteTrip (@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId) {
+		tripsManager.removeTrip(tripId);
+		return REDIRECT_SUBSTRING+MANAGETRIPS_SPRING_NAME;
 	}
 
 }
