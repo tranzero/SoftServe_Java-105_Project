@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>\
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script>
 	var defaultDomElement = "div#result";
@@ -16,23 +16,12 @@
 	};
 </script>
 
-<script type="text/javascript">
-	function confirm_delete() {
-		return confirm('Delete this Station ?');
-	}
-</script>
-
 <section id="content">
 	<h2 align="center">
-		<spring:message code="label.navigation.stations" />
+		<spring:message code="label.navigation.stationsForUsers" />
 	</h2>
-	<a href="addStation"> <input id="addstation" type="button"
-		name="addstation"
-		value="<spring:message code="label.navigation.addStation"/>">
-	</a>
-	<p>
-	<form method="get">
 
+	<form method="get" class="pad_top_bottom half_width">
 		Search for:
 		<c:if test="${isSearchString}">
 			<input name="searchstring" id="searchstring" class="autosearch"
@@ -42,16 +31,48 @@
 			<input name="searchstring" id="searchstring" class="autosearch"
 				type="text" value="${container.getSearchString()}">
 		</c:if>
-
-		<p>
-		<div style="float: right">
-			<input type="submit" value="Search">
-		</div>
+		<input type="submit" value="Search">
 	</form>
-	<p>
-	<p>
-		<br> <br>
 	<div id="result">
+		<div id="res_per_page" class="pagination half_width">
+			<span id="res_per_page_label"><spring:message code="label.trips.resultsperpage" />
+			:</span>
+			<ul class="bootpag">
+				<c:if test="${resultsPerPage!=10}">
+					<li><a
+						href="?pageNumber=1&resultsPerPage=10&searchstring=${encoder.encode(
+						container.getSearchString())}&orderByParam=${encoder.encode(
+						container.getOrderByParam())}&orderByDirection=${encoder.encode(
+						container.getOrderByDirection())}">
+							10</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==10}">
+					<li class="disabled"><a href="javascript:void(0);">10</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage!=20}">
+					<li><a
+						href="?pageNumber=1&resultsPerPage=20&searchstring=${encoder.encode(
+						container.getSearchString())}&orderByParam=${encoder.encode(
+						container.getOrderByParam())}&orderByDirection=${encoder.encode(
+						container.getOrderByDirection())}">
+							20</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==20}">
+					<li class="disabled"><a href="javascript:void(0);">20</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage!=50}">
+					<li><a
+						href="?pageNumber=1&resultsPerPage=50&searchstring=${encoder.encode(
+						container.getSearchString())}&orderByParam=${encoder.encode(
+						container.getOrderByParam())}&orderByDirection=${encoder.encode(
+						container.getOrderByDirection())}">
+							50</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==50}">
+					<li class="disabled"><a href="javascript:void(0);">50</a></li>
+				</c:if>
+			</ul>
+		</div>
 		<table class='table'>
 			<thead>
 				<tr>
@@ -90,13 +111,12 @@
 					<tr>
 						<td align="center">${station.getStationCode()}</td>
 						<td align="center">${station.getStationName()}</td>
-						<td align="center"><a
-							href="stationEdit/${station.getStationId()}"> <input
-								id="edit" type="button" name="edit"
+						<td align="center"><a href="stationEdit/${station.getStationId()}">
+					    	<input id="edit" type="button" name="edit"
 								value="<spring:message code="label.stations.edit"/>">
 						</a></td>
-						<td align="center"><a href="delete/${station.getStationId()}"><input
-								id="delete" type="button" name="delete"
+						<td align="center"><a href="delete/${station.getStationId()}">
+							<input id="delete" type="button" name="delete"
 								onclick="return confirm_delete()"
 								value="<spring:message code="label.stations.delete"/>">
 						</a></td>
@@ -112,7 +132,7 @@
 						container.getSearchString())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
-							Â« </a></li>
+							« </a></li>
 					<li class="prev"><a
 						href="?pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&orderByDirection=${encoder.encode(
@@ -121,8 +141,8 @@
 					</a></li>
 				</c:if>
 				<c:if test="${pageNumber==1}">
-					<li class="prev disabled"><a href="javascript:void(0);">
-							Â« </a></li>
+					<li class="prev disabled"><a href="javascript:void(0);"> «
+					</a></li>
 					<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
 								code="label.prev" />
 					</a></li>
@@ -156,59 +176,18 @@
 						container.getSearchString())}&orderByParam=${encoder.encode(
 						container.getOrderByParam())}&orderByDirection=${encoder.encode(
 						container.getOrderByDirection())}">
-							Â» </a></li>
+							» </a></li>
 				</c:if>
 				<c:if test="${pageNumber==maxPages}">
 					<li class="next disabled"><a href="javascript:void(0);"> <spring:message
 								code="label.next" />
 					</a></li>
-					<li class="next disabled"><a href="javascript:void(0);">
-							Â» </a></li>
-				</c:if>
-			</ul>
-			<p>
-			<p>
-				<br>
-				<spring:message code="label.trips.resultsperpage" />
-				:
-			<ul class="bootpag">
-				<c:if test="${resultsPerPage!=10}">
-					<li><a
-						href="?pageNumber=$1&resultsPerPage=10&searchstring=${encoder.encode(
-						container.getSearchString())}&orderByParam=${encoder.encode(
-						container.getOrderByParam())}&orderByDirection=${encoder.encode(
-						container.getOrderByDirection())}">
-							10</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==10}">
-					<li class="disabled"><a href="javascript:void(0);">10</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage!=20}">
-					<li><a
-						href="?pageNumber=1&resultsPerPage=20&searchstring=${encoder.encode(
-						container.getSearchString())}&orderByParam=${encoder.encode(
-						container.getOrderByParam())}&orderByDirection=${encoder.encode(
-						container.getOrderByDirection())}">
-							20</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==20}">
-					<li class="disabled"><a href="javascript:void(0);">20</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage!=50}">
-					<li><a
-						href="?pageNumber=1&resultsPerPage=50&searchstring=${encoder.encode(
-						container.getSearchString())}&orderByParam=${encoder.encode(
-						container.getOrderByParam())}&orderByDirection=${encoder.encode(
-						container.getOrderByDirection())}">
-							50</a></li>
-				</c:if>
-				<c:if test="${resultsPerPage==50}">
-					<li class="disabled"><a href="javascript:void(0);">50</a></li>
+					<li class="next disabled"><a href="javascript:void(0);"> »
+					</a></li>
 				</c:if>
 			</ul>
 		</div>
 	</div>
-	<hr />
 	<script type="text/javascript">
 		$(window)
 				.load(
