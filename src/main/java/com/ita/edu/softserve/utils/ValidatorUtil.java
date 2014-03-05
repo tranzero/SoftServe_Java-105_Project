@@ -1,5 +1,6 @@
 package com.ita.edu.softserve.utils;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,6 +76,24 @@ public final class ValidatorUtil {
 		}
 	}
 
+	/**
+	 * Method gets time from given stringt
+	 * 
+	 * @param timeString
+	 *            string representation of time to check
+	 * @param defualtString
+	 *            externally checked correct string for case when the given
+	 *            string is not in correct format
+	 * @return result
+	 */
+	public static Time getTime(String timeString, String defualtString) {
+		try {
+			return ParseUtil.parseStringToTime(timeString);
+		} catch (Exception e) {
+			return ParseUtil.parseStringToTime(defualtString);
+		}
+	}
+	
 	/**
 	 * Checks if given string is empty or null
 	 * 

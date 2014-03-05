@@ -131,3 +131,15 @@ a.news_read_more:link {
         vertical-align: middle;
 	background: linear-gradient(center top , #3E779D, #65A9D7) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
+.detailsbutton {
+	font-family: inherit;
+    padding: 0.5em 1em;
+    color: #444; 
+    color: rgba(0, 0, 0, 0.80); 
+    border: 1px solid #999;  
+    background-color: #E6E6E6;
+    text-decoration: none;
+    border-radius: 2px;
+    min-width: 80px;
+    font-size: 0.9em;
+}

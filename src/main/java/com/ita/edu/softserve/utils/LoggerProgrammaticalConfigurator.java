@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 @Component("loggerProgrammaticalConfigurator")
 public class LoggerProgrammaticalConfigurator {
-
+	
+	private String logName = "FileLogger";
+	
 	private ConsoleAppender consoleAppender = null;
 	private String consoleAppenderPatternString = "%-5p: %c - %m%n";
 	private Level consoleAppenderLevel = Level.INFO;
@@ -45,7 +47,7 @@ public class LoggerProgrammaticalConfigurator {
 
 		// Preparing file appender
 		fileAppender = new DailyRollingFileAppender();
-		fileAppender.setName("FileLogger");
+		fileAppender.setName(logName);
 		fileAppender.setFile(logsPath + fileNameString);
 		fileAppender.setLayout(new PatternLayout(fileAppenderPatternString));
 		fileAppender.setThreshold(fileAppenderLevel);
@@ -67,7 +69,7 @@ public class LoggerProgrammaticalConfigurator {
 		
 		// Preparing error file appender
 		fileErorAppender = new DailyRollingFileAppender();
-		fileErorAppender.setName("FileLogger");
+		fileErorAppender.setName(logName);
 		fileErorAppender.setFile(logsPath + fileErrorNameString);
 		fileErorAppender.setLayout(new PatternLayout(fileAppenderPatternString));
 		fileErorAppender.setThreshold(fileErrorAppenderLevel);
