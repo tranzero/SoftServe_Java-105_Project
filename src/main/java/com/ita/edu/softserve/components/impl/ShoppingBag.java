@@ -58,7 +58,7 @@ public class ShoppingBag implements Serializable {
 		tickets.clear();
 	}
 
-	@Scheduled(fixedDelay = 5000)
+	@Scheduled(fixedDelay = 900000000)
 	public void clear() {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
 

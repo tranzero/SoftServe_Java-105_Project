@@ -11,63 +11,53 @@
 	</h2>
 
 	<form:form method="post" action="userEdit.htm" commandName="user">
+		<fieldset>
 
-		<p>
 			<form:hidden path="userId" />
-		<p>
-			<spring:message code="label.users.firstName" />
-		</p>
 
+			<div class="data">
+				<label><spring:message code="label.users.firstName" />:</label>
+				<form:input type="text" path="firstName" onfocus="checkpostal()" />
+				<form:errors path="firstName" cssClass="error" />
+			</div>
+			<p>
+			<div class="data">
+				<label><spring:message code="label.users.lastName" />:</label>
 
-		<p>
-			<form:input type="text" path="firstName" onfocus="checkpostal()" />
-			<form:errors path="firstName" cssClass="error" />
-		</p>
+				<form:input type="text" path="lastName" onfocus="checkpostal()" />
+				<form:errors path="lastName" cssClass="error" />
+			</div>
+			<p>
+			<div class="data">
+				<label><spring:message code="label.users.email" />:</label>
 
+				<form:input type="text" path="email" onfocus="checkpostal()" />
+				<form:errors path="email" cssClass="error" />
+			</div>
+			<p>
+			<div class="data">
+				<label><spring:message code="label.users.password" />:</label>
+				<form:input type="password" path="password" onfocus="checkpostal()" />
+				<form:errors path="password" cssClass="error" />
+			</div>
+			<p>
+			<div class="data">
+				<label> <spring:message code="label.users.role" />:
+				</label>
+				<form:input type="text" path="role" onfocus="checkpostal()" />
+				<form:errors path="role" cssClass="error" />
+			</div>
+			<p>
+		</fieldset>
 		<p>
-			<spring:message code="label.users.lastName" />
-		</p>
-
-		<p>
-			<form:input type="text" path="lastName" onfocus="checkpostal()" />
-			<form:errors path="lastName" cssClass="error" />
-		</p>
-
-		<p>
-			<spring:message code="label.users.email" />
-		</p>
-
-		<p>
-			<form:input type="text" path="email" onfocus="checkpostal()" />
-			<form:errors path="email" cssClass="error" />
-		</p>
-
-		<p>
-			<spring:message code="label.users.password" />
-		</p>
-
-		<p>
-			<form:input type="password" path="password" onfocus="checkpostal()" />
-			<form:errors path="password" cssClass="error" />
-		</p>
-
-		<p>
-			<spring:message code="label.users.role" />
-			:
-		<p>
-			<form:input type="text" path="role" onfocus="checkpostal()" />
-			<form:errors path="role" cssClass="error" />
-		</p>
-
-		<p>
+		<div>
 			<input name="control" type="submit"
 				value="<spring:message code ="label.update" />" /> <input
 				type="button" value="<spring:message code="label.cancel"/>"
 				onclick="window.location='/SoftServe_Java-105/userlist';">
-		</p>
+		</div>
 
 	</form:form>
-
 
 	<script src="resources/js/jquery.js"></script>
 

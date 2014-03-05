@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
 	<h2>Lines Search</h2>
 	<form:form action="linesbystation" id="linebystation" method="get">
@@ -18,17 +18,31 @@
 	<div id="result">
 		<c:if test="${!empty linesbystationlist}">
 			<hr />
-			<table>
-
-				<c:forEach var="lines" items="${linesbystationlist}">
-					<tr>
-						<td id="generate"></td>
-						<td>${lines.getLineName()}</td>
-						<td><a href="stationsoncertainline/${lines.getLineName()}">Show
-								stations</a></td>
-					</tr>
-				</c:forEach>
-			</table>
+		<table>
+		<thead>
+			<tr>
+				<td>Number</td>
+				<td><spring:message code="label.lines.linename" /> <a
+					href="javascript:void(0);"
+					onclick="showLinesByStationPage('${param.stationName}',${pageNumber},${resultsPerPage}, '1')"><img
+						alt="^" src="resources/images/downarrow.png"></a> <a
+					href="javascript:void(0);"
+					onclick="showLinesByStationPage('${param.stationName}',${pageNumber},${resultsPerPage}, '2')"><img
+						alt="^" src="resources/images/uparrow.png"></a></td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="lines" items="${linesbystationlist}">
+			<tr>
+				<td id="generate"></td>
+				<td>${lines.getLineName()}</td>
+				<td><a href="stationsoncertainline/${lines.getLineName()}">Show
+						stations</a></td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
 			<hr />
 		</c:if>
 		<c:if test="${empty linesbystationlist && not empty param.stationName}">
@@ -39,10 +53,10 @@
 				<ul class="bootpag">
 					<c:if test="${pageNumber>1}">
 						<li class="prev"><a
-							href="?stationName=${param.stationName}&pageNumber=1&resultsPerPage=${resultsPerPage}">
+							href="?stationName=${param.stationName}&pageNumber=1&resultsPerPage=${resultsPerPage}&sortOrder=${param.sortOrder}">
 								« </a></li>
 						<li class="prev"><a
-							href="?stationName=${param.stationName}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+							href="?stationName=${param.stationName}&pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}&sortOrder=${param.sortOrder}">
 								<spring:message code="label.prev" />
 						</a></li>
 					</c:if>
@@ -57,7 +71,7 @@
 						varStatus="status">
 						<c:if test="${pageNumber!=i}">
 							<li><a
-								href="?stationName=${param.stationName}&pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+								href="?stationName=${param.stationName}&pageNumber=${i}&resultsPerPage=${resultsPerPage}&sortOrder=${param.sortOrder}">
 									${i} </a></li>
 						</c:if>
 						<c:if test="${pageNumber==i}">
@@ -68,11 +82,11 @@
 
 					<c:if test="${pageNumber<maxPages}">
 						<li class="next"><a
-							href="?stationName=${param.stationName}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+							href="?stationName=${param.stationName}&pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}&sortOrder=${param.sortOrder}">
 								<spring:message code="label.next" />
 						</a></li>
 						<li class="next"><a
-							href="?stationName=${param.stationName}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+							href="?stationName=${param.stationName}&pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}&sortOrder=${param.sortOrder}">
 								» </a></li>
 					</c:if>
 					<c:if test="${pageNumber==maxPages}">
@@ -89,7 +103,7 @@
 	<c:if test="${not empty param.stationName}">
 		<script>
 			function showLinesByStationPage(stationName_, pageNumber_,
-					resultsPerPage_) {
+					resultsPerPage_, sortOrder_) {
 
 				if (stationName_ == "") {
 					return;
@@ -108,7 +122,8 @@
 									data : {
 										stationName : stationName_,
 										pageNumber : pageNumber_,
-										resultsPerPage : resultsPerPage_
+										resultsPerPage : resultsPerPage_,
+										sortOrder: sortOrder_
 									}
 								}).done(function(msg) {
 							$("div#result").html(msg);
@@ -119,7 +134,7 @@
 			$(window).load(
 					function() {
 						showLinesByStationPage("${param.stationName}",
-								"${pageNumber}", "${resultsPerPage}");
+								"${pageNumber}", "${resultsPerPage}", "${param.sortOrder}");
 					});
 		</script>
 
