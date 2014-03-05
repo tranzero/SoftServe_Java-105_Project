@@ -19,14 +19,14 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 
 @Controller
 public class TripsController {
-	
-	
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -151,6 +151,12 @@ public class TripsController {
 	private static final String IS_ROUTE_NAME_ATTRIBUTE_NAME = "isRouteName";
 
 	/**
+	 * name for showing route code attribute name
+	 */
+	private static final String IS_ROUTE_CODE_ATTRIBUTE_NAME = "isRouteName";
+	
+	
+	/**
 	 * name for showing Class1 places count attribute name
 	 */
 	private static final String IS_CLASS1_ATTRIBUTE_NAME = "isClass1";
@@ -163,28 +169,26 @@ public class TripsController {
 	 */
 	private static final String IS_CLASS3_ATTRIBUTE_NAME = "isClass3";
 
-	
 	/**
 	 * name for showing minimal date count attribute name
 	 */
 	private static final String IS_MIN_DATE_ATTRIBUTE_NAME = "isMinDate";
-	
+
 	/**
 	 * name for showing minimal date count attribute name
 	 */
 	private static final String IS_MAX_DATE_ATTRIBUTE_NAME = "isMaxDate";
-	
-	
+
 	/**
 	 * name for criteria container attribute name
 	 */
 	private static final String CRITERIA_CONTAINER_ATTRIBUTE_NAME = "container";
-	
+
 	/**
 	 * name for encoder attribute name
 	 */
 	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
-	
+
 	/**
 	 * Field for using trips-related controller-level methods
 	 */
@@ -198,7 +202,7 @@ public class TripsController {
 
 	@Autowired
 	private TransportsManager transportsManager;
-	
+
 	/**
 	 * Container of trips search and sorting information
 	 */
@@ -210,7 +214,7 @@ public class TripsController {
 
 	@Autowired
 	Encoder encoder;
-	
+
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -224,28 +228,41 @@ public class TripsController {
 	 *            Model map to fill
 	 */
 	private void putFillElementsOptions(
-			TripsCriteriaContainer tripsCriteriaContainer,
+			TripsCriteriaContainer container,
 			Map<String, Object> modelMap) {
 		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(tripsCriteriaContainer.getTransportCode()));
+				.isEmptyString(container.getTransportCode()));
 		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(tripsCriteriaContainer.getRouteName()));
+				.isEmptyString(container.getRouteName()));
 		modelMap.put(IS_CLASS1_ATTRIBUTE_NAME,
-				(tripsCriteriaContainer.getRemSeatClass1() == null)
-						|| (tripsCriteriaContainer.getRemSeatClass1() < 0));
+				(container.getRemSeatClass1() == null)
+						|| (container.getRemSeatClass1() < 0));
 		modelMap.put(IS_CLASS2_ATTRIBUTE_NAME,
-				(tripsCriteriaContainer.getRemSeatClass2() == null)
-						|| (tripsCriteriaContainer.getRemSeatClass2() < 0));
+				(container.getRemSeatClass2() == null)
+						|| (container.getRemSeatClass2() < 0));
 		modelMap.put(IS_CLASS3_ATTRIBUTE_NAME,
-				(tripsCriteriaContainer.getRemSeatClass3() == null)
-						|| (tripsCriteriaContainer.getRemSeatClass3() < 0));
+				(container.getRemSeatClass3() == null)
+						|| (container.getRemSeatClass3() < 0));
 		modelMap.put(IS_MIN_DATE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(tripsCriteriaContainer.getMinDate()));
+				.isEmptyString(container.getMinDate()));
 		modelMap.put(IS_MAX_DATE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(tripsCriteriaContainer.getMaxDate()));
+				.isEmptyString(container.getMaxDate()));
 
 	}
 
+	
+	private void putFillAddTripsElementsOptions(TransportForAddTripsCriteriaContainer container,
+			Map<String, Object> modelMap){
+		
+		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME, ValidatorUtil
+				.isEmptyString(container.getTransportCode()));
+		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME, ValidatorUtil
+				.isEmptyString(container.getRouteName()));
+		modelMap.put(IS_ROUTE_CODE_ATTRIBUTE_NAME, ValidatorUtil
+				.isEmptyString(container.getRoutesCode()));
+		
+	}
+	
 	/**
 	 * Method for filling model map used in transports-list related controllers
 	 * 
@@ -259,11 +276,15 @@ public class TripsController {
 	 *            Used spring locale
 	 */
 
-	private void completeMapForAddTrip(Integer pageNumber,
-			Integer resultsPerPage, Map<String, Object> modelMap, Locale locale) {
-		long count = transportsManager.getTransportsListCount();
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
-				resultsPerPage, count);
+	private void completeMapForAddTrip(
+			PageInfoContainer container,
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
+			Map<String, Object> modelMap, Locale locale) {
+		putFillAddTripsElementsOptions(transportForAddTripsCriteriaContainer, modelMap);
+		transportsManager.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
+		
+		long count = transportsManager.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
+		container.setCount(count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 
@@ -286,11 +307,9 @@ public class TripsController {
 	 *            Used spring locale
 	 */
 
-	private void completeMapForTrips(
-			PageInfoContainer container,
+	private void completeMapForTrips(PageInfoContainer container,
 			TripsCriteriaContainer tripsCriteriaContainer,
-			Map<String, Object> modelMap, Locale locale
-			) {
+			Map<String, Object> modelMap, Locale locale) {
 		putFillElementsOptions(tripsCriteriaContainer, modelMap);
 		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
 		long count = tripsManager
@@ -328,13 +347,10 @@ public class TripsController {
 	 */
 
 	@RequestMapping(value = TRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
-	public String printTripsPage(
-			PageInfoContainerImpl container,
+	public String printTripsPage(PageInfoContainerImpl container,
 			TripsCriteriaContainerImpl tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(container,
-				tripsCriteriaContainer, modelMap,
-				locale);
+		completeMapForTrips(container, tripsCriteriaContainer, modelMap, locale);
 		return TRIPSPAGE_SPRING_NAME;
 	}
 
@@ -353,13 +369,10 @@ public class TripsController {
 	 */
 
 	@RequestMapping(value = TRIPS_WEB_NAME, method = RequestMethod.GET)
-	public String printTrips(
-			PageInfoContainerImpl container,
+	public String printTrips(PageInfoContainerImpl container,
 			TripsCriteriaContainerImpl tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(container,
-				tripsCriteriaContainer, modelMap,
-				locale);
+		completeMapForTrips(container, tripsCriteriaContainer, modelMap, locale);
 		return TRIPS_SPRING_NAME;
 	}
 
@@ -377,13 +390,10 @@ public class TripsController {
 	 * @return definition of jsp to use
 	 */
 	@RequestMapping(value = MANAGETRIPSPAGE_WEB_NAME, method = RequestMethod.GET)
-	public String printManageTripsPage(
-			PageInfoContainerImpl container,
+	public String printManageTripsPage(PageInfoContainerImpl container,
 			TripsCriteriaContainerImpl tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(container,
-				tripsCriteriaContainer, modelMap,
-				locale);
+		completeMapForTrips(container, tripsCriteriaContainer, modelMap, locale);
 		return MANAGETRIPSPAGE_SPRING_NAME;
 	}
 
@@ -402,13 +412,10 @@ public class TripsController {
 	 */
 
 	@RequestMapping(value = MANAGETRIPS_WEB_NAME, method = RequestMethod.GET)
-	public String printManageTrips(
-			PageInfoContainerImpl container,
+	public String printManageTrips(PageInfoContainerImpl container,
 			TripsCriteriaContainerImpl tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForTrips(container,
-				tripsCriteriaContainer, modelMap,
-				locale);
+		completeMapForTrips(container, tripsCriteriaContainer, modelMap, locale);
 		return MANAGETRIPS_SPRING_NAME;
 	}
 
@@ -428,10 +435,10 @@ public class TripsController {
 
 	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
 	public String printAddTrips(
-			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
-			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			PageInfoContainerImpl container,
+			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer, modelMap, locale);
 		return ADDTRIP_SPRING_NAME;
 	}
 
@@ -451,10 +458,10 @@ public class TripsController {
 
 	@RequestMapping(value = ADDTRIPPAGE_WEB_NAME, method = RequestMethod.GET)
 	public String printAddTripsPage(
-			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
-			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
+			PageInfoContainerImpl container,
+			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForAddTrip(pageNumber, resultsPerPage, modelMap, locale);
+		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer, modelMap, locale);
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
 
@@ -473,18 +480,19 @@ public class TripsController {
 			@ModelAttribute(TO_ATTRIBUTE_NAME) String maxDate,
 			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
 		if (transportId == null) {
-			completeMapForAddTrip(null, null, modelMap, locale);
+			// completeMapForAddTrip(null, null, modelMap, locale);
 			modelMap.put(ERRORMARK, true);
 			return ADDTRIP_SPRING_NAME;
 		}
 		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
 				transportId)) {
 
-			//completeMapForTrips(null, null, null, null, null, null, null, null,
-			//		null, null, null, modelMap, locale);
+			// completeMapForTrips(null, null, null, null, null, null, null,
+			// null,
+			// null, null, null, modelMap, locale);
 			return MANAGETRIPS_SPRING_NAME;
 		} else {
-			completeMapForAddTrip(null, null, modelMap, locale);
+			// completeMapForAddTrip(null, null, modelMap, locale);
 			modelMap.put(ERRORMARK, true);
 			return ADDTRIP_SPRING_NAME;
 		}

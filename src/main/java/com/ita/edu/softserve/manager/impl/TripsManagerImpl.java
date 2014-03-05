@@ -78,8 +78,8 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getRemSeatClass1(),
 				tripsCriteriaContainer.getRemSeatClass2(),
 				tripsCriteriaContainer.getRemSeatClass3(),
-				tripsCriteriaContainer.getMinDate(),
-				tripsCriteriaContainer.getMaxDate());
+				tripsCriteriaContainer.getMinDateValue(),
+				tripsCriteriaContainer.getMaxDateValue());
 	}
 	
 
@@ -104,8 +104,8 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getRemSeatClass1(),
 				tripsCriteriaContainer.getRemSeatClass2(),
 				tripsCriteriaContainer.getRemSeatClass3(),
-				tripsCriteriaContainer.getMinDate(),
-				tripsCriteriaContainer.getMaxDate(),
+				tripsCriteriaContainer.getMinDateValue(),
+				tripsCriteriaContainer.getMaxDateValue(),
 				tripsCriteriaContainer.getOrderByParam(),
 				tripsCriteriaContainer.getOrderByDirection());
 	}
