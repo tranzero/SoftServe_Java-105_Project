@@ -106,7 +106,6 @@ public class TicketController {
 	private Validator ticketValidator;
 
 	
-
 	
 	@RequestMapping(value = RESERVATION_TICKET_URL, method = RequestMethod.GET)
 	public String reservationTicket(@PathVariable(TRIP_ID) Integer tripId,

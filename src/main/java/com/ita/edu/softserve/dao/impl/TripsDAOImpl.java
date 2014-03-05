@@ -104,33 +104,39 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 	
 	@Override
 	public void reduceRemSeaatClass1(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS1).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1-1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 	
 	@Override
 	public void reduceRemSeaatClass2(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS2).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2-1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 	
 	@Override
 	public void reduceRemSeaatClass3(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS3).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3-1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 	
 	@Override
 	public void increaseRemSeaatClass1(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS1).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1+1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 	
 	@Override
 	public void increaseRemSeaatClass2(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS2).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2+1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 		
 	}
 	
 	@Override
 	public void increaseRemSeaatClass3(Integer tripId){
-		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS3).setParameter(1, tripId);
+		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3+1 WHERE t.tripId = :p");
+		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 
 }
