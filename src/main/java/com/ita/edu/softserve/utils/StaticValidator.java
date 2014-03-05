@@ -120,11 +120,11 @@ public class StaticValidator {
 				.defaultForNull(tripsCriteriaContainer.getRemSeatClass2(), -1));
 		tripsCriteriaContainer.setRemSeatClass3((Integer) ValidatorUtil
 				.defaultForNull(tripsCriteriaContainer.getRemSeatClass3(), -1));
-		tripsCriteriaContainer.setMinDate(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMinDateString(), locale,
+		tripsCriteriaContainer.setMinDateValue(ValidatorUtil.getDateWithFormat(
+				tripsCriteriaContainer.getMinDate(), locale,
 				MIN_DATE_STRING));
-		tripsCriteriaContainer.setMaxDate(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMaxDateString(), locale,
+		tripsCriteriaContainer.setMaxDateValue(ValidatorUtil.getDateWithFormat(
+				tripsCriteriaContainer.getMaxDate(), locale,
 				MAX_DATE_STRING));
 	}
 

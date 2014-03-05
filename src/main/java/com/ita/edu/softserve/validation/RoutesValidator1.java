@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.validation;
 
 import java.sql.Time;
 
@@ -16,7 +16,7 @@ import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.ParseUtil;
 
 @Component("routesValidator")
-public class RoutesValidator  implements Validator  {
+public class RoutesValidator1  implements Validator  {
 	public static final String ROUTE_CODE_PATERN = "^[a-zA-Z0-9]{10,15}$";
 
 	private static final String ROUTE_CODE = "routeCode";

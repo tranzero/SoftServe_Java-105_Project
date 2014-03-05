@@ -1,7 +1,8 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.propertyeditors;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
-import static com.ita.edu.softserve.web.TransportsValidator.*;
+import static com.ita.edu.softserve.validation.TransportsValidator.*;
+
 import java.beans.PropertyEditorSupport;
 import java.text.DateFormat;
 import java.util.Date;

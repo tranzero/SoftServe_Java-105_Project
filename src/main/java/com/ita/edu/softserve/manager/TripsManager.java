@@ -52,7 +52,7 @@ public interface TripsManager extends BaseManager {
 	 * @return Result list
 	 */
 
-	public List<Trips> getTripsForPage(int pageNumber, int count);
+	List<Trips> getTripsForPage(int pageNumber, int count);
 
 	/**
 	 * Adds trips for transport and date interval
@@ -68,7 +68,7 @@ public interface TripsManager extends BaseManager {
 	 * @return confirmation of success operation
 	 */
 
-	public boolean addTripsInInterval(Locale locale, String minDate,
+	boolean addTripsInInterval(Locale locale, String minDate,
 			String maxDate, int transportId);
 
 	/**
@@ -186,8 +186,8 @@ public interface TripsManager extends BaseManager {
 			TripsCriteriaContainer tripsCriteriaContainer,
 			PageInfoContainer container);
 
-	public Trips findByTripId(Integer id);
+	Trips findByTripId(Integer id);
 	
-	public void updateTrip(Trips trip);
+	void updateTrip(Trips trip);
 
 }
