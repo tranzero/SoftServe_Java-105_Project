@@ -4,6 +4,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<div id="res_per_page" class="pagination half_width">
+	<span id="res_per_page_label"><spring:message
+			code="label.trips.resultsperpage" /> :</span>
+	<ul class="bootpag">
+		<c:if test="${resultsPerPage!=10}">
+			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==10}">
+			<li class="disabled"><a href="javascript:void(0);">10</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=20}">
+			<li><a href="javascript:void(0);" id="resultsPerPage20">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==20}">
+			<li class="disabled"><a href="javascript:void(0);">20</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage!=50}">
+			<li><a href="javascript:void(0);" id="resultsPerPage50">50</a></li>
+		</c:if>
+		<c:if test="${resultsPerPage==50}">
+			<li class="disabled"><a href="javascript:void(0);">50</a></li>
+		</c:if>
+	</ul>
+</div>
 <table class='table'>
 	<thead>
 		<tr>
@@ -23,8 +47,7 @@
 						alt="v" src="resources/images/uparrow.png">
 					</a>
 				</div></th>
-			<th></th>
-			<th></th>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -49,14 +72,13 @@
 	<ul class="bootpag">
 		<c:if test="${pageNumber>1}">
 			<li class="prev"><a href="javascript:void(0);" id="firstpage">
-					Â« </a></li>
+					« </a></li>
 			<li class="prev"><a href="javascript:void(0);" id="prevpage">
 					<spring:message code="label.prev" />
 			</a></li>
 		</c:if>
 		<c:if test="${pageNumber==1}">
-			<li class="prev disabled"><a href="javascript:void(0);"> Â«
-			</a></li>
+			<li class="prev disabled"><a href="javascript:void(0);"> « </a></li>
 			<li class="prev disabled"><a href="javascript:void(0);"> <spring:message
 						code="label.prev" />
 			</a></li>
@@ -76,43 +98,15 @@
 					<spring:message code="label.next" />
 			</a></li>
 			<li class="next"><a href="javascript:void(0);" id="lastpage">
-					Â» </a></li>
+					» </a></li>
 		</c:if>
 		<c:if test="${pageNumber==maxPages}">
 			<li class="next disabled"><a href="javascript:void(0);"> <spring:message
 						code="label.next" />
 			</a></li>
-			<li class="next disabled"><a href="javascript:void(0);"> Â»
-			</a></li>
+			<li class="next disabled"><a href="javascript:void(0);"> » </a></li>
 		</c:if>
 	</ul>
-
-	<p>
-	<p>
-		<br>
-		<spring:message code="label.trips.resultsperpage" />
-		:
-	<ul class="bootpag">
-		<c:if test="${resultsPerPage!=10}">
-			<li><a href="javascript:void(0);" id="resultsPerPage10">10</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==10}">
-			<li class="disabled"><a href="javascript:void(0);">10</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage!=20}">
-			<li><a href="javascript:void(0);" id="resultsPerPage20">20</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==20}">
-			<li class="disabled"><a href="javascript:void(0);">20</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage!=50}">
-			<li><a href="javascript:void(0);" id="resultsPerPage50">50</a></li>
-		</c:if>
-		<c:if test="${resultsPerPage==50}">
-			<li class="disabled"><a href="javascript:void(0);">50</a></li>
-		</c:if>
-	</ul>
-
 </div>
 
 <script>
