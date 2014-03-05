@@ -72,20 +72,10 @@ public interface LinesManager extends BaseManager {
 
 	public List<Lines> getLinesByStationName(String stationName);
 
-	/**
-	 * @author MatyashPetro
-	 * @return size of list with all lines
-	 */
-	public long getLinesListCount();
+	long getAllLinesCount();
 
-	/**
-	 * @author MatyashPetro
-	 * @param from
-	 *            from what element will be start next list
-	 * @param count
-	 *            how match elements will be in the list
-	 * @return List of lines
-	 */
-	public List<Lines> getLinesForPage(int from, int count);
+	List<Lines> getAllLinesForLimit(int firstElement, int count, int sortOrder);
+
+	List<Lines> getAllLinesForPage(int pageNumber, int count, int sortOrder);
 	
 }

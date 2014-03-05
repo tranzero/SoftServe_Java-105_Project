@@ -79,7 +79,7 @@ public class UserController {
 			return "userEdit";
 		}
 		usersmanage.updateTheUserData(user);
-		return "redirect:/userlist2";
+		return "redirect:/userlist";
 	}
 
 	/**

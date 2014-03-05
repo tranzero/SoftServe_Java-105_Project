@@ -19,13 +19,21 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "`lines`")
 @NamedQueries({
 	@NamedQuery(name = Lines.GET_LINES_LIST_FOR_PAGING, query = Lines.GET_LINES_LIST_FOR_PAGING_QUERY),
-	@NamedQuery(name = Lines.GET_LINES_LIST_COUNT, query = Lines.GET_LINES_LIST_QUERY_COUNT),
+	
+		
 		@NamedQuery(name = Lines.FIND_BY_NAME, query = Lines.FIND_BY_NAME_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME, query = Lines.FIND_BY_STATION_NAME_QUERY),
+		
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_ASC, query = Lines.FIND_BY_STATION_NAME_ASC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_DESC, query = Lines.FIND_BY_STATION_NAME_DESC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_COUNT, query = Lines.FIND_BY_STATION_NAME_COUNT_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_STATION_NAME_FOR_PAGING, query = Lines.FIND_BY_STATION_NAME_FOR_PAGING_QUERY),
+		
+		@NamedQuery(name = Lines.FIND_ALL_LINES, query = Lines.FIND_ALL_LINES_QUERY),
+		@NamedQuery(name = Lines.FIND_ALL_LINES_ASC, query = Lines.FIND_ALL_LINES_ASC_QUERY),
+		@NamedQuery(name = Lines.FIND_ALL_LINES_DESC, query = Lines.FIND_ALL_LINES_DESC_QUERY),		
+		@NamedQuery(name = Lines.GET_ALL_LINES_COUNT, query = Lines.GET_ALL_LINES_COUNT_QUERY),
+		
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS, query = Lines.FIND_BY_TWO_STATIONS_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS_ASC, query = Lines.FIND_BY_TWO_STATIONS_ASC_QUERY),
 		@NamedQuery(name = Lines.FIND_BY_TWO_STATIONS_DESC, query = Lines.FIND_BY_TWO_STATIONS_DESC_QUERY),
@@ -38,9 +46,6 @@ public class Lines extends BaseEntity {
 	
 	public static final String GET_LINES_LIST_FOR_PAGING = "Lines.findLinesListForPaging";
 	public static final String GET_LINES_LIST_FOR_PAGING_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId";
-	
-	public static final String GET_LINES_LIST_COUNT = "Lines.findLinesListCount";
-	public static final String GET_LINES_LIST_QUERY_COUNT = "SELECT COUNT (ln.lineId) from Lines ln";
 	
 	public static final String FIND_BY_STATION_NAME = "Lines.findByStationName";
 	public static final String FIND_BY_STATION_NAME_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1";
@@ -56,6 +61,20 @@ public class Lines extends BaseEntity {
 	
 	public static final String FIND_BY_STATION_NAME_FOR_PAGING = "Lines.findByStationNameForPaging";
 	public static final String FIND_BY_STATION_NAME_FOR_PAGING_QUERY = "select l from StationsOnLine stln inner join stln.lineId as l inner join stln.stationId as s where s.stationName = ?1 ORDER BY l.lineId";
+	
+	public static final String FIND_ALL_LINES = "Lines.findAllLines";
+	public static final String FIND_ALL_LINES_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineId";
+	
+	public static final String FIND_ALL_LINES_ASC = "Lines.findAllLinesASC";
+	public static final String FIND_ALL_LINES_ASC_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineName ASC";
+	
+	public static final String FIND_ALL_LINES_DESC = "Lines.findAllLinesDESC";
+	public static final String FIND_ALL_LINES_DESC_QUERY = "SELECT ln from Lines ln ORDER BY ln.lineName DESC";
+	
+	public static final String GET_ALL_LINES_COUNT = "Lines.getAllLinesCount";
+	public static final String GET_ALL_LINES_COUNT_QUERY= "SELECT COUNT (ln.lineId) from Lines ln";
+	
+	
 	
 	public static final String FIND_BY_TWO_STATIONS = "Lines.findByTwoStations";
 	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT line "

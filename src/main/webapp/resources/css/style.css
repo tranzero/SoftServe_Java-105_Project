@@ -92,6 +92,7 @@ div#error404 span#sub404 {
 
 /* TABLE STYLES */
 table {
+	clear: both;
 	counter-reset: n;
 	margin-left: auto;
 	margin-right: auto;
@@ -412,7 +413,7 @@ fieldset legend {
     box-shadow: 0 0 0 3px #aaa;
     margin-left: 20px;
 }
-label {
+fieldset div label {
   float:left;
   width:25%;
   margin-right:0.5em;
@@ -421,3 +422,15 @@ label {
   font-weight:bold;
 }
 
+.half_width {
+	width: 50%;
+	margin-bottom: -80px;
+}
+
+#res_per_page {
+	float: right;
+	margin-right: -100px;
+}
+#res_per_page_label {
+	vertical-align: 10px;
+}
