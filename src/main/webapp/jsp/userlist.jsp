@@ -11,7 +11,7 @@
 <!-- JS for confirm_delete_user -->
 <script type="text/javascript">
 	function confirm_delete_user() {
-		return confirm('Delete this User?');
+		return confirm('<spring:message code="msg.users.Delete_this_User" />');
 	}
 </script>
 
@@ -42,7 +42,7 @@
 	<form method="get">
 		<div class="pad_top_bottom">
 			<div class="group_c1">
-				<label for="searchstring">Search for:</label>
+				<label for="searchstring"><spring:message code="msg.users.searchFor" /></label>
 				<c:if test="${isSearchString}">
 					<input name="searchstring" id="searchstring" class="autosearch"
 						type="text">
@@ -107,7 +107,7 @@
 				</c:if>
 			</div>
 			<div id="btnFindUsers">
-				<input type="submit" value="User search">
+				<input type="submit" value="<spring:message code="msg.users.searchUser" />">
 			</div>
 		</div>
 	</form>
