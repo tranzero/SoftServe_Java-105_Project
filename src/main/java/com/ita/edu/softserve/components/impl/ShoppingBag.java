@@ -13,16 +13,13 @@ import org.springframework.stereotype.Component;
 
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.manager.TripsManager;
+import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
 
 @Component
 @Scope("session")
 public class ShoppingBag implements Serializable {
 
 	private static final long serialVersionUID = -4741144366790593201L;
-
-
-	@Autowired
-	TripsManager tripsManager;
 
 	private List<Tickets> tickets;
 
@@ -36,34 +33,21 @@ public class ShoppingBag implements Serializable {
 	}
 
 	public void addTicket(Tickets ticket) {
-
-		if (ticket.getSeatType().equals(1)) {
-
-			ticket.getTrip().setRemSeatClass1(ticket.getTrip().getRemSeatClass1() - 1);
-
-		}
-
-		if (ticket.getSeatType().equals(2)) {
-
-			ticket.getTrip().setRemSeatClass2(ticket.getTrip().getRemSeatClass2() - 1);
-
-		}
-
-		if (ticket.getSeatType().equals(3)) {
-
-			ticket.getTrip().setRemSeatClass3(ticket.getTrip().getRemSeatClass3() - 1);
-
-		}
-
-		tripsManager.updateTrip(ticket.getTrip());
+		TripsManager tripsManager = TripsManagerImpl.getInstance();
+		tripsManager.reduceFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
+		
 		tickets.add(ticket);
 	}
 
 	public void removeTicket(String ticketName,Integer tripId) {
+		
+		TripsManager tripsManager = TripsManagerImpl.getInstance();
 
 		for(Tickets ticket:tickets){
 			
 			if(ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)){
+				
+				tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
 				
 					tickets.remove(ticket);
 				
@@ -76,37 +60,26 @@ public class ShoppingBag implements Serializable {
 
 	@Scheduled(fixedDelay = 5000)
 	public void clear() {
-		System.out.println("scheduler");
+		TripsManager tripsManager = TripsManagerImpl.getInstance();
+
+		for(Tickets ticket:tickets){
+			
+			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
+				
+		}
 		tickets.clear();
 	}
 
 	@PreDestroy
 	public void preDestroy() {
-		for (Tickets ticket : tickets) {
+		TripsManager tripsManager = TripsManagerImpl.getInstance();
 
-			if (ticket.getSeatType().equals(1)) {
-
-				ticket.getTrip().setRemSeatClass1(ticket.getTrip().getRemSeatClass1() + 1);
-
-			}
-
-			if (ticket.getSeatType().equals(2)) {
-
-				ticket.getTrip().setRemSeatClass2(ticket.getTrip().getRemSeatClass2() + 1);
-
-			}
-
-			if (ticket.getSeatType().equals(3)) {
-
-				ticket.getTrip().setRemSeatClass3(ticket.getTrip().getRemSeatClass3() + 1);
-
-			}
-
-			tripsManager.updateTrip(ticket.getTrip());
+		for(Tickets ticket:tickets){
 			
+			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
+				
 		}
-		
 		tickets.clear();
-		System.out.println("destroy");
+		
 	}
 }
