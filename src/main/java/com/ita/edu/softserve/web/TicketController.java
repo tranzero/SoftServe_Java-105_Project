@@ -46,6 +46,14 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
+	private static final String LIST_OF_STATIONS_ON_LINE_URL = "/listOfStationsOnLine/{lineName}";
+
+	private static final String LINE_NAME = "lineName";
+
+	private static final String SEAT_TYPE = "seatType";
+
+	private static final String TICKET_NAME = "ticketName";
+
 	private static final String REDIRECT_TO_MAIN_PAGE = "redirect:/orders";
 
 	private static final String RESERVATION_TICKET_PAGE = "reservationTicket";
@@ -102,17 +110,14 @@ public class TicketController {
 	
 	@RequestMapping(value = RESERVATION_TICKET_URL, method = RequestMethod.GET)
 	public String reservationTicket(@PathVariable(TRIP_ID) Integer tripId,
-			@PathVariable(value= "seatType") Integer seatType,
+			@PathVariable(value= SEAT_TYPE) Integer seatType,
 			Model model) {
 	 
 		if(!(seatType.equals(1)) &&  !(seatType.equals(2)) && !(seatType.equals(3))){
 			return REDIRECT_TO_MAIN_PAGE;
 		}
 		else{
-//		modelMap.put("trip",tripsManager.findByTripId(tripId));
-//		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
-//		modelMap.put(TRIP_ID, tripId);
-//		modelMap.put("seatType", seatType);
+
 			model.addAttribute(TICKET, new Tickets());
 			model.addAttribute(TRIP,tripsManager.findByTripId(tripId));
 			model.addAttribute(TRANSPORT, tripsManager.findByTripId(tripId).getTransport());
@@ -124,7 +129,7 @@ public class TicketController {
 	@RequestMapping(value = ADD_TO_BAG_URL, method = RequestMethod.POST)
 	public String reservationTicketPost(@ModelAttribute( value = TICKET) Tickets ticket,
 			@PathVariable(TRIP_ID) Integer tripId,
-			@PathVariable(value= "seatType") Integer seatType,
+			@PathVariable(value= SEAT_TYPE) Integer seatType,
 			BindingResult result,
 			Map<String, Object> modelMap) {
 		
@@ -134,7 +139,7 @@ public class TicketController {
 			modelMap.put(TRIP,tripsManager.findByTripId(tripId));
 			modelMap.put(TRANSPORT, tripsManager.findByTripId(tripId).getTransport());
 			modelMap.put(TRIP_ID, tripId);
-			modelMap.put("seatType", seatType);
+			modelMap.put(SEAT_TYPE, seatType);
 
 
 			return RESERVATION_TICKET_PAGE;
@@ -150,8 +155,8 @@ public class TicketController {
 	}
 	
 	
-	@RequestMapping(value = "/listOfStationsOnLine/{lineName}", method = RequestMethod.GET)
-	public String stationsOnLine(@PathVariable("lineName") String lineName,
+	@RequestMapping(value = LIST_OF_STATIONS_ON_LINE_URL, method = RequestMethod.GET)
+	public String stationsOnLine(@PathVariable(LINE_NAME) String lineName,
 			Map<String, Object> modelMap) {
 
 		modelMap.put(LIST_OF_STATIONS_ON_LINE_PAGE, stationsManager.getStationsOnCertainLine(lineName));
@@ -194,7 +199,7 @@ public class TicketController {
 	
 	
 	@RequestMapping(value=DELETE_TICKET_URL, method=RequestMethod.GET)
-	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
+	public String deleteTciketFromBag(@PathVariable(value=TICKET_NAME) String ticketName,
 			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
