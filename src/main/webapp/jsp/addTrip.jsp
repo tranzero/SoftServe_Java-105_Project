@@ -152,9 +152,30 @@
 				<ul class="bootpag">
 					<c:if test="${pageNumber>1}">
 						<li class="prev"><a
-							href="?pageNumber=1&resultsPerPage=${resultsPerPage}"> « </a></li>
+							href="?pageNumber=1&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+								« </a></li>
 						<li class="prev"><a
-							href="?pageNumber=${pageNumber-1}&resultsPerPage=${resultsPerPage}">
+							href="?pageNumber=${pageNumber-1}&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
 								<spring:message code="label.prev" />
 						</a></li>
 					</c:if>
@@ -169,7 +190,17 @@
 						varStatus="status">
 						<c:if test="${pageNumber!=i}">
 							<li><a
-								href="?pageNumber=${i}&resultsPerPage=${resultsPerPage}">
+								href="?pageNumber=${i}&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
 									${i} </a></li>
 						</c:if>
 						<c:if test="${pageNumber==i}">
@@ -180,11 +211,31 @@
 
 					<c:if test="${pageNumber<maxPages}">
 						<li class="next"><a
-							href="?pageNumber=${pageNumber+1}&resultsPerPage=${resultsPerPage}">
+							href="?pageNumber=${pageNumber+1}&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
 								<spring:message code="label.next" />
 						</a></li>
 						<li class="next"><a
-							href="?pageNumber=${maxPages}&resultsPerPage=${resultsPerPage}">
+							href="?pageNumber=${maxPages}&resultsPerPage=${
+									resultsPerPage}&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
 								» </a></li>
 					</c:if>
 					<c:if test="${pageNumber==maxPages}">
@@ -195,7 +246,67 @@
 								» </a></li>
 					</c:if>
 				</ul>
+				
 			</div>
+			<p>
+			<p>
+				<br>
+				<spring:message code="label.trips.resultsperpage" />
+				:
+			<ul class="bootpag">
+				<c:if test="${resultsPerPage!=10}">
+					<li><a
+						href="?resultsPerPage=10&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+							10</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==10}">
+					<li class="disabled"><a href="javascript:void(0);">10</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage!=20}">
+					<li><a
+						href="?&resultsPerPage=20&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+							20</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==20}">
+					<li class="disabled"><a href="javascript:void(0);">20</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage!=50}">
+					<li><a
+						href="&resultsPerPage=50&transportCode=${encoder.encode(
+									container.getTransportCode())}&routeName=${encoder.encode(
+									container.getRouteName())}&routesCode=${encoder.encode(
+									container.getRoutesCode())}&seatClass1=${
+									container.getSeatClass1()}&seatClass2=${
+									container.getSeatClass2()}&seatClass3=${
+									container.getSeatClass3()}&priceName=${encoder.encode(
+									container.getPriceName())}&orderByCriteria=${encoder.encode(
+									container.getOrderByCriteria())}&orderByDirection=${encoder.encode(
+									container.getOrderByDirection())}">
+							50</a></li>
+				</c:if>
+				<c:if test="${resultsPerPage==50}">
+					<li class="disabled"><a href="javascript:void(0);">50</a></li>
+				</c:if>
+			</ul>
+			
 
 		</div>
 		<input type="submit"
