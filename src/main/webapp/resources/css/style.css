@@ -443,3 +443,20 @@ form#regForm {
 	font-size: 1.1em;
 	font-weight: 100;
 }
+
+#routesTrips {
+	width: 78%;
+}
+.clear {
+	clear: both;
+}
+.right {
+	float: right;
+}
+input#btnFindRoutes {
+	float: right;
+	margin-top: -70px;
+}
+.pad_right{
+	padding-right: 5px;
+}
