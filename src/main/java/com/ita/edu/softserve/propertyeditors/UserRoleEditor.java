@@ -1,14 +1,8 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.propertyeditors;
 
 import java.beans.PropertyEditorSupport;
 
-import org.springframework.stereotype.Component;
-import org.springframework.util.NumberUtils;
-import org.springframework.util.StringUtils;
-
 import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.manager.RoutesManager;
 
 /**
  * class UserRoleEditor

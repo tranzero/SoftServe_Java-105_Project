@@ -59,6 +59,9 @@ public interface RoutesManager extends BaseManager {
 	void createRoute(String lines, String routeCode, String stationStart,
 			String stationEnd);
 	
+	void updateRoute(Integer routeId, String lines, String routeCode, String stationStart,
+			String stationEnd);
+	
 	void createRoute(String lines, String routeCode);
 
 	void updateRoute(Integer routeId, String lines, String routeCode);

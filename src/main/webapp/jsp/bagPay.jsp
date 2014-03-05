@@ -58,10 +58,10 @@
 							{
 								rules : {
 
-									cartNumber : {
+									/* cartNumber : {
 										required : true,
 										creditcard : true,
-									},
+									}, */
 
 									firstName : {
 										required : true,
@@ -134,7 +134,7 @@
 							});
 			if (validator.form()) { // validation perform
 				$('form#myForm').attr({
-					action : 'mycontroller'
+					action : '/SoftServe_Java-105/bagPay'
 				});
 				$('form#myForm').submit();
 			}

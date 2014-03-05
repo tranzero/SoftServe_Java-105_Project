@@ -101,5 +101,36 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 				.setFirstResult(firstElement).setMaxResults(count);
 		return (List<Trips>) query.getResultList();
 	}
+	
+	@Override
+	public void reduceRemSeaatClass1(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS1).setParameter(1, tripId);
+	}
+	
+	@Override
+	public void reduceRemSeaatClass2(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS2).setParameter(1, tripId);
+	}
+	
+	@Override
+	public void reduceRemSeaatClass3(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.REDUCE_REMSEATCLASS3).setParameter(1, tripId);
+	}
+	
+	@Override
+	public void increaseRemSeaatClass1(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS1).setParameter(1, tripId);
+	}
+	
+	@Override
+	public void increaseRemSeaatClass2(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS2).setParameter(1, tripId);
+		
+	}
+	
+	@Override
+	public void increaseRemSeaatClass3(Integer tripId){
+		Query query = entityManager.createNamedQuery(Trips.INCREASE_REMSEATCLASS3).setParameter(1, tripId);
+	}
 
 }

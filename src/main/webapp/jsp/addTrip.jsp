@@ -33,7 +33,7 @@
 						<th><spring:message code="label.transport.transportcode" /></th>
 						<th><spring:message code="label.transport.starttime" /></th>
 						<th><spring:message code="label.routes.routecode" /></th>
-						<th><spring:message code="label.lines.linename" /></th>
+						<th><spring:message code="label.trips.routename" /></th>
 						<th><spring:message code="label.transport.seatclass1" /></th>
 						<th><spring:message code="label.transport.seatclass2" /></th>
 						<th><spring:message code="label.transport.seatclass3" /></th>
@@ -49,7 +49,7 @@
 							<td align="center">${transport.getTransportCode()}</td>
 							<td align="center">${transport.getStartTime()}</td>
 							<td align="center">${transport.getRoutes().getRouteCode()}</td>
-							<td align="center">${transport.getRoutes().getLineId().getLineName()}</td>
+							<td align="center">${transport.getRoutes().getRouteName()}</td>
 							<td align="center">${transport.getSeatclass1()}</td>
 							<td align="center">${transport.getSeatclass2()}</td>
 							<td align="center">${transport.getSeatclass3()}</td>
