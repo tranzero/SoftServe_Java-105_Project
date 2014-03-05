@@ -6,7 +6,23 @@
 
 
 <section id="content">
-
+	<script>
+		var defaultDomElement = "div#pagingcontent";
+		var defaultTargetPage = "addTripPage";
+		var defaultGetData = {
+			pageNumber : "${pageNumber}",
+			resultsPerPage : "${resultsPerPage}",
+			transportCode : "${container.getTransportCode()}",
+			routeName : "${container.getRouteName()}",
+			routesCode : "${container.getRoutesCode()}",
+			seatClass1 : "${container.getSeatClass1()}",
+			seatClass2 : "${container.getSeatClass2()}",
+			seatClass3 : "${container.getSeatClass3()}",
+			priceName : "${container.getPriceName()}",
+			orderByCriteria : "${container.getOrderByCriteria()}",
+			orderByDirection : "${container.getOrderByDirection()}"
+		};
+	</script>
 	<form method="get">
 		<div style="border: solid 1px lightgrey;">
 			<h2 align="center">
