@@ -57,10 +57,14 @@
 						<label> Route name <strong>${trip.getTransport().getRoutes().getRouteName()}</strong></label>
 					</p> <br>
 					<p>
-						<label> Trip date <strong>${trip.getStartDate()}</strong></label>
+						<label> Trip date <strong>${trip.getStartDate().toString().substring(0, 10)}</strong></label>
 					</p> <br>
 					<p>
+						<label> Start time <strong>${trip.getTransport().getStartTime().toString()}</strong></label>
+						</p><br>
+					<p>
 						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label>
+						
 					</p>
 		</table>
 

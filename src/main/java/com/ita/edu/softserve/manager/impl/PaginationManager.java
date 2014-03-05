@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 @Service
 public final class PaginationManager {
@@ -19,7 +18,8 @@ public final class PaginationManager {
 	public static final String LAST_PAGE_NAME = "lastPage";
 
 	public void validatePaging(PageInfoContainer container) {
-		StaticValidator.validatePaging(container, SingletonHolder.HOLDER_INSTANCE);
+		StaticValidator.validatePaging(container,
+				SingletonHolder.HOLDER_INSTANCE);
 	}
 
 	public static class SingletonHolder {

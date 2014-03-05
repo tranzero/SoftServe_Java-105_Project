@@ -67,28 +67,32 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	/**
 	 * Finds Transport by criteria.
 	 * 
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListByCriteria(int,
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListForOnePageByCriteria(int,
 	 *      int, java.lang.String, java.sql.Time, java.lang.String,
 	 *      java.lang.Integer, java.lang.Integer, java.lang.Integer,
 	 *      java.lang.Double)
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<Transports> getTransportsListByCriteria(int firstElement,
-			int count, String transportCode, Time time, String routeCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price) {
+	 @Override
+	public List<Transports> getTransportsListForOnePageByCriteria(
+			int firstElement, long count, String transportCode,
+			String routeCode, String routeName, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
+			Time maxTime, String orderByParam, String orderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY)
-				.setParameter("transportCode", "%" + transportCode + "%")
-				.setParameter("startTime", time, TemporalType.TIME)
-				.setParameter("routeCode", "%" + routeCode + "%")
-				.setParameter("seatclass1", seatClass1)
-				.setParameter("seatclass2", seatClass2)
-				.setParameter("seatclass3", seatClass3)
-				.setParameter("genPrice", price).setFirstResult(firstElement)
-				.setMaxResults(count);
+				.createQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY + orderByParam
+						+ " " + orderByDirection)
+				.setParameter(Transports.TRANSPORT_CODE_NAME, "%" + transportCode + "%")
+				.setParameter(Transports.ROUTE_CODE_NAME, "%" + routeCode + "%")
+				.setParameter(Transports.LINE_NAME_NAME, "%" + routeName + "%")
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
+				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
+				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setParameter(Transports.MIN_TIME_NAME, minTime, TemporalType.TIME)
+				.setParameter(Transports.MAX_TIME_NAME, maxTime, TemporalType.TIME)
+				.setFirstResult(firstElement).setMaxResults((int) count);
 
 		return (List<Transports>) query.getResultList();
 	}
@@ -101,7 +105,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			Double price, String OrderByCriteria, String OrderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY+OrderByCriteria+" "+OrderByDirection)
+				.createQuery(Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY+OrderByCriteria+" "+OrderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
@@ -132,21 +136,30 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 	
 	
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListCountByCriteria(java.lang.String,
+	 *      java.sql.Time, java.lang.String, java.lang.Integer,
+	 *      java.lang.Integer, java.lang.Integer, java.lang.Double)
+	 */
 	@Override
-	public long getTransportsListByCriteriaCount(String transportCode,
-			Time time, String routeCode, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price) {
+	public long getTransportsListCountByCriteria(String transportCode,
+			String routeCode, String routeName, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
+			Time maxTime) {
 
 		return (long) find((Query) entityManager
 				.createNamedQuery(
 						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
-				.setParameter("transportCode", "%" + transportCode + "%")
-				.setParameter("startTime", time, TemporalType.TIME)
-				.setParameter("routeCode", "%" + routeCode + "%")
-				.setParameter("seatclass1", seatClass1)
-				.setParameter("seatclass2", seatClass2)
-				.setParameter("seatclass3", seatClass3)
-				.setParameter("genPrice", price));
+				.setParameter(Transports.TRANSPORT_CODE_NAME, "%" + transportCode + "%")
+				.setParameter(Transports.ROUTE_CODE_NAME, "%" + routeCode + "%")
+				.setParameter(Transports.LINE_NAME_NAME, "%" + routeName + "%")
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
+				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
+				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setParameter(Transports.MIN_TIME_NAME, minTime, TemporalType.TIME)
+				.setParameter(Transports.MAX_TIME_NAME, maxTime, TemporalType.TIME)
+				);
 	}
 
 	/**

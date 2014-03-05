@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.exception.PostManagerException;
 
 @Service
 public interface PostForMainPageManager extends BaseManager {

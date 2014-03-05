@@ -146,42 +146,40 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 				.setParameter(1, stationName1).setParameter(2, stationName2));
 	}
 
+
 	/**
 	 * @author MatyashPetro
 	 * @return size of list with all lines
 	 */
 	@Override
-	public long getLinesListCount() {
+	public long getAllLinesCount() {
 		
 		return (long) find((Query) entityManager
-				.createNamedQuery(Lines.GET_LINES_LIST_COUNT));
+				.createNamedQuery(Lines.GET_ALL_LINES_COUNT));
 	}
-
-	/**
-	 * @author MatyashPetro
-	 * @return List of lines witch will be printed on one page
-	 * @param from from what element will be start next list
-	 * @param count how match elements will be in the list 
-	 */
+	
 	@Override
-	public List<Lines> getLinesForOnePage(int from, int count) {
-		
-		return this.getLinesForPaging(from, count);
+	public List<Lines> getAllLinesForLimits(int firstElement, int count, int sortOrder) {
 
-	}
-
-	/**
-	 * @author MatyashPetro
-	 * @return List of lines witch will be printed on one page
-	 * @param from from what element will be start next list
-	 * @param count how match elements will be in the list 
-	 */
-	private List<Lines> getLinesForPaging(int from, int count) {
+		Query query = null;
 		
-		Query query = entityManager
-				.createNamedQuery(Lines.GET_LINES_LIST_FOR_PAGING)
-				.setFirstResult(from).setMaxResults(count);
+		if (sortOrder == 1) {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_ALL_LINES_ASC)
+					.setFirstResult(firstElement).setMaxResults(count);
+		}
+		else if (sortOrder == 2) {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_ALL_LINES_DESC)
+					.setFirstResult(firstElement).setMaxResults(count);			
+		}
+		else {
+			query = entityManager
+					.createNamedQuery(Lines.FIND_ALL_LINES)
+					.setFirstResult(firstElement).setMaxResults(count);
+		}
 		
-		return (List<Lines>) getRange(from, count, query);
+		return (List<Lines>) query.getResultList();
 	}
+	
 }

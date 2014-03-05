@@ -16,21 +16,20 @@
 </script>
 
 <script>
-var defaultDomElement = "div#result"; 
-var defaultTargetPage = "userListPage"; 
-var defaultGetData={
-		pageNumber: "${pageNumber}",
-		resultsPerPage: "${resultsPerPage}",
-		searchstring: "${container.getSearchString()}",
-		isAdmin: "${container.getIsAdmin()}",
-		isRegUser: "${container.getIsRegUser()}",
-		isManager: "${container.getIsManager()}",
-		minDate: "${container.getMinDateString()}",
-		maxDate: "${container.getMaxDateString()}",
-		orderByParam: "${container.getOrderByParam()}",
-		orderByDirection :"${container.getOrderByDirection()}"
-};
-
+	var defaultDomElement = "div#result";
+	var defaultTargetPage = "userListPage";
+	var defaultGetData = {
+		pageNumber : "${pageNumber}",
+		resultsPerPage : "${resultsPerPage}",
+		searchstring : "${container.getSearchString()}",
+		isAdmin : "${container.getIsAdmin()}",
+		isRegUser : "${container.getIsRegUser()}",
+		isManager : "${container.getIsManager()}",
+		minDate : "${container.getMinDateString()}",
+		maxDate : "${container.getMaxDateString()}",
+		orderByParam : "${container.getOrderByParam()}",
+		orderByDirection : "${container.getOrderByDirection()}"
+	};
 </script>
 
 <!-- userlist -->
@@ -41,75 +40,77 @@ var defaultGetData={
 		<spring:message code="label.users.userList" />
 	</h2>
 	<form method="get">
+		<div class="pad_top_bottom">
+			<div class="group_c1">
+				<label for="searchstring">Search for:</label>
+				<c:if test="${isSearchString}">
+					<input name="searchstring" id="searchstring" class="autosearch"
+						type="text">
+				</c:if>
+				<c:if test="${!isSearchString}">
+					<input name="searchstring" id="searchstring" class="autosearch"
+						type="text" value="${container.getSearchString()}">
+				</c:if>
+			</div>
+			<div class="group_c2">
+				<div class="pad_top_bottom4">
+					<spring:message code="label.trips.daterange" />
+					:
+				</div>
+				<div>
+					<span class="pad_right"> <label for="minDate"><spring:message
+								code="label.addtrips.from" /></label> <c:if test="${isMinDate}">
+							<input class="autosearch" type="text" id="from" name="minDate">
+						</c:if> <c:if test="${!isMinDate}">
+							<input class="autosearch" type="text" id="from" name="minDate"
+								value="${container.getMinDateString()}">
+						</c:if>
+					</span> <span class="pad_right"> <label for="maxDate"><spring:message
+								code="label.addtrips.to" /></label> <c:if test="${isMaxDate}">
+							<input class="autosearch" type="text" id="to" name="maxDate">
+						</c:if> <c:if test="${!isMaxDate}">
+							<input class="autosearch" type="text" id="to" name="maxDate"
+								value="${container.getMaxDateString()}">
+						</c:if>
+					</span>
+				</div>
+			</div>
+			<div class="pad_top_bottom">
+				<label for="isAdmin">Admin:</label>
+				<c:if test="${container.getIsAdmin()}">
+					<input type="checkbox" name="isAdmin" id="isAdmin" value="true"
+						class="autosearch" checked>
+				</c:if>
+				<c:if test="${!container.getIsAdmin()}">
+					<input type="checkbox" name="isAdmin" id="isAdmin" value="true"
+						class="autosearch">
+				</c:if>
 
-		Search for:
-		<c:if test="${isSearchString}">
-			<input name="searchstring" id="searchstring" class="autosearch"
-				type="text">
-		</c:if>
-		<c:if test="${!isSearchString}">
-			<input name="searchstring" id="searchstring" class="autosearch"
-				type="text" value="${container.getSearchString()}">
-		</c:if>
-		<p>
-			<br> Admin:
-			<c:if test="${container.getIsAdmin()}">
-				<input type="checkbox" name="isAdmin" id="isAdmin" value="true"
-					class="autosearch" checked>
-			</c:if>
-			<c:if test="${!container.getIsAdmin()}">
-				<input type="checkbox" name="isAdmin" id="isAdmin" value="true"
-					class="autosearch">
-			</c:if>
+				<label for="isManager">Manager:</label>
+				<c:if test="${container.getIsManager()}">
+					<input type="checkbox" name="isManager" id="isManager" value="true"
+						class="autosearch" checked>
+				</c:if>
+				<c:if test="${!container.getIsManager()}">
+					<input type="checkbox" name="isManager" id="isManager" value="true"
+						class="autosearch">
+				</c:if>
 
-			Manager:
-			<c:if test="${container.getIsManager()}">
-				<input type="checkbox" name="isManager" id="isManager" value="true"
-					class="autosearch" checked>
-			</c:if>
-			<c:if test="${!container.getIsManager()}">
-				<input type="checkbox" name="isManager" id="isManager" value="true"
-					class="autosearch">
-			</c:if>
-			Registered user:
-			<c:if test="${container.getIsRegUser()}">
-				<input type="checkbox" name="isRegUser" id="isRegUser" value="true"
-					class="autosearch" checked>
-			</c:if>
-			<c:if test="${!container.getIsRegUser()}">
-				<input type="checkbox" name="isRegUser" id="isRegUser" value="true"
-					class="autosearch">
-			</c:if>
-		<p>
-			<spring:message code="label.trips.daterange" />
-			:
-		<p>
-			<label for="minDate"><spring:message
-					code="label.addtrips.from" /></label>
-			<c:if test="${isMinDate}">
-				<input class="autosearch" type="text" id="from" name="minDate">
-			</c:if>
-			<c:if test="${!isMinDate}">
-				<input class="autosearch" type="text" id="from" name="minDate"
-					value="${container.getMinDateString()}">
-			</c:if>
-
-
-			<label for="maxDate"><spring:message code="label.addtrips.to" /></label>
-			<c:if test="${isMaxDate}">
-				<input class="autosearch" type="text" id="to" name="maxDate">
-			</c:if>
-			<c:if test="${!isMaxDate}">
-				<input class="autosearch" type="text" id="to" name="maxDate"
-					value="${container.getMaxDateString()}">
-			</c:if>
-		<div style="float: right">
-			<input type="submit" value="User search">
+				<label for="isRegUser">Registered user:</label>
+				<c:if test="${container.getIsRegUser()}">
+					<input type="checkbox" name="isRegUser" id="isRegUser" value="true"
+						class="autosearch" checked>
+				</c:if>
+				<c:if test="${!container.getIsRegUser()}">
+					<input type="checkbox" name="isRegUser" id="isRegUser" value="true"
+						class="autosearch">
+				</c:if>
+			</div>
+			<div id="btnFindUsers">
+				<input type="submit" value="User search">
+			</div>
 		</div>
 	</form>
-	<p>
-	<p>
-		<br> <br>
 	<div id="result">
 		<table class='table'>
 
@@ -139,8 +140,8 @@ var defaultGetData={
 							</a>
 						</div></th>
 					<th><spring:message code="label.users.firstName" />
-					
-					<div style="float: right">
+
+						<div style="float: right">
 							<a
 								href="?pageNumber=1&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&isAdmin=${
@@ -162,7 +163,7 @@ var defaultGetData={
 							</a>
 						</div></th>
 					<th><spring:message code="label.users.lastName" />
-					<div style="float: right">
+						<div style="float: right">
 							<a
 								href="?pageNumber=1&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&isAdmin=${
@@ -182,10 +183,9 @@ var defaultGetData={
 						container.getMaxDateString())}&orderByParam=u.lastName&orderByDirection=DESC">
 								<img alt="v" src="resources/images/uparrow.png">
 							</a>
-						</div>
-					</th>
+						</div></th>
 					<th><spring:message code="label.users.email" />
-					<div style="float: right">
+						<div style="float: right">
 							<a
 								href="?pageNumber=1&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&isAdmin=${
@@ -205,10 +205,9 @@ var defaultGetData={
 						container.getMaxDateString())}&orderByParam=u.email&orderByDirection=DESC">
 								<img alt="v" src="resources/images/uparrow.png">
 							</a>
-						</div>
-					</th>
+						</div></th>
 					<th><spring:message code="label.users.role" />
-					<div style="float: right">
+						<div style="float: right">
 							<a
 								href="?pageNumber=1&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&isAdmin=${
@@ -228,10 +227,9 @@ var defaultGetData={
 						container.getMaxDateString())}&orderByParam=u.role&orderByDirection=DESC">
 								<img alt="v" src="resources/images/uparrow.png">
 							</a>
-						</div>
-					</th>
+						</div></th>
 					<th><spring:message code="label.users.dateOfReg" />
-					<div style="float: right">
+						<div style="float: right">
 							<a
 								href="?pageNumber=1&resultsPerPage=${resultsPerPage}&searchstring=${encoder.encode(
 						container.getSearchString())}&isAdmin=${
@@ -251,8 +249,7 @@ var defaultGetData={
 						container.getMaxDateString())}&orderByParam=u.regDate&orderByDirection=DESC">
 								<img alt="v" src="resources/images/uparrow.png">
 							</a>
-						</div>
-					</th>
+						</div></th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -453,31 +450,44 @@ var defaultGetData={
 
 		}
 
-		$(window).load(function() {
-			formDatePicker();
-			setInterval(function(){
- 				var curVal;
- 				var prevVal;
- 			    curVal = $(".autosearch").serialize();
- 			    prevVal  = $(".autosearch").data("prevVal") || null;
- 			    $(".autosearch").data("prevVal",curVal);
- 			    if (prevVal !== curVal) {
- 			    	var searchData={
- 			    			pageNumber: 1,
- 			    			resultsPerPage: "${resultsPerPage}",
- 			    			searchstring: $("input#searchstring").val(), 
- 			    			isAdmin: $("input#isAdmin").is(':checked'),
- 			    			isRegUser: $("input#isRegUser").is(':checked'),
- 			    			isManager: $("input#isManager").is(':checked'),
- 			    			minDate: $("input#from").val(),
- 			    			maxDate: $("input#to").val(),
- 			    			orderByParam: "${container.getOrderByParam()}",
- 			    			orderByDirection :"${container.getOrderByDirection()}"
- 			    	};
- 			    	ajaxLoader(defaultDomElement, defaultTargetPage, searchData);
- 			    }
- 			}, 3000);
-		});
+		$(window)
+				.load(
+						function() {
+							formDatePicker();
+							setInterval(
+									function() {
+										var curVal;
+										var prevVal;
+										curVal = $(".autosearch").serialize();
+										prevVal = $(".autosearch").data(
+												"prevVal")
+												|| null;
+										$(".autosearch")
+												.data("prevVal", curVal);
+										if (prevVal !== curVal) {
+											var searchData = {
+												pageNumber : 1,
+												resultsPerPage : "${resultsPerPage}",
+												searchstring : $(
+														"input#searchstring")
+														.val(),
+												isAdmin : $("input#isAdmin")
+														.is(':checked'),
+												isRegUser : $("input#isRegUser")
+														.is(':checked'),
+												isManager : $("input#isManager")
+														.is(':checked'),
+												minDate : $("input#from").val(),
+												maxDate : $("input#to").val(),
+												orderByParam : "${container.getOrderByParam()}",
+												orderByDirection : "${container.getOrderByDirection()}"
+											};
+											ajaxLoader(defaultDomElement,
+													defaultTargetPage,
+													searchData);
+										}
+									}, 3000);
+						});
 	</script>
 	</script>
 </section>

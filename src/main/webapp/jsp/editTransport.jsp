@@ -54,10 +54,11 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<input name="control" type="submit" value="<spring:message code="label.update"/>" />
-		<input type="button" value="<spring:message code="label.cancel"/>"
-			onclick="window.location='/SoftServe_Java-105/transport';">
+		<div class="pad_top_bottom">
+			<input name="control" type="submit" value="<spring:message code="label.update"/>" />
+			<input type="button" value="<spring:message code="label.cancel"/>"
+				onclick="window.location='/SoftServe_Java-105/transport';">
+		</div>
 
 	</form:form>
 	

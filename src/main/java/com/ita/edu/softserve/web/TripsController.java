@@ -153,9 +153,8 @@ public class TripsController {
 	/**
 	 * name for showing route code attribute name
 	 */
-	private static final String IS_ROUTE_CODE_ATTRIBUTE_NAME = "isRouteName";
-	
-	
+	private static final String IS_ROUTE_CODE_ATTRIBUTE_NAME = "isRoutesCode";
+
 	/**
 	 * name for showing Class1 places count attribute name
 	 */
@@ -178,6 +177,11 @@ public class TripsController {
 	 * name for showing minimal date count attribute name
 	 */
 	private static final String IS_MAX_DATE_ATTRIBUTE_NAME = "isMaxDate";
+	
+	/**
+	 * name for showing price attribute name
+	 */
+	private static final String IS_PRICE_ATTRIBUTE_NAME = "isPrice";
 
 	/**
 	 * name for criteria container attribute name
@@ -227,42 +231,56 @@ public class TripsController {
 	 * @param modelMap
 	 *            Model map to fill
 	 */
-	private void putFillElementsOptions(
-			TripsCriteriaContainer container,
+	private void putFillElementsOptions(TripsCriteriaContainer container,
 			Map<String, Object> modelMap) {
-		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getTransportCode()));
-		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getRouteName()));
-		modelMap.put(IS_CLASS1_ATTRIBUTE_NAME,
+		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getTransportCode()));
+		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getRouteName()));
+		modelMap.put(
+				IS_CLASS1_ATTRIBUTE_NAME,
 				(container.getRemSeatClass1() == null)
 						|| (container.getRemSeatClass1() < 0));
-		modelMap.put(IS_CLASS2_ATTRIBUTE_NAME,
+		modelMap.put(
+				IS_CLASS2_ATTRIBUTE_NAME,
 				(container.getRemSeatClass2() == null)
 						|| (container.getRemSeatClass2() < 0));
-		modelMap.put(IS_CLASS3_ATTRIBUTE_NAME,
+		modelMap.put(
+				IS_CLASS3_ATTRIBUTE_NAME,
 				(container.getRemSeatClass3() == null)
 						|| (container.getRemSeatClass3() < 0));
-		modelMap.put(IS_MIN_DATE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getMinDate()));
-		modelMap.put(IS_MAX_DATE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getMaxDate()));
+		modelMap.put(IS_MIN_DATE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getMinDate()));
+		modelMap.put(IS_MAX_DATE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getMaxDate()));
 
 	}
 
-	
-	private void putFillAddTripsElementsOptions(TransportForAddTripsCriteriaContainer container,
-			Map<String, Object> modelMap){
-		
-		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getTransportCode()));
-		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getRouteName()));
-		modelMap.put(IS_ROUTE_CODE_ATTRIBUTE_NAME, ValidatorUtil
-				.isEmptyString(container.getRoutesCode()));
-		
+	private void putFillAddTripsElementsOptions(
+			TransportForAddTripsCriteriaContainer container,
+			Map<String, Object> modelMap) {
+
+		modelMap.put(IS_TRANSPORT_CODE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getTransportCode()));
+		modelMap.put(IS_ROUTE_NAME_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getRouteName()));
+		modelMap.put(IS_ROUTE_CODE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getRoutesCode()));
+		modelMap.put(
+				IS_CLASS1_ATTRIBUTE_NAME,
+				(container.getSeatClass1() == null)
+						|| (container.getSeatClass1() < 0));
+		modelMap.put(
+				IS_CLASS2_ATTRIBUTE_NAME,
+				(container.getSeatClass2() == null)
+						|| (container.getSeatClass2() < 0));
+		modelMap.put(
+				IS_CLASS3_ATTRIBUTE_NAME,
+				(container.getSeatClass3() == null)
+						|| (container.getSeatClass3() < 0));
+
 	}
-	
+
 	/**
 	 * Method for filling model map used in transports-list related controllers
 	 * 
@@ -280,16 +298,22 @@ public class TripsController {
 			PageInfoContainer container,
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		putFillAddTripsElementsOptions(transportForAddTripsCriteriaContainer, modelMap);
-		transportsManager.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
-		
-		long count = transportsManager.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
+		putFillAddTripsElementsOptions(transportForAddTripsCriteriaContainer,
+				modelMap);
+		transportsManager
+				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
+		modelMap.put(IS_PRICE_ATTRIBUTE_NAME, transportForAddTripsCriteriaContainer.getPrice().equals(Double.MAX_VALUE));
+		long count = transportsManager
+				.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
 		container.setCount(count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, transportForAddTripsCriteriaContainer);
+		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
 
-		List<Transports> transports = transportsManager.getTransportsForPage(
-				container.getPageNumber(), container.getResultsPerPage());
+		List<Transports> transports = transportsManager
+				.getTransportsListForAddTripsWithContainers(container,
+						transportForAddTripsCriteriaContainer);
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
 	}
@@ -438,7 +462,8 @@ public class TripsController {
 			PageInfoContainerImpl container,
 			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer, modelMap, locale);
+		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer,
+				modelMap, locale);
 		return ADDTRIP_SPRING_NAME;
 	}
 
@@ -461,7 +486,8 @@ public class TripsController {
 			PageInfoContainerImpl container,
 			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
-		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer, modelMap, locale);
+		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer,
+				modelMap, locale);
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
 

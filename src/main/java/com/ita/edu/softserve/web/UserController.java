@@ -34,10 +34,10 @@ public class UserController {
 	private UserManager usersmanage;
 
 	@Autowired
-	private  ProfileEditValidator profileEditValidator;
+	Validator userEditValidator;
 	
 	@Autowired
-	Validator userEditValidator;
+	private ProfileEditValidator profileEditValidator;
 
 	@Autowired
 	private UserNameService userService;
@@ -79,7 +79,7 @@ public class UserController {
 			return "userEdit";
 		}
 		usersmanage.updateTheUserData(user);
-		return "redirect:/userlist2";
+		return "redirect:/userlist";
 	}
 
 	/**
@@ -91,7 +91,6 @@ public class UserController {
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(userEditValidator);
 		binder.registerCustomEditor(Role.class, new UserRoleEditor());
-
 	}
 
 	/**
@@ -121,7 +120,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute("user") Users user, BindingResult result, ModelMap model){
+	public String updateProfile(@ModelAttribute("user") Users user,
+			BindingResult result, ModelMap model) {
 		profileEditValidator.validate(user, result);
 		if (result.hasErrors()) {
 			return "profileEdit";
