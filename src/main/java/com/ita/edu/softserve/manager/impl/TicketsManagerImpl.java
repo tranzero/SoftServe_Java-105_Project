@@ -118,7 +118,6 @@ public class TicketsManagerImpl implements TicketsManager{
 		List<Orders> olist = ordersDao.findOrdersByUserId(id);
 		List<Tickets> temp = new ArrayList<Tickets>();
 		for (Orders o: olist) {
-			 ticketsDao.findTicketsByOrderId(o.getOrderId());
 			 temp.addAll(ticketsDao.findTicketsByOrderId(o.getOrderId()));
 		}
 		return temp;

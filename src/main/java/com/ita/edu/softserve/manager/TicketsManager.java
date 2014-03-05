@@ -3,6 +3,8 @@ package com.ita.edu.softserve.manager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Trips;
 
