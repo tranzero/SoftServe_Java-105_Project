@@ -6,6 +6,96 @@
 
 
 <section id="content">
+
+	<form method="get">
+		<div style="border: solid 1px lightgrey;">
+			<h2 align="center">
+				<spring:message code="label.transport.tableSearchInput" />
+			</h2>
+			<p>
+				<br> <label for="transportCode"> <spring:message
+						code="label.transport.transportcode" />:
+				</label>
+				<c:if test="${isTransportCode}">
+					<input type="text" name="transportCode" id="transportCode"
+						class="autosearch">
+				</c:if>
+				<c:if test="${!isTransportCode}">
+					<input type="text" name="transportCode" id="transportCode"
+						class="autosearch" value="${container.getTransportCode()}">
+				</c:if>
+				<label for="routeName"> <spring:message
+						code="label.routes.routename" />:
+				</label>
+				<c:if test="${isRouteName}">
+					<input type="text" name="routeName" id="routeName"
+						class="autosearch">
+				</c:if>
+				<c:if test="${!isRouteName}">
+					<input type="text" name="routeName" id="routeName"
+						class="autosearch" value="${container.getRouteName()}">
+				</c:if>
+				<label for="routeCode"> <spring:message
+						code="label.routes.routecode" />:
+				</label>
+				<c:if test="${isRoutesCode}">
+					<input type="text" name="routesCode" id="routesCode"
+						class="autosearch">
+				</c:if>
+				<c:if test="${!isRoutesCode}">
+					<input type="text" name="routesCode" id="routesCode"
+						class="autosearch" value="${container.getRoutesCode()}">
+				</c:if>
+			<p>
+				<br>
+				<spring:message code="label.addtrips.minimalseatsbyclasses" />
+				:
+			<p>
+				<label for="seatClass1">1:</label>
+				<c:if test="${isClass1}">
+					<input class="autosearch" type="number" id="seatClass1"
+						name="seatClass1">
+				</c:if>
+				<c:if test="${!isClass1}">
+					<input class="autosearch" type="number" id="seatClass1"
+						name="seatClass1" value="${container.getSeatClass1()}">
+				</c:if>
+				<label for="seatClass2">2:</label>
+				<c:if test="${isClass2}">
+					<input class="autosearch" type="number" id="seatClass2"
+						name="seatClass2">
+				</c:if>
+				<c:if test="${!isClass2}">
+					<input class="autosearch" type="number" id="seatClass2"
+						name="seatClass2" value="${container.getSeatClass2()}">
+				</c:if>
+				<label for="seatClass3">3:</label>
+				<c:if test="${isClass3}">
+					<input class="autosearch" type="number" id="seatClass3"
+						name="seatClass3">
+				</c:if>
+				<c:if test="${!isClass3}">
+					<input class="autosearch" type="number" id="seatClass3"
+						name="seatClass3" value="${container.getSeatClass3()}">
+				</c:if>
+			<p>
+				<br> <label for="priceName"><spring:message
+						code="label.addtrips.maximalprice" />:</label>
+				<c:if test="${isPrice}">
+					<input class="autosearch" type="number" id="priceName"
+						name="priceName">
+				</c:if>
+				<c:if test="${!isPrice}">
+					<input class="autosearch" type="number" id="priceName"
+						name="priceName" value="${container.getPriceName()}">
+				</c:if>
+			<div style="float: right">
+				<input type="submit"
+					value="<spring:message code="label.addtrips.tripsearch"/>">
+			</div>
+		</div>
+
+	</form>
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
@@ -133,32 +223,7 @@
 
 		}
 
-		function showAddTripPage(pageNumber_, resultsPerPage_) {
-			$
-					.ajax(
-							{
-								async : true,
-								beforeSend : function() {
-									$("div#pagingcontent")
-											.html(
-													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-								},
-								type : "GET",
-								url : "addTripPage",
-								data : {
-									pageNumber : pageNumber_,
-									resultsPerPage : resultsPerPage_
-								}
-
-							}).done(function(msg) {
-						$("div#pagingcontent").html(msg);
-
-					});
-
-		}
-
 		$(window).load(function() {
-			showAddTripPage("${pageNumber}", "${resultsPerPage}");
 			formDatePicker();
 		});
 	</script>
