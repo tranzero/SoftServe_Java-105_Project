@@ -72,11 +72,6 @@
 		<put-attribute name="title" value="View: Orders" />
 		<put-attribute name="content" value="/jsp/orders.jsp" />
 	</definition>
-	<definition name="ordersp" extends="ajax">
-		<put-attribute name="title" value="View: Orders" />
-		<put-attribute name="content" value="/jsp/ordersp.jsp" />
-	</definition>
-
 	<definition name="tripspage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/tripspage.jsp" />
@@ -119,6 +114,10 @@
 		<put-attribute name="content" value="/jsp/userListPage.jsp" />
 	</definition>
 	
+	<definition name="transportListPage" extends="ajax">
+		<put-attribute name="title" value="View: Transports" />
+		<put-attribute name="content" value="/jsp/transportListPage.jsp" />
+	</definition>
 	
 	<definition name="addTripPage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />

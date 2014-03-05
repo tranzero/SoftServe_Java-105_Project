@@ -12,10 +12,12 @@ import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.UsersCriteriaContainerImpl;
 
@@ -47,7 +49,21 @@ public class StaticValidator {
 	 */
 
 	private static final String MAX_DATE_STRING = "12/31/2100";
+	
+	/**
+	 * String for representation of minimal available time in default date
+	 * format
+	 */
 
+	private static final String MIN_TIME_STRING = "00:00:00";
+
+	/**
+	 * String for representation of maximal available time in default date
+	 * format
+	 */
+
+	private static final String MAX_TIME_STRING = "24:00:00";
+	
 	/**
 	 * Validates paging info
 	 * 
@@ -253,6 +269,49 @@ public class StaticValidator {
 				.setSearchString((String) ValidatorUtil.defaultForNull(
 						stationsCriteriaContainer.getSearchString(), ""));
 
+	}
+
+	public static void validateTransportsListCriteria(
+			TransportsCriteriaContainer transportsCriteriaContainer) {
+		
+		Set<String> fieldsSet = new TreeSet<String>();
+		Collections.addAll(fieldsSet,
+				TransportsCriteriaContainerImpl.TRANSPORTS_ORDER_BY_COLUMNS);
+		
+		if ((transportsCriteriaContainer.getOrderByParam() == null)
+				|| !(fieldsSet.contains(transportsCriteriaContainer
+						.getOrderByParam()))) {
+			transportsCriteriaContainer
+					.setOrderByParam(TransportsCriteriaContainerImpl.TRANSPORTS_ORDER_BY_COLUMNS[0]);
+		}
+		
+		if ((transportsCriteriaContainer.getOrderByDirection() == null)
+				|| !(transportsCriteriaContainer.getOrderByDirection()
+						.equalsIgnoreCase(ORDER_BY_SORTING_TYPES[0]) || transportsCriteriaContainer
+						.getOrderByDirection().equalsIgnoreCase(
+								ORDER_BY_SORTING_TYPES[1]))) {
+			transportsCriteriaContainer
+					.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
+		}
+		
+		transportsCriteriaContainer.setTransportCode((String) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getTransportCode(), ""));
+		transportsCriteriaContainer.setRouteCode((String) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getRouteCode(), ""));
+		transportsCriteriaContainer.setLineName((String) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getLineName(), ""));
+		transportsCriteriaContainer.setSeatClass1((Integer) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getSeatClass1(), -1));
+		transportsCriteriaContainer.setSeatClass2((Integer) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getSeatClass2(), -1));
+		transportsCriteriaContainer.setSeatClass3((Integer) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getSeatClass3(), -1));
+		transportsCriteriaContainer.setGenPrice((Double) ValidatorUtil
+				.defaultForNull(transportsCriteriaContainer.getGenPrice(), -1));
+		transportsCriteriaContainer.setMinTime(ValidatorUtil.getTime(
+				transportsCriteriaContainer.getMinTimeString(), MIN_TIME_STRING));
+		transportsCriteriaContainer.setMaxTime(ValidatorUtil.getTime(
+				transportsCriteriaContainer.getMaxTimeString(), MAX_TIME_STRING));
 	}
 
 }

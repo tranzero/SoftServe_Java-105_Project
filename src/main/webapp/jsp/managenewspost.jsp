@@ -23,11 +23,14 @@
 	<c:forEach var="News" items="${newsList}">
 		<tr>
 			<td>${News.getTitle()}</td>
-			<td>${News.getDescription().substring(0, News.getDescription().length()/4)}
-				<a href="detailsnews/${News.getPostId()}">Details...</a>
+			<td>${News.getDescription()}
+				<form method="post" name="detailsnews" action="detailsnews">
+					<input type="hidden" name="detailsId" value="${News.getPostId()}">
+					<input class="detailsbutton" value="Details" name="hidden" type="submit" />
+				</form>
 			</td>
 			<td>${News.getDate()}</td>
-			<td>${mainImgPath}${News.getImgSrc()}</td>
+			<td>${News.getImgSrc()}</td>
 			<td>
 				<form id="newsIdForm" method="post" 
    						name="newsIdForm" action="editnews">  

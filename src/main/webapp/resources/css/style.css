@@ -396,3 +396,28 @@ div.commentText {
 form.pad_top_bottom {
 	padding: 10px 0;
 }
+.pad_top_bottom {
+	padding: 10px 0;
+}
+
+fieldset {
+  border: 3px solid #aaa;
+  padding: 1em;
+  font:80%/1 sans-serif;
+}
+fieldset legend {
+    padding: 5px 10px ;
+    font-size: 1.2em;
+    border-radius: 5px;
+    box-shadow: 0 0 0 3px #aaa;
+    margin-left: 20px;
+}
+label {
+  float:left;
+  width:25%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+}
+
