@@ -28,10 +28,6 @@
 		</c:if>
 	</ul>
 </div>
-<form action="confirmcreating" method="post">
-	<spring:message code="label.lines.linename" />
-	: <input type="text" name="newLineName"><br>
-
 	<table class='table'>
 		<thead>
 			<tr>
@@ -67,10 +63,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<input type="submit"
-		value="<spring:message
-			code="label.lines.apply" />">
-</form>
+
 
 <div class="pagination">
 	<ul class="bootpag">
