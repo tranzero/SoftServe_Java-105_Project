@@ -30,7 +30,7 @@
 				<ul class="submenu">
 					<li><a href="/SoftServe_Java-105/linesbytwostations"><spring:message
 								code="label.navigation.linestwobystations" /></a></li>
-					<li><a href="/SoftServe_Java-105/linesbystation"><spring:message
+					<li><a href="/SoftServe_Java-105/linesByStation"><spring:message
 								code="label.navigation.linesbystation" /></a></li>
 					<li><a href="/SoftServe_Java-105/transportTravel"><spring:message
 								code="label.navigation.transportTravel" /></a></li>

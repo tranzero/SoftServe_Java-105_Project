@@ -111,7 +111,6 @@ public class Stations extends BaseEntity {
 	 *            the stationCode to set
 	 */
 	public void setStationCode(String stationCode) {
-		notEmpty(stationCode);
 		this.stationCode = stationCode;
 	}
 
@@ -127,7 +126,6 @@ public class Stations extends BaseEntity {
 	 *            the stationName to set
 	 */
 	public void setStationName(String stationName) {
-		notEmpty(stationName);
 		this.stationName = stationName;
 	}
 

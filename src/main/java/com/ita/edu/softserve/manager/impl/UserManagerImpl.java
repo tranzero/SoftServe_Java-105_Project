@@ -32,14 +32,120 @@ import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 @Service("userService")
 public class UserManagerImpl implements UserManager {
 
+	private static final String COULD_NOT_FIND_USER_BY_ID = "Could not find user by id";
+	private static final String COULD_NOT_REMOVE_USER = "Could not remove User";
+	private static final String COULD_NOT_UPDATE_USER = "Could not update User";
+	private static final String USERS_NOT_FOUND = "Users not found";
+
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
 
 	@Autowired
 	private UsersDAO userDao;
 
+	/**
+	 * Constructor
+	 */
+	public UserManagerImpl() {
+		super();
+	}
+
+	/**
+	 * getInstance
+	 */
 	public static UserManager getInstance() {
 		return ManagerFactory.getManager(UserManager.class);
+	}
+
+	/**
+	 * Find all users
+	 */
+	@Transactional(readOnly = true)
+	@Override
+	public List<Users> findAllUsers() {
+		try {
+			return userDao.getAllEntities();
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new UsersManagerExeption(USERS_NOT_FOUND, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
+
+	/**
+	 * Find user by id
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Users findUser(Integer id) {
+		try {
+			return userDao.findById(id);
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_FIND_USER_BY_ID, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
+
+	/**
+	 * Update The User Data (for userEdit.jsp)
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void updateTheUserData(Users user) {
+		try {
+			userDao.updateUserData(user);
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_UPDATE_USER, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+
+	}
+
+	/**
+	 * Delete user of DB
+	 */
+	@Override
+	@Transactional
+	public void removeUser(Integer id) {
+		try {
+			userDao.remove(userDao.findById(id));
+
+		} catch (RuntimeException e) {
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_REMOVE_USER, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+
+	}
+
+	/**
+	 * Update user (for profile.jsp)
+	 */
+	@Override
+	@Transactional
+	public void updateUser2(Integer userId, String firstName, String lastName,
+			String email, String password) {
+
+		Users user = userDao.findById(userId);
+
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+		user.setPassword(password);
+
+		userDao.update(user);
 	}
 
 	/**
@@ -60,88 +166,8 @@ public class UserManagerImpl implements UserManager {
 			userDao.save(tempUser);
 			System.out.println("Successfully registered!");
 			return true;
-
 		}
 		return false;
-	}
-
-	/**
-	 * Find all users
-	 */
-	@Transactional(readOnly = true)
-	@Override
-	public List<Users> findAllUsers() {
-		return userDao.getAllEntities();
-	}
-
-	/**
-	 * Find user by id
-	 */
-	@Override
-	@Transactional
-	public Users findUser(Integer id) {
-		return userDao.findById(id);
-	}
-
-	/**
-	 * Update The User Data (for userEdit.jsp)
-	 */
-	@Transactional(readOnly = false)
-	@Override
-	public void updateTheUserData(Users user) {
-		userDao.updateUserData(user);
-
-		/*
-		 * try { userDao.saveOrUpdate(transport); } catch (RuntimeException e) {
-		 * RuntimeException ex = new TransprtsManagerException(
-		 * saveOrUpdateTransportMessage, e); LOGGER.error(e); LOGGER.error(ex);
-		 * throw ex; }
-		 */
-	}
-
-	/**
-	 * Update user (for userEdit.jsp)
-	 */
-	@Override
-	@Transactional
-	public void updateUser(Integer userId, String firstName, String lastName,
-			String email, String password, Role role) {
-
-		Users user = userDao.findById(userId);
-
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setRole(role);
-
-		userDao.update(user);
-	}
-
-	/**
-	 * Delete user of DB
-	 */
-	@Override
-	@Transactional
-	public void removeUser(Integer id) {
-		userDao.remove(userDao.findById(id));
-	}
-
-	/**
-	 * Update user (for profile.jsp)
-	 */
-	@Transactional
-	public void updateUser2(Integer userId, String firstName, String lastName,
-			String email, String password) {
-
-		Users user = userDao.findById(userId);
-
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmail(email);
-		user.setPassword(password);
-
-		userDao.update(user);
 	}
 
 	/**
@@ -152,6 +178,7 @@ public class UserManagerImpl implements UserManager {
 	public Users findByUsername(String username) {
 		try {
 			return (Users) userDao.findByUsername(username);
+
 		} catch (NoResultException e) {
 			System.out.println("User does not exist!");
 		}
@@ -159,7 +186,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Validator for userList
+	 * Validator for UserList
 	 */
 	@Override
 	public void validateUserListCriteria(
@@ -167,7 +194,9 @@ public class UserManagerImpl implements UserManager {
 		StaticValidator.validateUserListCriteria(userCriteriaContainer, locale);
 	}
 
-	// For pagging 1
+	/**
+	 * For pagging 1
+	 */
 	@Override
 	public long getUsersListCountUsingContainer(
 			UserCriteriaContainer userCriteriaContainer) {
@@ -221,10 +250,8 @@ public class UserManagerImpl implements UserManager {
 				orderByDirection);
 	}
 
-	// For pagging2
-
 	/**
-	 * For pagging- get userlist Count
+	 * For pagging2- get userlist Count
 	 */
 	@Override
 	public long getUsersListCount() throws UsersManagerExeption {
@@ -237,7 +264,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * For pagging- get all users
+	 * For pagging2- get all users
 	 */
 	@Override
 	public List<Users> getUsersForPage(int from, int count)
@@ -250,5 +277,31 @@ public class UserManagerImpl implements UserManager {
 					e);
 		}
 
+	}
+
+	/**
+	 * Update user -(for userEdit.jsp)-
+	 */
+	@Override
+	@Transactional
+	public void updateUser(Integer userId, String firstName, String lastName,
+			String email, String password, Role role) {
+		try {
+			Users user = userDao.findById(userId);
+
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setEmail(email);
+			user.setPassword(password);
+			user.setRole(role);
+
+			userDao.update(user);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_UPDATE_USER, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
 	}
 }
