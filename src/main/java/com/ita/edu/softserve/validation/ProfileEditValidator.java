@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,13 +11,11 @@ import org.springframework.validation.Validator;
 import com.ita.edu.softserve.entity.Users;
 
 @Component
-public class RegistrationValidator implements Validator {
-	
+public class ProfileEditValidator implements Validator {
 	
 	Pattern pattern;
 	Matcher matcher;
 
-	private static final String USERNAME_PATTERN = "[a-zA-Z]{5,15}$";
 	private static final String STRING_PATTERN = "[a-zA-Z]+";
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -30,9 +28,6 @@ public class RegistrationValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors error) {
 		Users user = (Users) obj;
-		ValidationUtils.rejectIfEmptyOrWhitespace(error, "userName",
-				"required.userName", "User Name is required.");
-		validateUserName(user.getUserName(), error);
 		ValidationUtils.rejectIfEmptyOrWhitespace(error, "firstName", "required.firstName", "First Name is required");
         validateFirstName(user.getFirstName(), error);
         ValidationUtils.rejectIfEmptyOrWhitespace(error, "lastName", "required.lastName", "Last Name is required");
@@ -41,16 +36,6 @@ public class RegistrationValidator implements Validator {
 	    validateEmail(user.getEmail(), error);
 	    ValidationUtils.rejectIfEmptyOrWhitespace(error, "password", "required.password","Password is required");
 	    validatePassword(user.getPassword(), user.getConfirmPassword(), error);
-	}
-
-	private void validateUserName(String userName, Errors error) {
-		if (!(userName != null && userName.isEmpty())) {
-			pattern = Pattern.compile(USERNAME_PATTERN);
-			matcher = pattern.matcher(userName);
-			if (!matcher.matches()) {
-				error.rejectValue("userName", "userName.containNonChar", "At least 5 characters required in User Name");
-			}
-		}
 	}
 
 	private void validateFirstName(String firstName, Errors error) {

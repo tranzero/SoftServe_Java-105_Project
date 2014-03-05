@@ -9,7 +9,7 @@
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-		<form:form action="addTransport.htm" method="POST" commandName="transport">
+		<form:form action="addTransport.htm" method="POST" modelAttribute="transport">
 
  		<table class="form" >
 			<tbody>

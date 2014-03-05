@@ -8,7 +8,7 @@
 <section id="content">
 	<h1 align="center"><spring:message code="label.transport.editTransport"/></h1>
 
-	<form:form action="addTransport.htm" method="POST" commandName="transport">
+	<form:form action="addTransport.htm" method="POST" modelAttribute="transport">
 	
 			<form:hidden path="transportId" />
 			

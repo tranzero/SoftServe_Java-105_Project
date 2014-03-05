@@ -187,6 +187,19 @@ public class RoutesManagerImpl implements RoutesManager {
 		routeDao.save(route);
 	}
 	
+	@Override
+	@Transactional
+	public void updateRoute(Integer routeId, String lines, String routeCode,
+			String stationStart, String stationEnd) {
+		Routes route = routeDao.findById(routeId);
+		route.setRouteCode(routeCode);
+		route.setLineId(lineDao.findByName(lines));
+		route.setRouteName(stationStart + "-" + stationEnd);
+		route.setStationStartId(stationDao.findByName(stationStart));
+		route.setStationEndId(stationDao.findByName(stationEnd));
+		routeDao.update(route);
+	}
+	
 	@Transactional
 	@Override
 	public void createRoute(String lines, String routeCode) {

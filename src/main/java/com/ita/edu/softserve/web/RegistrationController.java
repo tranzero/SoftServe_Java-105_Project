@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.validation.RegistrationValidator;
 
 @Controller
 public class RegistrationController {

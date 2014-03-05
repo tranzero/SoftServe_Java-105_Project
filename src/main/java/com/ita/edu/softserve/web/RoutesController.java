@@ -87,6 +87,26 @@ public class RoutesController {
 	 */
 	private static final String FORM_ROUTE_URL_PATTERN = "/formRoute";
 	
+	/**
+	 * URL pattern that map controller updateRouteToDB.
+	 */
+	private static final String EDIT_ROUTE_URL_PATTERN = "/editRoutePage";
+
+	/**
+	 * The name of jsp that defines Spring.
+	 */
+	private static final String EDIT_ROUTE_JSP = "editRoute";
+
+	/**
+	 * URL pattern that map controller editRoute.
+	 */
+	private static final String EDIT_ROUTE_PATH= "/editRoute";
+	
+	/**
+	 * The name of jsp that defines Spring.
+	 */
+	private static final String ROUTE = "route";
+	
 	
 	private static final Logger LOGGER = Logger
 			.getLogger(RoutesController.class);
@@ -191,77 +211,56 @@ public class RoutesController {
 			@ModelAttribute("lineName") String lineName,
 			@ModelAttribute("stationStart") String stationStart,
 			@ModelAttribute("stationEnd") String stationEnd) {
-
 			routesManager.createRoute(lineName, routeCode, stationStart, stationEnd);// return json
 		return REDIRECT_ROUTES_EDIT;
 	}
 	
-	/*@RequestMapping(value = ADD_ROUTE_URL_PATTERN, method = RequestMethod.POST)
-	public String addRouteToBD(
-			@ModelAttribute(MODEL_ROUTE)Routes route,
-			BindingResult bindingResult, ModelMap modelMap) {
-
-		routesValidator.validate(route, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			return ADD_ROUTE_JSP;
-		}
-
-		routesManager.createRoute(route);
-
-		return REDIRECT_ROUTES_EDIT;
-	}*/
-	
-	
-	
-	
-	
-	
-	/*@RequestMapping(value = "/addRt", method = RequestMethod.GET)
-	public String transportForm() {
-		return "addRoute";
-	}
-	*/
 	/**
-	 * Add route to DB
+	 * Controller for displaying getting routes ID from the Routes table
+	 * and finds it in the Routes table then puts found object in Map as
+	 * request attribute.
 	 * 
-	 * @param routeCode
-	 * @param lineNam
+	 * @param routeId
+	 *            routes ID to get from the database.
+	 * @param modelMap
+	 *            Model map to fill.
+	 * @return editRoute jsp to use.
 	 */
-	/*@RequestMapping(value = "/addRoute", method = RequestMethod.POST)
-	public String addRouteToBD(@ModelAttribute("routeCode") String routeCode,
-			@ModelAttribute("lineName") String lineName) {
-		try {
-			routesManager.createRoute(lineName, routeCode);
-		} catch (Exception e) {
-		}
-
-		return "redirect:/routesAllEdit";
-	}*/
-
-	@RequestMapping(value = "/editRoute/{route}", method = RequestMethod.GET)
-	public String editRoute(@PathVariable("route") Integer routeId,
-			Map<String, Object> modelMap) {
+	@RequestMapping(value = EDIT_ROUTE_PATH, method = RequestMethod.GET)
+	public String editRoute(@RequestParam("routeId") int routeId, Map<String, Object> modelMap) {
+		
 		Routes route = routesManager.findRoutesById(routeId);
-		modelMap.put("route", route);
-		return "editRoute";
+		modelMap.put(ROUTE, route);
+
+		return EDIT_ROUTE_JSP;
+	}
+
+	/**
+	 * Displays getting a routes object and saves it into the Routes
+	 * table.
+	 * 
+	 * @return the jsp name.
+	 */
+	@RequestMapping(value = EDIT_ROUTE_URL_PATTERN  , method = RequestMethod.POST)
+	public String updateRouteToDB(@ModelAttribute("routeId") Integer routeId,
+			@ModelAttribute("routeCode") String routeCode,
+			@ModelAttribute("lineName") String lineName,
+			@ModelAttribute("stationStart") String stationStart,
+			@ModelAttribute("stationEnd") String stationEnd) {
+
+		//transportsValidator.validate(transport, bindingResult);
+		//if (bindingResult.hasErrors()) {
+		//	modelMap.put(ROUTES_LIST, routesManager.getAllRoutes());
+		//	return EDIT_TRANSPORT_JSP;
+		//}
+		routesManager.updateRoute(routeId, lineName, routeCode, stationStart, stationEnd);
+		return REDIRECT_ROUTES_EDIT;
 	}
 	
-	/**
-	 * Edit route in DB
-	 * 
-	 * @param routeCode
-	 * @param lineNam
-	 */
-	@RequestMapping(value = "/editRoute/{routeId}", method = RequestMethod.POST)
-	public String updateRouteToDB(@PathVariable("routeId") Integer routeId,
-			@ModelAttribute("routeCode") String routeCode,
-			@ModelAttribute("lineName") String lineName) {
 
-		routesManager.updateRoute(routeId, lineName, routeCode);
 
-		return "redirect:/routesAllEdit";
-	}
+	
+	
 
 	/**
 	 * Delete route from DB
