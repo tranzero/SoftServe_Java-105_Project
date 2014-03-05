@@ -14,6 +14,7 @@
 		value="<spring:message code="label.navigation.addRoute"/>">
 	</a>
 	</p>
+	
 	<div id="pagingcontent">
 		<table style="align: center">
 			<thead>
@@ -29,8 +30,9 @@
 					<tr>
 						<td align="center">${route.getRouteCode()}</td>
 						<td align="center">${route.getLineId().getLineName()}</td>
+						
 						<td align="center"><a
-							href="editRoute/${route.getRouteId()}"> <input
+							href="editRoute?routeId=${route.getRouteId()}"> <input
 								id="edit" type="button" name="edit"
 								value="<spring:message code="label.edit"/>">
 						</a></td>
