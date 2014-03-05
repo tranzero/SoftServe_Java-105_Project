@@ -120,6 +120,8 @@ public class Transports extends BaseEntity {
 	public static final String SEAT_CLASS2_NAME = "seatclass2";
 	public static final String SEAT_CLASS3_NAME = "seatclass3";
 	public static final String GEN_PRICE_NAME = "genPrice";
+	public static final String ORDER_BY_CRITERIA_NAME = "orderByCriteria";
+	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
 
 	public static final String FIND_BY_DATE = "Transports.findByDate";
 	public static final String FIND_BY_DATE_QUERY = "SELECT t FROM Transports t JOIN t.trips tr WHERE tr.startDate  = ?1";
