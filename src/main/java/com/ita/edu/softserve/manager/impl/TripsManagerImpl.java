@@ -210,6 +210,39 @@ public class TripsManagerImpl implements TripsManager {
 	public void updateTrip(Trips trip){
 		tripsDao.saveOrUpdate(trip);
 	}
+	
+	@Override
+	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType){
+		
+		if(seatType.equals(1)){
+			tripsDao.reduceRemSeaatClass1(tripId);
+		}
+		
+		if(seatType.equals(2)){
+			tripsDao.reduceRemSeaatClass2(tripId);
+		}
+		
+		if(seatType.equals(3)){
+			tripsDao.reduceRemSeaatClass3(tripId);
+		}
+	}
+	
+	@Override
+	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType){
+		
+		if(seatType.equals(1)){
+			tripsDao.increaseRemSeaatClass1(tripId);
+		}
+		
+		if(seatType.equals(2)){
+			tripsDao.increaseRemSeaatClass2(tripId);
+		}
+		
+		if(seatType.equals(3)){
+			tripsDao.increaseRemSeaatClass3(tripId);
+		}
+	}
+	
 	public static TripsManager getInstance() {
 		return ManagerFactory.getManager(TripsManager.class);
 	}
