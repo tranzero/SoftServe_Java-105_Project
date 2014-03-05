@@ -56,7 +56,7 @@
 					<spring:message code="label.transport.seatclass1" />
 				</div>
 				<div style="float: right">
-					<a href="javascript:void(0);" id=seatclass1asc"><img alt="^"
+					<a href="javascript:void(0);" id="seatclass1asc"><img alt="^"
 						src="resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass1desc"><img alt="v"
 						src="resources/images/uparrow.png"></a>
@@ -66,7 +66,7 @@
 					<spring:message code="label.transport.seatclass2" />
 				</div>
 				<div style="float: right">
-					<a href="javascript:void(0);" id=seatclass2asc"><img alt="^"
+					<a href="javascript:void(0);" id="seatclass2asc"><img alt="^"
 						src="resources/images/downarrow.png"></a> 
 						<a href="javascript:void(0);" id="seatclass2desc"><img alt="v"
 						src="resources/images/uparrow.png"></a>
@@ -75,7 +75,7 @@
 					<spring:message code="label.transport.seatclass3" />
 				</div>
 				<div style="float: right">
-					<a href="javascript:void(0);" id=seatclass3asc"><img alt="^"
+					<a href="javascript:void(0);" id="seatclass3asc"><img alt="^"
 						src="resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass3desc"><img alt="v"
 						src="resources/images/uparrow.png"></a>
@@ -85,7 +85,7 @@
 					<spring:message code="label.transport.genprice" />
 				</div>
 				<div style="float: right">
-					<a href="javascript:void(0);" id=genpriceasc"><img alt="^"
+					<a href="javascript:void(0);" id="genpriceasc"><img alt="^"
 						src="resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="genpricedesc"><img alt="v"
 						src="resources/images/uparrow.png"></a>
