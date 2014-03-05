@@ -16,30 +16,22 @@
 		<table class="form">
 			<tbody>
 				<tr>
-					<td align="center"><spring:message
-							code="label.stations.stationcode" /></td>
-					<td align="center"><form:input id="stationCode"
-							path="stationCode" name="stationCode" onfocus="checkpostal()" /></td>
-					<td align="center"><form:errors path="stationCode"
-							cssClass="error" /></td>
+					<td align="center"><spring:message code="label.stations.stationcode" /></td>
+					<td align="center"><form:input path="stationCode" onfocus="checkpostal()" /></td>
+					<td align="center"><form:errors path="stationCode" cssClass="error" /></td>
 				</tr>
 
 				<tr>
-					<td align="center"><spring:message
-							code="label.stations.stationname" /></td>
-					<td align="center"><form:input id="stationName"
-							path="stationName" name="stationName" onfocus="checkpostal()" /></td>
-					<td align="center"><form:errors path="stationName"
-							cssClass="error" /></td>
+					<td align="center"><spring:message code="label.stations.stationname" /></td>
+					<td align="center"><form:input path="stationName" onfocus="checkpostal()" /></td>
+					<td align="center"><form:errors path="stationName" cssClass="error" /></td>
 				</tr>
 
 				<tr>
 					<td></td>
-					<td align="center" colspan="3"><input type="submit"
-						value="<spring:message
-							code="label.stations.add" />">
-						<input type="button"
-						value="<spring:message code="label.stations.cancel"/>"
+					<td align="center" colspan="3">
+					<input type="submit" value="<spring:message code="label.stations.add" />">
+					<input type="button" value="<spring:message code="label.stations.cancel"/>"
 						onclick="window.location='/SoftServe_Java-105/stations';"></td>
 				</tr>
 			</tbody>

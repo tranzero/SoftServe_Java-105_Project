@@ -56,7 +56,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	 *            the transport to save or update into Transports table.
 	 */
 	@Override
-	public void saveOrUpdate(final Transports entity) {
+	public void saveOrUpdate(Transports entity) {
 		if (entity.getTransportId() == null) {
 			entityManager.persist(entity);
 		} else {
@@ -96,7 +96,33 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 		return (List<Transports>) query.getResultList();
 	}
+	
+	/**
+	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListCountByCriteria(java.lang.String,
+	 *      java.sql.Time, java.lang.String, java.lang.Integer,
+	 *      java.lang.Integer, java.lang.Integer, java.lang.Double)
+	 */
+	@Override
+	public long getTransportsListCountByCriteria(String transportCode,
+			String routeCode, String routeName, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
+			Time maxTime) {
 
+		return (long) find((Query) entityManager
+				.createNamedQuery(
+						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
+				.setParameter(Transports.TRANSPORT_CODE_NAME, "%" + transportCode + "%")
+				.setParameter(Transports.ROUTE_CODE_NAME, "%" + routeCode + "%")
+				.setParameter(Transports.LINE_NAME_NAME, "%" + routeName + "%")
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
+				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
+				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setParameter(Transports.MIN_TIME_NAME, minTime, TemporalType.TIME)
+				.setParameter(Transports.MAX_TIME_NAME, maxTime, TemporalType.TIME)
+				);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> getTransportsListForAddTrips(int firstElement,
@@ -133,33 +159,6 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
 				.setParameter(Transports.GEN_PRICE_NAME , price));
-	}
-	
-	
-	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListCountByCriteria(java.lang.String,
-	 *      java.sql.Time, java.lang.String, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.Double)
-	 */
-	@Override
-	public long getTransportsListCountByCriteria(String transportCode,
-			String routeCode, String routeName, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
-			Time maxTime) {
-
-		return (long) find((Query) entityManager
-				.createNamedQuery(
-						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
-				.setParameter(Transports.TRANSPORT_CODE_NAME, "%" + transportCode + "%")
-				.setParameter(Transports.ROUTE_CODE_NAME, "%" + routeCode + "%")
-				.setParameter(Transports.LINE_NAME_NAME, "%" + routeName + "%")
-				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
-				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
-				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME, price)
-				.setParameter(Transports.MIN_TIME_NAME, minTime, TemporalType.TIME)
-				.setParameter(Transports.MAX_TIME_NAME, maxTime, TemporalType.TIME)
-				);
 	}
 
 	/**
