@@ -7,15 +7,11 @@ import com.ita.edu.softserve.manager.PropertiesManager;
 import com.ita.edu.softserve.utils.property.PreferenceUtil;
 import com.ita.edu.softserve.utils.property.PropertyKeys;
 
-
-
 @Service("propertiesManager")
 public class PropertiesManagerImpl implements PropertiesManager {
 
 	@Autowired
 	PreferenceUtil preferenceUtil;
-	
-
 
 	public PropertiesManagerImpl() {
 	}
@@ -44,20 +40,20 @@ public class PropertiesManagerImpl implements PropertiesManager {
 
 	@Override
 	public String getImgPath() {
-			
+
 		return preferenceUtil
 				.checkPathExistance(PropertyKeys.IMG_PATH_PROPERTY_NAME);
 	}
+
 	@Override
 	public void setImgPath(String path) {
 		preferenceUtil.setValue(PropertyKeys.IMG_PATH_PROPERTY_NAME, path);
 	}
-	
+
 	@Override
 	public String getHostPath() {
-//		return preferenceUtil
-//				.checkPathExistance(PropertyKeys.HOST_PATH_PROPERTY_NAME);
+
 		return preferenceUtil.getHostName();
 	}
-	
+
 }

@@ -22,40 +22,40 @@ public class FileViewController {
 	@Autowired
 	PropertiesManager propertyManager;
 
-	public static final String imageInputRequestValue = "news/images/{img}.{res}";
-	public static final String nonImageInputRequestValue = "news/images/";
-	public static final String pathVariableImgValue = "img";
-	public static final String pathVariableResValue = "res";
-	public static final String headerComtentsDispositionValue = "Content-Disposition";
-	public static final String headerAttachmentValue = "attachment; filename=\"";
-	public static final String headerAttachmentEndOfStringValue = "\"";
-	public static final String defaultNewsimage = "default.jpg";
+	public static final String IMAGE_INPUT_REQUEST_VALUE = "news/images/{img}.{res}";
+	public static final String NON_IMAGE_REQUEST_VALUE = "news/images/";
+	public static final String PATH_VARIABLE_IMG_VALUE = "img";
+	public static final String PATH_VARIABLE_RES_VALUE = "res";
+	public static final String HEADER_CONTENT_DISPOSITION_VALUE = "Content-Disposition";
+	public static final String HEADER_ATTACHMENT_VALUE = "attachment; filename=\"";
+	public static final String HEADER_ATTACHMENT_END_OF_STRING_VALUE = "\"";
+	public static final String DEFAULT_NEWS_IMAGE = "default.jpg";
 
-	@RequestMapping(value = imageInputRequestValue, method = RequestMethod.GET)
+	@RequestMapping(value = IMAGE_INPUT_REQUEST_VALUE, method = RequestMethod.GET)
 	public void showImg(HttpServletResponse response,
-			@PathVariable(pathVariableImgValue) String img,
-			@PathVariable(pathVariableResValue) String res) throws IOException {
+			@PathVariable(PATH_VARIABLE_IMG_VALUE) String img,
+			@PathVariable(PATH_VARIABLE_RES_VALUE) String res) throws IOException {
 
 		File file = new File(propertyManager.getImgPath() + img + "." + res);
 
-		response.setHeader(headerComtentsDispositionValue,
-				headerAttachmentValue + file.getName()
-						+ headerAttachmentEndOfStringValue);
+		response.setHeader(HEADER_CONTENT_DISPOSITION_VALUE,
+				HEADER_ATTACHMENT_VALUE + file.getName()
+						+ HEADER_ATTACHMENT_END_OF_STRING_VALUE);
 		InputStream inputStream = null;
 		inputStream = new FileInputStream(file);
 		FileCopyUtils.copy(inputStream, response.getOutputStream());
 
 	}
 	
-	@RequestMapping(value = nonImageInputRequestValue, method = RequestMethod.GET)
+	@RequestMapping(value = NON_IMAGE_REQUEST_VALUE, method = RequestMethod.GET)
 	public void showNonImg(HttpServletResponse response
 			) throws IOException {
 
-		File file = new File(propertyManager.getImgPath() + defaultNewsimage);
+		File file = new File(propertyManager.getImgPath() + DEFAULT_NEWS_IMAGE);
 
-		response.setHeader(headerComtentsDispositionValue,
-				headerAttachmentValue + file.getName()
-						+ headerAttachmentEndOfStringValue);
+		response.setHeader(HEADER_CONTENT_DISPOSITION_VALUE,
+				HEADER_ATTACHMENT_VALUE + file.getName()
+						+ HEADER_ATTACHMENT_END_OF_STRING_VALUE);
 		InputStream inputStream = null;
 		inputStream = new FileInputStream(file);
 		FileCopyUtils.copy(inputStream, response.getOutputStream());

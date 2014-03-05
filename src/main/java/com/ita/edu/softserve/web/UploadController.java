@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ita.edu.softserve.manager.PropertiesManager;
@@ -31,17 +30,26 @@ public class UploadController {
 	
 	@Autowired
 	PropertiesManager propertyManager;
-
-	@RequestMapping(value ="fileUploadForm", method=RequestMethod.POST)
+	
+	private static final String FILE_UPLOAD_FORM = "fileUploadForm";
+	private static final String FILE_UPLOAD = "fileUpload";
+	private static final String MODEL_ATTRIBUTE_UPLOADED_FILE = "uploadedFile";
+	private static final String FILE_NAME_MAP_KEY = "filename";
+	
+	private String uploadFormView = "uploadForm";
+	private String showFileNameView = "showFile";
+	
+	
+	@RequestMapping(value = FILE_UPLOAD_FORM, method=RequestMethod.POST)
 	public String getUploadForm(
-			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
+			@ModelAttribute(MODEL_ATTRIBUTE_UPLOADED_FILE) UploadedFile uploadedFile,
 			BindingResult result) {
-		return "uploadForm";
+		return uploadFormView;
 	}
 
-	@RequestMapping(value ="fileUpload", method=RequestMethod.POST)
+	@RequestMapping(value =FILE_UPLOAD, method=RequestMethod.POST)
 	public String fileUploaded(
-			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
+			@ModelAttribute(MODEL_ATTRIBUTE_UPLOADED_FILE) UploadedFile uploadedFile,
 			BindingResult result, Map<String, String> modelMap) {
 
 		InputStream inputStream = null;
@@ -51,9 +59,9 @@ public class UploadController {
 		fileValidator.validate(uploadedFile, result);
 
 		String fileName = file.getOriginalFilename();
-		modelMap.put("filename", fileName);
+		modelMap.put(FILE_NAME_MAP_KEY, fileName);
 		if (result.hasErrors()) {
-			return "showFile";
+			return showFileNameView;
 		}
 
 		try {
@@ -76,7 +84,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 
-		return "showFile";
+		return showFileNameView;
 	}
 	
 
