@@ -22,13 +22,13 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
 	private String changeMsg = " was change in DB by ";
-	private final String createPostMsg = "Could not create Post";
-	private final String findPostMsg = "Could not find Post List";
-	private final String removePostMsg = "Could not remove Post";
-	private final String findByIdPostMsg = "Could not find news by id";
-	private final String updatePostMsg = "Could not update Post";
-	private final String countPostMsg = "Could not get post list count";
-	private final String resultPerPagePostMsg = "Could not get post for one page";
+	private String createPostMsg = "Could not create Post";
+	private String findPostMsg = "Could not find Post List";
+	private String removePostMsg = "Could not remove Post";
+	private String findByIdPostMsg = "Could not find news by id";
+	private String updatePostMsg = "Could not update Post";
+	private String countPostMsg = "Could not get post list count";
+	private String resultPerPagePostMsg = "Could not get post for one page";
 
 	@Autowired
 	private PostDAOImpl postDao;
