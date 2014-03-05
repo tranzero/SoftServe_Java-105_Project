@@ -94,6 +94,10 @@
 		<put-attribute name="title" value="View: Stations" />
 		<put-attribute name="content" value="/jsp/stationsForUsersPage.jsp" />
 	</definition>
+	<definition name="newLinePage" extends="ajax">
+		<put-attribute name="title" value="View: Stations" />
+		<put-attribute name="content" value="/jsp/newLinePage.jsp" />
+	</definition>
 	<definition name="allLinesPage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/allLinesPage.jsp" />

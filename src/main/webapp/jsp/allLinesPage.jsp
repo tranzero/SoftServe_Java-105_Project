@@ -31,6 +31,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<a class="button" href="addline"><spring:message code="label.lines.addlines"/></a>
 	<hr />
 </c:if>
 <div class="pagination">

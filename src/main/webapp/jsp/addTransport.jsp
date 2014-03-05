@@ -54,9 +54,11 @@
 			</tr>
 			</tbody>
 		</table>
+		<div class="pad_top_bottom">
 				<input type="submit" value="<spring:message code="label.add"/>" />
 				<input type="button" value="<spring:message code="label.cancel"/>" 
 					onclick="window.location='/SoftServe_Java-105/transport';">
+		</div>
 	</form:form>
 	
 		<p><em class="star">*</em> — <spring:message code="label.transport.star"/>

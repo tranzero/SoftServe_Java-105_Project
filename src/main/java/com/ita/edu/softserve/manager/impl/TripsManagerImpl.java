@@ -211,6 +211,7 @@ public class TripsManagerImpl implements TripsManager {
 		tripsDao.saveOrUpdate(trip);
 	}
 	
+	@Transactional
 	@Override
 	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType){
 		
@@ -225,8 +226,10 @@ public class TripsManagerImpl implements TripsManager {
 		if(seatType.equals(3)){
 			tripsDao.reduceRemSeaatClass3(tripId);
 		}
+		System.out.println("reduceManager");
 	}
 	
+	@Transactional
 	@Override
 	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType){
 		
@@ -241,6 +244,8 @@ public class TripsManagerImpl implements TripsManager {
 		if(seatType.equals(3)){
 			tripsDao.increaseRemSeaatClass3(tripId);
 		}
+		
+		System.out.println("increaseManager");
 	}
 	
 	public static TripsManager getInstance() {
