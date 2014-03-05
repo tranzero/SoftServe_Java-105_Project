@@ -30,6 +30,8 @@ import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
+import com.ita.edu.softserve.propertyeditors.RoutesEditor;
+import com.ita.edu.softserve.propertyeditors.TimeEditor;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 
 /**

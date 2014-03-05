@@ -32,7 +32,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
-		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY) })
+		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY),
+		@NamedQuery(name=Trips.REDUCE_REMSEATCLASS1, query = Trips.REDUCE_REMSEATCLASS1_QUERY),
+		@NamedQuery(name=Trips.REDUCE_REMSEATCLASS2, query = Trips.REDUCE_REMSEATCLASS2_QUERY),
+		@NamedQuery(name=Trips.REDUCE_REMSEATCLASS3, query = Trips.REDUCE_REMSEATCLASS3_QUERY),
+		@NamedQuery(name=Trips.INCREASE_REMSEATCLASS1, query = Trips.INCREASE_REMSEATCLASS1_QUERY),
+		@NamedQuery(name=Trips.INCREASE_REMSEATCLASS2, query = Trips.INCREASE_REMSEATCLASS2_QUERY),
+		@NamedQuery(name=Trips.INCREASE_REMSEATCLASS3, query = Trips.INCREASE_REMSEATCLASS3_QUERY),
+		
+	})
 public class Trips extends BaseEntity {
 	/**
 	 * Defines the name of transport code parameter
@@ -149,6 +157,66 @@ public class Trips extends BaseEntity {
 	 */
 	public static final String FIND_BY_TRANSPORTID_QUERY = "SELECT tr FROM Trips tr WHERE tr.transport.transportId = ?1";
 
+	/**
+	 * Name of query which reduce remSeatClass1 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS1 = "Trips.reduceRemSeatClass1";
+	
+	/**
+	 * Query which reduce remSeatClass1 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS1_QUERY = "UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1-1 WHERE t.tripId = ?1";
+	
+	/**
+	 * Name of query which reduce remSeatClass2 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS2 = "Trips.reduceRemSeatClass2";
+	
+	/**
+	 * Query which reduce remSeatClass2 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS2_QUERY = "UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2-1 WHERE t.tripId = ?1";
+	
+	/**
+	 * Name of query which reduce remSeatClass3 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS3 = "Trips.reduceRemSeatClass3";
+	
+	/**
+	 * Query which reduce remSeatClass3 in database
+	 */
+	public static final String REDUCE_REMSEATCLASS3_QUERY = "UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3-1 WHERE t.tripId = ?1";
+	
+	/**
+	 * Name of query which increase remSeatClass1 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS1 = "Trips.increaseRemSeatClass1";
+	
+	/**
+	 * Query which increase remSeatClass1 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS1_QUERY = "UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1+1 WHERE t.tripId = ?1";
+	
+	/**
+	 * Name of query which increase remSeatClass2 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS2 = "Trips.increaseRemSeatClass2";
+	
+	/**
+	 * Query which increase remSeatClass2 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS2_QUERY = "UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2+1 WHERE t.tripId = ?1";
+	
+	/**
+	 * Name of query which increase remSeatClass3 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS3 = "Trips.increaseRemSeatClass3";
+	
+	/**
+	 * Query which increase remSeatClass3 in database
+	 */
+	public static final String INCREASE_REMSEATCLASS3_QUERY = "UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3+1 WHERE t.tripId = ?1";
+	
 	/**
 	 * Identifier field
 	 */

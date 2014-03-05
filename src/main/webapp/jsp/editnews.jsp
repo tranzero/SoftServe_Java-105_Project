@@ -7,8 +7,9 @@
 	
 	<form id="editnews" method="post" name="updatenews" action="updatenews">
 		<div>
-		<p>Image name</p>
-		<input id="fileName" name="fileName" type="text" size="50" maxlength="100" value="${post.getImgSrc()}" >
+		<p><spring:message code="label.navigation.addNews.imagename"/></p>
+		<div id="fileNameInput"><input id="fileName" name="fileName" type="text" value="${post.getImgSrc()}" size="50" maxlength="100"></div>
+
 		<input id="idTitle" type="hidden" name="idTitle" size="10" maxlength="10" value = "${post.getPostId()}">
 		
 		<p><spring:message code="label.navigation.editNews.title"/></p>

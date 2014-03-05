@@ -25,37 +25,26 @@
 <script src="resources/js/jquery.bootpag.js"></script>
 <script src="resources/js/initPaging.js"></script>
 <script src="resources/js/jquery.ui.datepicker-ua.js"></script>
-<script src="resources/js/jquery.ui.datepicker-es.js"></script><script>
-function imagesLoader(){
-	var elementSelectorForResult = "div#imgUploadForm";
-	$.ajax({
-		async : false,
-		type: "POST",
-		url: "fileUploadForm"
-		}).done(function( msg ) {
-			$(elementSelectorForResult).html(msg);
-	});
-	}
+<script src="resources/js/jquery.ui.datepicker-es.js"></script>
+<script src="resources/js/fileUploader.js"></script>
+<script>
 	function onPagingEvent(event, num, resultsPerPage) {
 		var elementSelectorForResult = "div#pagingcontent";
-		$
-				.ajax(
-						{
-							async : false,
-							beforeSend : function() {
-								$(elementSelectorForResult)
-										.html(
-												'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+		$.ajax({
+				async : false,
+				beforeSend : function() {
+							$(elementSelectorForResult).html(
+				'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 							},
-							type : "POST",
-							url : pageUrl,
-							data : {
-								pageNumber : num - 1,
-								resultsPerPage : resultsPerPage
-							}
-						}).done(function(msg) {
+				type : "POST",
+				url : pageUrl,
+				data : {
+						pageNumber : num - 1,
+						resultsPerPage : resultsPerPage
+						}
+			}).done(function(msg) {
 					$(elementSelectorForResult).html(msg);
-				});
+					});
 	}
 
 	function clone(obj) {
@@ -113,50 +102,23 @@ function imagesLoader(){
 
 	$(document).ready(
 			function() {
-
-				imagesLoader();
-
+				if ($("div#imgUploadForm").length){
+				fileFormLoader();
+				uploadButtonEvent();
+				}
 				if ((typeof (defaultDomElement) != "undefined")
 						&& (typeof (defaultTargetPage) != "undefined")
 						&& (typeof (defaultGetData) != "undefined")) {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
 							defaultGetData);
 				}
-
+				if (typeof pageUrl !== "undefined"){
 				initPageWithPaging('${maxPageCount}', '${sizeOfPaging}',
 						onPagingEvent, pageUrl);
+				}
 				
 			});
-	function savepic()
-	{
-		var elementSelectorForResult = "div#fileNameInput";
-//		var uploadFile = "#uploadFileInput".files[0];
-//		var file_data = $("#uploadFileInput").prop("files")[0];
-//		var uploadFile = new FormData();
-//		uploadFile.append("file", file_data);
-		var uploadFile = $("#uploadFileInput").val();
-		$.ajax({
-//			data: uploadFile,
-//	dataType: 'script',
 
-//cache: false,	  
-//		    processData: false,
-//		    contentType: false,
-			async : false,
-			
-			type: "POST",
-			url: "fileUpload",
-			
-			data: {
- 				"uploadFile" : uploadFile
-				}
-//			data: $("#uploadedFile").serialize()
-			}).done(function( msg ) {
-				$(elementSelectorForResult).html(msg);
-		});
-
-
-		}
 </script>
 </head>
 <body>

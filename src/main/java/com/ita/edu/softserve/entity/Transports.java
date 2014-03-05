@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.entity;
 
-import java.io.Serializable;
 import java.sql.Time;
 import java.util.Set;
 
@@ -34,92 +33,65 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE, query = Transports.FIND_BY_TRANSPORTCODE_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
 		@NamedQuery(name = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT, query = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT_QUERY),
-
-		// @NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA, query
-		// = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY),
+		
 		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY),
 
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
-		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_LNAME
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_LNAME_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_TCODE
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_TCODE_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DEP
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DEP_QUERY
-																															 * )
-																															 * ,
-																															 * 
-																															 * @
-																															 * NamedQuery
-																															 * (
-																															 * name
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DURATION
-																															 * ,
-																															 * query
-																															 * =
-																															 * Transports
-																															 * .
-																															 * FIND_BY_TS_ORDER_BY_DURATION_QUERY
-																															 * )
-																															 */
+		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),/*,
+		@NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_LNAME, query = Transports.FIND_BY_TS_ORDER_BY_LNAME_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_TCODE, query = Transports.FIND_BY_TS_ORDER_BY_TCODE_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DEP, query = Transports.FIND_BY_TS_ORDER_BY_DEP_QUERY),
+        @NamedQuery(name = Transports.FIND_BY_TS_ORDER_BY_DURATION, query = Transports.FIND_BY_TS_ORDER_BY_DURATION_QUERY)
+        */
 		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY), })
 public class Transports extends BaseEntity {
 
+	/**
+	 * Defines the name of transport code parameter.
+	 */
 	public static final String TRANSPORT_CODE_NAME = "transportCode";
+	
+	/**
+	 * Defines the name of route name parameter.
+	 */
 	public static final String ROUTE_CODE_NAME = "routeCode";
-	public static final String ROUTE_NAME_NAME = "routeName";
-	public static final String SEAT_CLASS1_NAME = "seatclass1";
-	public static final String SEAT_CLASS2_NAME = "seatclass2";
-	public static final String SEAT_CLASS3_NAME = "seatclass3";
+	
+	/**
+	 * Defines the name of line name parameter.
+	 */
+	public static final String LINE_NAME_NAME = "lineName";
+
+	/**
+	 * Defines the name of seat class 1 parameter.
+	 */
+	public static final String SEAT_CLASS1_NAME = "seatClass1";
+	
+	/**
+	 * Defines the name of seat class 2 parameter.
+	 */
+	public static final String SEAT_CLASS2_NAME = "seatClass2";
+	
+	/**
+	 * Defines the name of seat class 3 parameter.
+	 */
+	public static final String SEAT_CLASS3_NAME = "seatClass3";
+	
+	/**
+	 * Defines the name of general price name parameter.
+	 */
 	public static final String GEN_PRICE_NAME = "genPrice";
+
+	/**
+	 * Defines the name of minimum time parameter.
+	 */
+	public static final String MIN_TIME_NAME = "minTime";
+	
+	/**
+	 * Defines the name of maximum time parameter.
+	 */
+	public static final String MAX_TIME_NAME = "maxTime";
+	
+	public static final String ROUTE_NAME_NAME = "routeName";
 	public static final String ORDER_BY_CRITERIA_NAME = "orderByCriteria";
 	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
 
@@ -169,39 +141,60 @@ public class Transports extends BaseEntity {
 			+ SEAT_CLASS3_NAME
 			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
 
-	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA = "Transports.findTransportsListByCriteria";
-	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY = "SELECT t FROM Transports t "
-			+ "WHERE "
-			+ "t.transportCode LIKE :transportCode "
-			+ "AND "
-			// + "t.startTime = :startTime "
-			// + "AND "
-			+ "t.routes.routeCode LIKE :routeCode "
-			+ "AND "
-			+ "t.seatclass1 >= :seatclass1 "
-			+ "AND "
-			+ "t.seatclass2 >= :seatclass2 "
-			+ "AND "
-			+ "t.seatclass3 >= :seatclass3 "
-			+ "AND "
-			+ "t.genPrice < :genPrice ";
+	/**
+	 * Query which is used for selecting transports from DB using criteria.
+	 * Compatible with paging.
+	 */
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY = "SELECT t FROM Transports t WHERE"
+			+ " t.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND t.routes.routeCode LIKE :"
+			+ ROUTE_CODE_NAME
+			+ " AND t.routes.lineId.lineName LIKE :"
+			+ LINE_NAME_NAME
+			+ " AND t.seatclass1 >= :"
+			+ SEAT_CLASS1_NAME
+			+ " AND t.seatclass2 >= :"
+			+ SEAT_CLASS2_NAME
+			+ " AND t.seatclass3 >= :"
+			+ SEAT_CLASS3_NAME
+			+ " AND t.genPrice <= :"
+			+ GEN_PRICE_NAME
+			+ " AND t.startTime BETWEEN :"
+			+ MIN_TIME_NAME
+			+ " AND :"
+			+ MAX_TIME_NAME 
+			+ " ORDER BY ";
+	
+	/**
+	 * Name of query which is used for selecting count of transports from DB with
+	 * criteria. Used in paging.
+	 */
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT = "Transports.findTransportsListCountByCriteria";
 
-	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT = "Transports.findTransportsListByCriteria";
-	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t "
-			+ "WHERE "
-			+ "t.transportCode LIKE :transportCode "
-			+ "AND "
-			+ "t.startTime = :startTime "
-			+ "AND "
-			+ "t.routes.routeCode LIKE :routeCode "
-			+ "AND "
-			+ "t.seatclass1 > :seatclass1 "
-			+ "AND "
-			+ "t.seatclass2 > :seatclass2 "
-			+ "AND "
-			+ "t.seatclass3 > :seatclass3 "
-			+ "AND "
-			+ "t.genPrice < :genPrice ";
+	/**
+	 * Query which is used for selecting count of trips from DB with criteria.
+	 * Used in paging.
+	 */
+	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE"
+			+ " t.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND t.routes.routeCode LIKE :"
+			+ ROUTE_CODE_NAME
+			+ " AND t.routes.lineId.lineName LIKE :"
+			+ LINE_NAME_NAME
+			+ " AND t.seatclass1 >= :"
+			+ SEAT_CLASS1_NAME
+			+ " AND t.seatclass2 >= :"
+			+ SEAT_CLASS2_NAME
+			+ " AND t.seatclass3 >= :"
+			+ SEAT_CLASS3_NAME
+			+ " AND t.genPrice <= :"
+			+ GEN_PRICE_NAME
+			+ " AND t.startTime BETWEEN :"
+			+ MIN_TIME_NAME
+			+ " AND :"
+			+ MAX_TIME_NAME;
 	/*------------------------------------------------------------------------------------------------------------*/
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";

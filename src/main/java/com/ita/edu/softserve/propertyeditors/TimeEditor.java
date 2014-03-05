@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.propertyeditors;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 import static com.ita.edu.softserve.validation.TransportsValidator.*;

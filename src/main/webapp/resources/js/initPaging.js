@@ -1,9 +1,3 @@
-/*
- * Init jquery.bootpag.js paging function. Pagination will be bound to #pagination
- * element.
- * Controller serving paging needs has to start page numbering from 0.
- * Callback takes two params - event object and number of page.
- */
 
 function initPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 
@@ -18,7 +12,8 @@ function initPaging(maxPageCount, sizeOfPaging, onChangePageFunc) {
 			});
 }
 
-function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc, pageUrl) {
+function initPageWithPaging(maxPageCount, sizeOfPaging, onChangePageFunc,
+		pageUrl) {
 	initPaging(maxPageCount, sizeOfPaging, function(event, num) {
 		onChangePageFunc(event, num, sizeOfPaging);
 	});
