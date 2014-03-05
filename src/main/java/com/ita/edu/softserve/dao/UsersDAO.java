@@ -37,7 +37,9 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	 */
 	public void updateUserData(Users entity);
 
-	// For pagging1
+	/**
+	 * For pagging1
+	 */
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
 
@@ -52,7 +54,9 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	 */
 	Long getCountAllUsers();
 
-	// For pagging2
+	/**
+	 * For pagging2
+	 */
 	public long getUsersListCount();
 
 	public List<Users> getUsersForOnePage(int from, int count);

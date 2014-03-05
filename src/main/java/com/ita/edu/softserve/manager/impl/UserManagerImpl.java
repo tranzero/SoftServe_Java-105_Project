@@ -32,23 +32,29 @@ import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 @Service("userService")
 public class UserManagerImpl implements UserManager {
 
+	private static final String COULD_NOT_FIND_USER_BY_ID = "Could not find user by id";
+	private static final String COULD_NOT_REMOVE_USER = "Could not remove User";
+	private static final String COULD_NOT_UPDATE_USER = "Could not update User";
+	private static final String USERS_NOT_FOUND = "Users not found";
+
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
 
 	@Autowired
 	private UsersDAO userDao;
 
-	private final String findUsersMessage = "Could not find User List";
-
-	public static UserManager getInstance() {
-		return ManagerFactory.getManager(UserManager.class);
-	}
-
 	/**
 	 * Constructor
 	 */
 	public UserManagerImpl() {
 		super();
+	}
+
+	/**
+	 * getInstance
+	 */
+	public static UserManager getInstance() {
+		return ManagerFactory.getManager(UserManager.class);
 	}
 
 	/**
@@ -61,7 +67,7 @@ public class UserManagerImpl implements UserManager {
 			return userDao.getAllEntities();
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption("Users not found", e);
+			RuntimeException ex = new UsersManagerExeption(USERS_NOT_FOUND, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -78,7 +84,8 @@ public class UserManagerImpl implements UserManager {
 			return userDao.findById(id);
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(findUsersMessage, e);
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_FIND_USER_BY_ID, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -96,7 +103,7 @@ public class UserManagerImpl implements UserManager {
 
 		} catch (RuntimeException e) {
 			RuntimeException ex = new UsersManagerExeption(
-					"Could not save User", e);
+					COULD_NOT_UPDATE_USER, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -115,7 +122,7 @@ public class UserManagerImpl implements UserManager {
 
 		} catch (RuntimeException e) {
 			RuntimeException ex = new UsersManagerExeption(
-					"Could not remove User", e);
+					COULD_NOT_REMOVE_USER, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -290,7 +297,8 @@ public class UserManagerImpl implements UserManager {
 
 			userDao.update(user);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(findUsersMessage, e);
+			RuntimeException ex = new UsersManagerExeption(
+					COULD_NOT_UPDATE_USER, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;

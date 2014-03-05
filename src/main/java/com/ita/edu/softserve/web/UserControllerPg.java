@@ -57,7 +57,7 @@ public class UserControllerPg {
 	Validator userEditValidator;
 
 	/**
-	 * Update2 user to DB - RequestMethod.GET
+	 * Update user2 to DB - RequestMethod.GET
 	 * 
 	 * @param usId
 	 * @param modelMap
@@ -72,7 +72,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * Update2 user to DB - RequestMethod.POST
+	 * Update user2 to DB - RequestMethod.POST
 	 * 
 	 * @param userId
 	 * @param firstName
@@ -109,7 +109,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * For paging userList 2
+	 * For pagging userList 2
 	 * 
 	 * @param modelMap
 	 * @return userlist2
@@ -137,7 +137,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * For paging userList 2
+	 * For pagging userList 2
 	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage
@@ -163,9 +163,7 @@ public class UserControllerPg {
 			modelMap.put(resultsPerPageKey, resultsPerPage);
 
 			modelMap.put(usersListKey, usersmanage.getUsersForPage(
-					currentPagingPosition, resultsPerPage)
-
-			);
+					currentPagingPosition, resultsPerPage));
 
 			return mainPageOutPost;
 

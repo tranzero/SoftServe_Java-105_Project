@@ -58,12 +58,6 @@ public interface UserManager extends BaseManager {
 	void updateTheUserData(Users user);
 
 	/**
-	 * Update user (for userEdit.jsp)
-	 */
-	public void updateUser(Integer userId, String firstName, String lastName,
-			String email, String passwd, Role role);
-
-	/**
 	 * Update user (for profile.jsp)
 	 */
 	public void updateUser2(Integer userId, String firstName, String lastName,
@@ -126,5 +120,11 @@ public interface UserManager extends BaseManager {
 	 */
 	public List<Users> getUsersForPage(int from, int count)
 			throws UsersManagerExeption;
+
+	/**
+	 * Update user -(for userEdit.jsp)-
+	 */
+	public void updateUser(Integer userId, String firstName, String lastName,
+			String email, String passwd, Role role);
 
 }
