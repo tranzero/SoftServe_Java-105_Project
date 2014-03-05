@@ -19,27 +19,46 @@ public interface OrdersManager extends BaseManager {
 	 * @param id order ID
 	 * @return one order
 	 */
-	public Orders findOrder(Integer id);
+	Orders findOrder(Integer id);
 	
 	/**
 	 * Find all orders
 	 * @return list of all orders
 	 */
-	public List<Orders> findAllOrders();
+	List<Orders> findAllOrders();
 	
 	/**
-	 * Find Order by user ID
+	 * Find Orders by user ID
 	 * @param id user ID
 	 * @return list of found orders
 	 */
-	public List<Orders> findOrdersByUserId(Integer id);
+	List<Orders> findOrdersByUserId(Integer id);
 
+	/**
+	 * @param from
+	 * @param count
+	 * @return list of orders for one page
+	 */
+	List<Orders> getOrdersForPage(int from, int count);
+	
+	/**
+	 * Create Order
+	 * @param userId user ID
+	 * @param date Date
+	 */
+	void createOrder(Integer userId,Date date);
+	
+	/**
+	 * @return orders list count
+	 */
 	public long getOrdersListCount();
-
-	public List<Orders> getOrdersForPage(int from, int count);
 	
-	public void createOrder(Integer userId,Date date);
-	
-	public Orders findByUserIdAndOrderDate(Integer userId,Date date);
+	/**
+	 * Find Order by user id and Order Date
+	 * @param userId user ID
+	 * @param date DAte
+	 * @return one order 
+	 */
+	Orders findByUserIdAndOrderDate(Integer userId,Date date);
 	
 }

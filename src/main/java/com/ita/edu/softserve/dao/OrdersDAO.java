@@ -32,5 +32,11 @@ public interface OrdersDAO extends AbstractDAOIface<Orders> {
 	 */
 	public List<Orders> getOrdersForOnePage(int from, int count);
 	
+	/**
+	 * Find orders by user ID and order date
+	 * @param userId user ID
+	 * @param date Date
+	 * @return
+	 */
 	public Orders findByUserIdAndOrderDate(Integer userId, Date date);
 }

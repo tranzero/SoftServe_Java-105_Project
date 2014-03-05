@@ -19,8 +19,10 @@ import com.ita.edu.softserve.validation.RegistrationValidator;
 
 @Controller
 public class RegistrationController {
+	
 	@Autowired
 	private UserManager usersManager;
+	
 	@Autowired
 	private RegistrationValidator regValid;
 

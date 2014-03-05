@@ -26,6 +26,10 @@ import com.ita.edu.softserve.manager.TicketsManager;
  * @author nvrubl
  *
  */
+/**
+ * @author Comp
+ *
+ */
 @Service("ordersManager")
 public class OrdersManagerImpl implements OrdersManager {
 
@@ -44,9 +48,16 @@ public class OrdersManagerImpl implements OrdersManager {
 	@Autowired
 	private OrdersDAO ordersDao;
 	
+	
+	/**
+	 * Get access to USERS DAO
+	 */
 	@Autowired
 	private UsersDAO usersDao;
 
+	/**
+	 *Get access to TRIPS DAO 
+	 */
 	@Autowired
 	private TripsDAO tripsDao;
 
@@ -93,6 +104,7 @@ public class OrdersManagerImpl implements OrdersManager {
 		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public long getOrdersListCount() {
 		try {
@@ -105,6 +117,7 @@ public class OrdersManagerImpl implements OrdersManager {
 		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Orders> getOrdersForPage(int from, int count) {
 		try {
