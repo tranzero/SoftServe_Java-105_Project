@@ -10,7 +10,12 @@ public class LoginController {
 	/**
 	 * Default page to return
 	 */
-    private String referer = "mainpage";  
+	public static final String DEFAULT_PAGE = "mainpage";	
+	
+	/**
+	 * Page to return after login
+	 */
+    private String referer = DEFAULT_PAGE;  
     
     public String getReferer() {
 		return referer;
@@ -22,14 +27,16 @@ public class LoginController {
 
 	/**
 	 * Controller method for setting the referer page 
-	 * and redirecting to login page
+	 * and for redirecting to login page
 	 * 	
 	 * @param request
 	 * @return login page
 	 */
 	@RequestMapping(value="/login")
-	public String login(HttpServletRequest request) {		
-		setReferer(request.getHeader("Referer"));                
+	public String login(HttpServletRequest request) {	
+		if (getReferer().equals(DEFAULT_PAGE)){
+			setReferer(request.getHeader("Referer"));
+		}			
 		return "login"; 
 	}
 	
@@ -50,7 +57,7 @@ public class LoginController {
 	 * @return referer page
 	 */
 	@RequestMapping(value="/loginsuccess")
-	public String loginsuccess() {      
+	public String loginsuccess() {  
 		return "redirect:" + getReferer();
 	}
 	
@@ -69,7 +76,7 @@ public class LoginController {
 	 * @return referer page
 	 */
     @RequestMapping(value="/logincancel")
-	public String logincancel() {
+	public String logincancel() {    	
 		return "redirect:" + getReferer();
 	}
 }

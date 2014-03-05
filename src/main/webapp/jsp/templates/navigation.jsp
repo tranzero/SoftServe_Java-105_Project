@@ -57,6 +57,7 @@
 								code="label.navigation.checkresponses" /></a></li>
 				</ul>
 			</li>
+			
 			</sec:authorize>
 			<sec:authorize access="hasRole('ADMIN')">
 			<li><spring:message code="label.navigation.users" />
@@ -65,6 +66,13 @@
 								code="label.navigation.userlist" /></a></li>
 					<li><a href="/SoftServe_Java-105/userlist2"><spring:message
 								code="label.navigation.userlist" />2</a></li>
+				</ul>
+			</li>
+			</sec:authorize>
+				<sec:authorize access="hasAnyRole('REGUSER', 'MANAGER', 'ADMIN')">
+			<li><spring:message code="label.navigation.orders" />
+				<ul class="submenu">
+					<li><a href="/SoftServe_Java-105/orders"><spring:message code="label.navigation.orders" /></a></li>		
 				</ul>
 			</li>
 			</sec:authorize>
