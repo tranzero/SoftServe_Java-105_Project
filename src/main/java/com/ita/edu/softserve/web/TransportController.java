@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -244,7 +245,7 @@ public class TransportController {
 	public String displayTransportsView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
@@ -266,7 +267,7 @@ public class TransportController {
 	public String displayTransportPageView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
@@ -284,7 +285,7 @@ public class TransportController {
 	public String displayTransports(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
@@ -306,7 +307,7 @@ public class TransportController {
 	public String displayTransportPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		forDisplayTransport(pageNumber, resultsPerPage, modelMap);
 
@@ -325,7 +326,7 @@ public class TransportController {
 	 *            Model map to fill.
 	 */
 	private void forDisplayTransport(Integer pageNumber, Integer resultsPerPage,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		long count = transportsManager.getTransportsListCount();
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
@@ -366,12 +367,12 @@ public class TransportController {
 	 * @return the jsp name.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
-	public String transportForm(ModelMap modelMap) {
+	public String transportForm(Model modelMap) {
 
 		modelMap.addAttribute(MODEL_TRANSPORT, new Transports());
 
 		List<Routes> routesList = routesManager.getAllRoutes();
-		modelMap.put(ROUTES_LIST, routesList);
+		modelMap.addAttribute(ROUTES_LIST, routesList);
 
 		return ADD_TRANSPORT_JSP;
 	}
@@ -387,13 +388,13 @@ public class TransportController {
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
 			@ModelAttribute(MODEL_TRANSPORT)/* @Valid */Transports transport,
-			BindingResult bindingResult, ModelMap modelMap) {
+			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			List<Routes> routesList = routesManager.getAllRoutes();
-			modelMap.put(ROUTES_LIST, routesList);
+			modelMap.addAttribute(ROUTES_LIST, routesList);
 
 			return ADD_TRANSPORT_JSP;
 		}
@@ -416,13 +417,13 @@ public class TransportController {
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
-			ModelMap modelMap) {
+			Model modelMap) {
 
 		Transports transport = transportsManager.findTransportsById(transportId);
 		List<Routes> routesList = routesManager.getAllRoutes();
 		
-		modelMap.put(ROUTES_LIST, routesList);
-		modelMap.put(MODEL_TRANSPORT, transport);
+		modelMap.addAttribute(ROUTES_LIST, routesList);
+		modelMap.addAttribute(MODEL_TRANSPORT, transport);
 
 		return EDIT_TRANSPORT_JSP;
 	}
@@ -436,12 +437,12 @@ public class TransportController {
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
 	public String updateTransportToDB(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
-			BindingResult bindingResult, ModelMap modelMap) {
+			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			modelMap.put(ROUTES_LIST, routesManager.getAllRoutes());
+			modelMap.addAttribute(ROUTES_LIST, routesManager.getAllRoutes());
 			return EDIT_TRANSPORT_JSP;
 		}
 
@@ -476,11 +477,11 @@ public class TransportController {
 	@RequestMapping(value = GETS_LINE_ID_LINE_ID_ONSTATIONS, method = RequestMethod.GET)
 	public String displayStationOnLine(
 			@PathVariable(LINE_ID_ONSTATIONS_PATH_VERIABLE) Integer lineId,
-			Map<String, Object> modelMap) {
+			Model modelMap) {
 		List<StationsOnLine> listOfStationsOnLine = stationOnLineManager
 				.findStationsOnLine(lineId);
 
-		modelMap.put(LIST_OF_STATIONS_ON_LINE, listOfStationsOnLine);
+		modelMap.addAttribute(LIST_OF_STATIONS_ON_LINE, listOfStationsOnLine);
 
 		return LIST_OF_STATIONS_ON_LINE;
 	}
@@ -503,7 +504,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = START_DATE, required = false) String sDate,
 			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
@@ -547,7 +548,7 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = START_DATE, required = false) String sDate,
 			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
-			Map<String, Object> modelMap) {
+			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
