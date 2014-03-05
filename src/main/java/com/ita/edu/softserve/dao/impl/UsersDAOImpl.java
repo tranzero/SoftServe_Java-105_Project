@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.entity.Users;
 
 /**

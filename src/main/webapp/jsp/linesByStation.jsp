@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <section id="content">
 	<h2>Lines Search</h2>
-	<form:form action="linesbystation" id="linebystation" method="get">
+	<form:form action="linesByStation" id="linesByStation" method="get">
 		Enter station name :
 		<c:if test="${not empty param.stationName}">
 			<input type="text" name="stationName" value="${param.stationName}" />
@@ -16,7 +16,7 @@
 		<input class="button" type="submit" name="submit" value="Find" />
 	</form:form>
 	<div id="result">
-		<c:if test="${!empty linesbystationlist}">
+		<c:if test="${!empty linesByStationList}">
 			<hr />
 		<table>
 		<thead>
@@ -33,7 +33,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="lines" items="${linesbystationlist}">
+		<c:forEach var="lines" items="${linesByStationList}">
 			<tr>
 				<td id="generate"></td>
 				<td>${lines.getLineName()}</td>
@@ -45,7 +45,7 @@
 	</table>
 			<hr />
 		</c:if>
-		<c:if test="${empty linesbystationlist && not empty param.stationName}">
+		<c:if test="${empty linesByStationList && not empty param.stationName}">
 			<p>No results.</p>
 		</c:if>
 		<c:if test="${not empty param.stationName}">
@@ -118,7 +118,7 @@
 														'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
 									},
 									type : "GET",
-									url : "linesbystationresult",
+									url : "linesByStationResult",
 									data : {
 										stationName : stationName_,
 										pageNumber : pageNumber_,
