@@ -98,5 +98,17 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 * Saves a Trip to database if not exist or update existing one.
 	 */
 	void saveOrUpdate(Trips entity);
+	
+	public void reduceRemSeaatClass1(Integer tripId);
+	
+	public void reduceRemSeaatClass2(Integer tripId);
+
+	public void reduceRemSeaatClass3(Integer tripId);
+	
+	public void increaseRemSeaatClass1(Integer tripId);
+	
+	public void increaseRemSeaatClass2(Integer tripId);
+
+	public void increaseRemSeaatClass3(Integer tripId);
 
 }

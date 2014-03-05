@@ -52,9 +52,14 @@ public class Transports extends BaseEntity {
 	public static final String TRANSPORT_CODE_NAME = "transportCode";
 	
 	/**
-	 * Defines the name of route name parameter.
+	 * Defines the name of route code parameter.
 	 */
 	public static final String ROUTE_CODE_NAME = "routeCode";
+	
+	/**
+	 * Defines the name of route name parameter.
+	 */
+	public static final String ROUTE_NAME_NAME = "routeName";
 	
 	/**
 	 * Defines the name of line name parameter.
@@ -91,7 +96,7 @@ public class Transports extends BaseEntity {
 	 */
 	public static final String MAX_TIME_NAME = "maxTime";
 	
-	public static final String ROUTE_NAME_NAME = "routeName";
+
 	public static final String ORDER_BY_CRITERIA_NAME = "orderByCriteria";
 	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
 

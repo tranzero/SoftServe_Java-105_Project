@@ -188,6 +188,10 @@ public interface TripsManager extends BaseManager {
 
 	Trips findByTripId(Integer id);
 	
+	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType);
+	
+	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType);
+	
 	void updateTrip(Trips trip);
 
 }
