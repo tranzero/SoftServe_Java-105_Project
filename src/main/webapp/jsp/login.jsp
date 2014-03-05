@@ -8,12 +8,10 @@
 	<form id="loginform" name='loginForm'
 		action="<c:url value="/j_spring_security_check"/>" method='POST'>
 		<h1><spring:message code="label.header.login"/></h1>
-		<span>
+		<span id="lspan">
 			<c:if test='${not empty param.error}'>
-				<font color='red' size="2"> <spring:message
-					code="label.Login.loginerror" /> <spring:message
-					code="label.login.reason" />
-				</font>
+				<spring:message code="label.Login.loginerror" /> <spring:message
+					code="label.login.reason" />			
 			</c:if>
 		</span>
 		 <div> 			
