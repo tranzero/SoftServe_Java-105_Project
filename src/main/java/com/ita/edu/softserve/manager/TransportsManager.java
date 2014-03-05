@@ -6,6 +6,7 @@ import java.util.List;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
+import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 
 /**
  * @author Roman
@@ -145,6 +146,9 @@ public interface TransportsManager extends BaseManager {
 			String routesCode, Integer seatClass1, Integer seatClass2,
 			Integer seatClass3, Double price, String orderByCriteria,
 			String orderByDirection);
+
+	void validateTransportForAddTripsCriteria(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
 
 	/**
 	 * Gets List of Transports in descending order.

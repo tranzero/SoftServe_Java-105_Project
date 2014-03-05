@@ -3,6 +3,16 @@ package com.ita.edu.softserve.validationcontainers.impl;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 
 public class TransportForAddTripsCriteriaContainerImpl implements TransportForAddTripsCriteriaContainer {
+	
+	public static final String[] ORDER_BY_COLUMNS= {"t.transportCode",
+		"t.routes.routeCode",
+		"t.routes.routeName",
+		"t.seatclass1",
+		"t.seatclass2",
+		"t.seatclass3",
+		"t.genPrice",
+		"t.startTime"};
+	
 	private String transportCode;
 	private String routeName;
 	private String routesCode;
@@ -214,6 +224,11 @@ public class TransportForAddTripsCriteriaContainerImpl implements TransportForAd
 	 * @param orderByDirection
 	 * @return
 	 */
+	
+	public TransportForAddTripsCriteriaContainerImpl(){
+		super();
+	}
+	
 	@Override
 	public void setValuableParams(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,

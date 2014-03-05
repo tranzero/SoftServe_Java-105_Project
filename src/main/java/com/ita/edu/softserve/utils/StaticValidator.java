@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.utils;
 
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,9 +11,11 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.UsersCriteriaContainerImpl;
 
@@ -125,6 +126,48 @@ public class StaticValidator {
 		tripsCriteriaContainer.setMaxDate(ValidatorUtil.getDateWithFormat(
 				tripsCriteriaContainer.getMaxDateString(), locale,
 				MAX_DATE_STRING));
+	}
+
+	public static void validateTransportForAddTripsCriteria(
+			TransportForAddTripsCriteriaContainer container) {
+		Set<String> fieldsSet = new TreeSet<String>();
+		Collections.addAll(fieldsSet,
+				TransportForAddTripsCriteriaContainerImpl.ORDER_BY_COLUMNS);
+		if ((container.getOrderByCriteria() == null)
+				|| !(fieldsSet.contains(container.getOrderByCriteria()))) {
+			container
+					.setOrderByCriteria(TransportForAddTripsCriteriaContainerImpl.ORDER_BY_COLUMNS[0]);
+		}
+		if ((container.getOrderByDirection() == null)
+				|| !(container.getOrderByDirection().equalsIgnoreCase(
+						ORDER_BY_SORTING_TYPES[0]) || container
+						.getOrderByDirection().equalsIgnoreCase(
+								ORDER_BY_SORTING_TYPES[1]))) {
+			container.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
+		}
+		container.setTransportCode((String) ValidatorUtil
+				.defaultForNull(container.getTransportCode(), ""));
+		container.setRouteName((String) ValidatorUtil
+				.defaultForNull(container.getRouteName(), ""));
+		container.setRoutesCode((String) ValidatorUtil
+				.defaultForNull(container.getRoutesCode(), ""));
+		container.setPriceName((String) ValidatorUtil
+				.defaultForNull(container.getPriceName(), ""));
+		container.setSeatClass1((Integer) ValidatorUtil
+				.defaultForNull(container.getSeatClass1(), -1));
+		container.setSeatClass2((Integer) ValidatorUtil
+				.defaultForNull(container.getSeatClass2(), -1));
+		container.setSeatClass3((Integer) ValidatorUtil
+				.defaultForNull(container.getSeatClass3(), -1));
+		try {
+			container.setPrice(Double.parseDouble(container.getPriceName()));
+		} catch (Exception e) {
+			container.setPrice(Double.MAX_VALUE);
+		}
+		if (container.getPrice() <= 0) {
+			container.setPrice(Double.MAX_VALUE);
+		}
+
 	}
 
 	public static void validateUserListCriteria(
