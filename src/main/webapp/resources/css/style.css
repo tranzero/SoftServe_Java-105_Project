@@ -460,3 +460,16 @@ input#btnFindRoutes {
 .pad_right{
 	padding-right: 5px;
 }
+div#btnFindUsers input {
+	float: right;
+	margin-top: -72px;
+}
+div.group_c1 {
+	max-width: 300px;
+}
+div.group_c2 {
+	float: right;
+	padding-right: 170px;
+	margin-top: -58px;
+	max-width: 500px;
+}

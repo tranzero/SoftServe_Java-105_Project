@@ -35,7 +35,7 @@ public class ShoppingBag implements Serializable {
 	public void addTicket(Tickets ticket) {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
 		tripsManager.reduceFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
-		
+		System.out.println("add");
 		tickets.add(ticket);
 	}
 
@@ -53,6 +53,7 @@ public class ShoppingBag implements Serializable {
 				
 				}
 		}
+		System.out.println("remove");
 	}
 	public void clearBag(){
 		tickets.clear();
