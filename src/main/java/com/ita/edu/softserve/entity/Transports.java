@@ -64,17 +64,17 @@ public class Transports extends BaseEntity {
 	/**
 	 * Defines the name of seat class 1 parameter.
 	 */
-	public static final String SEAT_CLASS_1_NAME = "seatClass1";
+	public static final String SEAT_CLASS1_NAME = "seatClass1";
 	
 	/**
 	 * Defines the name of seat class 2 parameter.
 	 */
-	public static final String SEAT_CLASS_2_NAME = "seatClass2";
+	public static final String SEAT_CLASS2_NAME = "seatClass2";
 	
 	/**
 	 * Defines the name of seat class 3 parameter.
 	 */
-	public static final String SEAT_CLASS_3_NAME = "seatClass3";
+	public static final String SEAT_CLASS3_NAME = "seatClass3";
 	
 	/**
 	 * Defines the name of general price name parameter.
@@ -92,9 +92,6 @@ public class Transports extends BaseEntity {
 	public static final String MAX_TIME_NAME = "maxTime";
 	
 	public static final String ROUTE_NAME_NAME = "routeName";
-	public static final String SEAT_CLASS1_NAME = "seatclass1";
-	public static final String SEAT_CLASS2_NAME = "seatclass2";
-	public static final String SEAT_CLASS3_NAME = "seatclass3";
 	public static final String ORDER_BY_CRITERIA_NAME = "orderByCriteria";
 	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
 
@@ -156,11 +153,11 @@ public class Transports extends BaseEntity {
 			+ " AND t.routes.lineId.lineName LIKE :"
 			+ LINE_NAME_NAME
 			+ " AND t.seatclass1 >= :"
-			+ SEAT_CLASS_1_NAME
+			+ SEAT_CLASS1_NAME
 			+ " AND t.seatclass2 >= :"
-			+ SEAT_CLASS_2_NAME
+			+ SEAT_CLASS2_NAME
 			+ " AND t.seatclass3 >= :"
-			+ SEAT_CLASS_3_NAME
+			+ SEAT_CLASS3_NAME
 			+ " AND t.genPrice <= :"
 			+ GEN_PRICE_NAME
 			+ " AND t.startTime BETWEEN :"
@@ -187,11 +184,11 @@ public class Transports extends BaseEntity {
 			+ " AND t.routes.lineId.lineName LIKE :"
 			+ LINE_NAME_NAME
 			+ " AND t.seatclass1 >= :"
-			+ SEAT_CLASS_1_NAME
+			+ SEAT_CLASS1_NAME
 			+ " AND t.seatclass2 >= :"
-			+ SEAT_CLASS_2_NAME
+			+ SEAT_CLASS2_NAME
 			+ " AND t.seatclass3 >= :"
-			+ SEAT_CLASS_3_NAME
+			+ SEAT_CLASS3_NAME
 			+ " AND t.genPrice <= :"
 			+ GEN_PRICE_NAME
 			+ " AND t.startTime BETWEEN :"
