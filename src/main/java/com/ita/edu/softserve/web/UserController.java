@@ -18,6 +18,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
+import com.ita.edu.softserve.propertyeditors.UserRoleEditor;
 import com.ita.edu.softserve.validation.ProfileEditValidator;
 
 /**

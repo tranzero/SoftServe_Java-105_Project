@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.propertyeditors;
 
 import java.beans.PropertyEditorSupport;
 
