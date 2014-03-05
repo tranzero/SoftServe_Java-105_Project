@@ -65,22 +65,6 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * Finds Transport by transport code in descending order.
-	 * 
-	 * @param id
-	 *            the Id to find object in Transport table.
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getEntityDESC()
-	 */
-	// @SuppressWarnings("unchecked")
-	// @Override
-	// public List<Transports> getEntityDESC() {
-	// Query query = entityManager
-	// .createNamedQuery(Transports.FIND_BY_TRANSPORTCODE_DESC);
-	//
-	// return (List<Transports>) query.getResultList();
-	// }
-
-	/**
 	 * Finds Transport by criteria.
 	 * 
 	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListByCriteria(int,
