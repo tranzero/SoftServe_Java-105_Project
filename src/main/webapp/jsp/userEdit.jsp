@@ -12,8 +12,6 @@
 
 	<form:form method="post" action="userEdit.htm" commandName="user">
 		<fieldset>
-			<legend>User data</legend>
-
 
 			<form:hidden path="userId" />
 
@@ -22,36 +20,36 @@
 				<form:input type="text" path="firstName" onfocus="checkpostal()" />
 				<form:errors path="firstName" cssClass="error" />
 			</div>
-
+			<p>
 			<div class="data">
 				<label><spring:message code="label.users.lastName" />:</label>
 
 				<form:input type="text" path="lastName" onfocus="checkpostal()" />
 				<form:errors path="lastName" cssClass="error" />
 			</div>
-			
+			<p>
 			<div class="data">
 				<label><spring:message code="label.users.email" />:</label>
 
 				<form:input type="text" path="email" onfocus="checkpostal()" />
 				<form:errors path="email" cssClass="error" />
 			</div>
-
+			<p>
 			<div class="data">
 				<label><spring:message code="label.users.password" />:</label>
 				<form:input type="password" path="password" onfocus="checkpostal()" />
 				<form:errors path="password" cssClass="error" />
 			</div>
-			
+			<p>
 			<div class="data">
 				<label> <spring:message code="label.users.role" />:
 				</label>
 				<form:input type="text" path="role" onfocus="checkpostal()" />
 				<form:errors path="role" cssClass="error" />
 			</div>
-			
+			<p>
 		</fieldset>
-
+		<p>
 		<div>
 			<input name="control" type="submit"
 				value="<spring:message code ="label.update" />" /> <input
