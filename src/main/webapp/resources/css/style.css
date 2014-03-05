@@ -285,6 +285,7 @@ div.center {
 
 /* for error */
 .error {
+	padding-left: 10px;
 	color: #ff0000;
 }
 
@@ -400,6 +401,9 @@ form.pad_top_bottom {
 .pad_top_bottom {
 	padding: 10px 0;
 }
+.pad_top_bottom4 {
+	padding: 4px 0;
+}
 
 fieldset {
   border: 3px solid #aaa;
@@ -417,7 +421,7 @@ fieldset div label {
   float:left;
   width:25%;
   margin-right:0.5em;
-  padding-top:0.2em;
+  padding-top:0.7em;
   text-align:right;
   font-weight:bold;
 }
@@ -433,4 +437,9 @@ fieldset div label {
 }
 #res_per_page_label {
 	vertical-align: 10px;
+}
+
+form#regForm {
+	font-size: 1.1em;
+	font-weight: 100;
 }
