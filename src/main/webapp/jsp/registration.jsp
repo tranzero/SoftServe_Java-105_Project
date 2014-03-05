@@ -27,12 +27,12 @@
 		</div>
 		<div class="control-group">
 			<label for="password">Password:</label>
-			<form:input path="password" type="text" name="password"></form:input>
+			<form:input path="password" type="password" name="password"></form:input>
 			<form:errors path="password" cssClass="error"></form:errors>
 		</div>
 		<div class="control-group">
 			<label for="confirmPassword">Confirm Password:</label>
-			<form:input path="confirmPassword" type="text" name="password"></form:input>
+			<form:input path="confirmPassword" type="password" name="password"></form:input>
 			<form:errors path="confirmPassword" cssClass="error"></form:errors>
 		</div>
 		<div class="control-group">

@@ -84,6 +84,22 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
+	 * Update The User Data (for userEdit.jsp)
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void updateTheUserData(Users user) {
+		userDao.updateUserData(user);
+
+		/*
+		 * try { userDao.saveOrUpdate(transport); } catch (RuntimeException e) {
+		 * RuntimeException ex = new TransprtsManagerException(
+		 * saveOrUpdateTransportMessage, e); LOGGER.error(e); LOGGER.error(ex);
+		 * throw ex; }
+		 */
+	}
+
+	/**
 	 * Update user (for userEdit.jsp)
 	 */
 	@Override
@@ -103,23 +119,16 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Update The User Data
+	 * Delete user of DB
 	 */
-	@Transactional(readOnly = false)
 	@Override
-	public void updateTheUserData(Users user) {
-		userDao.updateUserData(user);
-
-		/*
-		 * try { userDao.saveOrUpdate(transport); } catch (RuntimeException e) {
-		 * RuntimeException ex = new TransprtsManagerException(
-		 * saveOrUpdateTransportMessage, e); LOGGER.error(e); LOGGER.error(ex);
-		 * throw ex; }
-		 */
+	@Transactional
+	public void removeUser(Integer id) {
+		userDao.remove(userDao.findById(id));
 	}
 
 	/**
-	 * Update user - without role
+	 * Update user (for profile.jsp)
 	 */
 	@Transactional
 	public void updateUser2(Integer userId, String firstName, String lastName,
@@ -136,15 +145,6 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Delete user of DB
-	 */
-	@Override
-	@Transactional
-	public void removeUser(Integer id) {
-		userDao.remove(userDao.findById(id));
-	}
-
-	/**
 	 * Find user by username
 	 */
 	@Override
@@ -158,14 +158,16 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
-	// --- Validator
+	/**
+	 * Validator for userList
+	 */
 	@Override
 	public void validateUserListCriteria(
 			UserCriteriaContainer userCriteriaContainer, Locale locale) {
 		StaticValidator.validateUserListCriteria(userCriteriaContainer, locale);
 	}
 
-	// /-----for paging
+	// For pagging 1
 	@Override
 	public long getUsersListCountUsingContainer(
 			UserCriteriaContainer userCriteriaContainer) {
@@ -219,10 +221,10 @@ public class UserManagerImpl implements UserManager {
 				orderByDirection);
 	}
 
-	// /-----for paging
+	// For pagging2
 
 	/**
-	 * For paging- get userlist Count
+	 * For pagging- get userlist Count
 	 */
 	@Override
 	public long getUsersListCount() throws UsersManagerExeption {
@@ -235,7 +237,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * For paging- get all users
+	 * For pagging- get all users
 	 */
 	@Override
 	public List<Users> getUsersForPage(int from, int count)

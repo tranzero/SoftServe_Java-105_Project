@@ -51,19 +51,26 @@ public interface UserManager extends BaseManager {
 	public Users findUser(Integer id);
 
 	/**
-	 * Update user
+	 * Update The User Data (for userEdit.jsp)
+	 * 
+	 * @param user
+	 */
+	void updateTheUserData(Users user);
+
+	/**
+	 * Update user (for userEdit.jsp)
 	 */
 	public void updateUser(Integer userId, String firstName, String lastName,
-			String eMail, String passwd, Role role);
+			String email, String passwd, Role role);
 
 	/**
-	 * Update user - without role
+	 * Update user (for profile.jsp)
 	 */
 	public void updateUser2(Integer userId, String firstName, String lastName,
-			String eMail, String passwd);
+			String email, String passwd);
 
 	/**
-	 * Delete user
+	 * Delete user of DB
 	 * 
 	 * @param id
 	 */
@@ -78,33 +85,7 @@ public interface UserManager extends BaseManager {
 	public Users findByUsername(String username);
 
 	/**
-	 * For paging- get userlist Count
-	 * 
-	 * @return
-	 * @throws UsersManagerExeption
-	 */
-	public long getUsersListCount() throws UsersManagerExeption;
-
-	/**
-	 * For paging- get all users
-	 * 
-	 * @param from
-	 * @param count
-	 * @return
-	 * @throws UsersManagerExeption
-	 */
-	public List<Users> getUsersForPage(int from, int count)
-			throws UsersManagerExeption;
-
-	/**
-	 * Update The User Data
-	 * 
-	 * @param user
-	 */
-	void updateTheUserData(Users user);
-
-	/**
-	 * For pagging 1
+	 * For pagging1
 	 */
 	long getUsersListCountWithCriteria(String searchString,
 			List<Role> roleArray, Date minDate, Date maxDate);
@@ -126,5 +107,24 @@ public interface UserManager extends BaseManager {
 	List<Users> getUsersForLimitUsingContainers(
 			UserCriteriaContainer userCriteriaContainer,
 			PageInfoContainer container);
+
+	/**
+	 * For pagging2- get userlist Count
+	 * 
+	 * @return
+	 * @throws UsersManagerExeption
+	 */
+	public long getUsersListCount() throws UsersManagerExeption;
+
+	/**
+	 * For pagging2- get all users
+	 * 
+	 * @param from
+	 * @param count
+	 * @return
+	 * @throws UsersManagerExeption
+	 */
+	public List<Users> getUsersForPage(int from, int count)
+			throws UsersManagerExeption;
 
 }

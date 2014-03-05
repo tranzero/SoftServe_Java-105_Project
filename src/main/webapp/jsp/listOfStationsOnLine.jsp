@@ -12,8 +12,9 @@
 		<c:forEach var="stationsOnLine" items="${listOfStationsOnLine}">
 			<tr>
 				<td align="center" id="generate"></td>
-				<td align="center">${stationsOnLine.getStationId().getStationName()}</td>
+				<td align="center">${stationsOnLine.getStationName()}</td>
 			</tr>
 		</c:forEach>
 	</table>
+	<input type="button" value="Back" onclick="window.history.back()" />
 </section>

@@ -23,9 +23,8 @@ import com.ita.edu.softserve.entity.Users;
 @Repository("usersDao")
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 
-	// --- update for validator
 	/**
-	 * Update User Data
+	 * Update User Data (for validator)
 	 */
 	public void updateUserData(final Users entity) {
 		if (entity.getUserId() == null) {
@@ -33,30 +32,6 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 		} else {
 			entityManager.merge(entity);
 		}
-	}
-
-	/**
-	 * Find user by name
-	 */
-	@Override
-	public Users findByName(String name) {
-		Query query = entityManager.createNamedQuery(Users.FIND_BY_NAME)
-				.setParameter(1, name);
-		return (Users) query.getSingleResult();
-	}
-
-	/**
-	 * Get count all users
-	 */
-	@Override
-	public Long getCountAllUsers() {
-		Query query = entityManager.createNamedQuery(Users.GET_COUNT_ALL_USERS);
-		return (Long) query.getSingleResult();
-	}
-
-	@Override
-	public Class<Users> getEntityClass() {
-		return Users.class;
 	}
 
 	/**
@@ -70,7 +45,31 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	}
 
 	/**
-	 * For paging - getUsersListCount
+	 * Find user by name
+	 */
+	@Override
+	public Users findByName(String name) {
+		Query query = entityManager.createNamedQuery(Users.FIND_BY_NAME)
+				.setParameter(1, name);
+		return (Users) query.getSingleResult();
+	}
+
+	@Override
+	public Class<Users> getEntityClass() {
+		return Users.class;
+	}
+
+	/**
+	 * Get count all users
+	 */
+	@Override
+	public Long getCountAllUsers() {
+		Query query = entityManager.createNamedQuery(Users.GET_COUNT_ALL_USERS);
+		return (Long) query.getSingleResult();
+	}
+
+	/**
+	 * For pagging 1 - getUsersListCount
 	 */
 	@Override
 	public long getUsersListCount() {
@@ -109,7 +108,7 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	}
 
 	/**
-	 * For paging - getUsersForOnePag
+	 * For pagging2 - getUsersForOnePag
 	 */
 	@Override
 	public List<Users> getUsersForOnePage(int from, int count) {
@@ -117,7 +116,7 @@ public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 	}
 
 	/**
-	 * For paging - getUsersForPaging
+	 * For pagging2 - getUsersForPaging
 	 */
 	public List<Users> getUsersForPaging(int from, int count) {
 		Query query = entityManager.createNamedQuery(Users.GET_ALL_USERS)

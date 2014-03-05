@@ -10,23 +10,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+
+
+
+
 import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "tickets")
+@NamedQueries(
+		@NamedQuery(name = Tickets.FIND_BY_ORDERID, query = Tickets.FIND_BY_ORDERID_QUERY)
+)
 public class Tickets extends BaseEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 
+	
 	private static final long serialVersionUID = -5039457734811028773L;
+	
+	public static final String FIND_BY_ORDERID = "Tickets.findByOrderId";
+	public static final String FIND_BY_ORDERID_QUERY = "SELECT t FROM Tickets t WHERE t.order.orderId = ?1";
 
 	@Id
 	@Column(name = "TICKETID")

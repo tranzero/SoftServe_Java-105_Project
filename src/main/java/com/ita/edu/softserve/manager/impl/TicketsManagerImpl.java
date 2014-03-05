@@ -2,6 +2,7 @@ package com.ita.edu.softserve.manager.impl;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
+
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.dao.TicketsDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
@@ -103,6 +108,21 @@ public class TicketsManagerImpl implements TicketsManager{
 	
 	
 }
+	@Override
+	public List<Tickets> findTicketsByOrderId(Integer id) {
+		return ticketsDao.findTicketsByOrderId(id);
+	}
+
+	@Override
+	public List<Tickets> ticketsForPage(Integer id) {
+		List<Orders> olist = ordersDao.findOrdersByUserId(id);
+		List<Tickets> temp = new ArrayList<Tickets>();
+		for (Orders o: olist) {
+			 ticketsDao.findTicketsByOrderId(o.getOrderId());
+			 temp.addAll(ticketsDao.findTicketsByOrderId(o.getOrderId()));
+		}
+		return temp;
+	}
 
 	
 }

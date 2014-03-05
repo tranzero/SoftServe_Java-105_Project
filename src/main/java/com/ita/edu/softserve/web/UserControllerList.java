@@ -86,7 +86,7 @@ public class UserControllerList {
 
 		long count = usersmanage
 				.getUsersListCountUsingContainer(userCriteriaContainer);
-		// long count = 100;
+
 		container.setPageNumber(pageNumber);
 		container.setResultsPerPage(resultsPerPage);
 		container.setCount(count);
@@ -97,7 +97,6 @@ public class UserControllerList {
 		modelMap.put("userList", usersmanage.getUsersForLimitUsingContainers(
 				userCriteriaContainer, container));
 		modelMap.put("language", locale.getLanguage());
-
 	}
 
 	/**
@@ -122,7 +121,7 @@ public class UserControllerList {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-		// modelMap.put("userList", usersmanage.findAllUsers());
+
 		return "userlist";
 	}
 
@@ -159,7 +158,7 @@ public class UserControllerList {
 		deployUsersParameters(pageNumber, resultsPerPage, searchString,
 				minDateString, maxDateString, isRegUser, isManager, isAdmin,
 				orderByParam, orderByDirection, modelMap, locale);
-		// modelMap.put("userList", usersmanage.findAllUsers());
+
 		return "userListPage";
 	}
 

@@ -21,7 +21,7 @@
 					<li><span class="cart_icon"></span><a
 						href="<c:url value="/bag" />">Bag</a></li>
 					<li>|</li>
-					<li><a href="<c:url value="/editProfile"/>"><spring:message code="label.header.Profile"/></a></li>
+					<li><a href="<c:url value="/profileEdit"/>"><spring:message code="label.header.Profile"/></a></li>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="login"><spring:message

@@ -20,7 +20,7 @@ import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 
 /**
- * Controller - UserController
+ * Controller for Users
  * 
  * @author iryna
  * 
@@ -32,12 +32,14 @@ public class UserController {
 	private UserManager usersmanage;
 
 	@Autowired
+	private  ProfileEditValidator profileEditValidator;
+	
+	@Autowired
 	Validator userEditValidator;
 
 	@Autowired
 	private UserNameService userService;
 
-	// ----userEdit with Validator----------
 	/**
 	 * Update user to DB - RequestMethod.GET
 	 * 
@@ -67,8 +69,7 @@ public class UserController {
 	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
-		// user.setRole(Role.REGUSER);
-		// System.out.println(user.getFirstName());
+
 		userEditValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {
@@ -87,7 +88,7 @@ public class UserController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(userEditValidator);
-		binder.registerCustomEditor(Role.class, new RoleEditor());
+		binder.registerCustomEditor(Role.class, new UserRoleEditor());
 
 	}
 
@@ -110,20 +111,21 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profileEdit", method = RequestMethod.GET)
 	public String editProfile(Map<String, Object> modelMap) {
 		Users user = usersmanage.findUser(userService.getLoggedUserId());
 		modelMap.put("user", user);
-		return "editProfile";
+		return "profileEdit";
 	}
 
-	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute("firstName") String firstName,
-			@ModelAttribute("lastName") String lastName,
-			@ModelAttribute("email") String email,
-			@ModelAttribute("password") String password) {
-		usersmanage.updateUser2(userService.getLoggedUserId(), firstName,
-				lastName, email, password);
+	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
+	public String updateProfile(@ModelAttribute("user") Users user, BindingResult result, ModelMap model){
+		profileEditValidator.validate(user, result);
+		if (result.hasErrors()) {
+			return "profileEdit";
+		}
+		usersmanage.updateUser2(user.getUserId(), user.getFirstName(),
+				user.getLastName(), user.getEmail(), user.getPassword());
 		return "redirect:/mainpage";
 	}
 

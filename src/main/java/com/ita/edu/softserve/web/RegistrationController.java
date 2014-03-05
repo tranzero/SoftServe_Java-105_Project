@@ -35,7 +35,6 @@ public class RegistrationController {
 			BindingResult result, ModelMap model) {
 		regValid.validate(user, result);
 		if (result.hasErrors()) {
-			// model.put("user", user);
 			return "registration";
 		}
 		if (usersManager.createUser(user.getUserName(), user.getFirstName(),
@@ -43,12 +42,16 @@ public class RegistrationController {
 				Role.REGUSER) == false) {
 			return "redirect:/regError";
 		}
-		return "redirect:/mainpage";
+		return "redirect:/successfulReg";
 	}
 
 	@RequestMapping(value = "/regError", method = RequestMethod.GET)
 	public String regError(Map<String, Object> model) {
 		return "regError";
+	}
+	@RequestMapping(value = "/successfulReg", method = RequestMethod.GET)
+	public String regSuc(Map<String, Object> model) {
+		return "successfulReg";
 	}
 
 }

@@ -30,6 +30,7 @@ import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Tickets;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.OrdersManager;
+import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -45,6 +46,34 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
+	private static final String REDIRECT_TO_MAIN_PAGE = "redirect:/";
+
+	private static final String RESERVATION_TICKET_PAGE = "reservationTicket";
+
+	private static final String LIST_OF_STATIONS_ON_LINE_PAGE = "listOfStationsOnLine";
+
+	private static final String BAG_PAY_PAGE = "bagPay";
+
+	private static final String BAG_PAGE = "bag";
+
+	private static final String TICKETS_LIST = "ticketsList";
+
+	private static final String DELETE_TICKET_URL = "/delete/{ticketName}/{tripId}";
+
+	private static final String BAG_PAY_URL = "/bagPay";
+
+	private static final String BAG_URL = "/bag";
+
+	private static final String ADD_TO_BAG_URL = "/addToBag/{tripId}/{seatType}";
+
+	private static final String TRANSPORT = "transport";
+
+	private static final String TRIP = "trip";
+
+	private static final String TICKET = "ticket";
+
+	private static final String RESERVATION_TICKET_URL = "/reservationTicket/{tripId}/{seatType}";
+
 	private static final String TRIP_ID = "tripId";
 
 	@Autowired
@@ -63,37 +92,37 @@ public class TicketController {
 	private OrdersManager ordersManager;
 	
 	@Autowired
+	private StationsManager stationsManager;
+	
+	@Autowired
 	private Validator ticketValidator;
 
 	
-//	@InitBinder
-//	public void initBinder(WebDataBinder binder) {
-//		binder.setValidator(ticketValidator);
-//	}
+
 	
-	@RequestMapping(value = "/reservationTicket/{tripId}/{seatType}", method = RequestMethod.GET)
+	@RequestMapping(value = RESERVATION_TICKET_URL, method = RequestMethod.GET)
 	public String reservationTicket(@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
 			Model model) {
 	 
 		if(!(seatType.equals(1)) &&  !(seatType.equals(2)) && !(seatType.equals(3))){
-			return "redirect:/";
+			return REDIRECT_TO_MAIN_PAGE;
 		}
 		else{
 //		modelMap.put("trip",tripsManager.findByTripId(tripId));
 //		modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
 //		modelMap.put(TRIP_ID, tripId);
 //		modelMap.put("seatType", seatType);
-			model.addAttribute("ticket", new Tickets());
-			model.addAttribute("trip",tripsManager.findByTripId(tripId));
-			model.addAttribute("transport", tripsManager.findByTripId(tripId).getTransport());
+			model.addAttribute(TICKET, new Tickets());
+			model.addAttribute(TRIP,tripsManager.findByTripId(tripId));
+			model.addAttribute(TRANSPORT, tripsManager.findByTripId(tripId).getTransport());
 			model.addAttribute(TRIP_ID, tripId);
-		return "reservationTicket";
+		return RESERVATION_TICKET_PAGE;
 		}
 	}
 
-	@RequestMapping(value = "/addToBag/{tripId}/{seatType}", method = RequestMethod.POST)
-	public String reservationTicketPost(@ModelAttribute( value = "ticket") Tickets ticket,
+	@RequestMapping(value = ADD_TO_BAG_URL, method = RequestMethod.POST)
+	public String reservationTicketPost(@ModelAttribute( value = TICKET) Tickets ticket,
 			@PathVariable(TRIP_ID) Integer tripId,
 			@PathVariable(value= "seatType") Integer seatType,
 			BindingResult result,
@@ -102,43 +131,52 @@ public class TicketController {
 		ticketValidator.validate(ticket , result);
 
 		if (result.hasErrors()) {
-			modelMap.put("trip",tripsManager.findByTripId(tripId));
-			modelMap.put("transport", tripsManager.findByTripId(tripId).getTransport());
+			modelMap.put(TRIP,tripsManager.findByTripId(tripId));
+			modelMap.put(TRANSPORT, tripsManager.findByTripId(tripId).getTransport());
 			modelMap.put(TRIP_ID, tripId);
 			modelMap.put("seatType", seatType);
 
 
-			return "reservationTicket";
+			return RESERVATION_TICKET_PAGE;
 		}
 		
 		shoppingBag.addTicket(ticketsManager.getTicket(tripsManager.findByTripId(tripId)
 				.getTransport().getRoutes().getRouteName(), 
 				 tripsManager.findByTripId(tripId), ticket.getCustomerFirstName(),ticket.getCustomerLastName(), seatType));
-		modelMap.put("ticketsList", shoppingBag.getTickets());
+		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		
-		return "bag";
+		return BAG_PAGE;
 		
 	}
 	
-	@RequestMapping(value="/bag",method = RequestMethod.GET)
-	public String shoppingBagGET(@RequestParam(value= "customerInfo",required = false) String customerInfo,
-			Map<String, Object> modelMap){
+	
+	@RequestMapping(value = "/listOfStationsOnLine/{lineName}", method = RequestMethod.GET)
+	public String stationsOnLine(@PathVariable("lineName") String lineName,
+			Map<String, Object> modelMap) {
+
+		modelMap.put(LIST_OF_STATIONS_ON_LINE_PAGE, stationsManager.getStationsOnCertainLine(lineName));
+
+		return LIST_OF_STATIONS_ON_LINE_PAGE;
+	}
+	
+	
+	@RequestMapping(value=BAG_URL,method = RequestMethod.GET)
+	public String shoppingBagGET(Map<String, Object> modelMap){
 		
-		modelMap.put("ticketsList", shoppingBag.getTickets());
+		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		
-		return "bag";
+		return BAG_PAGE;
 		
 	}
 
-	@RequestMapping(value="/bagPay",method = RequestMethod.GET)
-	public String payingGet(@RequestParam(value= "customerInfo",required = false) String customerInfo,
-			Map<String, Object> modelMap){
+	@RequestMapping(value=BAG_PAY_URL,method = RequestMethod.GET)
+	public String payingGet(Map<String, Object> modelMap){
 		
 		
-		return "bagPay";
+		return BAG_PAY_PAGE;
 	}
 	
-	@RequestMapping(value="/bagPay",method=RequestMethod.POST)
+	@RequestMapping(value=BAG_PAY_URL,method=RequestMethod.POST)
 	public String payingPost(Map <String,Object> modelMap){
 		
 		Date orderDate = new Date();
@@ -151,19 +189,19 @@ public class TicketController {
 		}
 		
 		shoppingBag.clearBag();
-		return "redirect:/";
+		return REDIRECT_TO_MAIN_PAGE;
 	}
 	
 	
-	@RequestMapping(value="/delete/{ticketName}/{tripId}", method=RequestMethod.GET)
+	@RequestMapping(value=DELETE_TICKET_URL, method=RequestMethod.GET)
 	public String deleteTciketFromBag(@PathVariable(value="ticketName") String ticketName,
 			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
 		shoppingBag.removeTicket(ticketName, tripId);
 		
-		modelMap.put("ticketsList", shoppingBag.getTickets());
-		return "bag";
+		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
+		return BAG_PAGE;
 	}
 	
 }

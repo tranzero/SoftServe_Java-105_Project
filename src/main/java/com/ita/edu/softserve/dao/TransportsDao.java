@@ -116,4 +116,15 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	long getTransportsListByCriteriaCount(String transportCode, Time time,
 			String routeCode, Integer seatClass1, Integer seatClass2,
 			Integer seatClass3, Double price);
+
+	List<Transports> getTransportsListForAddTrips(int firstElement, int count,
+			String transportCode, String routeName, String routeCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String OrderByCriteria, String OrderByDirection);
+
+	long getTransportsListForAddTripsCount(String transportCode,
+			String routeName, String routeCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price);
+
+	
 }
