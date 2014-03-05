@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

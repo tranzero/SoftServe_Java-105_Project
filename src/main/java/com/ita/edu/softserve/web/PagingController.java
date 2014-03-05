@@ -1,5 +1,7 @@
 package com.ita.edu.softserve.web;
 
+import java.util.Map;
+
 import org.springframework.ui.ModelMap;
 
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -15,7 +17,7 @@ public class PagingController {
 	 * @param paginationManager manager for pagination
 	 */
 	
-	public static void deployPaging(ModelMap modelMap, 
+	public static void deployPaging(Map<String, Object> modelMap, 
 			PageInfoContainer container,PaginationManager paginationManager){
 		int pageAmount = paginationManager.getDefaultPageCount();
 		int firstPage = container.getPageNumber()-(pageAmount/2);

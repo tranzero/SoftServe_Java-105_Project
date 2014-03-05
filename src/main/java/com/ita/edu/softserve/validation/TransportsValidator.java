@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.web;
+package com.ita.edu.softserve.validation;
 
 import java.sql.Time;
 
