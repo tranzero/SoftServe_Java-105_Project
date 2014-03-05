@@ -131,6 +131,21 @@ public interface TransportsManager extends BaseManager {
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
 			Double price);
 
+	long getTransportsListForAddTripsCount(String transportCode,
+			String routeName, String routesCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price);
+
+	List<Transports> getTransportsListForAddTrips(int firstElement, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection);
+
+	List<Transports> getTransportsListForAddTripsWithPaging(int pageNumber,
+			int count, String transportCode, String routeName,
+			String routesCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price, String orderByCriteria,
+			String orderByDirection);
+
 	/**
 	 * Gets List of Transports in descending order.
 	 * @return the List of Transports in descending order.

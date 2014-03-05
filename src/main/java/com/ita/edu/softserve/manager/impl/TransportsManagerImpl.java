@@ -215,6 +215,42 @@ public class TransportsManagerImpl implements TransportsManager {
 		return transportsDao.getTransportsListByCriteriaCount(transportCode,
 				time, routesCode, seatClass1, seatClass2, seatClass3, price);
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public long getTransportsListForAddTripsCount(String transportCode,
+			String routeName, String routesCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price) {
+
+		return transportsDao.getTransportsListForAddTripsCount(transportCode,
+				routeName, routesCode, seatClass1, seatClass2, seatClass3, price);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsListForAddTrips(int firstElement,
+			int count, String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection) {
+
+		return transportsDao.getTransportsListForAddTrips(firstElement, count,
+				transportCode, routeName, routesCode, seatClass1, seatClass2,
+				seatClass3, price, orderByCriteria, orderByDirection);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsListForAddTripsWithPaging(int pageNumber,
+			int count, String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection) {
+
+		return transportsDao.getTransportsListForAddTrips((pageNumber-1)*count, count,
+				transportCode, routeName, routesCode, seatClass1, seatClass2,
+				seatClass3, price, orderByCriteria, orderByDirection);
+	}
+	
+	
 
 	/**
 	 * Saves the Transport object to database if not exist or updates it. <br/>
