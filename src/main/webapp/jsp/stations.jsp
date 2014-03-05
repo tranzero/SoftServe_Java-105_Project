@@ -20,7 +20,11 @@
 	<h2 align="center">
 		<spring:message code="label.navigation.stationsForUsers" />
 	</h2>
-
+	<p>
+		<a href="/SoftServe_Java-105/addStation"> 
+		<input id="Add" type="button" name="add" value="<spring:message code="label.stations.add"/>">
+		</a>
+	</p>
 	<form method="get" class="pad_top_bottom half_width">
 		Search for:
 		<c:if test="${isSearchString}">
@@ -31,7 +35,7 @@
 			<input name="searchstring" id="searchstring" class="autosearch"
 				type="text" value="${container.getSearchString()}">
 		</c:if>
-		<input type="submit" value="Search">
+		<input type="submit" value="<spring:message code="label.stations.search"/>">
 	</form>
 	<div id="result">
 		<div id="res_per_page" class="pagination half_width">

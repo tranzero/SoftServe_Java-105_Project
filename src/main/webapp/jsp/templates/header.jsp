@@ -19,7 +19,8 @@
 								code="label.header.logout" /></a></li>
 					<li>|</li>
 					<li><span class="cart_icon"></span><a
-						href="<c:url value="/bag" />">Bag</a></li>
+						href="<c:url value="/bag" />"><spring:message
+								code="label.bag" /></a></li>
 					<li>|</li>
 					<li><a href="<c:url value="/profileEdit"/>"><spring:message code="label.header.Profile"/></a></li>
 				</sec:authorize>

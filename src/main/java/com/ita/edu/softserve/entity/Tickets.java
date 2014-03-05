@@ -26,20 +26,33 @@ import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "tickets")
-@NamedQueries(
-		@NamedQuery(name = Tickets.FIND_BY_ORDERID, query = Tickets.FIND_BY_ORDERID_QUERY)
-)
+@NamedQueries({
+		@NamedQuery(name = Tickets.FIND_BY_ORDERID, query = Tickets.FIND_BY_ORDERID_QUERY),
+		@NamedQuery(name = Tickets.FIND_BY_TRIPID, query = Tickets.FIND_BY_TRIPID_QUERY)
+})
 public class Tickets extends BaseEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-
-	
 	private static final long serialVersionUID = -5039457734811028773L;
 	
+	/**
+	 * Name of query which find tickets with certain order id
+	 */
 	public static final String FIND_BY_ORDERID = "Tickets.findByOrderId";
+	
+	/**
+	 *Query which find tickets with certain order id
+	 */
 	public static final String FIND_BY_ORDERID_QUERY = "SELECT t FROM Tickets t WHERE t.order.orderId = ?1";
+	
+	/**
+	 * Name of query which find tickets with certain trip id
+	 */
+	public static final String FIND_BY_TRIPID = "Tickets.findByTripId";
+	
+	/**
+	 * Query which find tickets with certain trip id
+	 */
+	public static final String FIND_BY_TRIPID_QUERY = "SELECT t FROM Tickets t WHERE t.trip.tripId = ?1";
 
 	@Id
 	@Column(name = "TICKETID")

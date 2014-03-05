@@ -28,10 +28,18 @@ public class ShoppingBag implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * @return list of tickets in bag
+	 */
 	public List<Tickets> getTickets() {
 		return tickets;
 	}
 
+	/**
+	 * add ticket to bag and reduce quantity of free seats in trip
+	 * @param ticket
+	 */
 	public void addTicket(Tickets ticket) {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
 		tripsManager.reduceFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
@@ -39,6 +47,11 @@ public class ShoppingBag implements Serializable {
 		tickets.add(ticket);
 	}
 
+	/**
+	 * remove from bag ticket with certain name and trip id and increase quantity of free seat in trip
+	 * @param ticketName
+	 * @param tripId
+	 */
 	public void removeTicket(String ticketName,Integer tripId) {
 		
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
@@ -55,10 +68,16 @@ public class ShoppingBag implements Serializable {
 		}
 		System.out.println("remove");
 	}
+	/**
+	 * remove tickets from bag without increase free seats quantity
+	 */
 	public void clearBag(){
 		tickets.clear();
 	}
 
+	/**
+	 * scheduled bag cleaning
+	 */
 	@Scheduled(fixedDelay = 900000000)
 	public void clear() {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
@@ -71,6 +90,9 @@ public class ShoppingBag implements Serializable {
 		tickets.clear();
 	}
 
+	/**
+	 * bag cleaning before bean destroy
+	 */
 	@PreDestroy
 	public void preDestroy() {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
