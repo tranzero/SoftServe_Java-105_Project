@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<c:if test="${!empty linesbystationlist}">
+<c:if test="${!empty linesByStationList}">
 	<hr />
 	<table>
 		<thead>
@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="lines" items="${linesbystationlist}">
+			<c:forEach var="lines" items="${linesByStationList}">
 				<tr>
 					<td id="generate"></td>
 					<td>${lines.getLineName()}</td>
@@ -31,7 +31,7 @@
 	</table>
 	<hr />
 </c:if>
-<c:if test="${empty linesbystationlist}">
+<c:if test="${empty linesByStationList}">
 	<p>No results.</p>
 </c:if>
 <div class="pagination">

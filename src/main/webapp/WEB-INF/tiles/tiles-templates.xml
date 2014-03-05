@@ -60,13 +60,13 @@
 		<put-attribute name="title" value="View: userlist2page" />
 		<put-attribute name="content" value="/jsp/userlist2page.jsp" />
 	</definition>
-<definition name="linesbystation" extends="base-template">
-		<put-attribute name="title" value="View: News" />
-		<put-attribute name="content" value="/jsp/linesbystation.jsp" />
+<definition name="linesByStation" extends="base-template">
+		<put-attribute name="title" value="View: Lines search" />
+		<put-attribute name="content" value="/jsp/linesByStation.jsp" />
 	</definition>
-	<definition name="linesbystationresult" extends="ajax">
-		<put-attribute name="title" value="View: userlist2page" />
-		<put-attribute name="content" value="/jsp/linesbystationresult.jsp" />
+	<definition name="linesByStationRresult" extends="ajax">
+		<put-attribute name="title" value="View: Lines search" />
+		<put-attribute name="content" value="/jsp/linesByStationResult.jsp" />
 	</definition>
 	<definition name="orders" extends="base-template">
 		<put-attribute name="title" value="View: Orders" />
