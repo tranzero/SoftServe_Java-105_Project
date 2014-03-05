@@ -56,7 +56,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	 *            the transport to save or update into Transports table.
 	 */
 	@Override
-	public void saveOrUpdate(final Transports entity) {
+	public void saveOrUpdate(Transports entity) {
 		if (entity.getTransportId() == null) {
 			entityManager.persist(entity);
 		} else {
