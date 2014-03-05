@@ -103,25 +103,23 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter("seatclass1", seatClass1)
 				.setParameter("seatclass2", seatClass2)
 				.setParameter("seatclass3", seatClass3)
-				.setParameter("genPrice", price)
-				.setFirstResult(firstElement)
-				.setMaxResults(count)
-				;
+				.setParameter("genPrice", price).setFirstResult(firstElement)
+				.setMaxResults(count);
 
 		return (List<Transports>) query.getResultList();
 	}
 
-	 @Override
-	public long getTransportsListByCriteriaCount(String transportCode, Time time, String routeCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price) {
+	@Override
+	public long getTransportsListByCriteriaCount(String transportCode,
+			Time time, String routeCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price) {
 
 		return (long) find((Query) entityManager
 				.createNamedQuery(
 						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
-				.setParameter("transportCode", transportCode + "%")
+				.setParameter("transportCode", "%" + transportCode + "%")
 				.setParameter("startTime", time, TemporalType.TIME)
-				.setParameter("routeCode", routeCode + "%")
+				.setParameter("routeCode", "%" + routeCode + "%")
 				.setParameter("seatclass1", seatClass1)
 				.setParameter("seatclass2", seatClass2)
 				.setParameter("seatclass3", seatClass3)
