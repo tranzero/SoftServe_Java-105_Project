@@ -21,11 +21,11 @@ public class UserEditValidator implements Validator {
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String USER_PASSWORD_PATERN = "^[a-zA-Z0-9]{4,}$";
 
-	/*
-	 * private static final String FIRSTNAME = "firstName"; private static final
-	 * String LASTNAME = "lastName"; private static final String EMAIL =
-	 * "email"; private static final String PASSWORD = "password";
-	 */
+	private static final String FIRSTNAME = "firstName";
+	private static final String LASTNAME = "lastName";
+	private static final String EMAIL = "email";
+	private static final String PASSWORD = "password";
+
 	private static final String USER_FIRSTNAME_MATCHER = "msg.user.firstName.matcher";
 	private static final String USER_LASTNAME_MATCHER = "msg.user.lastName.matcher";
 	private static final String USER_EMAIL_MATCHER = "msg.user.email.matcher";
@@ -59,7 +59,7 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validateFirstName(String firstName, Errors error) {
 		if (firstName.matches(USER_FIRSTNAME_PATERN) == false) {
-			error.rejectValue("firstName", USER_FIRSTNAME_MATCHER);
+			error.rejectValue(FIRSTNAME, USER_FIRSTNAME_MATCHER);
 		}
 
 	}
@@ -72,7 +72,7 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validateLastName(String lastName, Errors error) {
 		if (lastName.matches(USER_LASTNAME_PATERN) == false) {
-			error.rejectValue("lastName", USER_LASTNAME_MATCHER);
+			error.rejectValue(LASTNAME, USER_LASTNAME_MATCHER);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validateEmail(String email, Errors error) {
 		if (email.matches(USER_EMAIL_PATERN) == false) {
-			error.rejectValue("email", USER_EMAIL_MATCHER);
+			error.rejectValue(EMAIL, USER_EMAIL_MATCHER);
 		}
 	}
 
@@ -96,7 +96,7 @@ public class UserEditValidator implements Validator {
 	 */
 	private void validatePassword(String password, Errors error) {
 		if (password.matches(USER_PASSWORD_PATERN) == false) {
-			error.rejectValue("password", USER_PASSWORD_MATCHER);
+			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
 		}
 	}
 

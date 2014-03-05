@@ -19,6 +19,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
 
@@ -55,24 +56,23 @@ public class UserControllerPg {
 	@Autowired
 	Validator userEditValidator;
 
-	/*// ----userEdit Validator---------------------------------
-	*//**
-	 * Update user to DB - RequestMethod.GET
+	/**
+	 * Update2 user to DB - RequestMethod.GET
 	 * 
 	 * @param usId
 	 * @param modelMap
 	 * @return userEdit
-	 *//*
-	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
+	 */
+	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
 		Users user = usersmanage.findUser(usId);
 		modelMap.put("user", user);
-		return "userEdit";
+		return "userEdit2";
 	}
 
-	*//**
-	 * Update user to DB - RequestMethod.POST
+	/**
+	 * Update2 user to DB - RequestMethod.POST
 	 * 
 	 * @param userId
 	 * @param firstName
@@ -81,20 +81,20 @@ public class UserControllerPg {
 	 * @param parole
 	 * @param role
 	 * @return userEdit
-	 *//*
-	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
+	 */
+	@RequestMapping(value = "/userEdit2/userEdit2.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
 			BindingResult bindingResult, ModelMap modelMap) {
-		// user.setRole(Role.REGUSER);
+
 		userEditValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			modelMap.put("user", user);
-			return "userEdit";
+			return "userEdit2";
 		}
-		usersmanage.saveOrUpdateUser(user);
-		return "redirect:/userlist";
-	}*/
+		usersmanage.updateTheUserData(user);
+		return "redirect:/userlist2";
+	}
 
 	/**
 	 * Delete user
@@ -108,19 +108,6 @@ public class UserControllerPg {
 		return "redirect:/userlist2";
 	}
 
-	
-
-	// -------------------------------------------------------
-	/*// for Validator- userEdit
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(userEditValidator);
-		binder.registerCustomEditor(Role.class, new RoleEditor());
-
-	}*/
-
-	// ----for paging userlist 2---------------------------------
 	/**
 	 * For paging userList 2
 	 * 

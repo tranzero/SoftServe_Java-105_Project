@@ -10,11 +10,21 @@
 		<spring:message code="label.users.userEdit" />
 	</h2>
 
-	<form:form method="post" action="userEdit.htm" commandName="user">
+	<form:form method="post" action="userEdit2.htm" commandName="user">
 
 		<p>
 			<form:hidden path="userId" />
 		<p>
+			<%-- <p>
+			<spring:message code="label.users.userName" />
+		</p> --%>
+
+			<%-- 	<p>
+			<form:input type="text" path="userName" onfocus="checkpostal()" />
+			<form:errors path="userName" cssClass="error" />
+		</p> --%>
+
+
 			<spring:message code="label.users.firstName" />
 		</p>
 
@@ -61,9 +71,11 @@
 
 		<p>
 			<input name="control" type="submit"
-				value="<spring:message code ="label.update" />" /> <input
+				value="<spring:message code ="label.update" />" /> 
+				
+				<input
 				type="button" value="<spring:message code="label.cancel"/>"
-				onclick="window.location='/SoftServe_Java-105/userlist';">
+				onclick="window.location='/SoftServe_Java-105/userlist2';">
 		</p>
 
 	</form:form>
