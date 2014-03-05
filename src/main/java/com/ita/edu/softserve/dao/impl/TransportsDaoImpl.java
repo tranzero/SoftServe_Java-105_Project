@@ -121,7 +121,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 
 		return (long) find((Query) entityManager
 				.createNamedQuery(
-						Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT)
+						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
