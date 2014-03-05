@@ -473,3 +473,7 @@ div.group_c2 {
 	margin-top: -58px;
 	max-width: 500px;
 }
+
+fieldset div label.thin {
+  width:15%;
+}

@@ -216,25 +216,6 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 					.setParameter(3, java.sql.Date.valueOf(sDate))
 					.setFirstResult(firstElement).setMaxResults(count);
 		}
-		/*
-		 * if (orderBy == 1) { query = entityManager
-		 * .createNamedQuery(Transports.FIND_BY_TS_ORDER_BY_LNAME)
-		 * .setParameter(1, stationName1).setParameter(2, stationName2)
-		 * .setFirstResult(firstElement).setMaxResults(count); } else if
-		 * (orderBy == 2) { query = entityManager
-		 * .createNamedQuery(Transports.FIND_BY_TS_ORDER_BY_TCODE)
-		 * .setParameter(1, stationName1).setParameter(2, stationName2)
-		 * .setFirstResult(firstElement).setMaxResults(count); } else if
-		 * (orderBy == 3) { query = entityManager
-		 * .createNamedQuery(Transports.FIND_BY_TS_ORDER_BY_DEP)
-		 * .setParameter(1, stationName1).setParameter(2, stationName2)
-		 * .setFirstResult(firstElement).setMaxResults(count); } else if
-		 * (orderBy == 4) { query = entityManager
-		 * .createNamedQuery(Transports.FIND_BY_TS_ORDER_BY_DURATION)
-		 * .setParameter(1, stationName1).setParameter(2, stationName2)
-		 * .setFirstResult(firstElement).setMaxResults(count); } else {
-		 */
-		// }
 
 		return (List<TransportTravel>) query.getResultList();
 	}

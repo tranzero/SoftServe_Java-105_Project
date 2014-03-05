@@ -36,16 +36,40 @@ public class ResponsesManagerImpl implements ResponsesManager {
 	@Autowired
 	public TripsDAO tripsDao;
 
+	/**
+	 * Finds Responses by route id.
+	 * 
+	 * @param routeId
+	 *            the Id to find responses by.
+	 * @return responses finded by routeId
+	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<Responses> getResponsesByRouteId(Integer routeId) {
 		return responsesDao.findResponsesByRouteId(routeId);
 	}
 
+	/**
+	 * Finds Responses by trip id.
+	 * 
+	 * @param tripId
+	 *            the Id to find responses by.
+	 * @return responses finded by tripId
+	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<Responses> getResponsesByTripId(Integer tripId) {
 		return responsesDao.findResponsesByTripId(tripId);
 	}
 
+	/**
+	 * Finds Responses by transport id.
+	 * 
+	 * @param transportId
+	 *            the Id to find responses by.
+	 * @return responses finded by transportId
+	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<Responses> getResponsesByTransportId(Integer transportId) {
 		return responsesDao.findResponsesByTranportId(transportId);
@@ -55,6 +79,15 @@ public class ResponsesManagerImpl implements ResponsesManager {
 		return ManagerFactory.getManager(ResponsesManager.class);
 	}
 
+	/**
+	 * 
+	 * @param userId
+	 *            - Id of user, that adds response
+	 * @param tripId
+	 *            - that response is for
+	 * @param responseText
+	 *            - text of response
+	 */
 	@Transactional
 	@Override
 	public void addResponse(Integer userId, Integer tripId, String responseText) {
@@ -70,6 +103,11 @@ public class ResponsesManagerImpl implements ResponsesManager {
 		responsesDao.save(response);
 	}
 
+	/**
+	 * 
+	 * @param responseId
+	 *            - Id of response to delete
+	 */
 	@Transactional
 	@Override
 	public void delResponse(Integer responseId) {
@@ -77,11 +115,22 @@ public class ResponsesManagerImpl implements ResponsesManager {
 		responsesDao.remove(response);
 	}
 
+	/**
+	 * Finds `unchecked` Responses
+	 * 
+	 * @return `unchecked` Responses
+	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<Responses> getUncheckedResponses() {
 		return responsesDao.findUncheckedResponses();
 	}
-
+	
+	/**
+	 * 
+	 * @param responseId
+	 *            - Id of response to mark as `checked`
+	 */
 	@Transactional
 	@Override
 	public void markAsChecked(Integer responseId) {
