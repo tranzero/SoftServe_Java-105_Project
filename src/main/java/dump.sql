@@ -273,7 +273,7 @@ INSERT INTO `users` VALUES
 ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.third', '8877', '2014-03-02 00:25:26.0', 'REGUSER'),
  ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.third', '4699', '2014-03-02 00:25:26.0', 'REGUSER'), 
 ('12', 'denys', 'Denys', 'Nyckolskyy', 'test12@mail.second', '1277', '2014-03-02 00:25:26.0', 'REGUSER'), 
-('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '17888', '2014-03-02 00:25:26.0', 'REGUSER'), 
+('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.second', '1111', '2014-03-02 00:25:26.0', 'REGUSER'), 
 ('14', 'test1', 'Test1', 'Test1', 'test01@mail.second', '1144', '2014-03-02 00:25:26.0', 'ADMIN'), 
 ('15', 'test2', 'Test2', 'Test2', 'test02@mail.second', '1144', '2014-03-02 00:25:26.0', 'REGUSER');
 
