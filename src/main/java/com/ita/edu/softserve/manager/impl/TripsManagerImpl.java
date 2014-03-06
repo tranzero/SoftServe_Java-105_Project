@@ -188,14 +188,10 @@ public class TripsManagerImpl implements TripsManager {
 		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Transactional
 	@Override
 	public boolean addTripsInInterval(Locale locale, String minDate,
 			String maxDate, int transportId) {
-		int year;
-		int day;
-		int month;
 		Date startDate;
 		Date endDate;
 		try {
