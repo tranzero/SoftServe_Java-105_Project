@@ -12,7 +12,6 @@ import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.entity.Trips;
 
-
 /**
  * @author dnycktc
  */
@@ -40,8 +39,8 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 	}
 
 	@Override
-	public long getTripsListCriteriaCount(String transportCode, String routeName,
-			Integer remSeatClass1, Integer remSeatClass2,
+	public long getTripsListCriteriaCount(String transportCode,
+			String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate) {
 		return (long) find((Query) entityManager
 				.createNamedQuery(Trips.TRIPS_FIND_CRITERIA_COUNT)
@@ -55,10 +54,30 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 
 	}
 
-	public List<Trips> getTripsListCriteria(int firstElement, int count,
-			String transportCode, String routeName, Integer remSeatClass1, Integer remSeatClass2,
+	@Override
+	public long getTripsListCriteriaIndex(String transportCode,
+			String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate,
-			String orderByParam, String orderByDirection) {
+			String orderByParam, String orderByDirection, Trips knownElement) {
+		return (long) find((Query) entityManager
+				.createQuery(Trips.TRIPS_FIND_CRITERIA_INDEX_QUERY + orderByParam + " "
+						+ orderByDirection)
+				.setParameter(Trips.TRANSPORT_CODE_NAME, transportCode)
+				.setParameter(Trips.ROUTE_NAME_NAME, routeName)
+				.setParameter(Trips.REM_SEAT_CLASS_1_NAME, remSeatClass1)
+				.setParameter(Trips.REM_SEAT_CLASS_2_NAME, remSeatClass2)
+				.setParameter(Trips.REM_SEAT_CLASS_3_NAME, remSeatClass3)
+				.setParameter(Trips.MIN_DATE_NAME, minDate, TemporalType.DATE)
+				.setParameter(Trips.MAX_DATE_NAME, maxDate, TemporalType.DATE)
+				.setParameter(Trips.KNOWN_TRIP_NAME, knownElement)
+				);
+
+	}
+
+	public List<Trips> getTripsListCriteria(int firstElement, int count,
+			String transportCode, String routeName, Integer remSeatClass1,
+			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
+			Date maxDate, String orderByParam, String orderByDirection) {
 
 		Query query = entityManager
 				.createQuery(
@@ -101,41 +120,47 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 				.setFirstResult(firstElement).setMaxResults(count);
 		return (List<Trips>) query.getResultList();
 	}
-	
+
 	@Override
-	public void reduceRemSeaatClass1(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1-1 WHERE t.tripId = :p");
+	public void reduceRemSeaatClass1(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1-1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
-	
+
 	@Override
-	public void reduceRemSeaatClass2(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2-1 WHERE t.tripId = :p");
+	public void reduceRemSeaatClass2(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2-1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
-	
+
 	@Override
-	public void reduceRemSeaatClass3(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3-1 WHERE t.tripId = :p");
+	public void reduceRemSeaatClass3(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3-1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
-	
+
 	@Override
-	public void increaseRemSeaatClass1(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1+1 WHERE t.tripId = :p");
+	public void increaseRemSeaatClass1(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass1 = t.remSeatClass1+1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
-	
+
 	@Override
-	public void increaseRemSeaatClass2(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2+1 WHERE t.tripId = :p");
+	public void increaseRemSeaatClass2(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass2 = t.remSeatClass2+1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
-		
+
 	}
-	
+
 	@Override
-	public void increaseRemSeaatClass3(Integer tripId){
-		Query query = entityManager.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3+1 WHERE t.tripId = :p");
+	public void increaseRemSeaatClass3(Integer tripId) {
+		Query query = entityManager
+				.createQuery("UPDATE Trips t SET t.remSeatClass3 = t.remSeatClass3+1 WHERE t.tripId = :p");
 		int updateCount = query.setParameter("p", tripId).executeUpdate();
 	}
 

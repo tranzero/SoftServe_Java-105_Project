@@ -21,16 +21,16 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
+import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
-
 
 @Service
 public class TripsManagerImpl implements TripsManager {
 	/**
 	 * Logger for manager
 	 */
-	
+
 	private static final Logger LOGGER = Logger
 			.getLogger(TripsManagerImpl.class);
 
@@ -50,12 +50,12 @@ public class TripsManagerImpl implements TripsManager {
 	/**
 	 * 
 	 */
-	
+
 	private static final String COULD_NOT_REMOVE_TRIP = "Could not remove trip. Caused by actions of user ";
 
 	@Autowired
 	private TripsDAO tripsDao;
-	
+
 	@Autowired
 	private UserNameService userNameService;
 
@@ -87,20 +87,41 @@ public class TripsManagerImpl implements TripsManager {
 		return tripsDao.getTripsListCriteriaCount(transportCode, routeName,
 				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
-	public long getTripsListCriteriaCountUsingContainers(TripsCriteriaContainer tripsCriteriaContainer) {
-		return getTripsListCriteriaCount("%"
-				+ tripsCriteriaContainer.getTransportCode() + "%", "%"
-				+ tripsCriteriaContainer.getRouteName() + "%",
+	public long getTripsListCriteriaCountUsingContainers(
+			TripsCriteriaContainer tripsCriteriaContainer) {
+		return getTripsListCriteriaCount(
+				"%" + tripsCriteriaContainer.getTransportCode() + "%", "%"
+						+ tripsCriteriaContainer.getRouteName() + "%",
 				tripsCriteriaContainer.getRemSeatClass1(),
 				tripsCriteriaContainer.getRemSeatClass2(),
 				tripsCriteriaContainer.getRemSeatClass3(),
 				tripsCriteriaContainer.getMinDateValue(),
 				tripsCriteriaContainer.getMaxDateValue());
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
+	public long getTripsListCriteriaPageUsingContainers(
+			TripsCriteriaContainer tripsCriteriaContainer,
+			Integer elementIndex, Integer pageSize) {
+		Trips knownElement=null;
+		knownElement=tripsDao.findById(elementIndex);
+		long number = tripsDao.getTripsListCriteriaIndex("%"
+				+ tripsCriteriaContainer.getTransportCode() + "%", "%"
+				+ tripsCriteriaContainer.getRouteName() + "%",
+				tripsCriteriaContainer.getRemSeatClass1(),
+				tripsCriteriaContainer.getRemSeatClass2(),
+				tripsCriteriaContainer.getRemSeatClass3(),
+				tripsCriteriaContainer.getMinDateValue(),
+				tripsCriteriaContainer.getMaxDateValue(),
+				tripsCriteriaContainer.getOrderByParam(),
+				tripsCriteriaContainer.getOrderByDirection(),
+				knownElement);
+		return (number/pageSize)+1;
+	}
 
 	@Transactional(readOnly = true)
 	@Override
@@ -115,10 +136,12 @@ public class TripsManagerImpl implements TripsManager {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Trips> getTripsForCriteriaUsingContainers(TripsCriteriaContainer tripsCriteriaContainer, PageInfoContainer container) {
-		return getTripsForCriteriaWithPage(
-				container.getPageNumber(), container.getResultsPerPage(), "%"
-						+ tripsCriteriaContainer.getTransportCode() + "%", "%"
+	public List<Trips> getTripsForCriteriaUsingContainers(
+			TripsCriteriaContainer tripsCriteriaContainer,
+			PageInfoContainer container) {
+		return getTripsForCriteriaWithPage(container.getPageNumber(),
+				container.getResultsPerPage(),
+				"%" + tripsCriteriaContainer.getTransportCode() + "%", "%"
 						+ tripsCriteriaContainer.getRouteName() + "%",
 				tripsCriteriaContainer.getRemSeatClass1(),
 				tripsCriteriaContainer.getRemSeatClass2(),
@@ -129,8 +152,6 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getOrderByDirection());
 	}
 
-	
-	
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForCriteria(int firstElement, int count,
@@ -183,41 +204,22 @@ public class TripsManagerImpl implements TripsManager {
 			transport = transportsDao.findById(transportId);
 			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
 					|| locale.getLanguage().trim().equalsIgnoreCase(SPAIN)) {
-				String datesplit1[] = minDate.split("\\.");
-				year = Integer.parseInt(datesplit1[2]);
-				day = Integer.parseInt(datesplit1[0]);
-				month = Integer.parseInt(datesplit1[1]);
-				startDate = new Date(year - 1900, month, day);
-				String datesplit2[] = maxDate.split("\\.");
-				year = Integer.parseInt(datesplit2[2]);
-				day = Integer.parseInt(datesplit2[0]);
-				month = Integer.parseInt(datesplit2[1]);
-				endDate = new Date(year - 1900, month, day);
+				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(minDate);
+				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(maxDate);
 			} else {
-				String datesplit1[] = minDate.split("/");
-				year = Integer.parseInt(datesplit1[2]);
-				day = Integer.parseInt(datesplit1[1]);
-				month = Integer.parseInt(datesplit1[0]);
-				startDate = new Date(year - 1900, month, day);
-				String datesplit2[] = maxDate.split("/");
-				year = Integer.parseInt(datesplit2[2]);
-				day = Integer.parseInt(datesplit2[1]);
-				month = Integer.parseInt(datesplit2[0]);
-				endDate = new Date(year - 1900, month, day);
+				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(minDate);
+				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(maxDate);
 			}
-
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
 			Calendar end = Calendar.getInstance();
 			end.setTime(endDate);
-
 			for (Date date = start.getTime(); !start.after(end); start.add(
 					Calendar.DATE, 1), date = start.getTime()) {
 				Trips element = new Trips(transport, date);
 				tripsDao.saveOrUpdate(element);
 			}
 			;
-
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -226,56 +228,55 @@ public class TripsManagerImpl implements TripsManager {
 	}
 
 	@Override
-	public void updateTrip(Trips trip){
+	public void updateTrip(Trips trip) {
 		tripsDao.saveOrUpdate(trip);
 	}
-	
+
 	@Transactional
 	@Override
-	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType){
-		
-		if(seatType.equals(1)){
+	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType) {
+
+		if (seatType.equals(1)) {
 			tripsDao.reduceRemSeaatClass1(tripId);
 		}
-		
-		if(seatType.equals(2)){
+
+		if (seatType.equals(2)) {
 			tripsDao.reduceRemSeaatClass2(tripId);
 		}
-		
-		if(seatType.equals(3)){
+
+		if (seatType.equals(3)) {
 			tripsDao.reduceRemSeaatClass3(tripId);
 		}
 		System.out.println("reduceManager");
 	}
-	
+
 	@Transactional
 	@Override
-	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType){
-		
-		if(seatType.equals(1)){
+	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType) {
+
+		if (seatType.equals(1)) {
 			tripsDao.increaseRemSeaatClass1(tripId);
 		}
-		
-		if(seatType.equals(2)){
+
+		if (seatType.equals(2)) {
 			tripsDao.increaseRemSeaatClass2(tripId);
 		}
-		
-		if(seatType.equals(3)){
+
+		if (seatType.equals(3)) {
 			tripsDao.increaseRemSeaatClass3(tripId);
 		}
-		
+
 		System.out.println("increaseManager");
 	}
-	
+
 	public static TripsManager getInstance() {
 		return ManagerFactory.getManager(TripsManager.class);
 	}
-	
-	
+
 	/**
 	 * Delete trip from DB
 	 */
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void removeTrip(Integer id) {
@@ -283,7 +284,8 @@ public class TripsManagerImpl implements TripsManager {
 			tripsDao.remove(tripsDao.findById(id));
 		} catch (RuntimeException e) {
 			RuntimeException ex = new TripsManagerException(
-					COULD_NOT_REMOVE_TRIP+userNameService.getLoggedUsername(), e);
+					COULD_NOT_REMOVE_TRIP + userNameService.getLoggedUsername(),
+					e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;

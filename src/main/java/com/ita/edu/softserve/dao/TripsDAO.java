@@ -99,16 +99,21 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 	 */
 	void saveOrUpdate(Trips entity);
 	
-	public void reduceRemSeaatClass1(Integer tripId);
+	 void reduceRemSeaatClass1(Integer tripId);
 	
-	public void reduceRemSeaatClass2(Integer tripId);
+	 void reduceRemSeaatClass2(Integer tripId);
 
-	public void reduceRemSeaatClass3(Integer tripId);
+	 void reduceRemSeaatClass3(Integer tripId);
 	
-	public void increaseRemSeaatClass1(Integer tripId);
+	 void increaseRemSeaatClass1(Integer tripId);
 	
-	public void increaseRemSeaatClass2(Integer tripId);
+	 void increaseRemSeaatClass2(Integer tripId);
 
-	public void increaseRemSeaatClass3(Integer tripId);
+	 void increaseRemSeaatClass3(Integer tripId);
+
+	long getTripsListCriteriaIndex(String transportCode, String routeName,
+			Integer remSeatClass1, Integer remSeatClass2,
+			Integer remSeatClass3, Date minDate, Date maxDate,
+			String orderByParam, String orderByDirection, Trips knownElement);
 
 }
