@@ -406,7 +406,7 @@ form.pad_top_bottom {
 }
 
 fieldset {
-  border: 3px solid #aaa;
+  border: 1px solid #aaa;
   padding: 1em;
   font:80%/1 sans-serif;
 }
@@ -476,4 +476,12 @@ div.group_c2 {
 
 fieldset div label.thin {
   width:15%;
+}
+form#searchFormTrips {
+	border:1px solid #aaa;
+	padding:10px;
+}
+form#searchFormTrips div#btnTripsFind input {
+	margin-top: -208px;
+	float: right;
 }

@@ -23,7 +23,7 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
-	<form id="searchForm" method="get">
+	<form id="searchFormTrips" method="get">
 		<p>
 		<h3>
 			<spring:message code="label.trips.setsearchparameters" />
@@ -104,7 +104,7 @@
 				<input class="autosearch" type="text" id="to" name="maxDate"
 					value="${container.getMaxDate()}">
 			</c:if>
-		<div style="float: right">
+		<div id="btnTripsFind">
 			<input type="submit"
 				value="<spring:message code="label.trips.tripsearch"/>">
 		</div>

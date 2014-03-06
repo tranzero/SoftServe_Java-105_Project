@@ -34,7 +34,7 @@ function confirm_delete() {
 		name="addtrips" value="<spring:message code="label.trips.addtrips"/>">
 	</a>
 	<p>
-	<form id="searchForm" method="get">
+	<form id="searchFormTrips" method="get">
 		<p>
 		<h3>
 			<spring:message code="label.trips.setsearchparameters" />
@@ -110,7 +110,7 @@ function confirm_delete() {
 				<input class="autosearch" type="text" id="to" name="maxDate"
 					value="${container.getMaxDate()}">
 			</c:if>
-		<div align="right">
+		<div id="btnTripsFind">
 			<input type="submit"
 				value="<spring:message code="label.trips.tripsearch"/>">
 		</div>
