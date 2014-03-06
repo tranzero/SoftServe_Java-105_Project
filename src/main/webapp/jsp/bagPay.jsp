@@ -58,10 +58,12 @@
 							{
 								rules : {
 
-									/* cartNumber : {
+								    	cartNumber : {
 										required : true,
-										creditcard : true,
-									}, */
+										minlength : 13,
+										maxlength : 16,
+
+									}, 
 
 									firstName : {
 										required : true,
@@ -94,7 +96,10 @@
 
 									cartNumber : {
 										required : "This field is required.",
-										creditcard : "Please enter a valid credit card number.",
+										maxlength : jQuery.validator
+												.format("Please enter valid cartNumber."),
+										minlength : jQuery.validator
+												.format("Please enter valid cartNumber."),
 									},
 
 									firstName : {
