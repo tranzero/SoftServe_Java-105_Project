@@ -28,22 +28,22 @@ public class TransportManagerMain {
 			TransportsManager transportManager) {
 		System.out.println("************************************************");
 
-		Time time = ParseUtil.parseStringToTime("12:00:00");
-		List<Transports> transportsList2 = transportManager
-				.getTransportsListByCriteria(1, 30, "T0000", time,
-						"1000000000001", 11, 10, 10, 125.0);
-
-		System.out.println("Transport code" + "  Time      " + "Routes Code "
-				+ "Seats");
-		for (Transports transport : transportsList2) {
-			System.out.print(transport.getTransportCode() + "	");
-			System.out.print(transport.getStartTime() + " ");
-			System.out.print(transport.getRoutes().getRouteCode() + " ");
-			System.out.print(transport.getSeatclass1() + " ");
-			System.out.print(transport.getSeatclass2() + " ");
-			System.out.print(transport.getSeatclass3() + " ");
-			System.out.println(transport.getGenPrice());
-		}
+//		Time time = ParseUtil.parseStringToTime("12:00:00");
+//		List<Transports> transportsList2 = transportManager
+//				.getTransportsListForPageByCriteria(1, 30, "T0000", time,
+//						"1000000000001", 11, 10, 10, 125.0);
+//
+//		System.out.println("Transport code" + "  Time      " + "Routes Code "
+//				+ "Seats");
+//		for (Transports transport : transportsList2) {
+//			System.out.print(transport.getTransportCode() + "	");
+//			System.out.print(transport.getStartTime() + " ");
+//			System.out.print(transport.getRoutes().getRouteCode() + " ");
+//			System.out.print(transport.getSeatclass1() + " ");
+//			System.out.print(transport.getSeatclass2() + " ");
+//			System.out.print(transport.getSeatclass3() + " ");
+//			System.out.println(transport.getGenPrice());
+//		}
 	}
 
 	private static void getTransportsList(TransportsManager transportManager) {
