@@ -9,7 +9,6 @@ import com.ita.edu.softserve.entity.Responses;
  */
 public interface ResponsesDAO extends AbstractDAOIface<Responses>{
 	
-	
 	/**
 	 * Finds Responses by route id.
 	 * 

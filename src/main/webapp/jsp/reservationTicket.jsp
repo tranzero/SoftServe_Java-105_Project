@@ -46,7 +46,8 @@
 			<tr align=center>
 				<td align=center><br /> <a
 					href="/SoftServe_Java-105/listOfStationsOnLine/${trip.getTransport().getRoutes().getLineId().getLineName()}">
-						<label style="color: #0000FF; font-size: 12pt">Show stations on Route </label>
+						<label style="color: #0000FF; font-size: 12pt">Show
+							stations on Route </label>
 				</a>
 		</table>
 
@@ -61,16 +62,17 @@
 					</p> <br>
 					<p>
 						<label> Start time <strong>${trip.getTransport().getStartTime().toString()}</strong></label>
-						</p><br>
+					</p>
+					<br>
 					<p>
 						<label> Price <strong>${trip.getTransport().getGenPrice()}</strong></label>
-						
+
 					</p>
 		</table>
-
-		<input type="submit" value="Add to bag">
-		<!-- 	<input type="reset" value="Cancel"> -->
-		<br>
+		<div class="pad_top_bottom">
+			<input type="submit" value="Add to bag">
+			<!-- 	<input type="reset" value="Cancel"> -->
+		</div>
 	</form:form>
 
 </section>
