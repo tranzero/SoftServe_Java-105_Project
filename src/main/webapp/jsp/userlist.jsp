@@ -271,9 +271,9 @@
 								value="<spring:message code="label.edit"/>">
 						</a></td>
 
-						<td><a href="userdel/${user.getUserId()}"
-							onclick="return confirm_delete_user()"> <input id="userdel"
-								type="button" name="userdel"
+						<td><a href="userDelete/${user.getUserId()}"
+							onclick="return confirm_delete_user()"> <input id="userDelete"
+								type="button" name="userDelete"
 								value="<spring:message code="label.delete"/>">
 						</a></td>
 
