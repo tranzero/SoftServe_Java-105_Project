@@ -29,6 +29,11 @@ $(function getLineList() {
 	});
 });
 
+
+
+
+
+
 $(function getStationStartOnLineList() {
 	$("#stationStart").autocomplete({
 		source : function(request, response) {
@@ -60,6 +65,11 @@ $(function getStationStartOnLineList() {
 		}
 	});
 });
+
+
+
+
+
 $(function getStationStartOnLineList() {
 	$("#stationEnd").autocomplete({
 		source : function(request, response) {

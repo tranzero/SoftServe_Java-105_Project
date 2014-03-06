@@ -8,16 +8,17 @@
 <c:if test="${!empty RoutesTripsList}">
 			<hr />
 				<table style="align: center">
-						<tr>
-							<td align="center">LineName</td>
-							<td align="center">RouteCode</td>
-							<td align="center">StartTime</td>
-						</tr>
+						<th><spring:message code="label.lines.linename" /></th>
+						<th><spring:message code="label.routes.routecode" /></th>
+						<th><spring:message code="label.transport.starttime" /></th>
+						<th><spring:message code="label.routes.routename" /></th>
+						
 					<c:forEach var="routetrip" items="${RoutesTripsList}">
 						<tr>
 							<td align="center">${routetrip.getRoute().getLineId().getLineName()}</td>
 							<td align="center">${routetrip.getRoute().getRouteCode()}</td>
 							<td align="center">${routetrip.getStartTime()}</td>
+							<td align="center">${routetrip.getRoute().getRouteName()}</td>
 						</tr>
 					</c:forEach>
 				</table>

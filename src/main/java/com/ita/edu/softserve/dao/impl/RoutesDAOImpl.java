@@ -40,6 +40,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return Routes.class;
 	}
 	
+	/**
+	 * Returns list with routes for current page
+	 */
 	@Override
 	public List<Routes> getRoutesForLimits(int currentPaget, int count,
 			String orderByParam, String orderByDirection) {
@@ -50,12 +53,18 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<Routes>) query.getResultList();
 	}
 	
+	/**
+	 * Returns count for all Routes
+	 */
 	@Override
 	public long getRoutesListCount() {
 		return (long) find((Query)entityManager
 				.createNamedQuery(Routes.ROUTES_FIND_COUNT));
 	}
 	
+	/**
+	 * Returns list with station name, which name start as input stationName
+	 */
 	public List<String> getStationNameListCriteria(String stationName) {
 		Query query = entityManager
 				.createQuery(Routes.STATIONS_NAME_FIND_BY_CRITERIA_QUERY)
@@ -64,6 +73,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<String>) query.getResultList();
 	}
 	
+	/**
+	 * Returns list with station name, which are in current line
+	 */
 	public List<String> getStationNameByLineListCriteria(String stationName, int lineId) {
 		Query query = entityManager
 				.createQuery(Routes.STATIONS_NAME_ON_LINE_FIND_BY_CRITERIA_QUERY)
@@ -73,6 +85,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<String>) query.getResultList();
 	}
 	
+	/**
+	 * Returns list with line name, which name start as input lineName
+	 */
 	public List<String> getLineNameListCriteria(String lineName) {
 		Query query = entityManager
 				.createQuery(Routes.LINE_NAME_FIND_BY_CRITERIA_QUERY)
@@ -81,6 +96,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<String>) query.getResultList();
 	}
 
+	/**
+	 * Returns list with routes, which arriving from current station
+	 */
 	@Override
 	public List<RouteTrip> getRoutersListByStNameArrivingForLimits(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax,
@@ -94,6 +112,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<RouteTrip>) query.getResultList();
 	}
 	
+	/**
+	 * Returns count for list with routes, which arriving from current station
+	 */
 	@Override
 	public long getRoutersListByStationNameArrivingCount(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax) {
@@ -101,6 +122,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				timeArrivalMin, timeArrivalMax).size();
 	}
 
+	/**
+	 * Returns list with routes, which departing from current station
+	 */
 	@Override
 	public List<RouteTrip> getRoutersListByStNameDepartingForLimits(
 			String stationNameDeparture, Time timeDepartureMin,
@@ -114,6 +138,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<RouteTrip>) query.getResultList();
 	}
 	
+	/**
+	 * Returns count for list with routes, which departing from current station
+	 */
 	@Override
 	public long getRoutersListByStationNameDepartingCount(
 			String stationNameDeparture, Time timeDepartureMin,
@@ -122,7 +149,6 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				timeDepartureMin, timeDepartureMin).size();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RouteTrip> findRoutersListByStationNameArriving(
 			String stationNameArrival, Time timeArrivalMin, Time timeArrivalMax) {
@@ -135,7 +161,6 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RouteTrip> findRoutersListByStationNameDeparting(
 			String stationNameDeparture, Time timeDepartureMin,

@@ -41,36 +41,61 @@ public class RoutesManagerImpl implements RoutesManager {
 	private final String updateRouteMessage = "Could not update Route";
 	private String removeMessage = " was remove from DB by ";
 	private final String removeRouteByIdMessage = "Could not remove Route by id ";
+	
+	/**
+	 * Gets access to Routes DAO.
+	 */
 	@Autowired
 	private RoutesDAO routeDao;
 
+	/**
+	 * Gets access to Lines DAO.
+	 */
 	@Autowired
 	private LinesDAO lineDao;
 	
+	/**
+	 * Gets access to Station DAO.
+	 */
 	@Autowired
 	private StationsDAO stationDao;
 
+	/**
+	 * The constructor without arguments.
+	 */
 	public RoutesManagerImpl() {
 	}
 
+	/**
+	 * Returns list with routes for current page
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Routes> getRoutesForPage(int currentPage, int count, String orderByParam, String orderByDirection) {
 		return routeDao.getRoutesForLimits((currentPage - 1) * count, count, orderByParam, orderByDirection);
 	}
 
+	/**
+	 * Returns count for all Routes
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getRoutesListCount() {
 		return routeDao.getRoutesListCount();
 	}
 	
+	/**
+	 * Returns list with station name, which name start as input stationName
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<String> getStationNameListCriteria(String stationName) {
 		return routeDao.getStationNameListCriteria(stationName + "%");
 	}
 	
+	/**
+	 * Returns list with station name, which are in current line
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<String> getStationNameByLineListCriteria(String stationName,
@@ -79,12 +104,18 @@ public class RoutesManagerImpl implements RoutesManager {
 				lineDao.findByName(lineName).getLineId());
 	}
 	
+	/**
+	 * Returns list with line name, which name start as input lineName
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<String> getLineNameListCriteria(String lineName) {
 		return routeDao.getLineNameListCriteria(lineName + "%");
 	}
 
+	/**
+	 * Returns list with routes, which arriving from current station
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<RouteTrip> getRoutersListByStNameArrivingForPage(
@@ -93,7 +124,10 @@ public class RoutesManagerImpl implements RoutesManager {
 		return routeDao.getRoutersListByStNameArrivingForLimits(stationNameArrival, timeArrivalMin, timeArrivalMax,
 				(currentPaget - 1) * count, count);
 	}
-		
+	
+	/**
+	 * Returns count for list with routes, which arriving from current station
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getRoutersListByStationNameArrivingCount(String stationNameArrival,
@@ -101,6 +135,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		return routeDao.getRoutersListByStationNameArrivingCount(stationNameArrival, timeArrivalMin, timeArrivalMax);
 	}
 	
+	/**
+	 * Returns list with routes, which departing from current station
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<RouteTrip> getRoutersListByStNameDepartingForPage(
@@ -110,6 +147,9 @@ public class RoutesManagerImpl implements RoutesManager {
 				(currentPaget - 1) * count, count);
 	}
 	
+	/**
+	 * Returns count for list with routes, which departing from current station
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getRoutersListByStationNameDepartingCount(String stationNameDeparture,
@@ -135,7 +175,6 @@ public class RoutesManagerImpl implements RoutesManager {
 			throw ex;
 		}
 	}
-	
 	/**
 	 * Updates the Route object in database
 	 */
@@ -173,7 +212,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		}
 	}
 	
-	//***********************************************
+	/**
+	 * Saves the Route object to database
+	 */
 	@Transactional
 	@Override
 	public void createRoute(String lines, String routeCode,
@@ -187,6 +228,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		routeDao.save(route);
 	}
 	
+	/**
+	 * Updates the Route object in database
+	 */
 	@Override
 	@Transactional
 	public void updateRoute(Integer routeId, String lines, String routeCode,
@@ -199,27 +243,6 @@ public class RoutesManagerImpl implements RoutesManager {
 		route.setStationEndId(stationDao.findByName(stationEnd));
 		routeDao.update(route);
 	}
-	
-	@Transactional
-	@Override
-	public void createRoute(String lines, String routeCode) {
-		Routes route = new Routes();
-		route.setRouteCode(routeCode);
-		route.setLineId(lineDao.findByName(lines));
-		routeDao.save(route);
-	}
-
-	@Override
-	@Transactional
-	public void updateRoute(Integer routeId, String lines, String routeCode) {
-		Routes route = routeDao.findById(routeId);
-		route.setRouteCode(routeCode);
-		route.setLineId(lineDao.findByName(lines));
-		routeDao.update(route);
-	}
-	//***************************************************
-
-	
 
 	/**
 	 * Return Routes of transports that are arriving to certain station during
@@ -310,10 +333,6 @@ public class RoutesManagerImpl implements RoutesManager {
 					"time can not be less than 0h");
 		}
 	}
-	
-	
-	
-	
 	
 
 	@Transactional
