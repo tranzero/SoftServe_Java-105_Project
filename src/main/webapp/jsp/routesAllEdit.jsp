@@ -21,7 +21,7 @@
 				<tr>
 					<th><spring:message code="label.routes.routecode" /></th>
 					<th><spring:message code="label.lines.linename" /></th>
-					<th></th>
+					<th><spring:message code="label.routes.routename" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -30,6 +30,7 @@
 					<tr>
 						<td align="center">${route.getRouteCode()}</td>
 						<td align="center">${route.getLineId().getLineName()}</td>
+						<td align="center">${route.getRouteName()}</td>
 						
 						<td align="center"><a
 							href="editRoute?routeId=${route.getRouteId()}"> <input

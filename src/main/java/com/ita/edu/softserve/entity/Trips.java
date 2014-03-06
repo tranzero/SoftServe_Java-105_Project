@@ -67,6 +67,11 @@ public class Trips extends BaseEntity {
 	public static final String MAX_DATE_NAME = "maxDate";
 
 	/**
+	 * Defines the name of known trip parameter
+	 */
+	public static final String KNOWN_TRIP_NAME = "knownTrip";
+	
+	/**
 	 * Name of query which is used for selecting trips from DB. Compatible with
 	 * paging.
 	 */
@@ -129,6 +134,29 @@ public class Trips extends BaseEntity {
 			+ " AND :"
 			+ MAX_DATE_NAME;
 
+	/**
+	 * Query which is used for selecting index of trip from DB with criteria.
+	 * Used in paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE"
+			+ "INDEX(tr) < INDEX(:"
+			+ KNOWN_TRIP_NAME
+			+ ") AND tr.transport.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND tr.transport.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
+			+ " AND tr.remSeatClass1 >= :"
+			+ REM_SEAT_CLASS_1_NAME
+			+ " AND tr.remSeatClass2 >= :"
+			+ REM_SEAT_CLASS_2_NAME
+			+ "  AND tr.remSeatClass3 >= :"
+			+ REM_SEAT_CLASS_3_NAME
+			+ " AND tr.startDate BETWEEN :"
+			+ MIN_DATE_NAME
+			+ " AND :"
+			+ MAX_DATE_NAME + " ORDER BY ";
+	
+	
 	/**
 	 * Name of query which is used for selecting count of trips from DB. Used in
 	 * paging.

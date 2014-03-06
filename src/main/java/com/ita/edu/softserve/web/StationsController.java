@@ -203,30 +203,6 @@ public class StationsController {
 		return "stationsPage";
 	}
 
-	/*	*//**
-	 * Method genered pagging for Satations and filled modalMap to display
-	 * filling model map.
-	 * 
-	 * @param pageNumber
-	 *            Number of displaying page.
-	 * @param resultsPerPage
-	 *            Amount of results per page.
-	 * @param modelMap
-	 *            Model map to fill.
-	 */
-	/*
-	 * private void paggingForStations(Integer pageNumber, Integer
-	 * resultsPerPage, Map<String, Object> modelMap) {
-	 * 
-	 * long count = stationsManager.getStationsListCount();
-	 * PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
-	 * resultsPerPage, count); paginationManager.validatePaging(container);
-	 * PagingController.deployPaging(modelMap, container, paginationManager);
-	 * 
-	 * List<Stations> stations = stationsManager.getStationsForPage(
-	 * container.getPageNumber(), container.getResultsPerPage());
-	 * modelMap.put(STATIONS_LIST, stations); }
-	 */
 
 	/**
 	 * Delete Station by Id.

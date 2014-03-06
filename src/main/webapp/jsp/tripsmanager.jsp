@@ -20,6 +20,10 @@ var defaultGetData={
 		orderByDirection :"${container.getOrderByDirection()}"
 };
 
+
+function confirm_delete() {
+	return confirm("<spring:message code="label.trips.confirmdelete" />");
+}
 </script>
 
 
@@ -329,7 +333,7 @@ var defaultGetData={
 					<td align="center"><a> <input id="edit" type="button"
 							name="edit" value="<spring:message code="label.edit"/>">
 					</a></td>
-					<td align="center"><a> <input id="delete" type="button"
+					<td align="center"><a href="tripDelete/${trip.getTripId()}"> <input id="delete${trip.getTripId()}" type="button" onclick="return confirm_delete()"
 							name="delete" value="<spring:message code="label.delete"/>">
 					</a></td>
 				</tr>
@@ -544,6 +548,8 @@ var defaultGetData={
 	 			    	ajaxLoader(defaultDomElement, defaultTargetPage, searchData);
 	 			    }
 	 			}, 3000);
+	 			
+	 			
 			});
 	</script>
 </section>

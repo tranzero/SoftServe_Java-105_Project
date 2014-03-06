@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,18 @@ public class TripsController {
 	 */
 	private static final String TRIPSPAGE_WEB_NAME = "/tripspage";
 	/**
+	 * Part of any redirect spring jsp definition
+	 */
+
+	private static final String REDIRECT_SUBSTRING = "redirect:/";
+
+	/**
+	 * Part of any redirect spring jsp definition that is on same level with
+	 * caller controller maping
+	 */
+
+	private static final String REDIRECT_SAME_LEVEL_SUBSTRING = "redirect:";
+	/**
 	 * Part of URL that defines trips manager web page
 	 */
 	private static final String MANAGETRIPS_WEB_NAME = "/tripsmanager";
@@ -96,6 +109,10 @@ public class TripsController {
 	 * Spring response that defines jsp page for trips manager AJAX paging
 	 */
 	private static final String MANAGETRIPSPAGE_SPRING_NAME = "tripsmanagerpage";
+	/**
+	 * Spring response that defines jsp page for trips manager AJAX paging
+	 */
+	private static final String ERRORINPUT_SPRING_NAME = "addtripserrorinput";
 	/**
 	 * Spring response that defines adding trips jsp page
 	 */
@@ -169,6 +186,11 @@ public class TripsController {
 	private static final String IS_CLASS3_ATTRIBUTE_NAME = "isClass3";
 
 	/**
+	 * Constant for mapping variable for REST request
+	 */
+	private static final String TRIPID_PATH_VARIABLE = "tripId";
+
+	/**
 	 * name for showing minimal date count attribute name
 	 */
 	private static final String IS_MIN_DATE_ATTRIBUTE_NAME = "isMinDate";
@@ -177,7 +199,7 @@ public class TripsController {
 	 * name for showing minimal date count attribute name
 	 */
 	private static final String IS_MAX_DATE_ATTRIBUTE_NAME = "isMaxDate";
-	
+
 	/**
 	 * name for showing price attribute name
 	 */
@@ -192,6 +214,12 @@ public class TripsController {
 	 * name for encoder attribute name
 	 */
 	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
+
+	/**
+	 * Constant for mapping trips delete
+	 */
+
+	private static final String TRIP_DELETE_PATH = "/tripDelete/{tripId}";
 
 	/**
 	 * Field for using trips-related controller-level methods
@@ -302,13 +330,51 @@ public class TripsController {
 				modelMap);
 		transportsManager
 				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
-		modelMap.put(IS_PRICE_ATTRIBUTE_NAME, transportForAddTripsCriteriaContainer.getPrice().equals(Double.MAX_VALUE));
+		modelMap.put(
+				IS_PRICE_ATTRIBUTE_NAME,
+				transportForAddTripsCriteriaContainer.getPrice().equals(
+						Double.MAX_VALUE));
 		long count = transportsManager
 				.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
 		container.setCount(count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, transportForAddTripsCriteriaContainer);
+		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
+				transportForAddTripsCriteriaContainer);
+		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
+
+		List<Transports> transports = transportsManager
+				.getTransportsListForAddTripsWithContainers(container,
+						transportForAddTripsCriteriaContainer);
+		modelMap.put(TRANSPORTSLIST_NAME, transports);
+		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
+	}
+
+	private void completeMapForEditTrip(
+			Integer transportId,
+			Boolean specialPaging,
+			PageInfoContainer container,
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
+			Map<String, Object> modelMap, Locale locale) {
+		putFillAddTripsElementsOptions(transportForAddTripsCriteriaContainer,
+				modelMap);
+		transportsManager
+				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
+		modelMap.put(
+				IS_PRICE_ATTRIBUTE_NAME,
+				transportForAddTripsCriteriaContainer.getPrice().equals(
+						Double.MAX_VALUE));
+		long count = transportsManager
+				.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
+		container.setCount(count);
+		paginationManager.validatePaging(container);
+		specialPaging = (Boolean) ValidatorUtil.defaultForNull(specialPaging, new Boolean(true));
+		if (specialPaging){
+			container.setPageNumber(1);
+		}
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
+				transportForAddTripsCriteriaContainer);
 		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
 
 		List<Transports> transports = transportsManager
@@ -505,24 +571,19 @@ public class TripsController {
 			Locale locale, @ModelAttribute(FROM_ATTRIBUTE_NAME) String minDate,
 			@ModelAttribute(TO_ATTRIBUTE_NAME) String maxDate,
 			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
-		if (transportId == null) {
-			// completeMapForAddTrip(null, null, modelMap, locale);
-			modelMap.put(ERRORMARK, true);
-			return ADDTRIP_SPRING_NAME;
-		}
 		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
 				transportId)) {
-
-			// completeMapForTrips(null, null, null, null, null, null, null,
-			// null,
-			// null, null, null, modelMap, locale);
-			return MANAGETRIPS_SPRING_NAME;
+			return REDIRECT_SAME_LEVEL_SUBSTRING + MANAGETRIPS_SPRING_NAME;
 		} else {
-			// completeMapForAddTrip(null, null, modelMap, locale);
-			modelMap.put(ERRORMARK, true);
-			return ADDTRIP_SPRING_NAME;
+			return REDIRECT_SAME_LEVEL_SUBSTRING + ERRORINPUT_SPRING_NAME;
 		}
 
+	}
+
+	@RequestMapping(TRIP_DELETE_PATH)
+	public String deleteTrip(@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId) {
+		tripsManager.removeTrip(tripId);
+		return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;
 	}
 
 }
