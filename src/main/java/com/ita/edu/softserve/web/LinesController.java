@@ -124,14 +124,6 @@ public class LinesController {
 	modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
 			(int) container.getResultsPerPage(), sortOrder));
 		
-		/*
-		modelMap.put(pageNumberKey, pageMan.getDefaultPageNumber());
-		modelMap.put(resultsPerPageKey, pageMan.getDefaultResultPerPage());
-		modelMap.put(sizeOfPagingKey, pageMan.getDefaultPageCount());
-		int maxPageCount = pageMan.getMaxPageCount(
-				pageMan.getDefaultResultPerPage(),
-				linesManager.getLinesListCount());
-		modelMap.put(maxPageCountKey, maxPageCount);*/
 		return allLines;
 	}
 
@@ -153,19 +145,7 @@ public class LinesController {
 
 		modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
-		
-		/*
-		long resultCount = linesManager.getLinesListCount();
-		modelMap.put(maxResultCountKey, resultCount);
-		int maxPageCount = pageMan.getMaxPageCount(resultsPerPage, resultCount);
-		modelMap.put(maxPageCountKey, maxPageCount);
-		int currentPagingPosition = pageMan.getCurrentPagingPosition(
-				pageNumber, resultsPerPage);
-		modelMap.put(pageNumberKey, pageNumber);
-		modelMap.put(resultsPerPageKey, resultsPerPage);
-		modelMap.put("lines", linesManager.getLinesForPage(
-				currentPagingPosition, resultsPerPage));*/
-
+	
 		return allLinesPage;
 	}
 
