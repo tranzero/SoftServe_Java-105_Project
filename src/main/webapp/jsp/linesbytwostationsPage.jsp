@@ -9,15 +9,15 @@
 	<hr />
 	<table>
 		<tr>
-			<td>N</td>
-			<td><spring:message code="label.lines.linename" /> <a
+			<th>N</th>
+			<th><spring:message code="label.lines.linename" /> <a
 				href="javascript:void(0);"
 				onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '1')"><img
 					alt="^" src="resources/images/downarrow.png"></a> <a
 				href="javascript:void(0);"
 				onclick="showLinesPage('${param.stationName1}','${param.stationName2}',${pageNumber},${resultsPerPage}, '2')"><img
-					alt="^" src="resources/images/uparrow.png"></a></td>
-			<td></td>
+					alt="^" src="resources/images/uparrow.png"></a></th>
+			<th></th>
 		</tr>
 		<c:forEach var="lines" items="${LinesList}">
 			<tr>
