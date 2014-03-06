@@ -16,33 +16,33 @@
 			<form:hidden path="userId" />
 
 			<div class="data">
-				<label><spring:message code="label.users.firstName" />:</label>
+				<label><spring:message code="label.users.firstName" /><em class="star">*</em>:</label>
 				<form:input type="text" path="firstName" onfocus="checkpostal()" />
 				<form:errors path="firstName" cssClass="error" />
 			</div>
 			<p>
 			<div class="data">
-				<label><spring:message code="label.users.lastName" />:</label>
+				<label><spring:message code="label.users.lastName" /><em class="star">*</em>:</label>
 
 				<form:input type="text" path="lastName" onfocus="checkpostal()" />
 				<form:errors path="lastName" cssClass="error" />
 			</div>
 			<p>
 			<div class="data">
-				<label><spring:message code="label.users.email" />:</label>
+				<label><spring:message code="label.users.email" /><em class="star">*</em>:</label>
 
 				<form:input type="text" path="email" onfocus="checkpostal()" />
 				<form:errors path="email" cssClass="error" />
 			</div>
 			<p>
 			<div class="data">
-				<label><spring:message code="label.users.password" />:</label>
+				<label><spring:message code="label.users.password" /><em class="star">*</em>:</label>
 				<form:input type="password" path="password" onfocus="checkpostal()" />
 				<form:errors path="password" cssClass="error" />
 			</div>
 			<p>
 			<div class="data">
-				<label> <spring:message code="label.users.role" />:
+				<label> <spring:message code="label.users.role" /><em class="star">*</em>:
 				</label>
 				<form:input type="text" path="role" onfocus="checkpostal()" />
 				<form:errors path="role" cssClass="error" />
@@ -58,7 +58,8 @@
 		</div>
 
 	</form:form>
-
+	<p><em class="star">*</em> — <spring:message code="label.star"/>
+	
 	<script src="resources/js/jquery.js"></script>
 
 </section>
