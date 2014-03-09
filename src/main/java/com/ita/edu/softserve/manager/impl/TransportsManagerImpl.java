@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.sql.Time;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,8 +15,8 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 
 /**
  * This is transports manager class.
@@ -206,86 +205,86 @@ public class TransportsManagerImpl implements TransportsManager {
 		}
 	}
 
-	// /-----for paging
+
+	/*---------------------------------------------------------------------*/
+
+	@Override
+	public void validateTransportCriteria(
+			TransportCriteriaContainer transportCriteriaContainer) {
+		StaticValidator.validateTransportCriteria(transportCriteriaContainer);
+	}
 	
+	//-----for paging
+	@Override
+	public List<Transports> getTransportsListWithContainers(
+			PageInfoContainer container,
+			TransportCriteriaContainer transportCriteriaContainer) {
 
-		@Transactional(readOnly = true)
-		@Override
-		public long getTransportsListCountByCriteria(String transportCode,
-				String routeCode, String routeName, Integer seatClass1,
-				Integer seatClass2, Integer seatClass3, Double price, Time minTime,
-				Time maxTime) {
+		return getTransportsListForAddTripsWithPaging(
+				container.getPageNumber(), container.getResultsPerPage(),
+				transportCriteriaContainer.getTransportCode(),
+				transportCriteriaContainer.getRouteName(),
+				transportCriteriaContainer.getRoutesCode(),
+				transportCriteriaContainer.getSeatClass1(),
+				transportCriteriaContainer.getSeatClass2(),
+				transportCriteriaContainer.getSeatClass3(),
+				transportCriteriaContainer.getPrice(),
+				transportCriteriaContainer.getOrderByCriteria(),
+				transportCriteriaContainer.getOrderByDirection());
+	}
 
-			return transportsDao.getTransportsListCountByCriteria(transportCode,
-					routeCode, routeName, seatClass1, seatClass2, seatClass3,
-					price, minTime, maxTime);
-		}
-		
-		@Override
-		public long getTransportsListCountUsingContainer(
-				TransportsCriteriaContainer transportsCriteriaContainer) {
+	@Override
+	public long getTransportsListCountWithContainers(
+			TransportCriteriaContainer transportCriteriaContainer) {
+		return getTransportsListForAddTripsCount(
+				transportCriteriaContainer.getTransportCode(),
+				transportCriteriaContainer.getRouteName(),
+				transportCriteriaContainer.getRoutesCode(),
+				transportCriteriaContainer.getSeatClass1(),
+				transportCriteriaContainer.getSeatClass2(),
+				transportCriteriaContainer.getSeatClass3(),
+				transportCriteriaContainer.getPrice());
+	}
 
-			return getTransportsListCountByCriteria("%" 
-							+ transportsCriteriaContainer.getTransportCode() + "%", "%"
-							+ transportsCriteriaContainer.getRouteCode() + "%", "%"
-							+ transportsCriteriaContainer.getLineName() + "%",
-					transportsCriteriaContainer.getSeatClass1(),
-					transportsCriteriaContainer.getSeatClass2(),
-					transportsCriteriaContainer.getSeatClass3(),
-					transportsCriteriaContainer.getGenPrice(),
-					transportsCriteriaContainer.getMinTime(),
-					transportsCriteriaContainer.getMaxTime());
-		}
+	@Transactional(readOnly = true)
+	@Override
+	public long getTransportsListCount(String transportCode, String routeName,
+			String routesCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price) {
 
-		@Transactional(readOnly = true)
-		@Override
-		public List<Transports> getTransportsListForPageByCriteria(int pageNumber,
-				long count, String transportCode, String routeCode,
-				String routeName, Integer seatClass1, Integer seatClass2,
-				Integer seatClass3, Double price, Time minTime, Time maxTime,
-				String orderByParam, String orderByDirection) {
+		return transportsDao.getTransportsListForAddTripsCount("%"
+				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
+				+ "%", seatClass1, seatClass2, seatClass3, price);
+	}
 
-			return transportsDao.getTransportsListForOnePageByCriteria(
-					((int)((pageNumber - 1) * count)), count, transportCode, routeCode,
-					routeName, seatClass1, seatClass2, seatClass3, price, minTime,
-					maxTime, orderByParam, orderByDirection);
-		}
-		
-		@Override
-		public List<Transports> getTransportsForLimitUsingContainers(
-				TransportsCriteriaContainer transportsCriteriaContainer,
-				PageInfoContainer container) {
-			return getTransportsListForPageByCriteria(container.getPageNumber(),
-					container.getResultsPerPage(), "%"
-							+ transportsCriteriaContainer.getTransportCode() + "%", "%" 
-							+ transportsCriteriaContainer.getRouteCode() + "%", "%"
-							+ transportsCriteriaContainer.getLineName() + "%",
-					transportsCriteriaContainer.getSeatClass1(),
-					transportsCriteriaContainer.getSeatClass2(),
-					transportsCriteriaContainer.getSeatClass3(),
-					transportsCriteriaContainer.getGenPrice(),
-					transportsCriteriaContainer.getMinTime(),
-					transportsCriteriaContainer.getMaxTime(),
-					transportsCriteriaContainer.getOrderByParam(),
-					transportsCriteriaContainer.getOrderByDirection());
-		}
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection) {
 
-		@Transactional(readOnly = true)
-		@Override
-		public List<Transports> getTransportsListForLimitForCriteria(int firstPage,
-				long count, String transportCode, String routeCode,
-				String routeName, Integer seatClass1, Integer seatClass2,
-				Integer seatClass3, Double price, Time minTime, Time maxTime,
-				String orderByParam, String orderByDirection) {
+		return transportsDao.getTransportsListForAddTrips(firstElement, count,
+				"%" + transportCode + "%", "%" + routeName + "%", "%"
+						+ routesCode + "%", seatClass1, seatClass2, seatClass3,
+				price, orderByCriteria, orderByDirection);
+	}
 
-			return transportsDao.getTransportsListForOnePageByCriteria(firstPage,
-					count, transportCode, routeCode, routeName, seatClass1,
-					seatClass2, seatClass3, price, minTime, maxTime, orderByParam,
-					orderByDirection);
-		}
+	@Transactional(readOnly = true)
+	@Override
+	public List<Transports> getTransportsListWithPaging(int pageNumber,
+			int count, String transportCode, String routeName,
+			String routesCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price, String orderByCriteria,
+			String orderByDirection) {
 
-		/*---------------------------------------------------------------------*/
+		return transportsDao.getTransportsListForAddTrips((pageNumber - 1)
+				* count, count, "%" + transportCode + "%", "%" + routeName
+				+ "%", "%" + routesCode + "%", seatClass1, seatClass2,
+				seatClass3, price, orderByCriteria, orderByDirection);
+	}
 
+/*---------------------------------------------------------------------*/
 
 	@Override
 	public List<Transports> getTransportsListForAddTripsWithContainers(
@@ -305,7 +304,6 @@ public class TransportsManagerImpl implements TransportsManager {
 				transportForAddTripsCriteriaContainer.getOrderByDirection());
 	}
 
-	
 	@Override
 	public long getTransportsListForAddTripsCountWithContainers(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
@@ -482,5 +480,5 @@ public class TransportsManagerImpl implements TransportsManager {
 		return transportsDao.getTransportByTwoStForLimits(stationName1,
 				stationName2, firstElement, count, sDate, orderBy);
 	}
-	
+
 }

@@ -1,13 +1,12 @@
 package com.ita.edu.softserve.manager;
 
-import java.sql.Time;
 import java.util.List;
 
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 
 /**
  * @author Roman
@@ -143,30 +142,6 @@ public interface TransportsManager extends BaseManager {
 	 */
 	long getTransportsListCount();
 
-	long getTransportsListCountByCriteria(String transportCode,
-			String routeCode, String routeName, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
-			Time maxTime);
-
-	List<Transports> getTransportsListForPageByCriteria(int pageNumber,
-			long count, String transportCode, String routeCode,
-			String routeName, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price, Time minTime, Time maxTime,
-			String orderByParam, String orderByDirection);
-
-	List<Transports> getTransportsListForLimitForCriteria(int firstPage,
-			long count, String transportCode, String routeCode,
-			String routeName, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price, Time minTime, Time maxTime,
-			String orderByParam, String orderByDirection);
-
-	long getTransportsListCountUsingContainer(
-			TransportsCriteriaContainer transportsCriteriaContainer);
-
-	List<Transports> getTransportsForLimitUsingContainers(
-			TransportsCriteriaContainer transportsCriteriaContainer,
-			PageInfoContainer container);
-
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
@@ -191,5 +166,31 @@ public interface TransportsManager extends BaseManager {
 
 	long getTransportsListForAddTripsCountWithContainers(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
+	
+	/*-----------------------------------------------------------------*/
+	
+	List<Transports> getTransportsListWithContainers(
+			PageInfoContainer container,
+			TransportCriteriaContainer transportCriteriaContainer);
+
+	long getTransportsListCountWithContainers(
+			TransportCriteriaContainer transportCriteriaContainer);
+	
+	long getTransportsListCount(String transportCode, String routeName,
+			String routesCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price);
+
+	List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection);
+
+	List<Transports> getTransportsListWithPaging(int pageNumber, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection);
+
+	void validateTransportCriteria(
+			TransportCriteriaContainer transportCriteriaContainer);
 
 }
