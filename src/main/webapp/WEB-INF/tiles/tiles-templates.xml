@@ -80,6 +80,7 @@
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/tripsmanagerpage.jsp" />
 	</definition>
+	
 	<definition name="transportpage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/transportpage.jsp" />
@@ -127,6 +128,7 @@
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/addTripPage.jsp" />
 	</definition>
+	
 	<definition name="404" extends="base-template">
 		<put-attribute name="content" value="/jsp/error/404.jsp" />
 	</definition>
