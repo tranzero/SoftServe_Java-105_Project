@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.StationsOnLine;
@@ -32,7 +34,11 @@ import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.propertyeditors.RoutesEditor;
 import com.ita.edu.softserve.propertyeditors.TimeEditor;
+import com.ita.edu.softserve.utils.ValidatorUtil;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportCriteriaContainerImpl;
 
 /**
  * Base controller class for Transports.
@@ -197,6 +203,80 @@ public class TransportController {
 	 * Defines orderBy attribute.
 	 */
 	private static final String START_DATE = "sDate";
+	
+	/**
+	 * Part of URL that defines displaying transports web page.
+	 */
+	private static final String ADDTRIP_WEB_NAME = "/transportList";
+	
+	/**
+	 * Part of URL that defines web page for displaying transports AJAX paging.
+	 */
+	private static final String ADDTRIPPAGE_WEB_NAME = "/transportListPage";
+
+	/**
+	 * Spring response that defines displaying Transports into jsp page.
+	 */
+	private static final String TRANSPORT_LIST_NAME = "transportList";
+	
+	/**
+	 * Spring response that defines jsp page for displaying transports AJAX paging.
+	 */
+	private static final String TRANSPORT_LIST_PAGE_NAME = "transportListPage";
+
+	/**
+	 * Name for in-jsp jstl variable, representing list of transports.
+	 */
+	private static final String TRANSPORTSLIST_NAME = "transportsList";
+
+	/**
+	 * Name for in-jsp jstl variable, representing language (used for jQuery UI
+	 * datepicker)
+	 */
+	private static final String LANGUAGE_NAME = "language";
+
+	/**
+	 * Name for showing transport code attribute name.
+	 */
+	private static final String IS_TRANSPORT_CODE_ATTRIBUTE_NAME = "isTransportCode";
+
+	/**
+	 * Name for showing route name attribute name.
+	 */
+	private static final String IS_ROUTE_NAME_ATTRIBUTE_NAME = "isRouteName";
+
+	/**
+	 * Name for showing route code attribute name.
+	 */
+	private static final String IS_ROUTE_CODE_ATTRIBUTE_NAME = "isRoutesCode";
+
+	/**
+	 * Name for showing Class1 places count attribute name.
+	 */
+	private static final String IS_CLASS1_ATTRIBUTE_NAME = "isClass1";
+	/**
+	 * Name for showing Class1 places count attribute name.
+	 */
+	private static final String IS_CLASS2_ATTRIBUTE_NAME = "isClass2";
+	/**
+	 * Name for showing Class1 places count attribute name.
+	 */
+	private static final String IS_CLASS3_ATTRIBUTE_NAME = "isClass3";
+
+	/**
+	 * Name for showing price attribute name.
+	 */
+	private static final String IS_PRICE_ATTRIBUTE_NAME = "isPrice";
+
+	/**
+	 * Name for criteria container attribute name.
+	 */
+	private static final String CRITERIA_CONTAINER_ATTRIBUTE_NAME = "container";
+
+	/**
+	 * Name for encoder attribute name.
+	 */
+	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
 
 	/**
 	 * Field for using paging-related controller-level methods (class realized
@@ -225,15 +305,18 @@ public class TransportController {
 	 */
 	@Autowired
 	private RoutesDAO routesDao;
-	
+
 	@Autowired
-	private  UserNameService userNameService;
-	
+	private UserNameService userNameService;
+
 	@Autowired
 	private TripsManager tripsManager;
 
 	@Autowired
 	private Validator transportsValidator;
+	
+	@Autowired
+	private Encoder encoder;
 
 	/**
 	 * Display transports in browser.
@@ -326,8 +409,8 @@ public class TransportController {
 	 * @param modelMap
 	 *            Model map to fill.
 	 */
-	private void forDisplayTransport(Integer pageNumber, Integer resultsPerPage,
-			ModelMap modelMap) {
+	private void forDisplayTransport(Integer pageNumber,
+			Integer resultsPerPage, ModelMap modelMap) {
 
 		long count = transportsManager.getTransportsListCount();
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
@@ -337,12 +420,12 @@ public class TransportController {
 
 		List<Transports> transports = transportsManager.getTransportsForPage(
 				container.getPageNumber(), container.getResultsPerPage());
-		modelMap.put(TRANSPORTS_LIST_NAME, transports);
+		modelMap.addAttribute(TRANSPORTS_LIST_NAME, transports);
 	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(transportsValidator);
+//		binder.setValidator(transportsValidator);
 
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setGroupingUsed(false);
@@ -388,7 +471,7 @@ public class TransportController {
 	 */
 	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
 	public String addTransportToBD(
-			@ModelAttribute(MODEL_TRANSPORT)/* @Valid */Transports transport,
+			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
@@ -420,9 +503,10 @@ public class TransportController {
 	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
 			Model modelMap) {
 
-		Transports transport = transportsManager.findTransportsById(transportId);
+		Transports transport = transportsManager
+				.findTransportsById(transportId);
 		List<Routes> routesList = routesManager.getAllRoutes();
-		
+
 		modelMap.addAttribute(ROUTES_LIST, routesList);
 		modelMap.addAttribute(MODEL_TRANSPORT, transport);
 
@@ -489,6 +573,7 @@ public class TransportController {
 
 	/**
 	 * Controller method for displaying getting Transport by two stations page.
+	 * 
 	 * @param stationName1
 	 *            Name of station 1.
 	 * @param stationName2
@@ -522,12 +607,12 @@ public class TransportController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 
-		modelMap.put(TRANSPORT_TRAVEL_LIST, transportsManager
+		modelMap.addAttribute(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
 						(int) container.getResultsPerPage(), sDate, orderBy));
-		modelMap.put("user", userNameService.getLoggedUserId());
-		
+		modelMap.addAttribute("user", userNameService.getLoggedUserId());
+
 		return TRANSPORT_TRAVEL_JSP;
 	}
 
@@ -566,12 +651,123 @@ public class TransportController {
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 
-		modelMap.put(TRANSPORT_TRAVEL_LIST, transportsManager
+		modelMap.addAttribute(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
 						(int) container.getResultsPerPage(), sDate, orderBy));
-		modelMap.put("user", userNameService.getLoggedUserId());
-		
+		modelMap.addAttribute("user", userNameService.getLoggedUserId());
+
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}
+
+	/*----------------------------------------------------------------------------------*/
+
+	 /**
+	 * Part of any redirect spring jsp definition.
+	 */
+	 private static final String REDIRECT_SUBSTRING = "redirect:/";
+
+	/**
+	 * Part of any redirect spring jsp definition that is on same level with
+	 * caller controller maping
+	 */
+	private static final String REDIRECT_SAME_LEVEL_SUBSTRING = "redirect:";
+	
+	
+
+	/*--------------------------------------------------------------------------------------*/
+	
+	private void putFillElementsOptions(TransportCriteriaContainer container,
+			ModelMap modelMap) {
+
+		modelMap.addAttribute(IS_TRANSPORT_CODE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getTransportCode()));
+		modelMap.addAttribute(IS_ROUTE_NAME_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getRouteName()));
+		modelMap.addAttribute(IS_ROUTE_CODE_ATTRIBUTE_NAME,
+				ValidatorUtil.isEmptyString(container.getRoutesCode()));
+		modelMap.addAttribute(
+				IS_CLASS1_ATTRIBUTE_NAME,
+				(container.getSeatClass1() == null)
+						|| (container.getSeatClass1() < 0));
+		modelMap.addAttribute(
+				IS_CLASS2_ATTRIBUTE_NAME,
+				(container.getSeatClass2() == null)
+						|| (container.getSeatClass2() < 0));
+		modelMap.addAttribute(
+				IS_CLASS3_ATTRIBUTE_NAME,
+				(container.getSeatClass3() == null)
+						|| (container.getSeatClass3() < 0));
+
+	}
+
+	private void completeMapForAddTransports(PageInfoContainer container,
+			TransportCriteriaContainer transportCriteriaContainer,
+			ModelMap modelMap, Locale locale) {
+		putFillElementsOptions(transportCriteriaContainer, modelMap);
+		transportsManager.validateTransportCriteria(transportCriteriaContainer);
+		modelMap.addAttribute(IS_PRICE_ATTRIBUTE_NAME,
+				transportCriteriaContainer.getPrice().equals(Double.MAX_VALUE));
+		long count = transportsManager
+				.getTransportsListCountWithContainers(transportCriteriaContainer);
+		container.setCount(count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+		modelMap.addAttribute(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
+				transportCriteriaContainer);
+		modelMap.addAttribute(ENCODER_ATTRIBUTE_NAME, encoder);
+
+		List<Transports> transports = transportsManager
+				.getTransportsListWithContainers(container,
+						transportCriteriaContainer);
+		modelMap.addAttribute(TRANSPORTSLIST_NAME, transports);
+		modelMap.addAttribute(LANGUAGE_NAME, locale.getLanguage());
+	}
+
+	/**
+	 * Controller method for displaying adding trips page
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 * @return definition of jsp to use
+	 */
+	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
+	public String printTransportsList(PageInfoContainerImpl container,
+			TransportCriteriaContainerImpl transportCriteriaContainer,
+			ModelMap modelMap, Locale locale) {
+
+		completeMapForAddTransports(container, transportCriteriaContainer, modelMap,
+				locale);
+
+		return TRANSPORT_LIST_NAME;
+	}
+
+	/**
+	 * Controller method for displaying AJAX-source adding trips page
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined)
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined)
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 * @return definition of jsp to use
+	 */
+	@RequestMapping(value = ADDTRIPPAGE_WEB_NAME, method = RequestMethod.GET)
+	public String printTransportsListPage(PageInfoContainerImpl container,
+			TransportCriteriaContainerImpl transportCriteriaContainer,
+			ModelMap modelMap, Locale locale) {
+		completeMapForAddTransports(container, transportCriteriaContainer, modelMap,
+				locale);
+		return TRANSPORT_LIST_PAGE_NAME;
+	}
+
 }
