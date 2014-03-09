@@ -57,7 +57,7 @@
 		<div class="pad_top_bottom">
 				<input type="submit" value="<spring:message code="label.add"/>" />
 				<input type="button" value="<spring:message code="label.cancel"/>" 
-					onclick="window.location='/SoftServe_Java-105/transport';">
+					onclick="window.location='/SoftServe_Java-105/transportListManage';">
 		</div>
 	</form:form>
 	

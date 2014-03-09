@@ -124,6 +124,11 @@
 		<put-attribute name="content" value="/jsp/transportListPage.jsp" />
 	</definition>
 
+	<definition name="transportListPageManage" extends="ajax">
+		<put-attribute name="title" value="View: TransportsManage" />
+		<put-attribute name="content" value="/jsp/transportListPageManage.jsp" />
+	</definition>
+	
 	<definition name="addTripPage" extends="ajax">
 		<put-attribute name="title" value="View: News Maneger" />
 		<put-attribute name="content" value="/jsp/addTripPage.jsp" />

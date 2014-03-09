@@ -317,6 +317,8 @@ public class TransportController {
 	
 	@Autowired
 	private Encoder encoder;
+	
+	/*------------------For Transport Table With Paging-------------------*/
 
 	/**
 	 * Display transports in browser.
@@ -325,6 +327,7 @@ public class TransportController {
 	 *            Model map to fill.
 	 * @return transportView jsp to use.
 	 */
+	@Deprecated
 	@RequestMapping(value = TRANSPORT_VIEW_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransportsView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -347,6 +350,7 @@ public class TransportController {
 	 *            Model map to fill.
 	 * @return the jsp name.
 	 */
+	@Deprecated
 	@RequestMapping(value = TRANSPORTPAGE_VIEW_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransportPageView(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -365,6 +369,7 @@ public class TransportController {
 	 *            The Model map to fill.
 	 * @return the jsp name.
 	 */
+	@Deprecated
 	@RequestMapping(value = TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransports(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -387,6 +392,7 @@ public class TransportController {
 	 *            Model map to fill.
 	 * @return the jsp name.
 	 */
+	@Deprecated
 	@RequestMapping(value = TRANSPORTPAGE_URL_PATTERN, method = RequestMethod.GET)
 	public String displayTransportPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
@@ -409,6 +415,7 @@ public class TransportController {
 	 * @param modelMap
 	 *            Model map to fill.
 	 */
+	@Deprecated
 	private void forDisplayTransport(Integer pageNumber,
 			Integer resultsPerPage, ModelMap modelMap) {
 
@@ -422,6 +429,8 @@ public class TransportController {
 				container.getPageNumber(), container.getResultsPerPage());
 		modelMap.addAttribute(TRANSPORTS_LIST_NAME, transports);
 	}
+
+	/*-----------------END-For Transport Table With Paging-------------------*/
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -660,22 +669,7 @@ public class TransportController {
 		return TRANSPORT_TRAVEL_PAGE_JSP;
 	}
 
-	/*----------------------------------------------------------------------------------*/
-
-	 /**
-	 * Part of any redirect spring jsp definition.
-	 */
-	 private static final String REDIRECT_SUBSTRING = "redirect:/";
-
-	/**
-	 * Part of any redirect spring jsp definition that is on same level with
-	 * caller controller maping
-	 */
-	private static final String REDIRECT_SAME_LEVEL_SUBSTRING = "redirect:";
-	
-	
-
-	/*--------------------------------------------------------------------------------------*/
+	/*------------------For Transport Table Filter Sorting-------------------*/
 	
 	private void putFillElementsOptions(TransportCriteriaContainer container,
 			ModelMap modelMap) {
@@ -738,7 +732,7 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
-	public String printTransportsList(PageInfoContainerImpl container,
+	public String printTransportsListManage(PageInfoContainerImpl container,
 			TransportCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 
@@ -762,12 +756,61 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADDTRIPPAGE_WEB_NAME, method = RequestMethod.GET)
-	public String printTransportsListPage(PageInfoContainerImpl container,
+	public String printTransportsListPageManage(PageInfoContainerImpl container,
 			TransportCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 		completeMapForAddTransports(container, transportCriteriaContainer, modelMap,
 				locale);
 		return TRANSPORT_LIST_PAGE_NAME;
 	}
+	
+	/*--------------------*/
+	
+	/**
+	 * Controller method for displaying transport page.
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined).
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined).
+	 * @param modelMap
+	 *            Model map to fill.
+	 * @param locale
+	 *            Used spring locale.
+	 * @return definition of jsp to use.
+	 */
+	@RequestMapping(value = "/transportListManage", method = RequestMethod.GET)
+	public String printTransportsList(PageInfoContainerImpl container,
+			TransportCriteriaContainerImpl transportCriteriaContainer,
+			ModelMap modelMap, Locale locale) {
+
+		completeMapForAddTransports(container, transportCriteriaContainer, modelMap,
+				locale);
+
+		return "transportListManage";
+	}
+
+	/**
+	 * Controller method for displaying AJAX-source transport page.
+	 * 
+	 * @param pageNumber
+	 *            Number of displaying page (spring-defined).
+	 * @param resultsPerPage
+	 *            Amount of results per page (spring-defined).
+	 * @param modelMap
+	 *            Model map to fill.
+	 * @param locale
+	 *            Used spring locale.
+	 * @return definition of jsp to use.
+	 */
+	@RequestMapping(value = "/transportListPageManage", method = RequestMethod.GET)
+	public String printTransportsListPage(PageInfoContainerImpl container,
+			TransportCriteriaContainerImpl transportCriteriaContainer,
+			ModelMap modelMap, Locale locale) {
+		completeMapForAddTransports(container, transportCriteriaContainer, modelMap,
+				locale);
+		return "transportListPageManage";
+	}
+	/*--------------END-For Transport Table Filter Sorting-------------------*/
 
 }
