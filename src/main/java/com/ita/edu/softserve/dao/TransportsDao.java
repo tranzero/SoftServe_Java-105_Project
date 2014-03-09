@@ -87,54 +87,6 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 */
 	List<Transports> findByDate(String date);
 
-	/**
-	 * @param firstElement
-	 * @param count
-	 *            the number of items on a page.
-	 * @param transportCode
-	 *            the transport code to filter.
-	 * @param time
-	 *            time to filter.
-	 * @param routesCode
-	 *            the route code to filter.
-	 * @param seatClass1
-	 *            the seat class 1 to filter.
-	 * @param seatClass2
-	 *            the seat class 2 to filter.
-	 * @param seatClass3
-	 *            the seat class 3 to filter.
-	 * @param price
-	 *            price to filter.
-	 * @return the list of transport filtered by criteria.
-	 */
-	List<Transports> getTransportsListForOnePageByCriteria(int firstElement,
-			long count, String transportCode, String routeCode,
-			String routeName, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price, Time minTime, Time maxTime,
-			String orderByParam, String orderByDirection);
-
-	/**
-	 * @param transportCode
-	 *            the transport code to filter.
-	 * @param time
-	 *            time to filter.
-	 * @param routesCode
-	 *            the route code to filter.
-	 * @param seatClass1
-	 *            the seat class 1 to filter.
-	 * @param seatClass2
-	 *            the seat class 2 to filter.
-	 * @param seatClass3
-	 *            the seat class 3 to filter.
-	 * @param price
-	 *            price to filter.
-	 * @return the quantity of Transports objects.
-	 */
-	long getTransportsListCountByCriteria(String transportCode,
-			String routeCode, String routeName, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price, Time minTime,
-			Time maxTime);
-
 	List<Transports> getTransportsListForAddTrips(int firstElement, int count,
 			String transportCode, String routeName, String routeCode,
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
@@ -143,6 +95,15 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routeCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
+	/*------------------------------------------------------------------------------------------*/
 
+	List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routeCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String OrderByCriteria, String OrderByDirection);
+
+	long getTransportsListCount(String transportCode, String routeName,
+			String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price);
 	
 }
