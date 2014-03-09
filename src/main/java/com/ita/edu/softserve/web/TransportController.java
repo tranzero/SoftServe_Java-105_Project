@@ -725,17 +725,17 @@ public class TransportController {
 	}
 
 	/**
-	 * Controller method for displaying adding trips page
+	 * Controller method for displaying transport page.
 	 * 
 	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
+	 *            Number of displaying page (spring-defined).
 	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 *            Amount of results per page (spring-defined).
 	 * @param modelMap
-	 *            Model map to fill
+	 *            Model map to fill.
 	 * @param locale
-	 *            Used spring locale
-	 * @return definition of jsp to use
+	 *            Used spring locale.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
 	public String printTransportsList(PageInfoContainerImpl container,
@@ -749,17 +749,17 @@ public class TransportController {
 	}
 
 	/**
-	 * Controller method for displaying AJAX-source adding trips page
+	 * Controller method for displaying AJAX-source transport page.
 	 * 
 	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
+	 *            Number of displaying page (spring-defined).
 	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 *            Amount of results per page (spring-defined).
 	 * @param modelMap
-	 *            Model map to fill
+	 *            Model map to fill.
 	 * @param locale
-	 *            Used spring locale
-	 * @return definition of jsp to use
+	 *            Used spring locale.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADDTRIPPAGE_WEB_NAME, method = RequestMethod.GET)
 	public String printTransportsListPage(PageInfoContainerImpl container,
