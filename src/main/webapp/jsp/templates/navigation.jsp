@@ -20,8 +20,10 @@
 								code="label.navigation.stationsForUsers" /></a></li>
 					<li><a href="/SoftServe_Java-105/trips"><spring:message
 								code="label.navigation.trips" /></a></li>
-					<li><a href="/SoftServe_Java-105/transportView"><spring:message
+					<li><a href="/SoftServe_Java-105/transportList"><spring:message
 								code="label.navigation.transport" /></a></li>
+					<li><a href="/SoftServe_Java-105/transportView"><spring:message
+								code="label.navigation.transport" />2</a></li>
 					<li><a href="/SoftServe_Java-105/routes"><spring:message
 								code="label.navigation.route" /></a></li>
 				</ul>
