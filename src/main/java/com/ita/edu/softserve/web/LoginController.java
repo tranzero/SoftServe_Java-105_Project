@@ -10,7 +10,22 @@ public class LoginController {
 	/**
 	 * Default page to return
 	 */
-	public static final String DEFAULT_PAGE = "mainpage";	
+	public static final String DEFAULT_PAGE = "mainpage";
+	
+	/**
+	 * Login page to return
+	 */
+	public static final String LOGIN_PAGE = "login"; 
+	
+	/**
+	 * Login page to return in the error case
+	 */
+	public static final String LOGIN_ERROR_PAGE = "login.html"; 
+	
+	/**
+	 * Access denied page to return
+	 */
+	public static final String ACCESS_DENIED_PAGE = "accessDenied";
 	
 	/**
 	 * Page to return after login
@@ -24,6 +39,13 @@ public class LoginController {
 	public void setReferer(String referer) {
 		this.referer = referer;
 	}
+	
+	/**
+	 * Controller method for obtaining the referer page  
+	 */
+	private String getRefererFromRequest(HttpServletRequest request){
+		return request.getHeader("Referer");		
+	}
 
 	/**
 	 * Controller method for setting the referer page 
@@ -34,10 +56,10 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/login")
 	public String login(HttpServletRequest request) {	
-		if (getReferer().equals(DEFAULT_PAGE)){
-			setReferer(request.getHeader("Referer"));
+		if (!getRefererFromRequest(request).contains(LOGIN_ERROR_PAGE)){		
+			setReferer(getRefererFromRequest(request));
 		}			
-		return "login"; 
+		return LOGIN_PAGE; 
 	}
 	
 	/**
@@ -47,7 +69,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/accessDenied")
 	public String accesserror() {		
-		return "accessDenied";
+		return ACCESS_DENIED_PAGE;
 	}
 	
 	/**
