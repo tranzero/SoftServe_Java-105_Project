@@ -45,7 +45,7 @@
 		<table>
 			<tr align=center>
 				<td align=center><br /> <a
-					href="/SoftServe_Java-105/listOfStationsOnLine/${trip.getTransport().getRoutes().getLineId().getLineName()}">
+					href="/SoftServe_Java-105/listOfStations/${trip.getTransport().getRoutes().getLineId().getLineName()}">
 						<label style="color: #0000FF; font-size: 12pt">Show
 							stations on Route </label>
 				</a>

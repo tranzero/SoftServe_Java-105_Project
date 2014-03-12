@@ -307,12 +307,14 @@ public class StationsManagerImpl implements StationsManager {
 		StaticValidator.validateStationListCriteria(stationsCriteriaContainer, locale);
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public long getStationsListCountWithCriteria(String searchString) {
 
 		return stationDao.getStationsListCriteriaCount(searchString);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public long getStationsListCountUsingContainer(
 			StationsCriteriaContainer stationsCriteriaContainer) {
@@ -321,6 +323,7 @@ public class StationsManagerImpl implements StationsManager {
 				+ stationsCriteriaContainer.getSearchString() + "%");
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsForLimitUsingContainers(
 			StationsCriteriaContainer stationsCriteriaContainer,
@@ -332,6 +335,7 @@ public class StationsManagerImpl implements StationsManager {
 				stationsCriteriaContainer.getOrderByDirection());
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsForLimitWithCriteria(int firstElement,
 			long count, String searchString, String orderByParam,
@@ -341,6 +345,7 @@ public class StationsManagerImpl implements StationsManager {
 
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsForPageWithCriteria(int pageNumber, long count,
 			String searchString, String orderByParam, String orderByDirection) {

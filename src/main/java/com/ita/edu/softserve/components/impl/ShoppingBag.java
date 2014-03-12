@@ -2,6 +2,7 @@ package com.ita.edu.softserve.components.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PreDestroy;
@@ -24,7 +25,7 @@ public class ShoppingBag implements Serializable {
 	private List<Tickets> tickets;
 
 	public ShoppingBag() {
-		this.tickets = new ArrayList<Tickets>();
+		this.tickets = new LinkedList<Tickets>();
 
 	}
 
@@ -80,14 +81,13 @@ public class ShoppingBag implements Serializable {
 	/**
 	 * scheduled bag cleaning
 	 */
-	@Scheduled(fixedDelay = 900000000)
+	@Scheduled(fixedDelay = 90000)
 	public void clear() {
 		TripsManager tripsManager = TripsManagerImpl.getInstance();
 
 		for(Tickets ticket:tickets){
 			
-			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
-				
+			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());			
 		}
 		tickets.clear();
 	}
@@ -101,10 +101,8 @@ public class ShoppingBag implements Serializable {
 
 		for(Tickets ticket:tickets){
 			
-			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
-				
+			tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());		
 		}
 		tickets.clear();
-		
 	}
 }

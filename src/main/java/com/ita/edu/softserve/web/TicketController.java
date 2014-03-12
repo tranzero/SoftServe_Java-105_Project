@@ -46,7 +46,7 @@ import com.ita.edu.softserve.manager.UserNameService;
 @Scope("request")
 public class TicketController {
 	
-	private static final String LIST_OF_STATIONS_ON_LINE_URL = "/listOfStationsOnLine/{lineName}";
+	private static final String LIST_OF_STATIONS_ON_LINE_URL = "/listOfStations/{lineName}";
 
 	private static final String LINE_NAME = "lineName";
 
@@ -58,7 +58,7 @@ public class TicketController {
 
 	private static final String RESERVATION_TICKET_PAGE = "reservationTicket";
 
-	private static final String LIST_OF_STATIONS_ON_LINE_PAGE = "listOfStationsOnLine";
+	private static final String LIST_OF_STATIONS_ON_LINE_PAGE = "listOfStations";
 
 	private static final String BAG_PAY_PAGE = "bagPay";
 
@@ -159,7 +159,6 @@ public class TicketController {
 			Map<String, Object> modelMap) {
 
 		modelMap.put(LIST_OF_STATIONS_ON_LINE_PAGE, stationsManager.getStationsOnCertainLine(lineName));
-
 		return LIST_OF_STATIONS_ON_LINE_PAGE;
 	}
 	
