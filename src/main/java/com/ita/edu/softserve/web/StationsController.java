@@ -31,17 +31,27 @@ public class StationsController {
 
 	private static final String STATION_ID = "stationId";
 
-	private static final String STATION_CODE = "stationCode";
-
-	private static final String STATION_NAME = "stationName";
+	private static final String SEARCH_STRING = "isSearchString";
 
 	private static final String STATIONS_FOR_USERS_URL = "/stationsForUsers";
 
+	private static final String STATIONS_FOR_USERS_PAGE_URL = "/stationsForUsersPage";
+
 	private static final String STATIONS_FOR_USERS_JSP_PAGE = "stationsForUsers";
+
+	private static final String STATIONS_FOR_USERS_PAGE_JSP = "stationsForUsersPage";
 
 	private static final String STATIONS_URL = "/stations";
 
+	private static final String STATIONS_PAGE_URL = "/stationsPage";
+
 	private static final String STATIONS_JSP_PAGE = "stations";
+
+	private static final String STATIONS_PAGE_JSP = "stationsPage";
+	
+	private static final String STATIONS_ON_CERTAIN_LINE_URL = "stationsoncertainline/{line}";
+	
+	private static final String LINE = "line";
 
 	private static final String DELETE_STATION_ID_URL = "/delete/{stationId}";
 
@@ -53,13 +63,21 @@ public class StationsController {
 
 	private static final String STATION_EDIT_URL_POST = "/stationEdit/addStation";
 
-	private static final String STATION_TO_EDIT = "stationToEdit";
-
 	private static final String ADD_STATION_URL_GET = "/addStation";
 
 	private static final String ADD_STATION_JSP_PAGE = "addStation";
 
 	private static final String ADD_STATION_URL_POST = "/addStation";
+
+	private static final String ORDER_BY_PARAMETR = "orderByParam";
+
+	private static final String ORDER_BY_DIRECTION = "orderByDirection";
+
+	private static final String CRITERIA_CONTAINER = "container";
+
+	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
+
+	private static final String LANGUAGE_NAME = "language";
 
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
@@ -79,10 +97,11 @@ public class StationsController {
 	@Autowired
 	Encoder encoder;
 
+	
 	private void putSearchStringIsEmpty(
 			StationsCriteriaContainer stationsCriteriaContainer,
 			Map<String, Object> modelMap) {
-		modelMap.put("isSearchString", ValidatorUtil
+		modelMap.put(SEARCH_STRING, ValidatorUtil
 				.isEmptyString(stationsCriteriaContainer.getSearchString()));
 	}
 
@@ -105,13 +124,13 @@ public class StationsController {
 
 		PagingController.deployPaging(modelMap, container, paginationManager);
 
-		modelMap.put("container", stationsCriteriaContainer);
-		modelMap.put("encoder", encoder);
-		modelMap.put("stationsList", stationsManager
+		modelMap.put(CRITERIA_CONTAINER, stationsCriteriaContainer);
+		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
+		modelMap.put(STATIONS_LIST, stationsManager
 				.getStationsForLimitUsingContainers(stationsCriteriaContainer,
 						container));
 
-		modelMap.put("language", locale.getLanguage());
+		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
 
 	}
 
@@ -126,8 +145,8 @@ public class StationsController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
-			@RequestParam(value = "orderByParam", required = false) String orderByParam,
-			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			@RequestParam(value = ORDER_BY_PARAMETR, required = false) String orderByParam,
+			@RequestParam(value = ORDER_BY_DIRECTION, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
 		deployStationsParameters(pageNumber, resultsPerPage, searchString,
@@ -142,19 +161,19 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "stationsForUsersPage", method = RequestMethod.GET)
+	@RequestMapping(value = STATIONS_FOR_USERS_PAGE_URL, method = RequestMethod.GET)
 	public String listStationsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
-			@RequestParam(value = "orderByParam", required = false) String orderByParam,
-			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			@RequestParam(value = ORDER_BY_PARAMETR, required = false) String orderByParam,
+			@RequestParam(value = ORDER_BY_DIRECTION, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
 		deployStationsParameters(pageNumber, resultsPerPage, searchString,
 				orderByParam, orderByDirection, modelMap, locale);
 
-		return "stationsForUsersPage";
+		return STATIONS_FOR_USERS_PAGE_JSP;
 	}
 
 	/**
@@ -170,8 +189,8 @@ public class StationsController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
-			@RequestParam(value = "orderByParam", required = false) String orderByParam,
-			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			@RequestParam(value = ORDER_BY_PARAMETR, required = false) String orderByParam,
+			@RequestParam(value = ORDER_BY_DIRECTION, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
 		deployStationsParameters(pageNumber, resultsPerPage, searchString,
@@ -188,21 +207,20 @@ public class StationsController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/stationsPage", method = RequestMethod.GET)
+	@RequestMapping(value = STATIONS_PAGE_URL, method = RequestMethod.GET)
 	public String manageStationsPage(
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
-			@RequestParam(value = "orderByParam", required = false) String orderByParam,
-			@RequestParam(value = "orderByDirection", required = false) String orderByDirection,
+			@RequestParam(value = ORDER_BY_PARAMETR, required = false) String orderByParam,
+			@RequestParam(value = ORDER_BY_DIRECTION, required = false) String orderByDirection,
 			Map<String, Object> modelMap, Locale locale) {
 
 		deployStationsParameters(pageNumber, resultsPerPage, searchString,
 				orderByParam, orderByDirection, modelMap, locale);
 
-		return "stationsPage";
+		return STATIONS_PAGE_JSP;
 	}
-
 
 	/**
 	 * Delete Station by Id.
@@ -228,7 +246,7 @@ public class StationsController {
 	 * @return
 	 */
 	@RequestMapping(value = STATION_EDIT_URL_GET, method = RequestMethod.GET)
-	public String editStation(@PathVariable("station") Integer stationId,
+	public String editStation(@PathVariable(STATION) Integer stationId,
 			ModelMap modelMap) {
 
 		Stations station = stationsManager.findStationsById(stationId);
@@ -253,7 +271,6 @@ public class StationsController {
 		if (bindingResult.hasErrors()) {
 			return STATION_EDIT_JSP_PAGE;
 		}
-
 		stationsManager.saveOrUpdateStation(station);
 		return REDIRECT_STATIONS;
 	}
@@ -263,6 +280,7 @@ public class StationsController {
 	 */
 	@RequestMapping(value = ADD_STATION_URL_GET, method = RequestMethod.GET)
 	public String addStations(ModelMap model) {
+		
 		model.addAttribute(STATION, new Stations());
 		return ADD_STATION_JSP_PAGE;
 	}
@@ -288,8 +306,8 @@ public class StationsController {
 		return REDIRECT_STATIONS;
 	}
 
-	@RequestMapping(value = "stationsoncertainline/{line}", method = RequestMethod.GET)
-	public String stationsOnCertainLine(@PathVariable("line") String lineName,
+	@RequestMapping(value = STATIONS_ON_CERTAIN_LINE_URL, method = RequestMethod.GET)
+	public String stationsOnCertainLine(@PathVariable(LINE) String lineName,
 			Map<String, Object> modelMap) {
 
 		modelMap.put(STATIONS_LIST,
