@@ -58,7 +58,8 @@ public class TransportsValidator implements Validator {
 
 		validateTransportCode(transport.getTransportCode(), error);
 
-		validateIfTransportExist(transport.getTransportId(), transport.getTransportCode(), error);
+		validateIfTransportExist(transport.getTransportId(),
+				transport.getTransportCode(), error);
 
 		validateStartTime(transport.getStartTime(), error);
 
@@ -81,28 +82,32 @@ public class TransportsValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateTransportCode(String transportCode, Errors error) {
-
-		if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
+		if (transportCode == null || transportCode == "") {
+			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
+			
+		} else if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 		}
 	}
 
 	/**
 	 * Finds out if Transports object exist in database with such transport
-	 * code. 
+	 * code.
 	 * 
 	 * @param transportCode
 	 *            the transport code to check.
 	 * @param error
 	 *            the error to register message.
 	 */
-	private void validateIfTransportExist(Integer transportId, String transportCode, Errors error) {
+	private void validateIfTransportExist(Integer transportId,
+			String transportCode, Errors error) {
 
 		if ((transportCode != null) && (transportCode != "")) {
 			Transports transport = null;
 
 			try {
-				transport = transportsManager.findTransportsByCode(transportCode);
+				transport = transportsManager
+						.findTransportsByCode(transportCode);
 
 				if ((transport.getTransportId()).equals(transportId)) {
 					return;
