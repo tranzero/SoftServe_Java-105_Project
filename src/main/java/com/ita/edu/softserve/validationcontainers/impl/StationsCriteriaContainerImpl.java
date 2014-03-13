@@ -3,12 +3,8 @@
  */
 package com.ita.edu.softserve.validationcontainers.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
-import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 
 /**

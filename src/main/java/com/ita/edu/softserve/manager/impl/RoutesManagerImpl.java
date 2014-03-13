@@ -2,11 +2,7 @@ package com.ita.edu.softserve.manager.impl;
 
 
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +13,7 @@ import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.exception.RoutesManagerException;
-import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
 

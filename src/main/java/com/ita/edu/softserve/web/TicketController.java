@@ -5,10 +5,7 @@ package com.ita.edu.softserve.web;
 
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
-import javax.persistence.criteria.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,19 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.components.impl.ShoppingBag;
-import com.ita.edu.softserve.entity.Orders;
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Tickets;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.OrdersManager;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TicketsManager;

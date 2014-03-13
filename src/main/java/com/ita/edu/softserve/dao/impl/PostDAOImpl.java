@@ -5,8 +5,11 @@ package com.ita.edu.softserve.dao.impl;
 
 
 import java.util.List;
+
 import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
+
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.PostDAO;
 import com.ita.edu.softserve.entity.Post;

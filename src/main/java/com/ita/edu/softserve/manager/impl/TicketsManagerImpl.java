@@ -1,7 +1,5 @@
 package com.ita.edu.softserve.manager.impl;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,22 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
-
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.dao.TicketsDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.dao.TripsDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Orders;
 import com.ita.edu.softserve.entity.Tickets;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.ManagerFactory;
-import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.TicketsManager;
-import com.ita.edu.softserve.manager.TransportsManager;
 
 
 @Service("ticketsService")

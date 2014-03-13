@@ -5,7 +5,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Tickets;
-import com.ita.edu.softserve.entity.Transports;
 
 @Component("ticketValidator")
 public class TicketValidator implements Validator {

@@ -3,11 +3,7 @@ package com.ita.edu.softserve.dao;
 import java.sql.Time;
 import java.util.List;
 
-import javax.persistence.Query;
-
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
 /*

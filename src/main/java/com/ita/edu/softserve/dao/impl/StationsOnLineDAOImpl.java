@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
-import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.entity.StationsOnLine;
 
 /**

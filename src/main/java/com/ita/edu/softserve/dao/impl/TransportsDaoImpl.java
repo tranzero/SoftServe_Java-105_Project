@@ -1,10 +1,8 @@
 package com.ita.edu.softserve.dao.impl;
 
-import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 

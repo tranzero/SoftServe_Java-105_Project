@@ -7,7 +7,6 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
-import com.ita.edu.softserve.dao.AbstractDAOIface;
 import com.ita.edu.softserve.dao.TicketsDAO;
 import com.ita.edu.softserve.entity.Tickets;
 

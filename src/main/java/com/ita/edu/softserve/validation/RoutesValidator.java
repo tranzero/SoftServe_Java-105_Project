@@ -5,14 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ita.edu.softserve.dao.LinesDAO;
-import com.ita.edu.softserve.dao.RoutesDAO;
-import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
-import com.ita.edu.softserve.dao.impl.RoutesDAOImpl;
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.RoutesManager;
 

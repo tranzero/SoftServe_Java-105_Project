@@ -2,7 +2,6 @@ package com.ita.edu.softserve.validation;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Users;

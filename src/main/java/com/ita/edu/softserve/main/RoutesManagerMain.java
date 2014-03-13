@@ -6,7 +6,6 @@ package com.ita.edu.softserve.main;
 import java.sql.Time;
 import java.util.List;
 
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.RoutesManager;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 import com.ita.edu.softserve.manager.impl.RoutesManagerImpl;
