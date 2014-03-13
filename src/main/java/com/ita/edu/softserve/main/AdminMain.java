@@ -1,8 +1,6 @@
 package com.ita.edu.softserve.main;
 
-import com.ita.edu.softserve.manager.AdminManager;
 import com.ita.edu.softserve.manager.TicketsManager;
-import com.ita.edu.softserve.manager.impl.AdminManagerImpl;
 import com.ita.edu.softserve.manager.impl.TicketsManagerImpl;
 
 public class AdminMain {

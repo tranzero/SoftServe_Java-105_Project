@@ -87,6 +87,7 @@
 				</c:if>
 			</ul>
 		</div>
+		</div>
 		<script>
 			function showLinesPage(pageNumber_,	resultsPerPage_, sortOrder_) {
 

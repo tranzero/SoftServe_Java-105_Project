@@ -5,8 +5,6 @@ package com.ita.edu.softserve.manager.impl;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,13 +65,15 @@ public class LinesManagerImpl implements LinesManager {
 		}
 	}
 	
+	/**
+	 * @author MatyashPetro
+	 * @return Line with selected id
+	 */
 	@Override
 	public Lines findByLineId(Integer lineId){
 		return lineDao.findById(lineId);
 		
-	}
-	
-	
+	}	
 
 	/**
 	 * @author MatyashPetro
@@ -89,71 +89,22 @@ public class LinesManagerImpl implements LinesManager {
 			throw new LinesManagerException(findLinesMsg, e);
 		}
 	}
-
+	
 	/**
-	 * 
-	 * @param stationName
-	 *            - name of station
-	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
+	 * @author MatyashPetro
+	 * @return size of list with all lines
 	 */
-
+	@Transactional(readOnly = true)
 	@Override
-	public List<Lines> getLinesByStationName(String stationName) {
-		return lineDao.getLinesByStationName(stationName);
-	}
-
-	@Override
-	public long getLinesByStationCount(String stationName) {
-		
+	public long getAllLinesCount() {
 		try{
-			return lineDao.getLinesByStationNameCount(stationName);
+		return lineDao.getAllLinesCount();
 		} catch (RuntimeException e){
 			LOGGER.error(e);
 			throw new LinesManagerException(countLinesMsg, e);
 		}
 	}
-
-	@Override
-	public List<Lines> getLinesByStNameForPage(String stationName,
-			int pageNumber, int count, int sortOrder) {
-		return this.getLinesByStNameForLimit(stationName, (pageNumber - 1)
-				* count, count,sortOrder);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getLinesByStNameForLimit(String stationName,
-			int firstElement, int count, int sortOrder) {
-
-		return lineDao.getLinesByStNameForLimits(stationName, firstElement,
-				count,sortOrder);
-
-	}
-
-
-	/**
-	 * Return Lines that includes two stations in certain order
-	 * 
-	 * @param station1
-	 *            - first station, departure
-	 * @param station2
-	 *            - second station, arrival
-	 * 
-	 * @return <code>List&lt;Lines&gt;</code>
-	 */
-	@Override
-	public List<Lines> getLinesByTwoStations(String stationName1,
-			String stationName2) {
-		List<Lines> lines = lineDao.findByTwoStations(stationName1,
-				stationName2);
-
-		return lines;
-	}
-
-	public static LinesManager getInstance() {
-		return ManagerFactory.getManager(LinesManager.class);
-	}
-
+	
 	/**
 	 * @author MatyashPetro
 	 * @param lineName
@@ -224,6 +175,90 @@ public class LinesManagerImpl implements LinesManager {
 			throw new LinesManagerException(removeLinesMsg, e);
 		}
 	}
+	
+	/**
+	 * @author MatyashPetro
+	 */
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getAllLinesForPage(int pageNumber, int count, int sortOrder) {
+		return getAllLinesForLimit((pageNumber - 1) * count, count, sortOrder);
+	}
+
+	/**
+	 * @author MatyashPetro
+	 */
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getAllLinesForLimit(int firstElement, int count, int sortOrder) {
+		return lineDao.getAllLinesForLimits(firstElement, count, sortOrder);
+	}
+
+	/**
+	 * 
+	 * @param stationName
+	 *            - name of station
+	 * @return <code>List&lt;Lines&gt;</code> which includes certain station
+	 */
+
+	@Override
+	public List<Lines> getLinesByStationName(String stationName) {
+		return lineDao.getLinesByStationName(stationName);
+	}
+
+	@Override
+	public long getLinesByStationCount(String stationName) {
+		
+		try{
+			return lineDao.getLinesByStationNameCount(stationName);
+		} catch (RuntimeException e){
+			LOGGER.error(e);
+			throw new LinesManagerException(countLinesMsg, e);
+		}
+	}
+
+	@Override
+	public List<Lines> getLinesByStNameForPage(String stationName,
+			int pageNumber, int count, int sortOrder) {
+		return this.getLinesByStNameForLimit(stationName, (pageNumber - 1)
+				* count, count,sortOrder);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Lines> getLinesByStNameForLimit(String stationName,
+			int firstElement, int count, int sortOrder) {
+
+		return lineDao.getLinesByStNameForLimits(stationName, firstElement,
+				count,sortOrder);
+
+	}
+
+
+	/**
+	 * Return Lines that includes two stations in certain order
+	 * 
+	 * @param station1
+	 *            - first station, departure
+	 * @param station2
+	 *            - second station, arrival
+	 * 
+	 * @return <code>List&lt;Lines&gt;</code>
+	 */
+	@Override
+	public List<Lines> getLinesByTwoStations(String stationName1,
+			String stationName2) {
+		List<Lines> lines = lineDao.findByTwoStations(stationName1,
+				stationName2);
+
+		return lines;
+	}
+
+	public static LinesManager getInstance() {
+		return ManagerFactory.getManager(LinesManager.class);
+	}
+
+	
 
 	@Transactional(readOnly = true)
 	@Override
@@ -246,33 +281,5 @@ public class LinesManagerImpl implements LinesManager {
 			String stationName2, int firstElement, int count, int sortOrder) {
 		return lineDao.getLinesByTwoStForLimits(stationName1, stationName2,
 				firstElement, count, sortOrder);
-	}
-
-
-	/**
-	 * @author MatyashPetro
-	 * @return size of list with all lines
-	 */
-	@Transactional(readOnly = true)
-	@Override
-	public long getAllLinesCount() {
-		try{
-		return lineDao.getAllLinesCount();
-		} catch (RuntimeException e){
-			LOGGER.error(e);
-			throw new LinesManagerException(countLinesMsg, e);
-		}
-	}
-	
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getAllLinesForPage(int pageNumber, int count, int sortOrder) {
-		return getAllLinesForLimit((pageNumber - 1) * count, count, sortOrder);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Lines> getAllLinesForLimit(int firstElement, int count, int sortOrder) {
-		return lineDao.getAllLinesForLimits(firstElement, count, sortOrder);
 	}
 }

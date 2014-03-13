@@ -1,22 +1,15 @@
 package com.ita.edu.softserve.dao.impl;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
 /**

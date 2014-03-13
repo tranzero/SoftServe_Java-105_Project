@@ -34,20 +34,15 @@ public class LinesController {
 	private static final String STATION_NAME = "stationName";
 	private static final String LINES_BY_STATION_PAGE = "linesByStation";
 	private static final String LINES_BY_STATION_URL = "/linesByStation";
-	private static final String pageNumberKey = "pageNumber";
-	private static final String resultsPerPageKey = "resultsPerPage";
-	private static final String sizeOfPagingKey = "sizeOfPaging";
-	private static final String maxPageCountKey = "maxPageCount";
-	private static final String maxResultCountKey = "maxResultCount";
-	private static final String allLines = "allLines";
-	private static final String allLinesPage = "allLinesPage";
-	private static final String allLinesAddLine = "newLine";
-	private static final String editLinesEditLine = "editLines";
-	private static final String deleteLines = "redirect:/allLines";
-	private static final String deleteStations = "redirect:/editline/";
-	private static final String editStations = "redirect:/editline/";
-	private static final String addStations = "addStationsToLine";
-	private static final String applyChanges = "redirect:/allLines";
+	private static final String ALL_LINES = "allLines";
+	private static final String ALL_LINES_PAGE = "allLinesPage";
+	private static final String ALL_LINES_ADD_LINE = "newLine";
+	private static final String EDIT_LINES_EDIT_LINE = "editLines";
+	private static final String DELETE_LINES = "redirect:/allLines";
+	private static final String DELETE_STATIONS = "redirect:/editline/";
+	private static final String EDIT_STATIONS = "redirect:/editline/";
+	private static final String ADD_STATIONS = "addStationsToLine";
+	private static final String APPLY_CHANGES = "redirect:/allLines";
 
 	private PaginationManager pageMan = PaginationManager.getInstance();
 
@@ -65,7 +60,7 @@ public class LinesController {
 
 	@Autowired
 	Encoder encoder;
-	
+
 	@Autowired
 	PageInfoContainer container;
 
@@ -104,27 +99,29 @@ public class LinesController {
 		modelMap.put("language", locale.getLanguage());
 
 	}
-	
+
 	@RequestMapping(value = "/allLines", method = RequestMethod.GET)
-	public String allLines(@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+	public String allLines(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = SORT_ORDER, required = false) Integer sortOrder,
 			Map<String, Object> modelMap) {
 
-	if (sortOrder == null) {
-		sortOrder = 0;
-	}
+		if (sortOrder == null) {
+			sortOrder = 0;
+		}
 
-	long count = linesManager.getAllLinesCount();
-	PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
-			resultsPerPage, count);
-	pageMan.validatePaging(container);
-	PagingController.deployPaging(modelMap, container, pageMan);
+		long count = linesManager.getAllLinesCount();
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+				resultsPerPage, count);
+		pageMan.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, pageMan);
 
-	modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
-			(int) container.getResultsPerPage(), sortOrder));
-		
-		return allLines;
+		modelMap.put("Lines", linesManager.getAllLinesForPage(
+				(int) container.getPageNumber(),
+				(int) container.getResultsPerPage(), sortOrder));
+
+		return ALL_LINES;
 	}
 
 	@RequestMapping(value = "/allLinesPage", method = RequestMethod.GET)
@@ -143,14 +140,16 @@ public class LinesController {
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("Lines", linesManager.getAllLinesForPage((int) container.getPageNumber(),
+		modelMap.put("Lines", linesManager.getAllLinesForPage(
+				(int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
-	
-		return allLinesPage;
+
+		return ALL_LINES_PAGE;
 	}
 
 	@RequestMapping(value = "addline", method = RequestMethod.GET)
-	public String addLine(@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+	public String addLine(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
 			@RequestParam(value = "orderByParam", required = false) String orderByParam,
@@ -158,11 +157,12 @@ public class LinesController {
 			Map<String, Object> modelMap, Locale locale) {
 		deployStationsParameters(pageNumber, resultsPerPage, searchString,
 				orderByParam, orderByDirection, modelMap, locale);
-		return allLinesAddLine;
+		return ALL_LINES_ADD_LINE;
 	}
-	
+
 	@RequestMapping(value = "addlinePage", method = RequestMethod.GET)
-	public String addLinePg(@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
+	public String addLinePg(
+			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = Stations.SEARCH_STRING, required = false) String searchString,
 			@RequestParam(value = "orderByParam", required = false) String orderByParam,
@@ -186,20 +186,20 @@ public class LinesController {
 		} catch (StationManagerException e) {
 			e.printStackTrace();
 		}
-		return editLinesEditLine;
+		return EDIT_LINES_EDIT_LINE;
 	}
 
 	@RequestMapping(value = "deleteline/{lineId}", method = RequestMethod.GET)
 	public String deleteLine(@PathVariable("lineId") Integer lineId) {
 		linesManager.deleteLine(lineId);
-		return deleteLines;
+		return DELETE_LINES;
 	}
 
 	@RequestMapping(value = "editline/deletestation/{stationId}/{lineId}", method = RequestMethod.GET)
 	public String deleteStation(@PathVariable("stationId") Integer stationId,
 			@PathVariable("lineId") Integer lineId) {
 		stationOnLineManager.removeStation(stationId, lineId);
-		return editStations + lineId;
+		return EDIT_STATIONS + lineId;
 	}
 
 	@RequestMapping(value = "editline/addstation/{lineId}", method = RequestMethod.GET)
@@ -212,7 +212,7 @@ public class LinesController {
 			e.printStackTrace();
 		}
 
-		return addStations;
+		return ADD_STATIONS;
 	}
 
 	@RequestMapping(value = "editline/addstation/changestations/{lineId}", method = RequestMethod.POST)
@@ -220,7 +220,7 @@ public class LinesController {
 			@RequestParam("stationsCheck") List<Integer> stationsId,
 			@PathVariable("lineId") Integer lineId) {
 		stationOnLineManager.updateStationOnLine(lineId, stationsId);
-		return deleteStations + lineId;
+		return DELETE_STATIONS + lineId;
 	}
 
 	@RequestMapping(value = "confirmcreating", method = RequestMethod.POST)
@@ -230,12 +230,12 @@ public class LinesController {
 		linesManager.createLine(lineName);
 		stationOnLineManager.addStationsToLine(
 				linesManager.findByLineName(lineName).getLineId(), stationsId);
-		return applyChanges;
+		return APPLY_CHANGES;
 	}
 
 	@RequestMapping(value = "editline/applychanges", method = RequestMethod.GET)
 	public String applyChanges() {
-		return applyChanges;
+		return APPLY_CHANGES;
 	}
 
 	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)

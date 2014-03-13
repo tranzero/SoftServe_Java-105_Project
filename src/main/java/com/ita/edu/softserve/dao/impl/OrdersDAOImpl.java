@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.entity.Orders;
-import com.ita.edu.softserve.entity.Post;
 
 /**
  * @author nvrubl

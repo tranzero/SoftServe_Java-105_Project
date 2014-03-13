@@ -18,7 +18,7 @@ import org.mockito.Mockito;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
-import com.ita.edu.softserve.entity.Lines;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;

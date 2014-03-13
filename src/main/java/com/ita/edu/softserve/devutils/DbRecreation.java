@@ -1,27 +1,10 @@
 package com.ita.edu.softserve.devutils;
 
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.DriverManager;
-
-
-
 import java.util.Scanner;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-
-
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-
-
 
 import com.ita.edu.softserve.utils.ClasspathXmlParser;
 import com.mysql.jdbc.Connection;

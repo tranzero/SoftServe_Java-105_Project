@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.UserManager;

@@ -15,20 +15,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.util.Assert;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
-import com.ita.edu.softserve.dao.impl.StationsOnLineDAOImpl;
-import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
 import com.ita.edu.softserve.entity.Lines;
-import com.ita.edu.softserve.entity.StationsOnLine;
-import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.manager.impl.LinesManagerImpl;
-import com.ita.edu.softserve.manager.impl.TransportTravel;
-import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
 /**
  * Class under test {@link com.ita.edu.softserve.manager.impl.LinesManagerImpl}

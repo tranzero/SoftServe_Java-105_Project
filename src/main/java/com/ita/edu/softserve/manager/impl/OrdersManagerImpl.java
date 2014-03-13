@@ -12,13 +12,9 @@ import com.ita.edu.softserve.dao.OrdersDAO;
 import com.ita.edu.softserve.dao.TripsDAO;
 import com.ita.edu.softserve.dao.UsersDAO;
 import com.ita.edu.softserve.entity.Orders;
-import com.ita.edu.softserve.entity.Post;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.OrdersManagerException;
-import com.ita.edu.softserve.exception.PostManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.OrdersManager;
-import com.ita.edu.softserve.manager.TicketsManager;
 
 /**
  * Orders Manager class.

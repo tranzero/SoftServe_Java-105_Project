@@ -3,15 +3,9 @@ package com.ita.edu.softserve.devutils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.util.Properties;
 
 import com.ita.edu.softserve.utils.ClasspathXmlParser;
 import com.mysql.jdbc.Connection;

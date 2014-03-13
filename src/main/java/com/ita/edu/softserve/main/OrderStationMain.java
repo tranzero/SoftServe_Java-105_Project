@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.LinesManager;
 import com.ita.edu.softserve.manager.StationsManager;

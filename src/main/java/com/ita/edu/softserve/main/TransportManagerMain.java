@@ -1,14 +1,11 @@
 package com.ita.edu.softserve.main;
 
-import java.sql.Time;
 import java.util.List;
 
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
-import com.ita.edu.softserve.utils.ParseUtil;
 
 public class TransportManagerMain {
 

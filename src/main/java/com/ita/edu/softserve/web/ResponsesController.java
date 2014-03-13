@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ita.edu.softserve.entity.Responses;
-import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ResponsesManager;
 import com.ita.edu.softserve.manager.UserNameService;
 
