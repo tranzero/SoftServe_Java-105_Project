@@ -68,9 +68,14 @@ public interface LinesDAO extends AbstractDAOIface<Lines> {
 	public long getLinesByTwoStListCount(String stationName1,
 			String stationName2);
 		
-
+	/**
+	 * @author MatyashPetro
+	 */
 	long getAllLinesCount();
 
+	/**
+	 * @author MatyashPetro
+	 */
 	List<Lines> getAllLinesForLimits(int firstElement, int count, int sortOrder);
 	
 }

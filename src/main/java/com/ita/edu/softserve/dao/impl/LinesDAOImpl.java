@@ -158,6 +158,9 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 				.createNamedQuery(Lines.GET_ALL_LINES_COUNT));
 	}
 	
+	/**
+	 * @author MatyashPetro
+	 */
 	@Override
 	public List<Lines> getAllLinesForLimits(int firstElement, int count, int sortOrder) {
 

@@ -26,27 +26,7 @@ public interface LinesManager extends BaseManager {
 	 * @return Line with selected id
 	 */
 	public Lines findByLineId(Integer lineId);
-
-	public Lines findByLineName(String lineName);
-
-	public long getLinesByStationCount(String stationName);
 	
-	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count, int sortOrder);
-	
-	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count, int sortOrder);
-
-	public List<Lines> getLinesByTwoStations(String stationName1,
-			String stationName2);
-	
-	public long getLinesByTwoStListCount(String stationName1,
-			String stationName2);
-
-	public List<Lines> getLinesByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count, int sortOrder);
-
-	public List<Lines> getLinesByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count, int sortOrder);
-
 	/**
 	 * @author MatyashPetro
 	 * @param lineName
@@ -69,13 +49,43 @@ public interface LinesManager extends BaseManager {
 	 *            new name of the line witch was updated
 	 */
 	void updateLine(Integer lineId, String newLineName);
-
-	public List<Lines> getLinesByStationName(String stationName);
-
+	
+	/**
+	 * @author MatyashPetro
+	 */
 	long getAllLinesCount();
 
+	/**
+	 * @author MatyashPetro
+	 */
 	List<Lines> getAllLinesForLimit(int firstElement, int count, int sortOrder);
 
+	/**
+	 * @author MatyashPetro
+	 */
 	List<Lines> getAllLinesForPage(int pageNumber, int count, int sortOrder);
+
+	public Lines findByLineName(String lineName);
+
+	public long getLinesByStationCount(String stationName);
 	
+	public List<Lines> getLinesByStNameForPage(String stationName, int pageNumber, int count, int sortOrder);
+	
+	public List<Lines> getLinesByStNameForLimit(String stationName, int firstElement, int count, int sortOrder);
+
+	public List<Lines> getLinesByTwoStations(String stationName1,
+			String stationName2);
+	
+	public long getLinesByTwoStListCount(String stationName1,
+			String stationName2);
+
+	public List<Lines> getLinesByTwoStForPage(String stationName1,
+			String stationName2, int pageNumber, int count, int sortOrder);
+
+	public List<Lines> getLinesByTwoStForLimit(String stationName1,
+			String stationName2, int firstElement, int count, int sortOrder);
+
+	
+
+	public List<Lines> getLinesByStationName(String stationName);	
 }
