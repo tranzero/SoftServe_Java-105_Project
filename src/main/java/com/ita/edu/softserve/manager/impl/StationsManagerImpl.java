@@ -29,17 +29,17 @@ import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 @Service("stationsService")
 public class StationsManagerImpl implements StationsManager {
 
-	private final String findStationsMsg = "Could not find Stations List";
-	private final String findStationByIDMsg = "Could not find Station by this Id";
-	private final String findStationByNameMsg = "Could not find Station by name";
-	private final String findStationsOnCertainLineMsg = "Could not get Stations On Certain Line";
-	private final String createStationMsg = "Could not create Station";
-	private final String removeStationMsg = "Could not remove Station";
-	private final String updateStationMsg = "Could not update Station";
-	private final String saveOrUpdateStationMsg = "Could not save or update Station";
-	private final String stationsForLimitsMsg = "Could not get Stations for limits";
-	private final String stationsForOnePageMsg = "Could not get Stations for one page";
-	private final String stationsListCountMsg = "Could not get Stations List count";
+	private final String FIND_STATIONS_MSG = "Could not find Stations List";
+	private final String FIND_STATION_BY_ID_MSG = "Could not find Station by this Id";
+	private final String FIND_STATION_BY_NAME_MSG = "Could not find Station by name";
+	private final String FIND_STATIONS_ONCERTAIN_LINE_MSG = "Could not get Stations On Certain Line";
+	private final String CREATE_STATION_MSG = "Could not create Station";
+	private final String REMOVE_STATION_MSG = "Could not remove Station";
+	private final String UPDATE_STATION_MSG = "Could not update Station";
+	private final String SAVE_OR_UPDATE_STATION_MSG = "Could not save or update Station";
+	private final String STATIONS_FOR_LIMITS_MSG = "Could not get Stations for limits";
+	private final String STATIONS_FOR_ONE_PAGE_MSG = "Could not get Stations for one page";
+	private final String STATIONS_LIST_COUNT_MSG = "Could not get Stations List count";
 	
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
@@ -87,7 +87,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.getAllEntities();
 		} catch (RuntimeException e) {
 			RuntimeException statMangExc = new StationManagerException(
-					findStationsMsg, e);
+					FIND_STATIONS_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(statMangExc);
 			throw statMangExc;
@@ -104,7 +104,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.findById(id);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					findStationByIDMsg, e);
+					FIND_STATION_BY_ID_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -128,7 +128,7 @@ public class StationsManagerImpl implements StationsManager {
 			LOGGER.info(entityName + station.getStationId() + addMsg
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(createStationMsg, e);
+			RuntimeException ex = new StationManagerException(CREATE_STATION_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -142,7 +142,7 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			stationDao.saveOrUpdate(station);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(saveOrUpdateStationMsg, e);
+			RuntimeException ex = new StationManagerException(SAVE_OR_UPDATE_STATION_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -164,7 +164,7 @@ public class StationsManagerImpl implements StationsManager {
 			LOGGER.info(entityName + stationId + removeMsg
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(removeStationMsg, e);
+			RuntimeException ex = new StationManagerException(REMOVE_STATION_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -189,7 +189,7 @@ public class StationsManagerImpl implements StationsManager {
 			LOGGER.info(entityName + station.getStationId() + changeMsg
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(updateStationMsg, e);
+			RuntimeException ex = new StationManagerException(UPDATE_STATION_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -208,7 +208,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.findByName(stationName);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					findStationByNameMsg, e);
+					FIND_STATION_BY_NAME_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -221,7 +221,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.findByLineName(lineName);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					findStationsOnCertainLineMsg, e);
+					FIND_STATIONS_ONCERTAIN_LINE_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -265,7 +265,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.getStationsForLimits(firstElement, count);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					stationsForLimitsMsg, e);
+					STATIONS_FOR_LIMITS_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -279,7 +279,7 @@ public class StationsManagerImpl implements StationsManager {
 			return getStationsForLimit((pageNumber - 1) * count, count);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					stationsForOnePageMsg, e);
+					STATIONS_FOR_ONE_PAGE_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;
@@ -293,7 +293,7 @@ public class StationsManagerImpl implements StationsManager {
 			return stationDao.getStationsListCount();
 		} catch (RuntimeException e) {
 			RuntimeException ex = new StationManagerException(
-					stationsListCountMsg, e);
+					STATIONS_LIST_COUNT_MSG, e);
 			LOGGER.error(e);
 			LOGGER.error(ex);
 			throw ex;

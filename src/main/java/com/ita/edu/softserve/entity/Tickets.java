@@ -22,27 +22,37 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "tickets")
 @NamedQueries({
 		@NamedQuery(name = Tickets.FIND_BY_ORDERID, query = Tickets.FIND_BY_ORDERID_QUERY),
-		@NamedQuery(name = Tickets.FIND_BY_TRIPID, query = Tickets.FIND_BY_TRIPID_QUERY)
-})
+		@NamedQuery(name = Tickets.FIND_BY_NAME, query = Tickets.FIND_BY_NAME_QUERY),
+		@NamedQuery(name = Tickets.FIND_BY_TRIPID, query = Tickets.FIND_BY_TRIPID_QUERY) })
 public class Tickets extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -5039457734811028773L;
-	
+
 	/**
 	 * Name of query which find tickets with certain order id
 	 */
 	public static final String FIND_BY_ORDERID = "Tickets.findByOrderId";
-	
+
 	/**
-	 *Query which find tickets with certain order id
+	 * Query which find tickets with certain order id
 	 */
 	public static final String FIND_BY_ORDERID_QUERY = "SELECT t FROM Tickets t WHERE t.order.orderId = ?1";
-	
+
+	/**
+	 * Name of query which find tickets by name
+	 */
+	public static final String FIND_BY_NAME = "Tickets.findByName";
+
+	/**
+	 * Query which find tickets by certain name
+	 */
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM Tickets u WHERE u.ticketName = ?1";
+
 	/**
 	 * Name of query which find tickets with certain trip id
 	 */
 	public static final String FIND_BY_TRIPID = "Tickets.findByTripId";
-	
+
 	/**
 	 * Query which find tickets with certain trip id
 	 */
@@ -154,11 +164,10 @@ public class Tickets extends BaseEntity implements Serializable {
 		this.seatType = seatType;
 	}
 
-	
-	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(ticketId).append(ticketName).hashCode();
+		return new HashCodeBuilder().append(ticketId).append(ticketName)
+				.hashCode();
 	}
 
 	@Override
@@ -174,4 +183,3 @@ public class Tickets extends BaseEntity implements Serializable {
 	}
 
 }
-

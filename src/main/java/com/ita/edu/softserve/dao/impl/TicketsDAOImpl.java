@@ -37,4 +37,11 @@ public class TicketsDAOImpl extends AbstractDAO<Tickets> implements TicketsDAO {
 
 		return (List<Tickets>) query.getResultList();
 	}
+	
+	@Override
+	public Tickets findByName(String ticketName) {
+		Query query = entityManager.createNamedQuery(Tickets.FIND_BY_NAME)
+				.setParameter(1, ticketName);
+		return (Tickets) query.getSingleResult();
+	}
 }
