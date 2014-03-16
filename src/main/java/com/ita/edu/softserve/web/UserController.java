@@ -94,7 +94,7 @@ public class UserController {
 	}
 
 	/**
-	 * Delete user
+	 * Delete user of DB
 	 * 
 	 * @param userId
 	 * @return userlist

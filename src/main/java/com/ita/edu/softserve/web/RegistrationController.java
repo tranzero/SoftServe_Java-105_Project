@@ -15,15 +15,26 @@ import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.validation.RegistrationValidator;
 
+/**
+ * 
+ * Controller for Registration of Users
+ * 
+ */
 @Controller
 public class RegistrationController {
-	
+
 	@Autowired
 	private UserManager usersManager;
-	
+
 	@Autowired
 	private RegistrationValidator regValid;
 
+	/**
+	 * Registration
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String showRegistration(ModelMap model) {
 		Users user = new Users();
@@ -31,6 +42,14 @@ public class RegistrationController {
 		return "registration";
 	}
 
+	/**
+	 * Register User
+	 * 
+	 * @param user
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/regUser", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("user") Users user,
 			BindingResult result, ModelMap model) {
@@ -46,10 +65,23 @@ public class RegistrationController {
 		return "redirect:/successfulReg";
 	}
 
+	/**
+	 * Show msg of registration error
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/regError", method = RequestMethod.GET)
 	public String regError(Map<String, Object> model) {
 		return "regError";
 	}
+
+	/**
+	 * Show msg of successfull registration
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/successfulReg", method = RequestMethod.GET)
 	public String regSuc(Map<String, Object> model) {
 		return "successfulReg";
