@@ -37,7 +37,11 @@ public class FileViewController {
 			@PathVariable(PATH_VARIABLE_RES_VALUE) String res) throws IOException {
 
 		File file = new File(propertyManager.getImgPath() + img + "." + res);
-
+		
+		if (!file.exists()) {
+			file = new File(propertyManager.getImgPath() + DEFAULT_NEWS_IMAGE);
+		
+		} 
 		response.setHeader(HEADER_CONTENT_DISPOSITION_VALUE,
 				HEADER_ATTACHMENT_VALUE + file.getName()
 						+ HEADER_ATTACHMENT_END_OF_STRING_VALUE);

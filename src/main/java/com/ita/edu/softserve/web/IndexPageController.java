@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ita.edu.softserve.entity.Post;
+import com.ita.edu.softserve.manager.FileManager;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
 import com.ita.edu.softserve.manager.PropertiesManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -25,6 +26,9 @@ public class IndexPageController {
 
 	@Autowired
 	private PropertiesManager propertyManager;
+	
+	@Autowired
+	FileManager fileManager;
 
 	// modelMap String Keys
 	private final static String PAGE_NUMBER_KEY = "pageNumber";
@@ -165,6 +169,8 @@ public class IndexPageController {
 	public String delNews(
 			@ModelAttribute(MODEL_ATTRIBYTE_EDIT_NEWS) Integer postId) {
 
+			 
+		fileManager.deleteFile(propertyManager.getImgPath()+posts.findNews(postId).getImgSrc()); 
 		posts.removeNews(postId);
 		
 		return delNewsGet;
@@ -190,7 +196,8 @@ public class IndexPageController {
 			@ModelAttribute(MODEL_ATTRIBYTE_NEWS_TITLE) String newsTitle,
 			@ModelAttribute(MODEL_ATTRIBYTE_NEWS_DESCRIPTION) String newsDescription,
 			Map<String, Object> modelMap) {
-
+		
+		fileManager.deleteFile(propertyManager.getImgPath()+posts.findNews(newsId).getImgSrc()); 
 		posts.updateNews(newsId, newsTitle, newsDescription, filename);
 
 		return editNewsPostOut;
