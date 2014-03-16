@@ -42,7 +42,8 @@
 	<form method="get">
 		<div class="pad_top_bottom">
 			<div class="group_c1">
-				<label for="searchstring"><spring:message code="msg.users.searchFor" /></label>
+				<label for="searchstring"><spring:message
+						code="msg.users.searchFor" /></label>
 				<c:if test="${isSearchString}">
 					<input name="searchstring" id="searchstring" class="autosearch"
 						type="text">
@@ -107,7 +108,8 @@
 				</c:if>
 			</div>
 			<div id="btnFindUsers">
-				<input type="submit" value="<spring:message code="msg.users.searchUser" />">
+				<input type="submit"
+					value="<spring:message code="msg.users.searchUser" />">
 			</div>
 		</div>
 	</form>
@@ -272,8 +274,8 @@
 						</a></td>
 
 						<td><a href="userDelete/${user.getUserId()}"
-							onclick="return confirm_delete_user()"> <input id="userDelete"
-								type="button" name="userDelete"
+							onclick="return confirm_delete_user()"> <input
+								id="userDelete" type="button" name="userDelete"
 								value="<spring:message code="label.delete"/>">
 						</a></td>
 

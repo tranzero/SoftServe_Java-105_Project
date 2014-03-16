@@ -51,7 +51,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Method that verify if FirstName is correct inputted.
+	 * Method that verify if FirstName is correct introduced.
 	 * 
 	 * @param firstName
 	 * @param error
@@ -64,7 +64,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Method that verify if LastName is correct inputted.
+	 * Method that verify if LastName is correct introduced.
 	 * 
 	 * @param lastName
 	 * @param error
@@ -76,7 +76,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Method that verify if Email is correct inputted.
+	 * Method that verify if Email is correct introduced.
 	 * 
 	 * @param email
 	 * @param error
@@ -88,7 +88,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Method that verify if the Password is correct inputted.
+	 * Method that verify if the Password is correct introduced.
 	 * 
 	 * @param password
 	 * @param error

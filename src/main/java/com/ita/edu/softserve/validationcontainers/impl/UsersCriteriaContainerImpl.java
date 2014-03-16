@@ -9,7 +9,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
- * class UsersCriteriaContainerImpl
+ * Class UsersCriteriaContainerImpl
  * 
  * @author iryna
  * 

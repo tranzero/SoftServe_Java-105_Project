@@ -18,7 +18,7 @@ import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
- * UserController for List
+ * UserController for userList
  * 
  * @author iryna
  * 

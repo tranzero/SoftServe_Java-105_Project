@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.ita.edu.softserve.entity.Role;
 
 /**
- * interface UserCriteriaContainer - for pagging 1
+ * Interface UserCriteriaContainer - for pagging 1
  * 
  * @author iryna
  * 

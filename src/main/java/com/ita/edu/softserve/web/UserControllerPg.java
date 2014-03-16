@@ -20,7 +20,7 @@ import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ExceptionUtil;
 
 /**
- * Controller - UserController Page
+ * Controller - UserController Page (userList2.jsp)
  * 
  * @author iryna
  * 
@@ -105,7 +105,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * For pagging userList 2
+	 * For pagging userList2
 	 * 
 	 * @param modelMap
 	 * @return userlist2
@@ -133,7 +133,7 @@ public class UserControllerPg {
 	}
 
 	/**
-	 * For pagging userList 2
+	 * For pagging userList2
 	 * 
 	 * @param pageNumber
 	 * @param resultsPerPage

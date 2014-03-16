@@ -49,7 +49,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * getInstance
+	 * Method getInstance
 	 */
 	public static UserManager getInstance() {
 		return ManagerFactory.getManager(UserManager.class);
@@ -278,7 +278,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Update user -(for userEdit.jsp)-
+	 * Update user -(for userEditData1.jsp)-
 	 */
 	@Override
 	@Transactional

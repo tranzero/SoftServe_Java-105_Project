@@ -4,7 +4,7 @@ package com.ita.edu.softserve.exception;
  * class UsersManagerExeption
  * 
  * @author iryna
- *
+ * 
  */
 public class UsersManagerExeption extends RuntimeException {
 
@@ -14,19 +14,21 @@ public class UsersManagerExeption extends RuntimeException {
 	 * The default constructor.
 	 */
 	public UsersManagerExeption() {
-
 	}
 
 	/**
-	 * @param msg - the message to add to exception.
+	 * @param msg
+	 *            - the message to add to exception.
 	 */
 	public UsersManagerExeption(String msg) {
 		super(msg);
 	}
 
 	/**
-	 * @param msg - the message to add to exception.
-	 * @param e - the exception.
+	 * @param msg
+	 *            - the message to add to exception.
+	 * @param e
+	 *            - the exception.
 	 */
 	public UsersManagerExeption(String msg, Exception e) {
 		super(msg, e);

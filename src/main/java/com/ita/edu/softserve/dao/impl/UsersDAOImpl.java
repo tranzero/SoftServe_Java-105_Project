@@ -23,7 +23,7 @@ import com.ita.edu.softserve.entity.Users;
 public class UsersDAOImpl extends AbstractDAO<Users> implements UsersDAO {
 
 	/**
-	 * Update User Data (for validator)
+	 * Update User Data (for validation)
 	 */
 	public void updateUserData(final Users entity) {
 		if (entity.getUserId() == null) {

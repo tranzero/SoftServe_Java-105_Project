@@ -5,7 +5,7 @@ import java.beans.PropertyEditorSupport;
 import com.ita.edu.softserve.entity.Role;
 
 /**
- * class UserRoleEditor
+ * Class UserRoleEditor
  * 
  * @author Iryna
  */

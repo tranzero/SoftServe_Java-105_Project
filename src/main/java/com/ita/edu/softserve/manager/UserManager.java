@@ -13,7 +13,7 @@ import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 
 /**
- * interface UserManager
+ * Interface UserManager
  * 
  * @author iryna
  * 
@@ -122,7 +122,7 @@ public interface UserManager extends BaseManager {
 			throws UsersManagerExeption;
 
 	/**
-	 * Update user -(for userEdit.jsp)-
+	 * Update user -(for userEditData1.jsp)-
 	 */
 	public void updateUser(Integer userId, String firstName, String lastName,
 			String email, String passwd, Role role);

@@ -18,7 +18,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * @author admin
+ * @author iryna
  * 
  *         The persistent class for the USERS database table.
  */
@@ -123,7 +123,7 @@ public class Users extends BaseEntity {
 	}
 
 	/**
-	 * Constructor with parametrs:
+	 * Constructor with parameters:
 	 * 
 	 * @param username
 	 * @param email
@@ -137,7 +137,7 @@ public class Users extends BaseEntity {
 	}
 
 	/**
-	 * Constructor with parametrs:
+	 * Constructor with parameters:
 	 * 
 	 * @param username
 	 * @param firstname
@@ -153,7 +153,7 @@ public class Users extends BaseEntity {
 	}
 
 	/**
-	 * Constructor with parametrs:
+	 * Constructor with parameters:
 	 * 
 	 * @param username
 	 * @param firstname
@@ -310,7 +310,6 @@ public class Users extends BaseEntity {
 	}
 
 	/**
-	 * 
 	 * @return confirmPassword
 	 */
 	public String getConfirmPassword() {

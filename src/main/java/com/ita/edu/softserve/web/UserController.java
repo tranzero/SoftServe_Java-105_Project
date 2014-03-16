@@ -35,7 +35,7 @@ public class UserController {
 
 	@Autowired
 	Validator userEditValidator;
-	
+
 	@Autowired
 	private ProfileEditValidator profileEditValidator;
 
@@ -106,7 +106,7 @@ public class UserController {
 	}
 
 	/**
-	 * Edit Profile
+	 * Edit Profile - RequestMethod.GET
 	 * 
 	 * @param usId
 	 * @param modelMap
@@ -119,6 +119,14 @@ public class UserController {
 		return "profileEdit";
 	}
 
+	/**
+	 * Edit Profile - RequestMethod.POST
+	 * 
+	 * @param user
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/profileEdit", method = RequestMethod.POST)
 	public String updateProfile(@ModelAttribute("user") Users user,
 			BindingResult result, ModelMap model) {
