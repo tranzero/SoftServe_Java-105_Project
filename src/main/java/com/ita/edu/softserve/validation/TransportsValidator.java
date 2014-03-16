@@ -84,7 +84,7 @@ public class TransportsValidator implements Validator {
 	private void validateTransportCode(String transportCode, Errors error) {
 		if (transportCode == null || transportCode == "") {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
-			
+
 		} else if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 		}
@@ -102,7 +102,7 @@ public class TransportsValidator implements Validator {
 	private void validateIfTransportExist(Integer transportId,
 			String transportCode, Errors error) {
 
-		if ((transportCode != null) && (transportCode != "")) {
+		if ((transportCode != null) && (transportCode != "")){
 			Transports transport = null;
 
 			try {
@@ -111,8 +111,11 @@ public class TransportsValidator implements Validator {
 
 				if ((transport.getTransportId()).equals(transportId)) {
 					return;
+					
+				} else {
+					error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
 				}
-				error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
+				
 			} catch (RuntimeException e) {
 			}
 		}

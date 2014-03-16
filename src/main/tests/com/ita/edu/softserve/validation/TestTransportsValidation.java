@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,8 +17,7 @@ import com.ita.edu.softserve.entity.Transports;
 
 public class TestTransportsValidation {
 
-	@Mock
-	private Validator transportsValidator = new TransportsValidator();
+	private Validator transportsValidator;
 
 	Transports transport;
 
@@ -29,63 +27,11 @@ public class TestTransportsValidation {
 	public void setUp() {
 		transportsValidator = new TransportsValidator();
 		transport = new Transports();
-		errors = new BeanPropertyBindingResult(transport, "transport");
-		transportsValidator.validate(transport, errors);
 	}
 
 	/* Black box tests */
 	@Test
 	public void needsTransportCode() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("transportCode"));
-
-	}
-
-	@Test
-	public void needsStartTime() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("startTime"));
-
-	}
-
-	@Test
-	public void needsRoutes() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("routes"));
-
-	}
-
-	@Test
-	public void needsSeatclass1() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("seatclass1"));
-
-	}
-
-	@Test
-	public void needsSeatclass2() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("seatclass2"));
-
-	}
-
-	@Test
-	public void needsSeatclass3() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("seatclass3"));
-
-	}
-
-	@Test
-	public void needsGeneralPrice() {
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("genPrice"));
-	}
-
-	/* Dark box tests */
-	@Test
-	public void wrongTransportCode() {
-		transport.setTransportCode("T0000000@");
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
@@ -94,6 +40,88 @@ public class TestTransportsValidation {
 
 	}
 	
+	@Test
+	public void blankTransportCode() {
+		transport.setTransportCode("");
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("transportCode"));
+
+	}
+	
+	@Test
+	public void needsStartTime() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("startTime"));
+
+	}
+
+	@Test
+	public void needsRoutes() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("routes"));
+
+	}
+
+	@Test
+	public void needsSeatclass1() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("seatclass1"));
+
+	}
+
+	@Test
+	public void needsSeatclass2() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("seatclass2"));
+
+	}
+
+	@Test
+	public void needsSeatclass3() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("seatclass3"));
+
+	}
+
+	@Test
+	public void needsGeneralPrice() {
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("genPrice"));
+	}
+
+	/* Dark box tests */
+	@Test
+	public void wrongTransportCode() {
+		transport.setTransportCode("T0000000@1");
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("transportCode"));
+
+	}
+
 	@Test
 	public void negativeSeatclass1() {
 		transport.setSeatclass1(-1);
@@ -104,13 +132,13 @@ public class TestTransportsValidation {
 		assertNotNull(errors.getFieldError("seatclass1"));
 
 	}
-	
+
 	@Test
 	public void negativeSeatclass2() {
 		transport.setSeatclass2(-1);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
-		
+
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass2"));
 
@@ -121,7 +149,7 @@ public class TestTransportsValidation {
 		transport.setSeatclass3(-1);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
-		
+
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass3"));
 
@@ -132,7 +160,7 @@ public class TestTransportsValidation {
 		transport.setGenPrice(-1);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
-		
+
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("genPrice"));
 	}
@@ -140,7 +168,7 @@ public class TestTransportsValidation {
 	/* White box tests */
 	@Test
 	public void hasTransportCode() {
-		transport.setTransportCode("T0000000");
+		transport.setTransportCode("T000000001");
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
@@ -213,4 +241,17 @@ public class TestTransportsValidation {
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("genPrice"));
 	}
+
+	@Test
+	public void testValidateIfTransportExist() {
+		transport.setTransportId(1);
+		transport.setTransportCode("T000000001");
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+//		assertNull(errors.getFieldError("transportId"));
+//		assertNull(errors.getFieldError("transportCode"));
+	}
+
 }

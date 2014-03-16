@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;

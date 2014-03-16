@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

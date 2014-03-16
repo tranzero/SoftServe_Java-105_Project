@@ -1,4 +1,4 @@
-package com.ita.edu.softserve.service.impl;
+package com.ita.edu.softserve.manager.impl;
 
 import org.junit.Before;
 import org.junit.Test;
