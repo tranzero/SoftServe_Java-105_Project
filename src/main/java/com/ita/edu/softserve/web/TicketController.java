@@ -192,7 +192,7 @@ public class TicketController {
 			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
-		shoppingBag.removeTicket(ticketName, tripId);
+		shoppingBag.remove(ticketName, tripId);
 		
 		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		return BAG_PAGE;

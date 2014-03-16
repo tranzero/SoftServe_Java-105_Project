@@ -6,11 +6,14 @@ import java.util.List;
 
 import javax.annotation.PreDestroy;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ita.edu.softserve.entity.Tickets;
+import com.ita.edu.softserve.manager.TicketsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
 
@@ -19,6 +22,9 @@ import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
 public class ShoppingBag implements Serializable {
 
 	private static final long serialVersionUID = -4741144366790593201L;
+	
+	@Autowired
+	TripsManager tripsManager;
 
 	private List<Tickets> tickets;
 
@@ -46,6 +52,19 @@ public class ShoppingBag implements Serializable {
 		tickets.add(ticket);
 	}
 
+	@Transactional
+	public void remove(String ticketName, Integer tripId) {
+		
+		for (Tickets ticket:tickets) {
+			if (ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)) {
+				tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
+			}
+			tickets.remove(ticket);
+		}
+		System.out.println("remove");
+	}
+	
+	
 	/**
 	 * remove from bag ticket with certain name and trip id and increase quantity of free seat in trip
 	 * @param ticketName

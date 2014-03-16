@@ -20,5 +20,13 @@ public interface TicketsDAO extends AbstractDAOIface<Tickets>{
 	 * @return  list of tickets with certain trip id
 	 */
 	List<Tickets> findTicketsByTripId(Integer id);
+
+	/**
+	 * Find Ticket by name.
+	 * 
+	 * @param ticketName
+	 * @return
+	 */
+	Tickets findByName(String ticketName);
 	
 }
