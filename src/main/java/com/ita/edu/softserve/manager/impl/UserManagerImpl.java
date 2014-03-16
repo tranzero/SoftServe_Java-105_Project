@@ -129,7 +129,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Update user (for profile.jsp)
+	 * Edit Profile (for profile.jsp)
 	 */
 	@Override
 	@Transactional
@@ -147,7 +147,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Create new user
+	 * Create new user (for registration.jsp)
 	 */
 	@Transactional
 	@Override
@@ -279,7 +279,7 @@ public class UserManagerImpl implements UserManager {
 
 	/**
 	 * Update user -(for userEditData1.jsp)-
-	 */
+	 *//*
 	@Override
 	@Transactional
 	public void updateUser(Integer userId, String firstName, String lastName,
@@ -301,5 +301,5 @@ public class UserManagerImpl implements UserManager {
 			LOGGER.error(ex);
 			throw ex;
 		}
-	}
+	}*/
 }

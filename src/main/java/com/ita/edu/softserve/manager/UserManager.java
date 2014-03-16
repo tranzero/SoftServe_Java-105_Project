@@ -124,7 +124,7 @@ public interface UserManager extends BaseManager {
 	/**
 	 * Update user -(for userEditData1.jsp)-
 	 */
-	public void updateUser(Integer userId, String firstName, String lastName,
-			String email, String passwd, Role role);
+	/*public void updateUser(Integer userId, String firstName, String lastName,
+			String email, String passwd, Role role);*/
 
 }
