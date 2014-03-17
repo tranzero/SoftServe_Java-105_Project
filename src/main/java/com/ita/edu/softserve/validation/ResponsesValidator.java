@@ -11,7 +11,7 @@ import com.ita.edu.softserve.manager.ResponsesManager;
 @Component("responsesValidator")
 public class ResponsesValidator implements Validator {
 
-	private static final String COMMENT_PATERN = "[\\w\\s!\\?%()*+,./:;=\\_{|}-]+";
+	private static final String COMMENT_PATERN = "[\\w\\s!\\?%()*+,./:;=\\_{|}-]{2,200}";
 	
 	private static final String COMMENT = "comment";
 

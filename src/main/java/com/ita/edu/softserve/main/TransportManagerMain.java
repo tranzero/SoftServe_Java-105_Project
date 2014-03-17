@@ -68,7 +68,7 @@ public class TransportManagerMain {
 		System.out.println("************************************************");
 		List<TransportTravel> trTravelList = transportManager
 				.getTransportByTwoStForPage("Pisochne", "Sknyliv", 1, 10,
-						new String("2013/02/20"), 0);
+						new String("2013/02/20"));
 		for (TransportTravel tt : trTravelList) {
 			System.out.println(tt);
 		}
