@@ -18,6 +18,9 @@ import com.ita.edu.softserve.manager.impl.TransportTravel;
 public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		TransportsDao {
 
+	/**
+	 * @return
+	 */
 	@Override
 	public Class<Transports> getEntityClass() {
 		return Transports.class;
@@ -38,6 +41,10 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		return (Transports) query.getSingleResult();
 	}
 
+	/**
+	 * @param code
+	 * @return
+	 */
 	@Override
 	public Transports findByCode(String code) {
 		Query query = entityManager.createNamedQuery(
@@ -61,72 +68,101 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			entityManager.merge(entity);
 		}
 	}
-	
-	/*------------------------------------------------------------------------------------------*/
+
+	/*---------------------------for transport paging sorting filtering------------------------------------------*/
 
 	/**
 	 * Finds Transport by criteria.
 	 */
+	/**
+	 * @param firstElement
+	 * @param count
+	 * @param transportCode
+	 * @param routeName
+	 * @param routeCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @param OrderByCriteria
+	 * @param OrderByDirection
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Transports> getTransportsList(int firstElement,
-			int count, String transportCode, String routeName, String routeCode,
+	public List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routeCode,
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
 			Double price, String OrderByCriteria, String OrderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY+OrderByCriteria+" "+OrderByDirection)
+				.createQuery(
+						Transports.FIND_TRANSPORTS_QUERY + OrderByCriteria
+								+ " " + OrderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
-				.setParameter(Transports.SEAT_CLASS1_NAME , seatClass1)
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME , price).setFirstResult(firstElement)
-				.setMaxResults(count);
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setFirstResult(firstElement).setMaxResults(count);
 
 		return (List<Transports>) query.getResultList();
 	}
-	
+
+	/**
+	 * @param transportCode
+	 * @param routeName
+	 * @param routeCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @return
+	 */
 	@Override
-	public long getTransportsListCount(String transportCode,
-			String routeName, String routeCode, Integer seatClass1,
-			Integer seatClass2, Integer seatClass3, Double price) {
+	public long getTransportsListCount(String transportCode, String routeName,
+			String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price) {
 
 		return (long) find((Query) entityManager
-				.createNamedQuery(
-						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT)
+				.createNamedQuery(Transports.FIND_TRANSPORTS_COUNT)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
-				.setParameter(Transports.SEAT_CLASS1_NAME , seatClass1)
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME , price));
+				.setParameter(Transports.GEN_PRICE_NAME, price));
 	}
-	
-	/*------------------------------------------------------------------------------------------*/
+
+	/*--------------------------END-for transport paging sorting filtering------------------------------------------*/
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> getTransportsListForAddTrips(int firstElement,
-			int count, String transportCode, String routeName, String routeCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String OrderByCriteria, String OrderByDirection) {
+			int count, String transportCode, String routeName,
+			String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price, String OrderByCriteria,
+			String OrderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY+OrderByCriteria+" "+OrderByDirection)
+				.createQuery(
+						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
+								+ OrderByCriteria + " " + OrderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
-				.setParameter(Transports.SEAT_CLASS1_NAME , seatClass1)
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME , price).setFirstResult(firstElement)
-				.setMaxResults(count);
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setFirstResult(firstElement).setMaxResults(count);
 
 		return (List<Transports>) query.getResultList();
 	}
-	
+
 	@Override
 	public long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routeCode, Integer seatClass1,
@@ -138,14 +174,15 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
-				.setParameter(Transports.SEAT_CLASS1_NAME , seatClass1)
+				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME , price));
+				.setParameter(Transports.GEN_PRICE_NAME, price));
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#findByDate(java.lang.String)
+	 * @param date
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -157,8 +194,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#findByTwoStations(java.lang.String,
-	 *      java.lang.String)
+	 * @param stationName1
+	 * @param stationName2
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -173,9 +211,13 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * 
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportByTwoStForLimits(java.lang.String,
-	 *      java.lang.String, int, int, java.lang.String, int)
+	 * @param stationName1
+	 * @param stationName2
+	 * @param firstElement
+	 * @param count
+	 * @param sDate
+	 * @param orderBy
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -203,37 +245,15 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportByTwoStListCount(java.lang.String,
-	 *      java.lang.String)
+	 * @param stationName1
+	 * @param stationName2
+	 * @return
 	 */
 	@Override
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2) {
 		// this will be changed soon
 		return findByTwoStations(stationName1, stationName2).size();
-	}
-
-	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsForLimits(int,
-	 *      int)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Transports> getTransportsForLimits(int firstElement, int count) {
-		Query query = entityManager
-				.createNamedQuery(Transports.TRANSPORTS_FIND_ALL)
-				.setFirstResult(firstElement).setMaxResults(count);
-
-		return (List<Transports>) query.getResultList();
-	}
-
-	/**
-	 * @see com.ita.edu.softserve.dao.TransportsDao#getTransportsListCount()
-	 */
-	@Override
-	public long getTransportsListCount() {
-		return (long) find((Query) entityManager
-				.createNamedQuery(Transports.TRANSPORTS_FIND_COUNT));
 	}
 
 }

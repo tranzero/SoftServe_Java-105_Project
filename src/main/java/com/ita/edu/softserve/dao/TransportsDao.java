@@ -36,18 +36,41 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	 *            the transport to save or update.
 	 */
 	void saveOrUpdate(Transports entity);
-
+	/*------------------------------------------------------------------------------------------*/
+	
 	/**
 	 * @param firstElement
 	 * @param count
+	 * @param transportCode
+	 * @param routeName
+	 * @param routeCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @param OrderByCriteria
+	 * @param OrderByDirection
 	 * @return
 	 */
-	List<Transports> getTransportsForLimits(int firstElement, int count);
+	List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routeCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String OrderByCriteria, String OrderByDirection);
 
 	/**
+	 * @param transportCode
+	 * @param routeName
+	 * @param routeCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
 	 * @return
 	 */
-	long getTransportsListCount();
+	long getTransportsListCount(String transportCode, String routeName,
+			String routeCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price);
+	/*------------------------------------------------------------------------------------------*/
 
 	/**
 	 * Get transport by two stations.
@@ -94,15 +117,5 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routeCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
-	/*------------------------------------------------------------------------------------------*/
-
-	List<Transports> getTransportsList(int firstElement, int count,
-			String transportCode, String routeName, String routeCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String OrderByCriteria, String OrderByDirection);
-
-	long getTransportsListCount(String transportCode, String routeName,
-			String routeCode, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price);
 	
 }
