@@ -22,8 +22,6 @@
 								code="label.navigation.trips" /></a></li>
 					<li><a href="/SoftServe_Java-105/transportList"><spring:message
 								code="label.navigation.transport" /></a></li>
-					<li><a href="/SoftServe_Java-105/transportView"><spring:message
-								code="label.navigation.transport" />2</a></li>
 					<li><a href="/SoftServe_Java-105/routes"><spring:message
 								code="label.navigation.route" /></a></li>
 				</ul>
@@ -51,8 +49,6 @@
 								code="label.navigation.managetrips" /></a></li>
 					<li><a href="/SoftServe_Java-105/transportListManage"><spring:message
 								code="label.navigation.transportManage" /></a></li>
-					<li><a href="/SoftServe_Java-105/transport"><spring:message
-								code="label.navigation.transportManage" />2</a></li>
 					<li><a href="/SoftServe_Java-105/routesAllEdit"><spring:message
 								code="label.navigation.editroutes" /></a></li>
 					<li><a href="/SoftServe_Java-105/orders"><spring:message
