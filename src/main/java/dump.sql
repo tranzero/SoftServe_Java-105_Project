@@ -260,22 +260,24 @@ CREATE TABLE `users` (
 -- 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES 
-('1', 'tranzero', 'Oleg', 'Lesniak', 'mail@mail.com', '1144', '2014-02-02 11:25:26.0', 'MANAGER'),
- ('2', 'garasym', 'Yaroslav', 'Garasym', 'test8@mail.com', '2555', '2014-02-05 12:25:26.0', 'MANAGER'),
- ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test9@mail.com', '3544', '2014-02-05 12:27:26.0', 'ADMIN'),
+INSERT INTO `users` VALUES ('1', 'tranzero', 'Oleg', 'Lesniak', 'mail@mail.com', '1144', '2014-02-02 11:25:26.0', 'MANAGER'),
+ ('2', 'garasym', 'Yaroslav', 'Garasym', 'test8@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('3', 'mykhaylo.partyka', 'Mykhaylo', 'Partyka', 'test9@mail.com', '7733', '2014-03-17 13:30:42.0', 'ADMIN'),
  ('4', 'iryna', 'Iryna', 'Bautista', 'iri@gmail.com', '7733', '2014-02-05 13:25:26.0', 'ADMIN'),
- ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.com', '5533', '2014-02-27 15:25:26.0', 'REGUSER'),
- ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail.com', '13777', '2014-02-27 16:25:10.0', 'MANAGER'), 
-('7', 'taras', 'Taras', 'Savitskyy', 'taras7@yahoo.com', '1133', '2014-02-27 16:35:26.0', 'ADMIN'), 
-('8', 'roman', 'Roman', 'Parashchak', 'roman@mail.com', '2244', '2014-02-27 16:37:26.0', 'ADMIN'), 
-('9', 'petro', 'Petro', 'Matyash', 'mtsh@mail.com', '8899', '2014-02-28 17:00:09.0', 'MANAGER'), 
-('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.com', '8877', '2014-02-28 17:25:26.0', 'REGUSER'),
- ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.com', '4699', '2014-02-28 18:25:04.0', 'REGUSER'),
- ('12', 'denys', 'Denys', 'Nyckolskiy', 'test12@mail.com', '1277', '2014-02-28 14:23:26.0', 'REGUSER'),
- ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.com', '1111', '2014-02-28 14:25:00.0', 'REGUSER'),
- ('14', 'test1', 'Kravchina', 'Dmytro', 'test01@mail.com', '1144', '2014-03-02 17:25:26.0', 'ADMIN'),
- ('15', 'test2', 'Krachkovska', 'Viktoria', 'test02@mail.com', '1144', '2014-03-02 17:28:26.0', 'REGUSER');
+ ('5', 'nastya', 'Anastasya', 'Pankiy', 'nastya@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('6', 'yuriy', 'Yuriy', 'Logazyak', 'test6@gmail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('7', 'taras', 'Taras', 'Savitskyy', 'taras7@yahoo.com', '7733', '2014-03-17 13:30:42.0', 'ADMIN'),
+ ('8', 'roman', 'Roman', 'Parashchak', 'roman@mail.com', '7733', '2014-03-17 13:30:42.0', 'ADMIN'),
+ ('9', 'petro', 'Petro', 'Matyash', 'mtsh@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('10', 'nazar', 'Nazar', 'Vrublevskiy', 'nazar1@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('11', 'mykhailo', 'Mykhaylo', 'Kozar', 'myk@mail.com', '7733', '2014-03-17 13:30:42.0', 'ADMIN'),
+ ('12', 'denys', 'Denys', 'Nyckolskiy', 'test12@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('13', 'lyubomyr', 'Lyubomyr', 'Pentsko', 'test13@mail.com', '1144', '2014-03-17 13:30:42.0', 'MANAGER'),
+ ('14', 'test1', 'Dmytro', 'Kravchina', 'test01@mail.com', '2255', '2014-03-17 13:30:42.0', 'REGUSER'),
+ ('15', 'test2', 'Viktoria', 'Krachkovska', 'test02@mail.com', '2255', '2014-03-17 13:30:42.0', 'REGUSER'),
+ ('16', 'user3', 'Andriy', 'Marshalek', 'andr@mail.com', '2255', '2014-03-02 18:20:26.0', 'REGUSER'),
+ ('17', 'roxana', 'Roxana', 'Gud', 'roxana@gmail.com', '2255', '2014-03-02 18:38:00.0', 'REGUSER'),
+ ('18', 'marhiv', 'Roman', 'Marhivka', 'rmarvhiv@gmail.com', '2255', '2014-03-03 17:28:00.0', 'REGUSER');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
