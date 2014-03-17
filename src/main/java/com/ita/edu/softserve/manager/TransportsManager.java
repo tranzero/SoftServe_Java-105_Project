@@ -80,6 +80,83 @@ public interface TransportsManager extends BaseManager {
 	 */
 	void saveOrUpdateTransport(Transports transport);
 
+	/*---------------------------for transport paging sorting filtering------------------------------------------*/
+	
+	/**
+	 * @param container
+	 * @param transportCriteriaContainer
+	 * @return
+	 */
+	List<Transports> getTransportsListWithContainers(
+			PageInfoContainer container,
+			TransportCriteriaContainer transportCriteriaContainer);
+
+	/**
+	 * @param transportCriteriaContainer
+	 * @return
+	 */
+	long getTransportsListCountWithContainers(
+			TransportCriteriaContainer transportCriteriaContainer);
+	
+	/**
+	 * @param transportCode
+	 * @param routeName
+	 * @param routesCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @return
+	 */
+	long getTransportsListCount(String transportCode, String routeName,
+			String routesCode, Integer seatClass1, Integer seatClass2,
+			Integer seatClass3, Double price);
+
+	/**
+	 * @param firstElement
+	 * @param count
+	 * @param transportCode
+	 * @param routeName
+	 * @param routesCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @param orderByCriteria
+	 * @param orderByDirection
+	 * @return
+	 */
+	List<Transports> getTransportsList(int firstElement, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection);
+
+	/**
+	 * @param pageNumber
+	 * @param count
+	 * @param transportCode
+	 * @param routeName
+	 * @param routesCode
+	 * @param seatClass1
+	 * @param seatClass2
+	 * @param seatClass3
+	 * @param price
+	 * @param orderByCriteria
+	 * @param orderByDirection
+	 * @return
+	 */
+	List<Transports> getTransportsListWithPaging(int pageNumber, int count,
+			String transportCode, String routeName, String routesCode,
+			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+			Double price, String orderByCriteria, String orderByDirection);
+
+	/**
+	 * @param transportCriteriaContainer
+	 */
+	void validateTransportCriteria(
+			TransportCriteriaContainer transportCriteriaContainer);
+	/*--------------------------END-for transport paging sorting filtering------------------------------------------*/
+	
 	/**
 	 * Gets transport by two stations in certain order
 	 * 
@@ -123,25 +200,6 @@ public interface TransportsManager extends BaseManager {
 			String stationName2, int firstElement, int count, String sDate,
 			int orderBy);
 
-	/**
-	 * @param firstElement
-	 * @param count
-	 * @return
-	 */
-	List<Transports> getTransportsForLimit(int firstElement, int count);
-
-	/**
-	 * @param pageNumber
-	 * @param count
-	 * @return
-	 */
-	List<Transports> getTransportsForPage(int pageNumber, int count);
-
-	/**
-	 * @return
-	 */
-	long getTransportsListCount();
-
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
@@ -166,31 +224,5 @@ public interface TransportsManager extends BaseManager {
 
 	long getTransportsListForAddTripsCountWithContainers(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
-	
-	/*-----------------------------------------------------------------*/
-	
-	List<Transports> getTransportsListWithContainers(
-			PageInfoContainer container,
-			TransportCriteriaContainer transportCriteriaContainer);
-
-	long getTransportsListCountWithContainers(
-			TransportCriteriaContainer transportCriteriaContainer);
-	
-	long getTransportsListCount(String transportCode, String routeName,
-			String routesCode, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price);
-
-	List<Transports> getTransportsList(int firstElement, int count,
-			String transportCode, String routeName, String routesCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String orderByCriteria, String orderByDirection);
-
-	List<Transports> getTransportsListWithPaging(int pageNumber, int count,
-			String transportCode, String routeName, String routesCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String orderByCriteria, String orderByDirection);
-
-	void validateTransportCriteria(
-			TransportCriteriaContainer transportCriteriaContainer);
 
 }

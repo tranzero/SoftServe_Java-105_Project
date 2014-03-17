@@ -205,16 +205,37 @@ public class TransportsManagerImpl implements TransportsManager {
 		}
 	}
 
-
-	/*---------------------------------------------------------------------*/
+	/**
+	 * Saves the Transport object to database if not exist or updates it. <br/>
+	 * <br/>
+	 * If <code>transportId</code> is <code>null</code> than it creates new
+	 * transport object otherwise it finds existing one in database and updates
+	 * it.
+	 * @param transport Transports to add or update.
+	 */
+	@Transactional(readOnly = false)
+	@Override
+	public void saveOrUpdateTransport(Transports transport) {
+		try {
+			transportsDao.saveOrUpdate(transport);
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TransprtsManagerException(
+					saveOrUpdateTransportMessage, e);
+			LOGGER.error(e);
+			LOGGER.error(ex);
+			throw ex;
+		}
+	}
+	
+	/*---------------------------for transport paging, sorting, filtering------------------------------------------*/
 
 	@Override
 	public void validateTransportCriteria(
 			TransportCriteriaContainer transportCriteriaContainer) {
+		
 		StaticValidator.validateTransportCriteria(transportCriteriaContainer);
 	}
 	
-	//-----for paging
 	@Override
 	public List<Transports> getTransportsListWithContainers(
 			PageInfoContainer container,
@@ -236,6 +257,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public long getTransportsListCountWithContainers(
 			TransportCriteriaContainer transportCriteriaContainer) {
+		
 		return getTransportsListForAddTripsCount(
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
@@ -284,7 +306,7 @@ public class TransportsManagerImpl implements TransportsManager {
 				seatClass3, price, orderByCriteria, orderByDirection);
 	}
 
-/*---------------------------------------------------------------------*/
+	/*--------------------------END-for transport paging, sorting, filtering------------------------------------------*/
 
 	@Override
 	public List<Transports> getTransportsListForAddTripsWithContainers(
@@ -357,27 +379,6 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves the Transport object to database if not exist or updates it. <br/>
-	 * <br/>
-	 * If <code>transportId</code> is <code>null</code> than it creates new
-	 * transport object otherwise it finds existing one in database and updates
-	 * it.
-	 */
-	@Transactional(readOnly = false)
-	@Override
-	public void saveOrUpdateTransport(Transports transport) {
-		try {
-			transportsDao.saveOrUpdate(transport);
-		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					saveOrUpdateTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
-		}
-	}
-
-	/**
 	 * Returns <code>TransportTravel</code> object, that contains all transport
 	 * that goes through two stations
 	 * 
@@ -415,37 +416,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsForLimit(int,
-	 *      int)
-	 */
-	@Transactional(readOnly = true)
-	@Override
-	public List<Transports> getTransportsForLimit(int firstElement, int count) {
-		return transportsDao.getTransportsForLimits(firstElement, count);
-	}
-
-	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsForPage(int,
-	 *      int)
-	 */
-	@Transactional(readOnly = true)
-	@Override
-	public List<Transports> getTransportsForPage(int pageNumber, int count) {
-		return getTransportsForLimit((pageNumber - 1) * count, count);
-	}
-
-	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportsListCount()
-	 */
-	@Transactional(readOnly = true)
-	@Override
-	public long getTransportsListCount() {
-		return transportsDao.getTransportsListCount();
-	}
-
-	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStListCount(java.lang.String,
-	 *      java.lang.String)
+	 * @param stationName1
+	 * @param stationName2
+	 * @return
 	 */
 	@Override
 	public long getTransportByTwoStListCount(String stationName1,
@@ -456,8 +429,13 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStForPage(java.lang.String,
-	 *      java.lang.String, int, int, java.lang.String, int)
+	 * @param stationName1
+	 * @param stationName2
+	 * @param pageNumber
+	 * @param count
+	 * @param sDate
+	 * @param orderBy
+	 * @return
 	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
@@ -469,8 +447,13 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * @see com.ita.edu.softserve.manager.TransportsManager#getTransportByTwoStForLimit(java.lang.String,
-	 *      java.lang.String, int, int, java.lang.String, int)
+	 * @param stationName1
+	 * @param stationName2
+	 * @param firstElement
+	 * @param count
+	 * @param sDate
+	 * @param orderBy
+	 * @return
 	 */
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimit(
