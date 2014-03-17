@@ -379,15 +379,42 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
+	 * @return the instance of TransportsManager.
+	 */
+	public static TransportsManager getInstance() {
+		return ManagerFactory.getManager(TransportsManager.class);
+	}
+
+	/**
+	 * Returns number of transport elements that go through
+	 * two stations including stops 
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * 
+	 * @return number of transport elements that go through
+	 * 		   two stations including stops
+	 */
+	@Transactional(readOnly = true)
+	@Override
+	public long getTransportByTwoStListCount(String stationName1,
+			String stationName2) {
+
+		return transportsDao.getTransportByTwoStListCount(stationName1,
+				stationName2);
+	}
+
+	/**
 	 * Returns <code>TransportTravel</code> object, that contains all transport
 	 * that goes through two stations
 	 * 
-	 * @param stationName1
-	 * @param stationName2
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
 	 * 
-	 *            return <code>TransportTravel</code>, that contains transport
-	 *            code, departure and arrival times, duration
+	 *@return <code>TransportTravel</code>, that contains transport
+	 *        code, departure and arrival times, duration
 	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2) {
@@ -407,61 +434,53 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		return transportTravel;
 	}
-
+	
 	/**
-	 * @return the instance of TransportsManager.
+	 * Returns transport by two stations (limited number of records)
+	 * including stops at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @param pageNumber - number of page to get results for  
+	 * @param count - number of elements to return
+	 * @param sDate - date of trip
+	 * 
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
-	public static TransportsManager getInstance() {
-		return ManagerFactory.getManager(TransportsManager.class);
-	}
-
-	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @return
-	 */
-	@Override
-	public long getTransportByTwoStListCount(String stationName1,
-			String stationName2) {
-
-		return transportsDao.getTransportByTwoStListCount(stationName1,
-				stationName2);
-	}
-
-	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @param pageNumber
-	 * @param count
-	 * @param sDate
-	 * @param orderBy
-	 * @return
-	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<TransportTravel> getTransportByTwoStForPage(
 			String stationName1, String stationName2, int pageNumber,
-			int count, String sDate, int orderBy) {
+			int count, String sDate) {
 
 		return getTransportByTwoStForLimit(stationName1, stationName2,
-				(pageNumber - 1) * count, count, sDate, orderBy);
+				(pageNumber - 1) * count, count, sDate);
 	}
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @param firstElement
-	 * @param count
-	 * @param sDate
-	 * @param orderBy
-	 * @return
+	 * Returns transport by two stations (limited number of records)
+	 * including stops at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @param firstElement - element from what to start 
+	 * @param count - number of elements to return
+	 * @param sDate - date of trip
+	 * 
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimit(
 			String stationName1, String stationName2, int firstElement,
-			int count, String sDate, int orderBy) {
+			int count, String sDate) {
 
 		return transportsDao.getTransportByTwoStForLimits(stationName1,
-				stationName2, firstElement, count, sDate, orderBy);
+				stationName2, firstElement, count, sDate);
 	}
 
 }

@@ -10,22 +10,10 @@
 	<table>
 		<tr>
 			<th>N</th>
-			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
-					<spring:message code="label.transportTravel.stationStop" />
-			</a></th>
-			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
-					<spring:message code="label.transportTravel.number" />
-			</a></th>
-			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
-					<spring:message code="label.transportTravel.depArr" />
-			</a></th>
-			<th><a href="javascript:void(0);"
-				onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
-					<spring:message code="label.transportTravel.duration" />
-			</a></th>
+			<th><spring:message code="label.transportTravel.stationStop" /></th>
+			<th><spring:message code="label.transportTravel.number" /></th>
+			<th><spring:message code="label.transportTravel.depArr" /></th>
+			<th><spring:message code="label.transportTravel.duration" /></th>
 			<c:if test="${not empty param.sDate}">
 				<c:if test="${not empty user}">
 					<th colspan="3"><spring:message code='label.tickets.purchase' /></th>

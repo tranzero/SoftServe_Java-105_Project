@@ -1,7 +1,6 @@
 package com.ita.edu.softserve.entity;
 
 import javax.persistence.*;
-
 import java.util.Date;
 
 /**
@@ -81,17 +80,21 @@ public class Responses extends BaseEntity {
 	private Boolean checked;
 
 	public Responses() {
-	}
-
-	public Responses(String comment) {
 		this.user = null;
 		this.trip = null;
-		this.comment = comment;
-		this.date = new Date();
+		this.comment = null;
+		this.date = null;
 		this.checked = false;
-
 	}
-
+	
+	/**
+	 * Constructor for creating response by user and trip
+	 * 
+	 * @param user - <code>User</code> object who create response
+	 * @param trip - <code>Trip</code> object, that the response is for
+	 * @param comment - comment text
+	 * @param date - date of creating comment
+	 */
 	public Responses(Users user, Trips trip, String comment, Date date) {
 		this.user = user;
 		this.trip = trip;

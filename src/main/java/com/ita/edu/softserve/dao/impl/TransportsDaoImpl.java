@@ -194,9 +194,14 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @return
+	 * Returns transport by two stations including stops
+	 * at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -211,19 +216,24 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @param firstElement
-	 * @param count
-	 * @param sDate
-	 * @param orderBy
-	 * @return
+	 * Returns transport by two stations (limited number of records)
+	 * including stops at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @param firstElement - element from what to start 
+	 * @param count - number of elements to return
+	 * @param sDate - date of trip
+	 * 
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TransportTravel> getTransportByTwoStForLimits(
 			String stationName1, String stationName2, int firstElement,
-			int count, String sDate, int orderBy) {
+			int count, String sDate) {
 		Query query = null;
 
 		if (sDate == null || sDate.equals("")) {
@@ -245,14 +255,18 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @return
+	 * Returns number of transport elements that go through
+	 * two stations including stops 
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * 
+	 * @return number of transport elements that go through
+	 * 		   two stations including stops
 	 */
 	@Override
 	public long getTransportByTwoStListCount(String stationName1,
 			String stationName2) {
-		// this will be changed soon
 		return findByTwoStations(stationName1, stationName2).size();
 	}
 

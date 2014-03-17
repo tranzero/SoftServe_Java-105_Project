@@ -16,7 +16,8 @@
 		<spring:message code="label.date" />&nbsp;&nbsp;<input type="text"
 			id="sDate" name="sDate" />&nbsp;&nbsp;&nbsp;
 		<%-- Select Date Field END --%>
-		<input class="button" type="submit" name="submit" value="<spring:message code="label.find" />" />
+		<input class="button" type="submit" name="submit"
+			value="<spring:message code="label.find" />" />
 		<br />
 		<br />
 	</form:form>
@@ -27,25 +28,14 @@
 			<table>
 				<tr>
 					<th>N</th>
-					<th><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}', '${param.sDate}', ${pageNumber},${resultsPerPage}, '1')">
-							<spring:message code="label.transportTravel.stationStop" />
-					</a></th>
-					<th><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '2')">
-							<spring:message code="label.transportTravel.number" />
-					</a></th>
-					<th><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '3')">
-							<spring:message code="label.transportTravel.depArr" />
-					</a></th>
-					<th><a href="javascript:void(0);"
-						onclick="showTransportPage('${param.stationName1}','${param.stationName2}','${param.sDate}', ${pageNumber},${resultsPerPage}, '4')">
-							<spring:message code="label.transportTravel.duration" />
-					</a></th>
+					<th><spring:message code="label.transportTravel.stationStop" /></th>
+					<th><spring:message code="label.transportTravel.number" /></th>
+					<th><spring:message code="label.transportTravel.depArr" /></th>
+					<th><spring:message code="label.transportTravel.duration" /></th>
 					<c:if test="${not empty param.sDate}">
 						<c:if test="${not empty user}">
-						<th colspan="3"><spring:message code='label.tickets.purchase' /></th>
+							<th colspan="3"><spring:message
+									code='label.tickets.purchase' /></th>
 						</c:if>
 					</c:if>
 				</tr>
@@ -55,8 +45,8 @@
 						<td>${transport.getLineName()}</td>
 						<td>${transport.getTransport().getTransportCode()}</td>
 						<td><spring:message code="label.transportTravel.dep" />
-							${transport.getDepartureTime()}<br />
-						<spring:message code="label.transportTravel.arr" />
+							${transport.getDepartureTime()}<br /> <spring:message
+								code="label.transportTravel.arr" />
 							${transport.getArrivalTime()}</td>
 						<td>${transport.getDuration()}</td>
 						<c:if test="${not empty param.sDate}">
@@ -72,7 +62,7 @@
 									href="/SoftServe_Java-105/reservationTicket/${transport.getTrip().getTripId()}/3">Class
 										3</a><br />(${transport.getTrip().getRemSeatClass3()})</td>
 							</c:if>
-							</c:if>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
@@ -139,55 +129,57 @@
 		</c:if>
 	</div>
 	<script>
+		function showTransportPage(stationName1_, stationName2_, pageNumber_,
+				resultsPerPage_, sDate_, orderBy_) {
 
-		function showTransportPage(stationName1_, stationName2_,
-					pageNumber_, resultsPerPage_, sDate_, orderBy_) {
-
-				if (stationName1_ == "" || stationName2_ == "") {
-					return;
-				}
-				$
-						.ajax(
-								{
-									async : true,
-									beforeSend : function() {
-										$("div#result")
-												.html(
-														'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
-									},
-									type : "GET",
-									url : "transportTravelPage",
-									data : {
-										stationName1 : stationName1_,
-										stationName2 : stationName2_,
-										pageNumber : pageNumber_,
-										resultsPerPage : resultsPerPage_,
-										sDate: sDate_,
-										orderBy: orderBy_
-									}
-								}).done(function(msg) {
-							$("div#result").html(msg);
-						});
-
+			if (stationName1_ == "" || stationName2_ == "") {
+				return;
 			}
+			$
+					.ajax(
+							{
+								async : true,
+								beforeSend : function() {
+									$("div#result")
+											.html(
+													'<img id="ajaxLoadingImg" src="resources/images/loading.gif">');
+								},
+								type : "GET",
+								url : "transportTravelPage",
+								data : {
+									stationName1 : stationName1_,
+									stationName2 : stationName2_,
+									pageNumber : pageNumber_,
+									resultsPerPage : resultsPerPage_,
+									sDate : sDate_,
+									orderBy : orderBy_
+								}
+							}).done(function(msg) {
+						$("div#result").html(msg);
+					});
+
+		}
 
 		function formDatePicker() {
 			$.datepicker.setDefaults($.datepicker.regional['en']);
-			$('#sDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+			$('#sDate').datepicker({
+				dateFormat : 'yy-mm-dd'
+			}).val();
 			$("#sDate").datepicker({
 				defaultDate : "+0w",
 				changeMonth : true,
 				numberOfMonths : 1,
 			});
 		}
-		
-			$(window).load(
-					function() {
-						formDatePicker();
-						showTransportPage("${param.stationName1}",
-								"${param.stationName2}", "${pageNumber}",
-								"${resultsPerPage}", "${param.sDate}", "${param.orderBy}");
-								
-			});
-		</script>
+
+		$(window).load(
+				function() {
+					formDatePicker();
+					showTransportPage("${param.stationName1}",
+							"${param.stationName2}", "${pageNumber}",
+							"${resultsPerPage}", "${param.sDate}",
+							"${param.orderBy}");
+
+				});
+	</script>
 </section>

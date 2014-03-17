@@ -22,8 +22,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * The persistent class for the transports database table.
- * 
- * 
  */
 @Entity
 @Table(name = "transports")
@@ -186,7 +184,16 @@ public class Transports extends BaseEntity {
 			+ SEAT_CLASS3_NAME
 			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
 
+	/**
+	 * Name of query which is used for finding transport by two stations 
+	 * including stops at these stations
+	 */
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
+	
+	/**
+	 * Query to find transport by two stations including stops at these
+	 * stations
+	 */
 	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
 			+ "FROM Transports t "
@@ -204,7 +211,16 @@ public class Transports extends BaseEntity {
 			+ ") and (sol.stationId.stationName LIKE ?1 or sol.stationId.stationName LIKE ?2) "
 			+ "GROUP BY t.transportId";
 
+	/**
+	 * Name of query which is used for finding transport by two stations 
+	 * and date including stops at these stations
+	 */
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE = "Transports.findByTwoStationsAndDate";
+	
+	/**
+	 * Query to find transport by two stations and date
+	 * including stops at these stations
+	 */
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY = "SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr) "
 			+ "FROM Trips tr "

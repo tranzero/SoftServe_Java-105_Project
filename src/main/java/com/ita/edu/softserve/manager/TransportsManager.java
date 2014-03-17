@@ -158,47 +158,63 @@ public interface TransportsManager extends BaseManager {
 	/*--------------------------END-for transport paging sorting filtering------------------------------------------*/
 	
 	/**
-	 * Gets transport by two stations in certain order
+	 * Returns <code>TransportTravel</code> object, that contains all transport
+	 * that goes through two stations
 	 * 
-	 * @param stationName1
-	 * @param stationName2
-	 * @return
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * 
+	 *@return <code>TransportTravel</code>, that contains transport
+	 *        code, departure and arrival times, duration
 	 */
 	List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2);
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @return
+	 * Returns number of transport elements that go through
+	 * two stations including stops 
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * 
+	 * @return number of transport elements that go through
+	 * 		   two stations including stops
 	 */
 	long getTransportByTwoStListCount(String stationName1, String stationName2);
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @param pageNumber
-	 * @param count
-	 * @param sDate
-	 * @param orderBy
-	 * @return
+	 * Returns transport by two stations (limited number of records)
+	 * including stops at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @param pageNumber - number of page to get results for  
+	 * @param count - number of elements to return
+	 * @param sDate - date of trip
+	 * 
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
 	List<TransportTravel> getTransportByTwoStForPage(String stationName1,
-			String stationName2, int pageNumber, int count, String sDate,
-			int orderBy);
+			String stationName2, int pageNumber, int count, String sDate);
 
 	/**
-	 * @param stationName1
-	 * @param stationName2
-	 * @param firstElement
-	 * @param count
-	 * @param sDate
-	 * @param orderBy
-	 * @return
+	 * Returns transport by two stations (limited number of records)
+	 * including stops at these stations.
+	 * 
+	 * @param stationName1 - name of the first station
+	 * @param stationName2 - name of the second station
+	 * @param firstElement - element from what to start 
+	 * @param count - number of elements to return
+	 * @param sDate - date of trip
+	 * 
+	 * @return <code>List</code> of <code>transportTravel</code>
+	 * 		   which contains transport and some info about trip
+	 * 		   duration, arrival time, departure time
 	 */
 	List<TransportTravel> getTransportByTwoStForLimit(String stationName1,
-			String stationName2, int firstElement, int count, String sDate,
-			int orderBy);
+			String stationName2, int firstElement, int count, String sDate);
 
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,

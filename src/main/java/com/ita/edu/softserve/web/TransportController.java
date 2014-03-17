@@ -173,12 +173,7 @@ public class TransportController {
 	private static final String TRANSPORT = "transport";
 
 	/**
-	 * Defines orderBy attribute.
-	 */
-	private static final String ORDER_BY = "orderBy";
-
-	/**
-	 * Defines orderBy attribute.
+	 * Defines date attribute.
 	 */
 	private static final String START_DATE = "sDate";
 
@@ -609,15 +604,11 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = START_DATE, required = false) String sDate,
-			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
-		}
-		if (orderBy == null) {
-			orderBy = 0;
 		}
 
 		long count = transportsManager.getTransportByTwoStListCount(
@@ -630,7 +621,7 @@ public class TransportController {
 		modelMap.addAttribute(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
-						(int) container.getResultsPerPage(), sDate, orderBy));
+						(int) container.getResultsPerPage(), sDate));
 		modelMap.addAttribute("user", userNameService.getLoggedUserId());
 
 		return TRANSPORT_TRAVEL_JSP;
@@ -653,15 +644,11 @@ public class TransportController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = START_DATE, required = false) String sDate,
-			@RequestParam(value = ORDER_BY, required = false) Integer orderBy,
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
 				|| stationName1.equals("") || stationName2.equals("")) {
 			return TRANSPORT_TRAVEL_JSP;
-		}
-		if (orderBy == null) {
-			orderBy = 0;
 		}
 
 		long count = transportsManager.getTransportByTwoStListCount(
@@ -674,7 +661,7 @@ public class TransportController {
 		modelMap.addAttribute(TRANSPORT_TRAVEL_LIST, transportsManager
 				.getTransportByTwoStForPage(stationName1, stationName2,
 						(int) container.getPageNumber(),
-						(int) container.getResultsPerPage(), sDate, orderBy));
+						(int) container.getResultsPerPage(), sDate));
 		modelMap.addAttribute("user", userNameService.getLoggedUserId());
 
 		return TRANSPORT_TRAVEL_PAGE_JSP;
