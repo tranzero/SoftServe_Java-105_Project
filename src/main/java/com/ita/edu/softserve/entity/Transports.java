@@ -32,11 +32,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Transports.TRANSPORTS_FIND_COUNT, query = Transports.TRANSPORTS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TRANSPORTCODE, query = Transports.FIND_BY_TRANSPORTCODE_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_ROUTEID, query = Transports.FIND_BY_ROUTEID_QUERY),
-		@NamedQuery(name = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT, query = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT_QUERY),
-		
 		@NamedQuery(name = Transports.FIND_TRANSPORTS_COUNT, query = Transports.FIND_TRANSPORTS_COUNT_QUERY),
-//		@NamedQuery(name = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT, query = Transports.FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY),
-
+		@NamedQuery(name = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT, query = Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS, query = Transports.FIND_BY_TWO_STATIONS_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_TWO_STATIONS_AND_DATE, query = Transports.FIND_BY_TWO_STATIONS_AND_DATE_QUERY),
 		@NamedQuery(name = Transports.FIND_BY_DATE, query = Transports.FIND_BY_DATE_QUERY), })
@@ -111,6 +108,53 @@ public class Transports extends BaseEntity {
 	public static final String FIND_BY_ROUTEID = "Transports.findByRouteId";
 	public static final String FIND_BY_ROUTEID_QUERY = "SELECT t FROM Transports t WHERE t.routes.routeId = ?1";
 
+	/*------------------------------------------------------------------------------------------------------------*/
+	/**
+	 * Name of query which is used for selecting count of transports from DB with
+	 * criteria. Used in paging.
+	 */
+	public static final String FIND_TRANSPORTS_COUNT = "Transports.findTransportsCount";
+	
+	/**
+	 * Query which is used for selecting count of trips from DB with criteria.
+	 * Used in paging.
+	 */
+	public static final String FIND_TRANSPORTS_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND t.routes.routeCode LIKE :"
+			+ ROUTE_CODE_NAME
+			+ " AND t.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
+			+ " AND t.seatclass1 >= :"
+			+ SEAT_CLASS1_NAME
+			+ " AND t.seatclass2 >= :"
+			+ SEAT_CLASS2_NAME
+			+ " AND t.seatclass3 >= :"
+			+ SEAT_CLASS3_NAME
+			+ " AND t.genPrice < :" 
+			+ GEN_PRICE_NAME;
+	
+	/**
+	 * Query which is used for selecting transports from DB using criteria.
+	 * Compatible with paging.
+	 */
+	public static final String FIND_TRANSPORTS_QUERY = "SELECT t FROM Transports t WHERE t.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND t.routes.routeCode LIKE :"
+			+ ROUTE_CODE_NAME
+			+ " AND t.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
+			+ " AND t.seatclass1 >= :"
+			+ SEAT_CLASS1_NAME
+			+ " AND t.seatclass2 >= :"
+			+ SEAT_CLASS2_NAME
+			+ " AND t.seatclass3 >= :"
+			+ SEAT_CLASS3_NAME
+			+ " AND t.genPrice < :" 
+			+ GEN_PRICE_NAME + " ORDER BY ";
+	
+	/*------------------------------------------------------------------------------------------------------------*/
+	
 	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT = "Transports.findTransportsForAddTripsCount";
 	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
@@ -141,92 +185,6 @@ public class Transports extends BaseEntity {
 			+ " AND t.seatclass3 >= :"
 			+ SEAT_CLASS3_NAME
 			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
-	/*------------------------------------------------------------------------------------------------------------*/
-	public static final String FIND_TRANSPORTS_COUNT = "Transports.findTransportsCount";
-	public static final String FIND_TRANSPORTS_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
-			+ TRANSPORT_CODE_NAME
-			+ " AND t.routes.routeCode LIKE :"
-			+ ROUTE_CODE_NAME
-			+ " AND t.routes.routeName LIKE :"
-			+ ROUTE_NAME_NAME
-			+ " AND "
-			+ "t.seatclass1 >= :"
-			+ SEAT_CLASS1_NAME
-			+ " AND t.seatclass2 >= :"
-			+ SEAT_CLASS2_NAME
-			+ " AND t.seatclass3 >= :"
-			+ SEAT_CLASS3_NAME
-			+ " AND t.genPrice < :" + GEN_PRICE_NAME;
-
-	public static final String FIND_TRANSPORTS_QUERY = "SELECT t FROM Transports t WHERE t.transportCode LIKE :"
-			+ TRANSPORT_CODE_NAME
-			+ " AND t.routes.routeCode LIKE :"
-			+ ROUTE_CODE_NAME
-			+ " AND t.routes.routeName LIKE :"
-			+ ROUTE_NAME_NAME
-			+ " AND "
-			+ "t.seatclass1 >= :"
-			+ SEAT_CLASS1_NAME
-			+ " AND t.seatclass2 >= :"
-			+ SEAT_CLASS2_NAME
-			+ " AND t.seatclass3 >= :"
-			+ SEAT_CLASS3_NAME
-			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
-	/**
-	 * Query which is used for selecting transports from DB using criteria.
-	 * Compatible with paging.
-	 */
-//	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_QUERY = "SELECT t FROM Transports t WHERE"
-//			+ " t.transportCode LIKE :"
-//			+ TRANSPORT_CODE_NAME
-//			+ " AND t.routes.routeCode LIKE :"
-//			+ ROUTE_CODE_NAME
-//			+ " AND t.routes.lineId.lineName LIKE :"
-//			+ LINE_NAME_NAME
-//			+ " AND t.seatclass1 >= :"
-//			+ SEAT_CLASS1_NAME
-//			+ " AND t.seatclass2 >= :"
-//			+ SEAT_CLASS2_NAME
-//			+ " AND t.seatclass3 >= :"
-//			+ SEAT_CLASS3_NAME
-//			+ " AND t.genPrice <= :"
-//			+ GEN_PRICE_NAME
-//			+ " AND t.startTime BETWEEN :"
-//			+ MIN_TIME_NAME
-//			+ " AND :"
-//			+ MAX_TIME_NAME 
-//			+ " ORDER BY ";
-	
-	/**
-	 * Name of query which is used for selecting count of transports from DB with
-	 * criteria. Used in paging.
-	 */
-//	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT = "Transports.findTransportsListCountByCriteria";
-
-	/**
-	 * Query which is used for selecting count of trips from DB with criteria.
-	 * Used in paging.
-	 */
-//	public static final String FIND_TRANSPORTS_LIST_BY_CRITERIA_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE"
-//			+ " t.transportCode LIKE :"
-//			+ TRANSPORT_CODE_NAME
-//			+ " AND t.routes.routeCode LIKE :"
-//			+ ROUTE_CODE_NAME
-//			+ " AND t.routes.lineId.lineName LIKE :"
-//			+ LINE_NAME_NAME
-//			+ " AND t.seatclass1 >= :"
-//			+ SEAT_CLASS1_NAME
-//			+ " AND t.seatclass2 >= :"
-//			+ SEAT_CLASS2_NAME
-//			+ " AND t.seatclass3 >= :"
-//			+ SEAT_CLASS3_NAME
-//			+ " AND t.genPrice <= :"
-//			+ GEN_PRICE_NAME
-//			+ " AND t.startTime BETWEEN :"
-//			+ MIN_TIME_NAME
-//			+ " AND :"
-//			+ MAX_TIME_NAME;
-	/*------------------------------------------------------------------------------------------------------------*/
 
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
 	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT "
