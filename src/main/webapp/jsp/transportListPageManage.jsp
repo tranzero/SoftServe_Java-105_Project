@@ -50,8 +50,8 @@
 						src="resources/images/uparrow.png"></a>
 				</div>
 			</th>
-			<th><spring:message code="label.lines.linename" /></th>
-			<th>
+<%-- 			<th><spring:message code="label.lines.linename" /></th>
+ --%>			<th>
 				<div style="float: left">
 					<spring:message code="label.transport.seatclass1" />
 				</div>
@@ -102,8 +102,8 @@
 				<td align="center">${transport.getStartTime()}</td>
 				<td align="center">${transport.getRoutes().getRouteCode()}</td>
 				<td align="center">${transport.getRoutes().getRouteName()}</td>
-				<td align="center"><a
-							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td>
+				<%-- <td align="center"><a
+							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td> --%>
 				<td align="center">${transport.getSeatclass1()}</td>
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
