@@ -71,7 +71,7 @@
 				</c:if>
 			<p>
 				<br>
-				<spring:message code="label.addtrips.minimalseatsbyclasses" />
+				<spring:message code="label.transport.minimalseatsbyclasses" />
 				:
 			<p>
 				<label for="seatClass1">1:</label>
@@ -103,7 +103,7 @@
 				</c:if>
 			<p>
 				<br> <label for="priceName"><spring:message
-						code="label.addtrips.maximalprice" />:</label>
+						code="label.transport.maximalprice" />:</label>
 				<c:if test="${isPrice}">
 					<input class="autosearch" type="number" id="priceName"
 						name="priceName">
@@ -114,7 +114,7 @@
 				</c:if>
 			<div style="float: right">
 				<input type="submit"
-					value="<spring:message code="label.addtrips.tripsearch"/>">
+					value="<spring:message code="label.transport.tripsearch"/>">
 			</div>
 		</div>
 
@@ -126,11 +126,11 @@
 	</h2>
 	<c:if test="${not empty errormark}">
 		<font color="red"><spring:message
-				code="label.addtrips.errormessage" /> </font>
+				code="label.transport.errormessage" /> </font>
 	</c:if>
 
 	<div id="pagingcontent">
-		<table style="align: center">
+		<%-- <table style="align: center">
 			<thead>
 				<tr>
 					<th>
@@ -148,7 +148,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=ASC">
-								<img alt="^" src="resources/images/downarrow.png">
+								<img alt="^" src="resources/images/down-arrow.png">
 							</a> <a
 								href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -159,7 +159,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=DESC">
-								<img alt="v" src="resources/images/uparrow.png">
+								<img alt="v" src="resources/images/up-arrow.png">
 							</a>
 						</div>
 
@@ -381,8 +381,8 @@
 						<td align="center">${transport.getStartTime()}</td>
 						<td align="center">${transport.getRoutes().getRouteCode()}</td>
 						<td align="center">${transport.getRoutes().getRouteName()}</td>
-						<%-- <td align="center"><a
-							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td> --%>
+						<td align="center"><a
+							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td>
 						<td align="center">${transport.getSeatclass1()}</td>
 						<td align="center">${transport.getSeatclass2()}</td>
 						<td align="center">${transport.getSeatclass3()}</td>
@@ -397,9 +397,9 @@
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table>
-		<div class="pagination">
-			<ul class="bootpag">
+		</table> --%>
+<%--		<div class="pagination">
+ 			<ul class="bootpag">
 				<c:if test="${pageNumber>1}">
 					<li class="prev"><a
 						href="?pageNumber=1&resultsPerPage=${
@@ -555,8 +555,8 @@
 				<c:if test="${resultsPerPage==50}">
 					<li class="disabled"><a href="javascript:void(0);">50</a></li>
 				</c:if>
-			</ul>
-		</div>
+			</ul> 
+		</div>--%>
 
 	</div>
 
