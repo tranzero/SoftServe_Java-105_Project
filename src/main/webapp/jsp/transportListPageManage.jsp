@@ -12,9 +12,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="transportcodeasc"><img
-						alt="^" src="resources/images/downarrow.png"></a> <a
+						alt="^" src="resources/images/down-arrow.png"></a> <a
 						href="javascript:void(0);" id="transportcodedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="resources/images/up-arrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -41,7 +41,7 @@
 			</th>
 			<th>
 				<div style="float: left">
-					<spring:message code="label.trips.routename" />
+					<spring:message code="label.routes.routename" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routenameasc"><img alt="^"
@@ -50,8 +50,7 @@
 						src="resources/images/uparrow.png"></a>
 				</div>
 			</th>
-<%-- 			<th><spring:message code="label.lines.linename" /></th>
- --%>			<th>
+			<th>
 				<div style="float: left">
 					<spring:message code="label.transport.seatclass1" />
 				</div>

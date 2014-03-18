@@ -122,7 +122,7 @@
 
 	<c:if test="${not empty errormark}">
 		<font color="red"><spring:message
-				code="label.addtrips.errormessage" /> </font>
+				code="label.transport.errormessage" /> </font>
 	</c:if>
 
 	<div id="pagingcontent">

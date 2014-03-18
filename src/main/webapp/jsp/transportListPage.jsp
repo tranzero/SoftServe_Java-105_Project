@@ -41,7 +41,7 @@
 			</th>
 			<th>
 				<div style="float: left">
-					<spring:message code="label.trips.routename" />
+					<spring:message code="label.routes.routename" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routenameasc"><img alt="^"
