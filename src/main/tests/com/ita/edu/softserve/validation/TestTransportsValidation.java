@@ -5,6 +5,10 @@ import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +16,11 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
+import com.ita.edu.softserve.utils.ParseUtil;
 
 public class TestTransportsValidation {
 
@@ -39,7 +46,7 @@ public class TestTransportsValidation {
 		assertNotNull(errors.getFieldError("transportCode"));
 
 	}
-	
+
 	@Test
 	public void blankTransportCode() {
 		transport.setTransportCode("");
@@ -50,7 +57,7 @@ public class TestTransportsValidation {
 		assertNotNull(errors.getFieldError("transportCode"));
 
 	}
-	
+
 	@Test
 	public void needsStartTime() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -60,6 +67,19 @@ public class TestTransportsValidation {
 		assertNotNull(errors.getFieldError("startTime"));
 
 	}
+
+/*	@Test
+	public void needsREStartTime() {
+		transport.setStartTime(ParseUtil.parseStringToTime("16:15:%0"));
+//		String time = ParseUtil.parseTimeToString(transport.getStartTime());
+
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("startTime"));
+
+	}*/
 
 	@Test
 	public void needsRoutes() {
@@ -243,15 +263,55 @@ public class TestTransportsValidation {
 	}
 
 	@Test
-	public void testValidateIfTransportExist() {
+	public void testValidateIfTransportExist() throws IllegalArgumentException,
+			IllegalAccessException, NoSuchFieldException, SecurityException {
+
+		TransportsManagerImpl mockTransportsManagerImpl = mock(TransportsManagerImpl.class);
+		Field fild = transportsValidator.getClass().getDeclaredField(
+				"transportsManager");
+
+		fild.setAccessible(true);
+		fild.set(transportsValidator, mockTransportsManagerImpl);
+
+		Transports transports = new Transports();
+		transports.setTransportId(1);
+		when(mockTransportsManagerImpl.findTransportsByCode("T000000001"))
+				.thenReturn(transports);
+
 		transport.setTransportId(1);
 		transport.setTransportCode("T000000001");
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
 		assertTrue(errors.hasErrors());
-//		assertNull(errors.getFieldError("transportId"));
-//		assertNull(errors.getFieldError("transportCode"));
+		// assertNull(errors.getFieldError("transportId"));
+		assertNull(errors.getFieldError("transportCode"));
 	}
 
+	@Test
+	public void testBlackValidateIfTransportExist()
+			throws IllegalArgumentException, IllegalAccessException,
+			NoSuchFieldException, SecurityException {
+
+		TransportsManagerImpl mockTransportsManagerImpl = mock(TransportsManagerImpl.class);
+		Field fild = transportsValidator.getClass().getDeclaredField(
+				"transportsManager");
+
+		fild.setAccessible(true);
+		fild.set(transportsValidator, mockTransportsManagerImpl);
+
+		Transports transports = new Transports();
+		transports.setTransportId(2);
+
+		when(mockTransportsManagerImpl.findTransportsByCode("T000000001"))
+				.thenReturn(transports);
+
+		transport.setTransportId(1);
+		transport.setTransportCode("T000000001");
+		errors = new BeanPropertyBindingResult(transport, "transport");
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("transportCode"));
+	}
 }
