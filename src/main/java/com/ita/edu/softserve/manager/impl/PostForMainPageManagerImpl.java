@@ -68,14 +68,16 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 	@Transactional
 	@Override
-	public void removeNews(Integer id) {
+	public boolean removeNews(Integer id) {
 		try {
 			Post post = postDao.findById(id);
 			postDao.remove(post);
 			LOGGER.info(entityName + id + removeMsg + userName.getLoggedUsername());
+			return true;
 		} catch (RuntimeException e) {
 			LOGGER.error(removePostMsg ,e);
 		}
+		return false;
 	}
 	
 	@Transactional

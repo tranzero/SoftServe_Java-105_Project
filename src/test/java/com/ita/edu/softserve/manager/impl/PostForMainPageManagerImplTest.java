@@ -75,10 +75,20 @@ public class PostForMainPageManagerImplTest {
 		isCreatedPost = postManager.createNews(postTitleMock, postDescriptionMock, postImgSrcMock);
 		
 		assertTrue(isCreatedPost);
-		
-		
 	}
 
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removeNews(java.lang.Integer)}.
+	 */
+	@Test
+	public final void testRemovePost() {
+
+		boolean isDeletedPost = false;
+		isDeletedPost = postManager.removePost(postTitleMock);
+		
+		assertTrue(isDeletedPost);
+	}
+	
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removeNews(java.lang.Integer)}.
 	 */
@@ -86,7 +96,7 @@ public class PostForMainPageManagerImplTest {
 	public final void testRemoveNews() {
 
 		boolean isDeletedPost = false;
-		isDeletedPost = postManager.removePost(postTitleMock);
+		isDeletedPost = postManager.removeNews(postIdMock);
 		
 		assertTrue(isDeletedPost);
 	}
@@ -96,6 +106,8 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testFindNews() {
+		Post actual = postDao.findById(postIdMock);
+		assertEquals(post, actual);
 		
 	}
 
@@ -112,7 +124,6 @@ public class PostForMainPageManagerImplTest {
 		isUpdatedPost = postManager.updateNews(postIdMock ,postTitleMock, postDescriptionMock, postImgSrcMock);
 		
 		assertTrue(isUpdatedPost);
-		
 	}
 
 	/**
@@ -120,7 +131,11 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testGetPostListCount() {
+		long expected = 25;
+		when(postDao.getPostListCount()).thenReturn(expected);
 		
+		long actual = postDao.getPostListCount();
+		assertEquals(expected, actual);
 	}
 
 	/**

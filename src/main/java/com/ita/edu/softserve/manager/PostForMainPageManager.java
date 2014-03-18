@@ -11,7 +11,7 @@ public interface PostForMainPageManager extends BaseManager {
 	
 	public List<Post> findPostList();
 
-	public void removeNews(Integer id);
+	public boolean removeNews(Integer id);
 
 	public Post findNews(Integer postId);
 
