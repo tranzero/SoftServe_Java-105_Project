@@ -20,129 +20,116 @@ import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
 
 /**
- * Class under test
- * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl}
- * 
- * @author Roman
- */
+* Class under test
+* {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl}
+*
+* @author Roman
+*/
 public class TestStationManagerImpl {
 
-	/**
-	 * Mock object.
-	 */
-	private StationsDAOImpl mockStationsDAOImpl;
+/**
+* Mock object.
+*/
+private StationsDAOImpl mockStationsDAOImpl;
 
-	/**
-	 * StationsManagerImpl.
-	 */
-	private StationsManagerImpl stationsManagerImpl;
+/**
+* StationsManagerImpl.
+*/
+private StationsManagerImpl stationsManagerImpl;
 
-	/**
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 */
-	@Before
-	public final void setUp() throws NoSuchFieldException, SecurityException,
-			IllegalArgumentException, IllegalAccessException {
+/**
+* @throws SecurityException
+* @throws NoSuchFieldException
+* @throws IllegalAccessException
+* @throws IllegalArgumentException
+*/
+@Before
+public final void setUp() throws NoSuchFieldException, SecurityException,
+IllegalArgumentException, IllegalAccessException {
 
-		mockStationsDAOImpl = mock(StationsDAOImpl.class);
+mockStationsDAOImpl = mock(StationsDAOImpl.class);
 
-		stationsManagerImpl = new StationsManagerImpl();
-		Field fild = stationsManagerImpl.getClass().getDeclaredField(
-				"stationDao");
+stationsManagerImpl = new StationsManagerImpl();
+Field fild = stationsManagerImpl.getClass().getDeclaredField(
+"stationDao");
 
-		fild.setAccessible(true);
-		fild.set(stationsManagerImpl, mockStationsDAOImpl);
+fild.setAccessible(true);
+fild.set(stationsManagerImpl, mockStationsDAOImpl);
 
-	}
+}
 
-	/**
-	 * Test if two list is equals. Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
-	 */
-	@Test
-	public final void testFindAllStationsEquals() {
-		List<Stations> listOfStations = new ArrayList<Stations>();
+/**
+* Test if two list is equals. Method under test
+* {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
+*/
+@Test
+public final void testFindAllStationsEquals() {
+List<Stations> listOfStations = new ArrayList<Stations>();
 
-		Stations station1 = mock(Stations.class);
-		Stations station2 = mock(Stations.class);
+Stations station1 = mock(Stations.class);
+Stations station2 = mock(Stations.class);
 
-		listOfStations.add(station1);
-		listOfStations.add(station2);
+listOfStations.add(station1);
+listOfStations.add(station2);
 
-		when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
-		List<Stations> stationList = null;
-		try {
-			stationList = stationsManagerImpl.findAllStations();
-		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
+List<Stations> stationList = null;
+try {
+stationList = stationsManagerImpl.findAllStations();
+} catch (StationManagerException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
 
-		assertTrue((listOfStations.size() == stationList.size())
-				&& (listOfStations.containsAll(stationList)));
-	}
+assertTrue((listOfStations.size() == stationList.size())
+&& (listOfStations.containsAll(stationList)));
+}
 
-	/**
-	 * Method under test.
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
-	 */
-	@Test
-	public final void testFindAllStationsEmptyList() {
-		List<Stations> listOfStations = new ArrayList<Stations>();
-		when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
-		List<Stations> stationList = null;
-		try {
-			stationList = stationsManagerImpl.findAllStations();
-		} catch (StationManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+/**
+* Method under test.
+* {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
+*/
+@Test
+public final void testFindAllStationsEmptyList() {
+List<Stations> listOfStations = new ArrayList<Stations>();
+when(mockStationsDAOImpl.getAllEntities()).thenReturn(listOfStations);
+List<Stations> stationList = null;
+try {
+stationList = stationsManagerImpl.findAllStations();
+} catch (StationManagerException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
 
-		assertTrue((listOfStations.size() == stationList.size())
-				&& (listOfStations.containsAll(stationList)));
-	}
+assertTrue((listOfStations.size() == stationList.size())
+&& (listOfStations.containsAll(stationList)));
+}
 
-	/**
-	 * Test method for Null.<br/>
-	 * Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
-	 * @throws StationManagerException 
-	 */
-	@Test(expected = java.lang.NullPointerException.class)
-	public final void testFindAllStationsShouldThrowNullPointerException() throws StationManagerException {
-		when(mockStationsDAOImpl.getAllEntities()).thenThrow(
-				new NullPointerException());
-		stationsManagerImpl.findAllStations();
-	}
+/**
+* Test the methods for Equals.
+* @throws StationManagerException
+*/
+@Test
+public final void testFindStationsByIdForEquals() throws StationManagerException {
+Stations actualStation = mock(Stations.class);
 
-	/**
-	 * Test the methods for Equals.
-	 * @throws StationManagerException 
-	 */
-	@Test
-	public final void testFindStationsByIdForEquals() throws StationManagerException {
-		Stations actualStation = mock(Stations.class);
+when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(
+actualStation);
+Stations expectedStation = stationsManagerImpl.findStationsById(5);
 
-		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(
-				actualStation);
-		Stations expectedStation = stationsManagerImpl.findStationsById(5);
+assertEquals(expectedStation, actualStation);
+}
 
-		assertEquals(expectedStation, actualStation);
-	}
+/**
+* Test the methods for <code>null</code>.
+* @throws StationManagerException
+*/
+@Test
+public final void testFindStationsByIdForNull() throws StationManagerException {
+when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(null);
 
-	/**
-	 * Test the methods for <code>null</code>.
-	 * @throws StationManagerException 
-	 */
-	@Test
-	public final void testFindStationsByIdForNull() throws StationManagerException {
-		when(mockStationsDAOImpl.findById(Mockito.anyInt())).thenReturn(null);
+Stations expectedStation = stationsManagerImpl.findStationsById(9);
 
-		Stations expectedStation = stationsManagerImpl.findStationsById(9);
-
-		assertNull(expectedStation);
-	}
+assertNull(expectedStation);
+}
 }
