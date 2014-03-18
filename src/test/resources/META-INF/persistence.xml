@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="Java105" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.ita.edu.softserve.entity.BaseEntity</class>
+		<class>com.ita.edu.softserve.entity.Lines</class>
+		<class>com.ita.edu.softserve.entity.Orders</class>
+		<class>com.ita.edu.softserve.entity.Post</class>
+		<class>com.ita.edu.softserve.entity.Responses</class>
+		<class>com.ita.edu.softserve.entity.Role</class>
+		<class>com.ita.edu.softserve.entity.Routes</class>
+		<class>com.ita.edu.softserve.entity.Stations</class>
+		<class>com.ita.edu.softserve.entity.StationsOnLine</class>
+		<class>com.ita.edu.softserve.entity.Stops</class>
+		<class>com.ita.edu.softserve.entity.Tickets</class>
+		<class>com.ita.edu.softserve.entity.Transports</class>
+		<class>com.ita.edu.softserve.entity.Trips</class>
+		<class>com.ita.edu.softserve.entity.Users</class>
+
+		<properties>
+			<!-- MsSQL -->
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" 
+				/> -->
+			<!-- <property name="hibernate.connection.show_sql" value="true" /> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="never" /> -->
+			<!-- <property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" 
+				/> -->
+			<!-- <property name="hibernate.jdbc.use_scrollable_resultset" -->
+			<!-- value="false" /> -->
+			<!-- <property name="hibernate.connection.username" value="105-java" /> -->
+			<!-- <property name="hibernate.connection.password" value="105-java" /> -->
+			<!-- <property name="hibernate.connection.url" -->
+			<!-- value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=test" 
+				/> -->
+
+			<!-- MySQL -->
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test" />
+			<property name="hibernate.connection.username" value="105-java" />
+			<property name="hibernate.connection.password" value="105-java" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.connection.show_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="never" />
+			<property name="hibernate.jdbc.use_scrollable_resultset"
+				value="false" />
+			<property name="current_session_context_class" value="thread" />
+		</properties>
+	</persistence-unit>
+</persistence>
