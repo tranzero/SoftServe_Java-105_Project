@@ -19,6 +19,7 @@ import com.ibm.icu.text.SimpleDateFormat;
 @Table(name = "posts")
 @NamedQueries(value = {
 		@NamedQuery(name = Post.FIND_POST_LIST_COUNT, query = Post.FIND_POST_LIST_COUNT_QUERY),
+		@NamedQuery(name = Post.FIND_BY_TITLE, query = Post.FIND_BY_TITLE_QUERY),
 		@NamedQuery(name = Post.FIND_POST_LIST_FOR_PAGING, query = Post.FIND_POST_LIST_FOR_PAGING_QUERY) })
 	public class Post extends BaseEntity {
 	public static final String FIND_POST_LIST_COUNT = "Post.findPostListCount";
@@ -26,6 +27,9 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 	public static final String FIND_POST_LIST_FOR_PAGING = "Post.findPostListForPaging";
 	public static final String FIND_POST_LIST_FOR_PAGING_QUERY = "SELECT news from Post news ORDER BY news.date DESC";
+	
+	public static final String FIND_BY_TITLE = "Post.findByTitle";
+    public static final String FIND_BY_TITLE_QUERY = "SELECT news from Post news WHERE news.title= ?1";
 	
 
 	@Id

@@ -75,6 +75,21 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			LOGGER.error(removePostMsg ,e);
 		}
 	}
+	
+	@Transactional
+	@Override
+	public boolean removePost(String title) {
+		try {
+			Post post = postDao.findByTitle(title);
+			int id = post.getPostId();
+			postDao.remove(post);
+			LOGGER.info(entityName + id + removeMsg + userName.getLoggedUsername());
+			return true;
+		} catch (RuntimeException e) {
+			LOGGER.error(removePostMsg ,e);
+		}
+		return false;
+	}
 
 	@Transactional(readOnly = true)
 	@Override

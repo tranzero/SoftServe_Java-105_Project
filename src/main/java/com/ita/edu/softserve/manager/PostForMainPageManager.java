@@ -24,4 +24,6 @@ public interface PostForMainPageManager extends BaseManager {
 	void updateNews(Integer newsId, String newsTitle, String newsDescription,
 			String imageSrc);
 
+	boolean removePost(String title);
+
 }

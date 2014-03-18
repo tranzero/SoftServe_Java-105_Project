@@ -41,4 +41,11 @@ public class PostDAOImpl extends AbstractDAO<Post> implements PostDAO{
 			.setFirstResult(from).setMaxResults(count);
 		return (List<Post>)getRange(from, count, query);
 	    }
+	
+	@Override
+    public Post findByTitle(String title) {
+	Query query = entityManager.createNamedQuery(
+		Post.FIND_BY_TITLE).setParameter(1, title);
+	return (Post) find(query);
+    }
 }
