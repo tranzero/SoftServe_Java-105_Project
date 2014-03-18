@@ -29,7 +29,6 @@
     <task:executor id="executor" pool-size="5"/>
     <task:scheduler id="scheduler" pool-size="10"/>
 
-
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
