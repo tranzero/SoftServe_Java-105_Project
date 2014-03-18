@@ -15,7 +15,7 @@ import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 
 /**
@@ -231,7 +231,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	@Override
 	public void validateTransportCriteria(
-			TransportCriteriaContainer transportCriteriaContainer) {
+			TransportsCriteriaContainer transportCriteriaContainer) {
 		
 		StaticValidator.validateTransportCriteria(transportCriteriaContainer);
 	}
@@ -239,7 +239,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public List<Transports> getTransportsListWithContainers(
 			PageInfoContainer container,
-			TransportCriteriaContainer transportCriteriaContainer) {
+			TransportsCriteriaContainer transportCriteriaContainer) {
 
 		return getTransportsListForAddTripsWithPaging(
 				container.getPageNumber(), container.getResultsPerPage(),
@@ -256,7 +256,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 	@Override
 	public long getTransportsListCountWithContainers(
-			TransportCriteriaContainer transportCriteriaContainer) {
+			TransportsCriteriaContainer transportCriteriaContainer) {
 		
 		return getTransportsListForAddTripsCount(
 				transportCriteriaContainer.getTransportCode(),

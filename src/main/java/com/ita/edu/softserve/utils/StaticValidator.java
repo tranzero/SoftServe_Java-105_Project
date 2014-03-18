@@ -11,7 +11,7 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
@@ -273,7 +273,7 @@ public class StaticValidator {
 /*-----------------------------------------------------------*/
 
 	public static void validateTransportCriteria(
-			TransportCriteriaContainer container) {
+			TransportsCriteriaContainer container) {
 		Set<String> fieldsSet = new TreeSet<String>();
 		Collections.addAll(fieldsSet,
 				TransportForAddTripsCriteriaContainerImpl.ORDER_BY_COLUMNS);

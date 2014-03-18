@@ -5,7 +5,7 @@ import java.util.List;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 
 /**
@@ -89,14 +89,14 @@ public interface TransportsManager extends BaseManager {
 	 */
 	List<Transports> getTransportsListWithContainers(
 			PageInfoContainer container,
-			TransportCriteriaContainer transportCriteriaContainer);
+			TransportsCriteriaContainer transportCriteriaContainer);
 
 	/**
 	 * @param transportCriteriaContainer
 	 * @return
 	 */
 	long getTransportsListCountWithContainers(
-			TransportCriteriaContainer transportCriteriaContainer);
+			TransportsCriteriaContainer transportCriteriaContainer);
 	
 	/**
 	 * @param transportCode
@@ -154,7 +154,7 @@ public interface TransportsManager extends BaseManager {
 	 * @param transportCriteriaContainer
 	 */
 	void validateTransportCriteria(
-			TransportCriteriaContainer transportCriteriaContainer);
+			TransportsCriteriaContainer transportCriteriaContainer);
 	/*--------------------------END-for transport paging sorting filtering------------------------------------------*/
 	
 	/**

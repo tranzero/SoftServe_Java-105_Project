@@ -36,9 +36,9 @@ import com.ita.edu.softserve.propertyeditors.RoutesEditor;
 import com.ita.edu.softserve.propertyeditors.TimeEditor;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
-import com.ita.edu.softserve.validationcontainers.impl.TransportCriteriaContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportsCriteriaContainerImpl;
 
 /**
  * Base controller class for Transports.
@@ -294,7 +294,7 @@ public class TransportController {
 
 	/*------------------For Transport Table Filter Sorting-------------------*/
 
-	private void putFillElementsOptions(TransportCriteriaContainer container,
+	private void putFillElementsOptions(TransportsCriteriaContainer container,
 			ModelMap modelMap) {
 
 		modelMap.addAttribute(IS_TRANSPORT_CODE_ATTRIBUTE_NAME,
@@ -319,7 +319,7 @@ public class TransportController {
 	}
 
 	private void completeMapForAddTransports(PageInfoContainer container,
-			TransportCriteriaContainer transportCriteriaContainer,
+			TransportsCriteriaContainer transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 		putFillElementsOptions(transportCriteriaContainer, modelMap);
 		transportsManager.validateTransportCriteria(transportCriteriaContainer);
@@ -356,7 +356,7 @@ public class TransportController {
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_WEB_NAME, method = RequestMethod.GET)
 	public String printTransportsListManage(PageInfoContainerImpl container,
-			TransportCriteriaContainerImpl transportCriteriaContainer,
+			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 
 		completeMapForAddTransports(container, transportCriteriaContainer,
@@ -381,7 +381,7 @@ public class TransportController {
 	@RequestMapping(value = TRANSPORT_LIST_PAGE_WEB_NAME, method = RequestMethod.GET)
 	public String printTransportsListPageManage(
 			PageInfoContainerImpl container,
-			TransportCriteriaContainerImpl transportCriteriaContainer,
+			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 		completeMapForAddTransports(container, transportCriteriaContainer,
 				modelMap, locale);
@@ -405,7 +405,7 @@ public class TransportController {
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_MANAGE_NAME, method = RequestMethod.GET)
 	public String printTransportsList(PageInfoContainerImpl container,
-			TransportCriteriaContainerImpl transportCriteriaContainer,
+			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 
 		completeMapForAddTransports(container, transportCriteriaContainer,
@@ -429,7 +429,7 @@ public class TransportController {
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_PAGE_MANAGE_NAME, method = RequestMethod.GET)
 	public String printTransportsListPage(PageInfoContainerImpl container,
-			TransportCriteriaContainerImpl transportCriteriaContainer,
+			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 		completeMapForAddTransports(container, transportCriteriaContainer,
 				modelMap, locale);

@@ -1,6 +1,6 @@
 package com.ita.edu.softserve.validationcontainers;
 
-public interface TransportCriteriaContainer {
+public interface TransportsCriteriaContainer {
 
 	void setValuableParams(String transportCode, String routeName,
 			String routesCode, Integer seatClass1, Integer seatClass2,

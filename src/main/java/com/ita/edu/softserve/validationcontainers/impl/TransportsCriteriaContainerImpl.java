@@ -1,8 +1,8 @@
 package com.ita.edu.softserve.validationcontainers.impl;
 
-import com.ita.edu.softserve.validationcontainers.TransportCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 
-public class TransportCriteriaContainerImpl implements TransportCriteriaContainer {
+public class TransportsCriteriaContainerImpl implements TransportsCriteriaContainer {
 	
 	public static final String[] ORDER_BY_COLUMNS= {
 		"t.transportCode",
@@ -196,7 +196,7 @@ public class TransportCriteriaContainerImpl implements TransportCriteriaContaine
 	 * @param orderByCriteria
 	 * @param orderByDirection
 	 */
-	public TransportCriteriaContainerImpl(String transportCode,
+	public TransportsCriteriaContainerImpl(String transportCode,
 			String routeName, String routesCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, String priceName,
 			String orderByCriteria, String orderByDirection) {
@@ -226,7 +226,7 @@ public class TransportCriteriaContainerImpl implements TransportCriteriaContaine
 	 * @return
 	 */
 	
-	public TransportCriteriaContainerImpl(){
+	public TransportsCriteriaContainerImpl(){
 		super();
 	}
 	
