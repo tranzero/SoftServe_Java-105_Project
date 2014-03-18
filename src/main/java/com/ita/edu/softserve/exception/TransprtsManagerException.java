@@ -1,32 +1,40 @@
 package com.ita.edu.softserve.exception;
 
 /**
- * The exception class for TransprtsManager.
- * @author Roman
+ * Thrown by the TransprtsManager when a problem occurs.
  *
+ * @author Roman
  */
 public class TransprtsManagerException extends RuntimeException {
 
 	private static final long serialVersionUID = -8260139134189365220L;
 
 	/**
-	 * The default constructor.
+	 * Constructs a new <code>TransprtsManagerException</code> exception
+	 * with <code>null</code> as its detail message.
 	 */
 	public TransprtsManagerException() {
+		super();
 	}
 
 	/**
-	 * @param msg the message to add to exception.
+	 * Constructs a new <code>TransprtsManagerException</code> exception
+	 * with the specified detail message.
+	 *
+	 * @param message the detail message.
 	 */
-	public TransprtsManagerException(String msg) {
-		super(msg);
+	public TransprtsManagerException(String message) {
+		super(message);
 	}
 
 	/**
-	 * @param msg the message to add to exception.
-	 * @param e the exception.
+	 * Constructs a new <code>TransprtsManagerException</code> exception
+	 * with the specified detail message and cause.
+	 *
+	 * @param message the detail message.
+	 * @param cause the cause.
 	 */
-	public TransprtsManagerException(String msg, Exception e) {
-		super(msg, e);
+	public TransprtsManagerException(String message, Exception cause) {
+		super(message, cause);
 	}
 }
