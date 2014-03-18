@@ -19,7 +19,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		TransportsDao {
 
 	/**
-	 * @return
+	 * @return the type Class of <code>Transports</code> object class.
 	 */
 	@Override
 	public Class<Transports> getEntityClass() {
@@ -27,10 +27,10 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * Finds Transport by route id.
+	 * Finds <code>Transports</code> by route id.
 	 * 
-	 * @param id
-	 *            the Id to find object.
+	 * @param id the Id to find object by
+ 	 * @return the <code>Transports</code> object
 	 */
 	@Override
 	public Transports findByRouteId(int id) {
@@ -42,8 +42,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @param code
-	 * @return
+ 	 * Finds <code>Transports</code> by route code.
+	 * @param code the code to find object by
+ 	 * @return the <code>Transports</code> object if exist
 	 */
 	@Override
 	public Transports findByCode(String code) {
@@ -54,51 +55,49 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * Saves a Transport into the Transports table if not exist or updates
+	 * If <code>Transports</code> ID is<code>null</code> saves the
+	 * <code>Transports</code> into the Transports table otherwise updates
 	 * existing one.
-	 * 
-	 * @param entity
-	 *            the transport to save or update into Transports table.
+	 * @param transports the <code>Transports</code> object
 	 */
 	@Override
-	public void saveOrUpdate(Transports entity) {
-		if (entity.getTransportId() == null) {
-			entityManager.persist(entity);
+	public void saveOrUpdate(Transports transports) {
+		if (transports.getTransportId() == null) {
+			entityManager.persist(transports);
 		} else {
-			entityManager.merge(entity);
+			entityManager.merge(transports);
 		}
 	}
 
 	/*---------------------------for transport paging sorting filtering------------------------------------------*/
 
 	/**
-	 * Finds Transport by criteria.
-	 */
-	/**
-	 * @param firstElement
-	 * @param count
-	 * @param transportCode
-	 * @param routeName
-	 * @param routeCode
-	 * @param seatClass1
-	 * @param seatClass2
-	 * @param seatClass3
-	 * @param price
-	 * @param OrderByCriteria
-	 * @param OrderByDirection
-	 * @return
+	 * Finds <code>Transports</code> by parameter.
+	 * 
+	 * @param firstElement the first element
+	 * @param count the capacity of result list
+	 * @param transportCode the transports code for matching
+	 * @param routeName the route name to set for matching
+	 * @param routeCode the route code to set for matching
+	 * @param seatClass1 the seat class 1 to set for matching
+	 * @param seatClass2 the seat class 2 to set for matching
+	 * @param seatClass3 the seat class 3 to set for matching
+	 * @param price the price to set for matching
+	 * @param orderByCriteria the filter criteria
+	 * @param orderByDirection the sorting direction
+	 * @return the List of <code>Transports</code> objects
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transports> getTransportsList(int firstElement, int count,
 			String transportCode, String routeName, String routeCode,
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String OrderByCriteria, String OrderByDirection) {
+			Double price, String orderByCriteria, String orderByDirection) {
 
 		Query query = entityManager
 				.createQuery(
-						Transports.FIND_TRANSPORTS_QUERY + OrderByCriteria
-								+ " " + OrderByDirection)
+						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
+								+ orderByCriteria + " " + orderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
@@ -112,14 +111,15 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * @param transportCode
-	 * @param routeName
-	 * @param routeCode
-	 * @param seatClass1
-	 * @param seatClass2
-	 * @param seatClass3
-	 * @param price
-	 * @return
+	 * 
+	 * @param transportCode the transports code for matching
+	 * @param routeName the route name to set for matching
+	 * @param routeCode the route code to set for matching
+	 * @param seatClass1 the seat class 1 to set for matching
+	 * @param seatClass2 the seat class 2 to set for matching
+	 * @param seatClass3 the seat class 3 to set for matching
+	 * @param price the price to set for matching
+	 * @return the quantity of <code>Transports</code> objects
 	 */
 	@Override
 	public long getTransportsListCount(String transportCode, String routeName,
@@ -127,7 +127,8 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			Integer seatClass3, Double price) {
 
 		return (long) find((Query) entityManager
-				.createNamedQuery(Transports.FIND_TRANSPORTS_COUNT)
+				.createNamedQuery(
+						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
