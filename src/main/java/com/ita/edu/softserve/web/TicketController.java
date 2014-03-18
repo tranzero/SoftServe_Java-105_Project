@@ -53,7 +53,7 @@ public class TicketController {
 
 	private static final String BAG_PAY_PAGE = "bagPay";
 
-	private static final String BAG_PAGE = "bag";
+	private static final String BAG_PAGE = "redirect:/bag";
 
 	private static final String TICKETS_LIST = "ticketsList";
 
@@ -159,7 +159,7 @@ public class TicketController {
 		
 		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		
-		return BAG_PAGE;
+		return "bag";
 		
 	}
 
@@ -192,9 +192,9 @@ public class TicketController {
 			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
-		shoppingBag.remove(ticketName, tripId);
+		shoppingBag.removeTicket(ticketName, tripId);
 		
-		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
+	//	modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		return BAG_PAGE;
 	}
 	

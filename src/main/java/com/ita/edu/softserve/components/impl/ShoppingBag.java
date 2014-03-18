@@ -52,17 +52,6 @@ public class ShoppingBag implements Serializable {
 		tickets.add(ticket);
 	}
 
-	@Transactional
-	public void remove(String ticketName, Integer tripId) {
-		
-		for (Tickets ticket:tickets) {
-			if (ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)) {
-				tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
-			}
-			tickets.remove(ticket);
-		}
-		System.out.println("remove");
-	}
 	
 	
 	/**
@@ -72,17 +61,14 @@ public class ShoppingBag implements Serializable {
 	 */
 	public void removeTicket(String ticketName, Integer tripId) {
 
-		TripsManager tripsManager = TripsManagerImpl.getInstance();
+		 tripsManager = TripsManagerImpl.getInstance();
+		 for (Tickets ticket : tickets) {
+			 if (ticket.getTicketName().equals(ticketName) && ticket.getTrip().getTripId().equals(tripId)) {
 
-		int i = 0;
-		do {
-			if (tickets.get(i).getTicketName().equals(ticketName) && tickets.get(i).getTrip().getTripId().equals(tripId)) {
-
-				tripsManager.increaseFreeSeatsQuantity(tickets.get(i).getTrip().getTripId(), tickets.get(i).getSeatType());
-				tickets.remove(tickets.get(i));
-			}
-			i++;
-		} while (i < tickets.size());
+					tripsManager.increaseFreeSeatsQuantity(ticket.getTrip().getTripId(), ticket.getSeatType());
+					tickets.remove(ticket);
+				}
+		}
 
 		System.out.println("remove");
 	}
