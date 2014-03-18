@@ -53,15 +53,26 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	@Transactional
 	@Override
 	public boolean createNews(String newsTitle, String newsDescription, String imageSrc) {
-
+		Post tempPost = null ;
 		try {
+			tempPost = postDao.findByTitle(newsTitle);
+		} catch (RuntimeException ex){
+
+		}
+		if (tempPost == null) {
+		try {
+			
 			Post post = new Post(newsTitle, newsDescription, imageSrc);
 			postDao.save(post);
+			
 			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
 			
 			return true;
+		
 		} catch (RuntimeException e) {
 			LOGGER.error(createPostMsg,e);
+		
+		}
 		}
 		return false;
 	}
