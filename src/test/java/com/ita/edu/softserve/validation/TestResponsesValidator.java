@@ -10,6 +10,11 @@ import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Responses;
 
+/**
+ * 
+ * @author yuraloga
+ *
+ */
 public class TestResponsesValidator {
 
 	private Validator responsesValidator;
