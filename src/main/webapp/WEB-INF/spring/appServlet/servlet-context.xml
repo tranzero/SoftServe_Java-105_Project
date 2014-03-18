@@ -25,16 +25,15 @@
 		<beans:property name="prefix" value="jsp/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
- -->
- <beans:bean id="multipartResolver"
+-->
+ 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
  	<beans:bean id="LoginController"
     	class="org.springframework.web.servlet.mvc.ParameterizableViewController">
     	<beans:property name="viewName" value="login" />
 	</beans:bean>
 	
-	<beans:bean id="urlMapping"
-  		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
+	<beans:bean id="urlMapping"	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
   		<beans:property name="mappings">
   			 <beans:props>    
    				 <beans:prop key="/login.html">LoginController</beans:prop>
@@ -59,8 +58,7 @@
 		</beans:bean>
 	</mvc:interceptors>
 
-	<beans:bean id="messageSource"
-	    	class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 	    	<beans:property name="basename" value="classpath:i18n/messages" />
     		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
