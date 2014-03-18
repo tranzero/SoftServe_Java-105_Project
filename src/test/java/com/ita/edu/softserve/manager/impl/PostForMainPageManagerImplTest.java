@@ -58,12 +58,12 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testRemoveNews() {
+		
+		
 		Post post = new Post(postTitleMock, postDescriptionMock, postImgSrcMock);
 		when(postDao.findByTitle(postTitleMock)).thenReturn(post);
 		
 		boolean isDeletedPost = false;
-		
-		
 		isDeletedPost = postManager.removePost(postTitleMock);
 		
 		assertTrue(isDeletedPost);
