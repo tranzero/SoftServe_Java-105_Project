@@ -106,19 +106,6 @@ public class TestStationManagerImpl {
 	}
 
 	/**
-	 * Test method for Null.<br/>
-	 * Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
-	 * @throws StationManagerException 
-	 */
-	@Test(expected = java.lang.NullPointerException.class)
-	public final void testFindAllStationsShouldThrowNullPointerException() throws StationManagerException {
-		when(mockStationsDAOImpl.getAllEntities()).thenThrow(
-				new NullPointerException());
-		stationsManagerImpl.findAllStations();
-	}
-
-	/**
 	 * Test the methods for Equals.
 	 * @throws StationManagerException 
 	 */
