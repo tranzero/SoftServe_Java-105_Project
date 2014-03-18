@@ -30,8 +30,7 @@
     <task:scheduler id="scheduler" pool-size="10"/>
 
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
@@ -41,8 +40,6 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
-
 
 	<!-- @Component, @Service, @Repository -->
 	<context:component-scan base-package="com.ita.edu.softserve.dao" />
@@ -55,7 +52,9 @@
 	<context:component-scan base-package="com.ita.edu.softserve.validationcontainers.impl" />
 	<context:component-scan base-package="com.ita.edu.softserve.components" />
 	<context:component-scan base-package="com.ita.edu.softserve.components.impl" />
+	<context:component-scan base-package="com.ita.edu.softserve.validation" />
 	
 	<!-- Spring Security -->
 	<import resource="security-context.xml" />
+	
 </beans>
