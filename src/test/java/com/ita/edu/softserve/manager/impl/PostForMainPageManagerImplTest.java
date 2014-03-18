@@ -4,19 +4,19 @@
 package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.ita.edu.softserve.dao.PostDAO;
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
+import com.ita.edu.softserve.manager.UserNameService;
 
 /**
  * @author tranzero
@@ -30,12 +30,20 @@ public class PostForMainPageManagerImplTest {
 	@Mock
 	private PostDAOImpl postDao;
 	
+	@Mock
+	private UserNameService userName;
+	
+	
+	
 	@InjectMocks
 	private PostForMainPageManager postManager = new PostForMainPageManagerImpl();
 	
 	String postTitleMock = "test Title";
 	String postDescriptionMock = "test Description";
 	String postImgSrcMock = "test.png";
+	
+	@Spy
+	private Post post = new Post(postTitleMock, postDescriptionMock, postImgSrcMock);
 
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#findPostList()}.
@@ -51,6 +59,8 @@ public class PostForMainPageManagerImplTest {
 	@Test
 	public final void testCreateNews() {
 		
+		
+		
 	}
 
 	/**
@@ -58,11 +68,10 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testRemoveNews() {
-		
-		
-		Post post = new Post(postTitleMock, postDescriptionMock, postImgSrcMock);
+	
 		when(postDao.findByTitle(postTitleMock)).thenReturn(post);
-		
+		when(userName.getLoggedUsername()).thenReturn("pukan");
+		doReturn(20).when(post).getPostId();
 		boolean isDeletedPost = false;
 		isDeletedPost = postManager.removePost(postTitleMock);
 		
