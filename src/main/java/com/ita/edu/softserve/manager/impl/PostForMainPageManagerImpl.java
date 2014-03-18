@@ -52,16 +52,18 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 	@Transactional
 	@Override
-	public void createNews(String newsTitle, String newsDescription, String imageSrc) {
+	public boolean createNews(String newsTitle, String newsDescription, String imageSrc) {
 
 		try {
 			Post post = new Post(newsTitle, newsDescription, imageSrc);
 			postDao.save(post);
 			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
+			
+			return true;
 		} catch (RuntimeException e) {
 			LOGGER.error(createPostMsg,e);
 		}
-
+		return false;
 	}
 
 	@Transactional
@@ -105,7 +107,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 	@Transactional
 	@Override
-	public void updateNews(Integer newsId, String newsTitle,
+	public boolean updateNews(Integer newsId, String newsTitle,
 			String newsDescription, String imageSrc) {
 
 		try {
@@ -116,10 +118,12 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			post.setImgSrc(imageSrc);
 			postDao.update(post);
 			LOGGER.info(entityName + post.getPostId() + changeMsg + userName.getLoggedUsername());
+			
+			return true;
 		} catch (RuntimeException e) {
 			LOGGER.error(updatePostMsg ,e);
 		}
-
+		return false;
 	}
 
 	@Override

@@ -19,9 +19,9 @@ public interface PostForMainPageManager extends BaseManager {
 
 	public List<Post> getPostForPage(int from, int count);
 
-	void createNews(String newsTitle, String newsDescription, String imageSrc);
+	boolean createNews(String newsTitle, String newsDescription, String imageSrc);
 
-	void updateNews(Integer newsId, String newsTitle, String newsDescription,
+	boolean updateNews(Integer newsId, String newsTitle, String newsDescription,
 			String imageSrc);
 
 	boolean removePost(String title);

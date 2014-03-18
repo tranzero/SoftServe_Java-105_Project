@@ -5,6 +5,8 @@ package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -38,13 +40,23 @@ public class PostForMainPageManagerImplTest {
 	@InjectMocks
 	private PostForMainPageManager postManager = new PostForMainPageManagerImpl();
 	
+	int postIdMock = 20;
 	String postTitleMock = "test Title";
 	String postDescriptionMock = "test Description";
 	String postImgSrcMock = "test.png";
 	
 	@Spy
 	private Post post = new Post(postTitleMock, postDescriptionMock, postImgSrcMock);
-
+	
+	@Before
+	public final void setUp() {
+		when(userName.getLoggedUsername()).thenReturn("pukan");
+		doReturn(postIdMock).when(post).getPostId();
+		when(postDao.findByTitle(postTitleMock)).thenReturn(post);
+		when(postDao.findById(postIdMock)).thenReturn(post);
+	}
+	
+	
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#findPostList()}.
 	 */
@@ -59,6 +71,10 @@ public class PostForMainPageManagerImplTest {
 	@Test
 	public final void testCreateNews() {
 		
+		boolean isCreatedPost = false;
+		isCreatedPost = postManager.createNews(postTitleMock, postDescriptionMock, postImgSrcMock);
+		
+		assertTrue(isCreatedPost);
 		
 		
 	}
@@ -68,10 +84,7 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testRemoveNews() {
-	
-		when(postDao.findByTitle(postTitleMock)).thenReturn(post);
-		when(userName.getLoggedUsername()).thenReturn("pukan");
-		doReturn(20).when(post).getPostId();
+
 		boolean isDeletedPost = false;
 		isDeletedPost = postManager.removePost(postTitleMock);
 		
@@ -91,6 +104,14 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testUpdateNews() {
+		boolean isUpdatedPost = false;
+		doCallRealMethod().when(post).setDescription(postDescriptionMock);
+		doCallRealMethod().when(post).setTitle(postTitleMock);
+		doCallRealMethod().when(post).setDate();
+		doCallRealMethod().when(post).setImgSrc(postImgSrcMock);
+		isUpdatedPost = postManager.updateNews(postIdMock ,postTitleMock, postDescriptionMock, postImgSrcMock);
+		
+		assertTrue(isUpdatedPost);
 		
 	}
 
