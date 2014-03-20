@@ -46,6 +46,10 @@ public class PostDAOImpl extends AbstractDAO<Post> implements PostDAO{
     public Post findByTitle(String title) {
 	Query query = entityManager.createNamedQuery(
 		Post.FIND_BY_TITLE).setParameter(1, title);
-	return (Post) find(query);
+	Post post = null;
+	try {
+	post =(Post) find(query);
+	} catch (ClassCastException e){}
+	return post;
     }
 }

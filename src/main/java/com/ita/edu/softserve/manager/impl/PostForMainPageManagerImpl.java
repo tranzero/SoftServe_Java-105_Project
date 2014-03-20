@@ -53,16 +53,13 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	@Transactional
 	@Override
 	public boolean createNews(String newsTitle, String newsDescription, String imageSrc) {
-		Post tempPost = null ;
-		try {
-			tempPost = postDao.findByTitle(newsTitle);
-		} catch (RuntimeException ex){
-
-		}
-		if (tempPost == null) {
+		Post post = null ;
+		post = postDao.findByTitle(newsTitle);
+		
+		if (post == null) {
 		try {
 			
-			Post post = new Post(newsTitle, newsDescription, imageSrc);
+			post = new Post(newsTitle, newsDescription, imageSrc);
 			postDao.save(post);
 			
 			LOGGER.info(entityName + post.getPostId() + addMsg + userName.getLoggedUsername());
@@ -71,7 +68,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 		
 		} catch (RuntimeException e) {
 			LOGGER.error(createPostMsg,e);
-		
+			return false;
 		}
 		}
 		return false;
@@ -111,7 +108,8 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	public Post findNews(Integer postId) {
 		
 		try {
-			return postDao.findById(postId);
+			Post post = postDao.findById(postId);
+			return post;
 		} catch (RuntimeException e) {
 			LOGGER.error(findByIdPostMsg, e);
 			throw e;
@@ -125,6 +123,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 
 		try {
 			Post post = postDao.findById(newsId);
+			if (post != null) {
 			post.setTitle(newsTitle);
 			post.setDescription(newsDescription);
 			post.setDate();
@@ -133,6 +132,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 			LOGGER.info(entityName + post.getPostId() + changeMsg + userName.getLoggedUsername());
 			
 			return true;
+			}
 		} catch (RuntimeException e) {
 			LOGGER.error(updatePostMsg ,e);
 		}

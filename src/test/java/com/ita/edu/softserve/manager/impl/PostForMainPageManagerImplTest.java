@@ -3,10 +3,16 @@
  */
 package com.ita.edu.softserve.manager.impl;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +22,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.ita.edu.softserve.dao.PostDAO;
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.manager.PostForMainPageManager;
@@ -46,6 +51,7 @@ public class PostForMainPageManagerImplTest {
 	String postTitleMock = "test Title";
 	String postDescriptionMock = "test Description";
 	String postImgSrcMock = "test.png";
+	String emptyArgString = null;
 	
 	@Spy
 	private Post post = new Post(postTitleMock, postDescriptionMock, postImgSrcMock);
@@ -65,14 +71,27 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test
 	public final void testFindPostList() {
+		List <Post> expected = new ArrayList<Post>();
+		when(postDao.getAllEntities()).thenReturn(expected);
+		List <Post> actual = postManager.findPostList();
+		assertEquals(expected, actual);
 		
+	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#findPostList()}.
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testFindPostListException() {
+		when(postDao.getAllEntities()).thenThrow(new RuntimeException());
+		postManager.findPostList();
 	}
 	
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#createNews(java.lang.String, java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	public final void testCreateNewsNew() {
+	public final void testCreateNews() {
 		
 		boolean isCreatedPost = false;
 		when(postDao.findByTitle(postTitleMock)).thenReturn(null);
@@ -80,30 +99,36 @@ public class PostForMainPageManagerImplTest {
 		
 		assertTrue(isCreatedPost);
 	}
-
+	
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#createNews(java.lang.String, java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	public final void testCreateNews() {
+	public final void testCreateNewsWhenNewsIsset() {
 		
-		String secondPostTitleMock = "test 2 title";
-		boolean isCreatedPost = false;
-		isCreatedPost = postManager.createNews(secondPostTitleMock, postDescriptionMock, postImgSrcMock);
+		boolean isCreatedPost = true;
+		isCreatedPost = postManager.createNews(postTitleMock, postDescriptionMock, postImgSrcMock);
 		
-		assertTrue(isCreatedPost);
+		assertFalse(isCreatedPost);
 	}
 	
-
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#createNews(java.lang.String, java.lang.String, java.lang.String)}.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test (expected = IllegalArgumentException.class)
 	public final void testCreateNewsExeptionFirthValue() {
-		
-		doThrow(IOException.class).when(post).setTitle("");
-		postManager.createNews("", postDescriptionMock, postImgSrcMock);
-		
+		when(new Post (emptyArgString, postDescriptionMock, postImgSrcMock)).thenThrow(new IllegalArgumentException());
+		postManager.createNews(emptyArgString, postDescriptionMock, postImgSrcMock);
+	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#createNews(java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public final void testCreateNewsExeptionFirthValueTwo() {
+
+		doThrow(new IllegalArgumentException()).when(post).setTitle(emptyArgString);
+		postManager.createNews(emptyArgString, postDescriptionMock, postImgSrcMock);
 	}
 	
 	/**
@@ -111,11 +136,9 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testCreateNewsExeptionSecondValue() {
-		
-		doThrow(IllegalArgumentException.class).when(post).setDescription("");
-		postManager.createNews(postTitleMock , "", postImgSrcMock);
-		
-		
+
+		when(new Post (postTitleMock, emptyArgString, postImgSrcMock)).thenThrow(new IllegalArgumentException());
+		postManager.createNews(postTitleMock, emptyArgString, postImgSrcMock);
 	}
 	
 	/**
@@ -123,15 +146,14 @@ public class PostForMainPageManagerImplTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testCreateNewsExeptionBothValues() {
-		doThrow(IllegalArgumentException.class).when(post).setTitle("");
-		doThrow(IllegalArgumentException.class).when(post).setDescription("");
-		postManager.createNews("", "", postImgSrcMock);
-		
-		
-	}
 
+		when(new Post (emptyArgString, emptyArgString, postImgSrcMock)).thenThrow(new IllegalArgumentException());
+		postManager.createNews(emptyArgString, emptyArgString, postImgSrcMock);
+	}
+	
+	
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removeNews(java.lang.Integer)}.
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removePost(java.lang.Integer)}.
 	 */
 	@Test
 	public final void testRemovePost() {
@@ -140,6 +162,17 @@ public class PostForMainPageManagerImplTest {
 		isDeletedPost = postManager.removePost(postTitleMock);
 		
 		assertTrue(isDeletedPost);
+	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removePost(java.lang.Integer)}.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testRemovePostExeption() {
+
+		when(postDao.findByTitle(postTitleMock)).thenThrow(new NullPointerException());
+		postManager.removePost(postTitleMock);
+		
 	}
 	
 	/**
@@ -154,6 +187,16 @@ public class PostForMainPageManagerImplTest {
 		assertTrue(isDeletedPost);
 	}
 	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#removeNews(java.lang.Integer)}.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testRemoveNewsExeption() {
+
+		when(postDao.findById(postIdMock)).thenThrow(new NullPointerException());
+		postManager.removeNews(postIdMock);
+		
+	}
 	
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#findNews(java.lang.Integer)}.
@@ -165,12 +208,13 @@ public class PostForMainPageManagerImplTest {
 		
 	}
 	
+
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#findNews(java.lang.Integer)}.
 	 */
-	@Test(expected = RuntimeException.class)
+	@Test(expected = NullPointerException.class)
 	public final void testFindNewsException() {
-		when(postDao.findById(postIdMock)).thenThrow(RuntimeException.class);
+		when(postDao.findById(postIdMock)).thenThrow(new NullPointerException());
 		postManager.findNews(postIdMock);
 
 	}
@@ -189,6 +233,27 @@ public class PostForMainPageManagerImplTest {
 		
 		assertTrue(isUpdatedPost);
 	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#updateNews(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public final void testUpdateNewsWhenPostNull() {
+		boolean isUpdatedPost = true;
+		when(postDao.findById(postIdMock)).thenReturn(null);
+		isUpdatedPost = postManager.updateNews(postIdMock ,postTitleMock, postDescriptionMock, postImgSrcMock);
+		
+		assertFalse(isUpdatedPost);
+	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#updateNews(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)}.
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testUpdateNewsException() {
+		when(postDao.findById(postIdMock)).thenThrow(new RuntimeException());
+		postManager.updateNews(postIdMock ,postTitleMock, postDescriptionMock, postImgSrcMock);
+	}
 
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#getPostListCount()}.
@@ -201,13 +266,40 @@ public class PostForMainPageManagerImplTest {
 		long actual = postManager.getPostListCount();
 		assertEquals(expected, actual);
 	}
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#getPostListCount()}.
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testGetPostListCountException() {
+		when(postDao.getPostListCount()).thenThrow(new RuntimeException());
+		
+		postManager.getPostListCount();
+	}
 
 	/**
 	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#getPostForPage(int, int)}.
 	 */
 	@Test
 	public final void testGetPostForPage() {
+		int from = 10;
+		int count = 10;
+		List <Post> expected = new ArrayList<Post>();
+		when(postDao.getPostForOnePage(from, count)).thenReturn(expected);
+		List <Post> actual = postManager.getPostForPage(from, count);
+		assertEquals(expected, actual);
 		
 	}
-
+	
+	/**
+	 * Test method for {@link com.ita.edu.softserve.manager.impl.PostForMainPageManagerImpl#getPostForPage(int, int)}.
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testGetPostForPageException() {
+		int from = 10;
+		int count = 10;
+		when(postDao.getPostForOnePage(from, count)).thenThrow(new RuntimeException());
+		postManager.getPostForPage(from, count);
+		
+	}
 }
