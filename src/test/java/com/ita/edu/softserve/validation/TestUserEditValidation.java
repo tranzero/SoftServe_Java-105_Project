@@ -17,11 +17,10 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
+
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Routes;
-import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
+
 import com.ita.edu.softserve.utils.ParseUtil;
 
 /**
@@ -47,20 +46,21 @@ public class TestUserEditValidation {
 
 	/* Black box tests */
 
-	/*
-	 * @Test public void testFirstName() { user.setFirstName("iryna"); errors =
-	 * new BeanPropertyBindingResult(user, "user");
-	 * userEditValidator.validate(user, errors);
-	 * 
-	 * assertTrue(errors.hasErrors());
-	 * assertNotNull(errors.getFieldError("firstName")); }
-	 */
+	@Test
+	public void hasFirstNameBlack() {
+		errors = new BeanPropertyBindingResult(user, "user");
+		userEditValidator.validate(user, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("firstName"));
+
+	}
 
 	/* White box tests */
 	@Test
 	public void hasFirstName() {
 		user.setFirstName("Roxana");
-		//user=new Users("rtyu8", "roxana", "yuuuu", "dff@mail.com", "123455", Role.MANAGER);
+//		user=new Users("rtyu8", "roxana", "yuuuu", "dff@mail.com", "123455", Role.MANAGER);
 		errors = new BeanPropertyBindingResult(user, "user");
 		userEditValidator.validate(user, errors);
 
