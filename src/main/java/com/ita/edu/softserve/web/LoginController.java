@@ -35,31 +35,29 @@ public class LoginController {
 	public static final String LOGOUT_PAGE = "redirect:/j_spring_security_logout";
 	
 	/**
-	 * Logout page to return
+	 * Login cancel button request mapping
 	 */
 	public static final String LOGINCANCEL = "/logincancel";
 	
 	/**
-	 * Logout page to return
+	 * Login request mapping
 	 */
 	public static final String LOGIN = "/login";
 	
 	/**
-	 * Logout page to return
+	 * Access denied request mapping
 	 */
 	public static final String ACCESS_DENIED = "/accessDenied";
 	
 	/**
-	 * Logout page to return
+	 * Login success request mapping
 	 */
 	public static final String LOGINSUCCESS = "/loginsuccess";
 	
 	/**
-	 * Logout page to return
+	 * Logout request mapping
 	 */
-	public static final String LOGOUT = "/logout";
-	
-	
+	public static final String LOGOUT = "/logout";	
 		
 	/**
 	 * Controller method for obtaining the referer page  
