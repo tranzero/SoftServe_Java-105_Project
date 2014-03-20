@@ -34,6 +34,32 @@ public class LoginController {
 	 */
 	public static final String LOGOUT_PAGE = "redirect:/j_spring_security_logout";
 	
+	/**
+	 * Logout page to return
+	 */
+	public static final String LOGINCANCEL = "/logincancel";
+	
+	/**
+	 * Logout page to return
+	 */
+	public static final String LOGIN = "/login";
+	
+	/**
+	 * Logout page to return
+	 */
+	public static final String ACCESS_DENIED = "/accessDenied";
+	
+	/**
+	 * Logout page to return
+	 */
+	public static final String LOGINSUCCESS = "/loginsuccess";
+	
+	/**
+	 * Logout page to return
+	 */
+	public static final String LOGOUT = "/logout";
+	
+	
 		
 	/**
 	 * Controller method for obtaining the referer page  
@@ -56,7 +82,7 @@ public class LoginController {
 	 * @param request
 	 * @return login page
 	 */
-	@RequestMapping(value="/login")
+	@RequestMapping(value=LOGIN)
 	public String login(HttpServletRequest request) {
 		String referer = getRefererFromRequest(request);
 		System.out.println(referer);
@@ -72,7 +98,7 @@ public class LoginController {
 	 * 	
 	 * @return access denied page
 	 */
-	@RequestMapping(value="/accessDenied")
+	@RequestMapping(value=ACCESS_DENIED)
 	public String accesserror() {		
 		return ACCESS_DENIED_PAGE;
 	}
@@ -83,7 +109,7 @@ public class LoginController {
 	 * 
 	 * @return referer page
 	 */
-	@RequestMapping(value="/loginsuccess")
+	@RequestMapping(value=LOGINSUCCESS)
 	public String loginsuccess(HttpServletRequest request) {  
 		return "redirect:" + getRefererFromSession(request);
 	}
@@ -91,7 +117,7 @@ public class LoginController {
 	/**
 	 * Controller method for logout 
 	 */
-	@RequestMapping(value="/logout")
+	@RequestMapping(value=LOGOUT)
 	public String logout() {		
 		return LOGOUT_PAGE;
  	}
@@ -102,7 +128,7 @@ public class LoginController {
 	 * 
 	 * @return referer page
 	 */
-    @RequestMapping(value="/logincancel")
+    @RequestMapping(value=LOGINCANCEL)
 	public String logincancel(HttpServletRequest request) {    	
 		return "redirect:" + getRefererFromSession(request);
 	}
