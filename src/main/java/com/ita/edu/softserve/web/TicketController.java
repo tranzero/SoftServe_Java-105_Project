@@ -53,7 +53,9 @@ public class TicketController {
 
 	private static final String BAG_PAY_PAGE = "bagPay";
 
-	private static final String BAG_PAGE = "redirect:/bag";
+	private static final String BAG_PAGE = "bag";
+	
+	private static final String REDIRECT_TO_BAG_PAGE = "redirect:/bag";
 
 	private static final String TICKETS_LIST = "ticketsList";
 
@@ -159,7 +161,7 @@ public class TicketController {
 		
 		modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
 		
-		return "bag";
+		return BAG_PAGE;
 		
 	}
 
@@ -188,14 +190,12 @@ public class TicketController {
 	
 	
 	@RequestMapping(value=DELETE_TICKET_URL, method=RequestMethod.GET)
-	public String deleteTciketFromBag(@PathVariable(value=TICKET_NAME) String ticketName,
+	public String deleteTicketFromBag(@PathVariable(value=TICKET_NAME) String ticketName,
 			@PathVariable(value=TRIP_ID) Integer tripId,
 			Map<String,Object> modelMap){
 		
 		shoppingBag.removeTicket(ticketName, tripId);
-		
-	//	modelMap.put(TICKETS_LIST, shoppingBag.getTickets());
-		return BAG_PAGE;
+		return REDIRECT_TO_BAG_PAGE;
 	}
 	
 }

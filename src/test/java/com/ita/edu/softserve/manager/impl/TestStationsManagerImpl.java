@@ -25,7 +25,7 @@ import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
 *
 * @author Roman
 */
-public class TestStationManagerImpl {
+public class TestStationsManagerImpl {
 
 /**
 * Mock object.
