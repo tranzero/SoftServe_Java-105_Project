@@ -31,7 +31,7 @@ import com.ita.edu.softserve.validation.ProfileEditValidator;
 public class UserController {
 
 	@Autowired
-	private UserManager usersmanage;
+	private UserManager usersManager;
 
 	@Autowired
 	Validator userEditValidator;
@@ -52,7 +52,7 @@ public class UserController {
 	@RequestMapping(value = "/userEdit/{user}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
+		Users user = usersManager.findUser(usId);
 		modelMap.put("user", user);
 		return "userEdit";
 	}
@@ -78,7 +78,7 @@ public class UserController {
 			modelMap.put("user", user);
 			return "userEdit";
 		}
-		usersmanage.updateTheUserData(user);
+		usersManager.updateTheUserData(user);
 		return "redirect:/userlist";
 	}
 
@@ -101,7 +101,7 @@ public class UserController {
 	 */
 	@RequestMapping("/userDelete/{user}")
 	public String deleteUser(@PathVariable("user") Integer userId) {
-		usersmanage.removeUser(userId);
+		usersManager.removeUser(userId);
 		return "redirect:/userlist";
 	}
 
@@ -114,7 +114,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/profileEdit", method = RequestMethod.GET)
 	public String editProfile(Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(userService.getLoggedUserId());
+		Users user = usersManager.findUser(userService.getLoggedUserId());
 		modelMap.put("user", user);
 		return "profileEdit";
 	}
@@ -134,7 +134,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "profileEdit";
 		}
-		usersmanage.updateUser2(user.getUserId(), user.getFirstName(),
+		usersManager.updateUser2(user.getUserId(), user.getFirstName(),
 				user.getLastName(), user.getEmail(), user.getPassword());
 		return "redirect:/mainpage";
 	}

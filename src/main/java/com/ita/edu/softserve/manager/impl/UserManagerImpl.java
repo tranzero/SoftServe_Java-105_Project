@@ -65,10 +65,8 @@ public class UserManagerImpl implements UserManager {
 			return userDao.getAllEntities();
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(USERS_NOT_FOUND, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(USERS_NOT_FOUND, e);
+			throw e;
 		}
 	}
 
@@ -82,11 +80,8 @@ public class UserManagerImpl implements UserManager {
 			return userDao.findById(id);
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(
-					COULD_NOT_FIND_USER_BY_ID, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(COULD_NOT_FIND_USER_BY_ID, e);
+			throw e;
 		}
 	}
 
@@ -102,11 +97,10 @@ public class UserManagerImpl implements UserManager {
 		} catch (RuntimeException e) {
 			RuntimeException ex = new UsersManagerExeption(
 					COULD_NOT_UPDATE_USER, e);
-			LOGGER.error(e);
+			LOGGER.error(COULD_NOT_UPDATE_USER, e);
 			LOGGER.error(ex);
 			throw ex;
 		}
-
 	}
 
 	/**
@@ -125,7 +119,6 @@ public class UserManagerImpl implements UserManager {
 			LOGGER.error(ex);
 			throw ex;
 		}
-
 	}
 
 	/**
@@ -274,32 +267,23 @@ public class UserManagerImpl implements UserManager {
 			throw new UsersManagerExeption("Could not get Users for one page",
 					e);
 		}
-
 	}
 
 	/**
 	 * Update user -(for userEditData1.jsp)-
-	 *//*
-	@Override
-	@Transactional
-	public void updateUser(Integer userId, String firstName, String lastName,
-			String email, String password, Role role) {
-		try {
-			Users user = userDao.findById(userId);
-
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			user.setEmail(email);
-			user.setPassword(password);
-			user.setRole(role);
-
-			userDao.update(user);
-		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(
-					COULD_NOT_UPDATE_USER, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
-		}
-	}*/
+	 */
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public void updateUser(Integer userId, String firstName,
+	 * String lastName, String email, String password, Role role) { try { Users
+	 * user = userDao.findById(userId);
+	 * 
+	 * user.setFirstName(firstName); user.setLastName(lastName);
+	 * user.setEmail(email); user.setPassword(password); user.setRole(role);
+	 * 
+	 * userDao.update(user); } catch (RuntimeException e) { RuntimeException ex
+	 * = new UsersManagerExeption( COULD_NOT_UPDATE_USER, e); LOGGER.error(e);
+	 * LOGGER.error(ex); throw ex; } }
+	 */
 }

@@ -44,7 +44,7 @@ public class UserControllerPg {
 	String mainPageOutPost = "userlist2page";
 
 	@Autowired
-	private UserManager usersmanage;
+	private UserManager usersManager;
 
 	@Autowired
 	public PaginationManager pageMan = PaginationManager.getInstance();
@@ -62,7 +62,7 @@ public class UserControllerPg {
 	@RequestMapping(value = "/userEdit2/{user}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("user") Integer usId,
 			Map<String, Object> modelMap) {
-		Users user = usersmanage.findUser(usId);
+		Users user = usersManager.findUser(usId);
 		modelMap.put("user", user);
 		return "userEdit2";
 	}
@@ -88,7 +88,7 @@ public class UserControllerPg {
 			modelMap.put("user", user);
 			return "userEdit2";
 		}
-		usersmanage.updateTheUserData(user);
+		usersManager.updateTheUserData(user);
 		return "redirect:/userlist2";
 	}
 
@@ -100,7 +100,7 @@ public class UserControllerPg {
 	 */
 	@RequestMapping("/userdelete/{user}")
 	public String deleteUser(@PathVariable("user") Integer userId) {
-		usersmanage.removeUser(userId);
+		usersManager.removeUser(userId);
 		return "redirect:/userlist2";
 	}
 
@@ -119,7 +119,7 @@ public class UserControllerPg {
 		try {
 			int maxPageCount = pageMan.getMaxPageCount(
 					pageMan.getDefaultResultPerPage(),
-					usersmanage.getUsersListCount());
+					usersManager.getUsersListCount());
 
 			modelMap.put(maxPageCountKey, maxPageCount);
 			return mainPageOutGet;
@@ -146,7 +146,7 @@ public class UserControllerPg {
 			Map<String, Object> modelMap) {
 
 		try {
-			long resultCount = usersmanage.getUsersListCount();
+			long resultCount = usersManager.getUsersListCount();
 
 			modelMap.put(maxResultCountKey, resultCount);
 			int maxPageCount = pageMan.getMaxPageCount(resultsPerPage,
@@ -158,7 +158,7 @@ public class UserControllerPg {
 			modelMap.put(pageNumberKey, pageNumber);
 			modelMap.put(resultsPerPageKey, resultsPerPage);
 
-			modelMap.put(usersListKey, usersmanage.getUsersForPage(
+			modelMap.put(usersListKey, usersManager.getUsersForPage(
 					currentPagingPosition, resultsPerPage));
 
 			return mainPageOutPost;

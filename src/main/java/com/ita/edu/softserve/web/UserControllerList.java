@@ -44,7 +44,7 @@ public class UserControllerList {
 			.getInstance();
 
 	@Autowired
-	private UserManager usersmanage;
+	private UserManager usersManager;
 
 	@Autowired
 	PageInfoContainer container;
@@ -95,9 +95,9 @@ public class UserControllerList {
 				maxDateString, isRegUser, isManager, isAdmin, orderByParam,
 				orderByDirection);
 		putFillElementsOptions(userCriteriaContainer, modelMap);
-		usersmanage.validateUserListCriteria(userCriteriaContainer, locale);
+		usersManager.validateUserListCriteria(userCriteriaContainer, locale);
 
-		long count = usersmanage
+		long count = usersManager
 				.getUsersListCountUsingContainer(userCriteriaContainer);
 
 		container.setPageNumber(pageNumber);
@@ -107,16 +107,16 @@ public class UserControllerList {
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put("container", userCriteriaContainer);
 		modelMap.put("encoder", encoder);
-		modelMap.put(USER_LIST, usersmanage.getUsersForLimitUsingContainers(
+		modelMap.put(USER_LIST, usersManager.getUsersForLimitUsingContainers(
 				userCriteriaContainer, container));
 		modelMap.put("language", locale.getLanguage());
 	}
 
 	/**
-	 * Shows userlist
+	 * Shows userList
 	 * 
 	 * @param modelMap
-	 * @return userlist
+	 * @return userList
 	 */
 	@RequestMapping(value = USERLIST, method = RequestMethod.GET)
 	public String getAllUser(
