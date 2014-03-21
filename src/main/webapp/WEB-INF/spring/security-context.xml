@@ -18,7 +18,7 @@
 	        <intercept-url pattern="/manage*" access="hasRole('MANAGER')"/>	        
 	        <intercept-url pattern="/checkResponses" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/stations" access="hasRole('MANAGER')"/>
-	        <intercept-url pattern="/transport" access="hasRole('MANAGER')"/>
+	        <intercept-url pattern="/transportListManage" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/tripsmanager" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>	
