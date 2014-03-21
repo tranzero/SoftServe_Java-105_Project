@@ -107,12 +107,13 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * 
+	 * IllegalArgumentException - if position does not correspond to a
+	 * positional parameter of the query or if the argument is of incorrect type
 	 */
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public final void testFindTransportsByCodeException() {
 		when(mockTransportsDaoImpl.findByCode("T0000000@1")).thenThrow(
-				new RuntimeException());
+				new IllegalArgumentException());
 
 		transportsManagerImpl.findTransportsByCode("T0000000@1");
 	}
@@ -147,8 +148,8 @@ public class TestTransportsManagerImpl {
 	@Test(expected = EntityExistsException.class)
 	public void testSaveTransportsException2() {
 		transports.setTransportId(Mockito.anyInt());
-		doThrow(new EntityExistsException()).when(mockTransportsDaoImpl)
-				.save(transports);
+		doThrow(new EntityExistsException()).when(mockTransportsDaoImpl).save(
+				transports);
 
 		transportsManagerImpl.saveTransports(transports);
 	}
@@ -172,7 +173,7 @@ public class TestTransportsManagerImpl {
 	public void testRemoveTransportById() {
 		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
 				transports);
-		
+
 		transportsManagerImpl.removeTransportById(transportsIdMock);
 
 		verify(mockTransportsDaoImpl).findById(transportsIdMock);
@@ -183,7 +184,7 @@ public class TestTransportsManagerImpl {
 	public void testRemoveTransportByIdException() {
 		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
 				transports);
-		
+
 		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
 				.remove(eq(transports));
 

@@ -23,9 +23,8 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
-
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportsManagerImpl.class);
+	
+	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
 
 	private String entityName = Transports.class.getSimpleName();
 
@@ -132,7 +131,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			LOGGER.info(entityName + removeMessage);
 
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportByIdMessage + transport.getTransportId(), e);
+			LOGGER.error(
+					removeTransportByIdMessage + transport.getTransportId(), e);
 			throw e;
 		}
 	}
@@ -191,7 +191,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/*---------------------------for transport paging, sorting, filtering------------------------------------------*/
-
+	/**
+	 * 
+	 */
 	@Override
 	public void validateTransportCriteria(
 			TransportsCriteriaContainer transportCriteriaContainer) {
