@@ -22,15 +22,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
-import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.utils.ParseUtil;
 
 /**
  * Class under test
@@ -51,11 +48,6 @@ public class TestTransportsManagerImpl {
 	int illegalId = -1;
 
 	private Transports transports;
-
-	@Spy
-	private Transports spyTransports = new Transports("T000000001",
-			ParseUtil.parseStringToTime("11:45:00"), new Routes(), 100, 150,
-			200, 25.0);
 
 	@Before
 	public final void setUp() {
@@ -176,24 +168,27 @@ public class TestTransportsManagerImpl {
 		transportsManagerImpl.removeTransports(transports);
 	}
 
-//	@Test()
-//	public void testRemoveTransportById() {
-//		// doCallRealMethod().when(transportsManagerImpl).removeTransportById(
-//		// eq(transportsIdMock));
-//
-//		transportsManagerImpl.removeTransportById(transportsIdMock);
-//
-//		verify(mockTransportsDaoImpl).findById(transportsIdMock);
-//		verify(mockTransportsDaoImpl).remove(transports);
-//	}
+	@Test()
+	public void testRemoveTransportById() {
+		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
+				transports);
+		
+		transportsManagerImpl.removeTransportById(transportsIdMock);
 
-//	@Test(expected = IllegalArgumentException.class)
-//	public void testRemoveTransportByIdException() {
-//		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
-//				.remove(eq(transports));
-//
-//		transportsManagerImpl.removeTransportById(transportsIdMock);
-//	}
+		verify(mockTransportsDaoImpl).findById(transportsIdMock);
+		verify(mockTransportsDaoImpl).remove(transports);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testRemoveTransportByIdException() {
+		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
+				transports);
+		
+		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+				.remove(eq(transports));
+
+		transportsManagerImpl.removeTransportById(transportsIdMock);
+	}
 
 	@Test()
 	public void testUpdateTransports() {
