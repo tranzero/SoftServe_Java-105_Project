@@ -4,61 +4,225 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
+import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.impl.TransportTravel;
-import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
+import com.ita.edu.softserve.utils.ParseUtil;
 
 /**
  * Class under test
  * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl}
+ * 
  * @author Roman
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TestTransportsManagerImpl {
 
-	/**
-	 * Mock object.
-	 */
+	@Mock
 	private TransportsDaoImpl mockTransportsDaoImpl;
 
-	/**
-	 * TransportsManagerImpl.
-	 */
-	private TransportsManagerImpl transportsManagerImpl;
+	@InjectMocks
+	private TransportsManagerImpl transportsManagerImpl = new TransportsManagerImpl();
 
-	/**
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws java.lang.Exception
-	 */
+	int transportsIdMock = 20;
+	int illegalId = -1;
+
+	private Transports transports;
+
+	@Spy
+	private Transports spyTransports = new Transports("T000000001",
+			ParseUtil.parseStringToTime("11:45:00"), new Routes(), 100, 150,
+			200, 25.0);
+
 	@Before
-	public final void setUp() throws NoSuchFieldException, SecurityException,
-			IllegalArgumentException, IllegalAccessException {
+	public final void setUp() {
+		transports = mock(Transports.class);
+	}
 
-		mockTransportsDaoImpl = mock(TransportsDaoImpl.class);
+	/**
+	 * Test the methods for Equals.
+	 */
+	@Test()
+	public void testFindTransportsById() {
+		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
+				transports);
+		Transports actualTransport = transportsManagerImpl
+				.findTransportsById(transportsIdMock);
 
-		transportsManagerImpl = new TransportsManagerImpl();
-		Field fild = transportsManagerImpl.getClass().getDeclaredField(
-				"transportsDao");
+		assertEquals(transports, actualTransport);
+	}
 
-		fild.setAccessible(true);
-		fild.set(transportsManagerImpl, mockTransportsDaoImpl);
+	/**
+	 * Test the methods for <code>null</code>. the found entity instance or null
+	 * if the entity does not exist
+	 */
+	@Test
+	public final void testFindTransportsByIdForNull() {
+		when(mockTransportsDaoImpl.findById(Mockito.anyInt())).thenReturn(null);
+
+		Transports expectedTransport = transportsManagerImpl
+				.findTransportsById(transportsIdMock);
+
+		assertNull(expectedTransport);
+	}
+
+	/**
+	 * IllegalArgumentException - if the argument is not a valid type for that
+	 * Entity's primary key or is null
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public final void testFindTransportsByIdException() {
+		when(mockTransportsDaoImpl.findById(illegalId)).thenThrow(
+				new IllegalArgumentException());
+
+		transportsManagerImpl.findTransportsById(illegalId);
+	}
+
+	/**
+	 * 
+	 */
+	@Test()
+	public void testFindTransportsByCode() {
+		when(mockTransportsDaoImpl.findByCode("T000000001")).thenReturn(
+				transports);
+		Transports actual = transportsManagerImpl
+				.findTransportsByCode("T000000001");
+
+		assertEquals(transports, actual);
+	}
+
+	/**
+	 * 
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testFindTransportsByCodeException() {
+		when(mockTransportsDaoImpl.findByCode("T0000000@1")).thenThrow(
+				new RuntimeException());
+
+		transportsManagerImpl.findTransportsByCode("T0000000@1");
+	}
+
+	/**
+	 * 
+	 */
+	@Test()
+	public void testSaveTransports() {
+		transportsManagerImpl.saveTransports(transports);
+
+		verify(mockTransportsDaoImpl).save(transports);
+	}
+
+	/**
+	 * IllegalArgumentException - if the instance is not an entity
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveTransportsException() {
+		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+				.save(transports);
+
+		transportsManagerImpl.saveTransports(transports);
+	}
+
+	/**
+	 * EntityExistsException - if the entity already exists. (If the entity
+	 * already exists, the EntityExistsException may be thrown when the persist
+	 * operation is invoked, or the EntityExistsException or another
+	 * PersistenceException may be thrown at flush or commit time.)
+	 */
+	@Test(expected = EntityExistsException.class)
+	public void testSaveTransportsException2() {
+		transports.setTransportId(Mockito.anyInt());
+		doThrow(new EntityExistsException()).when(mockTransportsDaoImpl)
+				.save(transports);
+
+		transportsManagerImpl.saveTransports(transports);
+	}
+
+	@Test()
+	public void testRemoveTransports() {
+		transportsManagerImpl.removeTransports(transports);
+
+		verify(mockTransportsDaoImpl).remove(transports);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testRemoveTransportsException() {
+		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+				.remove(eq(transports));
+
+		transportsManagerImpl.removeTransports(transports);
+	}
+
+//	@Test()
+//	public void testRemoveTransportById() {
+//		// doCallRealMethod().when(transportsManagerImpl).removeTransportById(
+//		// eq(transportsIdMock));
+//
+//		transportsManagerImpl.removeTransportById(transportsIdMock);
+//
+//		verify(mockTransportsDaoImpl).findById(transportsIdMock);
+//		verify(mockTransportsDaoImpl).remove(transports);
+//	}
+
+//	@Test(expected = IllegalArgumentException.class)
+//	public void testRemoveTransportByIdException() {
+//		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+//				.remove(eq(transports));
+//
+//		transportsManagerImpl.removeTransportById(transportsIdMock);
+//	}
+
+	@Test()
+	public void testUpdateTransports() {
+		transportsManagerImpl.updateTransports(transports);
+
+		verify(mockTransportsDaoImpl).update(transports);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateTransportsException() {
+		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+				.update(transports);
+
+		transportsManagerImpl.updateTransports(transports);
+	}
+
+	@Test()
+	public void testSaveOrUpdateTransport() {
+		transportsManagerImpl.saveOrUpdateTransport(transports);
+
+		verify(mockTransportsDaoImpl).saveOrUpdate(transports);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveOrUpdateTransportException() {
+		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
+				.saveOrUpdate(transports);
+
+		transportsManagerImpl.saveOrUpdateTransport(transports);
 	}
 
 	/**
@@ -124,82 +288,58 @@ public class TestTransportsManagerImpl {
 	 * Method under test
 	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
 	 */
-	@Test(expected = java.lang.NullPointerException.class)
+	@Test(expected = IllegalStateException.class)
 	public final void testFindAllTransportsShouldThrowNullPointerException() {
+
 		when(mockTransportsDaoImpl.getAllEntities()).thenThrow(
-				new NullPointerException());
+				new IllegalStateException());
 
 		transportsManagerImpl.getAllTransports();
 	}
-	
-	/**
-	 * Test the methods for Equals.
-	 */
-	@Test
-	public final void testFindTransportsByIdForEquals() {
-		Transports actualTransport = mock(Transports.class);
-
-		when(mockTransportsDaoImpl.findById(Mockito.anyInt())).thenReturn(
-				actualTransport);
-		Transports expectedTransport = transportsManagerImpl.findTransportsById(7);
-
-		assertEquals(expectedTransport, actualTransport);
-	}
 
 	/**
-	 * Test the methods for <code>null</code>.
-	 */
-	@Test
-	public final void testFindTransportsByIdForNull() {
-		when(mockTransportsDaoImpl.findById(Mockito.anyInt())).thenReturn(null);
-
-		Transports expectedTransport = transportsManagerImpl.findTransportsById(3);
-
-		assertNull(expectedTransport);
-	}
-	
-	/**
-	 * Test for method {@link
-	 * com.ita.edu.softserve.service.impl.TransportManagerImpl#
-	 * getTransportByTwoStations(Stations, Stations)}
+	 * Test for method
+	 * {@link com.ita.edu.softserve.service.impl.TransportManagerImpl# getTransportByTwoStations(Stations, Stations)}
 	 */
 	@Test
 	public final void getTransportByTwoStationsTest() {
 		String stationName1 = "Pisochne";
 		String stationName2 = "Sknyliv";
-		
+
 		List<TransportTravel> listOfTTravel = new ArrayList<TransportTravel>();
 		TransportTravel ttravel = mock(TransportTravel.class);
-		listOfTTravel.add(ttravel);		
-		
-		List<TransportTravel> expectedTTravel = Collections.singletonList(ttravel);
-		
-		when(mockTransportsDaoImpl.findByTwoStations(stationName1, stationName2)).thenReturn(
-				listOfTTravel);
+		listOfTTravel.add(ttravel);
+
+		List<TransportTravel> expectedTTravel = Collections
+				.singletonList(ttravel);
+
+		when(
+				mockTransportsDaoImpl.findByTwoStations(stationName1,
+						stationName2)).thenReturn(listOfTTravel);
 		List<TransportTravel> actualTTravel = transportsManagerImpl
 				.getTransportByTwoStations(stationName1, stationName2);
-		
-		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));		
+
+		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));
 	}
 
-	
 	/**
-	 * Test for method {@link
-	 * com.ita.edu.softserve.service.impl.TransportManagerImpl#
-	 * getTransportByTwoStations(Stations, Stations)}
+	 * Test for method
+	 * {@link com.ita.edu.softserve.service.impl.TransportManagerImpl# getTransportByTwoStations(Stations, Stations)}
 	 */
 	@Test
 	public final void getTransportByTwoStationsIfEmptyListTest() {
 		String stationName1 = "Rahiv";
 		String stationName2 = "Lviv";
-		
+
 		List<TransportTravel> listOfTTravel = new ArrayList<TransportTravel>();
 		List<TransportTravel> expectedTTravel = new ArrayList<TransportTravel>();
-		
-		when(mockTransportsDaoImpl.findByTwoStations(stationName1, stationName2)).thenReturn(listOfTTravel);
+
+		when(
+				mockTransportsDaoImpl.findByTwoStations(stationName1,
+						stationName2)).thenReturn(listOfTTravel);
 		List<TransportTravel> actualTTravel = transportsManagerImpl
 				.getTransportByTwoStations(stationName1, stationName2);
-		
-		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));		
+
+		assertTrue(Iterables.elementsEqual(expectedTTravel, actualTTravel));
 	}
 }
