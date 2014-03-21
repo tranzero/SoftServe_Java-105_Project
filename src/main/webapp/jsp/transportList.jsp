@@ -126,7 +126,7 @@
 	</c:if>
 
 	<div id="pagingcontent">
-		<table style="align: center">
+		<%-- <table style="align: center">
 			<thead>
 				<tr>
 					<th>
@@ -541,7 +541,7 @@
 					<li class="disabled"><a href="javascript:void(0);">50</a></li>
 				</c:if>
 			</ul>
-		</div>
+		</div> --%>
 
 	</div>
 
