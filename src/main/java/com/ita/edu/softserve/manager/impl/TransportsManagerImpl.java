@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.exception.TransprtsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
-import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 
 /**
  * This is transports manager class.
@@ -51,23 +49,10 @@ public class TransportsManagerImpl implements TransportsManager {
 	private TransportsDao transportsDao;
 
 	/**
-	 * Gets access to Routes DAO.
-	 */
-	@Autowired
-	private RoutesDAO routesDao;
-
-	/**
 	 * The constructor without arguments.
 	 */
 	public TransportsManagerImpl() {
 		super();
-	}
-
-	@Override
-	public void validateTransportForAddTripsCriteria(
-			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
-		StaticValidator
-				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
 	}
 
 	/**
@@ -83,11 +68,8 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.findById(id);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					findTransportsMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(findTransportsMessage, e);
+			throw e;
 		}
 	}
 
@@ -97,11 +79,8 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.findByCode(code);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					findTransportsCodeMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(findTransportsCodeMessage, e);
+			throw e;
 		}
 	}
 
@@ -117,11 +96,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.save(entities);
 			LOGGER.info(entityName + addMessage);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					saveTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(saveTransportMessage, e);
+			throw e;
 		}
 	}
 
@@ -135,11 +111,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.remove(entities);
 			LOGGER.info(entityName + removeMessage);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					removeTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(removeTransportMessage, e);
+			throw e;
 		}
 	}
 
@@ -159,11 +132,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			LOGGER.info(entityName + removeMessage);
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					removeTransportByIdMessage + transport.getTransportId(), e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(removeTransportByIdMessage + transport.getTransportId(), e);
+			throw e;
 		}
 	}
 
@@ -178,11 +148,8 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.update(entities);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					updateTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(updateTransportMessage, e);
+			throw e;
 		}
 	}
 
@@ -197,11 +164,8 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.getAllEntities();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					getAllTransportsMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(getAllTransportsMessage, e);
+			throw e;
 		}
 	}
 
@@ -211,7 +175,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * If <code>transportId</code> is <code>null</code> than it creates new
 	 * transport object otherwise it finds existing one in database and updates
 	 * it.
-	 * @param transport Transports to add or update.
+	 * 
+	 * @param transport
+	 *            Transports to add or update.
 	 */
 	@Transactional(readOnly = false)
 	@Override
@@ -219,23 +185,20 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			transportsDao.saveOrUpdate(transport);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					saveOrUpdateTransportMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(saveOrUpdateTransportMessage, e);
+			throw e;
 		}
 	}
-	
+
 	/*---------------------------for transport paging, sorting, filtering------------------------------------------*/
 
 	@Override
 	public void validateTransportCriteria(
 			TransportsCriteriaContainer transportCriteriaContainer) {
-		
+
 		StaticValidator.validateTransportCriteria(transportCriteriaContainer);
 	}
-	
+
 	@Override
 	public List<Transports> getTransportsListWithContainers(
 			PageInfoContainer container,
@@ -257,7 +220,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Override
 	public long getTransportsListCountWithContainers(
 			TransportsCriteriaContainer transportCriteriaContainer) {
-		
+
 		return getTransportsListForAddTripsCount(
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
@@ -307,6 +270,13 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/*--------------------------END-for transport paging, sorting, filtering------------------------------------------*/
+
+	@Override
+	public void validateTransportForAddTripsCriteria(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer) {
+		StaticValidator
+				.validateTransportForAddTripsCriteria(transportForAddTripsCriteriaContainer);
+	}
 
 	@Override
 	public List<Transports> getTransportsListForAddTripsWithContainers(
@@ -386,14 +356,16 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Returns number of transport elements that go through
-	 * two stations including stops 
+	 * Returns number of transport elements that go through two stations
+	 * including stops
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
 	 * 
-	 * @return number of transport elements that go through
-	 * 		   two stations including stops
+	 * @return number of transport elements that go through two stations
+	 *         including stops
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -408,11 +380,13 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * Returns <code>TransportTravel</code> object, that contains all transport
 	 * that goes through two stations
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
 	 * 
-	 *@return <code>TransportTravel</code>, that contains transport
-	 *        code, departure and arrival times, duration
+	 * @return <code>TransportTravel</code>, that contains transport code,
+	 *         departure and arrival times, duration
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -425,29 +399,31 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportTravel = transportsDao.findByTwoStations(stationName1,
 					stationName2);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TransprtsManagerException(
-					getTransportByTwoStationsMessage, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(getTransportByTwoStationsMessage, e);
+			throw e;
 		}
 
 		return transportTravel;
 	}
-	
+
 	/**
-	 * Returns transport by two stations (limited number of records)
-	 * including stops at these stations.
+	 * Returns transport by two stations (limited number of records) including
+	 * stops at these stations.
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
-	 * @param pageNumber - number of page to get results for  
-	 * @param count - number of elements to return
-	 * @param sDate - date of trip
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
+	 * @param pageNumber
+	 *            - number of page to get results for
+	 * @param count
+	 *            - number of elements to return
+	 * @param sDate
+	 *            - date of trip
 	 * 
-	 * @return <code>List</code> of <code>transportTravel</code>
-	 * 		   which contains transport and some info about trip
-	 * 		   duration, arrival time, departure time
+	 * @return <code>List</code> of <code>transportTravel</code> which contains
+	 *         transport and some info about trip duration, arrival time,
+	 *         departure time
 	 */
 	@Transactional(readOnly = true)
 	@Override
@@ -460,18 +436,23 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Returns transport by two stations (limited number of records)
-	 * including stops at these stations.
+	 * Returns transport by two stations (limited number of records) including
+	 * stops at these stations.
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
-	 * @param firstElement - element from what to start 
-	 * @param count - number of elements to return
-	 * @param sDate - date of trip
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
+	 * @param firstElement
+	 *            - element from what to start
+	 * @param count
+	 *            - number of elements to return
+	 * @param sDate
+	 *            - date of trip
 	 * 
-	 * @return <code>List</code> of <code>transportTravel</code>
-	 * 		   which contains transport and some info about trip
-	 * 		   duration, arrival time, departure time
+	 * @return <code>List</code> of <code>transportTravel</code> which contains
+	 *         transport and some info about trip duration, arrival time,
+	 *         departure time
 	 */
 	@Transactional(readOnly = true)
 	@Override
