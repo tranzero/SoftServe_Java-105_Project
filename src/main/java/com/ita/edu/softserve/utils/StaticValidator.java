@@ -11,8 +11,8 @@ import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
-import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
@@ -48,21 +48,7 @@ public class StaticValidator {
 	 */
 
 	private static final String MAX_DATE_STRING = "12/31/2100";
-	
-	/**
-	 * String for representation of minimal available time in default date
-	 * format
-	 */
 
-	private static final String MIN_TIME_STRING = "00:00:00";
-
-	/**
-	 * String for representation of maximal available time in default date
-	 * format
-	 */
-
-	private static final String MAX_TIME_STRING = "24:00:00";
-	
 	/**
 	 * Validates paging info
 	 * 
@@ -136,11 +122,9 @@ public class StaticValidator {
 		tripsCriteriaContainer.setRemSeatClass3((Integer) ValidatorUtil
 				.defaultForNull(tripsCriteriaContainer.getRemSeatClass3(), -1));
 		tripsCriteriaContainer.setMinDateValue(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMinDate(), locale,
-				MIN_DATE_STRING));
+				tripsCriteriaContainer.getMinDate(), locale, MIN_DATE_STRING));
 		tripsCriteriaContainer.setMaxDateValue(ValidatorUtil.getDateWithFormat(
-				tripsCriteriaContainer.getMaxDate(), locale,
-				MAX_DATE_STRING));
+				tripsCriteriaContainer.getMaxDate(), locale, MAX_DATE_STRING));
 	}
 
 	public static void validateTransportForAddTripsCriteria(
@@ -160,20 +144,20 @@ public class StaticValidator {
 								ORDER_BY_SORTING_TYPES[1]))) {
 			container.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
 		}
-		container.setTransportCode((String) ValidatorUtil
-				.defaultForNull(container.getTransportCode(), ""));
-		container.setRouteName((String) ValidatorUtil
-				.defaultForNull(container.getRouteName(), ""));
-		container.setRoutesCode((String) ValidatorUtil
-				.defaultForNull(container.getRoutesCode(), ""));
-		container.setPriceName((String) ValidatorUtil
-				.defaultForNull(container.getPriceName(), ""));
-		container.setSeatClass1((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass1(), -1));
-		container.setSeatClass2((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass2(), -1));
-		container.setSeatClass3((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass3(), -1));
+		container.setTransportCode((String) ValidatorUtil.defaultForNull(
+				container.getTransportCode(), ""));
+		container.setRouteName((String) ValidatorUtil.defaultForNull(
+				container.getRouteName(), ""));
+		container.setRoutesCode((String) ValidatorUtil.defaultForNull(
+				container.getRoutesCode(), ""));
+		container.setPriceName((String) ValidatorUtil.defaultForNull(
+				container.getPriceName(), ""));
+		container.setSeatClass1((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass1(), -1));
+		container.setSeatClass2((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass2(), -1));
+		container.setSeatClass3((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass3(), -1));
 		try {
 			container.setPrice(Double.parseDouble(container.getPriceName()));
 		} catch (Exception e) {
@@ -270,8 +254,15 @@ public class StaticValidator {
 
 	}
 
-/*-----------------------------------------------------------*/
+	/*-----------------------------------------------------------*/
 
+	/**
+	 * Check if container`s parameters are correct otherwise set valid default
+	 * parameters.
+	 * 
+	 * @param container
+	 *            the Transports container
+	 */
 	public static void validateTransportCriteria(
 			TransportsCriteriaContainer container) {
 		Set<String> fieldsSet = new TreeSet<String>();
@@ -289,20 +280,20 @@ public class StaticValidator {
 								ORDER_BY_SORTING_TYPES[1]))) {
 			container.setOrderByDirection(ORDER_BY_SORTING_TYPES[0]);
 		}
-		container.setTransportCode((String) ValidatorUtil
-				.defaultForNull(container.getTransportCode(), ""));
-		container.setRouteName((String) ValidatorUtil
-				.defaultForNull(container.getRouteName(), ""));
-		container.setRoutesCode((String) ValidatorUtil
-				.defaultForNull(container.getRoutesCode(), ""));
-		container.setPriceName((String) ValidatorUtil
-				.defaultForNull(container.getPriceName(), ""));
-		container.setSeatClass1((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass1(), -1));
-		container.setSeatClass2((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass2(), -1));
-		container.setSeatClass3((Integer) ValidatorUtil
-				.defaultForNull(container.getSeatClass3(), -1));
+		container.setTransportCode((String) ValidatorUtil.defaultForNull(
+				container.getTransportCode(), ""));
+		container.setRouteName((String) ValidatorUtil.defaultForNull(
+				container.getRouteName(), ""));
+		container.setRoutesCode((String) ValidatorUtil.defaultForNull(
+				container.getRoutesCode(), ""));
+		container.setPriceName((String) ValidatorUtil.defaultForNull(
+				container.getPriceName(), ""));
+		container.setSeatClass1((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass1(), -1));
+		container.setSeatClass2((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass2(), -1));
+		container.setSeatClass3((Integer) ValidatorUtil.defaultForNull(
+				container.getSeatClass3(), -1));
 		try {
 			container.setPrice(Double.parseDouble(container.getPriceName()));
 		} catch (Exception e) {
