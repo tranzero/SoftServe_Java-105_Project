@@ -44,7 +44,7 @@ public class TripsManagerImpl implements TripsManager {
 	 * formatting date)
 	 */
 
-	private static final String SPAIN = "es";
+	private static final String SPANISH = "es";
 	/**
 	 * 
 	 */
@@ -197,7 +197,7 @@ public class TripsManagerImpl implements TripsManager {
 
 			transport = transportsDao.findById(transportId);
 			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
-					|| locale.getLanguage().trim().equalsIgnoreCase(SPAIN)) {
+					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
 				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(minDate);
 				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(maxDate);
 			} else {
