@@ -32,8 +32,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
 		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY)
-		
-	})
+
+})
 public class Trips extends BaseEntity {
 	/**
 	 * Defines the name of transport code parameter
@@ -69,7 +69,17 @@ public class Trips extends BaseEntity {
 	 * Defines the name of known trip parameter
 	 */
 	public static final String KNOWN_TRIP_NAME = "knownTrip";
-	
+
+	/**
+	 * Defines the passed value in searching for index of given element
+	 */
+	public static final String PASSED_VALUE_NAME = "passedValue";
+
+	/**
+	 * Defines the passed trip Id in searching for index of given element
+	 */
+	public static final String PASSED_ID_NAME = "passedId";
+
 	/**
 	 * Name of query which is used for selecting trips from DB. Compatible with
 	 * paging.
@@ -79,6 +89,13 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting trips from DB. Compatible with paging.
 	 */
 	public static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
+	
+	
+	/**
+	 * General part of all ORDER BY clauses
+	 */
+	
+	public static final String GENERAL_ORDER_PART=", tr.tripId ";
 
 	// /**
 	// * Name of query which is used for selecting trips from DB using criteria.
@@ -135,12 +152,10 @@ public class Trips extends BaseEntity {
 
 	/**
 	 * Query which is used for selecting index of trip from DB with criteria.
-	 * Used in paging.
+	 * Part 1. Used in paging.
 	 */
-	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE "
-			+ "tr < :"
-			+ KNOWN_TRIP_NAME
-			+ " AND tr.transport.transportCode LIKE :"
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY_PART1 = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE "
+			+ " tr.transport.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
 			+ " AND tr.transport.routes.routeName LIKE :"
 			+ ROUTE_NAME_NAME
@@ -150,12 +165,32 @@ public class Trips extends BaseEntity {
 			+ REM_SEAT_CLASS_2_NAME
 			+ "  AND tr.remSeatClass3 >= :"
 			+ REM_SEAT_CLASS_3_NAME
-			+ " AND tr.startDate BETWEEN :"
+			+ " AND (tr.startDate BETWEEN :"
 			+ MIN_DATE_NAME
 			+ " AND :"
-			+ MAX_DATE_NAME + " ORDER BY ";
-	
-	
+			+ MAX_DATE_NAME + ") AND ((";
+
+	/**
+	 * Query which is used for selecting index of trip from DB with criteria.
+	 * Part 2. Used in paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY_PART2 = " :"
+			+ PASSED_VALUE_NAME + ") OR ((";
+
+	/**
+	 * Query which is used for selecting index of trip from DB with criteria.
+	 * Part 3. Used in paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY_PART3 = " = :"
+			+ PASSED_VALUE_NAME + ") AND (tr.tripId ";
+
+	/**
+	 * Query which is used for selecting index of trip from DB with criteria.
+	 * Part 4. Used in paging.
+	 */
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY_PART4 = " :"
+			+ PASSED_ID_NAME + ")))";
+
 	/**
 	 * Name of query which is used for selecting count of trips from DB. Used in
 	 * paging.
@@ -178,8 +213,6 @@ public class Trips extends BaseEntity {
 	 */
 	public static final String FIND_BY_TRANSPORTID_QUERY = "SELECT tr FROM Trips tr WHERE tr.transport.transportId = ?1";
 
-	
-	
 	/**
 	 * Identifier field
 	 */

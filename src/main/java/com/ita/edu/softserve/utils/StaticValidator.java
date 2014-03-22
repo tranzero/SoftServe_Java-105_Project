@@ -127,6 +127,13 @@ public class StaticValidator {
 				tripsCriteriaContainer.getMaxDate(), locale, MAX_DATE_STRING));
 	}
 
+	/**
+	 * Validate transport info for adding trips
+	 * 
+	 * @param container
+	 *            Container with info to validate
+	 */
+
 	public static void validateTransportForAddTripsCriteria(
 			TransportForAddTripsCriteriaContainer container) {
 		Set<String> fieldsSet = new TreeSet<String>();

@@ -424,11 +424,11 @@ public class TripsController {
 								: DEFAULT_DATE_FORMAT));
 		modelMap.put(LANGUAGE_NAME, lang);
 
-//		Trips t = deployedTrips.get(0);
-//		System.out.println(tripsManager
-//				.getTripsListCriteriaPageUsingContainers(
-//						tripsCriteriaContainer, t.getTripId(),
-//						container.getResultsPerPage()));
+		Trips t = deployedTrips.get(0);
+		System.out.println(tripsManager
+				.getTripsListCriteriaPageUsingContainers(
+						tripsCriteriaContainer, t.getTripId(),
+						container.getResultsPerPage()));
 	}
 
 	/**
