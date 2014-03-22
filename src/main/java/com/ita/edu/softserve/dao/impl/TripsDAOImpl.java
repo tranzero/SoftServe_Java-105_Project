@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.dao.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Query;
 import javax.persistence.TemporalType;

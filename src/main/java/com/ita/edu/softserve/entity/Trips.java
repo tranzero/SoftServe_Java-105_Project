@@ -137,10 +137,10 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting index of trip from DB with criteria.
 	 * Used in paging.
 	 */
-	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE"
-			+ "INDEX(tr) < INDEX(:"
+	public static final String TRIPS_FIND_CRITERIA_INDEX_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE "
+			+ "tr < :"
 			+ KNOWN_TRIP_NAME
-			+ ") AND tr.transport.transportCode LIKE :"
+			+ " AND tr.transport.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
 			+ " AND tr.transport.routes.routeName LIKE :"
 			+ ROUTE_NAME_NAME

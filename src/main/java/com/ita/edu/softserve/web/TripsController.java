@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ita.edu.softserve.components.Encoder;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
@@ -347,6 +348,7 @@ public class TripsController {
 						transportForAddTripsCriteriaContainer);
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
+
 	}
 
 	private void completeMapForEditTrip(
@@ -367,8 +369,9 @@ public class TripsController {
 				.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
 		container.setCount(count);
 		paginationManager.validatePaging(container);
-		specialPaging = (Boolean) ValidatorUtil.defaultForNull(specialPaging, new Boolean(true));
-		if (specialPaging){
+		specialPaging = (Boolean) ValidatorUtil.defaultForNull(specialPaging,
+				new Boolean(true));
+		if (specialPaging) {
 			container.setPageNumber(1);
 		}
 		PagingController.deployPaging(modelMap, container, paginationManager);
@@ -399,6 +402,7 @@ public class TripsController {
 	private void completeMapForTrips(PageInfoContainer container,
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
+		List<Trips> deployedTrips = null;
 		putFillElementsOptions(tripsCriteriaContainer, modelMap);
 		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
 		long count = tripsManager
@@ -409,9 +413,9 @@ public class TripsController {
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);
 		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
 		String lang = locale.getLanguage();
-		modelMap.put(TRIPSLIST_NAME, tripsManager
-				.getTripsForCriteriaUsingContainers(tripsCriteriaContainer,
-						container));
+		deployedTrips = tripsManager.getTripsForCriteriaUsingContainers(
+				tripsCriteriaContainer, container);
+		modelMap.put(TRIPSLIST_NAME, deployedTrips);
 		modelMap.put(
 				DATEFORMAT_NAME,
 				new SimpleDateFormat(
@@ -419,6 +423,12 @@ public class TripsController {
 								|| lang.equalsIgnoreCase(SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
 		modelMap.put(LANGUAGE_NAME, lang);
+
+//		Trips t = deployedTrips.get(0);
+//		System.out.println(tripsManager
+//				.getTripsListCriteriaPageUsingContainers(
+//						tripsCriteriaContainer, t.getTripId(),
+//						container.getResultsPerPage()));
 	}
 
 	/**
