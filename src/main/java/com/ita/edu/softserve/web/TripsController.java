@@ -403,6 +403,7 @@ public class TripsController {
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
 		List<Trips> deployedTrips = null;
+		String lang = locale.getLanguage();
 		putFillElementsOptions(tripsCriteriaContainer, modelMap);
 		tripsManager.validateTripsCriteria(tripsCriteriaContainer, locale);
 		long count = tripsManager
@@ -412,7 +413,6 @@ public class TripsController {
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME, tripsCriteriaContainer);
 		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
-		String lang = locale.getLanguage();
 		deployedTrips = tripsManager.getTripsForCriteriaUsingContainers(
 				tripsCriteriaContainer, container);
 		modelMap.put(TRIPSLIST_NAME, deployedTrips);
@@ -423,12 +423,6 @@ public class TripsController {
 								|| lang.equalsIgnoreCase(SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
 								: DEFAULT_DATE_FORMAT));
 		modelMap.put(LANGUAGE_NAME, lang);
-
-		Trips t = deployedTrips.get(0);
-		System.out.println(tripsManager
-				.getTripsListCriteriaPageUsingContainers(
-						tripsCriteriaContainer, t.getTripId(),
-						container.getResultsPerPage()));
 	}
 
 	/**

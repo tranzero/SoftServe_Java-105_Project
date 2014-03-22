@@ -65,10 +65,6 @@ public class Trips extends BaseEntity {
 	 */
 	public static final String MAX_DATE_NAME = "maxDate";
 
-	/**
-	 * Defines the name of known trip parameter
-	 */
-	public static final String KNOWN_TRIP_NAME = "knownTrip";
 
 	/**
 	 * Defines the passed value in searching for index of given element
