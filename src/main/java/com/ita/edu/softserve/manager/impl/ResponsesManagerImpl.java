@@ -152,7 +152,7 @@ public class ResponsesManagerImpl implements ResponsesManager {
 					sqlDate);
 
 			responsesDao.save(response);
-			
+
 			LOGGER.info(ENTITY_NAME + ADD_MESSAGE + userId);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new ResponsesManagerException(
@@ -174,7 +174,7 @@ public class ResponsesManagerImpl implements ResponsesManager {
 		try {
 			Responses response = responsesDao.findById(responseId);
 			responsesDao.remove(response);
-			
+
 			LOGGER.info(ENTITY_NAME + REMOVE_MESSAGE + responseId);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new ResponsesManagerException(
@@ -216,7 +216,7 @@ public class ResponsesManagerImpl implements ResponsesManager {
 			Responses response = responsesDao.findById(responseId);
 			response.setChecked(true);
 			responsesDao.update(response);
-			
+
 			LOGGER.info(ENTITY_NAME + MARKED_MESSAGE + responseId);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new ResponsesManagerException(
