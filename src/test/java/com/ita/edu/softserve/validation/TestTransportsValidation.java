@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.sql.Time;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,8 @@ import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
 public class TestTransportsValidation {
+	
+	private final String mockTransportsCode = "T000000001";
 
 	private Validator transportsValidator;
 
@@ -34,6 +37,10 @@ public class TestTransportsValidation {
 	}
 
 	/* Black box tests */
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 */
 	@Test
 	public void needsTransportCode() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -41,9 +48,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("transportCode"));
-
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 */
 	@Test
 	public void blankTransportCode() {
 		transport.setTransportCode("");
@@ -52,9 +62,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("transportCode"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}
+	 */
 	@Test
 	public void needsStartTime() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -62,9 +75,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("startTime"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}
+	 */
 	@Test
 	public void needsRoutes() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -72,9 +88,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("routes"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void needsSeatclass1() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -84,7 +103,11 @@ public class TestTransportsValidation {
 		assertNotNull(errors.getFieldError("seatclass1"));
 
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void needsSeatclass2() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -92,9 +115,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass2"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void needsSeatclass3() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -102,9 +128,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass3"));
-
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 */
 	@Test
 	public void needsGeneralPrice() {
 		errors = new BeanPropertyBindingResult(transport, "transport");
@@ -115,6 +144,11 @@ public class TestTransportsValidation {
 	}
 
 	/* Dark box tests */
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 */
 	@Test
 	public void wrongTransportCode() {
 		transport.setTransportCode("T0000000@1");
@@ -123,9 +157,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("transportCode"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void negativeSeatclass1() {
 		transport.setSeatclass1(-1);
@@ -134,9 +171,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass1"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void negativeSeatclass2() {
 		transport.setSeatclass2(-1);
@@ -145,9 +185,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass2"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void negativeSeatclass3() {
 		transport.setSeatclass3(-1);
@@ -156,9 +199,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("seatclass3"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 */
 	@Test
 	public void negativeGeneralPrice() {
 		transport.setGenPrice(-1);
@@ -170,17 +216,25 @@ public class TestTransportsValidation {
 	}
 
 	/* White box tests */
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 */
 	@Test
 	public void hasTransportCode() {
-		transport.setTransportCode("T000000001");
+		transport.setTransportCode(mockTransportsCode);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("transportCode"));
-
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}
+	 */
 	@Test
 	public void hasStartTime() {
 		transport.setStartTime(parseStringToTime("10:10:00"));
@@ -189,9 +243,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("startTime"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}
+	 */
 	@Test
 	public void hasRoutes() {
 		transport.setRoutes(new Routes());
@@ -200,9 +257,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("routes"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void hasSeatclass1() {
 		transport.setSeatclass1(100);
@@ -211,9 +271,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("seatclass1"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void hasSeatclass2() {
 		transport.setSeatclass2(100);
@@ -222,9 +285,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("seatclass2"));
-
 	}
-
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
 	@Test
 	public void hasSeatclass3() {
 		transport.setSeatclass3(100);
@@ -233,9 +299,12 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("seatclass3"));
-
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 */
 	@Test
 	public void hasGeneralPrice() {
 		transport.setGenPrice(25);
@@ -246,6 +315,11 @@ public class TestTransportsValidation {
 		assertNull(errors.getFieldError("genPrice"));
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer,
+			String, Errors)}
+	 */
 	@Test
 	public void testValidateIfTransportExist() throws IllegalArgumentException,
 			IllegalAccessException, NoSuchFieldException, SecurityException {
@@ -259,11 +333,11 @@ public class TestTransportsValidation {
 
 		Transports transports = new Transports();
 		transports.setTransportId(1);
-		when(mockTransportsManagerImpl.findTransportsByCode("T000000001"))
+		when(mockTransportsManagerImpl.findTransportsByCode(mockTransportsCode))
 				.thenReturn(transports);
 
 		transport.setTransportId(1);
-		transport.setTransportCode("T000000001");
+		transport.setTransportCode(mockTransportsCode);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
@@ -271,6 +345,11 @@ public class TestTransportsValidation {
 		assertNull(errors.getFieldError("transportCode"));
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer,
+			String, Errors)}
+	 */
 	@Test
 	public void testBlackValidateIfTransportExist()
 			throws IllegalArgumentException, IllegalAccessException,
@@ -286,11 +365,11 @@ public class TestTransportsValidation {
 		Transports transports = new Transports();
 		transports.setTransportId(2);
 
-		when(mockTransportsManagerImpl.findTransportsByCode("T000000001"))
+		when(mockTransportsManagerImpl.findTransportsByCode(mockTransportsCode))
 				.thenReturn(transports);
 
 		transport.setTransportId(1);
-		transport.setTransportCode("T000000001");
+		transport.setTransportCode(mockTransportsCode);
 		errors = new BeanPropertyBindingResult(transport, "transport");
 		transportsValidator.validate(transport, errors);
 
