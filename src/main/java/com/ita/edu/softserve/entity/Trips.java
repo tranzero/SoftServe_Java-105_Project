@@ -29,6 +29,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "trips")
 @NamedQueries({
 		@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
+		@NamedQuery(name = Trips.TRIPS_FIND_BY_ID, query = Trips.TRIPS_FIND_BY_ID_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
 		@NamedQuery(name = Trips.FIND_BY_TRANSPORTID, query = Trips.FIND_BY_TRANSPORTID_QUERY)
@@ -65,7 +66,6 @@ public class Trips extends BaseEntity {
 	 */
 	public static final String MAX_DATE_NAME = "maxDate";
 
-
 	/**
 	 * Defines the passed value in searching for index of given element
 	 */
@@ -85,13 +85,24 @@ public class Trips extends BaseEntity {
 	 * Query which is used for selecting trips from DB. Compatible with paging.
 	 */
 	public static final String TRIPS_FIND_ALL_QUERY = "SELECT tr FROM Trips tr";
-	
-	
+
+	/**
+	 * Name of query which is used for selecting trips trip with certain ID from
+	 * DB.
+	 * 
+	 */
+	public static final String TRIPS_FIND_BY_ID = "Trips.findById";
+	/**
+	 * Query which is used for selecting trip with certain ID from DB.
+	 * 
+	 */
+	public static final String TRIPS_FIND_BY_ID_QUERY = "SELECT tr FROM Trips tr WHERE tr.tripId = ?1";
+
 	/**
 	 * General part of all ORDER BY clauses
 	 */
-	
-	public static final String GENERAL_ORDER_PART=", tr.tripId ";
+
+	public static final String GENERAL_ORDER_PART = ", tr.tripId ";
 
 	// /**
 	// * Name of query which is used for selecting trips from DB using criteria.

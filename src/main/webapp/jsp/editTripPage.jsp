@@ -13,9 +13,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="transportcodeasc"><img
-						alt="^" src="resources/images/downarrow.png"></a> <a
+						alt="^" src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="transportcodedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -24,9 +24,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="starttimeasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="starttimedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -35,9 +35,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routecodeasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="routecodedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -46,9 +46,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routenameasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="routenamedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -57,9 +57,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass1asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass1desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th><div style="float: left">
@@ -67,18 +67,18 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass2asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> 
+						src="../resources/images/downarrow.png"></a> 
 						<a href="javascript:void(0);" id="seatclass2desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div></th>
 			<th><div style="float: left">
 					<spring:message code="label.transport.seatclass3" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass3asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass3desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div></th>
 			<th>
 				<div style="float: left">
@@ -86,9 +86,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="genpriceasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="genpricedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 		</tr>
@@ -98,8 +98,14 @@
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>
 
-				<td><input type="radio" name="transportid"
-					value="${transport.getTransportId()}" /></td>
+				<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
+							<input type="radio" name="transportid"
+								value="${transport.getTransportId()}" checked/>
+								</c:if>
+								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
+							<input type="radio" name="transportid"
+								value="${transport.getTransportId()}"/>
+								</c:if></td>
 				<td align="center">${transport.getTransportCode()}</td>
 				<td align="center">${transport.getStartTime()}</td>
 				<td align="center">${transport.getRoutes().getRouteCode()}</td>
