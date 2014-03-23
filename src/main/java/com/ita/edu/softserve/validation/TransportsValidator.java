@@ -54,21 +54,27 @@ public class TransportsValidator implements Validator {
 	 *      org.springframework.validation.Errors)
 	 */
 	public void validate(Object obj, Errors error) {
-		Transports transport = (Transports) obj;
+		Transports transports = (Transports) obj;
 
-		validateTransportCode(transport.getTransportCode(), error);
+		validateTransportCode(transports.getTransportCode(), error);
 
-		validateIfTransportExist(transport.getTransportId(),
-				transport.getTransportCode(), error);
+		validateIfTransportExist(transports.getTransportId(),
+				transports.getTransportCode(), error);
 
-		validateStartTime(transport.getStartTime(), error);
+		validateStartTime(transports.getStartTime(), error);
 
-		validateRoutes(transport.getRoutes(), error);
+		validateRoutes(transports.getRoutes(), error);
+		
+		boolean isSeatClassValid = isAtLeastOneFilled(transports.getSeatclass1(),
+				transports.getSeatclass2(), transports.getSeatclass3());
+		
+		validateSeatClasse1(transports.getSeatclass1(), error, isSeatClassValid);
 
-		validateSeatClasses(transport.getSeatclass1(),
-				transport.getSeatclass2(), transport.getSeatclass3(), error);
+		validateSeatClasse2(transports.getSeatclass2(), error, isSeatClassValid);
 
-		validateGeneralPrice(transport.getGenPrice(), error);
+		validateSeatClasse3(transports.getSeatclass3(), error, isSeatClassValid);
+
+		validateGeneralPrice(transports.getGenPrice(), error);
 
 	}
 
@@ -94,6 +100,8 @@ public class TransportsValidator implements Validator {
 	 * Finds out if Transports object exist in database with such transport
 	 * code.
 	 * 
+	 * @param transportId
+	 *            the transport ID to check.
 	 * @param transportCode
 	 *            the transport code to check.
 	 * @param error
@@ -102,7 +110,7 @@ public class TransportsValidator implements Validator {
 	private void validateIfTransportExist(Integer transportId,
 			String transportCode, Errors error) {
 
-		if ((transportCode != null) && (transportCode != "")){
+		if ((transportCode != null) && (transportCode != "")) {
 			Transports transport = null;
 
 			try {
@@ -111,11 +119,11 @@ public class TransportsValidator implements Validator {
 
 				if ((transport.getTransportId()).equals(transportId)) {
 					return;
-					
+
 				} else {
 					error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
 				}
-				
+
 			} catch (RuntimeException e) {
 			}
 		}
@@ -156,33 +164,47 @@ public class TransportsValidator implements Validator {
 	}
 
 	/**
-	 * Verifies if seat classes are not less then 0 or equals to 0. Must be
+	 * Verifies if seat class 1 are not less then 0 or equals to 0. Must be
 	 * entered number of seats at least one class.
 	 * 
 	 * @param seatClass1
 	 *            the seat class 1 to check.
+	 * @param error
+	 *            the Errors object that stores and exposes information about
+	 *            data-binding and validation errors for a specific object.
+	 */
+	private void validateSeatClasse1(int seatClass1, Errors error, boolean bool) {
+		if ((seatClass1 <= 0) && bool) {
+			error.rejectValue(SEATCLASS1, SEATCLASS_REQUIRED);
+		}
+	}
+	
+	/**
+	 * Verifies if seat class 2 are not less then 0 or equals to 0. Must be
+	 * entered number of seats at least one class.
+	 * 
 	 * @param seatClass2
 	 *            the seat class 2 to check.
+	 * @param error
+	 *            the Errors object that stores and exposes information about
+	 *            data-binding and validation errors for a specific object.
+	 */
+	private void validateSeatClasse2(int seatClass2, Errors error, boolean bool) {
+		if ((seatClass2 <= 0) && bool) {
+			error.rejectValue(SEATCLASS2, SEATCLASS_REQUIRED);
+		}
+	}
+	/**
+	 * Verifies if seat class 3 are not less then 0 or equals to 0. Must be
+	 * entered number of seats at least one class.
+	 * 
 	 * @param seatClass3
 	 *            the seat class 3 to check.
 	 * @param error
 	 *            the Errors object that stores and exposes information about
 	 *            data-binding and validation errors for a specific object.
 	 */
-	private void validateSeatClasses(int seatClass1, int seatClass2,
-			int seatClass3, Errors error) {
-
-		boolean bool = ((seatClass1 > 0) || (seatClass2 > 0) || (seatClass3 > 0)) ? false
-				: true;
-
-		if ((seatClass1 <= 0) && bool) {
-			error.rejectValue(SEATCLASS1, SEATCLASS_REQUIRED);
-		}
-
-		if ((seatClass2 <= 0) && bool) {
-			error.rejectValue(SEATCLASS2, SEATCLASS_REQUIRED);
-		}
-
+	private void validateSeatClasse3(int seatClass3, Errors error, boolean bool) {
 		if ((seatClass3 <= 0) && bool) {
 			error.rejectValue(SEATCLASS3, SEATCLASS_REQUIRED);
 		}
@@ -202,5 +224,17 @@ public class TransportsValidator implements Validator {
 		if (genPrice <= 0.0) {
 			error.rejectValue(GENERAL_PRICE, GEN_PRICE_REQUIRED);
 		}
+	}
+
+	/**
+	 * 
+	 * @param seatClass1 the seat class 1 to check.
+	 * @param seatClass2 the seat class 2 to check.
+	 * @param seatClass3 the seat class 3 to check.
+	 * @return true if on of three seat classes are filled otherwise false
+	 */
+	private boolean isAtLeastOneFilled(int seatClass1, int seatClass2, int seatClass3) {
+		return ((seatClass1 > 0) || (seatClass2 > 0) || (seatClass3 > 0)) ? false
+				: true;
 	}
 }
