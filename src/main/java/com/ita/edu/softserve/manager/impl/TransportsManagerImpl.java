@@ -24,9 +24,13 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportsManagerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
 
+	/**
+	 * The simple name of the <code>Transports</code> class as given in
+	 * the source code. Returns an empty string if the underlying class is
+	 * anonymous.
+	 */
 	private String entityName = Transports.class.getSimpleName();
 
 	private String addMessage = " was added to DB";
@@ -56,7 +60,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Finds the transport by Id.
+	 * Finds the <code>Transports</code> by Id.
 	 * 
 	 * @return the transport found by Id.
 	 * 
@@ -73,6 +77,11 @@ public class TransportsManagerImpl implements TransportsManager {
 		}
 	}
 
+	/**
+	 * Finds the <code>Transports</code> by Id.
+	 * @param code
+	 * @return
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsByCode(String code) {
@@ -85,7 +94,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves Transports in database.
+	 * Saves <code>Transports</code> in database.
 	 * 
 	 * @see com.ita.edu.softserve.manager.TransportsManager#saveTransports(com.ita.edu.softserve.entity.Transports[])
 	 */
@@ -102,7 +111,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Removes Transports from database.
+	 * Removes <code>Transports</code> from database.
 	 */
 	@Transactional(readOnly = false)
 	@Override
@@ -117,7 +126,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Removes Transport by Id from database.
+	 * Removes <code>Transports</code> by Id from database.
 	 */
 	@Transactional
 	@Override
@@ -139,7 +148,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Updates transport table and get list of all Transports.
+	 * Updates <code>Transports</code> table and get list of all Transports.
 	 * 
 	 * @return the list of all transports.
 	 */
@@ -155,7 +164,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Gets the list of all transports.
+	 * Gets the list of all <code>Transports</code>.
 	 * 
 	 * @return the list of all transports.
 	 */
@@ -171,7 +180,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves the Transport object to database if not exist or updates it. <br/>
+	 * Saves the <code>Transports</code> object to database if not exist or updates it. <br/>
 	 * <br/>
 	 * If <code>transportId</code> is <code>null</code> than it creates new
 	 * transport object otherwise it finds existing one in database and updates
