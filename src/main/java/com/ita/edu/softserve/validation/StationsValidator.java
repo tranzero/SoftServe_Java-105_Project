@@ -44,7 +44,7 @@ public class StationsValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Stations.class.isAssignableFrom(clazz);
+		return Stations.class.equals(clazz);
 	}
 
 	/**
