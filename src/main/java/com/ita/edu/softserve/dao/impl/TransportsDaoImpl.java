@@ -168,13 +168,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			Double price, String orderByCriteria, String orderByDirection) {
 
 		Query query = entityManager
-				.createQuery(
-						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
-								+ orderByCriteria
-								+ " "
-								+ orderByDirection								
-								+ Transports.GENERAL_ORDER_PART
-								+ orderByDirection)
+				.createQuery(Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
+						+ orderByCriteria + " "	+ orderByDirection								
+						+ Transports.GENERAL_ORDER_PART	+ orderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
