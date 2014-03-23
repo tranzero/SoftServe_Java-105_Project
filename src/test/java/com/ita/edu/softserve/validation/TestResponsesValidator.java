@@ -47,7 +47,7 @@ public class TestResponsesValidator {
 	 * If empty comment text test
 	 */
 	@Test
-	public void responseIfEmptyTest() {
+	public void responseIfEmptyCommentTest() {
 		String comment = "";
 		
 		response.setComment(comment);
@@ -61,7 +61,7 @@ public class TestResponsesValidator {
 	 * If too large comment text test
 	 */
 	@Test
-	public void responseIfTooLargeTest() {
+	public void responseIfTooLargeCommentTest() {
 		String comment = "test";
 		
 		for (int i = 0; i < 250; i++) {
@@ -79,7 +79,7 @@ public class TestResponsesValidator {
 	 * If normal comment test
 	 */
 	@Test
-	public void responseIfNormalTest() {
+	public void responseIfNormalCommentTest() {
 		String comment = "This was a good trip.";
 		
 		response.setComment(comment);
@@ -89,5 +89,17 @@ public class TestResponsesValidator {
 		assertTrue(!errors.hasErrors());
 	}
 
+	/**
+	 * Supports classes test
+	 */
+	@Test
+	public void supportsTest() {
+		Responses response = new Responses();
+		boolean result = false;
+		
+		result = responsesValidator.supports(response.getClass());
+
+		assertTrue(result);
+	}
 	
 }

@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 
-import org.hibernate.mapping.Array;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -263,6 +261,29 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 */
+	@Test()
+	public void testUpdateTransportsEquals() {
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+		Transports transport1 = mock(Transports.class);
+		Transports transport2 = mock(Transports.class);
+
+		expectedListOfTransports.add(transport1);
+		expectedListOfTransports.add(transport2);
+		expectedListOfTransports.add(transports);
+
+		when(mockTransportsDaoImpl.update(transports)).thenReturn(
+				expectedListOfTransports);
+		
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.updateTransports(transports);
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
 	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -487,6 +508,7 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStForLimits(
 						stationName1, stationName2, firstElement, count, null))
 				.thenReturn(expectedTransportTravel);
+		
 		List<TransportTravel> actualTransportTravel = transportsManagerImpl
 				.getTransportByTwoStForLimit(stationName1, stationName2,
 						firstElement, count, null);
@@ -510,6 +532,7 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStListCount(
 						stationName1, stationName2)).thenReturn(
 				expectedTransportTravelCount);
+		
 		long actualTransportTravelCount = transportsManagerImpl
 				.getTransportByTwoStListCount(stationName1, stationName2);
 
