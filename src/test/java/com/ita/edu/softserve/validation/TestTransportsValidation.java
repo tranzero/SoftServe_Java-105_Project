@@ -63,10 +63,36 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}
+	 */
+	@Test
+	public void testSupportsObject() {
+		Object object = mock(Object.class);
+		boolean supports = transportsValidator.supports(object.getClass());
+
+		assertEquals(false, supports);
+	}
+
+	/**
+	 * Test method for
 	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
 	 */
 	@Test
 	public void needsTransportCode() {
+		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(TRANSPORT_CODE_FIELD_NAME));
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 */
+	@Test
+	public void wrongTransportCode() {
+		transport.setTransportCode(ILIGAL_TRANSPORTS_CODE);
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -125,7 +151,20 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError(SEATCLASS1_FIELD_NAME));
+	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
+	@Test
+	public void negativeSeatclass1() {
+		transport.setSeatclass1(-1);
+		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(SEATCLASS1_FIELD_NAME));
 	}
 
 	/**
@@ -134,6 +173,20 @@ public class TestTransportsValidation {
 	 */
 	@Test
 	public void needsSeatclass2() {
+		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(SEATCLASS2_FIELD_NAME));
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 */
+	@Test
+	public void negativeSeatclass2() {
+		transport.setSeatclass2(-1);
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -156,63 +209,6 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
-	 */
-	@Test
-	public void needsGeneralPrice() {
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError(GEN_PRICE_FIELD_NAME));
-	}
-
-	/* Dark box tests */
-
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
-	 */
-	@Test
-	public void wrongTransportCode() {
-		transport.setTransportCode(ILIGAL_TRANSPORTS_CODE);
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError(TRANSPORT_CODE_FIELD_NAME));
-	}
-
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
-	 */
-	@Test
-	public void negativeSeatclass1() {
-		transport.setSeatclass1(-1);
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError(SEATCLASS1_FIELD_NAME));
-	}
-
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
-	 */
-	@Test
-	public void negativeSeatclass2() {
-		transport.setSeatclass2(-1);
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError(SEATCLASS2_FIELD_NAME));
-	}
-
-	/**
-	 * Test method for
 	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
 	 */
 	@Test
@@ -223,6 +219,19 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError(SEATCLASS3_FIELD_NAME));
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 */
+	@Test
+	public void needsGeneralPrice() {
+		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(GEN_PRICE_FIELD_NAME));
 	}
 
 	/**
@@ -246,7 +255,7 @@ public class TestTransportsValidation {
 	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}
 	 */
 	@Test
-	public void testSupports2() {
+	public void testSupportsTramsports() {
 		boolean supports = transportsValidator.supports(transport.getClass());
 
 		assertEquals(true, supports);
@@ -367,7 +376,9 @@ public class TestTransportsValidation {
 
 		Transports transports = new Transports();
 		transports.setTransportId(1);
-		when(mockTransportsManagerImpl.findTransportsByCode(MOCK_TRANSPORTS_CODE))
+		when(
+				mockTransportsManagerImpl
+						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
 				.thenReturn(transports);
 
 		transport.setTransportId(1);
@@ -398,7 +409,9 @@ public class TestTransportsValidation {
 		Transports transports = new Transports();
 		transports.setTransportId(2);
 
-		when(mockTransportsManagerImpl.findTransportsByCode(MOCK_TRANSPORTS_CODE))
+		when(
+				mockTransportsManagerImpl
+						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
 				.thenReturn(transports);
 
 		transport.setTransportId(1);
