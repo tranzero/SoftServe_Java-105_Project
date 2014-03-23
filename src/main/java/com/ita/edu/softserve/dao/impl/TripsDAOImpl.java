@@ -140,11 +140,14 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 			String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
-
 		Query query = entityManager
 				.createQuery(
-						Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam
-								+ Trips.GENERAL_ORDER_PART + orderByDirection)
+						Trips.TRIPS_FIND_BY_CRITERIA_QUERY
+						+ orderByParam
+						+ " "
+						+ orderByDirection
+						+ Trips.GENERAL_ORDER_PART
+						+ orderByDirection)
 				.setParameter(Trips.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Trips.ROUTE_NAME_NAME, routeName)
 				.setParameter(Trips.REM_SEAT_CLASS_1_NAME, remSeatClass1)

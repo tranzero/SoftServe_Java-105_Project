@@ -220,6 +220,18 @@ public class TripsController {
 	 */
 
 	private static final String TRIP_DELETE_PATH = "/tripDelete/{tripId}";
+	
+	/**
+	 * Constant for mapping trips edit
+	 */
+
+	private static final String TRIP_EDIT_PATH = "/editTrip/{tripId}";
+	
+	/**
+	 * Constant for mapping trips edit page
+	 */
+
+	private static final String TRIP_EDIT_PAGE_PATH = "/editTripPage/{tripId}";
 
 	/**
 	 * Field for using trips-related controller-level methods
