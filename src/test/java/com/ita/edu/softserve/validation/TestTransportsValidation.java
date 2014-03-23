@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.validation;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -34,6 +35,22 @@ public class TestTransportsValidation {
 	public void setUp() {
 		transportsValidator = new TransportsValidator();
 		transport = new Transports();
+	}
+	
+	@Test
+	public void supports() {
+//		transportsValidator = mock(TransportsValidator.class);
+	        boolean supports = transportsValidator.supports(null);
+	        
+	        assertEquals(false, supports);
+
+	}
+	
+	@Test
+	public void supports2() {
+	        boolean supports = transportsValidator.supports(Transports.class);
+	        
+	        assertEquals(true, supports);
 	}
 
 	/* Black box tests */
