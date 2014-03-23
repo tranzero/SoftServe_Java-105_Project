@@ -24,27 +24,29 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
 
-	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(TransportsManagerImpl.class);
 
 	/**
-	 * The simple name of the <code>Transports</code> class as given in
-	 * the source code. Returns an empty string if the underlying class is
+	 * The simple name of the <code>Transports</code> class as given in the
+	 * source code. Returns an empty string if the underlying class is
 	 * anonymous.
 	 */
-	private String entityName = Transports.class.getSimpleName();
+	private String entityName = Transports.class.getSimpleName() + " with Id=";
 
 	private String addMessage = " was added to DB";
-	private String removeMessage = " was remove from DB by ";
+	private String removeMessage = " was remove from DB";
+	private String wasFoundMessage = " was fond";
 
-	private final String findTransportsMessage = "Could not find Transport List";
-	private final String findTransportsCodeMessage = "Could not find Transport by code";
-	private final String saveTransportMessage = "Could not save Transports";
-	private final String removeTransportMessage = "Could not remove Transport";
-	private final String removeTransportByIdMessage = "Could not remove Transport by id ";
-	private final String updateTransportMessage = "Could not update Transport";
-	private final String saveOrUpdateTransportMessage = "Could not save or update Transports";
-	private final String getAllTransportsMessage = "Could not get list of Transport";
-	private final String getTransportByTwoStationsMessage = "Could not get Transport by two stations";
+	private final String findTransportsMessage = "Could not find Transports by ID=";
+	private final String findTransportsCodeMessage = "Could not find Transports by code= ";
+	private final String saveTransportsMessage = "Could not save Transports";
+	private final String removeTransportsMessage = "Could not remove Transports";
+	private final String removeTransportsByIdMessage = "Could not remove Transport by id ";
+	private final String updateTransportsMessage = "Could not update Transports ";
+	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
+	private final String getAllTransportsMessage = "Could not get list of Transports";
+	private final String getTransportsByTwoStationsMessage = "Could not get Transports by two stations";
 
 	/**
 	 * Gets access to Transports DAO.
@@ -72,13 +74,14 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.findById(id);
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsMessage, e);
+			LOGGER.error(findTransportsMessage + id, e);
 			throw e;
 		}
 	}
 
 	/**
 	 * Finds the <code>Transports</code> by Id.
+	 * 
 	 * @param code
 	 * @return
 	 */
@@ -88,9 +91,10 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			return transportsDao.findByCode(code);
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsCodeMessage, e);
-			throw e;
+			LOGGER.error(findTransportsCodeMessage + code, e);
+//			throw e;
 		}
+		return null;
 	}
 
 	/**
@@ -100,12 +104,12 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveTransports(Transports... entities) {
+	public void saveTransports(Transports transports) {
 		try {
-			transportsDao.save(entities);
-			LOGGER.info(entityName + addMessage);
+			transportsDao.save(transports);
+			LOGGER.info(entityName + transports.getTransportId() + addMessage);
 		} catch (RuntimeException e) {
-			LOGGER.error(saveTransportMessage, e);
+			LOGGER.error(saveTransportsMessage, e);
 			throw e;
 		}
 	}
@@ -115,12 +119,12 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void removeTransports(Transports... entities) {
+	public void removeTransports(Transports transports) {
 		try {
-			transportsDao.remove(entities);
-			LOGGER.info(entityName + removeMessage);
+			transportsDao.remove(transports);
+			LOGGER.info(entityName + transports.getTransportId() + removeMessage);
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportMessage, e);
+			LOGGER.error(removeTransportsMessage, e);
 			throw e;
 		}
 	}
@@ -131,18 +135,19 @@ public class TransportsManagerImpl implements TransportsManager {
 	@Transactional
 	@Override
 	public void removeTransportById(Integer transportId) {
-		Transports transport = null;
+		Transports transports = null;
 
 		try {
-			transport = (Transports) transportsDao.findById(transportId);
-			LOGGER.info(entityName + transport.getTransportId() + "was fond");
+			transports = (Transports) transportsDao.findById(transportId);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ wasFoundMessage);
 
-			transportsDao.remove(transport);
-			LOGGER.info(entityName + removeMessage);
+			transportsDao.remove(transports);
+			LOGGER.info(entityName + transports.getTransportId() + removeMessage);
 
 		} catch (RuntimeException e) {
 			LOGGER.error(
-					removeTransportByIdMessage + transport.getTransportId(), e);
+					removeTransportsByIdMessage + transports.getTransportId(), e);
 			throw e;
 		}
 	}
@@ -154,11 +159,11 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Transactional
 	@Override
-	public List<Transports> updateTransports(Transports... entities) {
+	public List<Transports> updateTransports(Transports entities) {
 		try {
 			return transportsDao.update(entities);
 		} catch (RuntimeException e) {
-			LOGGER.error(updateTransportMessage, e);
+			LOGGER.error(updateTransportsMessage, e);
 			throw e;
 		}
 	}
@@ -180,7 +185,8 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Saves the <code>Transports</code> object to database if not exist or updates it. <br/>
+	 * Saves the <code>Transports</code> object to database if not exist or
+	 * updates it. <br/>
 	 * <br/>
 	 * If <code>transportId</code> is <code>null</code> than it creates new
 	 * transport object otherwise it finds existing one in database and updates
@@ -195,7 +201,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			transportsDao.saveOrUpdate(transport);
 		} catch (RuntimeException e) {
-			LOGGER.error(saveOrUpdateTransportMessage, e);
+			LOGGER.error(saveOrUpdateTransportsMessage, e);
 			throw e;
 		}
 	}
@@ -216,8 +222,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			PageInfoContainer container,
 			TransportsCriteriaContainer transportCriteriaContainer) {
 
-		return getTransportsListForAddTripsWithPaging(
-				container.getPageNumber(), container.getResultsPerPage(),
+		return getTransportsListWithPaging(container.getPageNumber(),
+				container.getResultsPerPage(),
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
 				transportCriteriaContainer.getRoutesCode(),
@@ -233,7 +239,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	public long getTransportsListCountWithContainers(
 			TransportsCriteriaContainer transportCriteriaContainer) {
 
-		return getTransportsListForAddTripsCount(
+		return getTransportsListCount(
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
 				transportCriteriaContainer.getRoutesCode(),
@@ -249,9 +255,9 @@ public class TransportsManagerImpl implements TransportsManager {
 			String routesCode, Integer seatClass1, Integer seatClass2,
 			Integer seatClass3, Double price) {
 
-		return transportsDao.getTransportsListForAddTripsCount("%"
-				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
-				+ "%", seatClass1, seatClass2, seatClass3, price);
+		return transportsDao.getTransportsListCount("%" + transportCode + "%",
+				"%" + routeName + "%", "%" + routesCode + "%", seatClass1,
+				seatClass2, seatClass3, price);
 	}
 
 	@Transactional(readOnly = true)
@@ -261,10 +267,10 @@ public class TransportsManagerImpl implements TransportsManager {
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
 			Double price, String orderByCriteria, String orderByDirection) {
 
-		return transportsDao.getTransportsListForAddTrips(firstElement, count,
-				"%" + transportCode + "%", "%" + routeName + "%", "%"
-						+ routesCode + "%", seatClass1, seatClass2, seatClass3,
-				price, orderByCriteria, orderByDirection);
+		return transportsDao.getTransportsList(firstElement, count, "%"
+				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
+				+ "%", seatClass1, seatClass2, seatClass3, price,
+				orderByCriteria, orderByDirection);
 	}
 
 	@Transactional(readOnly = true)
@@ -275,10 +281,10 @@ public class TransportsManagerImpl implements TransportsManager {
 			Integer seatClass3, Double price, String orderByCriteria,
 			String orderByDirection) {
 
-		return transportsDao.getTransportsListForAddTrips((pageNumber - 1)
-				* count, count, "%" + transportCode + "%", "%" + routeName
-				+ "%", "%" + routesCode + "%", seatClass1, seatClass2,
-				seatClass3, price, orderByCriteria, orderByDirection);
+		return transportsDao.getTransportsList((pageNumber - 1) * count, count,
+				"%" + transportCode + "%", "%" + routeName + "%", "%"
+						+ routesCode + "%", seatClass1, seatClass2, seatClass3,
+				price, orderByCriteria, orderByDirection);
 	}
 
 	/*--------------------------END-for transport paging, sorting, filtering------------------------------------------*/
@@ -313,7 +319,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
 			Transports knownElement, Integer pageSize) {
 		long result;
-		result = transportsDao.getTransportsListForAddTripsIndex(transportForAddTripsCriteriaContainer.getTransportCode(),
+		result = transportsDao.getTransportsListForAddTripsIndex(
+				transportForAddTripsCriteriaContainer.getTransportCode(),
 				transportForAddTripsCriteriaContainer.getRouteName(),
 				transportForAddTripsCriteriaContainer.getRoutesCode(),
 				transportForAddTripsCriteriaContainer.getSeatClass1(),
@@ -321,9 +328,9 @@ public class TransportsManagerImpl implements TransportsManager {
 				transportForAddTripsCriteriaContainer.getSeatClass3(),
 				transportForAddTripsCriteriaContainer.getPrice(),
 				transportForAddTripsCriteriaContainer.getOrderByCriteria(),
-				transportForAddTripsCriteriaContainer.getOrderByDirection(), 
+				transportForAddTripsCriteriaContainer.getOrderByDirection(),
 				knownElement);
-		return (result/pageSize)+1;
+		return (result / pageSize) + 1;
 	}
 
 	@Override
@@ -429,7 +436,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportTravel = transportsDao.findByTwoStations(stationName1,
 					stationName2);
 		} catch (RuntimeException e) {
-			LOGGER.error(getTransportByTwoStationsMessage, e);
+			LOGGER.error(getTransportsByTwoStationsMessage, e);
 			throw e;
 		}
 

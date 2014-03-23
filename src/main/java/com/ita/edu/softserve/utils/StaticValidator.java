@@ -17,6 +17,7 @@ import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.UsersCriteriaContainerImpl;
 
@@ -274,11 +275,11 @@ public class StaticValidator {
 			TransportsCriteriaContainer container) {
 		Set<String> fieldsSet = new TreeSet<String>();
 		Collections.addAll(fieldsSet,
-				TransportForAddTripsCriteriaContainerImpl.ORDER_BY_COLUMNS);
+				TransportsCriteriaContainerImpl.ORDER_BY_COLUMNS);
 		if ((container.getOrderByCriteria() == null)
 				|| !(fieldsSet.contains(container.getOrderByCriteria()))) {
 			container
-					.setOrderByCriteria(TransportForAddTripsCriteriaContainerImpl.ORDER_BY_COLUMNS[0]);
+					.setOrderByCriteria(TransportsCriteriaContainerImpl.ORDER_BY_COLUMNS[0]);
 		}
 		if ((container.getOrderByDirection() == null)
 				|| !(container.getOrderByDirection().equalsIgnoreCase(

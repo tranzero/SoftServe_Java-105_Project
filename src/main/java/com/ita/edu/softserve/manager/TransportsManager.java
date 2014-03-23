@@ -37,7 +37,7 @@ public interface TransportsManager extends BaseManager {
 	 * @param entities
 	 *            the array of transports to save.
 	 */
-	void saveTransports(Transports... entities);
+	void saveTransports(Transports entities);
 
 	/**
 	 * Removes transports.
@@ -45,7 +45,7 @@ public interface TransportsManager extends BaseManager {
 	 * @param entities
 	 *            the array of transports to delete.
 	 */
-	void removeTransports(Transports... entities);
+	void removeTransports(Transports entities);
 
 	/**
 	 * Removes transports by ID.
@@ -62,7 +62,7 @@ public interface TransportsManager extends BaseManager {
 	 *            the array of transports to update.
 	 * @return the List of Transports.
 	 */
-	List<Transports> updateTransports(Transports... entities);
+	List<Transports> updateTransports(Transports entities);
 
 	/**
 	 * Gets all transports.
