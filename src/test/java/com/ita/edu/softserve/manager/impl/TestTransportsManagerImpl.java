@@ -28,6 +28,7 @@ import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.UserNameService;
 
 /**
  * Class under test
@@ -41,16 +42,22 @@ public class TestTransportsManagerImpl {
 	@Mock
 	private TransportsDaoImpl mockTransportsDaoImpl;
 
+	@Mock
+	private UserNameService userName;
+	
 	@InjectMocks
 	private TransportsManagerImpl transportsManagerImpl = new TransportsManagerImpl();
-
+	
+	private Transports transports;
+	
 	int transportsIdMock = 20;
 	int illegalId = -1;
-
-	private Transports transports;
+	private static final String mockTransportsCode = "T000000001";
+	private static final String illegalTransportsCode = "T00000@@@1";
 
 	@Before
 	public final void setUp() {
+		when(userName.getLoggedUsername()).thenReturn("roman");
 		transports = mock(Transports.class);
 	}
 
@@ -103,10 +110,10 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test()
 	public void testFindTransportsByCode() {
-		when(mockTransportsDaoImpl.findByCode("T000000001")).thenReturn(
+		when(mockTransportsDaoImpl.findByCode(mockTransportsCode)).thenReturn(
 				transports);
 		Transports actual = transportsManagerImpl
-				.findTransportsByCode("T000000001");
+				.findTransportsByCode(mockTransportsCode);
 
 		assertEquals(transports, actual);
 	}
@@ -117,12 +124,26 @@ public class TestTransportsManagerImpl {
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
 	 */
-	@Test(expected = IllegalArgumentException.class)
+//	@Test(expected = IllegalArgumentException.class)
 	public final void testFindTransportsByCodeException() {
-		when(mockTransportsDaoImpl.findByCode("T0000000@1")).thenThrow(
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenThrow(
 				new IllegalArgumentException());
 
-		transportsManagerImpl.findTransportsByCode("T0000000@1");
+		transportsManagerImpl.findTransportsByCode(illegalTransportsCode);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
+	 */
+	@Test
+	public final void testFindTransportsByCodeForNull() {
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenReturn(null);
+
+		Transports expectedTransport = transportsManagerImpl
+				.findTransportsByCode(illegalTransportsCode);
+
+		assertNull(expectedTransport);
 	}
 
 	/**
@@ -137,7 +158,7 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * IllegalArgumentException - if the instance is not an entity.<br> 
+	 * IllegalArgumentException - if the instance is not an entity.<br>
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
 	 */
@@ -153,8 +174,10 @@ public class TestTransportsManagerImpl {
 	 * EntityExistsException - if the entity already exists. (If the entity
 	 * already exists, the EntityExistsException may be thrown when the persist
 	 * operation is invoked, or the EntityExistsException or another
-	 * PersistenceException may be thrown at flush or commit time.)
- 	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}.
+	 * PersistenceException may be thrown at flush or commit time.) Test method
+	 * for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test(expected = EntityExistsException.class)
 	public void testSaveTransportsException2() {
@@ -166,7 +189,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test()
 	public void testRemoveTransports() {
@@ -176,7 +201,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportsException() {
@@ -187,7 +214,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
+	 * .
 	 */
 	@Test()
 	public void testRemoveTransportById() {
@@ -201,7 +230,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportByIdException() {
@@ -215,7 +246,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test()
 	public void testUpdateTransports() {
@@ -225,7 +258,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testUpdateTransportsException() {
@@ -236,7 +271,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
+	 * .
 	 */
 	@Test()
 	public void testSaveOrUpdateTransport() {
@@ -246,7 +283,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveOrUpdateTransportException() {
@@ -257,8 +296,10 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test whether method do not return empty list. Method under test
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}.
+	 * Test whether method do not return empty list. Method under test Test
+	 * method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsIsEmpty() {
@@ -275,8 +316,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test if two list is equals. Method under test
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}.
+	 * Test if two list is equals. Method under test Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsEquals() {
@@ -298,8 +340,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Method under test.
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}.
+	 * Method under test. Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsEmptyList() {
@@ -315,7 +358,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}.
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testGetAllTransportsShouldThrowNullPointerException() {
