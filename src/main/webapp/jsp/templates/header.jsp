@@ -12,17 +12,19 @@
 		<div id="login">
 			<ul>
 				<sec:authorize access="isAuthenticated()">
-					<li><spring:message code="label.header.hello"/><sec:authentication property="principal.username" />
-					</li>
+					<li><spring:message code="label.header.hello" /> <sec:authentication
+							property="principal.username" /></li>
 					<li>|</li>
-					<li><a href="logout"><spring:message
+					<li><a href="logout"><span class="logout_icon"></span> <spring:message
 								code="label.header.logout" /></a></li>
 					<li>|</li>
-					<li><span class="cart_icon"></span><a
-						href="<c:url value="/bag" />"><spring:message
-								code="label.bag" /></a></li>
+					<li><a href="<c:url value="/bag" />"><span
+							class="cart_icon"></span>
+						<spring:message code="label.bag" /></a></li>
 					<li>|</li>
-					<li><a href="<c:url value="/profileEdit"/>"><spring:message code="label.header.Profile"/></a></li>
+					<li><a href="<c:url value="/profileEdit"/>"><span
+							class="profile_icon"></span> <spring:message
+								code="label.header.Profile" /></a></li>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<li><a href="login"><spring:message

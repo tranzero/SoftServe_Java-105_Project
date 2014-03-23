@@ -84,14 +84,28 @@ span.icon {
 	height: 40px;
 	display: inline-block;
 }
-span.cart_icon {
+span.cart_icon,span.logout_icon, span.profile_icon {
+	padding-right: 4px;
 	display: inline-block;
+	margin-bottom: -2px;
 }
 .cart_icon {
-	padding-right: 4px;
-	background: url("../images/icon-cart.png") no-repeat;	
-	width: 12px;
-	height: 12px;
+	background: url("../images/cart_icon.png") no-repeat;	
+	background-size: 16px 16px;	
+	width: 16px;
+	height: 16px;
+}
+.logout_icon {
+	background: url("../images/logout_icon.png") no-repeat;	
+	background-size: 16px 16px;	
+	width: 16px;
+	height: 16px;
+}
+.profile_icon {
+	background: url("../images/profile_icon.png") no-repeat;
+	background-size: 18px 18px;	
+	width: 18px;
+	height: 18px;
 }
 .icon {
 	padding-right: 4px;
