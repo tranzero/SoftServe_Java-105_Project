@@ -11,7 +11,7 @@ public class TicketValidator implements Validator {
 	
 	private static final String CUSTOMER_LAST_NAME = "customerLastName";
 	private static final String CUSTOMER_FIRST_NAME = "customerFirstName";
-	public static final String PATERN = "^[a-zA]{3,15}$";
+	public static final String PATERN = "^[a-zA-Z]{3,15}$";
 	
 	private static final String TICKETS_MATCHER = "label.tickets.matcher";
 

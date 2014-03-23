@@ -487,6 +487,7 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStForLimits(
 						stationName1, stationName2, firstElement, count, null))
 				.thenReturn(expectedTransportTravel);
+		
 		List<TransportTravel> actualTransportTravel = transportsManagerImpl
 				.getTransportByTwoStForLimit(stationName1, stationName2,
 						firstElement, count, null);
@@ -510,6 +511,7 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStListCount(
 						stationName1, stationName2)).thenReturn(
 				expectedTransportTravelCount);
+		
 		long actualTransportTravelCount = transportsManagerImpl
 				.getTransportByTwoStListCount(stationName1, stationName2);
 
