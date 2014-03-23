@@ -188,7 +188,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * 
+	 * Finds the number of <code>Transports</code> by parameters and return it quantity.
 	 * @param transportCode
 	 *            the transports code for matching
 	 * @param routeName

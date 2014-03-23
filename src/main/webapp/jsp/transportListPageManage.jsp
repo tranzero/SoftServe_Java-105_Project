@@ -12,9 +12,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="transportcodeasc"><img
-						alt="^" src="resources/images/down-arrow.png"></a> <a
+						alt="^" src="resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="transportcodedesc"><img alt="v"
-						src="resources/images/up-arrow.png"></a>
+						src="resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>

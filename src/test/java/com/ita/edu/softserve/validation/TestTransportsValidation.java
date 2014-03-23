@@ -1,6 +1,5 @@
 package com.ita.edu.softserve.validation;
 
-//import static org.mockito.Mockito.mock;
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
