@@ -38,7 +38,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	private final String removeMessage = " was remove from DB by ";
 	private final String wasFoundMessage = " was fond by ";
 	private final String wasFoundByCodeMessage = " was fond by code by ";
-	private static final String WAS_UPDATED_MESSAGE = " was updated by ";
+	private final String wasUpdatedMessage = " was updated by ";
 	private final String getAllTransportsMessage = "Seccesfuly get list of Transports";
 
 	private final String findTransportsMessage = "Could not find Transports by ID=";
@@ -201,7 +201,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			List<Transports> update = transportsDao.update(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ WAS_UPDATED_MESSAGE + userName.getLoggedUsername());
+					+ wasUpdatedMessage + userName.getLoggedUsername());
 
 			return update;
 		} catch (RuntimeException e) {
@@ -253,7 +253,7 @@ public class TransportsManagerImpl implements TransportsManager {
 						+ userName.getLoggedUsername());
 
 			} else {
-				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE
+				LOGGER.info(entityName + id + wasUpdatedMessage
 						+ userName.getLoggedUsername());
 			}
 		} catch (RuntimeException e) {

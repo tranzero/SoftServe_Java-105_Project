@@ -178,7 +178,6 @@ public class TestTransportsManagerImpl {
 	 * PersistenceException may be thrown at flush or commit time.) Test method
 	 * for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
-	 * .
 	 */
 	@Test(expected = EntityExistsException.class)
 	public void testSaveTransportsException2() {
@@ -192,7 +191,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
-	 * .
 	 */
 	@Test()
 	public void testRemoveTransports() {
@@ -204,7 +202,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
-	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportsException() {
@@ -217,7 +214,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
-	 * .
 	 */
 	@Test()
 	public void testRemoveTransportById() {
@@ -233,7 +229,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
-	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportByIdException() {
@@ -297,7 +292,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
-	 * .
 	 */
 	@Test()
 	public void testSaveOrUpdateTransport() {
@@ -309,7 +303,20 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
-	 * .
+	 */
+	@Test()
+	public void testSaveOrUpdateTransportForNullId() {
+		Transports transports = new Transports();
+		transports.setTransportId(null);
+		
+		transportsManagerImpl.saveOrUpdateTransport(transports);
+
+		verify(mockTransportsDaoImpl).saveOrUpdate(transports);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveOrUpdateTransportException() {
@@ -323,7 +330,6 @@ public class TestTransportsManagerImpl {
 	 * Test whether method do not return empty list. Method under test Test
 	 * method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
-	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsIsEmpty() {
@@ -342,7 +348,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test if two list is equals. Method under test Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
-	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsEquals() {
@@ -366,7 +371,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Method under test. Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
-	 * .
 	 */
 	@Test
 	public final void testGetAllTransportsEmptyList() {
@@ -384,7 +388,6 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
-	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testGetAllTransportsShouldThrowNullPointerException() {
