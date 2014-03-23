@@ -41,17 +41,17 @@ public class Transports extends BaseEntity {
 	 * Defines the name of transport code parameter.
 	 */
 	public static final String TRANSPORT_CODE_NAME = "transportCode";
-	
+
 	/**
 	 * Defines the name of route code parameter.
 	 */
 	public static final String ROUTE_CODE_NAME = "routeCode";
-	
+
 	/**
 	 * Defines the name of route name parameter.
 	 */
 	public static final String ROUTE_NAME_NAME = "routeName";
-	
+
 	/**
 	 * Defines the name of line name parameter.
 	 */
@@ -61,17 +61,17 @@ public class Transports extends BaseEntity {
 	 * Defines the name of seat class 1 parameter.
 	 */
 	public static final String SEAT_CLASS1_NAME = "seatClass1";
-	
+
 	/**
 	 * Defines the name of seat class 2 parameter.
 	 */
 	public static final String SEAT_CLASS2_NAME = "seatClass2";
-	
+
 	/**
 	 * Defines the name of seat class 3 parameter.
 	 */
 	public static final String SEAT_CLASS3_NAME = "seatClass3";
-	
+
 	/**
 	 * Defines the name of general price name parameter.
 	 */
@@ -81,12 +81,26 @@ public class Transports extends BaseEntity {
 	 * Defines the name of minimum time parameter.
 	 */
 	public static final String MIN_TIME_NAME = "minTime";
-	
+
+	/**
+	 * Defines the name of passed value parameter.
+	 */
+	public static final String PASSED_VALUE_NAME = "passedValue";
+
+	/**
+	 * Defines the name of passed id parameter.
+	 */
+	public static final String PASSED_ID_NAME = "passedId";
+
 	/**
 	 * Defines the name of maximum time parameter.
 	 */
 	public static final String MAX_TIME_NAME = "maxTime";
 	
+	/**
+	 * Common part for all ORDER BY using queries
+	 */
+	public static final String GENERAL_ORDER_PART = ", t.transportId ";
 
 	public static final String ORDER_BY_CRITERIA_NAME = "orderByCriteria";
 	public static final String ORDER_BY_DIRECTION_NAME = "orderByDirection";
@@ -108,11 +122,11 @@ public class Transports extends BaseEntity {
 
 	/*------------------------------------------------------------------------------------------------------------*/
 	/**
-	 * Name of query which is used for selecting count of transports from DB with
-	 * criteria. Used in paging.
+	 * Name of query which is used for selecting count of transports from DB
+	 * with criteria. Used in paging.
 	 */
 	public static final String FIND_TRANSPORTS_COUNT = "Transports.findTransportsCount";
-	
+
 	/**
 	 * Query which is used for selecting count of trips from DB with criteria.
 	 * Used in paging.
@@ -129,9 +143,8 @@ public class Transports extends BaseEntity {
 			+ SEAT_CLASS2_NAME
 			+ " AND t.seatclass3 >= :"
 			+ SEAT_CLASS3_NAME
-			+ " AND t.genPrice < :" 
-			+ GEN_PRICE_NAME;
-	
+			+ " AND t.genPrice < :" + GEN_PRICE_NAME;
+
 	/**
 	 * Query which is used for selecting transports from DB using criteria.
 	 * Compatible with paging.
@@ -148,11 +161,10 @@ public class Transports extends BaseEntity {
 			+ SEAT_CLASS2_NAME
 			+ " AND t.seatclass3 >= :"
 			+ SEAT_CLASS3_NAME
-			+ " AND t.genPrice < :" 
-			+ GEN_PRICE_NAME + " ORDER BY ";
-	
+			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
+
 	/*------------------------------------------------------------------------------------------------------------*/
-	
+
 	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT = "Transports.findTransportsForAddTripsCount";
 	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_COUNT_QUERY = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
@@ -185,14 +197,53 @@ public class Transports extends BaseEntity {
 			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " ORDER BY ";
 
 	/**
-	 * Name of query which is used for finding transport by two stations 
+	 * Query which is used for selecting index of transport from DB with
+	 * criteria. Part 1. Used in paging in trip editing.
+	 */
+	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART1 = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
+			+ TRANSPORT_CODE_NAME
+			+ " AND t.routes.routeCode LIKE :"
+			+ ROUTE_CODE_NAME
+			+ " AND t.routes.routeName LIKE :"
+			+ ROUTE_NAME_NAME
+			+ " AND "
+			+ "t.seatclass1 >= :"
+			+ SEAT_CLASS1_NAME
+			+ " AND t.seatclass2 >= :"
+			+ SEAT_CLASS2_NAME
+			+ " AND t.seatclass3 >= :"
+			+ SEAT_CLASS3_NAME
+			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " AND ((";
+
+	/**
+	 * Query which is used for selecting index of transport from DB with
+	 * criteria. Part 2. Used in paging in trip editing.
+	 */
+	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART2 = " :"
+			+ PASSED_VALUE_NAME + ") OR ((";
+
+	/**
+	 * Query which is used for selecting index of transport from DB with
+	 * criteria. Part 3. Used in paging in trip editing.
+	 */
+	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART3 = " = :"
+			+ PASSED_VALUE_NAME + ") AND (t.transportId ";
+
+	/**
+	 * Query which is used for selecting index of transport from DB with
+	 * criteria. Part 4. Used in paging in trip editing.
+	 */
+	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART4 = " :"
+			+ PASSED_ID_NAME + ")))";
+
+	/**
+	 * Name of query which is used for finding transport by two stations
 	 * including stops at these stations
 	 */
 	public static final String FIND_BY_TWO_STATIONS = "Transports.findByTwoStations";
-	
+
 	/**
-	 * Query to find transport by two stations including stops at these
-	 * stations
+	 * Query to find transport by two stations including stops at these stations
 	 */
 	public static final String FIND_BY_TWO_STATIONS_QUERY = "SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure))) "
@@ -212,14 +263,14 @@ public class Transports extends BaseEntity {
 			+ "GROUP BY t.transportId";
 
 	/**
-	 * Name of query which is used for finding transport by two stations 
-	 * and date including stops at these stations
+	 * Name of query which is used for finding transport by two stations and
+	 * date including stops at these stations
 	 */
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE = "Transports.findByTwoStationsAndDate";
-	
+
 	/**
-	 * Query to find transport by two stations and date
-	 * including stops at these stations
+	 * Query to find transport by two stations and date including stops at these
+	 * stations
 	 */
 	public static final String FIND_BY_TWO_STATIONS_AND_DATE_QUERY = "SELECT "
 			+ "NEW com.ita.edu.softserve.manager.impl.TransportTravel(t, TIME(TIME(s.departure) + TIME(t.startTime)), TIME(MAX(s.arrival)), TIME(TIME(MAX(s.arrival)) - TIME(s.departure)), tr) "

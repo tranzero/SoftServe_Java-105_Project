@@ -23,8 +23,9 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
  */
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
-	
-	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
+
+	private static final Logger LOGGER = Logger
+			.getLogger(TransportsManagerImpl.class);
 
 	private String entityName = Transports.class.getSimpleName();
 
@@ -296,6 +297,24 @@ public class TransportsManagerImpl implements TransportsManager {
 				transportForAddTripsCriteriaContainer.getPrice(),
 				transportForAddTripsCriteriaContainer.getOrderByCriteria(),
 				transportForAddTripsCriteriaContainer.getOrderByDirection());
+	}
+
+	@Override
+	public long getTransportIndexForAddTrips(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
+			Transports knownElement, Integer pageSize) {
+		long result;
+		result = transportsDao.getTransportsListForAddTripsIndex(transportForAddTripsCriteriaContainer.getTransportCode(),
+				transportForAddTripsCriteriaContainer.getRouteName(),
+				transportForAddTripsCriteriaContainer.getRoutesCode(),
+				transportForAddTripsCriteriaContainer.getSeatClass1(),
+				transportForAddTripsCriteriaContainer.getSeatClass2(),
+				transportForAddTripsCriteriaContainer.getSeatClass3(),
+				transportForAddTripsCriteriaContainer.getPrice(),
+				transportForAddTripsCriteriaContainer.getOrderByCriteria(),
+				transportForAddTripsCriteriaContainer.getOrderByDirection(), 
+				knownElement);
+		return (result/pageSize)+1;
 	}
 
 	@Override

@@ -241,4 +241,8 @@ public interface TransportsManager extends BaseManager {
 	long getTransportsListForAddTripsCountWithContainers(
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer);
 
+	long getTransportIndexForAddTrips(
+			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
+			Transports knownElement, Integer pageSize);
+
 }

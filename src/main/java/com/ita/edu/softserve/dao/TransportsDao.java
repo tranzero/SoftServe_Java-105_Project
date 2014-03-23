@@ -129,5 +129,11 @@ public interface TransportsDao extends AbstractDAOIface<Transports> {
 	long getTransportsListForAddTripsCount(String transportCode,
 			String routeName, String routeCode, Integer seatClass1,
 			Integer seatClass2, Integer seatClass3, Double price);
+
+	long getTransportsListForAddTripsIndex(String transportCode,
+			String routeName, String routeCode, Integer seatClass1,
+			Integer seatClass2, Integer seatClass3, Double price,
+			String OrderByCriteria, String OrderByDirection,
+			Transports knownElement);
 	
 }
