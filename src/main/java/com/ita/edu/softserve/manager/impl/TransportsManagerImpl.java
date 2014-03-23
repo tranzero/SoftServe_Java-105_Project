@@ -37,15 +37,17 @@ public class TransportsManagerImpl implements TransportsManager {
 	private String addMessage = " was added to DB";
 	private String removeMessage = " was remove from DB";
 	private String wasFoundMessage = " was fond";
+	private static final String WAS_UPDATED_MESSAGE = " was updated";
+	private final String getAllTransportsMessage = "Seccesfuly get list of Transports";
 
 	private final String findTransportsMessage = "Could not find Transports by ID=";
-	private final String findTransportsCodeMessage = "Could not find Transports by code= ";
+	private final String findTransportsCodeMessage = "Could not find Transports by code=";
 	private final String saveTransportsMessage = "Could not save Transports";
 	private final String removeTransportsMessage = "Could not remove Transports";
 	private final String removeTransportsByIdMessage = "Could not remove Transport by id ";
 	private final String updateTransportsMessage = "Could not update Transports ";
 	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
-	private final String getAllTransportsMessage = "Could not get list of Transports";
+	private final String getAllTransportsMessageError = "Could not get list of Transports";
 	private final String getTransportsByTwoStationsMessage = "Could not get Transports by two stations";
 
 	/**
@@ -64,35 +66,53 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Finds the <code>Transports</code> by Id.
 	 * 
-	 * @return the transport found by Id.
-	 * 
+	 * @param id
+	 *            the Id to find <code>Transports</code>.
+	 * @return the <code>Transports</code> fond by Id.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#findTransportsById(int)
 	 */
+//	/**
+//	 * {@inheritDoc}
+//	 */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
 		try {
-			return transportsDao.findById(id);
+			Transports transports = transportsDao.findById(id);
+
+			if (transports != null) {
+				LOGGER.info(entityName + transports.getTransportId()
+						+ addMessage);
+			}
+
+			return transports;
+
 		} catch (RuntimeException e) {
 			LOGGER.error(findTransportsMessage + id, e);
 			throw e;
 		}
 	}
 
+//	 * @throws IllegalArgumentException - if position does not
+//	 *         correspond to a positional parameter of the query or if the
+//	 *         argument is of incorrect type
 	/**
-	 * Finds the <code>Transports</code> by Id.
+	 * Finds Transports by transport code.
 	 * 
 	 * @param code
-	 * @return
+	 *            the transport code to find.
+	 * @return the Transports fond by transport code.
 	 */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsByCode(String code) {
 		try {
-			return transportsDao.findByCode(code);
+			Transports transports = transportsDao.findByCode(code);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ wasFoundMessage);
+			return transports;
 		} catch (RuntimeException e) {
 			LOGGER.error(findTransportsCodeMessage + code, e);
-//			throw e;
 		}
 		return null;
 	}
@@ -100,6 +120,8 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Saves <code>Transports</code> in database.
 	 * 
+	 * @param transports
+	 *            the array of Transports to save.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#saveTransports(com.ita.edu.softserve.entity.Transports[])
 	 */
 	@Transactional(readOnly = false)
@@ -109,28 +131,36 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.save(transports);
 			LOGGER.info(entityName + transports.getTransportId() + addMessage);
 		} catch (RuntimeException e) {
-			LOGGER.error(saveTransportsMessage, e);
+			LOGGER.error(saveTransportsMessage + transports.getTransportId(), e);
 			throw e;
 		}
 	}
 
 	/**
 	 * Removes <code>Transports</code> from database.
+	 * 
+	 * @param transports
+	 *            the array of Transports to delete.
 	 */
 	@Transactional(readOnly = false)
 	@Override
 	public void removeTransports(Transports transports) {
 		try {
 			transportsDao.remove(transports);
-			LOGGER.info(entityName + transports.getTransportId() + removeMessage);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ removeMessage);
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportsMessage, e);
+			LOGGER.error(removeTransportsMessage + transports.getTransportId(),
+					e);
 			throw e;
 		}
 	}
 
 	/**
 	 * Removes <code>Transports</code> by Id from database.
+	 * 
+	 * @param transportId
+	 *            the Transports to delete by Id.
 	 */
 	@Transactional
 	@Override
@@ -143,11 +173,13 @@ public class TransportsManagerImpl implements TransportsManager {
 					+ wasFoundMessage);
 
 			transportsDao.remove(transports);
-			LOGGER.info(entityName + transports.getTransportId() + removeMessage);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ removeMessage);
 
 		} catch (RuntimeException e) {
 			LOGGER.error(
-					removeTransportsByIdMessage + transports.getTransportId(), e);
+					removeTransportsByIdMessage + transports.getTransportId(),
+					e);
 			throw e;
 		}
 	}
@@ -155,13 +187,19 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Updates <code>Transports</code> table and get list of all Transports.
 	 * 
-	 * @return the list of all transports.
+	 * @param transports
+	 *            the array of Transports to update.
+	 * @return the List of Transports.
 	 */
 	@Transactional
 	@Override
-	public List<Transports> updateTransports(Transports entities) {
+	public List<Transports> updateTransports(Transports transports) {
 		try {
-			return transportsDao.update(entities);
+			List<Transports> update = transportsDao.update(transports);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ WAS_UPDATED_MESSAGE);
+
+			return update;
 		} catch (RuntimeException e) {
 			LOGGER.error(updateTransportsMessage, e);
 			throw e;
@@ -171,15 +209,18 @@ public class TransportsManagerImpl implements TransportsManager {
 	/**
 	 * Gets the list of all <code>Transports</code>.
 	 * 
-	 * @return the list of all transports.
+	 * @return the List of Transports.
 	 */
 	@Transactional
 	@Override
 	public List<Transports> getAllTransports() {
 		try {
-			return transportsDao.getAllEntities();
+			List<Transports> allEntities = transportsDao.getAllEntities();
+			LOGGER.info(getAllTransportsMessage);
+
+			return allEntities;
 		} catch (RuntimeException e) {
-			LOGGER.error(getAllTransportsMessage, e);
+			LOGGER.error(getAllTransportsMessageError, e);
 			throw e;
 		}
 	}
@@ -192,14 +233,23 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * transport object otherwise it finds existing one in database and updates
 	 * it.
 	 * 
-	 * @param transport
-	 *            Transports to add or update.
+	 * @param transports
+	 *            the Transports to add or update.
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateTransport(Transports transport) {
+	public void saveOrUpdateTransport(Transports transports) {
+		Integer id = transports.getTransportId();
+
 		try {
-			transportsDao.saveOrUpdate(transport);
+			transportsDao.saveOrUpdate(transports);
+
+			if (id == null) {
+				LOGGER.info(entityName + id + addMessage);
+
+			} else {
+				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE);
+			}
 		} catch (RuntimeException e) {
 			LOGGER.error(saveOrUpdateTransportsMessage, e);
 			throw e;
