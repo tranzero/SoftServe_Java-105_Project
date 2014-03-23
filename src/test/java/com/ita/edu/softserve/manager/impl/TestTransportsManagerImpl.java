@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 
-import org.hibernate.mapping.Array;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
-import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.UserNameService;
