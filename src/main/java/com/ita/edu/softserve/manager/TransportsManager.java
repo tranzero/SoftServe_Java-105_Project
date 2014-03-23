@@ -14,74 +14,78 @@ import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaCo
 public interface TransportsManager extends BaseManager {
 
 	/**
-	 * Finds transports by ID.
+	 * Finds the <code>Transports</code> by Id.
 	 * 
 	 * @param id
-	 *            the Id to find transport.
-	 * @return the transport fond by Id.
+	 *            the Id to find <code>Transports</code>.
+	 * @return the <code>Transports</code> fond by Id.
 	 */
 	Transports findTransportsById(int id);
 
 	/**
-	 * Finds transports by transport code.
+	 * Finds Transports by transport code.
 	 * 
 	 * @param code
 	 *            the transport code to find.
-	 * @return the transport fond by code.
+	 * @return the Transports fond by transport code.
 	 */
 	Transports findTransportsByCode(String code);
 
 	/**
-	 * Saves transports.
+	 * Saves <code>Transports</code> in database.
 	 * 
-	 * @param entities
-	 *            the array of transports to save.
+	 * @param transports
+	 *            the array of Transports to save.
 	 */
-	void saveTransports(Transports... entities);
+	void saveTransports(Transports transports);
 
 	/**
-	 * Removes transports.
+	 * Removes <code>Transports</code> from database.
 	 * 
-	 * @param entities
-	 *            the array of transports to delete.
+	 * @param transports
+	 *            the array of Transports to delete.
 	 */
-	void removeTransports(Transports... entities);
+	void removeTransports(Transports transports);
 
 	/**
-	 * Removes transports by ID.
+	 * Removes <code>Transports</code> by Id from database.
 	 * 
 	 * @param transportId
-	 *            the transport to delete by Id.
+	 *            the Transports to delete by Id.
 	 */
 	void removeTransportById(Integer transportId);
 
 	/**
-	 * Updates transports.
+	 * Updates <code>Transports</code> table and get list of all Transports.
 	 * 
-	 * @param entities
-	 *            the array of transports to update.
+	 * @param transports
+	 *            the array of Transports to update.
 	 * @return the List of Transports.
 	 */
-	List<Transports> updateTransports(Transports... entities);
+	List<Transports> updateTransports(Transports transports);
 
 	/**
-	 * Gets all transports.
+	 * Gets the list of all <code>Transports</code>.
 	 * 
 	 * @return the List of Transports.
 	 */
 	List<Transports> getAllTransports();
 
 	/**
-	 * Saves new a transport into Transports table if not exist otherwise
-	 * updates it.
+	 * Saves the <code>Transports</code> object to database if not exist or
+	 * updates it. <br/>
+	 * <br/>
+	 * If <code>transportId</code> is <code>null</code> than it creates new
+	 * transport object otherwise it finds existing one in database and updates
+	 * it.
 	 * 
-	 * @param transport
-	 *            the transport to save or update.
+	 * @param transports
+	 *            the Transports to add or update.
 	 */
-	void saveOrUpdateTransport(Transports transport);
+	void saveOrUpdateTransport(Transports transports);
 
 	/*---------------------------for transport paging sorting filtering------------------------------------------*/
-	
+
 	/**
 	 * @param container
 	 * @param transportCriteriaContainer
@@ -97,7 +101,7 @@ public interface TransportsManager extends BaseManager {
 	 */
 	long getTransportsListCountWithContainers(
 			TransportsCriteriaContainer transportCriteriaContainer);
-	
+
 	/**
 	 * @param transportCode
 	 * @param routeName
@@ -155,63 +159,78 @@ public interface TransportsManager extends BaseManager {
 	 */
 	void validateTransportCriteria(
 			TransportsCriteriaContainer transportCriteriaContainer);
+
 	/*--------------------------END-for transport paging sorting filtering------------------------------------------*/
-	
+
 	/**
 	 * Returns <code>TransportTravel</code> object, that contains all transport
 	 * that goes through two stations
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
 	 * 
-	 *@return <code>TransportTravel</code>, that contains transport
-	 *        code, departure and arrival times, duration
+	 * @return <code>TransportTravel</code>, that contains transport code,
+	 *         departure and arrival times, duration
 	 */
 	List<TransportTravel> getTransportByTwoStations(String stationName1,
 			String stationName2);
 
 	/**
-	 * Returns number of transport elements that go through
-	 * two stations including stops 
+	 * Returns number of transport elements that go through two stations
+	 * including stops
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
 	 * 
-	 * @return number of transport elements that go through
-	 * 		   two stations including stops
+	 * @return number of transport elements that go through two stations
+	 *         including stops
 	 */
 	long getTransportByTwoStListCount(String stationName1, String stationName2);
 
 	/**
-	 * Returns transport by two stations (limited number of records)
-	 * including stops at these stations.
+	 * Returns transport by two stations (limited number of records) including
+	 * stops at these stations.
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
-	 * @param pageNumber - number of page to get results for  
-	 * @param count - number of elements to return
-	 * @param sDate - date of trip
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
+	 * @param pageNumber
+	 *            - number of page to get results for
+	 * @param count
+	 *            - number of elements to return
+	 * @param sDate
+	 *            - date of trip
 	 * 
-	 * @return <code>List</code> of <code>transportTravel</code>
-	 * 		   which contains transport and some info about trip
-	 * 		   duration, arrival time, departure time
+	 * @return <code>List</code> of <code>transportTravel</code> which contains
+	 *         transport and some info about trip duration, arrival time,
+	 *         departure time
 	 */
 	List<TransportTravel> getTransportByTwoStForPage(String stationName1,
 			String stationName2, int pageNumber, int count, String sDate);
 
 	/**
-	 * Returns transport by two stations (limited number of records)
-	 * including stops at these stations.
+	 * Returns transport by two stations (limited number of records) including
+	 * stops at these stations.
 	 * 
-	 * @param stationName1 - name of the first station
-	 * @param stationName2 - name of the second station
-	 * @param firstElement - element from what to start 
-	 * @param count - number of elements to return
-	 * @param sDate - date of trip
+	 * @param stationName1
+	 *            - name of the first station
+	 * @param stationName2
+	 *            - name of the second station
+	 * @param firstElement
+	 *            - element from what to start
+	 * @param count
+	 *            - number of elements to return
+	 * @param sDate
+	 *            - date of trip
 	 * 
-	 * @return <code>List</code> of <code>transportTravel</code>
-	 * 		   which contains transport and some info about trip
-	 * 		   duration, arrival time, departure time
+	 * @return <code>List</code> of <code>transportTravel</code> which contains
+	 *         transport and some info about trip duration, arrival time,
+	 *         departure time
 	 */
 	List<TransportTravel> getTransportByTwoStForLimit(String stationName1,
 			String stationName2, int firstElement, int count, String sDate);

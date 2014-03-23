@@ -11,6 +11,7 @@ import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
@@ -24,29 +25,40 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportsManagerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
 
-	private String entityName = Transports.class.getSimpleName();
+	/**
+	 * The simple name of the <code>Transports</code> class as given in the
+	 * source code. Returns an empty string if the underlying class is
+	 * anonymous.
+	 */
+	private String entityName = Transports.class.getSimpleName() + " with Id=";
 
-	private String addMessage = " was added to DB";
-	private String removeMessage = " was remove from DB by ";
+	private final String addMessage = " was added to DB by ";
+	private final String removeMessage = " was remove from DB by ";
+	private final String wasFoundMessage = " was fond by ";
+	private final String wasFoundByCodeMessage = " was fond by code by ";
+	private static final String WAS_UPDATED_MESSAGE = " was updated by ";
+	private final String getAllTransportsMessage = "Seccesfuly get list of Transports";
 
-	private final String findTransportsMessage = "Could not find Transport List";
-	private final String findTransportsCodeMessage = "Could not find Transport by code";
-	private final String saveTransportMessage = "Could not save Transports";
-	private final String removeTransportMessage = "Could not remove Transport";
-	private final String removeTransportByIdMessage = "Could not remove Transport by id ";
-	private final String updateTransportMessage = "Could not update Transport";
-	private final String saveOrUpdateTransportMessage = "Could not save or update Transports";
-	private final String getAllTransportsMessage = "Could not get list of Transport";
-	private final String getTransportByTwoStationsMessage = "Could not get Transport by two stations";
+	private final String findTransportsMessage = "Could not find Transports by ID=";
+	private final String findTransportsCodeMessage = "Could not find Transports by code=";
+	private final String saveTransportsMessage = "Could not save Transports";
+	private final String removeTransportsMessage = "Could not remove Transports";
+	private final String removeTransportsByIdMessage = "Could not remove Transport by id=";
+	private final String updateTransportsMessage = "Could not update Transports ";
+	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
+	private final String getAllTransportsMessageError = "Could not get list of Transports";
+	private final String getTransportsByTwoStationsMessage = "Could not get Transports by two stations";
 
 	/**
 	 * Gets access to Transports DAO.
 	 */
 	@Autowired
 	private TransportsDao transportsDao;
+
+	@Autowired
+	private UserNameService userName;
 
 	/**
 	 * The constructor without arguments.
@@ -56,137 +68,196 @@ public class TransportsManagerImpl implements TransportsManager {
 	}
 
 	/**
-	 * Finds the transport by Id.
+	 * Finds the <code>Transports</code> by Id.
 	 * 
-	 * @return the transport found by Id.
-	 * 
+	 * @param id
+	 *            the Id to find <code>Transports</code>.
+	 * @return the <code>Transports</code> fond by Id.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#findTransportsById(int)
 	 */
+	// /**
+	// * {@inheritDoc}
+	// */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
 		try {
-			return transportsDao.findById(id);
+			Transports transports = transportsDao.findById(id);
+
+			if (transports != null) {
+				LOGGER.info(entityName + transports.getTransportId()
+						+ wasFoundMessage + userName.getLoggedUsername());
+			}
+
+			return transports;
+
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsMessage, e);
+			LOGGER.error(findTransportsMessage + id, e);
 			throw e;
 		}
 	}
 
+	/**
+	 * Finds Transports by transport code.
+	 * 
+	 * @param code
+	 *            the transport code to find.
+	 * @return the Transports fond by transport code.
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsByCode(String code) {
 		try {
-			return transportsDao.findByCode(code);
+			Transports transports = transportsDao.findByCode(code);
+			LOGGER.info(entityName + transports.getTransportId()
+					 + wasFoundByCodeMessage + userName.getLoggedUsername());
+
+			return transports;
+
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsCodeMessage, e);
-			throw e;
+			LOGGER.error(findTransportsCodeMessage + code, e);
+			
+			return null;
 		}
 	}
 
 	/**
-	 * Saves Transports in database.
+	 * Saves <code>Transports</code> in database.
 	 * 
+	 * @param transports
+	 *            the array of Transports to save.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#saveTransports(com.ita.edu.softserve.entity.Transports[])
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveTransports(Transports... entities) {
+	public void saveTransports(Transports transports) {
 		try {
-			transportsDao.save(entities);
-			LOGGER.info(entityName + addMessage);
+			transportsDao.save(transports);
+			LOGGER.info(entityName + transports.getTransportId() + addMessage
+					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			LOGGER.error(saveTransportMessage, e);
+			LOGGER.error(saveTransportsMessage + transports.getTransportId(), e);
 			throw e;
 		}
 	}
 
 	/**
-	 * Removes Transports from database.
+	 * Removes <code>Transports</code> from database.
+	 * 
+	 * @param transports
+	 *            the array of Transports to delete.
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void removeTransports(Transports... entities) {
+	public void removeTransports(Transports transports) {
 		try {
-			transportsDao.remove(entities);
-			LOGGER.info(entityName + removeMessage);
+			transportsDao.remove(transports);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ removeMessage + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportMessage, e);
+			LOGGER.error(removeTransportsMessage + transports.getTransportId(), e);
 			throw e;
 		}
 	}
 
 	/**
-	 * Removes Transport by Id from database.
+	 * Removes <code>Transports</code> by Id from database.
+	 * 
+	 * @param transportId
+	 *            the Transports to delete by Id.
 	 */
 	@Transactional
 	@Override
 	public void removeTransportById(Integer transportId) {
-		Transports transport = null;
+		Transports transports = null;
 
 		try {
-			transport = (Transports) transportsDao.findById(transportId);
-			LOGGER.info(entityName + transport.getTransportId() + "was fond");
+			transports = (Transports) transportsDao.findById(transportId);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ wasFoundMessage + userName.getLoggedUsername());
 
-			transportsDao.remove(transport);
-			LOGGER.info(entityName + removeMessage);
+			transportsDao.remove(transports);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ removeMessage + userName.getLoggedUsername());
 
 		} catch (RuntimeException e) {
 			LOGGER.error(
-					removeTransportByIdMessage + transport.getTransportId(), e);
+					removeTransportsByIdMessage + transports.getTransportId(),
+					e);
 			throw e;
 		}
 	}
 
 	/**
-	 * Updates transport table and get list of all Transports.
+	 * Updates <code>Transports</code> table and get list of all Transports.
 	 * 
-	 * @return the list of all transports.
+	 * @param transports
+	 *            the array of Transports to update.
+	 * @return the List of Transports.
 	 */
 	@Transactional
 	@Override
-	public List<Transports> updateTransports(Transports... entities) {
+	public List<Transports> updateTransports(Transports transports) {
 		try {
-			return transportsDao.update(entities);
+			List<Transports> update = transportsDao.update(transports);
+			LOGGER.info(entityName + transports.getTransportId()
+					+ WAS_UPDATED_MESSAGE + userName.getLoggedUsername());
+
+			return update;
 		} catch (RuntimeException e) {
-			LOGGER.error(updateTransportMessage, e);
+			LOGGER.error(updateTransportsMessage, e);
 			throw e;
 		}
 	}
 
 	/**
-	 * Gets the list of all transports.
+	 * Gets the list of all <code>Transports</code>.
 	 * 
-	 * @return the list of all transports.
+	 * @return the List of Transports.
 	 */
 	@Transactional
 	@Override
 	public List<Transports> getAllTransports() {
 		try {
-			return transportsDao.getAllEntities();
+			List<Transports> allEntities = transportsDao.getAllEntities();
+			LOGGER.info(getAllTransportsMessage);
+
+			return allEntities;
 		} catch (RuntimeException e) {
-			LOGGER.error(getAllTransportsMessage, e);
+			LOGGER.error(getAllTransportsMessageError, e);
 			throw e;
 		}
 	}
 
 	/**
-	 * Saves the Transport object to database if not exist or updates it. <br/>
+	 * Saves the <code>Transports</code> object to database if not exist or
+	 * updates it. <br/>
 	 * <br/>
 	 * If <code>transportId</code> is <code>null</code> than it creates new
 	 * transport object otherwise it finds existing one in database and updates
 	 * it.
 	 * 
-	 * @param transport
-	 *            Transports to add or update.
+	 * @param transports
+	 *            the Transports to add or update.
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public void saveOrUpdateTransport(Transports transport) {
+	public void saveOrUpdateTransport(Transports transports) {
+		Integer id = transports.getTransportId();
+
 		try {
-			transportsDao.saveOrUpdate(transport);
+			transportsDao.saveOrUpdate(transports);
+
+			if (id == null) {
+				LOGGER.info(entityName + id + addMessage
+						+ userName.getLoggedUsername());
+
+			} else {
+				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE
+						+ userName.getLoggedUsername());
+			}
 		} catch (RuntimeException e) {
-			LOGGER.error(saveOrUpdateTransportMessage, e);
+			LOGGER.error(saveOrUpdateTransportsMessage, e);
 			throw e;
 		}
 	}
@@ -207,8 +278,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			PageInfoContainer container,
 			TransportsCriteriaContainer transportCriteriaContainer) {
 
-		return getTransportsListForAddTripsWithPaging(
-				container.getPageNumber(), container.getResultsPerPage(),
+		return getTransportsListWithPaging(container.getPageNumber(),
+				container.getResultsPerPage(),
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
 				transportCriteriaContainer.getRoutesCode(),
@@ -224,7 +295,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	public long getTransportsListCountWithContainers(
 			TransportsCriteriaContainer transportCriteriaContainer) {
 
-		return getTransportsListForAddTripsCount(
+		return getTransportsListCount(
 				transportCriteriaContainer.getTransportCode(),
 				transportCriteriaContainer.getRouteName(),
 				transportCriteriaContainer.getRoutesCode(),
@@ -240,9 +311,9 @@ public class TransportsManagerImpl implements TransportsManager {
 			String routesCode, Integer seatClass1, Integer seatClass2,
 			Integer seatClass3, Double price) {
 
-		return transportsDao.getTransportsListForAddTripsCount("%"
-				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
-				+ "%", seatClass1, seatClass2, seatClass3, price);
+		return transportsDao.getTransportsListCount("%" + transportCode + "%",
+				"%" + routeName + "%", "%" + routesCode + "%", seatClass1,
+				seatClass2, seatClass3, price);
 	}
 
 	@Transactional(readOnly = true)
@@ -252,10 +323,10 @@ public class TransportsManagerImpl implements TransportsManager {
 			Integer seatClass1, Integer seatClass2, Integer seatClass3,
 			Double price, String orderByCriteria, String orderByDirection) {
 
-		return transportsDao.getTransportsListForAddTrips(firstElement, count,
-				"%" + transportCode + "%", "%" + routeName + "%", "%"
-						+ routesCode + "%", seatClass1, seatClass2, seatClass3,
-				price, orderByCriteria, orderByDirection);
+		return transportsDao.getTransportsList(firstElement, count, "%"
+				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
+				+ "%", seatClass1, seatClass2, seatClass3, price,
+				orderByCriteria, orderByDirection);
 	}
 
 	@Transactional(readOnly = true)
@@ -266,10 +337,10 @@ public class TransportsManagerImpl implements TransportsManager {
 			Integer seatClass3, Double price, String orderByCriteria,
 			String orderByDirection) {
 
-		return transportsDao.getTransportsListForAddTrips((pageNumber - 1)
-				* count, count, "%" + transportCode + "%", "%" + routeName
-				+ "%", "%" + routesCode + "%", seatClass1, seatClass2,
-				seatClass3, price, orderByCriteria, orderByDirection);
+		return transportsDao.getTransportsList((pageNumber - 1) * count, count,
+				"%" + transportCode + "%", "%" + routeName + "%", "%"
+						+ routesCode + "%", seatClass1, seatClass2, seatClass3,
+				price, orderByCriteria, orderByDirection);
 	}
 
 	/*--------------------------END-for transport paging, sorting, filtering------------------------------------------*/
@@ -304,7 +375,8 @@ public class TransportsManagerImpl implements TransportsManager {
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
 			Transports knownElement, Integer pageSize) {
 		long result;
-		result = transportsDao.getTransportsListForAddTripsIndex(transportForAddTripsCriteriaContainer.getTransportCode(),
+		result = transportsDao.getTransportsListForAddTripsIndex(
+				transportForAddTripsCriteriaContainer.getTransportCode(),
 				transportForAddTripsCriteriaContainer.getRouteName(),
 				transportForAddTripsCriteriaContainer.getRoutesCode(),
 				transportForAddTripsCriteriaContainer.getSeatClass1(),
@@ -312,9 +384,9 @@ public class TransportsManagerImpl implements TransportsManager {
 				transportForAddTripsCriteriaContainer.getSeatClass3(),
 				transportForAddTripsCriteriaContainer.getPrice(),
 				transportForAddTripsCriteriaContainer.getOrderByCriteria(),
-				transportForAddTripsCriteriaContainer.getOrderByDirection(), 
+				transportForAddTripsCriteriaContainer.getOrderByDirection(),
 				knownElement);
-		return (result/pageSize)+1;
+		return (result / pageSize) + 1;
 	}
 
 	@Override
@@ -420,7 +492,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportTravel = transportsDao.findByTwoStations(stationName1,
 					stationName2);
 		} catch (RuntimeException e) {
-			LOGGER.error(getTransportByTwoStationsMessage, e);
+			LOGGER.error(getTransportsByTwoStationsMessage, e);
 			throw e;
 		}
 

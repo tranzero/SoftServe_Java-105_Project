@@ -330,7 +330,7 @@ function confirm_delete() {
 					<td align="center">${trip.getRemSeatClass3()}</td>
 					<td align="center">${dateFormat.format(trip.getStartDate())}</td>
 					<td align="center">${trip.getTransport().getStartTime()}</td>
-					<td align="center"><a> <input id="edit" type="button"
+					<td align="center"><a href="editTrip/${trip.getTripId()}"> <input id="edit" type="button"
 							name="edit" value="<spring:message code="label.edit"/>">
 					</a></td>
 					<td align="center"><a href="tripDelete/${trip.getTripId()}"> <input id="delete${trip.getTripId()}" type="button" onclick="return confirm_delete()"

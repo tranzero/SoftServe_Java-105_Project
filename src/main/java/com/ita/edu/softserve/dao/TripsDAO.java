@@ -116,4 +116,6 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 			Integer remSeatClass3, Date minDate, Date maxDate,
 			String orderByParam, String orderByDirection, Trips knownElement);
 
+	Trips getTripById(int id);
+
 }

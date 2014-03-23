@@ -122,66 +122,63 @@ public class TripsController {
 	 */
 	private static final String ADDTRIPPAGE_SPRING_NAME = "addTripPage";
 	/**
-	 * name for in-jsp jstl variable, representing list of trips
+	 * Name for in-jsp jstl variable, representing list of trips
 	 */
 	private static final String TRIPSLIST_NAME = "tripsList";
 	/**
-	 * name for in-jsp jstl variable, representing list of transports
+	 * Name for in-jsp jstl variable, representing list of transports
 	 */
 	private static final String TRANSPORTSLIST_NAME = "transportsList";
 	/**
-	 * name for in-jsp jstl variable, representing date format
+	 * Name for in-jsp jstl variable, representing date format
 	 */
 	private static final String DATEFORMAT_NAME = "dateFormat";
 	/**
-	 * name for in-jsp jstl variable, representing language (used for jQuery UI
+	 * Name for in-jsp jstl variable, representing language (used for jQuery UI
 	 * datepicker)
 	 */
 	private static final String LANGUAGE_NAME = "language";
 
-	/**
-	 * name for mark of error in addTrip.jsp
-	 */
-	private static final String ERRORMARK = "errormark";
+
 
 	/**
-	 * name for minimum date in adding trips attribute name
+	 * Name for minimum date in adding trips attribute 
 	 */
 	private static final String FROM_ATTRIBUTE_NAME = "from";
 	/**
-	 * name for maximum date in adding trips attribute name
+	 * Name for maximum date in adding trips attribute 
 	 */
 	private static final String TO_ATTRIBUTE_NAME = "to";
 	/**
-	 * name for transport id in adding trips attribute name
+	 * Name for transport id in adding trips attribute 
 	 */
 	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportid";
 
 	/**
-	 * name for showing transport code attribute name
+	 * Name for showing transport code attribute 
 	 */
 	private static final String IS_TRANSPORT_CODE_ATTRIBUTE_NAME = "isTransportCode";
 
 	/**
-	 * name for showing route name attribute name
+	 * Name for showing route name attribute 
 	 */
 	private static final String IS_ROUTE_NAME_ATTRIBUTE_NAME = "isRouteName";
 
 	/**
-	 * name for showing route code attribute name
+	 * Name for showing route code attribute 
 	 */
 	private static final String IS_ROUTE_CODE_ATTRIBUTE_NAME = "isRoutesCode";
 
 	/**
-	 * name for showing Class1 places count attribute name
+	 * Name for showing Class1 places count attribute 
 	 */
 	private static final String IS_CLASS1_ATTRIBUTE_NAME = "isClass1";
 	/**
-	 * name for showing Class1 places count attribute name
+	 * Name for showing Class1 places count attribute 
 	 */
 	private static final String IS_CLASS2_ATTRIBUTE_NAME = "isClass2";
 	/**
-	 * name for showing Class1 places count attribute name
+	 * Name for showing Class1 places count attribute 
 	 */
 	private static final String IS_CLASS3_ATTRIBUTE_NAME = "isClass3";
 
@@ -191,27 +188,33 @@ public class TripsController {
 	private static final String TRIPID_PATH_VARIABLE = "tripId";
 
 	/**
-	 * name for showing minimal date count attribute name
+	 * Name for showing minimal date count attribute 
 	 */
 	private static final String IS_MIN_DATE_ATTRIBUTE_NAME = "isMinDate";
 
 	/**
-	 * name for showing minimal date count attribute name
+	 * Name for showing minimal date count attribute 
 	 */
 	private static final String IS_MAX_DATE_ATTRIBUTE_NAME = "isMaxDate";
 
 	/**
-	 * name for showing price attribute name
+	 * Name for showing price attribute 
 	 */
 	private static final String IS_PRICE_ATTRIBUTE_NAME = "isPrice";
 
 	/**
-	 * name for criteria container attribute name
+	 * Name for criteria container attribute 
 	 */
 	private static final String CRITERIA_CONTAINER_ATTRIBUTE_NAME = "container";
+	
+	/**
+	 * Name for current trip attribute 
+	 */
+	private static final String CURRENT_TRIP_NAME = "currentTrip";
+	
 
 	/**
-	 * name for encoder attribute name
+	 * Name for encoder attribute name
 	 */
 	private static final String ENCODER_ATTRIBUTE_NAME = "encoder";
 
@@ -220,6 +223,28 @@ public class TripsController {
 	 */
 
 	private static final String TRIP_DELETE_PATH = "/tripDelete/{tripId}";
+
+	/**
+	 * Constant for mapping trips edit
+	 */
+
+	private static final String TRIP_EDIT_PATH = "/editTrip/{tripId}";
+
+	/**
+	 * Constant for mapping trips edit page
+	 */
+
+	private static final String TRIP_EDIT_PAGE_PATH = "/editTripPage/{tripId}";
+
+	/**
+	 * Part of URL that defines editing trips web page
+	 */
+	private static final String EDITTRIP_SPRING_NAME = "editTrip";
+	
+	/**
+	 * Part of URL that defines web page for editing trips AJAX paging
+	 */
+	private static final String EDITTRIPPAGE_SPRING_NAME = "editTripPage";
 
 	/**
 	 * Field for using trips-related controller-level methods
@@ -352,11 +377,12 @@ public class TripsController {
 	}
 
 	private void completeMapForEditTrip(
-			Integer transportId,
-			Boolean specialPaging,
+			Integer tripId,
 			PageInfoContainer container,
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
+		Trips currentTrip = tripsManager.getTripById(tripId);
+		modelMap.put(CURRENT_TRIP_NAME, currentTrip);
 		putFillAddTripsElementsOptions(transportForAddTripsCriteriaContainer,
 				modelMap);
 		transportsManager
@@ -369,11 +395,6 @@ public class TripsController {
 				.getTransportsListForAddTripsCountWithContainers(transportForAddTripsCriteriaContainer);
 		container.setCount(count);
 		paginationManager.validatePaging(container);
-		specialPaging = (Boolean) ValidatorUtil.defaultForNull(specialPaging,
-				new Boolean(true));
-		if (specialPaging) {
-			container.setPageNumber(1);
-		}
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
 				transportForAddTripsCriteriaContainer);
@@ -560,6 +581,30 @@ public class TripsController {
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
 
+	
+	@RequestMapping(value = TRIP_EDIT_PATH, method = RequestMethod.GET)
+	public String printEditTrips(
+			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
+			PageInfoContainerImpl container,
+			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
+			Map<String, Object> modelMap, Locale locale) {
+		completeMapForEditTrip(tripId, container, transportForAddTripsCriteriaContainer,
+				modelMap, locale);
+		return EDITTRIP_SPRING_NAME;
+	}
+
+
+
+	@RequestMapping(value = TRIP_EDIT_PAGE_PATH, method = RequestMethod.GET)
+	public String printEditTripsPage(
+			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
+			PageInfoContainerImpl container,
+			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
+			Map<String, Object> modelMap, Locale locale) {
+		completeMapForEditTrip(tripId, container, transportForAddTripsCriteriaContainer,
+				modelMap, locale);
+		return EDITTRIPPAGE_SPRING_NAME;
+	}
 	/**
 	 * Controller method for performing addition of trips
 	 * 

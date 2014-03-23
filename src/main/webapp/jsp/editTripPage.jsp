@@ -6,15 +6,16 @@
 <table style="align: center">
 	<thead>
 		<tr>
+			<th></th>
 			<th>
 				<div style="float: left">
 					<spring:message code="label.transport.transportcode" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="transportcodeasc"><img
-						alt="^" src="resources/images/downarrow.png"></a> <a
+						alt="^" src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="transportcodedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -23,9 +24,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="starttimeasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="starttimedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -34,20 +35,20 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routecodeasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="routecodedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
 				<div style="float: left">
-					<spring:message code="label.routes.routename" />
+					<spring:message code="label.trips.routename" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="routenameasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="routenamedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th>
@@ -56,9 +57,9 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass1asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass1desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
 			<th><div style="float: left">
@@ -66,18 +67,18 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass2asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> 
+						src="../resources/images/downarrow.png"></a> 
 						<a href="javascript:void(0);" id="seatclass2desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div></th>
 			<th><div style="float: left">
 					<spring:message code="label.transport.seatclass3" />
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="seatclass3asc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="seatclass3desc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div></th>
 			<th>
 				<div style="float: left">
@@ -85,35 +86,35 @@
 				</div>
 				<div style="float: right">
 					<a href="javascript:void(0);" id="genpriceasc"><img alt="^"
-						src="resources/images/downarrow.png"></a> <a
+						src="../resources/images/downarrow.png"></a> <a
 						href="javascript:void(0);" id="genpricedesc"><img alt="v"
-						src="resources/images/uparrow.png"></a>
+						src="../resources/images/uparrow.png"></a>
 				</div>
 			</th>
-			<th></th><th></th>
 		</tr>
 	</thead>
 	<tbody>
 
-		<c:forEach var="transport" items="${transportsList}">
+		<c:forEach items="${transportsList}" var="transport">
 			<tr>
+
+				<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
+							<input type="radio" name="transportid"
+								value="${transport.getTransportId()}" checked/>
+								</c:if>
+								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
+							<input type="radio" name="transportid"
+								value="${transport.getTransportId()}"/>
+								</c:if></td>
 				<td align="center">${transport.getTransportCode()}</td>
 				<td align="center">${transport.getStartTime()}</td>
 				<td align="center">${transport.getRoutes().getRouteCode()}</td>
 				<td align="center">${transport.getRoutes().getRouteName()}</td>
-				<%-- <td align="center"><a
-							href="getsLineId/${transport.getRoutes().getLineId().getLineId()}">${transport.getRoutes().getLineId().getLineName()}</a></td> --%>
 				<td align="center">${transport.getSeatclass1()}</td>
 				<td align="center">${transport.getSeatclass2()}</td>
 				<td align="center">${transport.getSeatclass3()}</td>
 				<td align="center">${transport.getGenPrice()}</td>
-				<td align="center"><a href="editTransport/${transport.getTransportId()}"> 
-					<input id="edit" type="button" name="edit" value="<spring:message code="label.edit"/>"></a>
-				</td>
-				<td align="center"><a href="removeTransport/${transport.getTransportId()}">
-					<input id="delete" type="button" name="delete" onclick="return confirm_delete()"
-						value="<spring:message code="label.delete"/>"></a>
-				</td>
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
@@ -188,6 +189,7 @@
 
 <p>
 	<br>
+
 
 	<script>
 		firstPageData = clone(defaultGetData);
@@ -410,11 +412,4 @@
 						+ '//' + location.host + location.pathname + '?'
 						+ serialize(defaultGetData) + '&lang=${language}');
 		window.history.pathname = document.location.href;
-	</script>
-	<script type="text/javascript">
-	<!--
-		function confirm_delete() {
-			return confirm('Are you sure?');
-		}
-	//-->
 	</script>

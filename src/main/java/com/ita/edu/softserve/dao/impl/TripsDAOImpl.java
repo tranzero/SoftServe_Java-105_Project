@@ -73,8 +73,7 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 					(Date) sortElementMap.get(SORT_ORDER_MAP.get(orderByParam)),
 					TemporalType.DATE);
 		} else {
-			q.setParameter(
-					Trips.PASSED_VALUE_NAME,
+			q.setParameter(Trips.PASSED_VALUE_NAME,
 					sortElementMap.get(SORT_ORDER_MAP.get(orderByParam)));
 		}
 
@@ -140,11 +139,11 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 			String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
-
 		Query query = entityManager
 				.createQuery(
-						Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam
-								+ Trips.GENERAL_ORDER_PART + orderByDirection)
+						Trips.TRIPS_FIND_BY_CRITERIA_QUERY + orderByParam + " "
+								+ orderByDirection + Trips.GENERAL_ORDER_PART
+								+ orderByDirection)
 				.setParameter(Trips.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Trips.ROUTE_NAME_NAME, routeName)
 				.setParameter(Trips.REM_SEAT_CLASS_1_NAME, remSeatClass1)
@@ -174,6 +173,13 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 			entityManager.merge(entity);
 		}
 
+	}
+
+	@Override
+	public Trips getTripById(int id) {
+		Query query = entityManager.createNamedQuery(Trips.TRIPS_FIND_BY_ID)
+				.setParameter(1, id);
+		return (Trips) query.getSingleResult();
 	}
 
 	@Override

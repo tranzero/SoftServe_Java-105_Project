@@ -164,6 +164,12 @@ public class TripsManagerImpl implements TripsManager {
 
 	@Transactional(readOnly = true)
 	@Override
+	public Trips getTripById(int id){
+		return tripsDao.getTripById(id);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
 	public long getTripsListCount() {
 		return tripsDao.getTripsListCount();
 	}
@@ -213,7 +219,6 @@ public class TripsManagerImpl implements TripsManager {
 				Trips element = new Trips(transport, date);
 				tripsDao.saveOrUpdate(element);
 			}
-			;
 			return true;
 		} catch (Exception e) {
 			return false;

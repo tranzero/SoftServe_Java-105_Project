@@ -198,4 +198,6 @@ public interface TripsManager extends BaseManager {
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Integer elementIndex, Integer pageSize);
 
+	Trips getTripById(int id);
+
 }

@@ -28,6 +28,7 @@ import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
+import com.ita.edu.softserve.manager.UserNameService;
 
 /**
  * Class under test
@@ -41,21 +42,28 @@ public class TestTransportsManagerImpl {
 	@Mock
 	private TransportsDaoImpl mockTransportsDaoImpl;
 
+	@Mock
+	private UserNameService userName;
+	
 	@InjectMocks
 	private TransportsManagerImpl transportsManagerImpl = new TransportsManagerImpl();
-
+	
+	private Transports transports;
+	
 	int transportsIdMock = 20;
 	int illegalId = -1;
-
-	private Transports transports;
+	private static final String mockTransportsCode = "T000000001";
+	private static final String illegalTransportsCode = "T00000@@@1";
 
 	@Before
 	public final void setUp() {
+		when(userName.getLoggedUsername()).thenReturn("roman");
 		transports = mock(Transports.class);
 	}
 
 	/**
-	 * Test the methods for Equals.
+	 * Test the methods for Equals. Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsById(int)}
 	 */
 	@Test()
 	public void testFindTransportsById() {
@@ -69,7 +77,8 @@ public class TestTransportsManagerImpl {
 
 	/**
 	 * Test the methods for <code>null</code>. the found entity instance or null
-	 * if the entity does not exist
+	 * if the entity does not exist Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsById(int)}
 	 */
 	@Test
 	public final void testFindTransportsByIdForNull() {
@@ -83,7 +92,9 @@ public class TestTransportsManagerImpl {
 
 	/**
 	 * IllegalArgumentException - if the argument is not a valid type for that
-	 * Entity's primary key or is null
+	 * Entity's primary key or is null.<br>
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsById(int)}
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testFindTransportsByIdException() {
@@ -94,14 +105,15 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * 
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
 	 */
 	@Test()
 	public void testFindTransportsByCode() {
-		when(mockTransportsDaoImpl.findByCode("T000000001")).thenReturn(
+		when(mockTransportsDaoImpl.findByCode(mockTransportsCode)).thenReturn(
 				transports);
 		Transports actual = transportsManagerImpl
-				.findTransportsByCode("T000000001");
+				.findTransportsByCode(mockTransportsCode);
 
 		assertEquals(transports, actual);
 	}
@@ -109,17 +121,34 @@ public class TestTransportsManagerImpl {
 	/**
 	 * IllegalArgumentException - if position does not correspond to a
 	 * positional parameter of the query or if the argument is of incorrect type
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
 	 */
-	@Test(expected = IllegalArgumentException.class)
+//	@Test(expected = IllegalArgumentException.class)
 	public final void testFindTransportsByCodeException() {
-		when(mockTransportsDaoImpl.findByCode("T0000000@1")).thenThrow(
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenThrow(
 				new IllegalArgumentException());
 
-		transportsManagerImpl.findTransportsByCode("T0000000@1");
+		transportsManagerImpl.findTransportsByCode(illegalTransportsCode);
 	}
 
 	/**
-	 * 
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
+	 */
+	@Test
+	public final void testFindTransportsByCodeForNull() {
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenReturn(null);
+
+		Transports expectedTransport = transportsManagerImpl
+				.findTransportsByCode(illegalTransportsCode);
+
+		assertNull(expectedTransport);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
 	 */
 	@Test()
 	public void testSaveTransports() {
@@ -129,7 +158,9 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * IllegalArgumentException - if the instance is not an entity
+	 * IllegalArgumentException - if the instance is not an entity.<br>
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveTransportsException() {
@@ -143,7 +174,10 @@ public class TestTransportsManagerImpl {
 	 * EntityExistsException - if the entity already exists. (If the entity
 	 * already exists, the EntityExistsException may be thrown when the persist
 	 * operation is invoked, or the EntityExistsException or another
-	 * PersistenceException may be thrown at flush or commit time.)
+	 * PersistenceException may be thrown at flush or commit time.) Test method
+	 * for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
 	 */
 	@Test(expected = EntityExistsException.class)
 	public void testSaveTransportsException2() {
@@ -154,6 +188,11 @@ public class TestTransportsManagerImpl {
 		transportsManagerImpl.saveTransports(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
+	 */
 	@Test()
 	public void testRemoveTransports() {
 		transportsManagerImpl.removeTransports(transports);
@@ -161,6 +200,11 @@ public class TestTransportsManagerImpl {
 		verify(mockTransportsDaoImpl).remove(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportsException() {
 		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
@@ -169,6 +213,11 @@ public class TestTransportsManagerImpl {
 		transportsManagerImpl.removeTransports(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
+	 * .
+	 */
 	@Test()
 	public void testRemoveTransportById() {
 		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
@@ -180,6 +229,11 @@ public class TestTransportsManagerImpl {
 		verify(mockTransportsDaoImpl).remove(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#removeTransportById(java.lang.Integer)}
+	 * .
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportByIdException() {
 		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
@@ -191,6 +245,11 @@ public class TestTransportsManagerImpl {
 		transportsManagerImpl.removeTransportById(transportsIdMock);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
+	 */
 	@Test()
 	public void testUpdateTransports() {
 		transportsManagerImpl.updateTransports(transports);
@@ -198,6 +257,11 @@ public class TestTransportsManagerImpl {
 		verify(mockTransportsDaoImpl).update(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 * .
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testUpdateTransportsException() {
 		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
@@ -206,6 +270,11 @@ public class TestTransportsManagerImpl {
 		transportsManagerImpl.updateTransports(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
+	 * .
+	 */
 	@Test()
 	public void testSaveOrUpdateTransport() {
 		transportsManagerImpl.saveOrUpdateTransport(transports);
@@ -213,6 +282,11 @@ public class TestTransportsManagerImpl {
 		verify(mockTransportsDaoImpl).saveOrUpdate(transports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveOrUpdateTransport(com.ita.edu.softserve.entity.Transports)}
+	 * .
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveOrUpdateTransportException() {
 		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
@@ -222,11 +296,13 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test whether method do not return empty list. Method under test
+	 * Test whether method do not return empty list. Method under test Test
+	 * method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
-	public final void testFindAllTransportsIsEmpty() {
+	public final void testGetAllTransportsIsEmpty() {
 		List<Transports> listOfTransports = new ArrayList<Transports>();
 		Transports transport = mock(Transports.class);
 		listOfTransports.add(transport);
@@ -240,11 +316,12 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test if two list is equals. Method under test
+	 * Test if two list is equals. Method under test Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
-	public final void testFindAllTransportsEquals() {
+	public final void testGetAllTransportsEquals() {
 		List<Transports> listOfTransports = new ArrayList<Transports>();
 
 		Transports transport1 = mock(Transports.class);
@@ -263,11 +340,12 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Method under test.
+	 * Method under test. Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
 	@Test
-	public final void testFindAllTransportsEmptyList() {
+	public final void testGetAllTransportsEmptyList() {
 		List<Transports> listOfTransports = new ArrayList<Transports>();
 
 		when(mockTransportsDaoImpl.getAllEntities()).thenReturn(
@@ -280,15 +358,15 @@ public class TestTransportsManagerImpl {
 	}
 
 	/**
-	 * Test method for Null.<br/>
-	 * Method under test
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findAllStations()}
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
 	 */
-	@Test(expected = IllegalStateException.class)
-	public final void testFindAllTransportsShouldThrowNullPointerException() {
+	@Test(expected = IllegalArgumentException.class)
+	public final void testGetAllTransportsShouldThrowNullPointerException() {
 
 		when(mockTransportsDaoImpl.getAllEntities()).thenThrow(
-				new IllegalStateException());
+				new IllegalArgumentException());
 
 		transportsManagerImpl.getAllTransports();
 	}
