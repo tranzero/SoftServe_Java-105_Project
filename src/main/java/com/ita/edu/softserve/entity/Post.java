@@ -50,7 +50,6 @@ import com.ibm.icu.text.SimpleDateFormat;
 	@Column(name = "IMGSRC", nullable = true, length = 60)
 	private String imgSrc;
 
-	
 
 	public Post() {
 		this.setDate();
@@ -91,7 +90,9 @@ import com.ibm.icu.text.SimpleDateFormat;
 	}
 
 	public String getDate() {
-		String formatDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+		String pattern = "dd-MM-yyyy HH:mm:ss";
+		
+		String formatDate = new SimpleDateFormat(pattern)
 		.format(this.date);
 		return formatDate;
 	}
