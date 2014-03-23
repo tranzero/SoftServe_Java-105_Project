@@ -261,6 +261,29 @@ public class TestTransportsManagerImpl {
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
+	 */
+	@Test()
+	public void testUpdateTransportsEquals() {
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+		Transports transport1 = mock(Transports.class);
+		Transports transport2 = mock(Transports.class);
+
+		expectedListOfTransports.add(transport1);
+		expectedListOfTransports.add(transport2);
+		expectedListOfTransports.add(transports);
+
+		when(mockTransportsDaoImpl.update(transports)).thenReturn(
+				expectedListOfTransports);
+		
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.updateTransports(transports);
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
 	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
