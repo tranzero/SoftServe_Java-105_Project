@@ -11,6 +11,7 @@ import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
@@ -24,8 +25,7 @@ import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 @Service("transportsManager")
 public class TransportsManagerImpl implements TransportsManager {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(TransportsManagerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(TransportsManagerImpl.class);
 
 	/**
 	 * The simple name of the <code>Transports</code> class as given in the
@@ -34,17 +34,18 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	private String entityName = Transports.class.getSimpleName() + " with Id=";
 
-	private String addMessage = " was added to DB";
-	private String removeMessage = " was remove from DB";
-	private String wasFoundMessage = " was fond";
-	private static final String WAS_UPDATED_MESSAGE = " was updated";
+	private final String addMessage = " was added to DB by ";
+	private final String removeMessage = " was remove from DB by ";
+	private final String wasFoundMessage = " was fond by ";
+	private final String wasFoundByCodeMessage = " was fond by code by ";
+	private static final String WAS_UPDATED_MESSAGE = " was updated by ";
 	private final String getAllTransportsMessage = "Seccesfuly get list of Transports";
 
 	private final String findTransportsMessage = "Could not find Transports by ID=";
 	private final String findTransportsCodeMessage = "Could not find Transports by code=";
 	private final String saveTransportsMessage = "Could not save Transports";
 	private final String removeTransportsMessage = "Could not remove Transports";
-	private final String removeTransportsByIdMessage = "Could not remove Transport by id ";
+	private final String removeTransportsByIdMessage = "Could not remove Transport by id=";
 	private final String updateTransportsMessage = "Could not update Transports ";
 	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
 	private final String getAllTransportsMessageError = "Could not get list of Transports";
@@ -55,6 +56,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	@Autowired
 	private TransportsDao transportsDao;
+
+	@Autowired
+	private UserNameService userName;
 
 	/**
 	 * The constructor without arguments.
@@ -71,9 +75,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * @return the <code>Transports</code> fond by Id.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#findTransportsById(int)
 	 */
-//	/**
-//	 * {@inheritDoc}
-//	 */
+	// /**
+	// * {@inheritDoc}
+	// */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
@@ -82,7 +86,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 			if (transports != null) {
 				LOGGER.info(entityName + transports.getTransportId()
-						+ addMessage);
+						+ wasFoundMessage + userName.getLoggedUsername());
 			}
 
 			return transports;
@@ -93,9 +97,6 @@ public class TransportsManagerImpl implements TransportsManager {
 		}
 	}
 
-//	 * @throws IllegalArgumentException - if position does not
-//	 *         correspond to a positional parameter of the query or if the
-//	 *         argument is of incorrect type
 	/**
 	 * Finds Transports by transport code.
 	 * 
@@ -109,12 +110,15 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			Transports transports = transportsDao.findByCode(code);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ wasFoundMessage);
+					 + wasFoundByCodeMessage + userName.getLoggedUsername());
+
 			return transports;
+
 		} catch (RuntimeException e) {
 			LOGGER.error(findTransportsCodeMessage + code, e);
+			
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -129,7 +133,8 @@ public class TransportsManagerImpl implements TransportsManager {
 	public void saveTransports(Transports transports) {
 		try {
 			transportsDao.save(transports);
-			LOGGER.info(entityName + transports.getTransportId() + addMessage);
+			LOGGER.info(entityName + transports.getTransportId() + addMessage
+					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			LOGGER.error(saveTransportsMessage + transports.getTransportId(), e);
 			throw e;
@@ -148,10 +153,9 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			transportsDao.remove(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ removeMessage);
+					+ removeMessage + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportsMessage + transports.getTransportId(),
-					e);
+			LOGGER.error(removeTransportsMessage + transports.getTransportId(), e);
 			throw e;
 		}
 	}
@@ -170,11 +174,11 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			transports = (Transports) transportsDao.findById(transportId);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ wasFoundMessage);
+					+ wasFoundMessage + userName.getLoggedUsername());
 
 			transportsDao.remove(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ removeMessage);
+					+ removeMessage + userName.getLoggedUsername());
 
 		} catch (RuntimeException e) {
 			LOGGER.error(
@@ -197,7 +201,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			List<Transports> update = transportsDao.update(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ WAS_UPDATED_MESSAGE);
+					+ WAS_UPDATED_MESSAGE + userName.getLoggedUsername());
 
 			return update;
 		} catch (RuntimeException e) {
@@ -245,10 +249,12 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.saveOrUpdate(transports);
 
 			if (id == null) {
-				LOGGER.info(entityName + id + addMessage);
+				LOGGER.info(entityName + id + addMessage
+						+ userName.getLoggedUsername());
 
 			} else {
-				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE);
+				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE
+						+ userName.getLoggedUsername());
 			}
 		} catch (RuntimeException e) {
 			LOGGER.error(saveOrUpdateTransportsMessage, e);
