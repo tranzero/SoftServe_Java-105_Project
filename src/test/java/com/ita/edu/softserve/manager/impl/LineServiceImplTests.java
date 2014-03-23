@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.assertEquals;
@@ -8,15 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
@@ -36,25 +32,27 @@ public class LineServiceImplTests {
 	/**
 	 * Mock object.
 	 */
+	@Mock
 	private LinesDAOImpl mockLinesDaoImpl;
 
 	/**
 	 * LinesManagerImpl.
 	 */
-	private LinesManagerImpl linesManagerImpl;
+	@InjectMocks
+	private LinesManagerImpl linesManagerImpl = new LinesManagerImpl();
 
-	@Before
-	public final void setUp() throws NoSuchFieldException, SecurityException,
-			IllegalArgumentException, IllegalAccessException {
-
-		mockLinesDaoImpl = mock(LinesDAOImpl.class);
-
-		linesManagerImpl = new LinesManagerImpl();
-		Field fild = linesManagerImpl.getClass().getDeclaredField("lineDao");
-
-		fild.setAccessible(true);
-		fild.set(linesManagerImpl, mockLinesDaoImpl);
-	}
+//	@Before
+//	public final void setUp() throws NoSuchFieldException, SecurityException,
+//			IllegalArgumentException, IllegalAccessException {
+//
+//		mockLinesDaoImpl = mock(LinesDAOImpl.class);
+//
+//		linesManagerImpl = new LinesManagerImpl();
+//		Field fild = linesManagerImpl.getClass().getDeclaredField("lineDao");
+//
+//		fild.setAccessible(true);
+//		fild.set(linesManagerImpl, mockLinesDaoImpl);
+//	}
 
 	/**
 	 * Test for method which returns all lines.
