@@ -130,10 +130,10 @@ public interface TransportsManager extends BaseManager {
 	 * @param orderByDirection
 	 * @return
 	 */
-	List<Transports> getTransportsList(int firstElement, int count,
-			String transportCode, String routeName, String routesCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String orderByCriteria, String orderByDirection);
+//	List<Transports> getTransportsList(int firstElement, int count,
+//			String transportCode, String routeName, String routesCode,
+//			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+//			Double price, String orderByCriteria, String orderByDirection);
 
 	/**
 	 * @param pageNumber

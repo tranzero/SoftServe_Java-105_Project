@@ -316,18 +316,18 @@ public class TransportsManagerImpl implements TransportsManager {
 				seatClass2, seatClass3, price);
 	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Transports> getTransportsList(int firstElement, int count,
-			String transportCode, String routeName, String routesCode,
-			Integer seatClass1, Integer seatClass2, Integer seatClass3,
-			Double price, String orderByCriteria, String orderByDirection) {
-
-		return transportsDao.getTransportsList(firstElement, count, "%"
-				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
-				+ "%", seatClass1, seatClass2, seatClass3, price,
-				orderByCriteria, orderByDirection);
-	}
+//	@Transactional(readOnly = true)
+//	@Override
+//	public List<Transports> getTransportsList(int firstElement, int count,
+//			String transportCode, String routeName, String routesCode,
+//			Integer seatClass1, Integer seatClass2, Integer seatClass3,
+//			Double price, String orderByCriteria, String orderByDirection) {
+//
+//		return transportsDao.getTransportsList(firstElement, count, "%"
+//				+ transportCode + "%", "%" + routeName + "%", "%" + routesCode
+//				+ "%", seatClass1, seatClass2, seatClass3, price,
+//				orderByCriteria, orderByDirection);
+//	}
 
 	@Transactional(readOnly = true)
 	@Override

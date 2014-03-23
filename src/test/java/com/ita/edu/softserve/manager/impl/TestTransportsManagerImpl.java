@@ -29,6 +29,10 @@ import com.ita.edu.softserve.dao.impl.TransportsDaoImpl;
 import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.UserNameService;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportsCriteriaContainerImpl;
 
 /**
  * Class under test
@@ -269,7 +273,7 @@ public class TestTransportsManagerImpl {
 
 		when(mockTransportsDaoImpl.update(transports)).thenReturn(
 				expectedListOfTransports);
-		
+
 		List<Transports> actualListOfTransports = transportsManagerImpl
 				.updateTransports(transports);
 
@@ -308,7 +312,7 @@ public class TestTransportsManagerImpl {
 	public void testSaveOrUpdateTransportForNullId() {
 		Transports transports = new Transports();
 		transports.setTransportId(null);
-		
+
 		transportsManagerImpl.saveOrUpdateTransport(transports);
 
 		verify(mockTransportsDaoImpl).saveOrUpdate(transports);
@@ -461,8 +465,9 @@ public class TestTransportsManagerImpl {
 		when(
 				mockTransportsDaoImpl.findByTwoStations(stationName1,
 						stationName2)).thenThrow(new RuntimeException());
-		
-		transportsManagerImpl.getTransportByTwoStations(stationName1, stationName2);
+
+		transportsManagerImpl.getTransportByTwoStations(stationName1,
+				stationName2);
 	}
 
 	/**
@@ -511,7 +516,7 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStForLimits(
 						stationName1, stationName2, firstElement, count, null))
 				.thenReturn(expectedTransportTravel);
-		
+
 		List<TransportTravel> actualTransportTravel = transportsManagerImpl
 				.getTransportByTwoStForLimit(stationName1, stationName2,
 						firstElement, count, null);
@@ -535,10 +540,60 @@ public class TestTransportsManagerImpl {
 				mockTransportsDaoImpl.getTransportByTwoStListCount(
 						stationName1, stationName2)).thenReturn(
 				expectedTransportTravelCount);
-		
+
 		long actualTransportTravelCount = transportsManagerImpl
 				.getTransportByTwoStListCount(stationName1, stationName2);
 
 		assertEquals(expectedTransportTravelCount, actualTransportTravelCount);
+	}
+
+	/*--------------------------*/
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getTransportsListWithContainers(com.ita.edu.softserve.validationcontainers.PageInfoContainer, com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer)}
+	 */
+	@Test
+	public void testGetTransportsListWithContainers() {
+		// fail("Not yet implemented"); // TODO
+		PageInfoContainer container = mock(PageInfoContainerImpl.class);
+		TransportsCriteriaContainer transportCriteriaContainer = mock(TransportsCriteriaContainerImpl.class);
+
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+
+		when(
+				transportsManagerImpl.getTransportsListWithPaging(1, 10,
+						"T000000001", "Stryy-Pyatnychany", "1000000000003",
+						150, 150, 150, 24.0, "routeCode", "ASC")).thenReturn(
+				expectedListOfTransports);
+
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.getTransportsListWithContainers(container,
+						transportCriteriaContainer);
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getTransportsListWithPaging(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Double, java.lang.String, java.lang.String)}
+	 */
+	@Test
+	public void testGetTransportsListWithPaging() {
+
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+
+		when(
+				mockTransportsDaoImpl.getTransportsList(1, 10, "T000000001",
+						"Stryy-Pyatnychany", "1000000000003", 150, 150, 150,
+						24.0, "routeCode", "ASC")).thenReturn(
+				expectedListOfTransports);
+
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.getTransportsListWithPaging(1, 10, "T000000001",
+						"Stryy-Pyatnychany", "1000000000003", 150, 150, 150,
+						24.0, "routeCode", "ASC");
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
 	}
 }
