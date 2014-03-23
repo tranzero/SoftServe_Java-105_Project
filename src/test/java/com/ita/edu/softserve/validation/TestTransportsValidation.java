@@ -2,6 +2,7 @@ package com.ita.edu.softserve.validation;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -56,9 +57,7 @@ public class TestTransportsValidation {
 	 */
 	@Test
 	public void testSupports() {
-		boolean supports = transportsValidator.supports(null);
-
-		assertEquals(false, supports);
+		assertFalse(transportsValidator.supports(null));
 	}
 
 	/**
@@ -67,10 +66,7 @@ public class TestTransportsValidation {
 	 */
 	@Test
 	public void testSupportsObject() {
-		Object object = mock(Object.class);
-		boolean supports = transportsValidator.supports(object.getClass());
-
-		assertEquals(false, supports);
+		assertFalse(transportsValidator.supports(Object.class));
 	}
 
 	/**
@@ -256,9 +252,7 @@ public class TestTransportsValidation {
 	 */
 	@Test
 	public void testSupportsTramsports() {
-		boolean supports = transportsValidator.supports(transport.getClass());
-
-		assertEquals(true, supports);
+		assertTrue(transportsValidator.supports(transport.getClass()));
 	}
 
 	/**
