@@ -43,24 +43,80 @@ public class LinesController {
 	private static final String EDIT_STATIONS = "redirect:/editline/";
 	private static final String ADD_STATIONS = "addStationsToLine";
 	private static final String APPLY_CHANGES = "redirect:/allLines";
+	
+	/**
+	 * URL pattern that map linesByTwoStations controller
+	 */
+	private static final String LINES_BY_TWO_STATIONS_URL = "/linesbytwostations";
+	
+	/**
+	 * URL pattern that map linesByTwoStationsPage controller
+	 */
+	private static final String LINES_BY_TWO_STATIONS_AJAX_URL = "/linesbytwostationsPage";
 
+	/**
+	 * List that contains lines
+	 */
+	private static final String LINES_LIST = "LinesList";
+
+	/**
+	 * LinesByTwoStations jsp page
+	 */
+	private static final String LINES_BY_TWO_STATIONS_JSP_PAGE = "linesbytwostations";
+	
+	/**
+	 * LinesByTwoStations jsp page with paging
+	 */
+	private static final String LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE = "linesbytwostationsPage";
+	
+	/**
+	 * Variable that represents first station name 
+	 */
+	private static final String STATION_NAME1 = "stationName1";
+
+	/**
+	 * Variable that represents second station name 
+	 */
+	private static final String STATION_NAME2 = "stationName2";
+	
+	/**
+	 * Field for using paginator manager
+	 */
 	private PaginationManager pageMan = PaginationManager.getInstance();
 
+	/**
+	 * Field for using line manager
+	 */
 	@Autowired
 	private LinesManager linesManager;
 
+	/**
+	 * Field for using stations manager
+	 */
 	@Autowired
 	private StationsManager stationsManager;
 
+	/**
+	 * Field for using stationOnLine manager
+	 */
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
 
+	/**
+	 * Field for using stations criteria
+	 */
 	@Autowired
 	StationsCriteriaContainer stationsCriteriaContainer;
 
+	/**
+	 * Field for using Encoder
+	 */
 	@Autowired
 	Encoder encoder;
 
+	/**
+	 * Field for using pageInfo container
+	 */
 	@Autowired
 	PageInfoContainer container;
 
@@ -238,10 +294,20 @@ public class LinesController {
 		return APPLY_CHANGES;
 	}
 
-	@RequestMapping(value = "/linesbytwostations", method = RequestMethod.GET)
+	/**
+	 * 
+	 * @param stationName1 - name of first station
+	 * @param stationName2 - name of second station
+	 * @param pageNumber - number of page, to get results for
+	 * @param resultsPerPage - result per page
+	 * @param sortOrder - sort order, 0 - asc, 1 - desc
+	 * @param modelMap - modelmap to fill
+	 * @return linesbytwostations page
+	 */
+	@RequestMapping(value = LINES_BY_TWO_STATIONS_URL, method = RequestMethod.GET)
 	public String getLinesByTwoStations(
-			@RequestParam(value = "stationName1", required = false) String stationName1,
-			@RequestParam(value = "stationName2", required = false) String stationName2,
+			@RequestParam(value = STATION_NAME1, required = false) String stationName1,
+			@RequestParam(value = STATION_NAME2, required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = SORT_ORDER, required = false) Integer sortOrder,
@@ -249,7 +315,7 @@ public class LinesController {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
-			return "linesbytwostations";
+			return LINES_BY_TWO_STATIONS_JSP_PAGE;
 		}
 		if (sortOrder == null) {
 			sortOrder = 0;
@@ -262,17 +328,27 @@ public class LinesController {
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
+		modelMap.put(LINES_LIST, linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
 
-		return "linesbytwostations";
+		return LINES_BY_TWO_STATIONS_JSP_PAGE;
 	}
 
-	@RequestMapping(value = "/linesbytwostationsPage", method = RequestMethod.GET)
+	/**
+	 * 
+	 * @param stationName1 - name of first station
+	 * @param stationName2 - name of second station
+	 * @param pageNumber - number of page, to get results for
+	 * @param resultsPerPage - result per page
+	 * @param sortOrder - sort order, 0 - asc, 1 - desc
+	 * @param modelMap - modelmap to fill
+	 * @return linesbytwostations page
+	 */
+	@RequestMapping(value = LINES_BY_TWO_STATIONS_AJAX_URL, method = RequestMethod.GET)
 	public String getLinesByTwoStationsPage(
-			@RequestParam(value = "stationName1", required = false) String stationName1,
-			@RequestParam(value = "stationName2", required = false) String stationName2,
+			@RequestParam(value = STATION_NAME1, required = false) String stationName1,
+			@RequestParam(value = STATION_NAME2, required = false) String stationName2,
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			@RequestParam(value = SORT_ORDER, required = false) Integer sortOrder,
@@ -280,7 +356,7 @@ public class LinesController {
 
 		if (stationName1 == null || stationName2 == null
 				|| stationName1.equals("") || stationName2.equals("")) {
-			return "linesbytwostationsPage";
+			return LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE;
 		}
 		if (sortOrder == null) {
 			sortOrder = 0;
@@ -293,11 +369,11 @@ public class LinesController {
 		pageMan.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, pageMan);
 
-		modelMap.put("LinesList", linesManager.getLinesByTwoStForPage(
+		modelMap.put(LINES_LIST, linesManager.getLinesByTwoStForPage(
 				stationName1, stationName2, (int) container.getPageNumber(),
 				(int) container.getResultsPerPage(), sortOrder));
 
-		return "linesbytwostationsPage";
+		return LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE;
 	}
 
 	@RequestMapping(value = LINES_BY_STATION_URL, method = RequestMethod.GET)
