@@ -289,8 +289,11 @@ public class LinesController {
 		return APPLY_CHANGES;
 	}
 
-	@RequestMapping(value = "editline/applychanges", method = RequestMethod.GET)
-	public String applyChanges() {
+	@RequestMapping(value = "editline/applychanges", method = RequestMethod.POST)
+	public String applyChanges(@ModelAttribute("linename") String lineName,
+			@ModelAttribute("lineid") Integer lineId) {
+		System.out.println(lineName);
+		linesManager.updateLine(lineId, lineName);
 		return APPLY_CHANGES;
 	}
 
