@@ -26,7 +26,7 @@
 			
 			<tr>
 				<td><spring:message code="label.routes.routecode"/></td>
-				<td><input id="routeCode" type="number" class="field" name="routeCode" value="${route.getRouteCode()}">
+				<td><input id="routeCode" type="text" class="field" name="routeCode" value="${route.getRouteCode()}">
 				<label id="routeCodeError" for="routeCode"  style=width:500px;></label></td>
 			</tr>
 			
@@ -50,11 +50,10 @@
 		</table>
 				
 	</div>
-		
+		<input id="editRoutebtn" type="button" value="<spring:message code="label.update"/>" />
+				<input type="button" value="<spring:message code="label.cancel"/>" 
+					onclick="window.location='/SoftServe_Java-105/routesAllEdit';">
 
-		<input name="control" type="submit" value="<spring:message code="label.update"/>" />
-		<input type="button" value="<spring:message code="label.cancel"/>"
-			onclick="window.location='/SoftServe_Java-105/routesAllEdit';">	
 	</form:form>
 	<script>
 		$(function(){
@@ -63,5 +62,9 @@
 		$(function(){
 			getStationStartOnLineList();
 		});
+		$(function(){
+			editRoute();
+		});
+		
 	</script>
 </section>

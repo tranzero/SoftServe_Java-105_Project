@@ -146,6 +146,35 @@ public class Routes extends BaseEntity {
 	}
 
 	/**
+	 * @param routeId
+	 * @param routeCode
+	 * @param lineName
+	 * @param stationStart
+	 * @param stationEnd
+	 *            Constructor with parameters routeId, routeCode, lineName, stationStart, stationEnd.
+	 */
+	public Routes(Integer routeId, String routeCode, String lineName,
+			String stationStart, String stationEnd) {
+		this();
+		this.setRouteId(routeId == null ? 0 : routeId);
+		this.setRouteCode((routeCode == null || routeCode == "") ? " "
+				: routeCode);
+		Lines line = new Lines((lineName == null || lineName == "") ? " "
+				: lineName);
+		this.setLineId(line);
+		Stations startStation = new Stations();
+		startStation
+				.setStationName((stationStart == null || stationStart == "") ? " "
+						: stationStart);
+		this.setStationStartId(startStation);
+		Stations endStation = new Stations();
+		endStation
+				.setStationName((stationEnd == null || stationEnd == "") ? " "
+						: stationEnd);
+		this.setStationEndId(endStation);
+	}
+
+	/**
 	 * @return the routeId
 	 */
 	public Integer getRouteId() {
