@@ -30,9 +30,12 @@ public final class PaginationManager {
 		return SingletonHolder.HOLDER_INSTANCE;
 	}
 
-	public int getMaxPageCount(final int resultsPerPage, long resultCount) {
+	public int getMaxPageCount(int resultsPerPage, long resultCount) {
 		if (resultCount <= 0) {
 			resultCount = this.getDefaultPageCount();
+		} 
+		if (resultsPerPage <= 0 ) {
+			resultsPerPage = this.getDefaultResultPerPage();
 		}
 		return (int) ((resultCount - 1) / resultsPerPage + 1);
 	}

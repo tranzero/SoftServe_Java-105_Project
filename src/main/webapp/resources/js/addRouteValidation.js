@@ -81,13 +81,13 @@ function parseJson(json) {
 };
 
 function  validate() {
-	var isValid= true;
+	/*var isValid= true;
 	
 	if ($("#routeCodeError").hasClass("error")){
 		isValid= false;
-	}
+	}*/
 	
-	return isValid;
+	return true;
 }
 
 function defineStyle(json) {

@@ -1,13 +1,13 @@
 $(function editRoute() {
-	$("#editRoutebtn0").click(function() {
-		
-	/*if(validate()) {
+	$("#editRoutebtn").click(function() {
+	if(validate()) {
         $.ajax(
 				{
 					type : "POST",
-					url : "addRoutePage",
+					url : "editRoutePage",
 					dataType : "json",
 					data : {
+						routeId : $("#routeId").val(),
 						routeCode : $("#routeCode").val(),
 						lineName : $("#lineName").val(),
 						stationStart : $("#stationStart").val(),
@@ -26,70 +26,67 @@ $(function editRoute() {
 	                },
 				});
         
-		 	}*/
+		 	}
     });
 });
 
+function parseJson(json) {
+	$("#routeCodeError").text(json[2]);
+	$("#lineNameError").text(json[4]);
+	$("#stationStartError").text(json[6]);
+	$("#stationEndError").text(json[8]);
 
-/*$(function getStationStartOnLineList() {
-	$("#stationStart").autocomplete({
-		source : function(request, response) {
-			$.ajax({
-				async : true,
-				type : "GET",
-				url : "getStationOnLineAutoCompleteList",
-				dataType : "json",
-				data : {
-					stationStartsWith : request.term,
-					lineName : $("#lineName").val()
-				},
-				success : function(data) {
-					response($.map(data.stations, function(item) {
-						return {
-							label : item,
-							value : item
-						};
-					}));
-				}
-			});
-		},
-		minLength : 1,
-		open : function() {
-			$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-		},
-		close : function() {
-			$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-		}
-	});
-});
-$(function getStationStartOnLineList() {
-	$("#stationEnd").autocomplete({
-		source : function(request, response) {
-			$.ajax({
-				async : true,
-				type : "GET",
-				url : "getStationOnLineAutoCompleteList",
-				dataType : "json",
-				data : {
-					stationStartsWith : request.term,
-					lineName : $("#lineName").val()
-				},
-				success : function(data) {
-					response($.map(data.stations, function(item) {
-						return {
-							label : item,
-							value : item
-						};
-					}));
-				}
-			});
-		},
-		minLength : 1,
-		open : function() {
-			$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-		},
-		close : function() {
-			$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-		}
-	});
-});*/
+	if(json[1]==0){
+		if ($("#routeCodeError").hasClass("error")) {
+            $("#routeCodeError").removeClass('error');
+            $("#routeCodeError").addClass('success');
+        } else {
+            if (!$("#routeCodeError").hasClass("success")) {
+                $("#routeCodeError").addClass('success');
+            }
+        }
+	}
+	if(json[1]==1){
+		if ($("#routeCodeError").hasClass('success')) {
+            $("#routeCodeError").removeClass('success');
+            $("#routeCodeError").addClass('error');
+        } else {
+            if (!$("#routeCodeError").hasClass('error')) {
+                $("#routeCodeError").addClass('error');
+            }
+        }
+	}
+};
+
+function  validate() {
+	/*var isValid= true;
+	
+	if ($("#routeCodeError").hasClass("error")){
+		isValid= false;
+	}
+	*/
+	return true;
+}
+
+function defineStyle(json) {
+	if(json[0]==0){
+		if ($("#routeCodeError").hasClass("error")) {
+            $("#routeCodeError").removeClass('error');
+            $("#routeCodeError").addClass('success');
+        } else {
+            if (!$("#routeCodeError").hasClass("success")) {
+                $("#routeCodeError").addClass('success');
+            }
+        }
+	}
+	if(json[0]==1){
+		if ($("#routeCodeError").hasClass('success')) {
+            $("#routeCodeError").removeClass('success');
+            $("#routeCodeError").addClass('error');
+        } else {
+            if (!$("#routeCodeError").hasClass('error')) {
+                $("#routeCodeError").addClass('error');
+            }
+        }
+	}
+};

@@ -9,7 +9,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -72,7 +71,7 @@ public class RoutesController {
 	/**
 	 * URL pattern that map controller updateRouteToDB.
 	 */
-	private static final String EDIT_ROUTE_URL_PATTERN = "/editRoutePage";
+	private static final String EDIT_ROUTE_PAGE_URL_PATTERN = "editRoutePage";
 
 	/**
 	 * The name of jsp that defines Spring.
@@ -314,20 +313,28 @@ public class RoutesController {
 	 * 
 	 * @return the jsp name.
 	 */
-	@RequestMapping(value = EDIT_ROUTE_URL_PATTERN, method = RequestMethod.POST)
+	@RequestMapping(value = EDIT_ROUTE_PAGE_URL_PATTERN, method = RequestMethod.POST)
+	@ResponseBody
 	public String updateRouteToDB(
-			@ModelAttribute(ROUTE_ID_CODE) Integer routeId,
-			@ModelAttribute(ROUTE_FIELD_CODE) String routeCode,
-			@ModelAttribute(LINE_NAME_FIELD_CODE) String lineName,
-			@ModelAttribute(STATION_START_NAME_FIELD_CODE) String stationStart,
-			@ModelAttribute(STATION_END_NAME_FIELD_CODE) String stationEnd) {
 
-		routesManager.updateRoute(routeId, lineName, routeCode, stationStart,
-				stationEnd);
-		return REDIRECT_ROUTES_EDIT;
+			@RequestParam(value = ROUTE_ID_CODE, required = false) Integer routeId,
+			@RequestParam(value = ROUTE_FIELD_CODE, required = false) String routeCode,
+			@RequestParam(value = LINE_NAME_FIELD_CODE, required = false) String lineName,
+			@RequestParam(value = STATION_START_NAME_FIELD_CODE, required = false) String stationStart,
+			@RequestParam(value = STATION_END_NAME_FIELD_CODE, required = false) String stationEnd,
+			Map<String, Object> modelMap) {
+
+		String[] routeCheck = routesValidator
+				.getValidateRouteErrors(new Routes(routeId, routeCode,
+						lineName, stationStart, stationEnd));
+
+		if (routeCheck[0].equals(IS_NO_ERROR)) {
+			routesManager.updateRoute(routeId, lineName, routeCode,
+					stationStart, stationEnd);
+		}
+		return new Gson().toJson(routeCheck);
 	}
-
-
+	
 	/**
 	 * Return page with all routes for edit
 	 */
@@ -413,13 +420,16 @@ public class RoutesController {
 			@RequestParam(value = STATION_START_NAME_FIELD_CODE, required = false) String stationStart,
 			@RequestParam(value = STATION_END_NAME_FIELD_CODE, required = false) String stationEnd,
 			Map<String, Object> modelMap) {
+		
+		String[] routeCheck = routesValidator
+				.getValidateRouteErrors(new Routes(0, routeCode, lineName,
+						stationStart, stationEnd));
 
-		String[] routeCheck = routesValidator.validateAddRoute(routeCode,
-				lineName, stationStart, stationEnd);
 		if (routeCheck[0].equals(IS_NO_ERROR)) {
 			routesManager.createRoute(lineName, routeCode, stationStart,
-					stationEnd);
+			stationEnd);
 		}
+		
 		return new Gson().toJson(routeCheck);
 	}
 
@@ -504,7 +514,8 @@ public class RoutesController {
 			@RequestParam(value = ROUTE_FIELD_CODE, required = false) String routeCode,
 			Map<String, Object> modelMap) {
 
-		String[] routeCheck = routesValidator.validateRouteCode(routeCode);
+		String[] routeCheck = routesValidator
+				.validateRouteCodeToStringArray(routeCode);
 		return new Gson().toJson(routeCheck);
 	}
 
@@ -539,38 +550,15 @@ public class RoutesController {
 			return ROUTES_TRIPS_JSP;
 		}
 
-		long count = 0;
-		if (findBy.equals(FIND_BY_ARR_FIELD_CODE)) {
-			count = routesManager.getRoutersListByStationNameArrivingCount(
-					nameStation, parseStringToTime(timeMin),
-					parseStringToTime(timeMax));
-		}
-		if (findBy.equals(FIND_BY_DEP_FIELD_CODE)) {
-			count = routesManager.getRoutersListByStationNameDepartingCount(
-					nameStation, parseStringToTime(timeMin),
-					parseStringToTime(timeMax));
-		}
-
+		long count = getRoutersListByStationNameCount(findBy,nameStation,timeMin,timeMax);
+		
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		if (findBy.equals(FIND_BY_ARR_FIELD_CODE)) {
-			modelMap.put(ROUTES_TRIPS_LIST, routesManager
-					.getRoutersListByStNameArrivingForPage(nameStation,
-							parseStringToTime(timeMin),
-							parseStringToTime(timeMax),
-							(int) container.getPageNumber(),
-							(int) container.getResultsPerPage()));
-		}
-		if (findBy.equals(FIND_BY_DEP_FIELD_CODE)) {
-			modelMap.put(ROUTES_TRIPS_LIST, routesManager
-					.getRoutersListByStNameDepartingForPage(nameStation,
-							parseStringToTime(timeMin),
-							parseStringToTime(timeMax),
-							(int) container.getPageNumber(),
-							(int) container.getResultsPerPage()));
-		}
+		
+		getRoutersListByStationNameForPage(findBy,modelMap,nameStation,timeMin,timeMax,container);
+		
 		return ROUTES_TRIPS_JSP;
 	}
 
@@ -604,8 +592,22 @@ public class RoutesController {
 			return ROUTES_TRIPS_JSP;
 		}
 
-		long count = 0;
+		long count = getRoutersListByStationNameCount(findBy,nameStation,timeMin,timeMax);
 
+		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
+				resultsPerPage, count);
+		paginationManager.validatePaging(container);
+		PagingController.deployPaging(modelMap, container, paginationManager);
+
+		getRoutersListByStationNameForPage(findBy,modelMap,nameStation,timeMin,timeMax,container);
+		return ROUTES_TRIPS_PAGE_JSP;
+	}
+	
+	/**
+	 * Returns count for list with routes, which arriving, or departing from current station
+	 */
+	private long getRoutersListByStationNameCount(String findBy, String nameStation, String timeMin, String timeMax){
+		long count = 0;
 		if (findBy.equals(FIND_BY_ARR_FIELD_CODE)) {
 			count = routesManager.getRoutersListByStationNameArrivingCount(
 					nameStation, parseStringToTime(timeMin),
@@ -616,12 +618,15 @@ public class RoutesController {
 					nameStation, parseStringToTime(timeMin),
 					parseStringToTime(timeMax));
 		}
-
-		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
-				resultsPerPage, count);
-		paginationManager.validatePaging(container);
-		PagingController.deployPaging(modelMap, container, paginationManager);
-
+		return count;
+	}
+	
+	/**
+	 * Put to modelMap list with routes, which arriving, or departing from current station
+	 */
+	private void getRoutersListByStationNameForPage(String findBy,
+			Map<String, Object> modelMap, String nameStation, String timeMin,
+			String timeMax, PageInfoContainerImpl container) {
 		if (findBy.equals(FIND_BY_ARR_FIELD_CODE)) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager
 					.getRoutersListByStNameArrivingForPage(nameStation,
@@ -630,7 +635,6 @@ public class RoutesController {
 							(int) container.getPageNumber(),
 							(int) container.getResultsPerPage()));
 		}
-
 		if (findBy.equals(FIND_BY_DEP_FIELD_CODE)) {
 			modelMap.put(ROUTES_TRIPS_LIST, routesManager
 					.getRoutersListByStNameDepartingForPage(nameStation,
@@ -639,6 +643,5 @@ public class RoutesController {
 							(int) container.getPageNumber(),
 							(int) container.getResultsPerPage()));
 		}
-		return ROUTES_TRIPS_PAGE_JSP;
 	}
 }

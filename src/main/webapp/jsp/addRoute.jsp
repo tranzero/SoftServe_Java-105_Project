@@ -22,7 +22,7 @@
 			<tbody>
 			<tr>
 				<td><spring:message code="label.routes.routecode"/></td>
-				<td><input id="routeCode" type="number" class="field" name="routeCode">
+				<td><input id="routeCode" type="text" class="field" name="routeCode">
 				<label id="routeCodeError" for="routeCode"  style=width:500px;></label></td>
 				
 			</tr>

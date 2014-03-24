@@ -38,7 +38,7 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 	<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/>
 	
 	<!-- init preferences -->
-	<bean id="preferences" class="com.ita.edu.softserve.utils.property.PreferenceUtil.java" lazy-init="false">
+	<bean id="preferences" class="com.ita.edu.softserve.utils.property.PreferenceUtil" lazy-init="false">
 	</bean>
 
 	<!-- @Component, @Service, @Repository -->
@@ -53,7 +53,6 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 	<context:component-scan base-package="com.ita.edu.softserve.components" />
 	<context:component-scan base-package="com.ita.edu.softserve.components.impl" />
 	<context:component-scan base-package="com.ita.edu.softserve.validation" />
-	<!-- Data Access Resources -->
 	
 	
 
