@@ -36,7 +36,7 @@ public class RoutesEditor extends PropertyEditorSupport {
 		if (text == null) {
 			setValue(null);
 			
-		} else if (text.matches("^[0-9]*$") == false) {
+		} else if (!text.matches("^[0-9]*$")) {
 			setValue(null);
 			
 		} else {
