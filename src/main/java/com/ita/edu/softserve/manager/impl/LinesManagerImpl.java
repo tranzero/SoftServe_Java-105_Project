@@ -135,7 +135,7 @@ public class LinesManagerImpl implements LinesManager {
 				return true;
 			} catch (RuntimeException e) {
 				LOGGER.error(e);
-				throw new LinesManagerException(createLinesMsg, e);
+				throw e;
 			}
 		}
 		return false;
@@ -169,22 +169,20 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void deleteLine(Integer lineId) {
-		try {
-			lineDao.findById(lineId);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			new LinesManagerException(findByNameLinesMsg);
+	public boolean deleteLine(Integer lineId) {
+		Lines line = null;
+		line = lineDao.findById(lineId);
+		if (line != null) {
+			try {
+				lineDao.remove(line);
+				LOGGER.info(entityName + line.getLineId() + removeMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(removeLinesMsg, e);
+				throw e;
+			}
 		}
-
-		try {
-			Lines line = lineDao.findById(lineId);
-			lineDao.remove(line);
-			LOGGER.info(entityName + line.getLineId() + removeMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(removeLinesMsg, e);
-		}
+		return false;
 	}
 
 	/**
