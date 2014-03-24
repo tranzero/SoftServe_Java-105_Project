@@ -2,7 +2,6 @@ package com.ita.edu.softserve.dao.impl;
 
 import java.sql.Time;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 
@@ -275,15 +273,16 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			Integer seatClass2, Integer seatClass3, Double price,
 			String orderByCriteria, String orderByDirection,
 			Transports knownElement) {
+		long result;
 		Query q = (Query) entityManager
-				.createNamedQuery(
+				.createQuery(
 						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART1
 								+ orderByCriteria
-								+ SORT_DIRECTION_MAP.get(orderByCriteria)
+								+ SORT_DIRECTION_MAP.get(orderByDirection)
 								+ Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART2
 								+ orderByCriteria
 								+ Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART3
-								+ SORT_DIRECTION_MAP.get(orderByCriteria)
+								+ SORT_DIRECTION_MAP.get(orderByDirection)
 								+ Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART4)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
@@ -291,9 +290,11 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter(Transports.SEAT_CLASS1_NAME, seatClass1)
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
-				.setParameter(Transports.GEN_PRICE_NAME, price);
+				.setParameter(Transports.GEN_PRICE_NAME, price)
+				.setParameter(Transports.PASSED_ID_NAME, knownElement.getTransportId());
 		setPassValue(q, orderByCriteria, knownElement);
-		return (long) find(q);
+		result = (long) find(q);
+		return result;
 	}
 
 	/**

@@ -200,7 +200,7 @@ public class Transports extends BaseEntity {
 	 * Query which is used for selecting index of transport from DB with
 	 * criteria. Part 1. Used in paging in trip editing.
 	 */
-	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART1 = "SELECT COUNT(t.transportId) FROM Transports t WHERE t.transportCode LIKE :"
+	public static final String FIND_TRANSPORTS_FOR_ADD_TRIPS_INDEX_QUERY_PART1 = "SELECT COUNT(t.transportId) FROM Transports t WHERE (t.transportCode LIKE :"
 			+ TRANSPORT_CODE_NAME
 			+ " AND t.routes.routeCode LIKE :"
 			+ ROUTE_CODE_NAME
@@ -213,7 +213,7 @@ public class Transports extends BaseEntity {
 			+ SEAT_CLASS2_NAME
 			+ " AND t.seatclass3 >= :"
 			+ SEAT_CLASS3_NAME
-			+ " AND t.genPrice < :" + GEN_PRICE_NAME + " AND ((";
+			+ " AND t.genPrice < :" + GEN_PRICE_NAME + ") AND ((";
 
 	/**
 	 * Query which is used for selecting index of transport from DB with

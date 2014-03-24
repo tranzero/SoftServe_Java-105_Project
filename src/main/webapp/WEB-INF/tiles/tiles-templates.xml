@@ -12,6 +12,14 @@
 		<put-attribute name="content" value="" />
 		<put-attribute name="footer" value="/jsp/templates/footer.jsp" />
 	</definition>
+	<definition name="base-template-subdir" template="/jsp/templates/base-template-subdir.jsp">
+		<put-attribute name="title" value="Default title" />
+		<put-attribute name="header" value="/jsp/templates/header.jsp" />
+		<put-attribute name="navigation" value="/jsp/templates/navigation.jsp" />
+		<put-attribute name="sidebar" value="/jsp/templates/sidebar.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/jsp/templates/footer.jsp" />
+	</definition>
 	<definition name="ajax" template="/jsp/templates/ajaxLayout.jsp">
 		<put-attribute name="content" value="" />
 	</definition>
@@ -159,7 +167,7 @@
 		<put-attribute name="content" value="/jsp/login.jsp" />
 	</definition>
 
-	<definition name="editTrip" extends="base-template">
+	<definition name="editTrip" extends="base-template-subdir">
 		<put-attribute name="title" value="View: Edit Trip" />
 		<put-attribute name="content" value="/jsp/editTrip.jsp" />
 	</definition>

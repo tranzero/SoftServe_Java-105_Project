@@ -313,9 +313,9 @@ public class TransportsManagerImpl implements TransportsManager {
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
 			Transports knownElement, Integer pageSize) {
 		long result;
-		result = transportsDao.getTransportsListForAddTripsIndex(transportForAddTripsCriteriaContainer.getTransportCode(),
-				transportForAddTripsCriteriaContainer.getRouteName(),
-				transportForAddTripsCriteriaContainer.getRoutesCode(),
+		result = transportsDao.getTransportsListForAddTripsIndex("%"+transportForAddTripsCriteriaContainer.getTransportCode()+"%",
+				"%"+transportForAddTripsCriteriaContainer.getRouteName()+"%",
+				"%"+transportForAddTripsCriteriaContainer.getRoutesCode()+"%",
 				transportForAddTripsCriteriaContainer.getSeatClass1(),
 				transportForAddTripsCriteriaContainer.getSeatClass2(),
 				transportForAddTripsCriteriaContainer.getSeatClass3(),

@@ -8,7 +8,7 @@
 <section id="content">
 	<script>
 		var defaultDomElement = "div#pagingcontent";
-		var defaultTargetPage = "../editTripPage/${currentTrip.getTripId()}";
+		var defaultTargetPage = "addTripPage";
 		var defaultGetData = {
 			pageNumber : "${pageNumber}",
 			resultsPerPage : "${resultsPerPage}",
@@ -124,7 +124,7 @@
 				code="label.addtrips.errormessage" /> </font>
 	</c:if>
 
-	<form name="trips" method="post">
+	<form action="addNewTrips" name="trips" method="post">
 		<h3>
 			<spring:message code="label.addtrips.choosedateinterval" />
 		</h3>
@@ -155,7 +155,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -166,7 +166,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.transportCode&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 
@@ -186,7 +186,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.startTime&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -197,7 +197,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.startTime&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 						</th>
@@ -216,7 +216,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.routes.routeCode&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -227,7 +227,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.routes.routeCode&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 						</th>
@@ -246,7 +246,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.routes.routeName&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -257,7 +257,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.routes.routeName&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 						</th>
@@ -276,7 +276,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass1&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -287,7 +287,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass1&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 						</th>
@@ -305,7 +305,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass2&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -316,7 +316,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass2&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div></th>
 						<th><div style="float: left">
@@ -333,7 +333,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass3&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -344,7 +344,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.seatclass3&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div></th>
 						<th>
@@ -362,7 +362,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.genPrice&orderByDirection=ASC">
-									<img alt="^" src="../resources/images/downarrow.png">
+									<img alt="^" src="resources/images/downarrow.png">
 								</a> <a
 									href="?pageNumber=1&resultsPerPage=${
 									resultsPerPage}&transportCode=${encoder.encode(
@@ -373,7 +373,7 @@
 									container.getSeatClass2()}&seatClass3=${
 									container.getSeatClass3()}&priceName=${encoder.encode(
 									container.getPriceName())}&orderByCriteria=t.genPrice&orderByDirection=DESC">
-									<img alt="v" src="../resources/images/uparrow.png">
+									<img alt="v" src="resources/images/uparrow.png">
 								</a>
 							</div>
 						</th>
@@ -382,15 +382,9 @@
 				<tbody>
 					<c:forEach items="${transportsList}" var="transport">
 						<tr>
-							<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
-							<input type="radio" name="transportid"
-								value="${transport.getTransportId()}" checked/>
-								</c:if>
-								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
-							<input type="radio" name="transportid"
-								value="${transport.getTransportId()}"/>
-								</c:if>
-								</td>
+
+							<td><input type="radio" name="transportid"
+								value="${transport.getTransportId()}" /></td>
 							<td align="center">${transport.getTransportCode()}</td>
 							<td align="center">${transport.getStartTime()}</td>
 							<td align="center">${transport.getRoutes().getRouteCode()}</td>
@@ -565,7 +559,7 @@
 
 		</div>
 		<input type="submit"
-			value="<spring:message code="label.edittrips.savechanges"/>">
+			value="<spring:message code="label.navigation.addtrips"/>">
 	</form>
 	<script>
 		function formDatePicker() {
@@ -608,6 +602,7 @@
 												.data("prevVal", curVal);
 										if (prevVal !== curVal) {
 											var searchData = {
+												pageNumber : 1,
 												resultsPerPage : "${resultsPerPage}",
 												transportCode : $(
 														"input#transportCode")

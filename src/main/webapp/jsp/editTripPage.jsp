@@ -232,7 +232,7 @@
 
 		resultPerPage10Data = clone(defaultGetData);
 		resultPerPage10Data.resultsPerPage = 10;
-		resultPerPage10Data.pageNumber = 1;
+		resultPerPage10Data.pageNumber = -1;
 		$("a#resultsPerPage10").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -241,7 +241,7 @@
 
 		resultPerPage20Data = clone(defaultGetData);
 		resultPerPage20Data.resultsPerPage = 20;
-		resultPerPage20Data.pageNumber = 1;
+		resultPerPage20Data.pageNumber = -1;
 		$("a#resultsPerPage20").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -250,7 +250,7 @@
 
 		resultPerPage50Data = clone(defaultGetData);
 		resultPerPage50Data.resultsPerPage = 50;
-		resultPerPage50Data.pageNumber = 1;
+		resultPerPage50Data.pageNumber = -1;
 		$("a#resultsPerPage50").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -259,7 +259,7 @@
 
 		transportcodeascData = clone(defaultGetData);
 		transportcodeascData.orderByCriteria = "t.transportCode";
-		transportcodeascData.pageNumber = 1;
+		transportcodeascData.pageNumber = -1;
 		transportcodeascData.orderByDirection = "ASC";
 		$("a#transportcodeasc").click(
 				function() {
@@ -270,7 +270,7 @@
 		transportcodedescData = clone(defaultGetData);
 		transportcodedescData.orderByCriteria = "t.transportCode";
 		transportcodedescData.orderByDirection = "DESC";
-		transportcodedescData.pageNumber = 1;
+		transportcodedescData.pageNumber = -1;
 		$("a#transportcodedesc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -279,7 +279,7 @@
 
 		routecodeascData = clone(defaultGetData);
 		routecodeascData.orderByCriteria = "t.routes.routeCode";
-		routecodeascData.pageNumber = 1;
+		routecodeascData.pageNumber = -1;
 		routecodeascData.orderByDirection = "ASC";
 		$("a#routecodeasc").click(function() {
 			ajaxLoader(defaultDomElement, defaultTargetPage, routecodeascData);
@@ -288,7 +288,7 @@
 		routecodedescData = clone(defaultGetData);
 		routecodedescData.orderByCriteria = "t.routes.routeCode";
 		routecodedescData.orderByDirection = "DESC";
-		routecodedescData.pageNumber = 1;
+		routecodedescData.pageNumber = -1;
 		$("a#routecodedesc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -297,7 +297,7 @@
 
 		routenameascData = clone(defaultGetData);
 		routenameascData.orderByCriteria = "t.routes.routeName";
-		routenameascData.pageNumber = 1;
+		routenameascData.pageNumber = -1;
 		routenameascData.orderByDirection = "ASC";
 		$("a#routenameasc").click(function() {
 			ajaxLoader(defaultDomElement, defaultTargetPage, routenameascData);
@@ -306,7 +306,7 @@
 		routenamedescData = clone(defaultGetData);
 		routenamedescData.orderByCriteria = "t.routes.routeName";
 		routenamedescData.orderByDirection = "DESC";
-		routenamedescData.pageNumber = 1;
+		routenamedescData.pageNumber = -1;
 		$("a#routenamedesc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -315,7 +315,7 @@
 
 		seatclass1ascData = clone(defaultGetData);
 		seatclass1ascData.orderByCriteria = "t.seatclass1";
-		seatclass1ascData.pageNumber = 1;
+		seatclass1ascData.pageNumber = -1;
 		seatclass1ascData.orderByDirection = "ASC";
 		$("a#seatclass1asc").click(
 				function() {
@@ -326,7 +326,7 @@
 		seatclass1descData = clone(defaultGetData);
 		seatclass1descData.orderByCriteria = "t.seatclass1";
 		seatclass1descData.orderByDirection = "DESC";
-		seatclass1descData.pageNumber = 1;
+		seatclass1descData.pageNumber = -1;
 		$("a#seatclass1desc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -335,7 +335,7 @@
 
 		seatclass2ascData = clone(defaultGetData);
 		seatclass2ascData.orderByCriteria = "t.seatclass2";
-		seatclass2ascData.pageNumber = 1;
+		seatclass2ascData.pageNumber = -1;
 		seatclass2ascData.orderByDirection = "ASC";
 		$("a#seatclass2asc").click(
 				function() {
@@ -346,7 +346,7 @@
 		seatclass2descData = clone(defaultGetData);
 		seatclass2descData.orderByCriteria = "t.seatclass2";
 		seatclass2descData.orderByDirection = "DESC";
-		seatclass2descData.pageNumber = 1;
+		seatclass2descData.pageNumber = -1;
 		$("a#seatclass2desc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -355,7 +355,7 @@
 
 		seatclass3ascData = clone(defaultGetData);
 		seatclass3ascData.orderByCriteria = "t.seatclass3";
-		seatclass3ascData.pageNumber = 1;
+		seatclass3ascData.pageNumber = -1;
 		seatclass3ascData.orderByDirection = "ASC";
 		$("a#seatclass3asc").click(
 				function() {
@@ -366,7 +366,7 @@
 		seatclass3descData = clone(defaultGetData);
 		seatclass3descData.orderByCriteria = "t.seatclass3";
 		seatclass3descData.orderByDirection = "DESC";
-		seatclass3descData.pageNumber = 1;
+		seatclass3descData.pageNumber = -1;
 		$("a#seatclass3desc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
@@ -375,7 +375,7 @@
 
 		genpriceascData = clone(defaultGetData);
 		genpriceascData.orderByCriteria = "t.genPrice";
-		genpriceascData.pageNumber = 1;
+		genpriceascData.pageNumber = -1;
 		genpriceascData.orderByDirection = "ASC";
 		$("a#genpriceasc").click(function() {
 			ajaxLoader(defaultDomElement, defaultTargetPage, genpriceascData);
@@ -384,14 +384,14 @@
 		genpricedescData = clone(defaultGetData);
 		genpricedescData.orderByCriteria = "t.genPrice";
 		genpricedescData.orderByDirection = "DESC";
-		genpricedescData.pageNumber = 1;
+		genpricedescData.pageNumber = -1;
 		$("a#genpricedesc").click(function() {
 			ajaxLoader(defaultDomElement, defaultTargetPage, genpricedescData);
 		});
 
 		starttimeascData = clone(defaultGetData);
 		starttimeascData.orderByCriteria = 't.startTime';
-		starttimeascData.pageNumber = 1;
+		starttimeascData.pageNumber = -1;
 		starttimeascData.orderByDirection = "ASC";
 		$("a#starttimeasc").click(function() {
 			ajaxLoader(defaultDomElement, defaultTargetPage, starttimeascData);
@@ -400,13 +400,15 @@
 		starttimedescData = clone(defaultGetData);
 		starttimedescData.orderByCriteria = 't.startTime';
 		starttimedescData.orderByDirection = "DESC";
-		starttimedescData.pageNumber = 1;
+		starttimedescData.pageNumber = -1;
 		$("a#starttimedesc").click(
 				function() {
 					ajaxLoader(defaultDomElement, defaultTargetPage,
 							starttimedescData);
 				});
 
+		defaultGetData.pageNumber = ${pageNumber};
+		
 		window.history
 				.pushState(defaultGetData, document.title, location.protocol
 						+ '//' + location.host + location.pathname + '?'
