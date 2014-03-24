@@ -57,10 +57,10 @@ public class UserEditValidator implements Validator {
 	 * @param error
 	 */
 	private void validateFirstName(String firstName, Errors error) {
-		if (firstName == null || firstName == "") {
+		if (firstName == null || firstName.isEmpty()) {
 			error.rejectValue(FIRSTNAME, USER_FIRSTNAME_MATCHER);
 
-		} else if (firstName.matches(USER_FIRSTNAME_PATERN) == false) {
+		} else if (!firstName.matches(USER_FIRSTNAME_PATERN)) {
 			error.rejectValue(FIRSTNAME, USER_FIRSTNAME_MATCHER);
 		}
 

@@ -55,6 +55,16 @@ public class TestUserEditValidation {
 		assertNotNull(errors.getFieldError("firstName"));
 
 	}
+	
+	@Test
+	public void hasLastNameBlack() {
+		errors = new BeanPropertyBindingResult(user, "user");
+		userEditValidator.validate(user, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError("lastName"));
+
+	}
 
 	/* White box tests */
 	@Test
@@ -66,6 +76,17 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("firstName"));
+
+	}
+	
+	@Test
+	public void hasLastName() {
+		user.setLastName("Gud5");
+		errors = new BeanPropertyBindingResult(user, "user");
+		userEditValidator.validate(user, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNull(errors.getFieldError("lastName"));
 
 	}
 }
