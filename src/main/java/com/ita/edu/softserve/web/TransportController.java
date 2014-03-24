@@ -607,7 +607,7 @@ public class TransportController {
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
 
@@ -647,7 +647,7 @@ public class TransportController {
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
 

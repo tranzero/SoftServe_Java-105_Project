@@ -58,6 +58,15 @@ public class ResponsesManagerImpl implements ResponsesManager {
 	public TripsDAO tripsDao;
 
 	/**
+	 * Returns <code>ResponsesManager</code> class instance
+	 * 
+	 * @return <code>ResponsesManager</code> instance
+	 */
+	public static ResponsesManager getInstance() {
+		return ManagerFactory.getManager(ResponsesManager.class);
+	}
+	
+	/**
 	 * Finds Responses by route id.
 	 * 
 	 * @param routeId
@@ -114,7 +123,7 @@ public class ResponsesManagerImpl implements ResponsesManager {
 	@Override
 	public List<Responses> getResponsesByTransportId(Integer transportId) {
 		try {
-			return responsesDao.findResponsesByTranportId(transportId);
+			return responsesDao.findResponsesByTransportId(transportId);
 		} catch (RuntimeException e) {
 			RuntimeException ex = new ResponsesManagerException(
 					COULD_NOT_FIND_RESPONSES_BY_TRANSPORTID, e);
@@ -122,10 +131,6 @@ public class ResponsesManagerImpl implements ResponsesManager {
 			LOGGER.error(ex);
 			throw ex;
 		}
-	}
-
-	public static ResponsesManager getInstance() {
-		return ManagerFactory.getManager(ResponsesManager.class);
 	}
 
 	/**

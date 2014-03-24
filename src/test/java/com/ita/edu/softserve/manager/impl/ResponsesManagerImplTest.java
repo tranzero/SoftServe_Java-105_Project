@@ -1,34 +1,31 @@
 package com.ita.edu.softserve.manager.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.ResponsesDAOImpl;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
-import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.entity.Responses;
-import com.ita.edu.softserve.entity.Trips;
-import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.exception.ResponsesManagerException;
+import com.ita.edu.softserve.manager.ResponsesManager;
 
 /**
  * Class under test
@@ -56,36 +53,18 @@ public class ResponsesManagerImplTest {
 	 */
 	@Mock
 	private TripsDAOImpl tripsDAOImpl;
-	
+
 	/**
 	 * ResponsesManagerImpl
 	 */
 	@InjectMocks
 	private ResponsesManagerImpl responsesManagerImpl = new ResponsesManagerImpl();
-	
+
 	private Integer routeId = 10;
 
 	private Integer tripId = 11;
 
 	private Integer transportId = 12;
-
-	/**
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 */
-	@Before
-	public final void setUp() throws NoSuchFieldException,
-			IllegalArgumentException, IllegalAccessException {
-		/*
-		 * mockResponsesDaoImpl = mock(ResponsesDAOImpl.class);
-		 * responsesManagerImpl = new ResponsesManagerImpl(); Field field =
-		 * responsesManagerImpl.getClass().getDeclaredField( "responsesDao");
-		 * 
-		 * field.setAccessible(true); field.set(responsesManagerImpl,
-		 * mockResponsesDaoImpl);
-		 */
-	}
 
 	/**
 	 * Test for method
@@ -104,6 +83,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByRouteId(routeId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByRouteId(routeId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -122,6 +102,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByRouteId(routeId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByRouteId(routeId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -130,12 +111,24 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByRouteId(routeId)}
 	 * If exception
 	 */
-	@Test(expected = RuntimeException.class)
+	@Test
 	public final void getResponsesByRouteIdIfExceptionTest() {
-		when(mockResponsesDaoImpl.findResponsesByRouteId(routeId)).thenThrow(
-				new RuntimeException());
 
-		responsesManagerImpl.getResponsesByRouteId(routeId);
+		RuntimeException runtimeEx = new RuntimeException();
+		ResponsesManagerException actualException = null;
+
+		when(mockResponsesDaoImpl.findResponsesByRouteId(routeId)).thenThrow(
+				runtimeEx);
+		try {
+
+			responsesManagerImpl.getResponsesByRouteId(routeId);
+
+		} catch (ResponsesManagerException responsesManagerEx) {
+			actualException = responsesManagerEx;
+		}
+
+		assertNotNull(actualException);
+		assertEquals(runtimeEx, actualException.getCause());
 	}
 
 	/**
@@ -155,6 +148,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByTripId(tripId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByTripId(tripId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -173,6 +167,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByTripId(tripId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByTripId(tripId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -181,12 +176,23 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByTripId(routeId)}
 	 * If exception
 	 */
-	@Test(expected = RuntimeException.class)
+	@Test
 	public final void getResponsesByTripIdIfExceptionTest() {
-		when(mockResponsesDaoImpl.findResponsesByTripId(tripId)).thenThrow(
-				new RuntimeException());
+		RuntimeException runtimeEx = new RuntimeException();
+		ResponsesManagerException actualException = null;
 
-		responsesManagerImpl.getResponsesByTripId(tripId);
+		when(mockResponsesDaoImpl.findResponsesByTripId(tripId)).thenThrow(
+				runtimeEx);
+		try {
+
+			responsesManagerImpl.getResponsesByTripId(tripId);
+
+		} catch (ResponsesManagerException responsesManagerEx) {
+			actualException = responsesManagerEx;
+		}
+
+		assertNotNull(actualException);
+		assertEquals(runtimeEx, actualException.getCause());
 	}
 
 	/**
@@ -201,11 +207,13 @@ public class ResponsesManagerImplTest {
 
 		List<Responses> expectedResponses = Collections.singletonList(response);
 
-		when(mockResponsesDaoImpl.findResponsesByTranportId(transportId))
+		when(mockResponsesDaoImpl.findResponsesByTransportId(transportId))
 				.thenReturn(listOfResponses);
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByTransportId(transportId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByTransportId(
+				transportId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -219,11 +227,13 @@ public class ResponsesManagerImplTest {
 		List<Responses> responsesList = new ArrayList<Responses>();
 		List<Responses> expectedResponses = new ArrayList<Responses>();
 
-		when(mockResponsesDaoImpl.findResponsesByTranportId(transportId))
+		when(mockResponsesDaoImpl.findResponsesByTransportId(transportId))
 				.thenReturn(responsesList);
 		List<Responses> actualResponses = responsesManagerImpl
 				.getResponsesByTransportId(transportId);
 
+		verify(mockResponsesDaoImpl, times(1)).findResponsesByTransportId(
+				transportId);
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -232,12 +242,23 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByTransportId(routeId)}
 	 * If exception
 	 */
-	@Test(expected = RuntimeException.class)
+	@Test
 	public final void getResponsesByTransportIdIfExceptionTest() {
-		when(mockResponsesDaoImpl.findResponsesByTranportId(transportId))
-				.thenThrow(new RuntimeException());
+		RuntimeException runtimeEx = new RuntimeException();
+		ResponsesManagerException actualException = null;
 
-		responsesManagerImpl.getResponsesByTransportId(transportId);
+		when(mockResponsesDaoImpl.findResponsesByTransportId(transportId)).thenThrow(
+				runtimeEx);
+		try {
+
+			responsesManagerImpl.getResponsesByTransportId(transportId);
+
+		} catch (ResponsesManagerException responsesManagerEx) {
+			actualException = responsesManagerEx;
+		}
+
+		assertNotNull(actualException);
+		assertEquals(runtimeEx, actualException.getCause());
 	}
 
 	/**
@@ -257,6 +278,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getUncheckedResponses();
 
+		verify(mockResponsesDaoImpl, times(1)).findUncheckedResponses();
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -275,6 +297,7 @@ public class ResponsesManagerImplTest {
 		List<Responses> actualResponses = responsesManagerImpl
 				.getUncheckedResponses();
 
+		verify(mockResponsesDaoImpl, times(1)).findUncheckedResponses();
 		assertTrue(Iterables.elementsEqual(expectedResponses, actualResponses));
 	}
 
@@ -290,51 +313,44 @@ public class ResponsesManagerImplTest {
 
 		responsesManagerImpl.getUncheckedResponses();
 	}
-	
 
-/*	*//**
+	/*	*//**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
-	 *//*
-	@Test
-	public final void addResponseTest() {
-		String responseText = "Good trip";
-		Users user = mock(Users.class);
-		Trips trip = mock(Trips.class);
-		Responses toTest = spy(new Responses(user, trip, responseText, null));
-
-		when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
-		when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip);
-		when(new Responses(user, trip, responseText, null))
-			.thenReturn(toTest);
-
-		
-		responsesManagerImpl.addResponse(1, 2, responseText);
-
-		verify(mockResponsesDaoImpl).save(toTest);
-	}
-
-	*//**
+	 */
+	/*
+	 * @Test public final void addResponseTest() { String responseText =
+	 * "Good trip"; Users user = mock(Users.class); Trips trip =
+	 * mock(Trips.class); Responses toTest = spy(new Responses());
+	 * 
+	 * when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
+	 * when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip);
+	 * 
+	 * 
+	 * responsesManagerImpl.addResponse(1, 2, responseText);
+	 * 
+	 * verify(mockResponsesDaoImpl).save(toTest); }
+	 */
+	/**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
 	 * If Exception
-	 *//*
-	@Test (expected = IllegalArgumentException.class)
-	public final void addResponseIfExceptionTest() {
-		String responseText = "Good trip";
-		Users user = mock(Users.class);
-		Trips trip = mock(Trips.class);
-		
-		when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
-		when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip);
-		Responses spyResponse = spy(new Responses(user, trip, responseText, null));
-		doThrow(new RuntimeException()).when(spyResponse).setDate(null);
+	 */
+	/*
+	 * @Test (expected = IllegalArgumentException.class) public final void
+	 * addResponseIfExceptionTest() { String responseText = "Good trip"; Users
+	 * user = mock(Users.class); Trips trip = mock(Trips.class);
+	 * 
+	 * when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
+	 * when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip); Responses
+	 * spyResponse = spy(new Responses(user, trip, responseText, null));
+	 * doThrow(new RuntimeException()).when(spyResponse).setDate(null);
+	 * 
+	 * responsesManagerImpl.addResponse(1, 2, responseText);
+	 * 
+	 * }
+	 */
 
-		responsesManagerImpl.addResponse(1, 2, responseText);
-
-	}
-*/	
-	
 	/**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#delResponse(responseId)}
@@ -345,9 +361,12 @@ public class ResponsesManagerImplTest {
 		Responses response = mock(Responses.class);
 
 		when(mockResponsesDaoImpl.findById(responseId)).thenReturn(response);
+		doNothing().when(mockResponsesDaoImpl).remove(response);
 
 		responsesManagerImpl.delResponse(responseId);
-		verify(mockResponsesDaoImpl).remove(response);
+
+		verify(mockResponsesDaoImpl, times(1)).findById(responseId);
+		verify(mockResponsesDaoImpl, times(1)).remove(response);
 	}
 
 	/**
@@ -381,7 +400,10 @@ public class ResponsesManagerImplTest {
 		when(mockResponsesDaoImpl.update(response)).thenReturn(responsesList);
 
 		responsesManagerImpl.markAsChecked(responseId);
-		verify(mockResponsesDaoImpl).update(response);
+
+		verify(mockResponsesDaoImpl, times(1)).findById(responseId);
+		verify(response, times(1)).setChecked(true);
+		verify(mockResponsesDaoImpl, times(1)).update(response);
 	}
 
 	/**
@@ -402,5 +424,34 @@ public class ResponsesManagerImplTest {
 				new RuntimeException());
 
 		responsesManagerImpl.markAsChecked(responseId);
+
+		verify(mockResponsesDaoImpl, times(1)).findById(responseId);
+		verify(response, times(1)).setChecked(true);
+		verify(mockResponsesDaoImpl, times(1)).update(response);
 	}
+	
+	/**
+	 * Test for method
+	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#markAsChecked(responseId)}
+	 * If exception
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void markAsCheckedIfExceptionBeforeUpdateTest() {
+		Integer responseId = 1;
+		Responses response = mock(Responses.class);
+		Responses updatedResponse = mock(Responses.class);
+		List<Responses> responsesList = new ArrayList<Responses>();
+		responsesList.add(updatedResponse);
+
+		when(mockResponsesDaoImpl.findById(responseId)).thenThrow(
+				new RuntimeException());
+
+		responsesManagerImpl.markAsChecked(responseId);
+
+		verify(mockResponsesDaoImpl, times(1)).findById(responseId);
+		verify(response, times(0)).setChecked(true);
+		verify(mockResponsesDaoImpl, times(0)).update(response);
+	}
+	
+	
 }

@@ -1,6 +1,9 @@
 package com.ita.edu.softserve.validation;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +18,15 @@ import com.ita.edu.softserve.entity.Responses;
  * @author yuraloga
  *
  */
-public class TestResponsesValidator {
+public class TestResponsesValidator { 
 
 	private Validator responsesValidator;
 
 	private Responses response;
 
 	private Errors errors;
+	
+	private static final String COMMENT_FIELD = "response";
 
 	@Before
 	public void setUp() {
@@ -34,10 +39,10 @@ public class TestResponsesValidator {
 	 */
 	@Test
 	public void responseIllegalCharactersTest() {
-		String comment = "<script>alert(1)</script>";
+		String xxsComment = "<script>alert(1)</script>";
 		
-		response.setComment(comment);
-		errors = new BeanPropertyBindingResult(response, "response");
+		response.setComment(xxsComment);
+		errors = new BeanPropertyBindingResult(response, COMMENT_FIELD);
 		responsesValidator.validate(response, errors);
 
 		assertTrue(errors.hasErrors());
@@ -48,10 +53,10 @@ public class TestResponsesValidator {
 	 */
 	@Test
 	public void responseIfEmptyCommentTest() {
-		String comment = "";
+		String emptyComment = "";
 		
-		response.setComment(comment);
-		errors = new BeanPropertyBindingResult(response, "response");
+		response.setComment(emptyComment);
+		errors = new BeanPropertyBindingResult(response, COMMENT_FIELD);
 		responsesValidator.validate(response, errors);
 
 		assertTrue(errors.hasErrors());
@@ -62,14 +67,14 @@ public class TestResponsesValidator {
 	 */
 	@Test
 	public void responseIfTooLargeCommentTest() {
-		String comment = "test";
+		String tooLongComment = "test";
 		
 		for (int i = 0; i < 250; i++) {
-			comment += "1";
+			tooLongComment += "1";
 		}
 		
-		response.setComment(comment);
-		errors = new BeanPropertyBindingResult(response, "response");
+		response.setComment(tooLongComment);
+		errors = new BeanPropertyBindingResult(response, COMMENT_FIELD);
 		responsesValidator.validate(response, errors);
 
 		assertTrue(errors.hasErrors());
@@ -83,10 +88,10 @@ public class TestResponsesValidator {
 		String comment = "This was a good trip.";
 		
 		response.setComment(comment);
-		errors = new BeanPropertyBindingResult(response, "response");
+		errors = new BeanPropertyBindingResult(response, COMMENT_FIELD);
 		responsesValidator.validate(response, errors);
 
-		assertTrue(!errors.hasErrors());
+		assertFalse(errors.hasErrors());
 	}
 
 	/**
@@ -94,12 +99,25 @@ public class TestResponsesValidator {
 	 */
 	@Test
 	public void supportsTest() {
-		Responses response = new Responses();
-		boolean result = false;
-		
-		result = responsesValidator.supports(response.getClass());
-
-		assertTrue(result);
+		assertTrue(responsesValidator.supports(Responses.class));
+	}
+	
+	/**
+	 * Supports classes test
+	 * If not supported class
+	 */
+	@Test
+	public void supportsIfNotSupportedClassTest() {
+		assertFalse(responsesValidator.supports(Date.class));
+	}
+	
+	/**
+	 * Supports classes test
+	 * If null
+	 */
+	@Test
+	public void supportsIfNullTest() {
+		assertFalse(responsesValidator.supports(null));
 	}
 	
 }

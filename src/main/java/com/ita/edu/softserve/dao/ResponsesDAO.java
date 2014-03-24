@@ -34,7 +34,7 @@ public interface ResponsesDAO extends AbstractDAOIface<Responses>{
 	 *            the Id to find responses by.
 	 * @return responses finded by transportId
 	 */
-	List<Responses> findResponsesByTranportId(Integer transportId);
+	List<Responses> findResponsesByTransportId(Integer transportId);
 	
 	/**
 	 * Finds `unchecked` Responses

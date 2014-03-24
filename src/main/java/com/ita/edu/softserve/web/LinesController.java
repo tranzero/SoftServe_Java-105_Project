@@ -322,7 +322,7 @@ public class LinesController {
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return LINES_BY_TWO_STATIONS_JSP_PAGE;
 		}
 		if (sortOrder == null) {
@@ -369,7 +369,7 @@ public class LinesController {
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE;
 		}
 		if (sortOrder == null) {
