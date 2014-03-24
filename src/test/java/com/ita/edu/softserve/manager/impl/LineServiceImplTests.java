@@ -41,51 +41,31 @@ public class LineServiceImplTests {
 	@InjectMocks
 	private LinesManagerImpl linesManagerImpl = new LinesManagerImpl();
 
-//	@Before
-//	public final void setUp() throws NoSuchFieldException, SecurityException,
-//			IllegalArgumentException, IllegalAccessException {
-//
-//		mockLinesDaoImpl = mock(LinesDAOImpl.class);
-//
-//		linesManagerImpl = new LinesManagerImpl();
-//		Field fild = linesManagerImpl.getClass().getDeclaredField("lineDao");
-//
-//		fild.setAccessible(true);
-//		fild.set(linesManagerImpl, mockLinesDaoImpl);
-//	}
+	// @Before
+	// public final void setUp() throws NoSuchFieldException, SecurityException,
+	// IllegalArgumentException, IllegalAccessException {
+	//
+	// mockLinesDaoImpl = mock(LinesDAOImpl.class);
+	//
+	// linesManagerImpl = new LinesManagerImpl();
+	// Field fild = linesManagerImpl.getClass().getDeclaredField("lineDao");
+	//
+	// fild.setAccessible(true);
+	// fild.set(linesManagerImpl, mockLinesDaoImpl);
+	// }
 
-	/**
-	 * Test for method which returns all lines.
-	 * 
-	 * @author MatyashPetro
-	 */
 	@Test
-	public final void getFullLinesTest() {
-		List<Lines> expectedLinesList = new ArrayList<Lines>();
-		List<Lines> actualLinesList = null;
-		Lines line1 = mock(Lines.class);
-		Lines line2 = mock(Lines.class);
-		expectedLinesList.add(line1);
-		expectedLinesList.add(line2);
-		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expectedLinesList);
-		actualLinesList = linesManagerImpl.getFullLines();
-		assertTrue((expectedLinesList.containsAll(actualLinesList))
-				&& (expectedLinesList.size() == actualLinesList.size()));
+	public final void testFindAllLinesList() {
+		List<Lines> expected = new ArrayList<Lines>();
+		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expected);
+		List<Lines> actual = linesManagerImpl.getFullLines();
+		assertEquals(expected, actual);
 	}
-
-	/**
-	 * Test for method which returns all lines when table is empty.
-	 * 
-	 * @author MatyashPetro
-	 */
-	@Test
-	public final void getFullLinesEmptyTest() {
-		List<Lines> expectedLinesList = new ArrayList<Lines>();
-		List<Lines> actualLinesList = null;
-		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expectedLinesList);
-		actualLinesList = linesManagerImpl.getFullLines();
-		assertTrue((expectedLinesList.containsAll(actualLinesList))
-				&& (expectedLinesList.size() == actualLinesList.size()));
+	
+	@Test (expected = RuntimeException.class)
+	public final void testFindAllLinesListException(){
+		when(mockLinesDaoImpl.getAllEntities()).thenThrow(new RuntimeException());
+		linesManagerImpl.getFullLines();
 	}
 
 	/**
@@ -193,9 +173,9 @@ public class LineServiceImplTests {
 
 		long expectedLinesCount = 15;
 
-		when(mockLinesDaoImpl.getLinesByTwoStListCount(stationName1,
-						stationName2))
-				.thenReturn(expectedLinesCount);
+		when(
+				mockLinesDaoImpl.getLinesByTwoStListCount(stationName1,
+						stationName2)).thenReturn(expectedLinesCount);
 		long actualLinesCount = linesManagerImpl.getLinesByTwoStListCount(
 				stationName1, stationName2);
 

@@ -124,22 +124,21 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void createLine(String lineName) {
-		try {
-			lineDao.findByName(lineName);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			new LinesManagerException(findByNameLinesMsg);
+	public Boolean createLine(String lineName) {
+		Lines line = null;
+		line = lineDao.findByName(lineName);
+		if (line == null) {
+			try {
+				Lines newLine = new Lines(lineName);
+				lineDao.save(newLine);
+				LOGGER.info(entityName + newLine.getLineId() + addMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(e);
+				throw new LinesManagerException(createLinesMsg, e);
+			}
 		}
-
-		try {
-			Lines newLine = new Lines(lineName);
-			lineDao.save(newLine);
-			LOGGER.info(entityName + newLine.getLineId() + addMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(createLinesMsg, e);
-		}
+		return false;
 	}
 
 	/**

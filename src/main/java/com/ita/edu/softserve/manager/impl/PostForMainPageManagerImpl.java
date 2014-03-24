@@ -24,7 +24,7 @@ public class PostForMainPageManagerImpl implements PostForMainPageManager {
 	private String createPostMsg = "Could not create Post";
 	private String findPostMsg = "Could not find Post List";
 	private String removePostMsg = "Could not remove Post";
-	private String findByIdPostMsg = "Could not find news by id";
+	private String findByIdPostMsg = "Could not find news by id"; 
 	private String updatePostMsg = "Could not update Post";
 	private String countPostMsg = "Could not get post list count";
 	private String resultPerPagePostMsg = "Could not get post for one page";
