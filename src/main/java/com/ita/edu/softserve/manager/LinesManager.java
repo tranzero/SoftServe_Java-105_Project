@@ -40,7 +40,7 @@ public interface LinesManager extends BaseManager {
 	 * @param lineName
 	 *            name of the line witch must be deleted
 	 */
-	public void deleteLine(Integer lineId);
+	public boolean deleteLine(Integer lineId);
 
 	/**
 	 * @author MatyashPetro

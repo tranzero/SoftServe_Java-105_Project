@@ -1,7 +1,9 @@
 package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
@@ -41,9 +44,14 @@ public class LineServiceImplTests {
 	@InjectMocks
 	private LinesManagerImpl linesManagerImpl = new LinesManagerImpl();
 
+	private String lineName = "NEW LINE TEST";
+	private Integer lineId = 100500;
+
+	@Spy
+	private Lines line = new Lines(lineName);
+
 	// @Before
-	// public final void setUp() throws NoSuchFieldException, SecurityException,
-	// IllegalArgumentException, IllegalAccessException {
+	// public final void setUp() {
 	//
 	// mockLinesDaoImpl = mock(LinesDAOImpl.class);
 	//
@@ -61,11 +69,57 @@ public class LineServiceImplTests {
 		List<Lines> actual = linesManagerImpl.getFullLines();
 		assertEquals(expected, actual);
 	}
-	
-	@Test (expected = RuntimeException.class)
-	public final void testFindAllLinesListException(){
-		when(mockLinesDaoImpl.getAllEntities()).thenThrow(new RuntimeException());
+
+	@Test(expected = RuntimeException.class)
+	public final void testFindAllLinesListException() {
+		when(mockLinesDaoImpl.getAllEntities()).thenThrow(
+				new RuntimeException());
 		linesManagerImpl.getFullLines();
+	}
+
+	@Test
+	public final void testCreateLine() {
+		boolean wasCreated = false;
+		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(null);
+		wasCreated = linesManagerImpl.createLine(lineName);
+
+		assertTrue(wasCreated);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public final void testCreateLineException() {
+		doThrow(new IllegalArgumentException()).when(line).setLineName("");
+		linesManagerImpl.createLine("");
+	}
+
+	@Test
+	public final void testCreateLineExisted() {
+		boolean wasCreated = true;
+		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(new Lines());
+		wasCreated = linesManagerImpl.createLine(lineName);
+
+		assertFalse(wasCreated);
+	}
+
+	@Test
+	public final void testDeleteLine() {
+		boolean wasDeleted = false;
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(new Lines());
+		wasDeleted = linesManagerImpl.deleteLine(lineId);
+		assertTrue(wasDeleted);
+	}
+
+	@Test
+	public final void testDeleteNonExistedLine() {
+		boolean wasDeleted = true;
+		wasDeleted = linesManagerImpl.deleteLine(lineId);
+		assertFalse(wasDeleted);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public final void testDeleteLineException() {
+		doThrow(new NullPointerException()).when(mockLinesDaoImpl).remove(line);
+		linesManagerImpl.deleteLine(lineId);
 	}
 
 	/**
