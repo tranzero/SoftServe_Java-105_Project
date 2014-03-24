@@ -118,6 +118,7 @@ public class LineServiceImplTests {
 
 	@Test(expected = NullPointerException.class)
 	public final void testDeleteLineException() {
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		doThrow(new NullPointerException()).when(mockLinesDaoImpl).remove(line);
 		linesManagerImpl.deleteLine(lineId);
 	}
