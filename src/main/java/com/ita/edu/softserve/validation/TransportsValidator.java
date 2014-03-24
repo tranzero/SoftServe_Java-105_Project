@@ -10,13 +10,11 @@ import org.springframework.validation.Validator;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.TransportsManager;
-import com.ita.edu.softserve.utils.ParseUtil;
 
 @Component("transportsValidator")
 public class TransportsValidator implements Validator {
 
 	public static final String TRANSPORT_CODE_PATERN = "^[a-zA-Z0-9]{5,15}$";
-	public static final String START_TIME_PATERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
 
 	private static final String TRANSPORT_CODE = "transportCode";
 	private static final String START_TIME = "startTime";
@@ -29,7 +27,6 @@ public class TransportsValidator implements Validator {
 	private static final String SEATCLASS_REQUIRED = "seatclass.required";
 	private static final String GEN_PRICE_REQUIRED = "genPrice.required";
 	private static final String TRANSPORT_CODE_MATCHER = "transportCode.matcher";
-	private static final String START_TIME_MATCHER = "startTime.matcher";
 	private static final String START_TIME_NULL = "startTime.null";
 	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
 	private static final String ROUTES_NOT_EXIST = "routes.exist";
@@ -88,10 +85,10 @@ public class TransportsValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateTransportCode(String transportCode, Errors error) {
-		if (transportCode == null || transportCode == "") {
+		if (transportCode == null || transportCode.isEmpty()) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 
-		} else if (transportCode.matches(TRANSPORT_CODE_PATERN) == false) {
+		} else if (!transportCode.matches(TRANSPORT_CODE_PATERN)) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
 		}
 	}
@@ -110,7 +107,7 @@ public class TransportsValidator implements Validator {
 	private void validateIfTransportExist(Integer transportId,
 			String transportCode, Errors error) {
 
-		if ((transportCode != null) && (transportCode != "")) {
+		if ((transportCode != null) && (!transportCode.isEmpty())) {
 			Transports transport = null;
 
 			try {
@@ -139,13 +136,7 @@ public class TransportsValidator implements Validator {
 	private void validateStartTime(Time startTime, Errors error) {
 		if (startTime == null) {
 			error.rejectValue(START_TIME, START_TIME_NULL);
-		} else {
-			String time = ParseUtil.parseTimeToString(startTime);
-
-			if (time.matches(START_TIME_PATERN) == false) {
-				error.rejectValue(START_TIME, START_TIME_MATCHER);
-			}
-		}
+		} 
 	}
 
 	/**
