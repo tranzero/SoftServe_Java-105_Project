@@ -152,7 +152,7 @@ public class ResponsesManagerImpl implements ResponsesManager {
 
 			java.util.Date date = new java.util.Date();
 			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
+			
 			Responses response = new Responses(user, trip, responseText,
 					sqlDate);
 

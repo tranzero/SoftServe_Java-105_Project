@@ -39,9 +39,9 @@ public class TestResponsesValidator {
 	 */
 	@Test
 	public void responseIllegalCharactersTest() {
-		String xxsComment = "<script>alert(1)</script>";
+		String xssComment = "<script>alert(1)</script>";
 		
-		response.setComment(xxsComment);
+		response.setComment(xssComment);
 		errors = new BeanPropertyBindingResult(response, COMMENT_FIELD);
 		responsesValidator.validate(response, errors);
 

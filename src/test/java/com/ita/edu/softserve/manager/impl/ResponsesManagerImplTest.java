@@ -8,7 +8,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.spy;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Iterables;
@@ -24,8 +27,9 @@ import com.ita.edu.softserve.dao.impl.ResponsesDAOImpl;
 import com.ita.edu.softserve.dao.impl.TripsDAOImpl;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Responses;
+import com.ita.edu.softserve.entity.Trips;
+import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.exception.ResponsesManagerException;
-import com.ita.edu.softserve.manager.ResponsesManager;
 
 /**
  * Class under test
@@ -247,8 +251,8 @@ public class ResponsesManagerImplTest {
 		RuntimeException runtimeEx = new RuntimeException();
 		ResponsesManagerException actualException = null;
 
-		when(mockResponsesDaoImpl.findResponsesByTransportId(transportId)).thenThrow(
-				runtimeEx);
+		when(mockResponsesDaoImpl.findResponsesByTransportId(transportId))
+				.thenThrow(runtimeEx);
 		try {
 
 			responsesManagerImpl.getResponsesByTransportId(transportId);
@@ -314,42 +318,51 @@ public class ResponsesManagerImplTest {
 		responsesManagerImpl.getUncheckedResponses();
 	}
 
-	/*	*//**
-	 * Test for method
-	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
-	 */
-	/*
-	 * @Test public final void addResponseTest() { String responseText =
-	 * "Good trip"; Users user = mock(Users.class); Trips trip =
-	 * mock(Trips.class); Responses toTest = spy(new Responses());
-	 * 
-	 * when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
-	 * when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip);
-	 * 
-	 * 
-	 * responsesManagerImpl.addResponse(1, 2, responseText);
-	 * 
-	 * verify(mockResponsesDaoImpl).save(toTest); }
-	 */
 	/**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
-	 * If Exception
 	 */
-	/*
-	 * @Test (expected = IllegalArgumentException.class) public final void
-	 * addResponseIfExceptionTest() { String responseText = "Good trip"; Users
-	 * user = mock(Users.class); Trips trip = mock(Trips.class);
-	 * 
-	 * when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
-	 * when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip); Responses
-	 * spyResponse = spy(new Responses(user, trip, responseText, null));
-	 * doThrow(new RuntimeException()).when(spyResponse).setDate(null);
-	 * 
-	 * responsesManagerImpl.addResponse(1, 2, responseText);
-	 * 
-	 * }
+	@Test
+	public final void addResponseTest() {
+		Integer userId = 1;
+		Integer tripId = 2;
+		String responseText = "Good trip";
+		Users user = mock(Users.class);
+		Trips trip = mock(Trips.class);
+		Responses response = mock(Responses.class);
+
+		when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
+		when(tripsDAOImpl.findById(Mockito.anyInt())).thenReturn(trip);
+		doNothing().when(mockResponsesDaoImpl).save(response);
+
+		responsesManagerImpl.addResponse(userId, tripId, responseText);
+
+		verify(usersDaoImpl, times(1)).findById(userId);
+		verify(tripsDAOImpl, times(1)).findById(tripId);
+	}
+
+	/**
+	 * Test for method
+	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
 	 */
+	@Test(expected = RuntimeException.class)
+	public final void addResponseIfExceptionTest() {
+		Integer userId = 1;
+		Integer tripId = 2;
+		String responseText = "Good trip";
+		Users user = mock(Users.class);
+		Trips trip = mock(Trips.class);
+		Responses response = mock(Responses.class);
+
+		when(usersDaoImpl.findById(Mockito.anyInt())).thenReturn(user);
+		when(tripsDAOImpl.findById(Mockito.anyInt())).thenThrow(
+				new RuntimeException());
+
+		responsesManagerImpl.addResponse(userId, tripId, responseText);
+
+		verify(usersDaoImpl, times(1)).findById(userId);
+		verify(tripsDAOImpl, times(1)).findById(tripId);
+	}
 
 	/**
 	 * Test for method
@@ -429,7 +442,7 @@ public class ResponsesManagerImplTest {
 		verify(response, times(1)).setChecked(true);
 		verify(mockResponsesDaoImpl, times(1)).update(response);
 	}
-	
+
 	/**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#markAsChecked(responseId)}
@@ -452,6 +465,5 @@ public class ResponsesManagerImplTest {
 		verify(response, times(0)).setChecked(true);
 		verify(mockResponsesDaoImpl, times(0)).update(response);
 	}
-	
-	
+
 }
