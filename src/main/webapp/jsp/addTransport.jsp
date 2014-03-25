@@ -5,11 +5,52 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <link rel="stylesheet" type="text/css" href="resources/css/jquery.datetimepicker.css"/>
+<style>
+<!--
+table.form tr {
+	border-bottom: 1px;
+}
 
+table.form tr:nth-child(odd) td {
+	background-color: #f5f5f5;
+}
+
+table.form tr:nth-child(even) td {
+	background-color: #f5f5f5;
+}
+
+table.form td:first-child {
+	border-left: 1px;
+	border-top: 1px;
+	padding: 10px;
+	text-align: left;
+	font-weight: 600;
+	width: 26%;
+}
+
+table.form td:nth-child(2) {
+	border-left: 1px;
+	border-top: 1px;
+	padding: 10px;
+	text-align: left;
+	font-weight: 600;
+	width:22%;
+}
+
+table.form td:nth-child(3) {
+	border-left: 1px;
+	border-top: 1px;
+	padding: 10px;
+	text-align: left;
+	font-weight: 600;
+	width: 52%;
+}
+-->
+</style>
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-		<form:form action="addTransport.htm" method="POST" modelAttribute="transport">
+		<form:form action="addTransport.htm" method="GET" modelAttribute="transport">
 
  		<table class="form" >
 			<tbody>
