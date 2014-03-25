@@ -56,8 +56,6 @@ public interface StationsManager extends BaseManager {
 	List<Stations> getStationsNotOnCertainLine(Integer lineId);
 	
 	List<Stations> getStationsOnCertainLine(Integer lineId);
-	
-	List<Stations> getStationsNotOnCertainLine(String lineName);
 
 	List<Stations> getStationsForLimit(int firstElement, int count);
 
