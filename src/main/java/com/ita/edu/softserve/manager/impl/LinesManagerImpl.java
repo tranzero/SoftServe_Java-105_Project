@@ -46,6 +46,9 @@ public class LinesManagerImpl implements LinesManager {
 	@Autowired
 	private LinesDAO lineDao;
 
+	public LinesManagerImpl() {
+	}
+
 	public static LinesManager getInstance() {
 		return ManagerFactory.getManager(LinesManager.class);
 	}
