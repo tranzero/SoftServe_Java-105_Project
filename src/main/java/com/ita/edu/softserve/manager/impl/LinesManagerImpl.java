@@ -46,13 +46,6 @@ public class LinesManagerImpl implements LinesManager {
 	@Autowired
 	private LinesDAO lineDao;
 
-	public LinesManagerImpl() {
-	}
-
-	public LinesManagerImpl(LinesDAOImpl lineDao) {
-		this.lineDao = lineDao;
-	}
-
 	public static LinesManager getInstance() {
 		return ManagerFactory.getManager(LinesManager.class);
 	}
