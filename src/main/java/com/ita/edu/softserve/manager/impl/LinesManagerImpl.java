@@ -124,7 +124,7 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public Boolean createLine(String lineName) {
+	public boolean createLine(String lineName) {
 		Lines line = null;
 		line = lineDao.findByName(lineName);
 		if (line == null) {
@@ -150,16 +150,20 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void updateLine(Integer lineId, String newLineName) {
-		try {
-			Lines line = lineDao.findById(lineId);
-			line.setLineName(newLineName);
-			lineDao.update(line);
-			LOGGER.info(entityName + line.getLineId() + changeMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(updateLinesMsg, e);
-		}
+	public boolean updateLine(Integer lineId, String newLineName) {
+		Lines line = null;
+		line = lineDao.findById(lineId);
+		if (line != null)
+			try {
+				line.setLineName(newLineName);
+				lineDao.update(line);
+				LOGGER.info(entityName + line.getLineId() + changeMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(updateLinesMsg, e);
+				throw e;
+			}
+		return false;
 	}
 
 	/**
