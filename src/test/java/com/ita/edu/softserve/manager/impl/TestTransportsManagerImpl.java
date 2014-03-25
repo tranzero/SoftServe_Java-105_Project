@@ -109,7 +109,6 @@ public class TestTransportsManagerImpl {
 				new IllegalArgumentException());
 
 		transportsManagerImpl.findTransportsById(illegalId);
-//		verify(mockTransportsDaoImpl, times(1)).findById(illegalId);
 	}
 
 	/**
@@ -125,20 +124,6 @@ public class TestTransportsManagerImpl {
 		
 		verify(mockTransportsDaoImpl, times(1)).findByCode(mockTransportsCode);
 		assertEquals(transports, actual);
-	}
-
-	/**
-	 * IllegalArgumentException - if position does not correspond to a
-	 * positional parameter of the query or if the argument is of incorrect type
-	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}.
-	 */
-	// @Test(expected = IllegalArgumentException.class)
-	public final void testFindTransportsByCodeException() {
-		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode))
-				.thenThrow(new IllegalArgumentException());
-
-		transportsManagerImpl.findTransportsByCode(illegalTransportsCode);
 	}
 
 	/**
@@ -209,7 +194,7 @@ public class TestTransportsManagerImpl {
 		doNothing().when(mockTransportsDaoImpl).remove(transports);
 
 		transportsManagerImpl.removeTransports(transports);
-
+		
 		verify(mockTransportsDaoImpl, times(1)).remove(transports);
 	}
 
@@ -233,6 +218,7 @@ public class TestTransportsManagerImpl {
 	public void testRemoveTransportById() {
 		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
 				transports);
+		doNothing().when(mockTransportsDaoImpl).remove(transports);
 
 		transportsManagerImpl.removeTransportById(transportsIdMock);
 
@@ -262,8 +248,6 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test()
 	public void testUpdateTransports() {
-//		doNothing().when(mockTransportsDaoImpl).update(transports);
-
 		transportsManagerImpl.updateTransports(transports);
 
 		verify(mockTransportsDaoImpl, times(1)).update(transports);

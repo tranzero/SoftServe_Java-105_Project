@@ -9,7 +9,7 @@
 <section id="content">
 	<h2 align="center"><spring:message code="label.navigation.addTransport"/></h2>
 	
-		<form:form action="addTransport.htm" method="POST" modelAttribute="transport">
+		<form:form action="addTransport.htm" method="GET" modelAttribute="transport">
 
  		<table class="form" >
 			<tbody>
@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td><spring:message code="label.routes.routecode"/><em class="star">*</em>:</td>
-				<td><p><form:select path="routes" >
+				<td><p><form:select path="routes" class="selectRoutes">
 					<form:option value="-" label="--Please Select Routes"/>
 					<form:options items="${routesList}"  itemValue="routeId" itemLabel="routeCode"/>
 				</form:select></td>

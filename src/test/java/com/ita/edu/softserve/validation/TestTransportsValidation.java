@@ -34,7 +34,8 @@ public class TestTransportsValidation {
 	private static final String TRANSPORT_OBJECT_NAME = "transport";
 
 	private static final String MOCK_TRANSPORTS_CODE = "T000000001";
-	private static final String ILIGAL_TRANSPORTS_CODE = "T0000000@1";
+	private static final String ILIGAL_TRANSPORTS_CODE = "T00000@@@1";
+	private static final String TEST_START_TIME = "10:10:00";
 
 	private Validator transportsValidator = new TransportsValidator();
 
@@ -48,18 +49,18 @@ public class TestTransportsValidation {
 	}
 
 	/**
-	 * Test method for TransportsValidator.
+	 * Test method for TransportsValidator where Transports is filled with valid arguments.
 	 */
 	@Test
 	public void testTransportsValidator() {
 		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
 		transport.setRoutes(new Routes());
-		transport.setStartTime(parseStringToTime("10:10:00"));
+		transport.setStartTime(parseStringToTime(TEST_START_TIME));
 		transport.setSeatclass1(100);
 		transport.setSeatclass2(100);
 		transport.setSeatclass3(100);
 		transport.setGenPrice(25);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -67,8 +68,28 @@ public class TestTransportsValidation {
 	}
 
 	/**
+	 * Test method for TransportsValidator where Transports is filled with not valid arguments.
+	 */
+	@Test
+	public void testTransportsValidatorNotValid() {
+		transport.setTransportCode(ILIGAL_TRANSPORTS_CODE);
+		transport.setRoutes(null);
+		transport.setStartTime(null);
+		transport.setSeatclass1(0);
+		transport.setSeatclass2(0);
+		transport.setSeatclass3(0);
+		transport.setGenPrice(0.0);
+
+		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
+		transportsValidator.validate(transport, errors);
+
+		assertTrue(errors.hasErrors());
+	}
+
+	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}
+	 * .
 	 */
 	@Test
 	public void testSupports() {
@@ -77,7 +98,8 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}
+	 * .
 	 */
 	@Test
 	public void testSupportsObject() {
@@ -86,7 +108,8 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#supports(Class)}
+	 * .
 	 */
 	@Test
 	public void testSupportsTramsports() {
@@ -95,12 +118,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 * .
 	 */
 	@Test
 	public void testTransportCodeNull() {
 		transport.setTransportCode(null);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -110,12 +134,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 * .
 	 */
 	@Test
 	public void testIligalTransportCode() {
 		transport.setTransportCode(ILIGAL_TRANSPORTS_CODE);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -125,12 +150,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 * .
 	 */
 	@Test
-	public void blankTransportCode() {
+	public void testBlankTransportCode() {
 		transport.setTransportCode("");
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -140,12 +166,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateTransportCode(String, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasTransportCode() {
+	public void testHasTransportCode() {
 		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -155,12 +182,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsStartTime() {
+	public void testNeedsStartTime() {
 		transport.setStartTime(null);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -170,11 +198,12 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateStartTime(Time, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasStartTime() {
-		transport.setStartTime(parseStringToTime("10:10:00"));
+	public void testHasStartTime() {
+		transport.setStartTime(parseStringToTime(TEST_START_TIME));
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
@@ -185,12 +214,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsRoutes() {
+	public void testNeedsRoutes() {
 		transport.setRoutes(null);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -200,10 +230,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateRoutes(Routes, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasRoutes() {
+	public void testHasRoutes() {
 		transport.setRoutes(new Routes());
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -215,12 +246,13 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsSeatclass1() {
+	public void testNeedsSeatclass1() {
 		transport.setSeatclass1(0);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -230,10 +262,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void negativeSeatclass1() {
+	public void testNegativeSeatclass1() {
 		transport.setSeatclass1(-1);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -245,10 +278,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasSeatclass1() {
+	public void testHasSeatclass1() {
 		transport.setSeatclass1(100);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -260,10 +294,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsSeatclass2() {
+	public void testNeedsSeatclass2() {
 		transport.setSeatclass2(0);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -275,10 +310,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void negativeSeatclass2() {
+	public void testNegativeSeatclass2() {
 		transport.setSeatclass2(-1);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -290,10 +326,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasSeatclass2() {
+	public void testHasSeatclass2() {
 		transport.setSeatclass2(100);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -305,10 +342,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsSeatclass3() {
+	public void testNeedsSeatclass3() {
 		transport.setSeatclass3(0);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -320,10 +358,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void negativeSeatclass3() {
+	public void testNegativeSeatclass3() {
 		transport.setSeatclass3(-1);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -335,10 +374,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateSeatClasses(int, int, int, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasSeatclass3() {
+	public void testHasSeatclass3() {
 		transport.setSeatclass3(100);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -350,10 +390,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 * .
 	 */
 	@Test
-	public void needsGeneralPrice() {
+	public void testNeedsGeneralPrice() {
 		transport.setGenPrice(0);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -365,10 +406,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 * .
 	 */
 	@Test
-	public void negativeGeneralPrice() {
+	public void testNegativeGeneralPrice() {
 		transport.setGenPrice(-1);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -380,10 +422,11 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateGeneralPrice(double, Errors)}
+	 * .
 	 */
 	@Test
-	public void hasGeneralPrice() {
+	public void testHasGeneralPrice() {
 		transport.setGenPrice(25);
 
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
@@ -395,7 +438,8 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}
+	 * .
 	 */
 	@Test
 	public void testValidateIfTransportExist() throws IllegalArgumentException,
@@ -410,12 +454,14 @@ public class TestTransportsValidation {
 
 		Transports transports = new Transports();
 		transports.setTransportId(1);
-		when(mockTransportsManagerImpl.findTransportsByCode(MOCK_TRANSPORTS_CODE))
-			.thenReturn(transports);
+		when(
+				mockTransportsManagerImpl
+						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
+				.thenReturn(transports);
 
 		transport.setTransportId(1);
 		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 
@@ -425,7 +471,8 @@ public class TestTransportsValidation {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}.
+	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}
+	 * .
 	 */
 	@Test
 	public void testBlackValidateIfTransportExist()
@@ -442,13 +489,14 @@ public class TestTransportsValidation {
 		Transports transports = new Transports();
 		transports.setTransportId(2);
 
-		when(mockTransportsManagerImpl
-					.findTransportsByCode(MOCK_TRANSPORTS_CODE))
-			.thenReturn(transports);
+		when(
+				mockTransportsManagerImpl
+						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
+				.thenReturn(transports);
 
 		transport.setTransportId(1);
 		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
-		
+
 		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
 		transportsValidator.validate(transport, errors);
 

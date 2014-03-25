@@ -199,13 +199,31 @@ table.form tr:nth-child(even) td {
 	background-color: #f5f5f5;
 }
 
-table.form td {
+table.form td:first-child {
 	border-left: 1px;
 	border-top: 1px;
 	padding: 10px;
 	text-align: left;
 	font-weight: 600;
-	width: 33%;
+	width: 26%;
+}
+
+table.form td:nth-child(2) {
+	border-left: 1px;
+	border-top: 1px;
+	padding: 10px;
+	text-align: left;
+	font-weight: 600;
+	width:22%;
+}
+
+table.form td:nth-child(3) {
+	border-left: 1px;
+	border-top: 1px;
+	padding: 10px;
+	text-align: left;
+	font-weight: 600;
+	width: 52%;
 }
 /* TABLE FORM STYLES END */
 
@@ -328,9 +346,9 @@ em.star {
 */
 
 /*TRANSPORT FORM SELECT TAG*/
-form select.selectRoutes {
+table.form select.selectRoutes {
 	border: 1px solid #006;
-	width: 198px;
+	width: 183px;
 }
 
 /* Responses Styles */
