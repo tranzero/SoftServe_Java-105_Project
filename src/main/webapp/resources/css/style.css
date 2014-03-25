@@ -346,9 +346,9 @@ em.star {
 */
 
 /*TRANSPORT FORM SELECT TAG*/
-form select.selectRoutes {
+table.form select.selectRoutes {
 	border: 1px solid #006;
-	width: 198px;
+	width: 183px;
 }
 
 /* Responses Styles */
