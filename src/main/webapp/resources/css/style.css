@@ -203,7 +203,7 @@ table.form td:first-child {
 	border-left: 1px;
 	border-top: 1px;
 	padding: 10px;
-	text-align: left;
+	text-align: right;
 	font-weight: 600;
 	width: 26%;
 }
