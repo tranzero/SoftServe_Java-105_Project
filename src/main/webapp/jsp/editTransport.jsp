@@ -16,7 +16,7 @@
 			<tbody>
 				<tr>
 					<td><spring:message code="label.transport.transportcode" /><em class="star">*</em>:</td>
-					<td><form:input path="transportCode" onfocus="checkpostal()" /></td>
+					<td><form:input id="transportCode" path="transportCode" onfocus="checkpostal()" /></td>
 					<td><form:errors path="transportCode" cssClass="error" /></td>
 				</tr>
 				<tr>
@@ -27,29 +27,29 @@
 				</tr>
 				<tr>
 					<td><spring:message code="label.routes.routecode" /><em class="star">*</em>:</td>
-					<td><form:select path="routes" class="selectRoutes">
+					<td><form:select id="routes" path="routes" class="selectRoutes">
 						<form:options items="${routesList}" itemValue="routeId"	itemLabel="routeCode" />
 					</form:select></td>
 					<td><form:errors path="routes" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="label.transport.seatclass1" /><em class="star">**</em>:</td>
-					<td><form:input path="seatclass1" /></td>
+					<td><form:input id="seatclass1" path="seatclass1" /></td>
 					<td><form:errors path="seatclass1" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="label.transport.seatclass2" /><em class="star">**</em>:</td>
-					<td><form:input path="seatclass2" /></td>
+					<td><form:input id="seatclass2" path="seatclass2" /></td>
 					<td><form:errors path="seatclass2" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="label.transport.seatclass3" /><em class="star">**</em>:</td>
-					<td><form:input path="seatclass3" /></td>
+					<td><form:input id="seatclass3" path="seatclass3" /></td>
 					<td><form:errors path="seatclass3" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td><spring:message code="label.transport.genprice" /><em class="star">*</em>:</td>
-					<td><form:input path="genPrice" /></td>
+					<td><form:input id="genPrice" path="genPrice" /></td>
 					<td><form:errors path="genPrice" cssClass="error" /></td>
 				</tr>
 			</tbody>
