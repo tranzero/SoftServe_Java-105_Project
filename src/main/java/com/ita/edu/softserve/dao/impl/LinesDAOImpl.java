@@ -25,7 +25,9 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 		Lines line = null;
 		try{
 			line = (Lines) query.getSingleResult(); 
-		} catch(ClassCastException e){}
+		} catch(Exception e){
+			return null;
+		}
 		return line;
 	}
 

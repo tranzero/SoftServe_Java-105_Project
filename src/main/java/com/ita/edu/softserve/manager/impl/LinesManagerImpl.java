@@ -241,7 +241,7 @@ public class LinesManagerImpl implements LinesManager {
 		try {
 			return lineDao.getLinesByStationNameCount(stationName);
 		} catch (RuntimeException e) {
-			LOGGER.error(e);
+			LOGGER.error(countLinesMsg, e);
 			throw new LinesManagerException(countLinesMsg, e);
 		}
 	}
