@@ -22,6 +22,7 @@ import com.google.common.collect.Iterables;
 import com.ita.edu.softserve.dao.impl.LinesDAOImpl;
 import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.exception.LinesManagerException;
 
 /**
  * Class under test {@link com.ita.edu.softserve.manager.impl.LinesManagerImpl}
@@ -50,18 +51,9 @@ public class LineServiceImplTests {
 	@Spy
 	private Lines line = new Lines(lineName);
 
-	// @Before
-	// public final void setUp() {
-	//
-	// mockLinesDaoImpl = mock(LinesDAOImpl.class);
-	//
-	// linesManagerImpl = new LinesManagerImpl();
-	// Field fild = linesManagerImpl.getClass().getDeclaredField("lineDao");
-	//
-	// fild.setAccessible(true);
-	// fild.set(linesManagerImpl, mockLinesDaoImpl);
-	// }
-
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
 	public final void testFindAllLinesList() {
 		List<Lines> expected = new ArrayList<Lines>();
@@ -69,7 +61,10 @@ public class LineServiceImplTests {
 		List<Lines> actual = linesManagerImpl.getFullLines();
 		assertEquals(expected, actual);
 	}
-
+	
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test(expected = RuntimeException.class)
 	public final void testFindAllLinesListException() {
 		when(mockLinesDaoImpl.getAllEntities()).thenThrow(
@@ -77,6 +72,48 @@ public class LineServiceImplTests {
 		linesManagerImpl.getFullLines();
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void testFindLineById(){
+		Lines expected = new Lines("WTF");
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(expected);
+		Lines actual = linesManagerImpl.findByLineId(lineId);
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public final void testFindLineBuIdException(){
+		when(mockLinesDaoImpl.findById(lineId)).thenThrow(new IllegalArgumentException());
+		linesManagerImpl.findByLineId(lineId);	}
+	
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void testFindByLineName(){
+		Lines expected = new Lines("WTF");
+		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(expected);
+		Lines actual = linesManagerImpl.findByLineName(lineName);
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test (expected = LinesManagerException.class)
+	public final void testFindByLineNameException(){
+		when(mockLinesDaoImpl.findByName(lineName)).thenThrow(new LinesManagerException());
+		linesManagerImpl.findByLineName(lineName);
+	}
+	
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
 	public final void testCreateLine() {
 		boolean wasCreated = false;
@@ -86,12 +123,18 @@ public class LineServiceImplTests {
 		assertTrue(wasCreated);
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testCreateLineException() {
 		doThrow(new IllegalArgumentException()).when(line).setLineName("");
 		linesManagerImpl.createLine("");
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
 	public final void testCreateLineExisted() {
 		boolean wasCreated = true;
@@ -101,6 +144,9 @@ public class LineServiceImplTests {
 		assertFalse(wasCreated);
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
 	public final void testDeleteLine() {
 		boolean wasDeleted = false;
@@ -109,13 +155,19 @@ public class LineServiceImplTests {
 		assertTrue(wasDeleted);
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
-	public final void testDeleteNonExistedLine() {
+	public final void testDeleteLineWhenNull() {
 		boolean wasDeleted = true;
 		wasDeleted = linesManagerImpl.deleteLine(lineId);
 		assertFalse(wasDeleted);
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test(expected = NullPointerException.class)
 	public final void testDeleteLineException() {
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
@@ -123,12 +175,94 @@ public class LineServiceImplTests {
 		linesManagerImpl.deleteLine(lineId);
 	}
 
+	/**
+	 * @author MatyashPetro 
+	 */
 	@Test
-	public final void testUpdeteLine(){
+	public final void testUpdeteLine() {
 		boolean wasUpdated = false;
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		wasUpdated = linesManagerImpl.updateLine(lineId, lineName);
 		assertTrue(wasUpdated);
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void testUpdateLineWhenNull() {
+		boolean wasUpdated = true;
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(null);
+		wasUpdated = linesManagerImpl.updateLine(lineId, lineName);
+		assertFalse(wasUpdated);
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public final void testUpdateLineException() {
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
+		doThrow(new IllegalArgumentException()).when(line).setLineName("");
+		linesManagerImpl.updateLine(lineId, "");
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void testGetAllLinesCount() {
+		long expected = 5;
+		when(mockLinesDaoImpl.getAllLinesCount()).thenReturn(expected);
+		long actual = linesManagerImpl.getAllLinesCount();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testGetAllLinesCountException() {
+		when(mockLinesDaoImpl.getAllLinesCount()).thenThrow(
+				new RuntimeException());
+		linesManagerImpl.getAllLinesCount();
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void testGetAllLinesForLimits() {
+		int firstElement = 0;
+		int count = 10;
+		int sortOrder = 0;
+
+		List<Lines> expected = new ArrayList<Lines>();
+		when(
+				mockLinesDaoImpl.getAllLinesForLimits(firstElement, count,
+						sortOrder)).thenReturn(expected);
+		List<Lines> actual = linesManagerImpl.getAllLinesForLimit(firstElement,
+				count, sortOrder);
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * @author MatyashPetro 
+	 */
+	@Test
+	public final void tesgGetAllLinesForPage(){
+		int firstElement = 0;
+		int count = 10;
+		int sortOrder = 0;
+		
+		List<Lines> expected = new ArrayList<Lines>();
+		when(
+				mockLinesDaoImpl.getAllLinesForLimits(firstElement, count,
+						sortOrder)).thenReturn(expected);
+		List<Lines> actual = linesManagerImpl.getAllLinesForPage(firstElement,
+				count, sortOrder);
+		assertEquals(expected, actual);
+		
 	}
 	
 	/**
