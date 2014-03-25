@@ -407,12 +407,18 @@ public class TripsController {
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
 				transportForAddTripsCriteriaContainer);
 		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
-
 		List<Transports> transports = transportsManager
 				.getTransportsListForAddTripsWithContainers(container,
 						transportForAddTripsCriteriaContainer);
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
+		modelMap.put(
+				DATEFORMAT_NAME,
+				new SimpleDateFormat(
+						locale.getLanguage().equalsIgnoreCase(UKRAINIAN)
+								|| locale.getLanguage().equalsIgnoreCase(
+										SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
+								: DEFAULT_DATE_FORMAT));
 	}
 
 	/**
