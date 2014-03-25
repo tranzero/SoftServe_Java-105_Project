@@ -484,7 +484,7 @@ public class TransportController {
 	 *            Transport code.
 	 * @return the jsp name.
 	 */
-	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
+	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String addTransportToBD(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult, Model modelMap) {
@@ -534,7 +534,7 @@ public class TransportController {
 	 * 
 	 * @return the jsp name.
 	 */
-	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
+	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.GET)
 	public String updateTransportToDB(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult, Model modelMap) {
