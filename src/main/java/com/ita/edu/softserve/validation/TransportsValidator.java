@@ -28,7 +28,6 @@ public class TransportsValidator implements Validator {
 	private static final String GEN_PRICE_REQUIRED = "genPrice.required";
 	private static final String TRANSPORT_CODE_MATCHER = "transportCode.matcher";
 	private static final String START_TIME_NULL = "startTime.null";
-	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
 	private static final String ROUTES_NOT_EXIST = "routes.exist";
 
 	/**
@@ -54,9 +53,6 @@ public class TransportsValidator implements Validator {
 		Transports transports = (Transports) obj;
 
 		validateTransportCode(transports.getTransportCode(), error);
-
-		validateIfTransportExist(transports.getTransportId(),
-				transports.getTransportCode(), error);
 
 		validateStartTime(transports.getStartTime(), error);
 
@@ -90,39 +86,6 @@ public class TransportsValidator implements Validator {
 
 		} else if (!transportCode.matches(TRANSPORT_CODE_PATERN)) {
 			error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_MATCHER);
-		}
-	}
-
-	/**
-	 * Finds out if Transports object exist in database with such transport
-	 * code.
-	 * 
-	 * @param transportId
-	 *            the transport ID to check.
-	 * @param transportCode
-	 *            the transport code to check.
-	 * @param error
-	 *            the error to register message.
-	 */
-	private void validateIfTransportExist(Integer transportId,
-			String transportCode, Errors error) {
-
-		if ((transportCode != null) && (!transportCode.isEmpty())) {
-			Transports transport = null;
-
-			try {
-				transport = transportsManager
-						.findTransportsByCode(transportCode);
-
-				if ((transport.getTransportId()).equals(transportId)) {
-					return;
-
-				} else {
-					error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
-				}
-
-			} catch (RuntimeException e) {
-			}
 		}
 	}
 

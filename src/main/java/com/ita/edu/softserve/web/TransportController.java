@@ -1,13 +1,11 @@
 package com.ita.edu.softserve.web;
 
 import java.sql.Time;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -481,7 +479,8 @@ public class TransportController {
 			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
-
+		transportsManager.validateIfTransportExist(transport, bindingResult);
+		
 		if (bindingResult.hasErrors()) {
 			List<Routes> routesList = routesManager.getAllRoutes();
 			modelMap.addAttribute(ROUTES_LIST, routesList);
@@ -531,6 +530,7 @@ public class TransportController {
 			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
+		transportsManager.validateIfTransportExist(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			modelMap.addAttribute(ROUTES_LIST, routesManager.getAllRoutes());

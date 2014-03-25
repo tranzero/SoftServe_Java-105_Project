@@ -2,6 +2,8 @@ package com.ita.edu.softserve.manager;
 
 import java.util.List;
 
+import org.springframework.validation.Errors;
+
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
@@ -83,6 +85,19 @@ public interface TransportsManager extends BaseManager {
 	 *            the Transports to add or update.
 	 */
 	void saveOrUpdateTransport(Transports transports);
+	
+	/**
+	 * Finds out if Transports object exist in database with such transport
+	 * code.
+	 * 
+	 * @param transportId
+	 *            the transport ID to check.
+	 * @param transportCode
+	 *            the transport code to check.
+	 * @param error
+	 *            the error to register message.
+	 */
+	public void validateIfTransportExist(Transports transports, Errors error);
 
 	/*---------------------------for transport paging sorting filtering------------------------------------------*/
 

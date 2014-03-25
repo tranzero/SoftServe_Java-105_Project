@@ -5,10 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
 import java.sql.Time;
 
 import org.junit.Before;
@@ -19,7 +16,6 @@ import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.impl.TransportsManagerImpl;
 
 public class TestTransportsValidation {
 
@@ -434,73 +430,5 @@ public class TestTransportsValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError(GEN_PRICE_FIELD_NAME));
-	}
-
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}
-	 * .
-	 */
-	@Test
-	public void testValidateIfTransportExist() throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException {
-
-		TransportsManagerImpl mockTransportsManagerImpl = mock(TransportsManagerImpl.class);
-		Field fild = transportsValidator.getClass().getDeclaredField(
-				"transportsManager");
-
-		fild.setAccessible(true);
-		fild.set(transportsValidator, mockTransportsManagerImpl);
-
-		Transports transports = new Transports();
-		transports.setTransportId(1);
-		when(
-				mockTransportsManagerImpl
-						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
-				.thenReturn(transports);
-
-		transport.setTransportId(1);
-		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
-
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNull(errors.getFieldError(TRANSPORT_CODE_FIELD_NAME));
-	}
-
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.TransportsValidator#validateIfTransportExist(Integer, String, Errors)}
-	 * .
-	 */
-	@Test
-	public void testBlackValidateIfTransportExist()
-			throws IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException {
-
-		TransportsManagerImpl mockTransportsManagerImpl = mock(TransportsManagerImpl.class);
-		Field fild = transportsValidator.getClass().getDeclaredField(
-				"transportsManager");
-
-		fild.setAccessible(true);
-		fild.set(transportsValidator, mockTransportsManagerImpl);
-
-		Transports transports = new Transports();
-		transports.setTransportId(2);
-
-		when(
-				mockTransportsManagerImpl
-						.findTransportsByCode(MOCK_TRANSPORTS_CODE))
-				.thenReturn(transports);
-
-		transport.setTransportId(1);
-		transport.setTransportCode(MOCK_TRANSPORTS_CODE);
-
-		errors = new BeanPropertyBindingResult(transport, TRANSPORT_OBJECT_NAME);
-		transportsValidator.validate(transport, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError(TRANSPORT_CODE_FIELD_NAME));
 	}
 }

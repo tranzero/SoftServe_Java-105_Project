@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
@@ -50,6 +51,9 @@ public class TransportsManagerImpl implements TransportsManager {
 	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
 	private final String getAllTransportsMessageError = "Could not get list of Transports";
 	private final String getTransportsByTwoStationsMessage = "Could not get Transports by two stations";
+	
+	private static final String TRANSPORT_CODE = "transportCode";
+	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
 
 	/**
 	 * Gets access to Transports DAO.
@@ -259,6 +263,38 @@ public class TransportsManagerImpl implements TransportsManager {
 		} catch (RuntimeException e) {
 			LOGGER.error(saveOrUpdateTransportsMessage, e);
 			throw e;
+		}
+	}
+
+	/**
+	 * Finds out if Transports object exist in database with such transport
+	 * code.
+	 * 
+	 * @param transportId
+	 *            the transport ID to check.
+	 * @param transportCode
+	 *            the transport code to check.
+	 * @param error
+	 *            the error to register message.
+	 */
+	@Override
+	public void validateIfTransportExist(Transports transports, Errors error) {
+
+		if ((transports.getTransportCode() != null) && (!transports.getTransportCode().isEmpty())) {
+			Transports transport = null;
+
+			try {
+				transport = transportsDao.findByCode(transports.getTransportCode());
+
+				if ((transport.getTransportId()).equals(transports.getTransportId())) {
+					return;
+
+				} else {
+					error.rejectValue(TRANSPORT_CODE, TRANSPORT_CODE_EXIST);
+				}
+
+			} catch (RuntimeException e) {
+			}
 		}
 	}
 
