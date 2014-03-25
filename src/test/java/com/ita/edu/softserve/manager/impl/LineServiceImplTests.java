@@ -123,6 +123,14 @@ public class LineServiceImplTests {
 		linesManagerImpl.deleteLine(lineId);
 	}
 
+	@Test
+	public final void testUpdeteLine(){
+		boolean wasUpdated = false;
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
+		wasUpdated = linesManagerImpl.updateLine(lineId, lineName);
+		assertTrue(wasUpdated);
+	}
+	
 	/**
 	 * Test for method
 	 * {@link com.ita.edu.softserve.service.impl.LinesManagerImpl# getLinesByTwoStations(Stations, Stations)}
