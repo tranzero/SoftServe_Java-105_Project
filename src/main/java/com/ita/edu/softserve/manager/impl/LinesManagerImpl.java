@@ -83,7 +83,12 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public Lines findByLineId(Integer lineId) {
-		return lineDao.findById(lineId);
+		try {
+			Lines line = lineDao.findById(lineId);
+			return line;
+		} catch (RuntimeException e) {
+			throw e;
+		}
 
 	}
 
@@ -236,7 +241,7 @@ public class LinesManagerImpl implements LinesManager {
 		try {
 			return lineDao.getLinesByStationNameCount(stationName);
 		} catch (RuntimeException e) {
-			LOGGER.error(e);
+			LOGGER.error(countLinesMsg, e);
 			throw new LinesManagerException(countLinesMsg, e);
 		}
 	}
