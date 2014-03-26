@@ -13,6 +13,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import com.ibm.icu.text.SimpleDateFormat;
 
 @Entity
@@ -113,6 +116,24 @@ import com.ibm.icu.text.SimpleDateFormat;
 	 */
 	public void setImgSrc(String imgSrc) {
 		this.imgSrc = imgSrc;
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(postId).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+
+		return new EqualsBuilder().append(postId, other.postId).isEquals();
 	}
 
 }
