@@ -4,6 +4,7 @@
 package com.ita.edu.softserve.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Stations;
 
@@ -30,7 +32,11 @@ public class TestStationsValidator {
 
 	private static final String WRONG_STATION_NAME_VALUE = "L'viv + @@@";
 
-	private StationsValidator stationsValidator;
+	private static final String MOCK_STATION_CODE = "00000000001";
+
+	private static final String MOCK_STATION_NAME = "Stryy";
+
+	private Validator stationsValidator = new StationsValidator();
 
 	private Stations station;
 
@@ -38,8 +44,37 @@ public class TestStationsValidator {
 
 	@Before
 	public void setUp() {
-		stationsValidator = new StationsValidator();
 		station = new Stations();
+	}
+
+	/**
+	 * Test method for StationsValidator where entity class Stations is filled
+	 * with valid arguments.
+	 */
+	@Test
+	public void testStationsValidator() {
+		station.setStationCode(MOCK_STATION_CODE);
+		station.setStationName(MOCK_STATION_NAME);
+
+		errors = new BeanPropertyBindingResult(station, STATION_OBJECT_NAME);
+		stationsValidator.validate(station, errors);
+
+		assertFalse(errors.hasErrors());
+	}
+
+	/**
+	 * Test method for StationsValidator where entity class Stations is filled
+	 * with invalid arguments.
+	 */
+	@Test
+	public void testStationsValidatorNotValid() {
+		station.setStationCode(WRONG_STATION_CODE_VALUE);
+		station.setStationName(WRONG_STATION_NAME_VALUE);
+
+		errors = new BeanPropertyBindingResult(station, STATION_OBJECT_NAME);
+		stationsValidator.validate(station, errors);
+
+		assertTrue(errors.hasErrors());
 	}
 
 	/**

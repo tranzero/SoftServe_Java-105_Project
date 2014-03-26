@@ -23,7 +23,7 @@
 	<h2>
 		<spring:message code="label.navigation.trips" />
 	</h2>
-	<form id="searchFormTrips" method="get">
+	<form id="searchForm" method="get">
 		<p>
 		<h3>
 			<spring:message code="label.trips.setsearchparameters" />

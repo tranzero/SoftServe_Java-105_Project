@@ -29,4 +29,7 @@
 			</c:if>
 		</c:forEach>
 	</c:if>
+	<c:if test="${empty ResponsesList}">
+		<p>Sorry. There is no comments for this trip.</p>
+	</c:if>
 </section>

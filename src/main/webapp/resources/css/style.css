@@ -269,7 +269,7 @@ input[type="submit"]:active,input[type="button"]:active {
 /* BUTTON STYLES END */
 
 /* INPUT FIELD STYLES */
-input[type="text"],input[type="password"] {
+input[type="text"],input[type="password"],input[type="number"] {
 	padding: 5px;
 	border: 1px solid #DDDDDD;
 	/*Applying CSS3 gradient*/
@@ -331,20 +331,6 @@ em.star {
 	clear: both;
 }
 
-/*
-#newsIdForm {
-    background-color: #E6E6E6;
-    border: 0 none;
-    border-radius: 0;
-    color: rgba(0, 0, 0, 0.8);
-    font-family: inherit;
-    margin: -10%;
-    min-width: 0;
-    padding: 0;
-    text-decoration: none;
-}
-*/
-
 /*TRANSPORT FORM SELECT TAG*/
 table.form select.selectRoutes {
 	border: 1px solid #006;
@@ -382,10 +368,6 @@ div#response {
 	width: 570px;
 }
 
-div#postedBy {
-	
-}
-
 span.user_avatar {
 	display: inline-block;
 	float: left;
@@ -417,6 +399,7 @@ div.commentText {
 	max-width: 540px;
 }
 /* Responses Styles END */
+
 form.pad_top_bottom {
 	padding: 10px 0;
 }
@@ -512,12 +495,17 @@ fieldset div label.thin {
 	width: 15%;
 }
 
-form#searchFormTrips {
+form#searchForm {
 	border: 1px solid #aaa;
 	padding: 10px;
 }
 
-form#searchFormTrips div#btnTripsFind input {
+form#searchForm div#btnTripsFind input {
 	margin-top: -208px;
+	float: right;
+}
+
+form#searchForm div#btnTransportFind input {
+	margin-top: -200px;
 	float: right;
 }
