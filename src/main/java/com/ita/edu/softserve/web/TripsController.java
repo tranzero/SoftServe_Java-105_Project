@@ -21,11 +21,13 @@ import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validation.AddTripsValidator;
+import com.ita.edu.softserve.validation.EditTripsValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsErrorContainer;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsErrorContainer;
 import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
@@ -241,6 +243,12 @@ public class TripsController {
 	private static final String TRIP_EDIT_PATH = "/editTrip/{tripId}";
 
 	/**
+	 * Constant for mapping trips edit redirection
+	 */
+
+	private static final String TRIP_EDIT_PART_PATH = "/editTrip/";
+
+	/**
 	 * Constant for mapping trips edit action
 	 */
 
@@ -278,6 +286,9 @@ public class TripsController {
 
 	@Autowired
 	private Validator addTripsValidator;
+
+	@Autowired
+	private Validator editTripsValidator;
 
 	/**
 	 * Container of trips search and sorting information
@@ -631,10 +642,12 @@ public class TripsController {
 	public String printEditTrips(
 			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
 			PageInfoContainerImpl container,
+			EditTripsErrorContainer errors,
 			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
 			Map<String, Object> modelMap, Locale locale) {
 		completeMapForEditTrip(tripId, container,
 				transportForAddTripsCriteriaContainer, modelMap, locale);
+		modelMap.put(ERROR_NAME, errors);
 		return EDITTRIP_SPRING_NAME;
 	}
 
@@ -693,13 +706,34 @@ public class TripsController {
 	@RequestMapping(value = TRIP_EDIT_ACTION_PATH, method = RequestMethod.POST)
 	public String editTripAction(
 			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
-			EditTripsInfoValidationContainer container, Locale locale) {
+			EditTripsInfoValidationContainer container, Locale locale,
+			BindingResult result) {
 		container.setLocaleParam(locale);
-
-		if (tripsManager.editTrip(tripId, container)) {
-			return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+		editTripsValidator.validate(container, result);
+		if (result.hasErrors()) {
+			StringBuilder path = new StringBuilder().append("?");
+			if (result.hasFieldErrors(EditTripsValidator.WRONG_DATE)) {
+				path.append(EditTripsValidator.WRONG_DATE_MESSAGE);
+			}
+			if (result.hasFieldErrors(EditTripsValidator.WRONG_REM_SEAT_CLASS1)
+					|| result
+							.hasFieldErrors(EditTripsValidator.WRONG_REM_SEAT_CLASS2)
+					|| result
+							.hasFieldErrors(EditTripsValidator.WRONG_REM_SEAT_CLASS3)) {
+				path.append(EditTripsValidator.WRONG_REM_SEAT_MESSAGE);
+			}
+			if (result.hasFieldErrors(ValidatorUtil.WRONG_TRANSPORT_ID)) {
+				path.append(ValidatorUtil.WRONG_TRANSPORT_ID_MESSAGE);
+			}
+			path.deleteCharAt(path.length() - 1);
+			return REDIRECT_SUBSTRING + TRIP_EDIT_PART_PATH + tripId
+					+ path.toString();
 		} else {
-			return REDIRECT_SUBSTRING + ERRORINPUT_SPRING_NAME;
+			if (tripsManager.editTrip(tripId, container)) {
+				return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+			} else {
+				return REDIRECT_SUBSTRING + ERRORINPUT_SPRING_NAME;
+			}
 		}
 
 	}

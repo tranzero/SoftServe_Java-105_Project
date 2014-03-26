@@ -40,8 +40,8 @@
 					<input type="text" name="transportCode" id="transportCode"
 						class="autosearch" value="${container.getTransportCode()}">
 				</c:if>
-				<p><br>
-				<label for="routeName"> <spring:message
+			<p>
+				<br> <label for="routeName"> <spring:message
 						code="label.routes.routename" />:
 				</label>
 				<c:if test="${isRouteName}">
@@ -52,8 +52,8 @@
 					<input type="text" name="routeName" id="routeName"
 						class="autosearch" value="${container.getRouteName()}">
 				</c:if>
-				<p><br>
-				<label for="routeCode"> <spring:message
+			<p>
+				<br> <label for="routeCode"> <spring:message
 						code="label.routes.routecode" />:
 				</label>
 				<c:if test="${isRoutesCode}">
@@ -120,26 +120,50 @@
 		<spring:message code="label.edittrips.edittrips" />
 	</h2>
 
-	<form action="../editTripAction/${currentTrip.getTripId()}" name="trips" method="post">
+	<form action="../editTripAction/${currentTrip.getTripId()}"
+		name="trips" method="post">
 		<p>
-			<label for="startDate"><spring:message code="label.edittrips.choosedate" /></label>
-			<input type="text" id="startDate" name="startDate" value="${dateFormat.format(currentTrip.getStartDate())}"> 
+			<c:if test="${errors.getWrongDate() }">
+				<span id="lspan"> <spring:message
+						code="label.edittrips.dateerror" />
+				</span>
+				<p>
+					<br>
+			</c:if>
+			<label for="startDate"><spring:message
+					code="label.edittrips.choosedate" /></label> <input type="text"
+				id="startDate" name="startDate"
+				value="${dateFormat.format(currentTrip.getStartDate())}">
 		<p>
 			<spring:message code="label.edittrips.remainingseatsbyclasses" />
 			:
 		<p>
-			<label for="remSeatClass1">1:</label>
-				<input type="number" id="remSeatClass1"
-					name="remSeatClass1" value="${currentTrip.getRemSeatClass1()}">
-			<label for="remSeatClass2">2:</label>
-				<input type="number" id="remSeatClass2"
-					name="remSeatClass2" value="${currentTrip.getRemSeatClass2()}">
-			<label for="remSeatClass3">3:</label>
-				<input type="number" id="remSeatClass3"
-					name="remSeatClass3" value="${currentTrip.getRemSeatClass3()}">
+			<c:if test="${errors.getWrongSeats() }">
+				<span id="lspan"> <spring:message
+						code="label.edittrips.seatserror" />
+				</span>
+				<p>
+					<br>
+			</c:if>
+			<label for="remSeatClass1">1:</label> <input type="number"
+				id="remSeatClass1" name="remSeatClass1"
+				value="${currentTrip.getRemSeatClass1()}"> <label
+				for="remSeatClass2">2:</label> <input type="number"
+				id="remSeatClass2" name="remSeatClass2"
+				value="${currentTrip.getRemSeatClass2()}"> <label
+				for="remSeatClass3">3:</label> <input type="number"
+				id="remSeatClass3" name="remSeatClass3"
+				value="${currentTrip.getRemSeatClass3()}">
 		<h3>
 			<spring:message code="label.addtrips.choosetransport" />
 		</h3>
+		<c:if test="${errors.getWrongTransportId() }">
+			<span id="lspan"> <spring:message
+					code="label.addtrips.transporterror" />
+			</span>
+			<p>
+				<br>
+		</c:if>
 		<div id="pagingcontent">
 			<table style="align: center">
 				<thead>
@@ -387,15 +411,15 @@
 				<tbody>
 					<c:forEach items="${transportsList}" var="transport">
 						<tr>
-							<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
-							<input type="radio" name="transportId"
-								value="${transport.getTransportId()}" checked/>
-								</c:if>
-								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
-							<input type="radio" name="transportId"
-								value="${transport.getTransportId()}"/>
-								</c:if>
-								</td>
+							<td><c:if
+									test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
+									<input type="radio" name="transportId"
+										value="${transport.getTransportId()}" checked />
+								</c:if> <c:if
+									test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
+									<input type="radio" name="transportId"
+										value="${transport.getTransportId()}" />
+								</c:if></td>
 							<td align="center">${transport.getTransportCode()}</td>
 							<td align="center">${transport.getStartTime()}</td>
 							<td align="center">${transport.getRoutes().getRouteCode()}</td>
@@ -619,8 +643,7 @@
 												seatClass3 : $(
 														"input#seatClass3")
 														.val(),
-												priceName : $(
-														"input#priceName")
+												priceName : $("input#priceName")
 														.val(),
 												orderByCriteria : "${container.getOrderByCriteria()}",
 												orderByDirection : "${container.getOrderByDirection()}"

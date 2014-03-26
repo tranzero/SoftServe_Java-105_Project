@@ -119,11 +119,6 @@
 	<h2 align="center">
 		<spring:message code="label.addtrips.addtrips" />
 	</h2>
-	<c:if test="${not empty errormark}">
-		<font color="red"><spring:message
-				code="label.addtrips.errormessage" /> </font>
-	</c:if>
-
 	<form action="addNewTrips" name="trips" method="post">
 		<h3>
 			<spring:message code="label.addtrips.choosedateinterval" />
