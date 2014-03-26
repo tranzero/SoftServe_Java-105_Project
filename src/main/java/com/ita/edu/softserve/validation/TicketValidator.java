@@ -8,42 +8,50 @@ import com.ita.edu.softserve.entity.Tickets;
 
 @Component("ticketValidator")
 public class TicketValidator implements Validator {
-	
+
 	private static final String CUSTOMER_LAST_NAME = "customerLastName";
 	private static final String CUSTOMER_FIRST_NAME = "customerFirstName";
 	public static final String PATERN = "^[a-zA-Z]{3,15}$";
-	
+
 	private static final String TICKETS_MATCHER = "label.tickets.matcher";
 
 	@Override
 	public boolean supports(Class<?> clazz) {
 
 		return Tickets.class.equals(clazz);
-		
+
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 
 		Tickets ticket = (Tickets) target;
-		
-		validateCustomerFirstName(ticket.getCustomerFirstName(),errors);
-		
-		validateCustomerLastName(ticket.getCustomerLastName(),errors);
-		
-	}
-	
-	private void validateCustomerFirstName(String customerFirstName, Errors error) {
 
-		if (customerFirstName.matches(PATERN) == false) {
+		validateCustomerFirstName(ticket.getCustomerFirstName(), errors);
+		validateCustomerLastName(ticket.getCustomerLastName(), errors);
+
+	}
+
+	private void validateCustomerFirstName(String customerFirstName,
+			Errors error) {
+
+		if (customerFirstName == null || customerFirstName == "") {
 			error.rejectValue(CUSTOMER_FIRST_NAME, TICKETS_MATCHER);
+		} else {
+			if (customerFirstName.matches(PATERN) == false) {
+				error.rejectValue(CUSTOMER_FIRST_NAME, TICKETS_MATCHER);
+			}
 		}
 	}
-	
+
 	private void validateCustomerLastName(String customerLastName, Errors error) {
 
-		if (customerLastName.matches(PATERN) == false) {
+		if (customerLastName == null || customerLastName == "") {
 			error.rejectValue(CUSTOMER_LAST_NAME, TICKETS_MATCHER);
+		} else {
+			if (customerLastName.matches(PATERN) == false) {
+				error.rejectValue(CUSTOMER_LAST_NAME, TICKETS_MATCHER);
+			}
 		}
 	}
 

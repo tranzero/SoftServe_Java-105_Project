@@ -1,12 +1,10 @@
 package com.ita.edu.softserve.manager.impl;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,92 +17,142 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
-import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 
 /**
  * Class under test 
  * {@link com.ita.edu.softserve.manager.impl.UserManagerImpl
+ * 
  * @author iryna
- *
  */
 
 @RunWith(MockitoJUnitRunner.class)
 public class UsersManagerImplTest {
 
 	@Mock
-	private UsersDAOImpl userDao;
+	private UsersDAOImpl mockUsersDao;
 	@Mock
-	private UserNameService userName;
+	private UserNameService mockUserName;
 	@InjectMocks
 	private UserManager userManagerImpl = new UserManagerImpl();
 
 	int userIdMock = 30;
-	private static final String userUsername = "user1";
+	private static final String userUserName = "user1";
 	private static final String userFirstName = "Anna";
 	private static final String userLastName = "Gud";
-	private static final String userEmail = "qi@mail.com";
+	private static final String userEmail = "user45@mail.com";
 	private static final String userPassword = "12345";
 	private static final Role userRole = Role.MANAGER;
-	@Spy
-	private Users user = new Users(userUsername, userFirstName, userLastName,
-			userEmail, userPassword, userRole);
 
-	/*
-	 * private Users user = new Users("user1", "ana", "Gud", "qi@mail.com",
-	 * "12345", Role.MANAGER);
-	 */
+	@Spy
+	private Users user = new Users(userUserName, userFirstName, userLastName,
+			userEmail, userPassword, userRole);
 
 	@Before
 	public final void setUp() {
-		when(userName.getLoggedUsername()).thenReturn("yes");
+		when(mockUserName.getLoggedUsername()).thenReturn("user");
 		doReturn(userIdMock).when(user).getUserId();
-		when(userDao.findByUsername(userUsername)).thenReturn(user);
-		when(userDao.findById(userIdMock)).thenReturn(user);
-
+		when(mockUsersDao.findByUsername(userUserName)).thenReturn(user);
+		when(mockUsersDao.findById(userIdMock)).thenReturn(user);
 	}
 
 	// ---------------------
+	@Test(expected = RuntimeException.class)
+	public final void testFindAllUsersException() {
+		when(mockUsersDao.getAllEntities()).thenThrow(new RuntimeException());
 
-	@Test
-	public final void test1() {
-		int testID = 5;
-
-		when(userDao.findById(testID)).thenReturn(user);
-		// doReturn(user).when(userDao).findById(testID);
-		doNothing().when(userDao).remove(user);
-
-		userManagerImpl.removeUser(testID);
-
-		verify(userDao, times(1)).findById(5);
-		verify(userDao, times(1)).remove(user);
-
+		userManagerImpl.findAllUsers();
 	}
 
 	@Test
-	public final void test2() {
+	public final void testFindAllUsersEmptyList() {
+		List<Users> expectedList = new ArrayList<Users>();
+
+		when(mockUsersDao.getAllEntities()).thenReturn(expectedList);
+
+		List<Users> actualList = userManagerImpl.findAllUsers();
+
+		verify(mockUsersDao, times(1)).getAllEntities();
+		assertEquals(expectedList, actualList);
+	}
+
+	// ---
+
+	@Test
+	public final void testFindById() {
+		int testID = 5;
+
+		when(mockUsersDao.findById(testID)).thenReturn(user);
+
+		doNothing().when(mockUsersDao).remove(user);
+
+		userManagerImpl.removeUser(testID);
+
+		verify(mockUsersDao, times(1)).findById(5);
+		verify(mockUsersDao, times(1)).remove(user);
+	}
+
+	@Test
+	public final void testRemoveUser_new() {
+
 		int testID = 5;
 		RuntimeException ex = new RuntimeException();
-		
-		when(userDao.findById(testID)).thenThrow(ex);
-		
-		UsersManagerExeption actualException = null;
-		try{
-		userManagerImpl.removeUser(testID);
-		}catch(UsersManagerExeption e){
+
+		when(mockUsersDao.findById(testID)).thenThrow(ex);
+
+		RuntimeException actualException = null;
+		try {
+			userManagerImpl.removeUser(testID);
+		} catch (RuntimeException e) {
 			actualException = e;
-	
 		}
 		assertNotNull(actualException);
-		assertEquals(ex, actualException.getCause());
+
+		/*
+		 * UsersManagerExeption actualException = null; try{
+		 * userManagerImpl.removeUser(testID); }catch(UsersManagerExeption e){
+		 * actualException = e;
+		 * 
+		 * } assertNotNull(actualException); assertEquals(ex,
+		 * actualException.getCause());
+		 */
 	}
 
+	@Test(expected = RuntimeException.class)
+	public final void testRemoveUser_new2() {
+
+		int testID = 5;
+		RuntimeException ex = new RuntimeException();
+
+		when(mockUsersDao.findById(testID)).thenThrow(ex);
+
+		userManagerImpl.removeUser(testID);
+	}
+
+	@Test
+	public final void testUpdateUserToDB() {
+
+		RuntimeException ex = new RuntimeException();
+		doThrow(ex).when(mockUsersDao).updateUserData(user);
+
+		RuntimeException actualException = null;
+		try {
+
+			userManagerImpl.updateTheUserData(user);
+
+		} catch (RuntimeException e) {
+			actualException = e;
+		}
+		assertNotNull(actualException);// ok
+	}
+
+	// --------------------------------------
 	@Test
 	public final void testCreateUser1() {
 		boolean isCreatedUser = false;
-		when(userDao.findByUsername(userUsername)).thenReturn(null);
-		isCreatedUser = userManagerImpl.createUser(userUsername, userFirstName,
+		when(mockUsersDao.findByUsername(userUserName)).thenReturn(null);
+		isCreatedUser = userManagerImpl.createUser(userUserName, userFirstName,
 				userLastName, userEmail, userPassword, userRole);
 
 		assertTrue(isCreatedUser);
@@ -120,7 +168,7 @@ public class UsersManagerImplTest {
 		final Role userRole2 = Role.REGUSER;
 
 		boolean isCreatedUser = false;
-		when(userDao.findByUsername(userUsername2)).thenReturn(null);
+		when(mockUsersDao.findByUsername(userUsername2)).thenReturn(null);
 		isCreatedUser = userManagerImpl.createUser(userUsername2,
 				userFirstName2, userLastName2, userEmail2, userPassword2,
 				userRole2);
@@ -128,72 +176,6 @@ public class UsersManagerImplTest {
 		assertTrue(isCreatedUser);
 	}
 
-	/*
-	 * @Test public final void testRemoveUser0(int userIdMock) { boolean
-	 * isDeletedUser = false;
-	 * 
-	 * if (userIdMock != 0) {
-	 * 
-	 * userManagerImpl.removeUser(userIdMock);
-	 * 
-	 * isDeletedUser = true; } else { isDeletedUser = false; }
-	 * assertTrue(isDeletedUser); }
-	 */
+	// ---------------------------------------
 
-	@Test
-	public final void testRemoveUser1() {
-		boolean isDeletedUser = false; // when(userDao.findById(userIdMock)).thenReturn(user);
-
-		if (user.getUserName() != "") {
-			userManagerImpl.removeUser(userIdMock);
-			isDeletedUser = true;
-		} else {
-			isDeletedUser = false;
-			/* assertTrue(isDeletedUser); */
-		}
-		assertTrue(isDeletedUser);
-	}
-
-	/*
-	 * @Test public final void testRemoveUser() { boolean isDeletedUser = false;
-	 * // when(userDao.findById(userIdMock)).thenReturn(user); try { Users user
-	 * = userDao.findById(userIdMock); int id = user.getUserId(); //
-	 * userDao.remove(user); userManagerImpl.removeUser(userIdMock);
-	 * 
-	 * isDeletedUser = true; } catch (RuntimeException e) { isDeletedUser =
-	 * false; } finally { }
-	 * 
-	 * 
-	 * if (user.getUserName()!=""){ Users user = userDao.findById(userIdMock);
-	 * int id = user.getUserId(); //userDao.remove(user);
-	 * userManagerImpl.removeUser(userIdMock);
-	 * 
-	 * isDeletedUser= true; } else{ isDeletedUser=false;
-	 * 
-	 * 
-	 * // isDeletedUser = userManagerImpl.removeUser(2);
-	 * 
-	 * assertTrue(isDeletedUser);
-	 * 
-	 * }
-	 */
-
-	@Test
-	public final void testUpdateUser() {
-		boolean isUpdatedUser = false;
-		if (user.getUserId() != null) {
-			doCallRealMethod().when(user).setUserName(userUsername);
-			doCallRealMethod().when(user).setFirstName(userFirstName);
-			doCallRealMethod().when(user).setLastName(userLastName);
-			doCallRealMethod().when(user).setEmail(userEmail);
-			doCallRealMethod().when(user).setPassword(userPassword);
-			doCallRealMethod().when(user).setRole(userRole);
-
-			userManagerImpl.updateTheUserData(user);
-			isUpdatedUser = true;
-		} else {
-		}
-
-		assertTrue(isUpdatedUser);
-	}
 }
