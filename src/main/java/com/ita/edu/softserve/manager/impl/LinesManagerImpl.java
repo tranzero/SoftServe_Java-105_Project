@@ -49,10 +49,6 @@ public class LinesManagerImpl implements LinesManager {
 	public LinesManagerImpl() {
 	}
 
-	public static LinesManager getInstance() {
-		return ManagerFactory.getManager(LinesManager.class);
-	}
-
 	/**
 	 * 
 	 * @param lineName
