@@ -4,6 +4,7 @@
 package com.ita.edu.softserve.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +30,10 @@ public class TestTicketsValidator {
 	private static final String CUSTOMER_FIRST_NAME_VALUE = "customerFirstName";
 
 	private static final String WRONG_CUSTOMER_FIRST_NAME_VALUE = "!!!first@Name***";
+	
+	private static final String MOCK_CUSTOMER_FIRST_NAME = "Andryy";
+	
+	private static final String MOCK_CUSTOMER_LAST_NAME = "Kisilov";
 
 	private TicketValidator ticketValidator;
 
@@ -42,6 +47,36 @@ public class TestTicketsValidator {
 		ticket = new Tickets();
 	}
 
+	
+	/**
+	 * Test method for TicketsValidator where entity class Tickets is filled with valid arguments.
+	 */
+	@Test
+	public void testTicketsValidatorValidValues() {
+		ticket.setCustomerFirstName(MOCK_CUSTOMER_FIRST_NAME);
+		ticket.setCustomerLastName(MOCK_CUSTOMER_LAST_NAME);
+
+		errors = new BeanPropertyBindingResult(ticket, TICKET_OBJECT_NAME);
+		ticketValidator.validate(ticket, errors);
+
+		assertFalse(errors.hasErrors());
+	}
+
+	/**
+	 * Test method for TicketsValidator where entity class Tickets is filled with invalid arguments.
+	 */
+	@Test
+	public void testTicketsValidatorNotValidValues() {
+		ticket.setCustomerFirstName(WRONG_CUSTOMER_FIRST_NAME_VALUE);
+		ticket.setCustomerLastName(WRONG_CUSTOMER_LAST_NAME_VALUE);
+
+
+		errors = new BeanPropertyBindingResult(ticket, TICKET_OBJECT_NAME);
+		ticketValidator.validate(ticket, errors);
+
+		assertTrue(errors.hasErrors());
+	}
+	
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.validation.TicketValidator#supports(Class)}
@@ -77,7 +112,7 @@ public class TestTicketsValidator {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationCode(String, Errors)}
+	 * {@link com.ita.edu.softserve.validation.TicketValidator#validateCustomerFirstName(String, Errors)}
 	 */
 	@Test
 	public void testWrongCustomerFirstNameValue() {
@@ -91,7 +126,7 @@ public class TestTicketsValidator {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationCode(String, Errors)}
+	 * {@link com.ita.edu.softserve.validation.TicketValidator#validateCustomerFirstName(String, Errors)}
 	 */
 	@Test
 	public void testCustomerFirstNameNullValue() {
@@ -106,7 +141,7 @@ public class TestTicketsValidator {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationName(String, Errors)}
+	 * {@link com.ita.edu.softserve.validation.TicketValidator#validateCustomerLastName(String, Errors)}
 	 */
 	@Test
 	public void testValidateCustomerLastNameMethod() {
@@ -119,7 +154,7 @@ public class TestTicketsValidator {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationName(String, Errors)}
+	 * {@link com.ita.edu.softserve.validation.TicketValidator#validateCustomerLastName(String, Errors)}
 	 */
 	@Test
 	public void testWrongCustomerLastNameValue() {
@@ -133,7 +168,7 @@ public class TestTicketsValidator {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationName(String, Errors)}
+	 * {@link com.ita.edu.softserve.validation.TicketValidator#validateCustomerLastName(String, Errors)}
 	 */
 	@Test
 	public void testCustomerLastNameNullValue() {
