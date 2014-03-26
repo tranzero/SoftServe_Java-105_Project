@@ -13,22 +13,22 @@ import com.ita.edu.softserve.manager.FileManager;
 
 @Service
 public class FileManagerImpl implements FileManager {
-	
+
 	private InputStream inputStream;
 	private OutputStream outputStream;
-	
+
 	@Override
 	public void deleteFile (String fileName){
 		try{
 		File file = new File(fileName);
 		file.delete();
 		}catch(Exception e){
-			 
+
     		e.printStackTrace();
  
     	}
 	}
-	
+
 	@Override
 	public void createFile(String fileName, MultipartFile file){
 		try {
