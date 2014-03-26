@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +20,11 @@ import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.impl.PaginationManager;
 import com.ita.edu.softserve.utils.ValidatorUtil;
+import com.ita.edu.softserve.validation.AddTripsValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsErrorContainer;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
@@ -29,6 +33,27 @@ import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImp
 
 @Controller
 public class TripsController {
+
+	/**
+	 * Name for jstl variable that contains errors information
+	 */
+	private static final String ERROR_NAME = "errors";
+	/**
+	 * Name for jstl variable that contains information about failed params
+	 * during adding trips
+	 */
+
+	private static final String INFO_NAME = "info";
+
+	/**
+	 * Names for extra params (in case of add trips failure)
+	 */
+	private static final String[] ADD_TRIPS_EXTRA_PARAMS = { "from=", "to=" };
+
+	/**
+	 * Separator for manualy constructed get requests
+	 */
+	private static final String GET_SEPARATOR = "&";
 
 	/**
 	 * String for ukrainian language representation in locale format (used in
@@ -140,7 +165,6 @@ public class TripsController {
 	 */
 	private static final String LANGUAGE_NAME = "language";
 
-
 	/**
 	 * Name for showing transport code attribute
 	 */
@@ -251,6 +275,9 @@ public class TripsController {
 
 	@Autowired
 	private TransportsManager transportsManager;
+
+	@Autowired
+	private Validator addTripsValidator;
 
 	/**
 	 * Container of trips search and sorting information
@@ -365,7 +392,13 @@ public class TripsController {
 						transportForAddTripsCriteriaContainer);
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
-
+		modelMap.put(
+				DATEFORMAT_NAME,
+				new SimpleDateFormat(
+						locale.getLanguage().equalsIgnoreCase(UKRAINIAN)
+								|| locale.getLanguage().equalsIgnoreCase(
+										SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
+								: DEFAULT_DATE_FORMAT));
 	}
 
 	private void completeMapForEditTrip(
@@ -560,9 +593,13 @@ public class TripsController {
 	public String printAddTrips(
 			PageInfoContainerImpl container,
 			TransportForAddTripsCriteriaContainerImpl transportForAddTripsCriteriaContainer,
-			Map<String, Object> modelMap, Locale locale) {
+			AddTripsErrorContainer errors,
+			AddTripsInfoValidationContainer info, Map<String, Object> modelMap,
+			Locale locale) {
 		completeMapForAddTrip(container, transportForAddTripsCriteriaContainer,
 				modelMap, locale);
+		modelMap.put(ERROR_NAME, errors);
+		modelMap.put(INFO_NAME, info);
 		return ADDTRIP_SPRING_NAME;
 	}
 
@@ -622,12 +659,33 @@ public class TripsController {
 	 * @return definition of jsp to use
 	 */
 	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME)
-	public String printAddTripsPage(Locale locale, AddTripsInfoValidationContainer container) {
+	public String printAddTripsPage(Locale locale,
+			AddTripsInfoValidationContainer container, BindingResult result) {
 		container.setLocaleParam(locale);
-		if (tripsManager.addTripsWithContainer(container)) {
-			return REDIRECT_SAME_LEVEL_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+		addTripsValidator.validate(container, result);
+		if (result.hasErrors()) {
+			StringBuilder path = new StringBuilder().append("?");
+			path.append(ADD_TRIPS_EXTRA_PARAMS[0])
+					.append(encoder.encode(container.getFrom()))
+					.append(GET_SEPARATOR).append(ADD_TRIPS_EXTRA_PARAMS[1])
+					.append(encoder.encode(container.getTo()))
+					.append(GET_SEPARATOR);
+			if (result.hasFieldErrors(AddTripsValidator.WRONG_DATE_MAX)
+					|| result.hasFieldErrors(AddTripsValidator.WRONG_DATE_MIN)) {
+				path.append(AddTripsValidator.WRONG_DATE_MESSAGE);
+			}
+			if (result.hasFieldErrors(ValidatorUtil.WRONG_TRANSPORT_ID)) {
+				path.append(ValidatorUtil.WRONG_TRANSPORT_ID_MESSAGE);
+			}
+			path.deleteCharAt(path.length() - 1);
+			return REDIRECT_SAME_LEVEL_SUBSTRING + ADDTRIP_SPRING_NAME
+					+ path.toString();
 		} else {
-			return REDIRECT_SAME_LEVEL_SUBSTRING + ERRORINPUT_SPRING_NAME;
+			if (tripsManager.addTripsWithContainer(container)) {
+				return REDIRECT_SAME_LEVEL_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+			} else {
+				return REDIRECT_SAME_LEVEL_SUBSTRING + ERRORINPUT_SPRING_NAME;
+			}
 		}
 
 	}
