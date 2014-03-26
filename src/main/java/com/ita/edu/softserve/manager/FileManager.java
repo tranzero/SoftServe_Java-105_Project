@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface FileManager {
 
-	boolean deleteFile(String fileName);
+	void deleteFile(String fileName);
 
-	boolean createFile(String fileName, MultipartFile file);
+	void createFile(String fileName, MultipartFile file);
 
 }
