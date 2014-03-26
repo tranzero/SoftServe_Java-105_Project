@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.springframework.validation.Errors;
+
+import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.web.TripsController;
 
 /**
@@ -16,6 +19,9 @@ import com.ita.edu.softserve.web.TripsController;
  */
 
 public final class ValidatorUtil {
+	
+	public static final String WRONG_TRANSPORT_ID = "transportId";
+	public static final String WRONG_TRANSPORT_ID_MESSAGE = "wrongTransportId=true&";
 
 	/**
 	 * Formatter of date with Ukrainian or Spanish date format
@@ -103,6 +109,18 @@ public final class ValidatorUtil {
 	 */
 	public static boolean isEmptyString(String checkedString) {
 		return checkedString == null || checkedString.equals("");
+	}
+	
+	public static void validateTransportIdString(TransportsDao transportDao, String transportIdString, Errors errors){
+		try{
+			Integer transportId = Integer.parseInt(transportIdString);
+			if (transportDao.findById(transportId)== null){
+				errors.rejectValue(WRONG_TRANSPORT_ID, WRONG_TRANSPORT_ID_MESSAGE);
+			}
+		}
+		catch(Exception e){
+			errors.rejectValue(WRONG_TRANSPORT_ID, WRONG_TRANSPORT_ID_MESSAGE);
+		}
 	}
 
 }

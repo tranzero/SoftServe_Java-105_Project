@@ -40,8 +40,8 @@
 					<input type="text" name="transportCode" id="transportCode"
 						class="autosearch" value="${container.getTransportCode()}">
 				</c:if>
-				<p><br>
-				<label for="routeName"> <spring:message
+			<p>
+				<br> <label for="routeName"> <spring:message
 						code="label.routes.routename" />:
 				</label>
 				<c:if test="${isRouteName}">
@@ -52,8 +52,8 @@
 					<input type="text" name="routeName" id="routeName"
 						class="autosearch" value="${container.getRouteName()}">
 				</c:if>
-				<p><br>
-				<label for="routeCode"> <spring:message
+			<p>
+				<br> <label for="routeCode"> <spring:message
 						code="label.routes.routecode" />:
 				</label>
 				<c:if test="${isRoutesCode}">
@@ -129,12 +129,38 @@
 			<spring:message code="label.addtrips.choosedateinterval" />
 		</h3>
 		<p>
+			<c:if test="${errors.getWrongDate() }">
+				<span id="lspan"> <spring:message
+						code="label.addtrips.dateerror" />
+				</span>
+				<p>
+					<br>
+			</c:if>
+
 			<label for="from"><spring:message code="label.addtrips.from" /></label>
-			<input type="text" id="from" name="from"> <label for="to"><spring:message
-					code="label.addtrips.to" /></label> <input type="text" id="to" name="to">
+			<c:if test="${info.getFrom()!=null }">
+				<input type="text" id="from" name="from" value="${info.getFrom() }">
+			</c:if>
+			<c:if test="${info.getFrom()==null }">
+				<input type="text" id="from" name="from">
+			</c:if>
+			<label for="to"><spring:message code="label.addtrips.to" /></label>
+			<c:if test="${info.getTo()!=null }">
+				<input type="text" id="to" name="to" value="${info.getTo()}">
+			</c:if>
+			<c:if test="${info.getTo()==null }">
+				<input type="text" id="to" name="to">
+			</c:if>
 		<h3>
 			<spring:message code="label.addtrips.choosetransport" />
 		</h3>
+		<c:if test="${errors.getWrongTransportId() }">
+			<span id="lspan"> <spring:message
+					code="label.addtrips.transporterror" />
+			</span>
+			<p>
+			<br>
+		</c:if>
 		<div id="pagingcontent">
 			<table style="align: center">
 				<thead>
@@ -621,8 +647,7 @@
 												seatClass3 : $(
 														"input#seatClass3")
 														.val(),
-												priceName : $(
-														"input#priceName")
+												priceName : $("input#priceName")
 														.val(),
 												orderByCriteria : "${container.getOrderByCriteria()}",
 												orderByDirection : "${container.getOrderByDirection()}"

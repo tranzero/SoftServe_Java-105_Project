@@ -41,14 +41,14 @@ public class TripsManagerImpl implements TripsManager {
 	 * formatting date)
 	 */
 
-	private static final String UKRAINIAN = "ua";
+	public static final String UKRAINIAN = "ua";
 
 	/**
 	 * String for spain language representation in locale format (used in
 	 * formatting date)
 	 */
 
-	private static final String SPANISH = "es";
+	public static final String SPANISH = "es";
 
 	/**
 	 * Error message for trip delete action
