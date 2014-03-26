@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +21,7 @@ import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
@@ -140,18 +140,6 @@ public class TripsController {
 	 */
 	private static final String LANGUAGE_NAME = "language";
 
-	/**
-	 * Name for minimum date in adding trips attribute
-	 */
-	private static final String FROM_ATTRIBUTE_NAME = "from";
-	/**
-	 * Name for maximum date in adding trips attribute
-	 */
-	private static final String TO_ATTRIBUTE_NAME = "to";
-	/**
-	 * Name for transport id in adding trips attribute
-	 */
-	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportId";
 
 	/**
 	 * Name for showing transport code attribute
@@ -634,12 +622,9 @@ public class TripsController {
 	 * @return definition of jsp to use
 	 */
 	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME)
-	public String printAddTripsPage(Map<String, Object> modelMap,
-			Locale locale, @ModelAttribute(FROM_ATTRIBUTE_NAME) String minDate,
-			@ModelAttribute(TO_ATTRIBUTE_NAME) String maxDate,
-			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
-		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
-				transportId)) {
+	public String printAddTripsPage(Locale locale, AddTripsInfoValidationContainer container) {
+		container.setLocaleParam(locale);
+		if (tripsManager.addTripsWithContainer(container)) {
 			return REDIRECT_SAME_LEVEL_SUBSTRING + MANAGETRIPS_SPRING_NAME;
 		} else {
 			return REDIRECT_SAME_LEVEL_SUBSTRING + ERRORINPUT_SPRING_NAME;

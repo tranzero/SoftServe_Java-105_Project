@@ -24,6 +24,7 @@ import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 
 @Service
@@ -229,25 +230,25 @@ public class TripsManagerImpl implements TripsManager {
 		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
+		
 	@Transactional
 	@Override
-	public boolean addTripsInInterval(Locale locale, String minDate,
-			String maxDate, int transportId) {
+	public boolean addTripsWithContainer(AddTripsInfoValidationContainer container) {
 		Date startDate;
 		Date endDate;
 		try {
 			Transports transport = null;
-
-			transport = transportsDao.findById(transportId);
+			Locale locale = container.getLocaleParam();
+			transport = transportsDao.findById(Integer.parseInt(container.getTransportId()));
 			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
 					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
 				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-						.parse(minDate);
+						.parse(container.getFrom());
 				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-						.parse(maxDate);
+						.parse(container.getTo());
 			} else {
-				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(minDate);
-				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(maxDate);
+				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getFrom());
+				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getTo());
 			}
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
@@ -274,6 +275,7 @@ public class TripsManagerImpl implements TripsManager {
 		}
 
 	}
+	
 
 	@Transactional
 	@Override
