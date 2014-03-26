@@ -40,7 +40,7 @@ public class UsersManagerImplTest {
 	int userIdMock = 30;
 	private static final String userUserName = "user1";
 	private static final String userFirstName = "Anna";
-	private static final String userLastName = "Gud";
+	private static final String userLastName = "Krachkovska";
 	private static final String userEmail = "user45@mail.com";
 	private static final String userPassword = "12345";
 	private static final Role userRole = Role.MANAGER;
@@ -57,7 +57,9 @@ public class UsersManagerImplTest {
 		when(mockUsersDao.findById(userIdMock)).thenReturn(user);
 	}
 
-	// ---------------------
+	/**
+	 * Test for method findAllUsers()
+	 */
 	@Test(expected = RuntimeException.class)
 	public final void testFindAllUsersException() {
 		when(mockUsersDao.getAllEntities()).thenThrow(new RuntimeException());
@@ -65,6 +67,9 @@ public class UsersManagerImplTest {
 		userManagerImpl.findAllUsers();
 	}
 
+	/**
+	 * Test for method findAllUsers() verified if the list is not empty
+	 */
 	@Test
 	public final void testFindAllUsersEmptyList() {
 		List<Users> expectedList = new ArrayList<Users>();
@@ -77,10 +82,12 @@ public class UsersManagerImplTest {
 		assertEquals(expectedList, actualList);
 	}
 
-	// ---
-
+	// --------------------------------------
+	/**
+	 * Test for method removeUser(testID)
+	 */
 	@Test
-	public final void testFindById() {
+	public final void testRemoveUser1() {
 		int testID = 5;
 
 		when(mockUsersDao.findById(testID)).thenReturn(user);
@@ -93,8 +100,11 @@ public class UsersManagerImplTest {
 		verify(mockUsersDao, times(1)).remove(user);
 	}
 
+	/**
+	 * Test for method removeUser(testID)
+	 */
 	@Test
-	public final void testRemoveUser_new() {
+	public final void testRemoveUser2() {
 
 		int testID = 5;
 		RuntimeException ex = new RuntimeException();
@@ -108,19 +118,13 @@ public class UsersManagerImplTest {
 			actualException = e;
 		}
 		assertNotNull(actualException);
-
-		/*
-		 * UsersManagerExeption actualException = null; try{
-		 * userManagerImpl.removeUser(testID); }catch(UsersManagerExeption e){
-		 * actualException = e;
-		 * 
-		 * } assertNotNull(actualException); assertEquals(ex,
-		 * actualException.getCause());
-		 */
 	}
 
+	/**
+	 * Test for method removeUser(testID)
+	 */
 	@Test(expected = RuntimeException.class)
-	public final void testRemoveUser_new2() {
+	public final void testRemoveUser3() {
 
 		int testID = 5;
 		RuntimeException ex = new RuntimeException();
@@ -130,6 +134,9 @@ public class UsersManagerImplTest {
 		userManagerImpl.removeUser(testID);
 	}
 
+	/**
+	 * Test for method updateTheUserData(user)
+	 */
 	@Test
 	public final void testUpdateUserToDB() {
 
@@ -144,10 +151,13 @@ public class UsersManagerImplTest {
 		} catch (RuntimeException e) {
 			actualException = e;
 		}
-		assertNotNull(actualException);// ok
+		assertNotNull(actualException); // ok
 	}
 
 	// --------------------------------------
+	/**
+	 * Test for method createUser
+	 */
 	@Test
 	public final void testCreateUser1() {
 		boolean isCreatedUser = false;
@@ -158,6 +168,9 @@ public class UsersManagerImplTest {
 		assertTrue(isCreatedUser);
 	}
 
+	/**
+	 * Test for method createUser
+	 */
 	@Test
 	public final void testCreateUser2() {
 		final String userUsername2 = "login2";
@@ -175,7 +188,5 @@ public class UsersManagerImplTest {
 
 		assertTrue(isCreatedUser);
 	}
-
-	// ---------------------------------------
 
 }

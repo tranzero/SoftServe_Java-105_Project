@@ -47,7 +47,6 @@ public class UserEditValidator implements Validator {
 		validateLastName(user.getLastName(), error);
 		validateEmail(user.getEmail(), error);
 		validatePassword(user.getPassword(), error);
-
 	}
 
 	/**
@@ -63,7 +62,6 @@ public class UserEditValidator implements Validator {
 		} else if (!firstName.matches(USER_FIRSTNAME_PATERN)) {
 			error.rejectValue(FIRSTNAME, USER_FIRSTNAME_MATCHER);
 		}
-
 	}
 
 	/**
@@ -72,11 +70,11 @@ public class UserEditValidator implements Validator {
 	 * @param lastName
 	 * @param error
 	 */
-	private void validateLastName(String lastName, Errors error) {
-		if (lastName == null || lastName == "") {
+	private void validateLastName(String lastName, Errors error) {		
+		if (lastName == null || lastName.isEmpty()) {
 			error.rejectValue(LASTNAME, USER_LASTNAME_MATCHER);
 
-		} else if (lastName.matches(USER_LASTNAME_PATERN) == false) {
+		} else if (!lastName.matches(USER_LASTNAME_PATERN)) {
 			error.rejectValue(LASTNAME, USER_LASTNAME_MATCHER);
 		}
 	}
@@ -88,10 +86,10 @@ public class UserEditValidator implements Validator {
 	 * @param error
 	 */
 	private void validateEmail(String email, Errors error) {
-		if (email == null || email == "") {
+		if (email == null || email.isEmpty()) {
 			error.rejectValue(EMAIL, USER_EMAIL_MATCHER);
 
-		} else if (email.matches(USER_EMAIL_PATERN) == false) {
+		} else if (!email.matches(USER_EMAIL_PATERN)) {
 			error.rejectValue(EMAIL, USER_EMAIL_MATCHER);
 		}
 	}
@@ -103,10 +101,10 @@ public class UserEditValidator implements Validator {
 	 * @param error
 	 */
 	private void validatePassword(String password, Errors error) {
-		if (password == null || password == "") {
+		if (password == null || password.isEmpty()) {
 			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
 
-		} else if (password.matches(USER_PASSWORD_PATERN) == false) {
+		} else if (!password.matches(USER_PASSWORD_PATERN)) {
 			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
 		}
 	}

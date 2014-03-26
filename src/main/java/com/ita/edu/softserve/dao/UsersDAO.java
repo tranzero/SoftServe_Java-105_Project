@@ -59,5 +59,12 @@ public interface UsersDAO extends AbstractDAOIface<Users> {
 	 */
 	public long getUsersListCount();
 
+	/**
+	 * Get all Users for one page
+	 * 
+	 * @param from
+	 * @param count
+	 * @return
+	 */
 	public List<Users> getUsersForOnePage(int from, int count);
 }
