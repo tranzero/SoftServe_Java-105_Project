@@ -8,10 +8,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ita.edu.softserve.dao.impl.PostDAOImpl;
 import com.ita.edu.softserve.entity.Post;
@@ -51,7 +52,8 @@ public class PostForMainPageManagerImplTest {
 	@Spy
 	private Post post = new Post(postTitleMock, postDescriptionMock,
 			postImgSrcMock);
-
+	
+	
 	@Before
 	public final void setUp() {
 		when(userName.getLoggedUsername()).thenReturn("pukan");

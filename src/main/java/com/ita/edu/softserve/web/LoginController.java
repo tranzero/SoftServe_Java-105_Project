@@ -83,7 +83,7 @@ public class LoginController {
 	@RequestMapping(value=LOGIN)
 	public String login(HttpServletRequest request) {
 		String referer = getRefererFromRequest(request);
-		System.out.println(referer);
+//		System.out.println(referer);
 		if (!referer.contains(LOGIN_ERROR_PAGE)){		
 			HttpSession session = request.getSession();
 			session.setAttribute("referer", referer);
