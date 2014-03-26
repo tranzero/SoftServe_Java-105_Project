@@ -13,7 +13,6 @@ import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.UserNameService;
@@ -190,7 +189,8 @@ public class StationsManagerImpl implements StationsManager {
 	@Transactional
 	public boolean editStation(Integer stationId, String stationCode,
 			String stationName) {
-		Stations station = stationDao.findById(stationId);
+		Stations station = null;
+		station = stationDao.findById(stationId);
 		
 		if (station != null) {
 			try {
@@ -207,7 +207,7 @@ public class StationsManagerImpl implements StationsManager {
 				throw e;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -230,6 +230,13 @@ public class StationsManagerImpl implements StationsManager {
 		}
 	}
 
+	/**
+	 * Finds List of stations by lineName.
+	 * 
+	 * @param lineName - name of certain line.
+	 */
+	@Transactional(readOnly = true)
+	@Override
 	public List<Stations> getStationsOnCertainLine(String lineName) {
 
 		try {
@@ -241,11 +248,19 @@ public class StationsManagerImpl implements StationsManager {
 
 	}
 
+	@Transactional(readOnly = true)
+	@Override
 	public List<Stations> getStationsOnCertainLine(Integer lineId) {
-		return stationDao
-				.findByLineName(lineDao.findById(lineId).getLineName());
+		
+		try {
+			return stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+		} catch (RuntimeException e) {
+			LOGGER.error(FIND_STATIONS_ONCERTAIN_LINE_MSG, e);
+			throw e;
+		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsNotOnCertainLine(Integer lineId) {
 		List<Stations> existStations = stationDao.findByLineName(lineDao
@@ -260,18 +275,6 @@ public class StationsManagerImpl implements StationsManager {
 
 	}
 
-	@Override
-	public List<Stations> getStationsNotOnCertainLine(String lineName) {
-		List<Stations> existStations = stationDao.findByLineName(lineName);
-		List<Stations> allStations = new ArrayList<Stations>();
-		for (Stations st : stationDao.getAllEntities()) {
-			if (!existStations.contains(st)) {
-				allStations.add(st);
-			}
-		}
-		return allStations;
-	}
-	
 	
 	/*---------------------------Methods for paging, sorting, filtering Stations------------------------------------------*/
 
@@ -281,11 +284,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.getStationsForLimits(firstElement, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_FOR_LIMITS_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_FOR_LIMITS_MSG, e);
+			throw e;
 		}
 	}
 
@@ -295,11 +295,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return getStationsForLimit((pageNumber - 1) * count, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_FOR_ONE_PAGE_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_FOR_ONE_PAGE_MSG, e);
+			throw e;
 		}
 	}
 
@@ -309,11 +306,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.getStationsListCount();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_LIST_COUNT_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_LIST_COUNT_MSG, e);
+			throw e;
 		}
 	}
 

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -21,12 +21,18 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.ita.edu.softserve.dao.impl.StationsDAOImpl;
 import com.ita.edu.softserve.entity.Stations;
+import com.ita.edu.softserve.manager.StationsManager;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.manager.impl.StationsManagerImpl;
+import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.StationsCriteriaContainerImpl;
 
 /**
  * Class under test
@@ -53,22 +59,24 @@ public class StationsManagerImplTest {
 	 * StationsManagerImpl.
 	 */
 	@InjectMocks
-	private StationsManagerImpl stationsManagerMock = new StationsManagerImpl();
+	private StationsManager stationsManagerMock = new StationsManagerImpl();
 
-	int stationIdMock = 22;
+	int stationIdMock = 100;
 	int illegalStationId = -1;
 	private static final String stationCodeMock = "stationCode mock";
 	private static final String stationNameMock = "stationName mock";
 	private static final String illegalStationName = "@Stryy@";
 
-	private Stations station;
+	@Spy
+	private Stations station = new Stations(stationCodeMock, stationNameMock);
 
-	
 	@Before
 	public final void setUp() {
 
 		when(userName.getLoggedUsername()).thenReturn("taras");
-		station = mock(Stations.class);
+		doReturn(stationIdMock).when(station).getStationId();
+		when(stationsDaoMock.findByName(stationNameMock)).thenReturn(station);
+		when(stationsDaoMock.findById(stationIdMock)).thenReturn(station);
 	}
 
 	/**
@@ -146,101 +154,92 @@ public class StationsManagerImplTest {
 		stationsManagerMock.findStationsById(illegalStationId);
 		verify(stationsDaoMock, times(1)).findById(illegalStationId);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findByStationName(java.lang.String)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findByStationName(java.lang.String)}
+	 * .
 	 */
 	@Test()
 	public void testFindByStationName() {
-		when(stationsDaoMock.findByName(stationNameMock)).thenReturn(
-				station);
-		Stations actualStation = stationsManagerMock.findByStationName(stationNameMock);
-		
+		when(stationsDaoMock.findByName(stationNameMock)).thenReturn(station);
+		Stations actualStation = stationsManagerMock
+				.findByStationName(stationNameMock);
+
 		verify(stationsDaoMock, times(1)).findByName(stationNameMock);
 		assertEquals(station, actualStation);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findByStationName(java.lang.String)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findByStationName(java.lang.String)}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public final void testFindByStationNameException() {
-		when(stationsDaoMock.findByName(illegalStationName))
-				.thenThrow(new IllegalArgumentException());
+		when(stationsDaoMock.findByName(illegalStationName)).thenThrow(
+				new IllegalArgumentException());
 
-		 stationsManagerMock.findByStationName(illegalStationName);
+		stationsManagerMock.findByStationName(illegalStationName);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#findByStationName(java.lang.String)}.
-	 */
-	@Test
-	public final void testFindByStationNameWithNullName() {
-		when(stationsDaoMock.findByName(illegalStationName))
-				.thenReturn(null);
-
-		Stations expectedStation = stationsManagerMock.findByStationName(illegalStationName);
-		
-		verify(stationsDaoMock, times(1)).findByName(illegalStationName);
-		assertNull(expectedStation);
-	}
-	
-	/**
-	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#createStation(com.ita.edu.softserve.entity.Stations)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#createStation(com.ita.edu.softserve.entity.Stations)}
+	 * .
 	 */
 	@Test()
 	public void testCreateStation() {
 		doNothing().when(stationsDaoMock).save(station);
-		
+
 		stationsManagerMock.createStation(station);
 		verify(stationsDaoMock, times(1)).save(station);
 	}
-	
+
 	/**
 	 * IllegalArgumentException - if the instance is not an entity.<br>
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#createStation(com.ita.edu.softserve.entity.Stations)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#createStation(com.ita.edu.softserve.entity.Stations)}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateStationException() {
-		doThrow(new IllegalArgumentException()).when(stationsDaoMock)
-				.save(station);
+		doThrow(new IllegalArgumentException()).when(stationsDaoMock).save(
+				station);
 
 		stationsManagerMock.createStation(station);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}
+	 * .
 	 */
 	@Test()
 	public void testSaveOrUpdateStations() {
 		doNothing().when(stationsDaoMock).saveOrUpdate(station);
-		
+
 		stationsManagerMock.saveOrUpdateStation(station);
 		verify(stationsDaoMock, times(1)).saveOrUpdate(station);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}
+	 * .
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSaveOrUpdateStationsException() {
-		doThrow(new RuntimeException()).when(stationsDaoMock)
-				.saveOrUpdate(station);
+		doThrow(new RuntimeException()).when(stationsDaoMock).saveOrUpdate(
+				station);
 
 		stationsManagerMock.saveOrUpdateStation(station);
 	}
 
-	
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#saveOrUpdateStation(com.ita.edu.softserve.entity.Stations)}
+	 * .
 	 */
 	@Test()
 	public void testSaveOrUpdateStationsWithIdNull() {
@@ -253,12 +252,12 @@ public class StationsManagerImplTest {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#removeStations(java.lang.Integer)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#removeStations(java.lang.Integer)}
+	 * .
 	 */
 	@Test()
 	public void testRemoveStations() {
-		when(stationsDaoMock.findById(stationIdMock)).thenReturn(
-				station);
+		when(stationsDaoMock.findById(stationIdMock)).thenReturn(station);
 
 		stationsManagerMock.removeStations(stationIdMock);
 
@@ -268,50 +267,167 @@ public class StationsManagerImplTest {
 
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#removeStations(java.lang.Integer)}.
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#removeStations(java.lang.Integer)}
+	 * .
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveStationsException() {
-		when(stationsDaoMock.findById(stationIdMock)).thenReturn(
-				station);
+		when(stationsDaoMock.findById(stationIdMock)).thenReturn(station);
 
-		doThrow(new IllegalArgumentException()).when(stationsDaoMock)
-				.remove(station);
+		doThrow(new IllegalArgumentException()).when(stationsDaoMock).remove(
+				station);
 
 		stationsManagerMock.removeStations(stationIdMock);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.Stations#editStation(java.lang.Integer, java.lang.String, java.lang.String)}
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#editStation(java.lang.Integer, java.lang.String, java.lang.String)}
 	 */
 	@Test
 	public final void testEditStation() {
 		boolean isStationUpdated = false;
-		verify(stationsDaoMock, times(1)).findById(stationIdMock);
-		doCallRealMethod().when(station).setStationCode(stationCodeMock);
-		doCallRealMethod().when(station).setStationName(stationNameMock);
-		isStationUpdated = stationsManagerMock.editStation(stationIdMock, stationCodeMock,
-				stationNameMock);
+		when(stationsDaoMock.findById(stationIdMock)).thenReturn(station);
+		isStationUpdated = stationsManagerMock.editStation(stationIdMock,
+				stationCodeMock, stationNameMock);
 
+		verify(stationsDaoMock, times(1)).findById(stationIdMock);
 		verify(stationsDaoMock, times(1)).update(station);
-		
+
 		assertTrue(isStationUpdated);
 	}
-	
+
 	/**
 	 * Test method for
-	 * {@link com.ita.edu.softserve.manager.impl.Stations#editStation(java.lang.Integer, java.lang.String, java.lang.String)}
-	 * .
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#editStation(java.lang.Integer, java.lang.String, java.lang.String)}
 	 */
 	@Test
 	public final void testEditStationWhenStationNull() {
 		boolean isStationUpdated = true;
 		when(stationsDaoMock.findById(stationIdMock)).thenReturn(null);
-		isStationUpdated = stationsManagerMock.editStation(stationIdMock, stationCodeMock,
-				stationNameMock);
+		isStationUpdated = stationsManagerMock.editStation(stationIdMock,
+				stationCodeMock, stationNameMock);
+
+		verify(stationsDaoMock, times(1)).findById(stationIdMock);
 
 		assertFalse(isStationUpdated);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#editStation(java.lang.Integer, java.lang.String, java.lang.String)}
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public final void testEditStationException() {
+		when(stationsDaoMock.findById(stationIdMock)).thenReturn(station);
+		doThrow(new IllegalArgumentException()).when(station)
+				.setStationCode("");
+		stationsManagerMock.editStation(stationIdMock, "", stationNameMock);
+	}
+
+	/*---------------------------Tests for paging, sorting, filtering methods------------------------------------------*/
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsListCount()}
+	 */
+	@Test
+	public final void testGetAllStationsListCount() {
+		long expected = 10;
+		when(stationsDaoMock.getStationsListCount()).thenReturn(expected);
+		long actual = stationsManagerMock.getStationsListCount();
+		verify(stationsDaoMock, times(1)).getStationsListCount();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsListCount()}
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testGetAllStationsListCountException() {
+		when(stationsDaoMock.getStationsListCount()).thenThrow(
+				new RuntimeException());
+		stationsManagerMock.getStationsListCount();
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsForLimit(java.lang.Integer, java.lang.Integer)}
+	 */
+	@Test
+	public final void testGetStationsForLimit() {
+
+		int firstElement = 0;
+		int count = 10;
+
+		List<Stations> expected = new ArrayList<Stations>();
+		when(stationsDaoMock.getStationsForLimits(firstElement, count))
+				.thenReturn(expected);
+		List<Stations> actual = stationsManagerMock.getStationsForLimit(
+				firstElement, count);
+		
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsForPage(java.lang.Integer, java.lang.Integer)}
+	 */
+	@Test
+	public final void testGetStationsForPage() {
+		int firstElement = 0;
+		int count = 10;
+
+		List<Stations> expected = new ArrayList<Stations>();
+		when(stationsDaoMock.getStationsForLimits(firstElement, count))
+				.thenReturn(expected);
+		List<Stations> actual = stationsManagerMock.getStationsForPage(
+				firstElement, count);
+		
+		assertEquals(expected, actual);
+
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsForLimitUsingContainers(com.ita.edu.softserve.validationcontainers.PageInfoContainer, com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer)}
+	 */
+	@Test
+	public final void testGetStationsForLimitUsingContainers() {
+
+		PageInfoContainer container = mock(PageInfoContainerImpl.class);
+		StationsCriteriaContainer stationsCriteriaContainer = mock(StationsCriteriaContainerImpl.class);
+
+		List<Stations> expectedList = new ArrayList<Stations>();
+
+		when(
+				stationsDaoMock.getStationsForOnePageWithCriteria(1, 10, "L'viv", "stationCode", "ASC"))
+				.thenReturn(expectedList);
+
+		List<Stations> actualList = stationsManagerMock
+				.getStationsForLimitUsingContainers(stationsCriteriaContainer, container);
+
+		assertEquals(expectedList, actualList);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.StationsManagerImpl#getStationsForLimitWithCriteria(java.lang.Integer, java.lang.Double, java.lang.String, java.lang.String, java.lang.String)}
+	 */
+	@Test
+	public final void testGetStationsForLimitWithCriteria() {
+
+		List<Stations> expectedList = new ArrayList<Stations>();
+
+		when(
+				stationsDaoMock.getStationsForOnePageWithCriteria(1, 10, "L'viv", "stationName", "ASC"))
+				.thenReturn(expectedList);
+
+		List<Stations> actualList = stationsManagerMock
+				.getStationsForLimitWithCriteria(1, 10, "L'viv", "stationName", "ASC");
+
+		assertEquals(expectedList, actualList);
 	}
 
 }
