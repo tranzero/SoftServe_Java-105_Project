@@ -1,12 +1,12 @@
 package com.ita.edu.softserve.manager.impl;
 
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +17,9 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.ita.edu.softserve.dao.impl.UsersDAOImpl;
-import com.ita.edu.softserve.entity.Post;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.UserNameService;
 
@@ -66,6 +66,39 @@ public class UsersManagerImplTest {
 	}
 
 	// ---------------------
+
+	@Test
+	public final void test1() {
+		int testID = 5;
+
+		when(userDao.findById(testID)).thenReturn(user);
+		// doReturn(user).when(userDao).findById(testID);
+		doNothing().when(userDao).remove(user);
+
+		userManagerImpl.removeUser(testID);
+
+		verify(userDao, times(1)).findById(5);
+		verify(userDao, times(1)).remove(user);
+
+	}
+
+	@Test
+	public final void test2() {
+		int testID = 5;
+		RuntimeException ex = new RuntimeException();
+		
+		when(userDao.findById(testID)).thenThrow(ex);
+		
+		UsersManagerExeption actualException = null;
+		try{
+		userManagerImpl.removeUser(testID);
+		}catch(UsersManagerExeption e){
+			actualException = e;
+	
+		}
+		assertNotNull(actualException);
+		assertEquals(ex, actualException.getCause());
+	}
 
 	@Test
 	public final void testCreateUser1() {
@@ -116,8 +149,9 @@ public class UsersManagerImplTest {
 			isDeletedUser = true;
 		} else {
 			isDeletedUser = false;
-			assertTrue(isDeletedUser);
+			/* assertTrue(isDeletedUser); */
 		}
+		assertTrue(isDeletedUser);
 	}
 
 	/*

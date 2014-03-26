@@ -27,7 +27,7 @@ public interface StationsManager extends BaseManager {
 	/**
 	 * Saves station by parameters.
 	 */
-	void createStation(String stationCode, String stationName);
+	void createStation(Stations station);
 
 	/**
 	 * Removes station.
@@ -37,27 +37,25 @@ public interface StationsManager extends BaseManager {
 	/**
 	 * Updates exact station by Id.
 	 */
-	void editStation(Integer stationId, String stationCode, String stationName);
+	boolean editStation(Integer stationId, String stationCode, String stationName);
 	
 	/**
 	 * Finds station by Name.
 	 */
-	public Stations findByStationName(String stationName); 
+	Stations findByStationName(String stationName); 
 	
 	/**
 	 * Finds stations on certain line by line name.
 	 */
-	public List<Stations> getStationsOnCertainLine(String lineName);
+	List<Stations> getStationsOnCertainLine(String lineName);
 
 	/**
 	 * Finds stations which not exist on certain line by line name.
 	 */
 	
-	public List<Stations> getStationsNotOnCertainLine(Integer lineId);
+	List<Stations> getStationsNotOnCertainLine(Integer lineId);
 	
-	public List<Stations> getStationsOnCertainLine(Integer lineId);
-	
-	List<Stations> getStationsNotOnCertainLine(String lineName);
+	List<Stations> getStationsOnCertainLine(Integer lineId);
 
 	List<Stations> getStationsForLimit(int firstElement, int count);
 
@@ -68,7 +66,7 @@ public interface StationsManager extends BaseManager {
 	/**
 	 * Save station if not exist or update if exist.
 	 */
-	public void saveOrUpdateStation(Stations station);
+	void saveOrUpdateStation(Stations station);
 
 	void validateStationListCriteria(
 			StationsCriteriaContainer stationsCriteriaContainer, Locale locale);

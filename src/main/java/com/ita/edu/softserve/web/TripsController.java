@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +21,8 @@ import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
@@ -139,18 +140,6 @@ public class TripsController {
 	 */
 	private static final String LANGUAGE_NAME = "language";
 
-	/**
-	 * Name for minimum date in adding trips attribute
-	 */
-	private static final String FROM_ATTRIBUTE_NAME = "from";
-	/**
-	 * Name for maximum date in adding trips attribute
-	 */
-	private static final String TO_ATTRIBUTE_NAME = "to";
-	/**
-	 * Name for transport id in adding trips attribute
-	 */
-	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportid";
 
 	/**
 	 * Name for showing transport code attribute
@@ -226,6 +215,12 @@ public class TripsController {
 	 */
 
 	private static final String TRIP_EDIT_PATH = "/editTrip/{tripId}";
+
+	/**
+	 * Constant for mapping trips edit action
+	 */
+
+	private static final String TRIP_EDIT_ACTION_PATH = "/editTripAction/{tripId}";
 
 	/**
 	 * Constant for mapping trips edit page
@@ -407,12 +402,18 @@ public class TripsController {
 		modelMap.put(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
 				transportForAddTripsCriteriaContainer);
 		modelMap.put(ENCODER_ATTRIBUTE_NAME, encoder);
-
 		List<Transports> transports = transportsManager
 				.getTransportsListForAddTripsWithContainers(container,
 						transportForAddTripsCriteriaContainer);
 		modelMap.put(TRANSPORTSLIST_NAME, transports);
 		modelMap.put(LANGUAGE_NAME, locale.getLanguage());
+		modelMap.put(
+				DATEFORMAT_NAME,
+				new SimpleDateFormat(
+						locale.getLanguage().equalsIgnoreCase(UKRAINIAN)
+								|| locale.getLanguage().equalsIgnoreCase(
+										SPANISH) ? UKRAINIAN_OR_SPANISH_DATE_FORMAT
+								: DEFAULT_DATE_FORMAT));
 	}
 
 	/**
@@ -621,12 +622,9 @@ public class TripsController {
 	 * @return definition of jsp to use
 	 */
 	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME)
-	public String printAddTripsPage(Map<String, Object> modelMap,
-			Locale locale, @ModelAttribute(FROM_ATTRIBUTE_NAME) String minDate,
-			@ModelAttribute(TO_ATTRIBUTE_NAME) String maxDate,
-			@ModelAttribute(TRANSPORTID_ATTRIBUTE_NAME) Integer transportId) {
-		if (tripsManager.addTripsInInterval(locale, minDate, maxDate,
-				transportId)) {
+	public String printAddTripsPage(Locale locale, AddTripsInfoValidationContainer container) {
+		container.setLocaleParam(locale);
+		if (tripsManager.addTripsWithContainer(container)) {
 			return REDIRECT_SAME_LEVEL_SUBSTRING + MANAGETRIPS_SPRING_NAME;
 		} else {
 			return REDIRECT_SAME_LEVEL_SUBSTRING + ERRORINPUT_SPRING_NAME;
@@ -634,7 +632,21 @@ public class TripsController {
 
 	}
 
-	@RequestMapping(TRIP_DELETE_PATH)
+	@RequestMapping(value = TRIP_EDIT_ACTION_PATH, method = RequestMethod.POST)
+	public String editTripAction(
+			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
+			EditTripsInfoValidationContainer container, Locale locale) {
+		container.setLocaleParam(locale);
+
+		if (tripsManager.editTrip(tripId, container)) {
+			return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+		} else {
+			return REDIRECT_SUBSTRING + ERRORINPUT_SPRING_NAME;
+		}
+
+	}
+
+	@RequestMapping(value = TRIP_DELETE_PATH)
 	public String deleteTrip(@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId) {
 		tripsManager.removeTrip(tripId);
 		return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;

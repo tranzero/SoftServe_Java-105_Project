@@ -22,7 +22,13 @@ public class LinesDAOImpl extends AbstractDAO<Lines> implements LinesDAO {
 	public Lines findByName(String lineName) {
 		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
 				.setParameter(1, lineName);
-		return (Lines) query.getSingleResult();
+		Lines line = null;
+		try{
+			line = (Lines) query.getSingleResult(); 
+		} catch(Exception e){
+			return null;
+		}
+		return line;
 	}
 
 	

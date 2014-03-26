@@ -117,21 +117,26 @@
 	<p>
 		<br>
 	<h2 align="center">
-		<spring:message code="label.addtrips.addtrips" />
+		<spring:message code="label.edittrips.edittrips" />
 	</h2>
-	<c:if test="${not empty errormark}">
-		<font color="red"><spring:message
-				code="label.addtrips.errormessage" /> </font>
-	</c:if>
 
-	<form name="trips" method="post">
-		<h3>
-			<spring:message code="label.addtrips.choosedateinterval" />
-		</h3>
+	<form action="../editTripAction/${currentTrip.getTripId()}" name="trips" method="post">
 		<p>
-			<label for="from"><spring:message code="label.addtrips.from" /></label>
-			<input type="text" id="from" name="from"> <label for="to"><spring:message
-					code="label.addtrips.to" /></label> <input type="text" id="to" name="to">
+			<label for="startDate"><spring:message code="label.edittrips.choosedate" /></label>
+			<input type="text" id="startDate" name="startDate" value="${dateFormat.format(currentTrip.getStartDate())}"> 
+		<p>
+			<spring:message code="label.edittrips.remainingseatsbyclasses" />
+			:
+		<p>
+			<label for="remSeatClass1">1:</label>
+				<input type="number" id="remSeatClass1"
+					name="remSeatClass1" value="${currentTrip.getRemSeatClass1()}">
+			<label for="remSeatClass2">2:</label>
+				<input type="number" id="remSeatClass2"
+					name="remSeatClass2" value="${currentTrip.getRemSeatClass2()}">
+			<label for="remSeatClass3">3:</label>
+				<input type="number" id="remSeatClass3"
+					name="remSeatClass3" value="${currentTrip.getRemSeatClass3()}">
 		<h3>
 			<spring:message code="label.addtrips.choosetransport" />
 		</h3>
@@ -383,11 +388,11 @@
 					<c:forEach items="${transportsList}" var="transport">
 						<tr>
 							<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}" checked/>
 								</c:if>
 								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}"/>
 								</c:if>
 								</td>
@@ -570,21 +575,9 @@
 	<script>
 		function formDatePicker() {
 			$.datepicker.setDefaults($.datepicker.regional['${language}']);
-			$("#from").datepicker({
-				defaultDate : "+0w",
+			$("#startDate").datepicker({
 				changeMonth : true,
-				numberOfMonths : 3,
-				onClose : function(selectedDate) {
-					$("#to").datepicker("option", "minDate", selectedDate);
-				}
-			});
-			$("#to").datepicker({
-				defaultDate : "+1w",
-				changeMonth : true,
-				numberOfMonths : 3,
-				onClose : function(selectedDate) {
-					$("#from").datepicker("option", "maxDate", selectedDate);
-				}
+				numberOfMonths : 1,
 			});
 
 		}
@@ -593,9 +586,9 @@
 				.load(
 						function() {
 							formDatePicker();
-							$("input#seatClass1").ForceNumericOnly();
-							$("input#seatClass2").ForceNumericOnly();
-							$("input#seatClass3").ForceNumericOnly();
+							$("input#remSeatClass1").ForceNumericOnly();
+							$("input#remSeatClass2").ForceNumericOnly();
+							$("input#remSeatClass3").ForceNumericOnly();
 							setInterval(
 									function() {
 										var curVal;

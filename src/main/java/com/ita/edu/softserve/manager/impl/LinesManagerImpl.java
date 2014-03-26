@@ -49,10 +49,6 @@ public class LinesManagerImpl implements LinesManager {
 	public LinesManagerImpl() {
 	}
 
-	public LinesManagerImpl(LinesDAOImpl lineDao) {
-		this.lineDao = lineDao;
-	}
-
 	public static LinesManager getInstance() {
 		return ManagerFactory.getManager(LinesManager.class);
 	}
@@ -83,7 +79,12 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Override
 	public Lines findByLineId(Integer lineId) {
-		return lineDao.findById(lineId);
+		try {
+			Lines line = lineDao.findById(lineId);
+			return line;
+		} catch (RuntimeException e) {
+			throw e;
+		}
 
 	}
 
@@ -124,22 +125,21 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void createLine(String lineName) {
-		try {
-			lineDao.findByName(lineName);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			new LinesManagerException(findByNameLinesMsg);
+	public boolean createLine(String lineName) {
+		Lines line = null;
+		line = lineDao.findByName(lineName);
+		if (line == null) {
+			try {
+				Lines newLine = new Lines(lineName);
+				lineDao.save(newLine);
+				LOGGER.info(entityName + newLine.getLineId() + addMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(e);
+				throw e;
+			}
 		}
-
-		try {
-			Lines newLine = new Lines(lineName);
-			lineDao.save(newLine);
-			LOGGER.info(entityName + newLine.getLineId() + addMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(createLinesMsg, e);
-		}
+		return false;
 	}
 
 	/**
@@ -151,16 +151,20 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void updateLine(Integer lineId, String newLineName) {
-		try {
-			Lines line = lineDao.findById(lineId);
-			line.setLineName(newLineName);
-			lineDao.update(line);
-			LOGGER.info(entityName + line.getLineId() + changeMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(updateLinesMsg, e);
-		}
+	public boolean updateLine(Integer lineId, String newLineName) {
+		Lines line = null;
+		line = lineDao.findById(lineId);
+		if (line != null)
+			try {
+				line.setLineName(newLineName);
+				lineDao.update(line);
+				LOGGER.info(entityName + line.getLineId() + changeMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(updateLinesMsg, e);
+				throw e;
+			}
+		return false;
 	}
 
 	/**
@@ -170,22 +174,20 @@ public class LinesManagerImpl implements LinesManager {
 	 */
 	@Transactional
 	@Override
-	public void deleteLine(Integer lineId) {
-		try {
-			lineDao.findById(lineId);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			new LinesManagerException(findByNameLinesMsg);
+	public boolean deleteLine(Integer lineId) {
+		Lines line = null;
+		line = lineDao.findById(lineId);
+		if (line != null) {
+			try {
+				lineDao.remove(line);
+				LOGGER.info(entityName + line.getLineId() + removeMsg);
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(removeLinesMsg, e);
+				throw e;
+			}
 		}
-
-		try {
-			Lines line = lineDao.findById(lineId);
-			lineDao.remove(line);
-			LOGGER.info(entityName + line.getLineId() + removeMsg);
-		} catch (RuntimeException e) {
-			LOGGER.error(e);
-			throw new LinesManagerException(removeLinesMsg, e);
-		}
+		return false;
 	}
 
 	/**
@@ -235,7 +237,7 @@ public class LinesManagerImpl implements LinesManager {
 		try {
 			return lineDao.getLinesByStationNameCount(stationName);
 		} catch (RuntimeException e) {
-			LOGGER.error(e);
+			LOGGER.error(countLinesMsg, e);
 			throw new LinesManagerException(countLinesMsg, e);
 		}
 	}

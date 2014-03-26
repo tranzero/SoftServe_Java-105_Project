@@ -102,7 +102,7 @@ public class Responses extends BaseEntity {
 		this.date = date;
 		this.checked = false;
 	}
-
+	
 	/**
 	 * @return responseId
 	 */

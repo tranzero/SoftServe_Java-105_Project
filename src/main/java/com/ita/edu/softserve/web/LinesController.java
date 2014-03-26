@@ -43,12 +43,12 @@ public class LinesController {
 	private static final String EDIT_STATIONS = "redirect:/editline/";
 	private static final String ADD_STATIONS = "addStationsToLine";
 	private static final String APPLY_CHANGES = "redirect:/allLines";
-	
+
 	/**
 	 * URL pattern that map linesByTwoStations controller
 	 */
 	private static final String LINES_BY_TWO_STATIONS_URL = "/linesbytwostations";
-	
+
 	/**
 	 * URL pattern that map linesByTwoStationsPage controller
 	 */
@@ -63,22 +63,22 @@ public class LinesController {
 	 * LinesByTwoStations jsp page
 	 */
 	private static final String LINES_BY_TWO_STATIONS_JSP_PAGE = "linesbytwostations";
-	
+
 	/**
 	 * LinesByTwoStations jsp page with paging
 	 */
 	private static final String LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE = "linesbytwostationsPage";
-	
+
 	/**
-	 * Variable that represents first station name 
+	 * Variable that represents first station name
 	 */
 	private static final String STATION_NAME1 = "stationName1";
 
 	/**
-	 * Variable that represents second station name 
+	 * Variable that represents second station name
 	 */
 	private static final String STATION_NAME2 = "stationName2";
-	
+
 	/**
 	 * Field for using paginator manager
 	 */
@@ -289,19 +289,27 @@ public class LinesController {
 		return APPLY_CHANGES;
 	}
 
-	@RequestMapping(value = "editline/applychanges", method = RequestMethod.GET)
-	public String applyChanges() {
+	@RequestMapping(value = "editline/applychanges", method = RequestMethod.POST)
+	public String applyChanges(@ModelAttribute("linename") String lineName,
+			@ModelAttribute("lineid") Integer lineId) {
+		linesManager.updateLine(lineId, lineName);
 		return APPLY_CHANGES;
 	}
 
 	/**
 	 * 
-	 * @param stationName1 - name of first station
-	 * @param stationName2 - name of second station
-	 * @param pageNumber - number of page, to get results for
-	 * @param resultsPerPage - result per page
-	 * @param sortOrder - sort order, 0 - asc, 1 - desc
-	 * @param modelMap - modelmap to fill
+	 * @param stationName1
+	 *            - name of first station
+	 * @param stationName2
+	 *            - name of second station
+	 * @param pageNumber
+	 *            - number of page, to get results for
+	 * @param resultsPerPage
+	 *            - result per page
+	 * @param sortOrder
+	 *            - sort order, 0 - asc, 1 - desc
+	 * @param modelMap
+	 *            - modelmap to fill
 	 * @return linesbytwostations page
 	 */
 	@RequestMapping(value = LINES_BY_TWO_STATIONS_URL, method = RequestMethod.GET)
@@ -314,7 +322,7 @@ public class LinesController {
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return LINES_BY_TWO_STATIONS_JSP_PAGE;
 		}
 		if (sortOrder == null) {
@@ -337,12 +345,18 @@ public class LinesController {
 
 	/**
 	 * 
-	 * @param stationName1 - name of first station
-	 * @param stationName2 - name of second station
-	 * @param pageNumber - number of page, to get results for
-	 * @param resultsPerPage - result per page
-	 * @param sortOrder - sort order, 0 - asc, 1 - desc
-	 * @param modelMap - modelmap to fill
+	 * @param stationName1
+	 *            - name of first station
+	 * @param stationName2
+	 *            - name of second station
+	 * @param pageNumber
+	 *            - number of page, to get results for
+	 * @param resultsPerPage
+	 *            - result per page
+	 * @param sortOrder
+	 *            - sort order, 0 - asc, 1 - desc
+	 * @param modelMap
+	 *            - modelmap to fill
 	 * @return linesbytwostations page
 	 */
 	@RequestMapping(value = LINES_BY_TWO_STATIONS_AJAX_URL, method = RequestMethod.GET)
@@ -355,7 +369,7 @@ public class LinesController {
 			Map<String, Object> modelMap) {
 
 		if (stationName1 == null || stationName2 == null
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return LINES_BY_TWO_STATIONS_AJAX_JSP_PAGE;
 		}
 		if (sortOrder == null) {

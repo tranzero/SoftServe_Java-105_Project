@@ -56,7 +56,7 @@ public class ResponsesDAOImpl extends AbstractDAO<Responses> implements Response
 	 * @return responses finded by transportId
 	 */
 	@Override
-	public List<Responses> findResponsesByTranportId(Integer transportId) {
+	public List<Responses> findResponsesByTransportId(Integer transportId) {
 		Query query = entityManager.createNamedQuery(Responses.FIND_BY_TRANSPORT_ID)
 				.setParameter(1, transportId);
 		

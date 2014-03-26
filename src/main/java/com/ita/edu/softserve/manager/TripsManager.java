@@ -7,6 +7,8 @@ import java.util.Locale;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 
 public interface TripsManager extends BaseManager {
 
@@ -51,23 +53,6 @@ public interface TripsManager extends BaseManager {
 	 */
 
 	List<Trips> getTripsForPage(int pageNumber, int count);
-
-	/**
-	 * Adds trips for transport and date interval
-	 * 
-	 * @param locale
-	 *            locale used to format date
-	 * @param minDate
-	 *            low border of date interval
-	 * @param maxDate
-	 *            top border of date interval
-	 * @param transportId
-	 *            transport ID used
-	 * @return confirmation of success operation
-	 */
-
-	boolean addTripsInInterval(Locale locale, String minDate,
-			String maxDate, int transportId);
 
 	/**
 	 * Returns amount of trips
@@ -199,5 +184,10 @@ public interface TripsManager extends BaseManager {
 			Integer elementIndex, Integer pageSize);
 
 	Trips getTripById(int id);
+
+	boolean editTrip(Integer tripId,
+			EditTripsInfoValidationContainer container);
+
+	boolean addTripsWithContainer(AddTripsInfoValidationContainer container);
 
 }

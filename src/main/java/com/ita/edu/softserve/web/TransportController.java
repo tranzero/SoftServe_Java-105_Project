@@ -1,13 +1,11 @@
 package com.ita.edu.softserve.web;
 
 import java.sql.Time;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -355,7 +353,7 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_WEB_NAME, method = RequestMethod.GET)
-	public String printTransportsListManage(PageInfoContainerImpl container,
+	public String displayTransportsListManage(PageInfoContainerImpl container,
 			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 
@@ -379,7 +377,7 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_PAGE_WEB_NAME, method = RequestMethod.GET)
-	public String printTransportsListPageManage(
+	public String displayTransportsListPageManage(
 			PageInfoContainerImpl container,
 			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
@@ -387,8 +385,6 @@ public class TransportController {
 				modelMap, locale);
 		return TRANSPORT_LIST_PAGE_NAME;
 	}
-
-	/*--------------------*/
 
 	/**
 	 * Controller method for displaying transport page.
@@ -404,7 +400,7 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_MANAGE_NAME, method = RequestMethod.GET)
-	public String printTransportsList(PageInfoContainerImpl container,
+	public String displayTransportsList(PageInfoContainerImpl container,
 			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 
@@ -428,7 +424,7 @@ public class TransportController {
 	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = TRANSPORT_LIST_PAGE_MANAGE_NAME, method = RequestMethod.GET)
-	public String printTransportsListPage(PageInfoContainerImpl container,
+	public String displayTransportsListPage(PageInfoContainerImpl container,
 			TransportsCriteriaContainerImpl transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
 		completeMapForAddTransports(container, transportCriteriaContainer,
@@ -438,19 +434,12 @@ public class TransportController {
 
 	/*--------------END-For Transport Table Filter Sorting-------------------*/
 
+	/**
+	 * Binding web request parameters to JavaBean objects.
+	 * @param binder Special DataBinder for data binding from web request parameters to JavaBean objects.
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		// binder.setValidator(transportsValidator);
-
-		NumberFormat numberFormat = NumberFormat.getInstance();
-		numberFormat.setGroupingUsed(false);
-
-		binder.registerCustomEditor(Integer.class, new CustomNumberEditor(
-				Integer.class, numberFormat, true));
-
-		binder.registerCustomEditor(Double.class, new CustomNumberEditor(
-				Double.class, numberFormat, true));
-
 		SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_PATTERN);
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Time.class, new TimeEditor(dateFormat,
@@ -462,11 +451,11 @@ public class TransportController {
 
 	/**
 	 * Map name of jsp addTransport to formTransport.htm.
-	 * 
+	 * Adds Transports object as attribute to be used by Spring form.
 	 * @return the jsp name.
 	 */
 	@RequestMapping(value = FORM_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
-	public String transportForm(Model modelMap) {
+	public String displayTransportsForm(Model modelMap) {
 
 		modelMap.addAttribute(MODEL_TRANSPORT, new Transports());
 
@@ -484,13 +473,14 @@ public class TransportController {
 	 *            Transport code.
 	 * @return the jsp name.
 	 */
-	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.POST)
+	@RequestMapping(value = ADD_TRANSPORT_URL_PATTERN, method = RequestMethod.GET)
 	public String addTransportToBD(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
-
+		transportsManager.validateIfTransportExist(transport, bindingResult);
+		
 		if (bindingResult.hasErrors()) {
 			List<Routes> routesList = routesManager.getAllRoutes();
 			modelMap.addAttribute(ROUTES_LIST, routesList);
@@ -515,7 +505,7 @@ public class TransportController {
 	 * @return editTransport jsp to use.
 	 */
 	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT, method = RequestMethod.GET)
-	public String editTransport(@PathVariable(TRANSPORT) Integer transportId,
+	public String displayEditTransportsForm(@PathVariable(TRANSPORT) Integer transportId,
 			Model modelMap) {
 
 		Transports transport = transportsManager
@@ -534,12 +524,13 @@ public class TransportController {
 	 * 
 	 * @return the jsp name.
 	 */
-	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.POST)
+	@RequestMapping(value = EDIT_TRANSPORT_TRANSPORT_ID, method = RequestMethod.GET)
 	public String updateTransportToDB(
 			@ModelAttribute(MODEL_TRANSPORT) Transports transport,
 			BindingResult bindingResult, Model modelMap) {
 
 		transportsValidator.validate(transport, bindingResult);
+		transportsManager.validateIfTransportExist(transport, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			modelMap.addAttribute(ROUTES_LIST, routesManager.getAllRoutes());
@@ -607,7 +598,7 @@ public class TransportController {
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
 
@@ -647,7 +638,7 @@ public class TransportController {
 			ModelMap modelMap) {
 
 		if ((stationName1 == null) || (stationName2 == null)
-				|| stationName1.equals("") || stationName2.equals("")) {
+				|| stationName1.isEmpty() || stationName2.isEmpty()) {
 			return TRANSPORT_TRAVEL_JSP;
 		}
 

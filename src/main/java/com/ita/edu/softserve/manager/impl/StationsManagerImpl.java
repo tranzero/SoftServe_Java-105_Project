@@ -13,9 +13,9 @@ import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
 import com.ita.edu.softserve.dao.StationsOnLineDAO;
 import com.ita.edu.softserve.entity.Stations;
-import com.ita.edu.softserve.exception.StationManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.StationsManager;
+import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
@@ -29,8 +29,9 @@ import com.ita.edu.softserve.validationcontainers.StationsCriteriaContainer;
 @Service("stationsService")
 public class StationsManagerImpl implements StationsManager {
 
+	private final String FOUND_BY_NAME_MSG = " was found by name by ";
 	private final String FIND_STATIONS_MSG = "Could not find Stations List";
-	private final String FIND_STATION_BY_ID_MSG = "Could not find Station by this Id";
+	private final String FIND_STATION_BY_ID_MSG = "Could not find Station by this Id = ";
 	private final String FIND_STATION_BY_NAME_MSG = "Could not find Station by name";
 	private final String FIND_STATIONS_ONCERTAIN_LINE_MSG = "Could not get Stations On Certain Line";
 	private final String CREATE_STATION_MSG = "Could not create Station";
@@ -40,7 +41,7 @@ public class StationsManagerImpl implements StationsManager {
 	private final String STATIONS_FOR_LIMITS_MSG = "Could not get Stations for limits";
 	private final String STATIONS_FOR_ONE_PAGE_MSG = "Could not get Stations for one page";
 	private final String STATIONS_LIST_COUNT_MSG = "Could not get Stations List count";
-	
+
 	private String addMsg = " was added to DB by ";
 	private String removeMsg = " was remove from DB by ";
 	private String changeMsg = " was change in DB by ";
@@ -64,15 +65,14 @@ public class StationsManagerImpl implements StationsManager {
 	private StationsOnLineDAO stlDao;
 
 	@Autowired
-	UserNameServiceImpl userName;
+	UserNameService userName;
 
 	/**
 	 * Constructor without arguments.
 	 */
 	public StationsManagerImpl() {
 	}
-	
-	
+
 	public static StationsManager getInstance() {
 		return ManagerFactory.getManager(StationsManager.class);
 	}
@@ -86,11 +86,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.getAllEntities();
 		} catch (RuntimeException e) {
-			RuntimeException statMangExc = new StationManagerException(
-					FIND_STATIONS_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(statMangExc);
-			throw statMangExc;
+			LOGGER.error(FIND_STATIONS_MSG, e);
+			throw e;
 		}
 	}
 
@@ -103,11 +100,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.findById(id);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					FIND_STATION_BY_ID_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(FIND_STATION_BY_ID_MSG + id, e);
+			throw e;
 		}
 	}
 
@@ -118,39 +112,58 @@ public class StationsManagerImpl implements StationsManager {
 	 * 
 	 * @param stationName
 	 */
-	@Transactional
+	@Transactional(readOnly = false)
 	@Override
-	public void createStation(String stationCode, String stationName) {
+	public void createStation(Stations station) {
 
 		try {
-			Stations station = new Stations(stationCode, stationName);
 			stationDao.save(station);
+			
 			LOGGER.info(entityName + station.getStationId() + addMsg
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(CREATE_STATION_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(CREATE_STATION_MSG, e);
+			throw e;
 		}
 	}
 
+	
+	/**
+	 * Save <code>Stations</code> object to database if not exist, else
+	 * update it. <br/>
+	 * <br/>
+	 * If <code>stationId</code> = <code>null</code> than it creates new
+	 * station otherwise it finds existing one in database and updates
+	 * it.
+	 * 
+	 * @param station
+	 *            the Stations to create or update.
+	 */
 	@Transactional(readOnly = false)
 	@Override
 	public void saveOrUpdateStation(Stations station) {
+		Integer stationId = station.getStationId();
 
 		try {
 			stationDao.saveOrUpdate(station);
+			if (stationId == null) {
+				LOGGER.info(entityName + stationId + addMsg
+						+ userName.getLoggedUsername());
+
+			} else {
+				LOGGER.info(entityName + stationId + changeMsg
+						+ userName.getLoggedUsername());
+			}
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(SAVE_OR_UPDATE_STATION_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(SAVE_OR_UPDATE_STATION_MSG, e);
+			throw e;
 		}
 	}
 
 	/**
 	 * Removes Stations by Id from database
+	 * 
+	 * @param stationId - the Id of station to delete.
 	 */
 	@Transactional
 	@Override
@@ -164,10 +177,8 @@ public class StationsManagerImpl implements StationsManager {
 			LOGGER.info(entityName + stationId + removeMsg
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(REMOVE_STATION_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(REMOVE_STATION_MSG, e);
+			throw e;
 		}
 	}
 
@@ -176,25 +187,27 @@ public class StationsManagerImpl implements StationsManager {
 	 */
 	@Override
 	@Transactional
-	public void editStation(Integer stationId, String stationCode,
+	public boolean editStation(Integer stationId, String stationCode,
 			String stationName) {
+		Stations station = null;
+		station = stationDao.findById(stationId);
+		
+		if (station != null) {
+			try {
+				station.setStationCode(stationCode);
+				station.setStationName(stationName);
+				stationDao.update(station);
 
-		try {
-			Stations station = stationDao.findById(stationId);
+				LOGGER.info(entityName + station.getStationId() + changeMsg
+						+ userName.getLoggedUsername());
 
-			station.setStationCode(stationCode);
-			station.setStationName(stationName);
-			stationDao.update(station);
-
-			LOGGER.info(entityName + station.getStationId() + changeMsg
-					+ userName.getLoggedUsername());
-		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(UPDATE_STATION_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+				return true;
+			} catch (RuntimeException e) {
+				LOGGER.error(UPDATE_STATION_MSG, e);
+				throw e;
+			}
 		}
-
+		return false;
 	}
 
 	/**
@@ -205,37 +218,53 @@ public class StationsManagerImpl implements StationsManager {
 	public Stations findByStationName(String stationName) {
 
 		try {
-			return stationDao.findByName(stationName);
+			Stations station = stationDao.findByName(stationName);
+			
+			LOGGER.info(entityName + station.getStationId()
+					 + FOUND_BY_NAME_MSG + userName.getLoggedUsername());
+			
+			return station;
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					FIND_STATION_BY_NAME_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(FIND_STATION_BY_NAME_MSG, e);
+			throw e;
 		}
 	}
 
+	/**
+	 * Finds List of stations by lineName.
+	 * 
+	 * @param lineName - name of certain line.
+	 */
+	@Transactional(readOnly = true)
+	@Override
 	public List<Stations> getStationsOnCertainLine(String lineName) {
 
 		try {
 			return stationDao.findByLineName(lineName);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					FIND_STATIONS_ONCERTAIN_LINE_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(FIND_STATIONS_ONCERTAIN_LINE_MSG, e);
+			throw e;
 		}
 
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
 	public List<Stations> getStationsOnCertainLine(Integer lineId) {
-		return stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+		
+		try {
+			return stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+		} catch (RuntimeException e) {
+			LOGGER.error(FIND_STATIONS_ONCERTAIN_LINE_MSG, e);
+			throw e;
+		}
 	}
-	
+
+	@Transactional(readOnly = true)
 	@Override
 	public List<Stations> getStationsNotOnCertainLine(Integer lineId) {
-		List<Stations> existStations = stationDao.findByLineName(lineDao.findById(lineId).getLineName());
+		List<Stations> existStations = stationDao.findByLineName(lineDao
+				.findById(lineId).getLineName());
 		List<Stations> allStations = new ArrayList<Stations>();
 		for (Stations st : stationDao.getAllEntities()) {
 			if (!existStations.contains(st)) {
@@ -243,20 +272,11 @@ public class StationsManagerImpl implements StationsManager {
 			}
 		}
 		return allStations;
-		
+
 	}
 
-	@Override
-	public List<Stations> getStationsNotOnCertainLine(String lineName) {
-		List<Stations> existStations = stationDao.findByLineName(lineName);
-		List<Stations> allStations = new ArrayList<Stations>();
-		for (Stations st : stationDao.getAllEntities()) {
-			if (!existStations.contains(st)) {
-				allStations.add(st);
-			}
-		}
-		return allStations;
-	}
+	
+	/*---------------------------Methods for paging, sorting, filtering Stations------------------------------------------*/
 
 	@Transactional(readOnly = true)
 	@Override
@@ -264,11 +284,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.getStationsForLimits(firstElement, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_FOR_LIMITS_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_FOR_LIMITS_MSG, e);
+			throw e;
 		}
 	}
 
@@ -278,11 +295,8 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return getStationsForLimit((pageNumber - 1) * count, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_FOR_ONE_PAGE_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_FOR_ONE_PAGE_MSG, e);
+			throw e;
 		}
 	}
 
@@ -292,21 +306,18 @@ public class StationsManagerImpl implements StationsManager {
 		try {
 			return stationDao.getStationsListCount();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new StationManagerException(
-					STATIONS_LIST_COUNT_MSG, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(STATIONS_LIST_COUNT_MSG, e);
+			throw e;
 		}
 	}
-	
-	
+
 	@Override
 	public void validateStationListCriteria(
 			StationsCriteriaContainer stationsCriteriaContainer, Locale locale) {
-		StaticValidator.validateStationListCriteria(stationsCriteriaContainer, locale);
+		StaticValidator.validateStationListCriteria(stationsCriteriaContainer,
+				locale);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public long getStationsListCountWithCriteria(String searchString) {
@@ -347,12 +358,12 @@ public class StationsManagerImpl implements StationsManager {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Stations> getStationsForPageWithCriteria(int pageNumber, long count,
-			String searchString, String orderByParam, String orderByDirection) {
-		return getStationsForLimitWithCriteria((int) ((pageNumber - 1) * count),
-				count, searchString, orderByParam,
-				orderByDirection);
+	public List<Stations> getStationsForPageWithCriteria(int pageNumber,
+			long count, String searchString, String orderByParam,
+			String orderByDirection) {
+		return getStationsForLimitWithCriteria(
+				(int) ((pageNumber - 1) * count), count, searchString,
+				orderByParam, orderByDirection);
 	}
-
 
 }

@@ -1,7 +1,6 @@
 package com.ita.edu.softserve.propertyeditors;
 
 import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
-import static com.ita.edu.softserve.validation.TransportsValidator.*;
 
 import java.beans.PropertyEditorSupport;
 import java.text.DateFormat;
@@ -33,8 +32,7 @@ import org.springframework.util.StringUtils;
  */
 public class TimeEditor extends PropertyEditorSupport {
 
-//	private static final String CHARACTERS_LONG = "characters long";
-//	private static final String COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY = "Could not parse date: it is not exactly";
+	public static final String START_TIME_PATERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
 
 	private final DateFormat dateFormat;
 
@@ -107,7 +105,7 @@ public class TimeEditor extends PropertyEditorSupport {
 			// COULD_NOT_PARSE_DATE_IT_IS_NOT_EXACTLY
 			// + this.exactDateLength + CHARACTERS_LONG);
 			setValue(null);
-		} else if (text.matches(START_TIME_PATERN) == false) {
+		} else if (!text.matches(START_TIME_PATERN)) {
 			setValue(null);
 		} else {
 			setValue(parseStringToTime(text));

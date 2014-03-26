@@ -54,10 +54,10 @@ public class ResponsesValidator implements Validator {
 	 *            data-binding and validation errors for a specific object.
 	 */
 	private void validateResponsesText(String commentText, Errors error) {
-		if (commentText.equals("")) {
+		if (commentText.isEmpty()) {
 			error.rejectValue(COMMENT, COMMENT_REQUIRED);
 			return;
-		} else if (commentText.matches(COMMENT_PATERN) == false) {
+		} else if (!commentText.matches(COMMENT_PATERN)) {
 			error.rejectValue(COMMENT, COMMENT_MATCHER);
 		}
 	}

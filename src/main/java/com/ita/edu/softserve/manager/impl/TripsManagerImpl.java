@@ -1,9 +1,11 @@
 package com.ita.edu.softserve.manager.impl;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 
 @Service
 public class TripsManagerImpl implements TripsManager {
@@ -45,11 +49,46 @@ public class TripsManagerImpl implements TripsManager {
 	 */
 
 	private static final String SPANISH = "es";
+
 	/**
-	 * 
+	 * Error message for trip delete action
 	 */
 
-	private static final String COULD_NOT_REMOVE_TRIP = "Could not remove trip. Caused by actions of user ";
+	private static final String COULD_NOT_REMOVE_TRIP = "Could not remove trip. ";
+	
+	/**
+	 * Error message for trip edit action
+	 */
+
+	private static final String COULD_NOT_EDIT_TRIP = "Could not edit trip. ";
+
+	/**
+	 * Error message for trip add action
+	 */
+
+	private static final String COULD_NOT_ADD_TRIP = "Could not add trip. ";
+	
+
+	/**
+	 * Common logging text
+	 */
+	
+	private static final String USER_ACTION_TEXT = "Caused by actions of user ";
+	
+	/**
+	 * Success trip removal logging text
+	 */
+
+	private static final String REMOVE_TRIP = "th trip removed. ";
+	
+	/**
+	 * Success trip editing logging text
+	 */
+	
+	private static final String EDIT_TRIP = "th trip edited. ";
+	
+	
+	private static final String DATE_FORMAT_EXCEPTION = "Wrong date format. ";
 
 	@Autowired
 	private TripsDAO tripsDao;
@@ -105,8 +144,8 @@ public class TripsManagerImpl implements TripsManager {
 	public long getTripsListCriteriaPageUsingContainers(
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Integer elementIndex, Integer pageSize) {
-		Trips knownElement=null;
-		knownElement=tripsDao.findById(elementIndex);
+		Trips knownElement = null;
+		knownElement = tripsDao.findById(elementIndex);
 		long number = tripsDao.getTripsListCriteriaIndex("%"
 				+ tripsCriteriaContainer.getTransportCode() + "%", "%"
 				+ tripsCriteriaContainer.getRouteName() + "%",
@@ -116,9 +155,8 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getMinDateValue(),
 				tripsCriteriaContainer.getMaxDateValue(),
 				tripsCriteriaContainer.getOrderByParam(),
-				tripsCriteriaContainer.getOrderByDirection(),
-				knownElement);
-		return (number/pageSize)+1;
+				tripsCriteriaContainer.getOrderByDirection(), knownElement);
+		return (number / pageSize) + 1;
 	}
 
 	@Transactional(readOnly = true)
@@ -164,10 +202,10 @@ public class TripsManagerImpl implements TripsManager {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Trips getTripById(int id){
+	public Trips getTripById(int id) {
 		return tripsDao.getTripById(id);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCount() {
@@ -192,23 +230,25 @@ public class TripsManagerImpl implements TripsManager {
 		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
+		
 	@Transactional
 	@Override
-	public boolean addTripsInInterval(Locale locale, String minDate,
-			String maxDate, int transportId) {
+	public boolean addTripsWithContainer(AddTripsInfoValidationContainer container) {
 		Date startDate;
 		Date endDate;
 		try {
 			Transports transport = null;
-
-			transport = transportsDao.findById(transportId);
+			Locale locale = container.getLocaleParam();
+			transport = transportsDao.findById(Integer.parseInt(container.getTransportId()));
 			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
 					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
-				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(minDate);
-				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER.parse(maxDate);
+				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
+						.parse(container.getFrom());
+				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
+						.parse(container.getTo());
 			} else {
-				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(minDate);
-				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(maxDate);
+				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getFrom());
+				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getTo());
 			}
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
@@ -220,7 +260,61 @@ public class TripsManagerImpl implements TripsManager {
 				tripsDao.saveOrUpdate(element);
 			}
 			return true;
-		} catch (Exception e) {
+		} catch (ParseException e) {
+			RuntimeException ex = new TripsManagerException(
+					DATE_FORMAT_EXCEPTION + USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername(), e);
+			LOGGER.error(ex);
+			return false;
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TripsManagerException(
+					COULD_NOT_ADD_TRIP + USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername(), e);
+			LOGGER.error(ex);
+			return false;
+		}
+
+	}
+	
+
+	@Transactional
+	@Override
+	public boolean editTrip(Integer tripId,
+			EditTripsInfoValidationContainer container) {
+		Date startDate;
+		Locale locale = container.getLocaleParam();
+		Trips trip;
+		try {
+			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
+					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
+				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
+						.parse(container.getStartDate());
+			} else {
+				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER
+						.parse(container.getStartDate());
+			}
+			trip = Objects.requireNonNull(tripsDao.findById(tripId));
+			trip.setTransport(Objects.requireNonNull(transportsDao
+					.findById(Integer.parseInt(container.getTransportId()))));
+			trip.setRemSeatClass1(Integer.parseInt(container.getRemSeatClass1()));
+			trip.setRemSeatClass2(Integer.parseInt(container.getRemSeatClass2()));
+			trip.setRemSeatClass3(Integer.parseInt(container.getRemSeatClass3()));
+			trip.setStartDate(startDate);
+			updateTrip(trip);
+			LOGGER.info(tripId + EDIT_TRIP + USER_ACTION_TEXT
+					+ userNameService.getLoggedUsername());
+			return true;
+		} catch (ParseException e) {
+			RuntimeException ex = new TripsManagerException(
+					DATE_FORMAT_EXCEPTION + USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername(), e);
+			LOGGER.error(ex);
+			return false;
+		} catch (RuntimeException e) {
+			RuntimeException ex = new TripsManagerException(
+					COULD_NOT_EDIT_TRIP + USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername(), e);
+			LOGGER.error(ex);
 			return false;
 		}
 
@@ -281,11 +375,12 @@ public class TripsManagerImpl implements TripsManager {
 	public void removeTrip(Integer id) {
 		try {
 			tripsDao.remove(tripsDao.findById(id));
+			LOGGER.info(id + REMOVE_TRIP + USER_ACTION_TEXT
+					+ userNameService.getLoggedUsername());
 		} catch (RuntimeException e) {
 			RuntimeException ex = new TripsManagerException(
-					COULD_NOT_REMOVE_TRIP + userNameService.getLoggedUsername(),
-					e);
-			LOGGER.error(e);
+					COULD_NOT_REMOVE_TRIP + USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername(), e);
 			LOGGER.error(ex);
 			throw ex;
 		}

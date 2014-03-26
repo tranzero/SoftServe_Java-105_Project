@@ -33,14 +33,14 @@ public interface LinesManager extends BaseManager {
 	 * @param lineName
 	 *            name of the line witch must be created
 	 */
-	public void createLine(String lineName);
+	public boolean createLine(String lineName);
 
 	/**
 	 * @author MatyashPetro
 	 * @param lineName
 	 *            name of the line witch must be deleted
 	 */
-	public void deleteLine(Integer lineId);
+	public boolean deleteLine(Integer lineId);
 
 	/**
 	 * @author MatyashPetro
@@ -49,7 +49,7 @@ public interface LinesManager extends BaseManager {
 	 * @param newLineName
 	 *            new name of the line witch was updated
 	 */
-	void updateLine(Integer lineId, String newLineName);
+	public boolean updateLine(Integer lineId, String newLineName);
 
 	/**
 	 * @author MatyashPetro
