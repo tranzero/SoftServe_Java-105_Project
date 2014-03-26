@@ -55,7 +55,7 @@ public class TripsManagerImpl implements TripsManager {
 	 */
 
 	private static final String COULD_NOT_REMOVE_TRIP = "Could not remove trip. ";
-	
+
 	/**
 	 * Error message for trip edit action
 	 */
@@ -67,28 +67,30 @@ public class TripsManagerImpl implements TripsManager {
 	 */
 
 	private static final String COULD_NOT_ADD_TRIP = "Could not add trip. ";
-	
 
 	/**
 	 * Common logging text
 	 */
-	
+
 	private static final String USER_ACTION_TEXT = "Caused by actions of user ";
-	
+
 	/**
 	 * Success trip removal logging text
 	 */
 
 	private static final String REMOVE_TRIP = "th trip removed. ";
-	
+
 	/**
 	 * Success trip editing logging text
 	 */
-	
+
 	private static final String EDIT_TRIP = "th trip edited. ";
-	
-	
+
 	private static final String DATE_FORMAT_EXCEPTION = "Wrong date format. ";
+
+	private static final String SUCCESS_ADD_TRIP = "Trip for transport %d and date %s added";
+
+	private static final String DB_CONNECT_EXCEPTION = "There is a problem with DB connection (or something unexpected). ";
 
 	@Autowired
 	private TripsDAO tripsDao;
@@ -102,17 +104,33 @@ public class TripsManagerImpl implements TripsManager {
 	public TripsManagerImpl() {
 	}
 
+	private void dbException(RuntimeException e) {
+		RuntimeException ex = new TripsManagerException(DB_CONNECT_EXCEPTION
+				+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
+		LOGGER.error(ex);
+		throw ex;
+	}
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getAllTrips() {
-		return tripsDao.getAllEntities();
+		try {
+			return tripsDao.getAllEntities();
+		} catch (RuntimeException e) {
+			dbException(e);
+			return null;
+		}
 	}
 
 	@Transactional
 	@Override
 	public Trips findByTripId(Integer id) {
-
-		return tripsDao.findById(id);
+		try {
+			return tripsDao.findById(id);
+		} catch (RuntimeException e) {
+			dbException(e);
+			return null;
+		}
 
 	}
 
@@ -121,8 +139,14 @@ public class TripsManagerImpl implements TripsManager {
 	public long getTripsListCriteriaCount(String transportCode,
 			String routeName, Integer remSeatClass1, Integer remSeatClass2,
 			Integer remSeatClass3, Date minDate, Date maxDate) {
-		return tripsDao.getTripsListCriteriaCount(transportCode, routeName,
-				remSeatClass1, remSeatClass2, remSeatClass3, minDate, maxDate);
+		try {
+			return tripsDao.getTripsListCriteriaCount(transportCode, routeName,
+					remSeatClass1, remSeatClass2, remSeatClass3, minDate,
+					maxDate);
+		} catch (RuntimeException e) {
+			dbException(e);
+			return 0L;
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -144,19 +168,24 @@ public class TripsManagerImpl implements TripsManager {
 	public long getTripsListCriteriaPageUsingContainers(
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Integer elementIndex, Integer pageSize) {
-		Trips knownElement = null;
-		knownElement = tripsDao.findById(elementIndex);
-		long number = tripsDao.getTripsListCriteriaIndex("%"
-				+ tripsCriteriaContainer.getTransportCode() + "%", "%"
-				+ tripsCriteriaContainer.getRouteName() + "%",
-				tripsCriteriaContainer.getRemSeatClass1(),
-				tripsCriteriaContainer.getRemSeatClass2(),
-				tripsCriteriaContainer.getRemSeatClass3(),
-				tripsCriteriaContainer.getMinDateValue(),
-				tripsCriteriaContainer.getMaxDateValue(),
-				tripsCriteriaContainer.getOrderByParam(),
-				tripsCriteriaContainer.getOrderByDirection(), knownElement);
-		return (number / pageSize) + 1;
+		try {
+			Trips knownElement = null;
+			knownElement = tripsDao.findById(elementIndex);
+			long number = tripsDao.getTripsListCriteriaIndex("%"
+					+ tripsCriteriaContainer.getTransportCode() + "%", "%"
+					+ tripsCriteriaContainer.getRouteName() + "%",
+					tripsCriteriaContainer.getRemSeatClass1(),
+					tripsCriteriaContainer.getRemSeatClass2(),
+					tripsCriteriaContainer.getRemSeatClass3(),
+					tripsCriteriaContainer.getMinDateValue(),
+					tripsCriteriaContainer.getMaxDateValue(),
+					tripsCriteriaContainer.getOrderByParam(),
+					tripsCriteriaContainer.getOrderByDirection(), knownElement);
+			return (number / pageSize) + 1;
+		} catch (RuntimeException e) {
+			dbException(e);
+			return 0L;
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -194,22 +223,37 @@ public class TripsManagerImpl implements TripsManager {
 			String transportCode, String routeName, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date minDate,
 			Date maxDate, String orderByParam, String orderByDirection) {
-		return tripsDao
-				.getTripsListCriteria(firstElement, count, transportCode,
-						routeName, remSeatClass1, remSeatClass2, remSeatClass3,
-						minDate, maxDate, orderByParam, orderByDirection);
+		try {
+			return tripsDao.getTripsListCriteria(firstElement, count,
+					transportCode, routeName, remSeatClass1, remSeatClass2,
+					remSeatClass3, minDate, maxDate, orderByParam,
+					orderByDirection);
+		} catch (RuntimeException e) {
+			dbException(e);
+			return null;
+		}
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public Trips getTripById(int id) {
-		return tripsDao.getTripById(id);
+		try {
+			return tripsDao.getTripById(id);
+		} catch (RuntimeException e) {
+			dbException(e);
+			return null;
+		}
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCount() {
-		return tripsDao.getTripsListCount();
+		try {
+			return tripsDao.getTripsListCount();
+		} catch (RuntimeException e) {
+			dbException(e);
+			return 0L;
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -221,7 +265,12 @@ public class TripsManagerImpl implements TripsManager {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForLimit(int firstElement, int count) {
-		return tripsDao.getTripsForLimits(firstElement, count);
+		try {
+			return tripsDao.getTripsForLimits(firstElement, count);
+		} catch (RuntimeException e) {
+			dbException(e);
+			return null;
+		}
 	}
 
 	@Override
@@ -230,16 +279,17 @@ public class TripsManagerImpl implements TripsManager {
 		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
-		
 	@Transactional
 	@Override
-	public boolean addTripsWithContainer(AddTripsInfoValidationContainer container) {
+	public boolean addTripsWithContainer(
+			AddTripsInfoValidationContainer container) {
 		Date startDate;
 		Date endDate;
 		try {
 			Transports transport = null;
 			Locale locale = container.getLocaleParam();
-			transport = transportsDao.findById(Integer.parseInt(container.getTransportId()));
+			transport = transportsDao.findById(Integer.parseInt(container
+					.getTransportId()));
 			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
 					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
 				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
@@ -247,8 +297,10 @@ public class TripsManagerImpl implements TripsManager {
 				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
 						.parse(container.getTo());
 			} else {
-				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getFrom());
-				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container.getTo());
+				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER
+						.parse(container.getFrom());
+				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container
+						.getTo());
 			}
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
@@ -258,6 +310,10 @@ public class TripsManagerImpl implements TripsManager {
 					Calendar.DATE, 1), date = start.getTime()) {
 				Trips element = new Trips(transport, date);
 				tripsDao.saveOrUpdate(element);
+				LOGGER.info(String.format(SUCCESS_ADD_TRIP,
+						transport.getTransportId(), date.toString())
+						+ USER_ACTION_TEXT
+						+ userNameService.getLoggedUsername());
 			}
 			return true;
 		} catch (ParseException e) {
@@ -267,15 +323,13 @@ public class TripsManagerImpl implements TripsManager {
 			LOGGER.error(ex);
 			return false;
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TripsManagerException(
-					COULD_NOT_ADD_TRIP + USER_ACTION_TEXT
-							+ userNameService.getLoggedUsername(), e);
+			RuntimeException ex = new TripsManagerException(COULD_NOT_ADD_TRIP
+					+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
 			LOGGER.error(ex);
 			return false;
 		}
 
 	}
-	
 
 	@Transactional
 	@Override
@@ -311,9 +365,8 @@ public class TripsManagerImpl implements TripsManager {
 			LOGGER.error(ex);
 			return false;
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TripsManagerException(
-					COULD_NOT_EDIT_TRIP + USER_ACTION_TEXT
-							+ userNameService.getLoggedUsername(), e);
+			RuntimeException ex = new TripsManagerException(COULD_NOT_EDIT_TRIP
+					+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
 			LOGGER.error(ex);
 			return false;
 		}
@@ -340,7 +393,6 @@ public class TripsManagerImpl implements TripsManager {
 		if (seatType.equals(3)) {
 			tripsDao.reduceRemSeaatClass3(tripId);
 		}
-		System.out.println("reduceManager");
 	}
 
 	@Transactional
@@ -358,8 +410,6 @@ public class TripsManagerImpl implements TripsManager {
 		if (seatType.equals(3)) {
 			tripsDao.increaseRemSeaatClass3(tripId);
 		}
-
-		System.out.println("increaseManager");
 	}
 
 	public static TripsManager getInstance() {
