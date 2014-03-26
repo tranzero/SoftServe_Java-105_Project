@@ -6,10 +6,8 @@ package com.ita.edu.softserve.manager.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +71,7 @@ public class PostForMainPageManagerImplTest {
 		List<Post> expected = new ArrayList<Post>();
 		when(postDao.getAllEntities()).thenReturn(expected);
 		List<Post> actual = postManager.findPostList();
+		verify(postDao, times(1)).getAllEntities();
 		assertEquals(expected, actual);
 
 	}
@@ -86,6 +85,7 @@ public class PostForMainPageManagerImplTest {
 	public final void testFindPostListException() {
 		when(postDao.getAllEntities()).thenThrow(new RuntimeException());
 		postManager.findPostList();
+		verify(postDao, times(1)).getAllEntities();
 	}
 
 	/**
@@ -100,6 +100,9 @@ public class PostForMainPageManagerImplTest {
 		when(postDao.findByTitle(postTitleMock)).thenReturn(null);
 		isCreatedPost = postManager.createNews(postTitleMock,
 				postDescriptionMock, postImgSrcMock);
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(1)).save(new Post(postTitleMock, postDescriptionMock,
+				postImgSrcMock));
 
 		assertTrue(isCreatedPost);
 	}
@@ -115,7 +118,10 @@ public class PostForMainPageManagerImplTest {
 		boolean isCreatedPost = true;
 		isCreatedPost = postManager.createNews(postTitleMock,
 				postDescriptionMock, postImgSrcMock);
-
+		
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(0)).save(new Post(postTitleMock, postDescriptionMock,
+				postImgSrcMock));
 		assertFalse(isCreatedPost);
 	}
 
@@ -131,6 +137,9 @@ public class PostForMainPageManagerImplTest {
 				emptyArgString);
 		postManager.createNews(emptyArgString, postDescriptionMock,
 				postImgSrcMock);
+		verify(postDao, times(1)).findByTitle(emptyArgString);
+		verify(postDao, times(0)).save(new Post(emptyArgString, postDescriptionMock,
+				postImgSrcMock));
 	}
 
 	/**
@@ -144,6 +153,8 @@ public class PostForMainPageManagerImplTest {
 		when(new Post(postTitleMock, emptyArgString, postImgSrcMock))
 				.thenThrow(new IllegalArgumentException());
 		postManager.createNews(postTitleMock, emptyArgString, postImgSrcMock);
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(0)).save(new Post(postTitleMock, emptyArgString, postImgSrcMock));
 	}
 
 	/**
@@ -157,9 +168,9 @@ public class PostForMainPageManagerImplTest {
 				emptyArgString);
 		doThrow(new IllegalArgumentException()).when(post).setTitle(
 				emptyArgString);
-		// when(new Post (emptyArgString, emptyArgString,
-		// postImgSrcMock)).thenThrow(new IllegalArgumentException());
 		postManager.createNews(emptyArgString, emptyArgString, postImgSrcMock);
+		verify(postDao, times(1)).findByTitle(emptyArgString);
+		verify(postDao, times(0)).save(new Post(emptyArgString, emptyArgString, postImgSrcMock));
 	}
 
 	/**
@@ -172,7 +183,8 @@ public class PostForMainPageManagerImplTest {
 
 		boolean isDeletedPost = false;
 		isDeletedPost = postManager.removePost(postTitleMock);
-
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(1)).remove(post);
 		assertTrue(isDeletedPost);
 	}
 
@@ -186,7 +198,8 @@ public class PostForMainPageManagerImplTest {
 		boolean isDeletedPost = true;
 		when(postDao.findByTitle(postTitleMock)).thenReturn(null);
 		isDeletedPost = postManager.removePost(postTitleMock);
-
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(0)).remove(post);
 		assertFalse(isDeletedPost);
 	}
 
@@ -200,6 +213,8 @@ public class PostForMainPageManagerImplTest {
 
 		doThrow(new NullPointerException()).when(postDao).remove(post);
 		postManager.removePost(postTitleMock);
+		verify(postDao, times(1)).findByTitle(postTitleMock);
+		verify(postDao, times(1)).remove(post);
 
 	}
 
@@ -213,6 +228,8 @@ public class PostForMainPageManagerImplTest {
 
 		boolean isDeletedPost = false;
 		isDeletedPost = postManager.removeNews(postIdMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(postDao, times(1)).remove(post);
 
 		assertTrue(isDeletedPost);
 	}
@@ -228,7 +245,8 @@ public class PostForMainPageManagerImplTest {
 		boolean isDeletedPost = true;
 		when(postDao.findById(postIdMock)).thenReturn(null);
 		isDeletedPost = postManager.removeNews(postIdMock);
-
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(postDao, times(0)).remove(post);
 		assertFalse(isDeletedPost);
 	}
 
@@ -242,6 +260,8 @@ public class PostForMainPageManagerImplTest {
 
 		doThrow(new NullPointerException()).when(postDao).remove(post);
 		postManager.removeNews(postIdMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(postDao, times(1)).remove(post);
 
 	}
 
@@ -253,6 +273,8 @@ public class PostForMainPageManagerImplTest {
 	@Test
 	public final void testFindNews() {
 		Post actual = postManager.findNews(postIdMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		
 		assertEquals(post, actual);
 
 	}
@@ -267,7 +289,7 @@ public class PostForMainPageManagerImplTest {
 		when(postDao.findById(postIdMock))
 				.thenThrow(new NullPointerException());
 		postManager.findNews(postIdMock);
-
+		verify(postDao, times(1)).findById(postIdMock);
 	}
 
 	/**
@@ -284,7 +306,13 @@ public class PostForMainPageManagerImplTest {
 		doCallRealMethod().when(post).setImgSrc(postImgSrcMock);
 		isUpdatedPost = postManager.updateNews(postIdMock, postTitleMock,
 				postDescriptionMock, postImgSrcMock);
-
+		
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(post, times(1)).setDescription(postDescriptionMock);
+		verify(post, times(1)).setTitle(postTitleMock);
+		verify(post, times(1)).setDate();
+		verify(post, times(1)).setImgSrc(postImgSrcMock);
+		verify(postDao, times(1)).update(post);
 		assertTrue(isUpdatedPost);
 	}
 
@@ -299,7 +327,12 @@ public class PostForMainPageManagerImplTest {
 		when(postDao.findById(postIdMock)).thenReturn(null);
 		isUpdatedPost = postManager.updateNews(postIdMock, postTitleMock,
 				postDescriptionMock, postImgSrcMock);
-
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(post, times(0)).setDescription(postDescriptionMock);
+		verify(post, times(0)).setTitle(postTitleMock);
+		verify(post, times(0)).setDate();
+		verify(post, times(0)).setImgSrc(postImgSrcMock);
+		verify(postDao, times(0)).update(post);
 		assertFalse(isUpdatedPost);
 	}
 
@@ -314,6 +347,12 @@ public class PostForMainPageManagerImplTest {
 				emptyArgString);
 		postManager.updateNews(postIdMock, emptyArgString, postDescriptionMock,
 				postImgSrcMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(post, times(0)).setDescription(postDescriptionMock);
+		verify(post, times(1)).setTitle(emptyArgString);
+		verify(post, times(1)).setDate();
+		verify(post, times(0)).setImgSrc(postImgSrcMock);
+		verify(postDao, times(0)).update(post);
 	}
 
 	/**
@@ -327,6 +366,12 @@ public class PostForMainPageManagerImplTest {
 				emptyArgString);
 		postManager.updateNews(postIdMock, postTitleMock, emptyArgString,
 				postImgSrcMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(post, times(1)).setDescription(emptyArgString);
+		verify(post, times(1)).setTitle(postTitleMock);
+		verify(post, times(1)).setDate();
+		verify(post, times(0)).setImgSrc(postImgSrcMock);
+		verify(postDao, times(0)).update(post);
 	}
 
 	/**
@@ -343,6 +388,12 @@ public class PostForMainPageManagerImplTest {
 				emptyArgString);
 		postManager.updateNews(postIdMock, emptyArgString, emptyArgString,
 				postImgSrcMock);
+		verify(postDao, times(1)).findById(postIdMock);
+		verify(post, times(0)).setDescription(emptyArgString);
+		verify(post, times(1)).setTitle(emptyArgString);
+		verify(post, times(1)).setDate();
+		verify(post, times(0)).setImgSrc(postImgSrcMock);
+		verify(postDao, times(0)).update(post);
 	}
 
 	/**
@@ -356,6 +407,7 @@ public class PostForMainPageManagerImplTest {
 		when(postDao.getPostListCount()).thenReturn(expected);
 
 		long actual = postManager.getPostListCount();
+		verify(postDao, times(1)).getPostListCount();
 		assertEquals(expected, actual);
 	}
 
@@ -367,8 +419,8 @@ public class PostForMainPageManagerImplTest {
 	@Test(expected = RuntimeException.class)
 	public final void testGetPostListCountException() {
 		when(postDao.getPostListCount()).thenThrow(new RuntimeException());
-
 		postManager.getPostListCount();
+		verify(postDao, times(1)).getPostListCount();
 	}
 
 	/**
@@ -383,6 +435,7 @@ public class PostForMainPageManagerImplTest {
 		List<Post> expected = new ArrayList<Post>();
 		when(postDao.getPostForOnePage(from, count)).thenReturn(expected);
 		List<Post> actual = postManager.getPostForPage(from, count);
+		verify(postDao, times(1)).getPostForOnePage(from, count);
 		assertEquals(expected, actual);
 
 	}
@@ -399,6 +452,7 @@ public class PostForMainPageManagerImplTest {
 		when(postDao.getPostForOnePage(from, count)).thenThrow(
 				new RuntimeException());
 		postManager.getPostForPage(from, count);
+		verify(postDao, times(1)).getPostForOnePage(from, count);
 
 	}
 }

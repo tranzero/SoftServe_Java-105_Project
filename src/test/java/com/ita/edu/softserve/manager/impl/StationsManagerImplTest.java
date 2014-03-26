@@ -366,7 +366,7 @@ public class StationsManagerImplTest {
 				.thenReturn(expected);
 		List<Stations> actual = stationsManagerMock.getStationsForLimit(
 				firstElement, count);
-		
+
 		assertEquals(expected, actual);
 	}
 
@@ -384,7 +384,7 @@ public class StationsManagerImplTest {
 				.thenReturn(expected);
 		List<Stations> actual = stationsManagerMock.getStationsForPage(
 				firstElement, count);
-		
+
 		assertEquals(expected, actual);
 
 	}
