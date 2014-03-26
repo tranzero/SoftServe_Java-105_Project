@@ -177,9 +177,6 @@
 
 </div>
 
-<p>
-	<br>
-
 	<script>
 		firstPageData = clone(defaultGetData);
 		firstPageData.pageNumber = 1;
