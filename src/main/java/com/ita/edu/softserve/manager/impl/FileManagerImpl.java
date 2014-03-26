@@ -8,29 +8,35 @@ import java.io.OutputStream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.log4j.Logger;
 
 import com.ita.edu.softserve.manager.FileManager;
 
 @Service
 public class FileManagerImpl implements FileManager {
+	private static final Logger LOGGER = Logger
+			.getLogger(FileManagerImpl.class);
 	
 	private InputStream inputStream;
 	private OutputStream outputStream;
 	
 	@Override
-	public void deleteFile (String fileName){
+	public boolean deleteFile (String fileName){
 		try{
 		File file = new File(fileName);
 		file.delete();
+		return true;
 		}catch(Exception e){
 			 
-    		e.printStackTrace();
+    		LOGGER.error(e);
+    		
+    		throw e;
  
     	}
 	}
 	
 	@Override
-	public void createFile(String fileName, MultipartFile file){
+	public boolean createFile(String fileName, MultipartFile file){
 		try {
 			inputStream = file.getInputStream();
 
@@ -46,10 +52,12 @@ public class FileManagerImpl implements FileManager {
 				outputStream.write(bytes, 0, read);
 			}
 			outputStream.close();
+			return true;
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 }
