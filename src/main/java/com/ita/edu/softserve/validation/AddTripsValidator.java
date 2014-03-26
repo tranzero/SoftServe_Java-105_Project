@@ -3,6 +3,7 @@ package com.ita.edu.softserve.validation;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -13,6 +14,7 @@ import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 
 @Component
+@Qualifier("addTripsValidator")
 public class AddTripsValidator implements Validator {
 
 	public static final String WRONG_DATE_MIN = "from";

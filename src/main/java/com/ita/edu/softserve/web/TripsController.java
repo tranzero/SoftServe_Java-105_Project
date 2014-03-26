@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -285,9 +286,11 @@ public class TripsController {
 	private TransportsManager transportsManager;
 
 	@Autowired
+	@Qualifier("addTripsValidator")
 	private Validator addTripsValidator;
 
 	@Autowired
+	@Qualifier("editTripsValidator")
 	private Validator editTripsValidator;
 
 	/**
