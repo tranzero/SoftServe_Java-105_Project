@@ -22,6 +22,7 @@ import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
@@ -150,7 +151,7 @@ public class TripsController {
 	/**
 	 * Name for transport id in adding trips attribute
 	 */
-	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportid";
+	private static final String TRANSPORTID_ATTRIBUTE_NAME = "transportId";
 
 	/**
 	 * Name for showing transport code attribute
@@ -226,6 +227,12 @@ public class TripsController {
 	 */
 
 	private static final String TRIP_EDIT_PATH = "/editTrip/{tripId}";
+
+	/**
+	 * Constant for mapping trips edit action
+	 */
+
+	private static final String TRIP_EDIT_ACTION_PATH = "/editTripAction/{tripId}";
 
 	/**
 	 * Constant for mapping trips edit page
@@ -640,7 +647,21 @@ public class TripsController {
 
 	}
 
-	@RequestMapping(TRIP_DELETE_PATH)
+	@RequestMapping(value = TRIP_EDIT_ACTION_PATH, method = RequestMethod.POST)
+	public String editTripAction(
+			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
+			EditTripsInfoValidationContainer container, Locale locale) {
+		container.setLocaleParam(locale);
+
+		if (tripsManager.editTrip(tripId, container)) {
+			return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;
+		} else {
+			return REDIRECT_SUBSTRING + ERRORINPUT_SPRING_NAME;
+		}
+
+	}
+
+	@RequestMapping(value = TRIP_DELETE_PATH)
 	public String deleteTrip(@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId) {
 		tripsManager.removeTrip(tripId);
 		return REDIRECT_SUBSTRING + MANAGETRIPS_SPRING_NAME;

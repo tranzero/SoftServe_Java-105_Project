@@ -98,7 +98,7 @@
 		<c:forEach items="${transportsList}" var="transport">
 			<tr>
 
-				<td><input type="radio" name="transportid"
+				<td><input type="radio" name="transportId"
 					value="${transport.getTransportId()}" /></td>
 				<td align="center">${transport.getTransportCode()}</td>
 				<td align="center">${transport.getStartTime()}</td>

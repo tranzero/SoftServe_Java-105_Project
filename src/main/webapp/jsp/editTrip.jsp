@@ -117,15 +117,15 @@
 	<p>
 		<br>
 	<h2 align="center">
-		<spring:message code="label.addtrips.addtrips" />
+		<spring:message code="label.edittrips.edittrips" />
 	</h2>
 
-	<form name="trips" method="post">
+	<form action="../editTripAction/${currentTrip.getTripId()}" name="trips" method="post">
 		<p>
-			<label for="startDate"><spring:message code="label.addtrips.choosedateinterval" /></label>
+			<label for="startDate"><spring:message code="label.edittrips.choosedate" /></label>
 			<input type="text" id="startDate" name="startDate" value="${dateFormat.format(currentTrip.getStartDate())}"> 
 		<p>
-			<spring:message code="label.trips.minimalremainingseatsbyclasses" />
+			<spring:message code="label.edittrips.remainingseatsbyclasses" />
 			:
 		<p>
 			<label for="remSeatClass1">1:</label>
@@ -388,11 +388,11 @@
 					<c:forEach items="${transportsList}" var="transport">
 						<tr>
 							<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}" checked/>
 								</c:if>
 								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}"/>
 								</c:if>
 								</td>

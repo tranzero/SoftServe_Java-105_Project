@@ -99,11 +99,11 @@
 			<tr>
 
 				<td><c:if test="${currentTrip.getTransport().getTransportId() == transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}" checked/>
 								</c:if>
 								<c:if test="${currentTrip.getTransport().getTransportId() != transport.getTransportId() }">
-							<input type="radio" name="transportid"
+							<input type="radio" name="transportId"
 								value="${transport.getTransportId()}"/>
 								</c:if></td>
 				<td align="center">${transport.getTransportCode()}</td>

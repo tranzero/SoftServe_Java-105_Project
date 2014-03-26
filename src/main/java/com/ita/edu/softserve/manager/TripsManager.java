@@ -7,6 +7,7 @@ import java.util.Locale;
 import com.ita.edu.softserve.entity.Trips;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
 import com.ita.edu.softserve.validationcontainers.TripsCriteriaContainer;
+import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
 
 public interface TripsManager extends BaseManager {
 
@@ -199,5 +200,8 @@ public interface TripsManager extends BaseManager {
 			Integer elementIndex, Integer pageSize);
 
 	Trips getTripById(int id);
+
+	boolean editTrip(Integer tripId,
+			EditTripsInfoValidationContainer container);
 
 }
