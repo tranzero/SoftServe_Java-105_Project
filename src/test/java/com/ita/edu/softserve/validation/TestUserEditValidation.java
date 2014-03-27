@@ -15,7 +15,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.impl.UserManagerImpl;
