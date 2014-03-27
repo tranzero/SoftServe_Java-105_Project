@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
@@ -22,7 +23,7 @@ public class AddTripsValidator implements Validator {
 	public static final String WRONG_DATE_MESSAGE = "wrongDate=true&";
 	
 	@Autowired
-	TransportsDao transportDao;
+	TransportsManager transportManager;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -33,7 +34,7 @@ public class AddTripsValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		AddTripsInfoValidationContainer container = (AddTripsInfoValidationContainer) obj;
 		validateDatesFromContainer(container, errors);
-		ValidatorUtil.validateTransportIdString(transportDao, container.getTransportId(), errors);
+		ValidatorUtil.validateTransportIdString(transportManager, container.getTransportId(), errors);
 	}
 
 	private void validateDatesFromContainer(

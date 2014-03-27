@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import org.springframework.validation.Errors;
 
-import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.web.TripsController;
 
 /**
@@ -111,10 +111,10 @@ public final class ValidatorUtil {
 		return checkedString == null || checkedString.equals("");
 	}
 	
-	public static void validateTransportIdString(TransportsDao transportDao, String transportIdString, Errors errors){
+	public static void validateTransportIdString(TransportsManager transportsManager, String transportIdString, Errors errors){
 		try{
 			Integer transportId = Integer.parseInt(transportIdString);
-			if (transportDao.findById(transportId)== null){
+			if (transportsManager.findTransportsById(transportId)== null){
 				errors.rejectValue(WRONG_TRANSPORT_ID, WRONG_TRANSPORT_ID_MESSAGE);
 			}
 		}

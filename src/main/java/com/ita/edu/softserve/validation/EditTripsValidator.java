@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.dao.TransportsDao;
+import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
@@ -27,7 +28,7 @@ public class EditTripsValidator implements Validator {
 	
 	
 	@Autowired
-	TransportsDao transportDao;
+	TransportsManager transportManager;
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -39,7 +40,7 @@ public class EditTripsValidator implements Validator {
 		EditTripsInfoValidationContainer container = (EditTripsInfoValidationContainer) obj;
 		validateDate(container.getStartDate(), errors, container.getLocaleParam());
 		validateSeatsWithContainer(container, errors);;
-		ValidatorUtil.validateTransportIdString(transportDao, container.getTransportId(), errors);
+		ValidatorUtil.validateTransportIdString(transportManager, container.getTransportId(), errors);
 	}
 	
 	private void validateDate(String dateString, Errors errors, Locale locale){
