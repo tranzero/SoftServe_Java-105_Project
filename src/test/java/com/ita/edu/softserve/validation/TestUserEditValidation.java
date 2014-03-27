@@ -31,7 +31,7 @@ public class TestUserEditValidation {
 	private Users user;
 
 	private Errors errors;
-	
+
 	@Mock
 	private UserManagerImpl usersmanage;
 
@@ -80,41 +80,13 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("email"));
-
 	}
 
 	/**
 	 * Test method that validate password
 	 */
-
-	/*@Test
-
-	@Test
-
-	public void testHasPasswordBlack() {
-		user.setPassword(null);
-		errors = new BeanPropertyBindingResult(user, "user");
-		userEditValidator.validate(user, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("password"));
-
-
-	}*/
-
-	}
-
-
-	/**
-	 * Test method that validate role------NO
-
-	 *//*
-	@Test
+	// @Test
 	public void testHasRoleBlack() {
-
-	 */
-//	@Test
-	public void testHasRoleBlack() { 
 		user.setRole(null);
 
 		errors = new BeanPropertyBindingResult(user, "user");
@@ -122,9 +94,8 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("role"));
-
 	}
-*/
+
 	/* White box tests */
 	/**
 	 * Test for validate firstName
@@ -137,7 +108,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("firstName"));
-
 	}
 
 	/**
@@ -151,7 +121,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("lastName"));
-
 	}
 
 	/**
@@ -165,7 +134,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("email"));
-
 	}
 
 	/**
@@ -179,7 +147,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("password"));
-
 	}
 
 	/**
@@ -193,6 +160,5 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("role"));
-
 	}
 }
