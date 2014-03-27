@@ -6,8 +6,6 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.AssertFalse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +28,7 @@ import com.ita.edu.softserve.manager.UserNameService;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class UsersManagerImplTest {
+public class TestUsersManagerImpl {
 
 	@Mock
 	private UsersDAOImpl mockUsersDao;
@@ -53,9 +51,6 @@ public class UsersManagerImplTest {
 
 	@Before
 	public final void setUp() {
-		when(mockUserName.getLoggedUsername()).thenReturn("user");
-		doReturn(userIdMock).when(user).getUserId();
-		when(mockUsersDao.findByUsername(userUserName)).thenReturn(user);
 		when(mockUsersDao.findById(userIdMock)).thenReturn(user);
 	}
 
@@ -86,7 +81,7 @@ public class UsersManagerImplTest {
 
 	// --------------------------------------
 	/**
-	 * Test for method removeUser(testID)
+	 * Test for method removeUser
 	 */
 	@Test
 	public final void testRemoveUser1() {
@@ -103,7 +98,7 @@ public class UsersManagerImplTest {
 	}
 
 	/**
-	 * Test for method removeUser(testID)
+	 * Test for method removeUser
 	 */
 	@Test
 	public final void testRemoveUser2() {
@@ -123,7 +118,7 @@ public class UsersManagerImplTest {
 	}
 
 	/**
-	 * Test for method removeUser(testID)
+	 * Test for method removeUser
 	 */
 	@Test(expected = RuntimeException.class)
 	public final void testRemoveUser3() {
@@ -137,7 +132,7 @@ public class UsersManagerImplTest {
 	}
 
 	/**
-	 * Test for method updateTheUserData(user)
+	 * Test for method updateTheUserData
 	 */
 	@Test
 	public final void testUpdateUserToDB() {
@@ -161,54 +156,33 @@ public class UsersManagerImplTest {
 	 * Test for method createUser
 	 */
 	@Test
-	public final void testCreateUser1() {
+	public final void testCreateNewUser() {
 		boolean isCreatedUser = false;
 		when(mockUsersDao.findByUsername(userUserName)).thenReturn(null);
+
 		isCreatedUser = userManagerImpl.createUser(userUserName, userFirstName,
 				userLastName, userEmail, userPassword, userRole);
-		
+
 		verify(mockUsersDao, times(1)).save(any(Users.class));
 
 		assertTrue(isCreatedUser);
 	}
 
 	/**
-	 * Test for method createUser
+	 * Test for method createUser when user exists
 	 */
 	@Test
-	public final void testCreateUserWhenUserExists() {
+	public final void testNotCreateUserWhenUserExists() {
 		boolean isCreatedUser = false;
-		
+
 		when(mockUsersDao.findByUsername(userUserName)).thenReturn(user);
-		
+
 		isCreatedUser = userManagerImpl.createUser(userUserName, userFirstName,
 				userLastName, userEmail, userPassword, userRole);
-		
+
 		verify(mockUsersDao, times(0)).save(any(Users.class));
-		
+
 		assertFalse(isCreatedUser);
-		
-		
 	}
-	/**
-	 * Test for method createUser
-	 */
-	/*@Test
-	public final void testCreateUser2() {
-		final String userUsername2 = "login2";
-		final String userFirstName2 = "Roxa";
-		final String userLastName2 = "Strochik";
-		final String userEmail2 = "roxa5@mail.com";
-		final String userPassword2 = "12345";
-		final Role userRole2 = Role.REGUSER;
-
-		boolean isCreatedUser = false;
-		when(mockUsersDao.findByUsername(userUsername2)).thenReturn(null);
-		isCreatedUser = userManagerImpl.createUser(userUsername2,
-				userFirstName2, userLastName2, userEmail2, userPassword2,
-				userRole2);
-
-		assertTrue(isCreatedUser);
-	}*/
 
 }
