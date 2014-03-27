@@ -153,7 +153,7 @@ public class Stations extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(stationName).hashCode();
+		return new HashCodeBuilder().append(stationId).hashCode();
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class Stations extends BaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Stations other = (Stations) obj;
-		return new EqualsBuilder().append(stationName, other.stationName)
+		return new EqualsBuilder().append(stationId, other.stationId)
 				.isEquals();
 	}
 

@@ -22,22 +22,6 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		return Stations.class;
 	}
 
-	/**
-	 * Finds <code>Stations</code> by stationName.
-	 * 
-	 * @param stationName
-	 *            - the name of station to find.
-	 * 
-	 * @return the List of <code>Stations</code> objects.
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Stations> findByStations(String stationName) {
-		Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
-				.setParameter(1, stationName);
-
-		return query.getResultList();
-	}
 
 	/**
 	 * Finds <code>Stations</code> by name of the station.
@@ -51,6 +35,23 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		Query query = entityManager.createNamedQuery(Stations.FIND_BY_NAME)
 				.setParameter(1, stationName);
 		return (Stations) query.getSingleResult();
+	}
+	
+	/**
+	 * Finds <code>List of Stations</code> by line name.
+	 * 
+	 * @param lineName
+	 *            - the name of line.
+	 * @return the List of <code>Stations</code> objects.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stations> findByLineName(String lineName) {
+		Query query = entityManager
+				.createNamedQuery(Stations.FIND_BY_LINE_NAME).setParameter(1,
+						lineName);
+		List<Stations> list = query.getResultList();
+		return list;
 	}
 
 	/**
@@ -97,22 +98,6 @@ public class StationsDAOImpl extends AbstractDAO<Stations> implements
 		return (List<Stations>) query.getResultList();
 	}
 
-	/**
-	 * Finds <code>List of Stations</code> by line name.
-	 * 
-	 * @param lineName
-	 *            - the name of line.
-	 * @return the List of <code>Stations</code> objects.
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Stations> findByLineName(String lineName) {
-		Query query = entityManager
-				.createNamedQuery(Stations.FIND_BY_LINE_NAME).setParameter(1,
-						lineName);
-		List<Stations> list = query.getResultList();
-		return list;
-	}
 
 	/**
 	 * @param searchString

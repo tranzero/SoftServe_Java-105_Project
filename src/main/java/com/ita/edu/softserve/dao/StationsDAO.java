@@ -9,15 +9,6 @@ import com.ita.edu.softserve.entity.Stations;
  */
 public interface StationsDAO extends AbstractDAOIface<Stations> {
 
-	/**
-	 * Finds <code>Stations</code> by stationName.
-	 * 
-	 * @param stationName
-	 *            - the name of station to find.
-	 * 
-	 * @return the List of <code>Stations</code> objects.
-	 */
-	public List<Stations> findByStations(String stationName);
 
 	/**
 	 * Finds <code>Stations</code> by name of the station.
