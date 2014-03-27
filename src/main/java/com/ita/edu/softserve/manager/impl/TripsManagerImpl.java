@@ -104,11 +104,11 @@ public class TripsManagerImpl implements TripsManager {
 	public TripsManagerImpl() {
 	}
 
-	private void dbException(RuntimeException e) {
+	private RuntimeException dbException(RuntimeException e) {
 		RuntimeException ex = new TripsManagerException(DB_CONNECT_EXCEPTION
 				+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
 		LOGGER.error(ex);
-		throw ex;
+		return ex;
 	}
 
 	@Transactional(readOnly = true)
@@ -117,8 +117,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getAllEntities();
 		} catch (RuntimeException e) {
-			dbException(e);
-			return null;
+			throw dbException(e);
 		}
 	}
 
@@ -128,8 +127,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.findById(id);
 		} catch (RuntimeException e) {
-			dbException(e);
-			return null;
+			throw dbException(e);
 		}
 
 	}
@@ -144,8 +142,7 @@ public class TripsManagerImpl implements TripsManager {
 					remSeatClass1, remSeatClass2, remSeatClass3, minDate,
 					maxDate);
 		} catch (RuntimeException e) {
-			dbException(e);
-			return 0L;
+			throw dbException(e);
 		}
 	}
 
@@ -183,8 +180,7 @@ public class TripsManagerImpl implements TripsManager {
 					tripsCriteriaContainer.getOrderByDirection(), knownElement);
 			return (number / pageSize) + 1;
 		} catch (RuntimeException e) {
-			dbException(e);
-			return 0L;
+			throw dbException(e);
 		}
 	}
 
@@ -229,8 +225,7 @@ public class TripsManagerImpl implements TripsManager {
 					remSeatClass3, minDate, maxDate, orderByParam,
 					orderByDirection);
 		} catch (RuntimeException e) {
-			dbException(e);
-			return null;
+			throw dbException(e);
 		}
 	}
 
@@ -240,8 +235,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripById(id);
 		} catch (RuntimeException e) {
-			dbException(e);
-			return null;
+			throw dbException(e);
 		}
 	}
 
@@ -251,8 +245,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripsListCount();
 		} catch (RuntimeException e) {
-			dbException(e);
-			return 0L;
+			throw dbException(e);
 		}
 	}
 
@@ -268,8 +261,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripsForLimits(firstElement, count);
 		} catch (RuntimeException e) {
-			dbException(e);
-			return null;
+			throw dbException(e);
 		}
 	}
 
