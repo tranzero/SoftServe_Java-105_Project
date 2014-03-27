@@ -153,6 +153,19 @@ public class TestTransportsManagerImpl {
 
 	/**
 	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#findTransportsByCode(java.lang.String)}
+	 * .
+	 */
+	@Test(expected = RuntimeException.class)
+	public final void testFindTransportsByCodeException() {
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenThrow(
+				new RuntimeException());
+
+		transportsManagerImpl.findTransportsByCode(illegalTransportsCode);
+	}
+	
+	/**
+	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
 	 * .
 	 */
@@ -231,14 +244,11 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test()
 	public void testRemoveTransportById() {
-		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
-				transports);
-		doNothing().when(mockTransportsDaoImpl).remove(transports);
+		doNothing().when(mockTransportsDaoImpl).removeById(transportsIdMock);
 
 		transportsManagerImpl.removeTransportById(transportsIdMock);
 
-		verify(mockTransportsDaoImpl, times(1)).findById(transportsIdMock);
-		verify(mockTransportsDaoImpl, times(1)).remove(transports);
+		verify(mockTransportsDaoImpl, times(1)).removeById(transportsIdMock);
 	}
 
 	/**
@@ -248,11 +258,8 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testRemoveTransportByIdException() {
-		when(mockTransportsDaoImpl.findById(transportsIdMock)).thenReturn(
-				transports);
-
 		doThrow(new IllegalArgumentException()).when(mockTransportsDaoImpl)
-				.remove(transports);
+				.removeById(transportsIdMock);
 
 		transportsManagerImpl.removeTransportById(transportsIdMock);
 	}
@@ -294,6 +301,23 @@ public class TestTransportsManagerImpl {
 		assertEquals(expectedListOfTransports, actualListOfTransports);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(Transports)}
+	 * .
+	 */
+	@Test
+	public final void testUpdateTransportsForNull() {
+		when(mockTransportsDaoImpl.update(transports)).thenReturn(null);
+		
+		Transports expectedTransport = transportsManagerImpl
+				.findTransportsByCode(illegalTransportsCode);
+
+		verify(mockTransportsDaoImpl, times(1)).findByCode(
+				illegalTransportsCode);
+		assertNull(expectedTransport);
+	}
+	
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
@@ -365,9 +389,22 @@ public class TestTransportsManagerImpl {
 
 		verify(mockTransportsDaoImpl, times(1)).getAllEntities();
 		assertEquals(expected, actual);
+	}
 
-		// assertTrue((expected.size() == actual.size())
-		// && (expected.containsAll(actual)));
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
+	 */
+	@Test
+	public final void testGetAllTransportsForNull() {
+		when(mockTransportsDaoImpl.getAllEntities()).thenReturn(null);
+		
+		List<Transports> actual = transportsManagerImpl.getAllTransports();
+
+		verify(mockTransportsDaoImpl, times(1)).getAllEntities();
+
+		assertNull(actual);
 	}
 
 	/**
@@ -376,7 +413,7 @@ public class TestTransportsManagerImpl {
 	 * .
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void testGetAllTransportsShouldThrowNullPointerException() {
+	public final void testGetAllTransportsShouldThrowException() {
 
 		when(mockTransportsDaoImpl.getAllEntities()).thenThrow(
 				new RuntimeException());
@@ -597,7 +634,6 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test
 	public void testGetTransportsListWithContainers() {
-		// fail("Not yet implemented"); // TODO
 		PageInfoContainer container = mock(PageInfoContainerImpl.class);
 		TransportsCriteriaContainer transportCriteriaContainer = mock(TransportsCriteriaContainerImpl.class);
 
