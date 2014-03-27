@@ -1,8 +1,12 @@
 package com.ita.edu.softserve.web;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +26,7 @@ public class LoginController {
 	/**
 	 * Login page to return in the error case
 	 */
-	public static final String LOGIN_ERROR_PAGE = "/SoftServe_Java-105/login.html"; 
+	public static final String LOGIN_ERROR_PAGE = "/login.html"; 
 	
 	/**
 	 * Access denied page to return
@@ -58,7 +62,10 @@ public class LoginController {
 	 * Logout request mapping
 	 */
 	public static final String LOGOUT = "/logout";	
-		
+	
+	private static final Logger LOGGER = Logger
+			.getLogger(LoginController.class);	
+	
 	/**
 	 * Controller method for obtaining the referer page  
 	 */
@@ -74,6 +81,23 @@ public class LoginController {
 	}
 
 	/**
+	 * Controller method for obtaining the referer login page in the case of errors  
+	 */	
+	private String getLoginReferer(String referer) {
+		try {
+			URL url = new URL(referer);			
+			String path = url.getPath().substring(1);			
+			int pos = path.indexOf('/');			
+			path = path.substring(pos);			
+			return path;			
+		} catch (MalformedURLException e) {			
+			e.printStackTrace();
+			LOGGER.error(e);		
+		}
+		return referer;
+	}
+	
+	/**
 	 * Controller method for setting the referer page 
 	 * and for redirecting to login page
 	 * 	
@@ -82,9 +106,8 @@ public class LoginController {
 	 */
 	@RequestMapping(value=LOGIN)
 	public String login(HttpServletRequest request) {
-		String referer = getRefererFromRequest(request);
-//		System.out.println(referer);
-		if (!referer.contains(LOGIN_ERROR_PAGE)){		
+		String referer = getRefererFromRequest(request);		
+		if (!LOGIN_ERROR_PAGE.equals(getLoginReferer(referer))){		
 			HttpSession session = request.getSession();
 			session.setAttribute("referer", referer);
 		}			
@@ -116,7 +139,7 @@ public class LoginController {
 	 * Controller method for logout 
 	 */
 	@RequestMapping(value=LOGOUT)
-	public String logout() {		
+	public String logout() {	
 		return LOGOUT_PAGE;
  	}
 
