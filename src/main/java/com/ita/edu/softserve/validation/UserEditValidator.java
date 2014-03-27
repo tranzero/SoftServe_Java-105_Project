@@ -48,11 +48,18 @@ public class UserEditValidator implements Validator {
 	public void validate(Object obj, Errors error) {
 		Users user = (Users) obj;
 
-		validateFirstName(user.getFirstName(), error);
+		validateFirstName(user.getFirstName(), error); 
 		validateLastName(user.getLastName(), error);
 		validateEmail(user.getEmail(), error);
-		if (!user.getPassword().equals(usersmanage.findUser(user.getUserId()).getPassword())){
-			validatePassword(user.getPassword(), error);
+		validateEncodePassword(error, user);
+	}
+
+	private void validateEncodePassword(Errors error, Users user) {
+		try {
+			if(!user.getPassword().equals(usersmanage.findUser(user.getUserId()).getPassword())){
+				validatePassword(user.getPassword(), error);
+			}
+		} catch (NullPointerException e) {
 		}
 	}
 

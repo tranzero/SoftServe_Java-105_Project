@@ -1,24 +1,23 @@
 package com.ita.edu.softserve.validation;
 
-import com.ita.edu.softserve.entity.Users;
-
-import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.utils.ParseUtil;
+import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.impl.UserManagerImpl;
 
 /**
  * Class under test {}
@@ -26,17 +25,21 @@ import com.ita.edu.softserve.utils.ParseUtil;
  * @author iryna
  * 
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TestUserEditValidation {
-
-	private Validator userEditValidator;
 
 	private Users user;
 
 	private Errors errors;
+	
+	@Mock
+	private UserManagerImpl usersmanage;
+
+	@InjectMocks
+	private Validator userEditValidator = new UserEditValidator();;
 
 	@Before
 	public void setUp() {
-		userEditValidator = new UserEditValidator();
 		user = new Users();
 	}
 
@@ -83,20 +86,37 @@ public class TestUserEditValidation {
 	/**
 	 * Test method that validate password
 	 */
+
 	/*@Test
+
+	@Test
+
 	public void testHasPasswordBlack() {
+		user.setPassword(null);
 		errors = new BeanPropertyBindingResult(user, "user");
 		userEditValidator.validate(user, errors);
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("password"));
 
+
 	}*/
+
+	}
+
+
 	/**
 	 * Test method that validate role------NO
+
 	 *//*
 	@Test
 	public void testHasRoleBlack() {
+
+	 */
+//	@Test
+	public void testHasRoleBlack() { 
+		user.setRole(null);
+
 		errors = new BeanPropertyBindingResult(user, "user");
 		userEditValidator.validate(user, errors);
 
