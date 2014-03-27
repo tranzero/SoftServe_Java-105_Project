@@ -3,10 +3,7 @@ package com.ita.edu.softserve.manager.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +57,7 @@ public class LineServiceImplTests {
 		List<Lines> expected = new ArrayList<Lines>();
 		when(mockLinesDaoImpl.getAllEntities()).thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getFullLines();
+		verify(mockLinesDaoImpl, times(1)).getAllEntities();
 		assertEquals(expected, actual);
 	}
 
@@ -71,6 +69,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.getAllEntities()).thenThrow(
 				new RuntimeException());
 		linesManagerImpl.getFullLines();
+		verify(mockLinesDaoImpl, times(1)).getAllEntities();
 	}
 
 	/**
@@ -81,6 +80,7 @@ public class LineServiceImplTests {
 		Lines expected = new Lines("WTF");
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(expected);
 		Lines actual = linesManagerImpl.findByLineId(lineId);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
 		assertEquals(expected, actual);
 	}
 
@@ -92,6 +92,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.findById(lineId)).thenThrow(
 				new IllegalArgumentException());
 		linesManagerImpl.findByLineId(lineId);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
 	}
 
 	/**
@@ -102,6 +103,7 @@ public class LineServiceImplTests {
 		Lines expected = new Lines("WTF");
 		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(expected);
 		Lines actual = linesManagerImpl.findByLineName(lineName);
+		verify(mockLinesDaoImpl, times(1)).findByName(lineName);
 		assertEquals(expected, actual);
 	}
 
@@ -113,6 +115,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.findByName(lineName)).thenThrow(
 				new LinesManagerException());
 		linesManagerImpl.findByLineName(lineName);
+		verify(mockLinesDaoImpl, times(1)).findByName(lineName);
 	}
 
 	/**
@@ -123,7 +126,8 @@ public class LineServiceImplTests {
 		boolean wasCreated = false;
 		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(null);
 		wasCreated = linesManagerImpl.createLine(lineName);
-
+		verify(mockLinesDaoImpl, times(1)).findByName(lineName);
+		verify(mockLinesDaoImpl, times(1)).save(new Lines(lineName));
 		assertTrue(wasCreated);
 	}
 
@@ -134,6 +138,8 @@ public class LineServiceImplTests {
 	public final void testCreateLineException() {
 		doThrow(new IllegalArgumentException()).when(line).setLineName("");
 		linesManagerImpl.createLine("");
+		verify(mockLinesDaoImpl, times(1)).findByName(lineName);
+		verify(mockLinesDaoImpl, times(0)).save(new Lines(lineName));
 	}
 
 	/**
@@ -144,7 +150,8 @@ public class LineServiceImplTests {
 		boolean wasCreated = true;
 		when(mockLinesDaoImpl.findByName(lineName)).thenReturn(new Lines());
 		wasCreated = linesManagerImpl.createLine(lineName);
-
+		verify(mockLinesDaoImpl, times(1)).findByName(lineName);
+		verify(mockLinesDaoImpl, times(0)).save(new Lines(lineName));
 		assertFalse(wasCreated);
 	}
 
@@ -154,8 +161,10 @@ public class LineServiceImplTests {
 	@Test
 	public final void testDeleteLine() {
 		boolean wasDeleted = false;
-		when(mockLinesDaoImpl.findById(lineId)).thenReturn(new Lines());
+		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		wasDeleted = linesManagerImpl.deleteLine(lineId);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(1)).remove(line);
 		assertTrue(wasDeleted);
 	}
 
@@ -166,6 +175,8 @@ public class LineServiceImplTests {
 	public final void testDeleteLineWhenNull() {
 		boolean wasDeleted = true;
 		wasDeleted = linesManagerImpl.deleteLine(lineId);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(0)).remove(new Lines(lineName));
 		assertFalse(wasDeleted);
 	}
 
@@ -177,6 +188,8 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		doThrow(new NullPointerException()).when(mockLinesDaoImpl).remove(line);
 		linesManagerImpl.deleteLine(lineId);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(1)).remove(new Lines(lineName));
 	}
 
 	/**
@@ -187,6 +200,8 @@ public class LineServiceImplTests {
 		boolean wasUpdated = false;
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		wasUpdated = linesManagerImpl.updateLine(lineId, lineName);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(1)).update(line);
 		assertTrue(wasUpdated);
 	}
 
@@ -198,6 +213,8 @@ public class LineServiceImplTests {
 		boolean wasUpdated = true;
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(null);
 		wasUpdated = linesManagerImpl.updateLine(lineId, lineName);
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(0)).update(new Lines(lineName));
 		assertFalse(wasUpdated);
 	}
 
@@ -209,6 +226,8 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.findById(lineId)).thenReturn(line);
 		doThrow(new IllegalArgumentException()).when(line).setLineName("");
 		linesManagerImpl.updateLine(lineId, "");
+		verify(mockLinesDaoImpl, times(1)).findById(lineId);
+		verify(mockLinesDaoImpl, times(0)).update(new Lines(lineName));
 	}
 
 	/**
@@ -219,6 +238,7 @@ public class LineServiceImplTests {
 		long expected = 5;
 		when(mockLinesDaoImpl.getAllLinesCount()).thenReturn(expected);
 		long actual = linesManagerImpl.getAllLinesCount();
+		verify(mockLinesDaoImpl, times(1)).getAllLinesCount();
 		assertEquals(expected, actual);
 	}
 
@@ -230,6 +250,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.getAllLinesCount()).thenThrow(
 				new RuntimeException());
 		linesManagerImpl.getAllLinesCount();
+		verify(mockLinesDaoImpl, times(1)).getAllLinesCount();
 	}
 
 	/**
@@ -247,6 +268,8 @@ public class LineServiceImplTests {
 						sortOrder)).thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getAllLinesForLimit(firstElement,
 				count, sortOrder);
+		verify(mockLinesDaoImpl, times(1)).getAllLinesForLimits(firstElement, count,
+				sortOrder);
 		assertEquals(expected, actual);
 	}
 
@@ -265,6 +288,8 @@ public class LineServiceImplTests {
 						sortOrder)).thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getAllLinesForPage(firstElement,
 				count, sortOrder);
+		verify(mockLinesDaoImpl, times(0)).getAllLinesForLimits(firstElement, count,
+				sortOrder);
 		assertEquals(expected, actual);
 
 	}
@@ -276,6 +301,7 @@ public class LineServiceImplTests {
 				expected);
 		List<Lines> actual = linesManagerImpl
 				.getLinesByStationName(stationName);
+		verify(mockLinesDaoImpl, times(1)).getLinesByStationName(stationName);
 		assertEquals(expected, actual);
 	}
 
@@ -285,6 +311,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.getLinesByStationNameCount(stationName))
 				.thenReturn(expected);
 		long actual = linesManagerImpl.getLinesByStationCount(stationName);
+		verify(mockLinesDaoImpl, times(1)).getLinesByStationNameCount(stationName);
 		assertEquals(expected, actual);
 	}
 
@@ -293,6 +320,7 @@ public class LineServiceImplTests {
 		when(mockLinesDaoImpl.getLinesByStationNameCount(stationName))
 				.thenThrow(new RuntimeException());
 		linesManagerImpl.getLinesByStationCount(stationName);
+		verify(mockLinesDaoImpl, times(1)).getLinesByStationNameCount(stationName);
 	}
 
 	@Test
@@ -306,6 +334,8 @@ public class LineServiceImplTests {
 				mockLinesDaoImpl.getLinesByStNameForLimits(stationName,
 						firstElement, count, sortOrder)).thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getLinesByStNameForLimit(stationName, firstElement, count, sortOrder);
+		verify(mockLinesDaoImpl, times(1)).getLinesByStNameForLimits(stationName,
+				firstElement, count, sortOrder);
 		assertEquals(expected, actual);
 	}
 	
@@ -320,6 +350,7 @@ public class LineServiceImplTests {
 				mockLinesDaoImpl.getLinesByStNameForLimits(stationName,
 						firstElement, count, sortOrder)).thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getLinesByStNameForPage(stationName, firstElement, count, sortOrder);
+		verify(mockLinesDaoImpl, times(0)).getLinesByStNameForLimits(stationName, firstElement, count, sortOrder);
 		assertEquals(expected, actual);
 	}
 	
@@ -337,7 +368,8 @@ public class LineServiceImplTests {
 				.thenReturn(expected);
 		List<Lines> actual = linesManagerImpl.getLinesByTwoStForPage(
 				stationName, stationName, firstElement, count, sortOrder);
-
+		verify(mockLinesDaoImpl, times(0)).getLinesByTwoStForLimits(stationName,
+				stationName, firstElement, count, sortOrder);
 		assertEquals(expected, actual);
 	}
 
