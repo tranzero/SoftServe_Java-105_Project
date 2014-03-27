@@ -17,7 +17,6 @@ import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.impl.TransportTravel;
 import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 
-
 /**
  * @author Roman
  */
@@ -48,8 +47,8 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		}
 	}
 
-	
-	private void setPassValue(Query q, String orderByCriteria, Transports knownElement){
+	private void setPassValue(Query q, String orderByCriteria,
+			Transports knownElement) {
 		Map<Integer, Object> sortElementMap = new HashMap<Integer, Object>();
 		int i = 0;
 		int timeElement;
@@ -60,19 +59,18 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		sortElementMap.put(i++, knownElement.getSeatclass2());
 		sortElementMap.put(i++, knownElement.getSeatclass3());
 		sortElementMap.put(i++, knownElement.getGenPrice());
-		timeElement=i;
+		timeElement = i;
 		sortElementMap.put(i++, knownElement.getStartTime());
 		if (SORT_ORDER_MAP.get(orderByCriteria) == timeElement) {
-			q.setParameter(
-					Transports.PASSED_VALUE_NAME,
-					(Time) sortElementMap.get(SORT_ORDER_MAP.get(orderByCriteria)),
+			q.setParameter(Transports.PASSED_VALUE_NAME, (Time) sortElementMap
+					.get(SORT_ORDER_MAP.get(orderByCriteria)),
 					TemporalType.TIME);
 		} else {
-			q.setParameter(
-					Transports.PASSED_VALUE_NAME,
+			q.setParameter(Transports.PASSED_VALUE_NAME,
 					sortElementMap.get(SORT_ORDER_MAP.get(orderByCriteria)));
 		}
 	}
+
 	/**
 	 * @return the type Class of <code>Transports</code> object class.
 	 */
@@ -129,6 +127,21 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		}
 	}
 
+	/**
+	 * Removes <code>Transports</code> by Id from database.
+	 * 
+	 * @param id
+	 *            the Transports Id
+	 */
+	@Override
+	public void removeById(Integer id) {
+		Transports transports = findById(id);
+
+		if (transports != null) {
+			remove(transports);
+		}
+	}
+
 	/*---------------------------for transport paging sorting filtering------------------------------------------*/
 
 	/**
@@ -166,9 +179,11 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 			Double price, String orderByCriteria, String orderByDirection) {
 
 		Query query = entityManager
-				.createQuery(Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
-						+ orderByCriteria + " "	+ orderByDirection								
-						+ Transports.GENERAL_ORDER_PART	+ orderByDirection)
+				.createQuery(
+						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
+								+ orderByCriteria + " " + orderByDirection
+								+ Transports.GENERAL_ORDER_PART
+								+ orderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
 				.setParameter(Transports.ROUTE_NAME_NAME, routeName)
 				.setParameter(Transports.ROUTE_CODE_NAME, routeCode)
@@ -182,7 +197,9 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 	}
 
 	/**
-	 * Finds the number of <code>Transports</code> by parameters and return it quantity.
+	 * Finds the number of <code>Transports</code> by parameters and return it
+	 * quantity.
+	 * 
 	 * @param transportCode
 	 *            the transports code for matching
 	 * @param routeName
@@ -229,9 +246,7 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 		Query query = entityManager
 				.createQuery(
 						Transports.FIND_TRANSPORTS_FOR_ADD_TRIPS_QUERY
-								+ orderByCriteria
-								+ " "
-								+ orderByDirection
+								+ orderByCriteria + " " + orderByDirection
 								+ Transports.GENERAL_ORDER_PART
 								+ orderByDirection)
 				.setParameter(Transports.TRANSPORT_CODE_NAME, transportCode)
@@ -287,7 +302,8 @@ public class TransportsDaoImpl extends AbstractDAO<Transports> implements
 				.setParameter(Transports.SEAT_CLASS2_NAME, seatClass2)
 				.setParameter(Transports.SEAT_CLASS3_NAME, seatClass3)
 				.setParameter(Transports.GEN_PRICE_NAME, price)
-				.setParameter(Transports.PASSED_ID_NAME, knownElement.getTransportId());
+				.setParameter(Transports.PASSED_ID_NAME,
+						knownElement.getTransportId());
 		setPassValue(q, orderByCriteria, knownElement);
 		result = (long) find(q);
 		return result;
