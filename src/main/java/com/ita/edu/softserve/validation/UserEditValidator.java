@@ -26,11 +26,13 @@ public class UserEditValidator implements Validator {
 	private static final String LASTNAME = "lastName";
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";
+	private static final String CONFIRM_PASSWORD = "confirmPassword";
 
 	private static final String USER_FIRSTNAME_MATCHER = "msg.user.firstName.matcher";
 	private static final String USER_LASTNAME_MATCHER = "msg.user.lastName.matcher";
 	private static final String USER_EMAIL_MATCHER = "msg.user.email.matcher";
 	private static final String USER_PASSWORD_MATCHER = "msg.user.password.matcher";
+	private static final String PASSWORD_DOES_NOT_MATCH = "msg.user.password.notmather";
 
 	@Autowired
 	private UserManager usersmanage;
@@ -65,7 +67,8 @@ public class UserEditValidator implements Validator {
 			if (!user.getPassword().equals(
 					usersmanage.findUser(user.getUserId()).getPassword())) {
 
-				validatePassword(user.getPassword(), error);
+				validatePassword(user.getPassword(), user.getConfirmPassword(),
+						error);
 			}
 		} catch (NullPointerException e) {
 		}
@@ -122,13 +125,18 @@ public class UserEditValidator implements Validator {
 	 * @param password
 	 * @param error
 	 */
-	private void validatePassword(String password, Errors error) {
+	private void validatePassword(String password, String confirmPassword,
+			Errors error) {
 		if (password == null || password.isEmpty()) {
 			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
 
 		} else if (!password.matches(USER_PASSWORD_PATERN)) {
 			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
+			
+		} else if (!password.equals(confirmPassword)) {
+			error.rejectValue(CONFIRM_PASSWORD, PASSWORD_DOES_NOT_MATCH);
 		}
+
 	}
 
 }
