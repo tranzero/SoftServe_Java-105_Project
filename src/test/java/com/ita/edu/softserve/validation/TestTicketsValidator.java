@@ -22,17 +22,14 @@ import com.ita.edu.softserve.entity.Tickets;
 public class TestTicketsValidator {
 
 	private static final String TICKET_OBJECT_NAME = "ticket";
-
-	private static final String CUSTOMER_LAST_NAME_VALUE = "customerLastName";
-
-	private static final String WRONG_CUSTOMER_LAST_NAME_VALUE = "!!!last@Name***";
-
+	
 	private static final String CUSTOMER_FIRST_NAME_VALUE = "customerFirstName";
-
+	private static final String CUSTOMER_LAST_NAME_VALUE = "customerLastName";
+	
 	private static final String WRONG_CUSTOMER_FIRST_NAME_VALUE = "!!!first@Name***";
+	private static final String WRONG_CUSTOMER_LAST_NAME_VALUE = "!!!last@Name***";
 	
 	private static final String MOCK_CUSTOMER_FIRST_NAME = "Andryy";
-	
 	private static final String MOCK_CUSTOMER_LAST_NAME = "Kisilov";
 
 	private TicketValidator ticketValidator;

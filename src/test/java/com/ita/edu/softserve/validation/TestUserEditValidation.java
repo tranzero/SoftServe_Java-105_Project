@@ -1,42 +1,52 @@
 package com.ita.edu.softserve.validation;
 
-import com.ita.edu.softserve.entity.Users;
-
-import static com.ita.edu.softserve.utils.ParseUtil.parseStringToTime;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Role;
-import com.ita.edu.softserve.utils.ParseUtil;
+import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.manager.UserManager;
+import com.ita.edu.softserve.manager.impl.UserManagerImpl;
 
 /**
- * Class under test {}
+ * Test class for UserEditValidator
  * 
  * @author iryna
  * 
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TestUserEditValidation {
-
-	private Validator userEditValidator;
 
 	private Users user;
 
 	private Errors errors;
 
+	private static final String userFirstName = "Anna";
+	private static final String userLastName = "Krachkovska";
+	private static final String userEmail = "user45@mail.com";
+	private static final String userPassword = "12345";
+
+	private static final String USER_OBJECT_NAME = "user";
+	@Mock
+	private UserManagerImpl usersmanage;
+
+	@InjectMocks
+	private Validator userEditValidator = new UserEditValidator();;
+
 	@Before
 	public void setUp() {
-		userEditValidator = new UserEditValidator();
 		user = new Users();
 	}
 
@@ -51,7 +61,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("firstName"));
-
 	}
 
 	/**
@@ -64,7 +73,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("lastName"));
-
 	}
 
 	/**
@@ -77,33 +85,52 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("email"));
-
 	}
 
 	/**
 	 * Test method that validate password
 	 */
+	// @Test
+	/*
+	 * public void testHasRoleBlack() { user.setRole(null);
+	 * 
+	 * errors = new BeanPropertyBindingResult(user, "user");
+	 * userEditValidator.validate(user, errors);
+	 * 
+	 * assertTrue(errors.hasErrors());
+	 * assertNotNull(errors.getFieldError("role")); }
+	 */
+
+	/**
+	 * Test verify if user with valid arguments not has erros
+	 */
 	@Test
-	public void testHasPasswordBlack() {
-		errors = new BeanPropertyBindingResult(user, "user");
+	public void testUserEditValidateWithValidArguments() {
+		user.setFirstName(userFirstName);
+		user.setLastName(userLastName);
+		user.setEmail(userEmail);
+		user.setPassword(userPassword);
+
+		errors = new BeanPropertyBindingResult(user, USER_OBJECT_NAME);
 		userEditValidator.validate(user, errors);
 
-		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("password"));
-
+		assertFalse(errors.hasErrors());
 	}
 
 	/**
-	 * Test method that validate role------NO
+	 * Test verify if user with not valid arguments has erros
 	 */
 	@Test
-	public void testHasRoleBlack() {
-		errors = new BeanPropertyBindingResult(user, "user");
+	public void testUserEditValidateWithNotValidArguments() {
+		user.setFirstName("Roxana7");
+		user.setLastName(userLastName);
+		user.setEmail(userEmail);
+		user.setPassword("18");
+
+		errors = new BeanPropertyBindingResult(user, USER_OBJECT_NAME);
 		userEditValidator.validate(user, errors);
 
 		assertTrue(errors.hasErrors());
-		assertNotNull(errors.getFieldError("role"));
-
 	}
 
 	/* White box tests */
@@ -118,7 +145,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("firstName"));
-
 	}
 
 	/**
@@ -132,7 +158,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("lastName"));
-
 	}
 
 	/**
@@ -146,7 +171,6 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("email"));
-
 	}
 
 	/**
@@ -160,20 +184,17 @@ public class TestUserEditValidation {
 
 		assertTrue(errors.hasErrors());
 		assertNull(errors.getFieldError("password"));
-
 	}
 
 	/**
 	 * Test for validate role
 	 */
-	@Test
-	public void testHasRole() {
-		user.setRole(Role.ADMIN);
-		errors = new BeanPropertyBindingResult(user, "user");
-		userEditValidator.validate(user, errors);
-
-		assertTrue(errors.hasErrors());
-		assertNull(errors.getFieldError("role"));
-
-	}
+	/*
+	 * @Test public void testHasRole() { user.setRole(Role.ADMIN); errors = new
+	 * BeanPropertyBindingResult(user, "user"); userEditValidator.validate(user,
+	 * errors);
+	 * 
+	 * assertTrue(errors.hasErrors()); assertNull(errors.getFieldError("role"));
+	 * }
+	 */
 }

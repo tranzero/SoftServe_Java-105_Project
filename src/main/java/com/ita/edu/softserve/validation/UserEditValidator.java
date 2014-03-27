@@ -34,7 +34,7 @@ public class UserEditValidator implements Validator {
 
 	@Autowired
 	private UserManager usersmanage;
-	
+
 	/**
 	 * This Validator validates Users instance
 	 */
@@ -51,8 +51,23 @@ public class UserEditValidator implements Validator {
 		validateFirstName(user.getFirstName(), error);
 		validateLastName(user.getLastName(), error);
 		validateEmail(user.getEmail(), error);
-		if (!user.getPassword().equals(usersmanage.findUser(user.getUserId()).getPassword())){
-			validatePassword(user.getPassword(), error);
+		validateEncodePassword(error, user);
+	}
+
+	/**
+	 * Method that verify encode of password
+	 * 
+	 * @param error
+	 * @param user
+	 */
+	private void validateEncodePassword(Errors error, Users user) {
+		try {
+			if (!user.getPassword().equals(
+					usersmanage.findUser(user.getUserId()).getPassword())) {
+				
+				validatePassword(user.getPassword(), error);
+			}
+		} catch (NullPointerException e) {
 		}
 	}
 
@@ -77,7 +92,7 @@ public class UserEditValidator implements Validator {
 	 * @param lastName
 	 * @param error
 	 */
-	private void validateLastName(String lastName, Errors error) {		
+	private void validateLastName(String lastName, Errors error) {
 		if (lastName == null || lastName.isEmpty()) {
 			error.rejectValue(LASTNAME, USER_LASTNAME_MATCHER);
 

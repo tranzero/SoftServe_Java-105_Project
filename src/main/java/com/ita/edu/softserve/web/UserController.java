@@ -45,7 +45,7 @@ public class UserController {
 
 	@Autowired
 	private CustomPasswordEncoder customPasswordEncoder;
-	
+
 	/**
 	 * Update user to DB - RequestMethod.GET
 	 * 
@@ -82,8 +82,8 @@ public class UserController {
 			modelMap.put("user", user);
 			return "userEdit";
 		}
+		customPasswordEncoder.encodePassword(user);
 		usersManager.updateTheUserData(user);
-		customPasswordEncoder.encodePassword(user);	
 		return "redirect:/userlist";
 	}
 
