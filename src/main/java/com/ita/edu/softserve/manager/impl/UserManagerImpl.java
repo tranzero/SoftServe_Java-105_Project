@@ -115,7 +115,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Find user by username
+	 * Find user by userName
 	 */
 	@Override
 	@Transactional
@@ -127,14 +127,6 @@ public class UserManagerImpl implements UserManager {
 			LOGGER.error(USER_DOES_NOT_EXIST, e);
 			throw e;
 		}
-
-		/*
-		 * catch (NoResultException e) {
-		 * System.out.println("User does not exist!"); }
-		 * 
-		 * 
-		 * return null;
-		 */
 	}
 
 	/**
@@ -283,21 +275,4 @@ public class UserManagerImpl implements UserManager {
 		}
 	}
 
-	/**
-	 * Update user -(for userEditData1.jsp)-
-	 */
-	/*
-	 * @Override
-	 * 
-	 * @Transactional public void updateUser(Integer userId, String firstName,
-	 * String lastName, String email, String password, Role role) { try { Users
-	 * user = userDao.findById(userId);
-	 * 
-	 * user.setFirstName(firstName); user.setLastName(lastName);
-	 * user.setEmail(email); user.setPassword(password); user.setRole(role);
-	 * 
-	 * userDao.update(user); } catch (RuntimeException e) { RuntimeException ex
-	 * = new UsersManagerExeption( COULD_NOT_UPDATE_USER, e); LOGGER.error(e);
-	 * LOGGER.error(ex); throw ex; } }
-	 */
 }

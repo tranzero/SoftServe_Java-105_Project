@@ -52,7 +52,7 @@ public class UserControllerPg {
 
 	@Autowired
 	Validator userEditValidator;
-	
+
 	@Autowired
 	private CustomPasswordEncoder customPasswordEncoder;
 
@@ -92,7 +92,7 @@ public class UserControllerPg {
 			modelMap.put("user", user);
 			return "userEdit2";
 		}
-		customPasswordEncoder.encodePassword(user);	
+		customPasswordEncoder.encodePassword(user);
 		usersManager.updateTheUserData(user);
 		return "redirect:/userlist2";
 	}
@@ -134,7 +134,6 @@ public class UserControllerPg {
 			modelMap.put(errorMsgKey, e.getMessage());
 			return resultOut;
 		}
-
 	}
 
 	/**
