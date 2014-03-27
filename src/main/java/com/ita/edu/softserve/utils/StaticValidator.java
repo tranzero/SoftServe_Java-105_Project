@@ -41,14 +41,14 @@ public class StaticValidator {
 	 * format
 	 */
 
-	private static final String MIN_DATE_STRING = "01/01/1900";
+	public static final String MIN_DATE_STRING = "01/01/1900";
 
 	/**
 	 * String for representation of maximal available date in default date
 	 * format
 	 */
 
-	private static final String MAX_DATE_STRING = "12/31/2100";
+	public static final String MAX_DATE_STRING = "12/31/2100";
 
 	/**
 	 * Validates paging info

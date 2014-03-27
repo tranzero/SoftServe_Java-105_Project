@@ -1,6 +1,7 @@
 package com.ita.edu.softserve.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -292,7 +293,7 @@ public class Trips extends BaseEntity {
 	public Trips(Transports transport, Integer remSeatClass1,
 			Integer remSeatClass2, Integer remSeatClass3, Date startDate) {
 		super();
-		this.transport = transport;
+		this.transport = Objects.requireNonNull(transport);
 		this.remSeatClass1 = remSeatClass1;
 		this.remSeatClass2 = remSeatClass2;
 		this.remSeatClass3 = remSeatClass3;
@@ -310,7 +311,8 @@ public class Trips extends BaseEntity {
 
 	public Trips(Transports transport, Date startDate) {
 		super();
-		this.transport = transport;
+		
+		this.transport =  Objects.requireNonNull(transport);
 		this.remSeatClass1 = transport.getSeatclass1();
 		this.remSeatClass2 = transport.getSeatclass2();
 		this.remSeatClass3 = transport.getSeatclass3();
@@ -336,7 +338,7 @@ public class Trips extends BaseEntity {
 	 *            the transportId to set
 	 */
 	public void setTransport(Transports transport) {
-		this.transport = transport;
+		this.transport = Objects.requireNonNull(transport);
 	}
 
 	/**

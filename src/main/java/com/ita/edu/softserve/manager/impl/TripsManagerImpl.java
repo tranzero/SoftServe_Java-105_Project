@@ -317,7 +317,8 @@ public class TripsManagerImpl implements TripsManager {
 		Locale locale = container.getLocaleParam();
 		Trips trip;
 		try {
-			startDate = DateUtil.parseLocalDate(container.getStartDate(), locale);
+			startDate = DateUtil.parseLocalDate(container.getStartDate(),
+					locale);
 			trip = Objects.requireNonNull(tripsDao.findById(tripId));
 			trip.setTransport(Objects.requireNonNull(transportsDao
 					.findById(Integer.parseInt(container.getTransportId()))));
@@ -341,7 +342,11 @@ public class TripsManagerImpl implements TripsManager {
 
 	@Override
 	public void updateTrip(Trips trip) {
-		tripsDao.saveOrUpdate(trip);
+		try {
+			tripsDao.saveOrUpdate(trip);
+		} catch (RuntimeException e) {
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
+		}
 	}
 
 	@Transactional
@@ -376,10 +381,6 @@ public class TripsManagerImpl implements TripsManager {
 		if (seatType.equals(3)) {
 			tripsDao.increaseRemSeaatClass3(tripId);
 		}
-	}
-
-	public static TripsManager getInstance() {
-		return ManagerFactory.getManager(TripsManager.class);
 	}
 
 	/**
