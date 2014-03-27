@@ -132,11 +132,10 @@ public class UserEditValidator implements Validator {
 
 		} else if (!password.matches(USER_PASSWORD_PATERN)) {
 			error.rejectValue(PASSWORD, USER_PASSWORD_MATCHER);
-			
+
 		} else if (!password.equals(confirmPassword)) {
 			error.rejectValue(CONFIRM_PASSWORD, PASSWORD_DOES_NOT_MATCH);
 		}
-
 	}
 
 }

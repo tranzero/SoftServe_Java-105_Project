@@ -64,13 +64,10 @@ public class UserController {
 	/**
 	 * Update user to DB - RequestMethod.POST
 	 * 
-	 * @param userId
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param parole
-	 * @param role
-	 * @return userEdit
+	 * @param user
+	 * @param bindingResult
+	 * @param modelMap
+	 * @return
 	 */
 	@RequestMapping(value = "/userEdit/userEdit.htm", method = RequestMethod.POST)
 	public String updateUserToDB(@ModelAttribute("user") Users user,
