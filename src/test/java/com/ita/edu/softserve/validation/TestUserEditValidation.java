@@ -15,7 +15,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
 import com.ita.edu.softserve.manager.impl.UserManagerImpl;
@@ -86,20 +85,6 @@ public class TestUserEditValidation {
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("email"));
 	}
-
-	/**
-	 * Test method that validate password
-	 */
-	// @Test
-	/*
-	 * public void testHasRoleBlack() { user.setRole(null);
-	 * 
-	 * errors = new BeanPropertyBindingResult(user, "user");
-	 * userEditValidator.validate(user, errors);
-	 * 
-	 * assertTrue(errors.hasErrors());
-	 * assertNotNull(errors.getFieldError("role")); }
-	 */
 
 	/**
 	 * Test verify if user with valid arguments not has erros
@@ -186,15 +171,4 @@ public class TestUserEditValidation {
 		assertNull(errors.getFieldError("password"));
 	}
 
-	/**
-	 * Test for validate role
-	 */
-	/*
-	 * @Test public void testHasRole() { user.setRole(Role.ADMIN); errors = new
-	 * BeanPropertyBindingResult(user, "user"); userEditValidator.validate(user,
-	 * errors);
-	 * 
-	 * assertTrue(errors.hasErrors()); assertNull(errors.getFieldError("role"));
-	 * }
-	 */
 }

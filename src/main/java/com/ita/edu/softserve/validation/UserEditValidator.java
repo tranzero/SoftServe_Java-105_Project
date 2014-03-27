@@ -43,7 +43,7 @@ public class UserEditValidator implements Validator {
 	}
 
 	/**
-	 * Method that provide validation for Users objects.
+	 * Method that provide validation for Users objects
 	 */
 	public void validate(Object obj, Errors error) {
 		Users user = (Users) obj;
@@ -64,7 +64,7 @@ public class UserEditValidator implements Validator {
 		try {
 			if (!user.getPassword().equals(
 					usersmanage.findUser(user.getUserId()).getPassword())) {
-				
+
 				validatePassword(user.getPassword(), error);
 			}
 		} catch (NullPointerException e) {
