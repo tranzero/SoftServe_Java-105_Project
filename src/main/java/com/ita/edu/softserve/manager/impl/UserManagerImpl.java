@@ -127,6 +127,7 @@ public class UserManagerImpl implements UserManager {
 			LOGGER.error(USER_DOES_NOT_EXIST, e);
 			throw e;
 		}
+
 		/*
 		 * catch (NoResultException e) {
 		 * System.out.println("User does not exist!"); }

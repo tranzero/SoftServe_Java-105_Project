@@ -60,7 +60,7 @@ public class UsersManagerImplTest {
 	}
 
 	/**
-	 * Test for method findAllUsers()
+	 * Test for method findAllUsers().
 	 */
 	@Test(expected = RuntimeException.class)
 	public final void testFindAllUsersException() {

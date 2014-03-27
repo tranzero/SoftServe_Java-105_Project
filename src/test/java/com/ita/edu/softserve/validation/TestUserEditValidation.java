@@ -83,7 +83,7 @@ public class TestUserEditValidation {
 	/**
 	 * Test method that validate password
 	 */
-	@Test
+	/*@Test
 	public void testHasPasswordBlack() {
 		errors = new BeanPropertyBindingResult(user, "user");
 		userEditValidator.validate(user, errors);
@@ -91,11 +91,10 @@ public class TestUserEditValidation {
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError("password"));
 
-	}
-
+	}*/
 	/**
 	 * Test method that validate role------NO
-	 */
+	 *//*
 	@Test
 	public void testHasRoleBlack() {
 		errors = new BeanPropertyBindingResult(user, "user");
@@ -105,7 +104,7 @@ public class TestUserEditValidation {
 		assertNotNull(errors.getFieldError("role"));
 
 	}
-
+*/
 	/* White box tests */
 	/**
 	 * Test for validate firstName
