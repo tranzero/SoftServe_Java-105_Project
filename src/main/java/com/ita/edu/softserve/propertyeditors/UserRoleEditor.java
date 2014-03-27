@@ -20,7 +20,6 @@ public class UserRoleEditor extends PropertyEditorSupport {
 	@Override
 	public String getAsText() {
 		Role valueOfRole = (Role) getValue();
-		// return (valueOfRole != null ? valueOfRole.getDescription() : "");
 		return (valueOfRole != null ? valueOfRole.name() : "");
 	}
 

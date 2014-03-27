@@ -56,7 +56,11 @@
 				<label> <spring:message code="label.users.role" /><em
 					class="star">*</em>:
 				</label>
-				<form:input type="text" path="role" onfocus="checkpostal()" />
+				<form:select id="role" path="role" class="selectRole">
+					<option value="ADMIN"><label> <spring:message code="label.admin" /></option>
+					<option value="MANAGER"><label> <spring:message code="label.manager" /></option>
+					<option value="REGUSER"><label> <spring:message code="label.reguser" /></option>
+				</form:select>				
 				<form:errors path="role" cssClass="error" />
 			</div>
 			<p>
