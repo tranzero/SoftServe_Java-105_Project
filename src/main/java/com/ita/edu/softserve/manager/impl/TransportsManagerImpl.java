@@ -36,22 +36,22 @@ public class TransportsManagerImpl implements TransportsManager {
 	 */
 	private String entityName = Transports.class.getSimpleName() + " with Id=";
 
-	private final String addMessage = " was added to DB by ";
-	private final String removeMessage = " was remove from DB by ";
-	private final String wasFoundMessage = " was fond by ";
-	private final String wasFoundByCodeMessage = " was fond by code by ";
-	private final String wasUpdatedMessage = " was updated by ";
-	private final String getAllTransportsMessage = "Seccesfuly get list of Transports";
+	private static final String ADD_MESSAGE = " was added to DB by ";
+	private static final String REMOVE_MESSAGE = " was remove from DB by ";
+	private static final String WAS_FOUND_MESSAGE = " was fond by ";
+	private static final String WAS_FOUND_BY_CODE_MESSAGE = " was fond by code by ";
+	private static final String WAS_UPDATED_MESSAGE = " was updated by ";
+	private static final String GET_ALL_TRANSPORTS_MESSAGE = "Seccesfuly get list of Transports";
 
-	private final String findTransportsMessage = "Could not find Transports by ID=";
-	private final String findTransportsCodeMessage = "Could not find Transports by code=";
-	private final String saveTransportsMessage = "Could not save Transports";
-	private final String removeTransportsMessage = "Could not remove Transports";
-	private final String removeTransportsByIdMessage = "Could not remove Transport by id=";
-	private final String updateTransportsMessage = "Could not update Transports ";
-	private final String saveOrUpdateTransportsMessage = "Could not save or update Transports";
-	private final String getAllTransportsMessageError = "Could not get list of Transports";
-	private final String getTransportsByTwoStationsMessage = "Could not get Transports by two stations";
+	private static final String FIND_TRANSPORTS_MESSAGE = "Could not find Transports by ID=";
+	private static final String FIND_TRANSPORTS_CODE_MESSAGE = "Could not find Transports by code=";
+	private static final String SAVE_TRANSPORTS_MESSAGE = "Could not save Transports";
+	private static final String REMOVE_TRANSPORTS_MESSAGE = "Could not remove Transports";
+	private static final String REMOVE_TRANSPORTS_BY_ID_MESSAGE = "Could not remove Transport by id=";
+	private static final String UPDATE_TRANSPORTS_MESSAGE = "Could not update Transports ";
+	private static final String SAVE_OR_UPDATE_TRANSPORTS_MESSAGE = "Could not save or update Transports";
+	private static final String GET_ALL_TRANSPORTS_MESSAGE_ERROR = "Could not get list of Transports";
+	private static final String GET_TRANSPORTS_BY_TWO_STATIONS_MESSAGE = "Could not get Transports by two stations";
 
 	private static final String TRANSPORT_CODE = "transportCode";
 	private static final String TRANSPORT_CODE_EXIST = "transportCode.exist";
@@ -73,26 +73,23 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * @return the <code>Transports</code> fond by Id.
 	 * @see com.ita.edu.softserve.manager.TransportsManager#findTransportsById(int)
 	 */
-	// /**
-	// * {@inheritDoc}
-	// */
 	@Transactional(readOnly = true)
 	@Override
 	public Transports findTransportsById(int id) {
-
 		Transports transports = null;
+		
 		try {
 			transports = transportsDao.findById(id);
 
 			if (transports != null) {
 				LOGGER.info(entityName + transports.getTransportId()
-						+ wasFoundMessage + userName.getLoggedUsername());
+						+ WAS_FOUND_MESSAGE + userName.getLoggedUsername());
 			}
 
 			return transports;
 
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsMessage + id, e);
+			LOGGER.error(FIND_TRANSPORTS_MESSAGE + id, e);
 			throw e;
 		}
 	}
@@ -114,12 +111,12 @@ public class TransportsManagerImpl implements TransportsManager {
 
 			if (transports != null) {
 				LOGGER.info(entityName + transports.getTransportId()
-						+ wasFoundByCodeMessage + userName.getLoggedUsername());
+						+ WAS_FOUND_BY_CODE_MESSAGE + userName.getLoggedUsername());
 			}
 			return transports;
 
 		} catch (RuntimeException e) {
-			LOGGER.error(findTransportsCodeMessage + code, e);
+			LOGGER.error(FIND_TRANSPORTS_CODE_MESSAGE + code, e);
 
 			throw e;
 		}
@@ -137,14 +134,14 @@ public class TransportsManagerImpl implements TransportsManager {
 	public void saveTransports(Transports transports) {
 		try {
 			transportsDao.save(transports);
-			LOGGER.info(entityName + transports.getTransportId() + addMessage
+			LOGGER.info(entityName + transports.getTransportId() + ADD_MESSAGE
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			LOGGER.error(saveTransportsMessage + transports.getTransportId(), e);
+			LOGGER.error(SAVE_TRANSPORTS_MESSAGE + transports.getTransportId(), e);
 			throw e;
 		}
 	}
-
+	
 	/**
 	 * Removes <code>Transports</code> from database.
 	 * 
@@ -157,9 +154,9 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			transportsDao.remove(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ removeMessage + userName.getLoggedUsername());
+					+ REMOVE_MESSAGE + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportsMessage + transports.getTransportId(),
+			LOGGER.error(REMOVE_TRANSPORTS_MESSAGE + transports.getTransportId(),
 					e);
 			throw e;
 		}
@@ -177,11 +174,11 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		try {
 			transportsDao.removeById(transportId);
-			LOGGER.info(entityName + transportId + removeMessage
+			LOGGER.info(entityName + transportId + REMOVE_MESSAGE
 					+ userName.getLoggedUsername());
 
 		} catch (RuntimeException e) {
-			LOGGER.error(removeTransportsByIdMessage + transportId, e);
+			LOGGER.error(REMOVE_TRANSPORTS_BY_ID_MESSAGE + transportId, e);
 			throw e;
 		}
 	}
@@ -200,11 +197,11 @@ public class TransportsManagerImpl implements TransportsManager {
 		try {
 			update = transportsDao.update(transports);
 			LOGGER.info(entityName + transports.getTransportId()
-					+ wasUpdatedMessage + userName.getLoggedUsername());
+					+ WAS_UPDATED_MESSAGE + userName.getLoggedUsername());
 
 			return update;
 		} catch (RuntimeException e) {
-			LOGGER.error(updateTransportsMessage, e);
+			LOGGER.error(UPDATE_TRANSPORTS_MESSAGE, e);
 			throw e;
 		}
 	}
@@ -221,11 +218,11 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		try {
 			allEntities = transportsDao.getAllEntities();
-			LOGGER.info(getAllTransportsMessage);
+			LOGGER.info(GET_ALL_TRANSPORTS_MESSAGE);
 
 			return allEntities;
 		} catch (RuntimeException e) {
-			LOGGER.error(getAllTransportsMessageError, e);
+			LOGGER.error(GET_ALL_TRANSPORTS_MESSAGE_ERROR, e);
 			throw e;
 		}
 	}
@@ -250,15 +247,15 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.saveOrUpdate(transports);
 
 			if (id == null) {
-				LOGGER.info(entityName + id + addMessage
+				LOGGER.info(entityName + id + ADD_MESSAGE
 						+ userName.getLoggedUsername());
 
 			} else {
-				LOGGER.info(entityName + id + wasUpdatedMessage
+				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE
 						+ userName.getLoggedUsername());
 			}
 		} catch (RuntimeException e) {
-			LOGGER.error(saveOrUpdateTransportsMessage, e);
+			LOGGER.error(SAVE_OR_UPDATE_TRANSPORTS_MESSAGE, e);
 			throw e;
 		}
 	}
@@ -351,19 +348,6 @@ public class TransportsManagerImpl implements TransportsManager {
 				"%" + routeName + "%", "%" + routesCode + "%", seatClass1,
 				seatClass2, seatClass3, price);
 	}
-
-	// @Transactional(readOnly = true)
-	// @Override
-	// public List<Transports> getTransportsList(int firstElement, int count,
-	// String transportCode, String routeName, String routesCode,
-	// Integer seatClass1, Integer seatClass2, Integer seatClass3,
-	// Double price, String orderByCriteria, String orderByDirection) {
-	//
-	// return transportsDao.getTransportsList(firstElement, count, "%"
-	// + transportCode + "%", "%" + routeName + "%", "%" + routesCode
-	// + "%", seatClass1, seatClass2, seatClass3, price,
-	// orderByCriteria, orderByDirection);
-	// }
 
 	@Transactional(readOnly = true)
 	@Override
@@ -532,7 +516,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportTravel = transportsDao.findByTwoStations(stationName1,
 					stationName2);
 		} catch (RuntimeException e) {
-			LOGGER.error(getTransportsByTwoStationsMessage, e);
+			LOGGER.error(GET_TRANSPORTS_BY_TWO_STATIONS_MESSAGE, e);
 			throw e;
 		}
 
