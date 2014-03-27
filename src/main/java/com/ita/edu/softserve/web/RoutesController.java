@@ -274,20 +274,20 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
-		
+
 		long count = routesManager.getRoutesListCount();
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
-		
+
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		
+
 		modelMap.put(ROUTE_LIST, routesManager.getRoutesForPage(
 				container.getPageNumber(), container.getResultsPerPage(),
 				ROUTE_CODE, DESC));
 		return REDIRECT_ROUTES_ALL_EDIT;
 	}
-	
+
 	/**
 	 * Controller for displaying getting routes ID from the Routes table and
 	 * finds it in the Routes table then puts found object in Map as request
@@ -324,9 +324,10 @@ public class RoutesController {
 			@RequestParam(value = STATION_END_NAME_FIELD_CODE, required = false) String stationEnd,
 			Map<String, Object> modelMap) {
 
-		String[] routeCheck = routesValidator
+		String[] routeCheck = new RoutesValidatorConverter()
 				.getValidateRouteErrors(new Routes(routeId, routeCode,
-						lineName, stationStart, stationEnd));
+						lineName, stationStart, stationEnd), routesValidator,
+						routesManager);
 
 		if (routeCheck[0].equals(IS_NO_ERROR)) {
 			routesManager.updateRoute(routeId, lineName, routeCode,
@@ -334,7 +335,7 @@ public class RoutesController {
 		}
 		return new Gson().toJson(routeCheck);
 	}
-	
+
 	/**
 	 * Return page with all routes for edit
 	 */
@@ -383,14 +384,14 @@ public class RoutesController {
 			@RequestParam(value = PaginationManager.PAGE_NUMBER_NAME, required = false) Integer pageNumber,
 			@RequestParam(value = PaginationManager.RESULTS_PER_PAGE_NAME, required = false) Integer resultsPerPage,
 			Map<String, Object> modelMap) {
-		
+
 		long count = routesManager.getRoutesListCount();
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
-		
+
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		
+
 		modelMap.put(ROUTE_LIST, routesManager.getRoutesForPage(
 				container.getPageNumber(), container.getResultsPerPage(),
 				ROUTE_CODE, DESC));
@@ -420,16 +421,16 @@ public class RoutesController {
 			@RequestParam(value = STATION_START_NAME_FIELD_CODE, required = false) String stationStart,
 			@RequestParam(value = STATION_END_NAME_FIELD_CODE, required = false) String stationEnd,
 			Map<String, Object> modelMap) {
-		
-		String[] routeCheck = routesValidator
+
+		String[] routeCheck = new RoutesValidatorConverter()
 				.getValidateRouteErrors(new Routes(0, routeCode, lineName,
-						stationStart, stationEnd));
+						stationStart, stationEnd), routesValidator,
+						routesManager);
 
 		if (routeCheck[0].equals(IS_NO_ERROR)) {
 			routesManager.createRoute(lineName, routeCode, stationStart,
-			stationEnd);
+					stationEnd);
 		}
-		
 		return new Gson().toJson(routeCheck);
 	}
 
@@ -494,7 +495,7 @@ public class RoutesController {
 	public String getLinesList(
 			@RequestParam(value = LINE_START_WITH, required = false) String lineStartsWith,
 			Map<String, Object> modelMap) {
-		
+
 		List<String> lineList = routesManager
 				.getLineNameListCriteria(lineStartsWith);
 
@@ -514,8 +515,9 @@ public class RoutesController {
 			@RequestParam(value = ROUTE_FIELD_CODE, required = false) String routeCode,
 			Map<String, Object> modelMap) {
 
-		String[] routeCheck = routesValidator
+		String[] routeCheck = new RoutesValidatorConverter()
 				.validateRouteCodeToStringArray(routeCode);
+
 		return new Gson().toJson(routeCheck);
 	}
 
@@ -550,15 +552,17 @@ public class RoutesController {
 			return ROUTES_TRIPS_JSP;
 		}
 
-		long count = getRoutersListByStationNameCount(findBy,nameStation,timeMin,timeMax);
-		
+		long count = getRoutersListByStationNameCount(findBy, nameStation,
+				timeMin, timeMax);
+
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
-		
-		getRoutersListByStationNameForPage(findBy,modelMap,nameStation,timeMin,timeMax,container);
-		
+
+		getRoutersListByStationNameForPage(findBy, modelMap, nameStation,
+				timeMin, timeMax, container);
+
 		return ROUTES_TRIPS_JSP;
 	}
 
@@ -592,21 +596,25 @@ public class RoutesController {
 			return ROUTES_TRIPS_JSP;
 		}
 
-		long count = getRoutersListByStationNameCount(findBy,nameStation,timeMin,timeMax);
+		long count = getRoutersListByStationNameCount(findBy, nameStation,
+				timeMin, timeMax);
 
 		PageInfoContainerImpl container = new PageInfoContainerImpl(pageNumber,
 				resultsPerPage, count);
 		paginationManager.validatePaging(container);
 		PagingController.deployPaging(modelMap, container, paginationManager);
 
-		getRoutersListByStationNameForPage(findBy,modelMap,nameStation,timeMin,timeMax,container);
+		getRoutersListByStationNameForPage(findBy, modelMap, nameStation,
+				timeMin, timeMax, container);
 		return ROUTES_TRIPS_PAGE_JSP;
 	}
-	
+
 	/**
-	 * Returns count for list with routes, which arriving, or departing from current station
+	 * Returns count for list with routes, which arriving, or departing from
+	 * current station
 	 */
-	private long getRoutersListByStationNameCount(String findBy, String nameStation, String timeMin, String timeMax){
+	private long getRoutersListByStationNameCount(String findBy,
+			String nameStation, String timeMin, String timeMax) {
 		long count = 0;
 		if (findBy.equals(FIND_BY_ARR_FIELD_CODE)) {
 			count = routesManager.getRoutersListByStationNameArrivingCount(
@@ -620,9 +628,10 @@ public class RoutesController {
 		}
 		return count;
 	}
-	
+
 	/**
-	 * Put to modelMap list with routes, which arriving, or departing from current station
+	 * Put to modelMap list with routes, which arriving, or departing from
+	 * current station
 	 */
 	private void getRoutersListByStationNameForPage(String findBy,
 			Map<String, Object> modelMap, String nameStation, String timeMin,

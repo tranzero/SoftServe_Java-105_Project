@@ -28,7 +28,6 @@ public class ShoppingBag implements Serializable {
 
 	public ShoppingBag() {
 		this.tickets = new LinkedList<Tickets>();
-
 	}
 
 	/**
@@ -82,7 +81,6 @@ public class ShoppingBag implements Serializable {
 	public void clear() {
 
 		for (Tickets ticket : tickets) {
-
 			tripsManager.increaseFreeSeatsQuantity(
 					ticket.getTrip().getTripId(), ticket.getSeatType());
 		}
@@ -96,7 +94,6 @@ public class ShoppingBag implements Serializable {
 	public void preDestroy() {
 
 		for (Tickets ticket : tickets) {
-
 			tripsManager.increaseFreeSeatsQuantity(
 					ticket.getTrip().getTripId(), ticket.getSeatType());
 		}

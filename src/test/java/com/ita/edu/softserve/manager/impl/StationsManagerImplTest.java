@@ -451,6 +451,7 @@ public class StationsManagerImplTest {
 				.thenReturn(expected);
 		List<Stations> actual = stationsManagerMock.getStationsForLimit(
 				firstElement, count);
+		verify(stationsDaoMock, times(1)).getStationsForLimits(firstElement, count);
 
 		assertEquals(expected, actual);
 	}
@@ -469,7 +470,8 @@ public class StationsManagerImplTest {
 				.thenReturn(expected);
 		List<Stations> actual = stationsManagerMock.getStationsForPage(
 				firstElement, count);
-
+		verify(stationsDaoMock, times(1)).getStationsForLimits(Mockito.anyInt(), Mockito.anyInt());
+		
 		assertEquals(expected, actual);
 
 	}
@@ -492,7 +494,7 @@ public class StationsManagerImplTest {
 
 		List<Stations> actualList = stationsManagerMock
 				.getStationsForLimitUsingContainers(stationsCriteriaContainer, container);
-
+		
 		assertEquals(expectedList, actualList);
 	}
 
