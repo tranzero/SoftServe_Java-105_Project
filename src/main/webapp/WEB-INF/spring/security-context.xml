@@ -18,7 +18,7 @@
 	        <intercept-url pattern="/manage*" access="hasRole('MANAGER')"/>	        
 	        <intercept-url pattern="/checkResponses" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/stations" access="hasRole('MANAGER')"/>
-	        <intercept-url pattern="/transportListManage" access="hasRole('MANAGER')"/>
+	        <intercept-url pattern="/transport" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/tripsmanager" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>
 	        <intercept-url pattern="/routesAllEdit" access="hasRole('MANAGER')"/>	
@@ -26,12 +26,17 @@
 	   		<form-login login-page="/login.html" default-target-url="/loginsuccess"					
 						authentication-failure-url="/login.html?error=true" 
 						always-use-default-target="true"/>										
-			<logout logout-success-url="/" />		
+			<logout logout-success-url="/"/>		
 			<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 			<remember-me />		
 	  	</http>
-		<authentication-manager>
-			<authentication-provider user-service-ref="userDetailsServiceImpl" />
-		</authentication-manager>
+	  	
+		<authentication-manager>		
+			<authentication-provider user-service-ref="userDetailsServiceImpl" >
+	 			<password-encoder ref="encoder"/>					
+			</authentication-provider>		
+		</authentication-manager>	
+		
+		<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 		<beans:bean id="userDetailsServiceImpl" class="com.ita.edu.softserve.web.UserDetailsServiceImpl"/>
 	</beans:beans>
