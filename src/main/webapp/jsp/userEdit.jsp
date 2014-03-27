@@ -45,6 +45,14 @@
 			</div>
 			<p>
 			<div class="data">
+				<label><spring:message code="label.users.confirmPassword" /><em
+					class="star">*</em>:</label>
+				<form:input path="confirmPassword" type="password"
+					onfocus="checkpostal()" />
+				<form:errors path="confirmPassword" cssClass="error"></form:errors>
+			</div>
+			<p>
+			<div class="data">
 				<label> <spring:message code="label.users.role" /><em
 					class="star">*</em>:
 				</label>
