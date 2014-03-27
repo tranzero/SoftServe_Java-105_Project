@@ -48,9 +48,9 @@ public class StationsController {
 	private static final String STATIONS_JSP_PAGE = "stations";
 
 	private static final String STATIONS_PAGE_JSP = "stationsPage";
-	
+
 	private static final String STATIONS_ON_CERTAIN_LINE_URL = "stationsoncertainline/{line}";
-	
+
 	private static final String LINE = "line";
 
 	private static final String DELETE_STATION_ID_URL = "/delete/{stationId}";
@@ -79,6 +79,10 @@ public class StationsController {
 
 	private static final String LANGUAGE_NAME = "language";
 
+	/**
+	 * Field for using paging-related controller-level methods (class realized
+	 * using singleton).
+	 */
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
 
@@ -97,7 +101,6 @@ public class StationsController {
 	@Autowired
 	Encoder encoder;
 
-	
 	private void putSearchStringIsEmpty(
 			StationsCriteriaContainer stationsCriteriaContainer,
 			Map<String, Object> modelMap) {
@@ -105,6 +108,24 @@ public class StationsController {
 				.isEmptyString(stationsCriteriaContainer.getSearchString()));
 	}
 
+	/**
+	 * Method for Sorting, Searching and Pagging.
+	 * 
+	 * @param pageNumber
+	 *            - Number of displaying page (spring-defined).
+	 * @param resultsPerPage
+	 *            - Amount of results per page (spring-defined).
+	 * @param searchString
+	 *            - string for filter.
+	 * @param orderByParam
+	 *            - the column, using for sorting.
+	 * @param orderByDirection
+	 *            - sorting direction.
+	 * @param modelMap
+	 *            - Model map to fill.
+	 * @param locale
+	 *            - Used spring locale.
+	 */
 	private void deployStationsParameters(Integer pageNumber,
 			Integer resultsPerPage, String searchString, String orderByParam,
 			String orderByDirection, Map<String, Object> modelMap, Locale locale) {
@@ -138,7 +159,9 @@ public class StationsController {
 	 * Prints all stations.
 	 * 
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * 
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATIONS_FOR_USERS_URL, method = RequestMethod.GET)
 	public String listStations(
@@ -159,7 +182,9 @@ public class StationsController {
 	 * Prints all stations.
 	 * 
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * 
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATIONS_FOR_USERS_PAGE_URL, method = RequestMethod.GET)
 	public String listStationsPage(
@@ -177,12 +202,15 @@ public class StationsController {
 	}
 
 	/**
-	 * \ Print all Stations where manager can manage them.
+	 * Print all Stations where manager can manage them.
 	 * 
 	 * @param pageNumber
+	 *            - Number of displaying page (spring-defined).
 	 * @param resultsPerPage
+	 *            - Amount of results per page (spring-defined).
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATIONS_URL, method = RequestMethod.GET)
 	public String manageStations(
@@ -200,12 +228,15 @@ public class StationsController {
 	}
 
 	/**
-	 * \ Print all Stations where manager can manage them.
+	 * Print all Stations where manager can manage them.
 	 * 
 	 * @param pageNumber
+	 *            - Number of displaying page (spring-defined).
 	 * @param resultsPerPage
+	 *            - Amount of results per page (spring-defined).
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATIONS_PAGE_URL, method = RequestMethod.GET)
 	public String manageStationsPage(
@@ -226,8 +257,10 @@ public class StationsController {
 	 * Delete Station by Id.
 	 * 
 	 * @param stationId
+	 *            - the Id of Station to remove.
 	 * @param map
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = DELETE_STATION_ID_URL, method = RequestMethod.GET)
 	public String deleteStation(@PathVariable(STATION_ID) Integer stationId,
@@ -242,8 +275,10 @@ public class StationsController {
 	 * Return jsp stationEdit.
 	 * 
 	 * @param stationId
+	 *            - the Id of Station to remove.
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATION_EDIT_URL_GET, method = RequestMethod.GET)
 	public String editStation(@PathVariable(STATION) Integer stationId,
@@ -259,9 +294,11 @@ public class StationsController {
 	 * Update station to DB - RequestMethod.POST
 	 * 
 	 * @param station
+	 *            - the station object to update.
 	 * @param bindingResult
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = STATION_EDIT_URL_POST, method = RequestMethod.POST)
 	public String updateStationToDB(@ModelAttribute(STATION) Stations station,
@@ -276,11 +313,13 @@ public class StationsController {
 	}
 
 	/**
-	 * @return jsp page addStation.
+	 * @param model
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADD_STATION_URL_GET, method = RequestMethod.GET)
 	public String addStations(ModelMap model) {
-		
+
 		model.addAttribute(STATION, new Stations());
 		return ADD_STATION_JSP_PAGE;
 	}
@@ -288,10 +327,9 @@ public class StationsController {
 	/**
 	 * Save station to DB
 	 * 
-	 * @param stationCode
-	 * @param stationName
 	 * @param modelMap
-	 * @return
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
 	 */
 	@RequestMapping(value = ADD_STATION_URL_POST, method = RequestMethod.POST)
 	public String addStationToBD(@ModelAttribute(STATION) Stations station,
@@ -306,6 +344,11 @@ public class StationsController {
 		return REDIRECT_STATIONS;
 	}
 
+	/**
+	 * @param modelMap
+	 *            - Model map to fill.
+	 * @return definition of jsp to use.
+	 */
 	@RequestMapping(value = STATIONS_ON_CERTAIN_LINE_URL, method = RequestMethod.GET)
 	public String stationsOnCertainLine(@PathVariable(LINE) String lineName,
 			Map<String, Object> modelMap) {
