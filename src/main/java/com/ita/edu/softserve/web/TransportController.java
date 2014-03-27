@@ -301,32 +301,31 @@ public class TransportController {
 				ValidatorUtil.isEmptyString(container.getRouteName()));
 		modelMap.addAttribute(IS_ROUTE_CODE_ATTRIBUTE_NAME,
 				ValidatorUtil.isEmptyString(container.getRoutesCode()));
-		modelMap.addAttribute(
-				IS_CLASS1_ATTRIBUTE_NAME,
-				(container.getSeatClass1() == null)
-						|| (container.getSeatClass1() < 0));
-		modelMap.addAttribute(
-				IS_CLASS2_ATTRIBUTE_NAME,
-				(container.getSeatClass2() == null)
-						|| (container.getSeatClass2() < 0));
-		modelMap.addAttribute(
-				IS_CLASS3_ATTRIBUTE_NAME,
-				(container.getSeatClass3() == null)
-						|| (container.getSeatClass3() < 0));
+		modelMap.addAttribute(IS_CLASS1_ATTRIBUTE_NAME,
+				(container.getSeatClass1() == null)	|| (container.getSeatClass1() < 0));
+		modelMap.addAttribute(IS_CLASS2_ATTRIBUTE_NAME,
+				(container.getSeatClass2() == null)	|| (container.getSeatClass2() < 0));
+		modelMap.addAttribute(IS_CLASS3_ATTRIBUTE_NAME,
+				(container.getSeatClass3() == null)	|| (container.getSeatClass3() < 0));
 
 	}
 
 	private void completeMapForAddTransports(PageInfoContainer container,
 			TransportsCriteriaContainer transportCriteriaContainer,
 			ModelMap modelMap, Locale locale) {
+		
 		putFillElementsOptions(transportCriteriaContainer, modelMap);
+		
 		transportsManager.validateTransportCriteria(transportCriteriaContainer);
+		
 		modelMap.addAttribute(IS_PRICE_ATTRIBUTE_NAME,
 				transportCriteriaContainer.getPrice().equals(Double.MAX_VALUE));
 		long count = transportsManager
 				.getTransportsListCountWithContainers(transportCriteriaContainer);
 		container.setCount(count);
+		
 		paginationManager.validatePaging(container);
+		
 		PagingController.deployPaging(modelMap, container, paginationManager);
 		modelMap.addAttribute(CRITERIA_CONTAINER_ATTRIBUTE_NAME,
 				transportCriteriaContainer);
@@ -335,6 +334,7 @@ public class TransportController {
 		List<Transports> transports = transportsManager
 				.getTransportsListWithContainers(container,
 						transportCriteriaContainer);
+		
 		modelMap.addAttribute(TRANSPORTSLIST_NAME, transports);
 		modelMap.addAttribute(LANGUAGE_NAME, locale.getLanguage());
 	}
