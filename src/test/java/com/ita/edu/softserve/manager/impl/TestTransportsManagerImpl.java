@@ -303,6 +303,23 @@ public class TestTransportsManagerImpl {
 
 	/**
 	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(Transports)}
+	 * .
+	 */
+	@Test
+	public final void testUpdateTransportsForNull() {
+		when(mockTransportsDaoImpl.update(transports)).thenReturn(null);
+		
+		Transports expectedTransport = transportsManagerImpl
+				.findTransportsByCode(illegalTransportsCode);
+
+		verify(mockTransportsDaoImpl, times(1)).findByCode(
+				illegalTransportsCode);
+		assertNull(expectedTransport);
+	}
+	
+	/**
+	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
 	 * . .
 	 */
@@ -379,8 +396,24 @@ public class TestTransportsManagerImpl {
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
 	 * .
 	 */
+	@Test
+	public final void testGetAllTransportsForNull() {
+		when(mockTransportsDaoImpl.getAllEntities()).thenReturn(null);
+		
+		List<Transports> actual = transportsManagerImpl.getAllTransports();
+
+		verify(mockTransportsDaoImpl, times(1)).getAllEntities();
+
+		assertNull(actual);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getAllTransports()}
+	 * .
+	 */
 	@Test(expected = RuntimeException.class)
-	public final void testGetAllTransportsShouldThrowNullPointerException() {
+	public final void testGetAllTransportsShouldThrowException() {
 
 		when(mockTransportsDaoImpl.getAllEntities()).thenThrow(
 				new RuntimeException());
