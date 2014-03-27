@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ita.edu.softserve.components.CustomPasswordEncoder;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
@@ -29,6 +30,9 @@ public class RegistrationController {
 	@Autowired
 	private RegistrationValidator regValid;
 
+	@Autowired
+	private CustomPasswordEncoder customPasswordEncoder;
+	
 	/**
 	 * Registration
 	 * 
@@ -57,6 +61,7 @@ public class RegistrationController {
 		if (result.hasErrors()) {
 			return "registration";
 		}
+		customPasswordEncoder.encodePassword(user);
 		if (usersManager.createUser(user.getUserName(), user.getFirstName(),
 				user.getLastName(), user.getEmail(), user.getPassword(),
 				Role.REGUSER) == false) {
