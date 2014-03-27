@@ -1,6 +1,5 @@
 $(function addRoute() {
 	$("#addRoutebtn").click(function() {
-	if(validate()) {
         $.ajax(
 				{
 					type : "POST",
@@ -24,8 +23,6 @@ $(function addRoute() {
 	                    alert('there was some error');
 	                },
 				});
-        
-		 	}
     });
 });
 
@@ -50,6 +47,7 @@ $(function validateRouteCode() {
 		minLength : 5
 	});
 });
+
 
 
 function parseJson(json) {
@@ -80,15 +78,7 @@ function parseJson(json) {
 	}
 };
 
-function  validate() {
-	/*var isValid= true;
-	
-	if ($("#routeCodeError").hasClass("error")){
-		isValid= false;
-	}*/
-	
-	return true;
-}
+
 
 function defineStyle(json) {
 	if(json[0]==0){

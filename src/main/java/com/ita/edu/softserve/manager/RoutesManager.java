@@ -6,7 +6,10 @@ package com.ita.edu.softserve.manager;
 import java.sql.Time;
 import java.util.List;
 
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.exception.LinesManagerException;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
 /**
@@ -14,10 +17,23 @@ import com.ita.edu.softserve.manager.impl.RouteTrip;
  * 
  */
 public interface RoutesManager extends BaseManager {
+	
+
+	public StationsOnLine findByStationIdAndLineId(Integer stationId, Integer lineId) ;
 
 	Routes findRoutesById(int id);
 	
 	Routes findByCode(String routeCode);
+	
+	/**
+	 * 
+	 * @param lineName
+	 *            - line name to find by
+	 * 
+	 * @return <code>List</code> of <code>Lines</code>
+	 * 
+	 */
+	public Lines findByLineName(String lineName);
 	
 	public List<Routes> getRoutesForPage(int currentPage, int count,
 			String orderByParam, String orderByDirection);
@@ -28,6 +44,8 @@ public interface RoutesManager extends BaseManager {
 	
 	List<String> getStationNameByLineListCriteria(String stationName,
 			String lineName);
+	
+	public String getStationNameByLineNameCriteria(String stationName, String lineName);
 	
 	public List<String> getLineNameListCriteria(String lineName);
 	

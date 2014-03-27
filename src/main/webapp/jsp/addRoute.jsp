@@ -22,25 +22,26 @@
 			<tbody>
 			<tr>
 				<td><spring:message code="label.routes.routecode"/></td>
-				<td><input id="routeCode" type="text" class="field" name="routeCode">
-				<label id="routeCodeError" for="routeCode"  style=width:500px;></label></td>
-				
+				<td><input id="routeCode" type="text" class="field" name="routeCode"></td>
+				<td><label id="routeCodeError" for="routeCode"></label></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.lines.linename"/></td>
-				<td><input id="lineName" type="text"  class="field" name="lineName">
-				<label id="lineNameError" for="lineName" class="error" style=width:500px;></label></td>
-			
+				<td><input id="lineName" type="text" class="field" name="lineName"></td>
+				<td><label id="lineNameError" for="lineName" class="error"></label></td>
+				
 			</tr>
 			<tr>
 				<td><spring:message code="label.routes.stationStart"/></td>
-				<td><input id="stationStart" type="text" class="field" name="stationStart">
-				<label id="stationStartError" for="stationStart" class="error" style=width:500px;></label></td>
+				<td><input id="stationStart" type="text" class="field" name="stationStart"></td>
+				<td><label id="stationStartError" for="stationStart" class="error"></label></td>
+			
 			</tr>
 			<tr>
 				<td><spring:message code="label.routes.stationEnd"/></td>
-				<td><input id="stationEnd" type="text"class="field" name="stationEnd">
-				<label id="stationEndError" for="stationEnd" class="error" style=width:500px;></label></td>
+				<td><input id="stationEnd" type="text" class="field" name="stationEnd"></td>
+				<td><label id="stationEndError" for="stationEnd" class="error"></label></td>
+				
 			</tr>
 			</tbody>
 		</table>

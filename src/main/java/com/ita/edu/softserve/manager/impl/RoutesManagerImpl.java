@@ -11,7 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ita.edu.softserve.dao.LinesDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
 import com.ita.edu.softserve.dao.StationsDAO;
+import com.ita.edu.softserve.dao.StationsOnLineDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
+import com.ita.edu.softserve.entity.StationsOnLine;
+import com.ita.edu.softserve.exception.LinesManagerException;
 import com.ita.edu.softserve.exception.RoutesManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.RoutesManager;
@@ -37,6 +41,8 @@ public class RoutesManagerImpl implements RoutesManager {
 	private final String routesListCountMessage = "Could not get Routes List count";
 	private final String stationNameListCriteriaMessage = "Could not get Station Name by criteria";
 	private final String stationNameByLineMessage = "Could not get Station On Certain Line";
+	private final String stationNameByLineNameMessage = "Could not get Station On Certain Line Name";
+	private final String findByNameLinesMessage = "Could not get Line by Line Name";
 	private final String lineNameMessage = "Could not get Line Name";
 	private final String routersArrivingForPageMessage = "Could not get Routers By Name arriving for one page";
 	private final String routesListCountByArrivingMessage = "Could not get Routers List count by arriving";
@@ -67,10 +73,24 @@ public class RoutesManagerImpl implements RoutesManager {
 	private StationsDAO stationDao;
 
 	/**
+	 * Gets access to Station DAO.
+	 */
+	@Autowired
+	private StationsOnLineDAO stationonlineDao;
+
+	/**
 	 * The constructor without arguments.
 	 */
 	public RoutesManagerImpl() {
 		super();
+	}
+
+	@Override
+	public StationsOnLine findByStationIdAndLineId(Integer stationId,
+			Integer lineId) {
+
+		return (StationsOnLine) stationonlineDao.findByStationIdAndLineId(
+				stationId, lineId);
 	}
 
 	/**
@@ -84,11 +104,8 @@ public class RoutesManagerImpl implements RoutesManager {
 			return routeDao.getRoutesForLimits((currentPage - 1) * count,
 					count, orderByParam, orderByDirection);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routesForOnePageMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routesForOnePageMessage, e);
 		}
 	}
 
@@ -101,11 +118,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		try {
 			return routeDao.getRoutesListCount();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routesListCountMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routesListCountMessage, e);
 		}
 	}
 
@@ -118,11 +132,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		try {
 			return routeDao.getStationNameListCriteria(stationName + "%");
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					stationNameListCriteriaMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(stationNameListCriteriaMessage, e);
 		}
 	}
 
@@ -137,13 +148,40 @@ public class RoutesManagerImpl implements RoutesManager {
 			return routeDao.getStationNameByLineListCriteria(stationName + "%",
 					lineDao.findByName(lineName).getLineId());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					stationNameByLineMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(stationNameByLineMessage, e);
 		}
+	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public String getStationNameByLineNameCriteria(String stationName,
+			String lineName) {
+		try {
+			return routeDao.getStationNameByLineNameCriteria(stationName,
+					lineName);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new RoutesManagerException(stationNameByLineNameMessage, e);
+		}
+	}
+
+	/**
+	 * 
+	 * @param lineName
+	 *            - line name to find by
+	 * 
+	 * @return <code>List</code> of <code>Lines</code>
+	 * 
+	 */
+	@Override
+	public Lines findByLineName(String lineName) {
+		try {
+			return routeDao.findByName(lineName);
+		} catch (RuntimeException e) {
+			LOGGER.error(e);
+			throw new RoutesManagerException(findByNameLinesMessage, e);
+		}
 	}
 
 	/**
@@ -155,10 +193,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		try {
 			return routeDao.getLineNameListCriteria(lineName + "%");
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(lineNameMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(lineNameMessage, e);
 		}
 	}
 
@@ -175,11 +211,8 @@ public class RoutesManagerImpl implements RoutesManager {
 					stationNameArrival, timeArrivalMin, timeArrivalMax,
 					(currentPaget - 1) * count, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routersArrivingForPageMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routersArrivingForPageMessage, e);
 		}
 	}
 
@@ -194,11 +227,9 @@ public class RoutesManagerImpl implements RoutesManager {
 			return routeDao.getRoutersListByStationNameArrivingCount(
 					stationNameArrival, timeArrivalMin, timeArrivalMax);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routesListCountByArrivingMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routesListCountByArrivingMessage,
+					e);
 		}
 	}
 
@@ -215,11 +246,8 @@ public class RoutesManagerImpl implements RoutesManager {
 					stationNameDeparture, timeDepartureMin, timeDepartureMax,
 					(currentPaget - 1) * count, count);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routersDepartingForPageMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routersDepartingForPageMessage, e);
 		}
 	}
 
@@ -236,11 +264,9 @@ public class RoutesManagerImpl implements RoutesManager {
 					stationNameDeparture, timeDepartureMin, timeDepartureMax);
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routesListCountByDepartingMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routesListCountByDepartingMessage,
+					e);
 		}
 	}
 
@@ -284,7 +310,7 @@ public class RoutesManagerImpl implements RoutesManager {
 			LOGGER.info(entityName + removeMessage);
 
 		} catch (IllegalArgumentException e) {
-			LOGGER.error(removeRouteByIdMessage,e);
+			LOGGER.error(removeRouteByIdMessage, e);
 			throw e;
 		}
 	}
@@ -306,11 +332,8 @@ public class RoutesManagerImpl implements RoutesManager {
 			route.setStationEndId(stationDao.findByName(stationEnd));
 			routeDao.save(route);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(saveRouteMessage,
-					e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(saveRouteMessage, e);
 		}
 	}
 
@@ -331,11 +354,8 @@ public class RoutesManagerImpl implements RoutesManager {
 			route.setStationEndId(stationDao.findByName(stationEnd));
 			routeDao.update(route);
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					updateRouteMessage, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(updateRouteMessage, e);
 		}
 	}
 
@@ -361,11 +381,8 @@ public class RoutesManagerImpl implements RoutesManager {
 			return routesArrivingList;
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routersListByStationArriving, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routersListByStationArriving, e);
 		}
 	}
 
@@ -393,11 +410,8 @@ public class RoutesManagerImpl implements RoutesManager {
 			return routesDepartingList;
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(
-					routersListByStationDeparting, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(routersListByStationDeparting, e);
 		}
 	}
 
@@ -407,10 +421,8 @@ public class RoutesManagerImpl implements RoutesManager {
 		try {
 			return routeDao.getAllEntities();
 		} catch (RuntimeException e) {
-			RuntimeException ex = new RoutesManagerException(allRoutesList, e);
 			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			throw new RoutesManagerException(allRoutesList, e);
 		}
 	}
 
@@ -423,7 +435,6 @@ public class RoutesManagerImpl implements RoutesManager {
 			LOGGER.error(routesById, e);
 			throw e;
 		}
-
 	}
 
 	@Transactional(readOnly = true)
@@ -437,6 +448,9 @@ public class RoutesManagerImpl implements RoutesManager {
 		}
 	}
 
+	/**
+	 * @return the instance of RoutesManager.
+	 */
 	public static RoutesManager getInstance() {
 		return ManagerFactory.getManager(RoutesManager.class);
 	}

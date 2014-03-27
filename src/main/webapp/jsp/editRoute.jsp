@@ -26,25 +26,25 @@
 			
 			<tr>
 				<td><spring:message code="label.routes.routecode"/></td>
-				<td><input id="routeCode" type="text" class="field" name="routeCode" value="${route.getRouteCode()}">
-				<label id="routeCodeError" for="routeCode"  style=width:500px;></label></td>
+				<td><input id="routeCode" type="text" class="field" name="routeCode" value="${route.getRouteCode()}"></td>
+				<td><label id="routeCodeError" for="routeCode"  ></label></td>
 			</tr>
 			
 			<tr>
 				<td><spring:message code="label.lines.linename"/></td>
-				<td><input id="lineName" type="text" class="field" name="lineName" value="${route.getLineId().getLineName()}">
-				<label id="lineNameError" for="lineName" class="error" style=width:500px;></label></td>
+				<td><input id="lineName" type="text" class="field" name="lineName" value="${route.getLineId().getLineName()}"></td>
+				<td><label id="lineNameError" for="lineName" class="error" ></label></td>
 			</tr>
 			
 			<tr>
 				<td><spring:message code="label.routes.stationStart"/></td>
-				<td><input id="stationStart" class="field" type="text" name="stationStart" value="${route.getStationStartId().getStationName()}">
-				<label id="stationStartError" for="stationStart" class="error" style=width:500px;></label></td>
+				<td><input id="stationStart" class="field" type="text" name="stationStart" value="${route.getStationStartId().getStationName()}"></td>
+				<td><label id="stationStartError" for="stationStart" class="error" ></label></td>
 			</tr>
 			<tr>
 				<td><spring:message code="label.routes.stationEnd"/></td>
-				<td><input id="stationEnd" class="field" type="text" name="stationEnd" value="${route.getStationEndId().getStationName()}">
-				<label id="stationEndError" for="stationEnd" class="error" style=width:500px;></label></td>
+				<td><input id="stationEnd" class="field" type="text" name="stationEnd" value="${route.getStationEndId().getStationName()}"></td>
+				<td><label id="stationEndError" for="stationEnd" class="error" ></label></td>
 			</tr>
 			</tbody>
 		</table>

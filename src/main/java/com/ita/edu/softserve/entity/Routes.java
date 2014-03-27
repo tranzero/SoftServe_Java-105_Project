@@ -60,6 +60,14 @@ public class Routes extends BaseEntity {
 			+ STATION_NAME
 			+ " ORDER BY st.stationName";
 	
+	public static final String STATIONS_NAME_ON_LINE_FIND_BY_NAME_QUERY = "SELECT st.stationName FROM StationsOnLine sol "
+			+ "INNER JOIN sol.stationId st "
+			+ "WHERE sol.lineId.lineName = :"
+			+ LINE_NAME
+			+ " AND st.stationName = :"
+			+ STATION_NAME
+			+ " ORDER BY st.stationName";
+	
 	public static final String LINE_NAME_FIND_BY_CRITERIA_QUERY = "SELECT l.lineName FROM Lines l WHERE"
 			+ " l.lineName LIKE :"
 			+ LINE_NAME
