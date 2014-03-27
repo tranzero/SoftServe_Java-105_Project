@@ -3,6 +3,9 @@ package com.ita.edu.softserve.dao;
 import java.sql.Time;
 import java.util.List;
 
+import javax.persistence.Query;
+
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
@@ -20,6 +23,8 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 	Routes findByCode(String routeCode);
 
 	Routes findByLineId(int id);
+	
+	public Lines findByName(String lineName);
 
 	List<Routes> getRoutesForLimits(int currentPaget, int count,
 			String orderByParam, String orderByDirection);
@@ -29,6 +34,8 @@ public interface RoutesDAO extends AbstractDAOIface<Routes> {
 	public List<String> getStationNameListCriteria(String stationName);
 	
 	public List<String> getStationNameByLineListCriteria(String stationName, int lineId);
+	
+	public String getStationNameByLineNameCriteria(String stationName, String lineName);
 	
 	public List<String> getLineNameListCriteria(String lineName);
 	

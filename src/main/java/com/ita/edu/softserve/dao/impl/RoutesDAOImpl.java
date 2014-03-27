@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ita.edu.softserve.dao.AbstractDAO;
 import com.ita.edu.softserve.dao.RoutesDAO;
+import com.ita.edu.softserve.entity.Lines;
 import com.ita.edu.softserve.entity.Routes;
 import com.ita.edu.softserve.manager.impl.RouteTrip;
 
@@ -55,6 +56,13 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				.createNamedQuery(Routes.ROUTES_FIND_COUNT));
 	}
 	
+	@Override
+	public Lines findByName(String lineName) {
+		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
+				.setParameter(1, lineName);
+		return (Lines) query.getSingleResult();
+	}
+	
 	/**
 	 * Returns list with station name, which name start as input stationName
 	 */
@@ -78,6 +86,13 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 		return (List<String>) query.getResultList();
 	}
 	
+	public String getStationNameByLineNameCriteria(String stationName, String lineName){
+		Query query = entityManager
+				.createQuery(Routes.STATIONS_NAME_ON_LINE_FIND_BY_NAME_QUERY)
+				.setParameter(Routes.LINE_NAME, lineName)
+				.setParameter(Routes.STATION_NAME, stationName);
+		return (String) query.getSingleResult();
+	}
 	/**
 	 * Returns list with line name, which name start as input lineName
 	 */
