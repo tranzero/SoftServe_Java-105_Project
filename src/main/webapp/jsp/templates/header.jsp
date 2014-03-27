@@ -15,8 +15,9 @@
 					<li><spring:message code="label.header.hello" /> <sec:authentication
 							property="principal.username" /></li>
 					<li>|</li>
-					<li><a href="logout"><span class="logout_icon"></span> <spring:message
-								code="label.header.logout" /></a></li>
+					<li><a href="${pageContext.request.contextPath}/logout"><span 
+							class="logout_icon"></span> 
+						<spring:message	code="label.header.logout" /></a></li>
 					<li>|</li>
 					<li><a href="<c:url value="/bag" />"><span
 							class="cart_icon"></span>
