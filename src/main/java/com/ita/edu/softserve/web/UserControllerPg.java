@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ita.edu.softserve.components.CustomPasswordEncoder;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.exception.UsersManagerExeption;
 import com.ita.edu.softserve.manager.UserManager;
@@ -51,6 +52,9 @@ public class UserControllerPg {
 
 	@Autowired
 	Validator userEditValidator;
+	
+	@Autowired
+	private CustomPasswordEncoder customPasswordEncoder;
 
 	/**
 	 * Update user2 to DB - RequestMethod.GET
@@ -88,6 +92,7 @@ public class UserControllerPg {
 			modelMap.put("user", user);
 			return "userEdit2";
 		}
+		customPasswordEncoder.encodePassword(user);	
 		usersManager.updateTheUserData(user);
 		return "redirect:/userlist2";
 	}

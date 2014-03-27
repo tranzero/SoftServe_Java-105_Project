@@ -1,10 +1,12 @@
 package com.ita.edu.softserve.validation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.ita.edu.softserve.entity.Users;
+import com.ita.edu.softserve.manager.UserManager;
 
 /**
  * @author iryna
@@ -30,6 +32,9 @@ public class UserEditValidator implements Validator {
 	private static final String USER_EMAIL_MATCHER = "msg.user.email.matcher";
 	private static final String USER_PASSWORD_MATCHER = "msg.user.password.matcher";
 
+	@Autowired
+	private UserManager usersmanage;
+	
 	/**
 	 * This Validator validates Users instance
 	 */
@@ -46,7 +51,9 @@ public class UserEditValidator implements Validator {
 		validateFirstName(user.getFirstName(), error);
 		validateLastName(user.getLastName(), error);
 		validateEmail(user.getEmail(), error);
-		validatePassword(user.getPassword(), error);
+		if (!user.getPassword().equals(usersmanage.findUser(user.getUserId()).getPassword())){
+			validatePassword(user.getPassword(), error);
+		}
 	}
 
 	/**

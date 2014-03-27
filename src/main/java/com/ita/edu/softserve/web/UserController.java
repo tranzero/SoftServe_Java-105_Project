@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ita.edu.softserve.components.CustomPasswordEncoder;
 import com.ita.edu.softserve.entity.Role;
 import com.ita.edu.softserve.entity.Users;
 import com.ita.edu.softserve.manager.UserManager;
@@ -42,6 +43,9 @@ public class UserController {
 	@Autowired
 	private UserNameService userService;
 
+	@Autowired
+	private CustomPasswordEncoder customPasswordEncoder;
+	
 	/**
 	 * Update user to DB - RequestMethod.GET
 	 * 
@@ -79,6 +83,7 @@ public class UserController {
 			return "userEdit";
 		}
 		usersManager.updateTheUserData(user);
+		customPasswordEncoder.encodePassword(user);	
 		return "redirect:/userlist";
 	}
 
