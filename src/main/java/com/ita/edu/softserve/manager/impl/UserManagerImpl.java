@@ -30,10 +30,12 @@ import com.ita.edu.softserve.validationcontainers.UserCriteriaContainer;
 @Service("userService")
 public class UserManagerImpl implements UserManager {
 
+	private static final String THE_USER_WAS_FOUND = "The user was found";
+	private static final String USERS_NOT_FOUND = "Users not found";
+	private static final String USER_DOES_NOT_EXIST = "User does not exist!";
 	private static final String COULD_NOT_FIND_USER_BY_ID = "Could not find user by id";
 	private static final String COULD_NOT_REMOVE_USER = "Could not remove User";
 	private static final String COULD_NOT_UPDATE_USER = "Could not update User";
-	private static final String USERS_NOT_FOUND = "Users not found";
 
 	private static final Logger LOGGER = Logger
 			.getLogger(UserManagerImpl.class);
@@ -46,13 +48,6 @@ public class UserManagerImpl implements UserManager {
 	 */
 	public UserManagerImpl() {
 		super();
-	}
-
-	/**
-	 * Method getInstance
-	 */
-	public static UserManager getInstance() {
-		return ManagerFactory.getManager(UserManager.class);
 	}
 
 	/**
@@ -76,8 +71,12 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	@Transactional(readOnly = true)
 	public Users findUser(Integer id) {
+		Users findById = null;
 		try {
-			return userDao.findById(id);
+			findById = userDao.findById(id);
+			LOGGER.info(THE_USER_WAS_FOUND);
+
+			return findById;
 
 		} catch (RuntimeException e) {
 			LOGGER.error(COULD_NOT_FIND_USER_BY_ID, e);
@@ -95,11 +94,8 @@ public class UserManagerImpl implements UserManager {
 			userDao.updateUserData(user);
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(
-					COULD_NOT_UPDATE_USER, e);
 			LOGGER.error(COULD_NOT_UPDATE_USER, e);
-			LOGGER.error(ex);
-			throw ex;
+			throw e;
 		}
 	}
 
@@ -113,12 +109,31 @@ public class UserManagerImpl implements UserManager {
 			userDao.remove(userDao.findById(id));
 
 		} catch (RuntimeException e) {
-			RuntimeException ex = new UsersManagerExeption(
-					COULD_NOT_REMOVE_USER, e);
-			LOGGER.error(e);
-			LOGGER.error(ex);
-			throw ex;
+			LOGGER.error(COULD_NOT_REMOVE_USER, e);
+			throw e;
 		}
+	}
+
+	/**
+	 * Find user by username
+	 */
+	@Override
+	@Transactional
+	public Users findByUsername(String username) {
+		try {
+			return (Users) userDao.findByUsername(username);
+
+		} catch (RuntimeException e) {
+			LOGGER.error(USER_DOES_NOT_EXIST, e);
+			throw e;
+		}
+		/*
+		 * catch (NoResultException e) {
+		 * System.out.println("User does not exist!"); }
+		 * 
+		 * 
+		 * return null;
+		 */
 	}
 
 	/**
@@ -128,15 +143,21 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public void updateUser2(Integer userId, String firstName, String lastName,
 			String email, String password) {
+		Users user = null;
+		try {
+			user = userDao.findById(userId);
 
-		Users user = userDao.findById(userId);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setEmail(email);
+			user.setPassword(password);
 
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmail(email);
-		user.setPassword(password);
+			userDao.update(user);
 
-		userDao.update(user);
+		} catch (RuntimeException e) {
+			LOGGER.error(COULD_NOT_UPDATE_USER, e);
+			throw e;
+		}
 	}
 
 	/**
@@ -162,18 +183,10 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * Find user by username
+	 * Method getInstance
 	 */
-	@Override
-	@Transactional
-	public Users findByUsername(String username) {
-		try {
-			return (Users) userDao.findByUsername(username);
-
-		} catch (NoResultException e) {
-			System.out.println("User does not exist!");
-		}
-		return null;
+	public static UserManager getInstance() {
+		return ManagerFactory.getManager(UserManager.class);
 	}
 
 	/**
