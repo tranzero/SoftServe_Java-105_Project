@@ -25,15 +25,12 @@ public class TestStationsValidator {
 	private static final String STATION_OBJECT_NAME = "station";
 
 	private static final String STATION_CODE_VALUE = "stationCode";
-
-	private static final String WRONG_STATION_CODE_VALUE = "000000@A";
-
 	private static final String STATION_NAME_VALUE = "stationName";
 
+	private static final String WRONG_STATION_CODE_VALUE = "000000@A";
 	private static final String WRONG_STATION_NAME_VALUE = "L'viv + @@@";
 
 	private static final String MOCK_STATION_CODE = "00000000001";
-
 	private static final String MOCK_STATION_NAME = "Stryy";
 
 	private Validator stationsValidator = new StationsValidator();
@@ -137,6 +134,21 @@ public class TestStationsValidator {
 		assertTrue(errors.hasErrors());
 		assertNotNull(errors.getFieldError(STATION_CODE_VALUE));
 	}
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationCode(String, Errors)}
+	 */
+	@Test
+	public void testStationCodeEmptyValue() {
+		station.setStationCode("");
+		errors = new BeanPropertyBindingResult(station, STATION_OBJECT_NAME);
+		stationsValidator.validate(station, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(STATION_CODE_VALUE));
+	}
+
 
 	/**
 	 * Test method for
@@ -172,6 +184,20 @@ public class TestStationsValidator {
 	@Test
 	public void testStationNameNullValue() {
 		station.setStationName(null);
+		errors = new BeanPropertyBindingResult(station, STATION_OBJECT_NAME);
+		stationsValidator.validate(station, errors);
+
+		assertTrue(errors.hasErrors());
+		assertNotNull(errors.getFieldError(STATION_NAME_VALUE));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.validation.StationsValidator#validateStationName(String, Errors)}
+	 */
+	@Test
+	public void testStationNameEmptyValue() {
+		station.setStationName("");
 		errors = new BeanPropertyBindingResult(station, STATION_OBJECT_NAME);
 		stationsValidator.validate(station, errors);
 
