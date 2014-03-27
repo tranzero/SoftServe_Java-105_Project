@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
+import com.ita.edu.softserve.utils.DateUtil;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 
@@ -47,15 +48,7 @@ public class AddTripsValidator implements Validator {
 			errors.rejectValue(WRONG_DATE_MIN, WRONG_DATE_MESSAGE);
 		} else {
 			try {
-				if (locale.getLanguage().trim()
-						.equalsIgnoreCase(TripsManagerImpl.UKRAINIAN)
-						|| locale.getLanguage().trim()
-								.equalsIgnoreCase(TripsManagerImpl.SPANISH)) {
-					ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-							.parse(minDate);
-				} else {
-					ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(minDate);
-				}
+				DateUtil.parseLocalDate(minDate, locale);
 			} catch (Exception e) {
 				errors.rejectValue(WRONG_DATE_MIN, WRONG_DATE_MESSAGE);
 			}
@@ -65,15 +58,7 @@ public class AddTripsValidator implements Validator {
 			errors.rejectValue(WRONG_DATE_MAX, WRONG_DATE_MESSAGE);
 		} else {
 			try {
-				if (locale.getLanguage().trim()
-						.equalsIgnoreCase(TripsManagerImpl.UKRAINIAN)
-						|| locale.getLanguage().trim()
-								.equalsIgnoreCase(TripsManagerImpl.SPANISH)) {
-					ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-							.parse(maxDate);
-				} else {
-					ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(maxDate);
-				}
+				DateUtil.parseLocalDate(maxDate, locale);
 			} catch (Exception e) {
 				errors.rejectValue(WRONG_DATE_MAX, WRONG_DATE_MESSAGE);
 			}

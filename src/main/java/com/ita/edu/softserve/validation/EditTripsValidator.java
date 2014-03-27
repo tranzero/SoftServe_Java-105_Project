@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.impl.TripsManagerImpl;
+import com.ita.edu.softserve.utils.DateUtil;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.impl.AddTripsInfoValidationContainer;
 import com.ita.edu.softserve.validationcontainers.impl.EditTripsInfoValidationContainer;
@@ -48,15 +49,7 @@ public class EditTripsValidator implements Validator {
 			errors.rejectValue(WRONG_DATE, WRONG_DATE_MESSAGE);
 		} else {
 			try {
-				if (locale.getLanguage().trim()
-						.equalsIgnoreCase(TripsManagerImpl.UKRAINIAN)
-						|| locale.getLanguage().trim()
-								.equalsIgnoreCase(TripsManagerImpl.SPANISH)) {
-					ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-							.parse(dateString);
-				} else {
-					ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(dateString);
-				}
+				DateUtil.parseLocalDate(dateString, locale);;
 			} catch (Exception e) {
 				errors.rejectValue(WRONG_DATE, WRONG_DATE_MESSAGE);
 			}

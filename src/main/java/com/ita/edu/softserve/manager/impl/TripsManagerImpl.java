@@ -20,6 +20,7 @@ import com.ita.edu.softserve.exception.TripsManagerException;
 import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TripsManager;
 import com.ita.edu.softserve.manager.UserNameService;
+import com.ita.edu.softserve.utils.DateUtil;
 import com.ita.edu.softserve.utils.StaticValidator;
 import com.ita.edu.softserve.utils.ValidatorUtil;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
@@ -104,8 +105,8 @@ public class TripsManagerImpl implements TripsManager {
 	public TripsManagerImpl() {
 	}
 
-	private RuntimeException dbException(RuntimeException e) {
-		RuntimeException ex = new TripsManagerException(DB_CONNECT_EXCEPTION
+	private RuntimeException logTripsException(Exception e, String message) {
+		RuntimeException ex = new TripsManagerException(message
 				+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
 		LOGGER.error(ex);
 		return ex;
@@ -117,7 +118,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getAllEntities();
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -127,7 +128,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.findById(id);
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 
 	}
@@ -142,7 +143,7 @@ public class TripsManagerImpl implements TripsManager {
 					remSeatClass1, remSeatClass2, remSeatClass3, minDate,
 					maxDate);
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -180,7 +181,7 @@ public class TripsManagerImpl implements TripsManager {
 					tripsCriteriaContainer.getOrderByDirection(), knownElement);
 			return (number / pageSize) + 1;
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -225,7 +226,7 @@ public class TripsManagerImpl implements TripsManager {
 					remSeatClass3, minDate, maxDate, orderByParam,
 					orderByDirection);
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -235,7 +236,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripById(id);
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -245,7 +246,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripsListCount();
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -261,7 +262,7 @@ public class TripsManagerImpl implements TripsManager {
 		try {
 			return tripsDao.getTripsForLimits(firstElement, count);
 		} catch (RuntimeException e) {
-			throw dbException(e);
+			throw logTripsException(e, DB_CONNECT_EXCEPTION);
 		}
 	}
 
@@ -282,18 +283,8 @@ public class TripsManagerImpl implements TripsManager {
 			Locale locale = container.getLocaleParam();
 			transport = transportsDao.findById(Integer.parseInt(container
 					.getTransportId()));
-			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
-					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
-				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-						.parse(container.getFrom());
-				endDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-						.parse(container.getTo());
-			} else {
-				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER
-						.parse(container.getFrom());
-				endDate = ValidatorUtil.DEFAULT_DATE_FORMATTER.parse(container
-						.getTo());
-			}
+			startDate = DateUtil.parseLocalDate(container.getFrom(), locale);
+			endDate = DateUtil.parseLocalDate(container.getTo(), locale);
 			Calendar start = Calendar.getInstance();
 			start.setTime(startDate);
 			Calendar end = Calendar.getInstance();
@@ -309,15 +300,10 @@ public class TripsManagerImpl implements TripsManager {
 			}
 			return true;
 		} catch (ParseException e) {
-			RuntimeException ex = new TripsManagerException(
-					DATE_FORMAT_EXCEPTION + USER_ACTION_TEXT
-							+ userNameService.getLoggedUsername(), e);
-			LOGGER.error(ex);
+			logTripsException(e, DATE_FORMAT_EXCEPTION);
 			return false;
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TripsManagerException(COULD_NOT_ADD_TRIP
-					+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
-			LOGGER.error(ex);
+			logTripsException(e, COULD_NOT_ADD_TRIP);
 			return false;
 		}
 
@@ -331,14 +317,7 @@ public class TripsManagerImpl implements TripsManager {
 		Locale locale = container.getLocaleParam();
 		Trips trip;
 		try {
-			if (locale.getLanguage().trim().equalsIgnoreCase(UKRAINIAN)
-					|| locale.getLanguage().trim().equalsIgnoreCase(SPANISH)) {
-				startDate = ValidatorUtil.UKRAINIAN_AND_SPANISH_FORMATTER
-						.parse(container.getStartDate());
-			} else {
-				startDate = ValidatorUtil.DEFAULT_DATE_FORMATTER
-						.parse(container.getStartDate());
-			}
+			startDate = DateUtil.parseLocalDate(container.getStartDate(), locale);
 			trip = Objects.requireNonNull(tripsDao.findById(tripId));
 			trip.setTransport(Objects.requireNonNull(transportsDao
 					.findById(Integer.parseInt(container.getTransportId()))));
@@ -351,15 +330,10 @@ public class TripsManagerImpl implements TripsManager {
 					+ userNameService.getLoggedUsername());
 			return true;
 		} catch (ParseException e) {
-			RuntimeException ex = new TripsManagerException(
-					DATE_FORMAT_EXCEPTION + USER_ACTION_TEXT
-							+ userNameService.getLoggedUsername(), e);
-			LOGGER.error(ex);
+			logTripsException(e, DATE_FORMAT_EXCEPTION);
 			return false;
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TripsManagerException(COULD_NOT_EDIT_TRIP
-					+ USER_ACTION_TEXT + userNameService.getLoggedUsername(), e);
-			LOGGER.error(ex);
+			logTripsException(e, COULD_NOT_EDIT_TRIP);
 			return false;
 		}
 
@@ -420,11 +394,7 @@ public class TripsManagerImpl implements TripsManager {
 			LOGGER.info(id + REMOVE_TRIP + USER_ACTION_TEXT
 					+ userNameService.getLoggedUsername());
 		} catch (RuntimeException e) {
-			RuntimeException ex = new TripsManagerException(
-					COULD_NOT_REMOVE_TRIP + USER_ACTION_TEXT
-							+ userNameService.getLoggedUsername(), e);
-			LOGGER.error(ex);
-			throw ex;
+			throw logTripsException(e, COULD_NOT_REMOVE_TRIP);
 		}
 
 	}
