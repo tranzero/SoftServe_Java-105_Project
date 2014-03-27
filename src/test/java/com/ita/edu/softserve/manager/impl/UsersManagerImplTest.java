@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.AssertFalse;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -164,6 +166,8 @@ public class UsersManagerImplTest {
 		when(mockUsersDao.findByUsername(userUserName)).thenReturn(null);
 		isCreatedUser = userManagerImpl.createUser(userUserName, userFirstName,
 				userLastName, userEmail, userPassword, userRole);
+		
+		verify(mockUsersDao, times(1)).save(any(Users.class));
 
 		assertTrue(isCreatedUser);
 	}
@@ -172,6 +176,24 @@ public class UsersManagerImplTest {
 	 * Test for method createUser
 	 */
 	@Test
+	public final void testCreateUserWhenUserExists() {
+		boolean isCreatedUser = false;
+		
+		when(mockUsersDao.findByUsername(userUserName)).thenReturn(user);
+		
+		isCreatedUser = userManagerImpl.createUser(userUserName, userFirstName,
+				userLastName, userEmail, userPassword, userRole);
+		
+		verify(mockUsersDao, times(0)).save(any(Users.class));
+		
+		assertFalse(isCreatedUser);
+		
+		
+	}
+	/**
+	 * Test for method createUser
+	 */
+	/*@Test
 	public final void testCreateUser2() {
 		final String userUsername2 = "login2";
 		final String userFirstName2 = "Roxa";
@@ -187,6 +209,6 @@ public class UsersManagerImplTest {
 				userRole2);
 
 		assertTrue(isCreatedUser);
-	}
+	}*/
 
 }
