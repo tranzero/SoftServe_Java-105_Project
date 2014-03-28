@@ -118,20 +118,6 @@ public interface TransportsManager extends BaseManager {
 			TransportsCriteriaContainer transportCriteriaContainer);
 
 	/**
-	 * @param transportCode
-	 * @param routeName
-	 * @param routesCode
-	 * @param seatClass1
-	 * @param seatClass2
-	 * @param seatClass3
-	 * @param price
-	 * @return
-	 */
-	long getTransportsListCount(String transportCode, String routeName,
-			String routesCode, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price);
-
-	/**
 	 * @param firstElement
 	 * @param count
 	 * @param transportCode
