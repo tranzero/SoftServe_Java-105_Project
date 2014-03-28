@@ -114,6 +114,9 @@ public class TripsManagerImpl implements TripsManager {
 		return ex;
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getAllTrips() 
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getAllTrips() {
@@ -124,6 +127,9 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#findByTripId(Integer)
+	 */
 	@Transactional
 	@Override
 	public Trips findByTripId(Integer id) {
@@ -135,6 +141,11 @@ public class TripsManagerImpl implements TripsManager {
 
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsListCriteriaCount(String,
+			String, Integer, Integer,
+			Integer, Date, Date)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCriteriaCount(String transportCode,
@@ -149,6 +160,10 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsListCriteriaCountUsingContainers(
+			TripsCriteriaContainer)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCriteriaCountUsingContainers(
@@ -163,6 +178,11 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getMaxDateValue());
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsListCriteriaPageUsingContainers(
+			TripsCriteriaContainer,
+			Integer, Integer)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public long getTripsListCriteriaPageUsingContainers(
@@ -187,6 +207,12 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsForCriteriaWithPage(int, int,
+			String, String, Integer,
+			Integer, Integer, Date,
+			Date, String, String)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForCriteriaWithPage(int pageNumber, int count,
@@ -198,6 +224,11 @@ public class TripsManagerImpl implements TripsManager {
 				remSeatClass3, minDate, maxDate, orderByParam, orderByDirection);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsForCriteriaUsingContainers(
+			TripsCriteriaContainer,
+			PageInfoContainer)
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForCriteriaUsingContainers(
@@ -216,6 +247,12 @@ public class TripsManagerImpl implements TripsManager {
 				tripsCriteriaContainer.getOrderByDirection());
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripsForCriteria(int , int ,
+			String , String , Integer ,
+			Integer , Integer , Date ,
+			Date , String , String )
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public List<Trips> getTripsForCriteria(int firstElement, int count,
@@ -232,6 +269,9 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#getTripById(int) 
+	 */
 	@Transactional(readOnly = true)
 	@Override
 	public Trips getTripById(int id) {
@@ -242,12 +282,20 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#validateTripsCriteria(
+			TripsCriteriaContainer, Locale) 
+	 */
 	@Override
 	public void validateTripsCriteria(
 			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
 		StaticValidator.validateTripsCriteria(tripsCriteriaContainer, locale);
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#addTripsWithContainer(
+			AddTripsInfoValidationContainer)
+	 */
 	@Transactional
 	@Override
 	public boolean addTripsWithContainer(
@@ -295,6 +343,10 @@ public class TripsManagerImpl implements TripsManager {
 
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#editTrip(Integer,
+			EditTripsInfoValidationContainer) 
+	 */
 	@Transactional
 	@Override
 	public boolean editTrip(Integer tripId,
@@ -326,6 +378,9 @@ public class TripsManagerImpl implements TripsManager {
 
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#updateTrip(Trips)
+	 */
 	@Override
 	public void updateTrip(Trips trip) {
 		try {
@@ -335,6 +390,9 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#reduceFreeSeatsQuantity(Integer, Integer)
+	 */
 	@Transactional
 	@Override
 	public void reduceFreeSeatsQuantity(Integer tripId, Integer seatType) {
@@ -352,6 +410,9 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
+	/**
+	 * @see com.ita.edu.softserve.manager.TripsManager#increaseFreeSeatsQuantity(Integer, Integer) 
+	 */
 	@Transactional
 	@Override
 	public void increaseFreeSeatsQuantity(Integer tripId, Integer seatType) {
@@ -370,7 +431,7 @@ public class TripsManagerImpl implements TripsManager {
 	}
 
 	/**
-	 * Delete trip from DB
+	 * @see com.ita.edu.softserve.manager.TripsManager#removeTrip(Integer) 
 	 */
 
 	@Override
