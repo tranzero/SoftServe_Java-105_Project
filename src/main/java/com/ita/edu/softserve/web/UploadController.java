@@ -20,16 +20,16 @@ import com.ita.edu.softserve.utils.UploadedFile;
 public class UploadController {
 
 	@Autowired
-	FileValidator fileValidator;
+	private FileValidator fileValidator;
 
 	@Autowired
-	UploadedFile uploadedFile;
+	private UploadedFile uploadedFile;
 
 	@Autowired
-	PropertiesManager propertyManager;
+	private PropertiesManager propertyManager;
 
 	@Autowired
-	FileManager fileManager;
+	private FileManager fileManager;
 
 	private static final String FILE_UPLOAD_FORM = "fileUploadForm";
 	private static final String FILE_UPLOAD = "fileUpload";

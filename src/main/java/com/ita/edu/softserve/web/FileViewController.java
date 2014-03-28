@@ -22,14 +22,14 @@ public class FileViewController {
 	@Autowired
 	PropertiesManager propertyManager;
 
-	public static final String IMAGE_INPUT_REQUEST_VALUE = "news/images/{img}.{res}";
-	public static final String NON_IMAGE_REQUEST_VALUE = "news/images/";
-	public static final String PATH_VARIABLE_IMG_VALUE = "img";
-	public static final String PATH_VARIABLE_RES_VALUE = "res";
-	public static final String HEADER_CONTENT_DISPOSITION_VALUE = "Content-Disposition";
-	public static final String HEADER_ATTACHMENT_VALUE = "attachment; filename=\"";
-	public static final String HEADER_ATTACHMENT_END_OF_STRING_VALUE = "\"";
-	public static final String DEFAULT_NEWS_IMAGE = "default.jpg";
+	private static final String IMAGE_INPUT_REQUEST_VALUE = "news/images/{img}.{res}";
+	private static final String NON_IMAGE_REQUEST_VALUE = "news/images/";
+	private static final String PATH_VARIABLE_IMG_VALUE = "img";
+	private static final String PATH_VARIABLE_RES_VALUE = "res";
+	private static final String HEADER_CONTENT_DISPOSITION_VALUE = "Content-Disposition";
+	private static final String HEADER_ATTACHMENT_VALUE = "attachment; filename=\"";
+	private static final String HEADER_ATTACHMENT_END_OF_STRING_VALUE = "\"";
+	private static final String DEFAULT_NEWS_IMAGE = "default.jpg";
 
 	@RequestMapping(value = IMAGE_INPUT_REQUEST_VALUE, method = RequestMethod.GET)
 	public void showImg(HttpServletResponse response,

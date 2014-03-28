@@ -43,11 +43,11 @@ public class PostForMainPageManagerImplTest {
 	@InjectMocks
 	private PostForMainPageManager postManager = new PostForMainPageManagerImpl();
 
-	int postIdMock = 20;
-	String postTitleMock = "test Title";
-	String postDescriptionMock = "test Description";
-	String postImgSrcMock = "test.png";
-	String emptyArgString = null;
+	private int postIdMock = 20;
+	private String postTitleMock = "test Title";
+	private String postDescriptionMock = "test Description";
+	private String postImgSrcMock = "test.png";
+	private String emptyArgString = null;
 
 	@Spy
 	private Post post = new Post(postTitleMock, postDescriptionMock,
