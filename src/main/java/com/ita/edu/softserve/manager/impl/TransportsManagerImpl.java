@@ -33,7 +33,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	 * source code. Returns an empty string if the underlying class is
 	 * anonymous.
 	 */
-	private String entityName = Transports.class.getSimpleName() + " with Id=";
+	private static final String ENTITY_NAME = Transports.class.getSimpleName() + " with Id=";
 
 	private static final String ADD_MESSAGE = " was added to DB by ";
 	private static final String REMOVE_MESSAGE = " was remove from DB by ";
@@ -81,7 +81,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			transports = transportsDao.findById(id);
 
 			if (transports != null) {
-				LOGGER.info(entityName + transports.getTransportId()
+				LOGGER.info(ENTITY_NAME + transports.getTransportId()
 						+ WAS_FOUND_MESSAGE + userName.getLoggedUsername());
 			}
 
@@ -109,7 +109,7 @@ public class TransportsManagerImpl implements TransportsManager {
 			transports = transportsDao.findByCode(code);
 
 			if (transports != null) {
-				LOGGER.info(entityName + transports.getTransportId()
+				LOGGER.info(ENTITY_NAME + transports.getTransportId()
 						+ WAS_FOUND_BY_CODE_MESSAGE + userName.getLoggedUsername());
 			}
 			return transports;
@@ -133,7 +133,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	public void saveTransports(Transports transports) {
 		try {
 			transportsDao.save(transports);
-			LOGGER.info(entityName + transports.getTransportId() + ADD_MESSAGE
+			LOGGER.info(ENTITY_NAME + transports.getTransportId() + ADD_MESSAGE
 					+ userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			LOGGER.error(SAVE_TRANSPORTS_MESSAGE + transports.getTransportId(), e);
@@ -152,7 +152,7 @@ public class TransportsManagerImpl implements TransportsManager {
 	public void removeTransports(Transports transports) {
 		try {
 			transportsDao.remove(transports);
-			LOGGER.info(entityName + transports.getTransportId()
+			LOGGER.info(ENTITY_NAME + transports.getTransportId()
 					+ REMOVE_MESSAGE + userName.getLoggedUsername());
 		} catch (RuntimeException e) {
 			LOGGER.error(REMOVE_TRANSPORTS_MESSAGE + transports.getTransportId(),
@@ -173,7 +173,7 @@ public class TransportsManagerImpl implements TransportsManager {
 
 		try {
 			transportsDao.removeById(transportId);
-			LOGGER.info(entityName + transportId + REMOVE_MESSAGE
+			LOGGER.info(ENTITY_NAME + transportId + REMOVE_MESSAGE
 					+ userName.getLoggedUsername());
 
 		} catch (RuntimeException e) {
@@ -195,7 +195,7 @@ public class TransportsManagerImpl implements TransportsManager {
 		List<Transports> update = null;
 		try {
 			update = transportsDao.update(transports);
-			LOGGER.info(entityName + transports.getTransportId()
+			LOGGER.info(ENTITY_NAME + transports.getTransportId()
 					+ WAS_UPDATED_MESSAGE + userName.getLoggedUsername());
 
 			return update;
@@ -246,11 +246,11 @@ public class TransportsManagerImpl implements TransportsManager {
 			transportsDao.saveOrUpdate(transports);
 
 			if (id == null) {
-				LOGGER.info(entityName + id + ADD_MESSAGE
+				LOGGER.info(ENTITY_NAME + id + ADD_MESSAGE
 						+ userName.getLoggedUsername());
 
 			} else {
-				LOGGER.info(entityName + id + WAS_UPDATED_MESSAGE
+				LOGGER.info(ENTITY_NAME + id + WAS_UPDATED_MESSAGE
 						+ userName.getLoggedUsername());
 			}
 		} catch (RuntimeException e) {
