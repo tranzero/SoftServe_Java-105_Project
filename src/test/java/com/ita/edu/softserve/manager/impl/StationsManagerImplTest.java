@@ -405,7 +405,7 @@ public class StationsManagerImplTest {
 		
 		verify(stationsDaoMock, times(1)).findById(stationIdMock);
 		verify(station, times(1)).setStationCode(stationCodeMock);
-		verify(station, times(1)).setStationName(stationNameMock);
+		verify(station, times(0)).setStationName(stationNameMock);
 		verify(stationsDaoMock, times(0)).update(station);
 	}
 
