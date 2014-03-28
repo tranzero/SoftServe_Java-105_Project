@@ -118,4 +118,6 @@ public interface TripsDAO extends AbstractDAOIface<Trips> {
 
 	Trips getTripById(int id);
 
+	boolean checkTripExistance(Integer transportId, Date date);
+
 }

@@ -30,6 +30,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @Table(name = "trips")
 @NamedQueries({
 		@NamedQuery(name = Trips.TRIPS_FIND_ALL, query = Trips.TRIPS_FIND_ALL_QUERY),
+		@NamedQuery(name = Trips.CHECK_TRIP_EXS , query = Trips.CHECK_TRIP_EXS_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_BY_ID, query = Trips.TRIPS_FIND_BY_ID_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_COUNT, query = Trips.TRIPS_FIND_COUNT_QUERY),
 		@NamedQuery(name = Trips.TRIPS_FIND_CRITERIA_COUNT, query = Trips.TRIPS_FIND_CRITERIA_COUNT_QUERY),
@@ -105,13 +106,6 @@ public class Trips extends BaseEntity {
 
 	public static final String GENERAL_ORDER_PART = ", tr.tripId ";
 
-	// /**
-	// * Name of query which is used for selecting trips from DB using criteria.
-	// Compatible with
-	// * paging.
-	// */
-	// public static final String TRIPS_FIND_BY_CRITERIA =
-	// "Trips.findByCriteria";
 	/**
 	 * Query which is used for selecting trips from DB using criteria.
 	 * Compatible with paging.
@@ -222,6 +216,17 @@ public class Trips extends BaseEntity {
 	public static final String FIND_BY_TRANSPORTID_QUERY = "SELECT tr FROM Trips tr WHERE tr.transport.transportId = ?1";
 
 	/**
+	 * Query name for searching for trip with given transport and date
+	 */
+	public static final String CHECK_TRIP_EXS = "Trips.checkTripExs";
+
+	/**
+	 * Query for searching for trip with given transport and date
+	 */
+	public static final String CHECK_TRIP_EXS_QUERY = "SELECT COUNT(tr.tripId) FROM Trips tr WHERE tr.transport.transportId = ?1"
+			+ " AND tr.startDate = ?2";
+
+	/**
 	 * Identifier field
 	 */
 
@@ -311,8 +316,8 @@ public class Trips extends BaseEntity {
 
 	public Trips(Transports transport, Date startDate) {
 		super();
-		
-		this.transport =  Objects.requireNonNull(transport);
+
+		this.transport = Objects.requireNonNull(transport);
 		this.remSeatClass1 = transport.getSeatclass1();
 		this.remSeatClass2 = transport.getSeatclass2();
 		this.remSeatClass3 = transport.getSeatclass3();

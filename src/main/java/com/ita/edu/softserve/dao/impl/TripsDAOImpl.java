@@ -181,6 +181,14 @@ public class TripsDAOImpl extends AbstractDAO<Trips> implements TripsDAO {
 				.setParameter(1, id);
 		return (Trips) query.getSingleResult();
 	}
+	
+	@Override
+	public boolean checkTripExistance(Integer transportId, Date date){
+		Query query = entityManager.createNamedQuery(Trips.CHECK_TRIP_EXS)
+				.setParameter(1, transportId)
+				.setParameter(2, date, TemporalType.DATE);
+		return ((long)find(query))>0;
+	}
 
 	@Override
 	public List<Trips> getTripsForLimits(int firstElement, int count) {

@@ -30,37 +30,6 @@ public interface TripsManager extends BaseManager {
 	 */
 	List<Trips> getAllTrips();
 
-	/**
-	 * Returns list of trips using given limit
-	 * 
-	 * @param firstElement
-	 *            Starting element number
-	 * @param count
-	 *            Maximum amount of results
-	 * @return Result list
-	 */
-
-	List<Trips> getTripsForLimit(int firstElement, int count);
-
-	/**
-	 * Returns list of trips for page
-	 * 
-	 * @param pageNumber
-	 *            number of page
-	 * @param count
-	 *            amount of elements for page
-	 * @return Result list
-	 */
-
-	List<Trips> getTripsForPage(int pageNumber, int count);
-
-	/**
-	 * Returns amount of trips
-	 * 
-	 * @return amount of trips
-	 */
-
-	long getTripsListCount();
 
 	/**
 	 * 

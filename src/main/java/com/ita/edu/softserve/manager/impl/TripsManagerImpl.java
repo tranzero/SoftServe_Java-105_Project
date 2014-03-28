@@ -89,7 +89,9 @@ public class TripsManagerImpl implements TripsManager {
 
 	private static final String DATE_FORMAT_EXCEPTION = "Wrong date format. ";
 
-	private static final String SUCCESS_ADD_TRIP = "Trip for transport %d and date %s added";
+	private static final String SUCCESS_ADD_TRIP = "Trip for transport %d and date %s added. ";
+
+	private static final String TRIP_ALREADY_EXIST = "Trip for transport %d and date %s already exists.";
 
 	private static final String DB_CONNECT_EXCEPTION = "There is a problem with DB connection (or something unexpected). ";
 
@@ -240,32 +242,6 @@ public class TripsManagerImpl implements TripsManager {
 		}
 	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public long getTripsListCount() {
-		try {
-			return tripsDao.getTripsListCount();
-		} catch (RuntimeException e) {
-			throw logTripsException(e, DB_CONNECT_EXCEPTION);
-		}
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Trips> getTripsForPage(int pageNumber, int count) {
-		return getTripsForLimit((pageNumber - 1) * count, count);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Trips> getTripsForLimit(int firstElement, int count) {
-		try {
-			return tripsDao.getTripsForLimits(firstElement, count);
-		} catch (RuntimeException e) {
-			throw logTripsException(e, DB_CONNECT_EXCEPTION);
-		}
-	}
-
 	@Override
 	public void validateTripsCriteria(
 			TripsCriteriaContainer tripsCriteriaContainer, Locale locale) {
@@ -291,17 +267,27 @@ public class TripsManagerImpl implements TripsManager {
 			end.setTime(endDate);
 			for (Date date = start.getTime(); !start.after(end); start.add(
 					Calendar.DATE, 1), date = start.getTime()) {
-				Trips element = new Trips(transport, date);
-				tripsDao.saveOrUpdate(element);
-				LOGGER.info(String.format(SUCCESS_ADD_TRIP,
-						transport.getTransportId(), date.toString())
-						+ USER_ACTION_TEXT
-						+ userNameService.getLoggedUsername());
+				if (tripsDao.checkTripExistance(transport.getTransportId(),
+						date)) {
+					LOGGER.info(String.format(TRIP_ALREADY_EXIST,
+							transport.getTransportId(), date.toString())
+							+ USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername());
+				} else {
+					Trips element = new Trips(transport, date);
+					tripsDao.saveOrUpdate(element);
+					LOGGER.info(String.format(SUCCESS_ADD_TRIP,
+							transport.getTransportId(), date.toString())
+							+ USER_ACTION_TEXT
+							+ userNameService.getLoggedUsername());
+				}
 			}
 			return true;
+			
 		} catch (ParseException e) {
 			logTripsException(e, DATE_FORMAT_EXCEPTION);
 			return false;
+			
 		} catch (RuntimeException e) {
 			logTripsException(e, COULD_NOT_ADD_TRIP);
 			return false;
