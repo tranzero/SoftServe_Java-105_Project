@@ -29,7 +29,7 @@ public class RoutesValidator implements Validator {
 	 */
 	@Autowired
 	private StationOnLineManager stationOnLineManager;
-	
+
 	public static final String ROUTE_CODE_PATERN = "^[0-9]{5,15}$";
 	public static final String NAME_CODE_PATERN = ".{3,20}";
 	public static final String IS_NO_ERROR = "0";
@@ -57,28 +57,29 @@ public class RoutesValidator implements Validator {
 	public boolean supports(Class<?> clazz) {
 		return Routes.class.equals(clazz);
 	}
-	
-	/**
-	 * This  method set RoutesManager
-	 */
-	public void setRoutesManager(RoutesManager routesManager){
-        this.routesManager = routesManager;
-    }
-	
-	/**
-	 * This  method set LinesManager
-	 */
-	public void setLinesManager(LinesManager linesManager){
-        this.linesManager = linesManager;
-    }
 
 	/**
-	 * This  method set StationOnLineManager
+	 * This method set RoutesManager
 	 */
-	public void setStationOnLineManager(StationOnLineManager stationOnLineManager){
-        this.stationOnLineManager = stationOnLineManager;
-    }
-	
+	public void setRoutesManager(RoutesManager routesManager) {
+		this.routesManager = routesManager;
+	}
+
+	/**
+	 * This method set LinesManager
+	 */
+	public void setLinesManager(LinesManager linesManager) {
+		this.linesManager = linesManager;
+	}
+
+	/**
+	 * This method set StationOnLineManager
+	 */
+	public void setStationOnLineManager(
+			StationOnLineManager stationOnLineManager) {
+		this.stationOnLineManager = stationOnLineManager;
+	}
+
 	/**
 	 * This method provide validation for Routes objects.
 	 * 
@@ -90,7 +91,7 @@ public class RoutesValidator implements Validator {
 		Routes route = (Routes) obj;
 
 		validateRouteByCode(route.getRouteId(), route.getRouteCode(), error);
-		
+
 		validateLine(route.getLineId(), error);
 
 		validateStations(route.getStationStartId(), route.getStationEndId(),
@@ -115,7 +116,7 @@ public class RoutesValidator implements Validator {
 			error.rejectValue(LINE_NAME, LINE_NAME_MATCHER);
 		}
 	}
-	
+
 	/**
 	 * Validate stationStartName, using regexp pattern
 	 */
@@ -124,7 +125,6 @@ public class RoutesValidator implements Validator {
 			error.rejectValue(STATION_START, STATION_START_MATCHER);
 		}
 	}
-	
 
 	/**
 	 * Validate stationEndName, using regexp pattern
@@ -132,79 +132,6 @@ public class RoutesValidator implements Validator {
 	private void validateStationEndName(String stationEndName, Errors error) {
 		if (!stationEndName.matches(NAME_CODE_PATERN)) {
 			error.rejectValue(STATION_END, STATION_END_MATCHER);
-		}
-	}
-	
-	/**
-	 * Check if Route object exist in database with such stationName.
-	 * 
-	 * @param routeId
-	 * @param routeCode
-	 * @param error
-	 */
-	public boolean validateRouteExist(Integer routeId, String routeCode,
-			Errors error) {
-
-		try {
-			Routes route= routesManager.findByCode(routeCode);
-
-			if (!(route.getRouteId()).equals(routeId)) {
-				error.rejectValue(ROUTE_CODE, ROUTE_CODE_EXIST);
-				return false;
-			}
-			return true;
-		} catch (RuntimeException e) {
-			return false;
-		}
-	}
-
-	/**
-	 * Check if Line object not exist in database with such lineName.
-	 * 
-	 * @param lineName
-	 * @param error
-	 */
-	private void validateLineNoExist(String lineName, Errors error) {
-		try {
-			routesManager.findByLineName(lineName);
-		} catch (RuntimeException e) {
-			error.rejectValue(LINE_NAME, LINE_NOT_EXIST);
-		}
-	}
-
-	/**
-	 * Check if start Station object not exist by Line.
-	 * 
-	 * @param stationStartName
-	 * @param lineName
-	 * @param error
-	 */
-	private void validateStartStationByLineNoExist(String stationStartName,
-			String lineName, Errors error) {
-
-		try {	
-		routesManager.getStationNameByLineNameCriteria(stationStartName,
-				lineName);
-		} catch (RuntimeException e) {
-			error.rejectValue(STATION_START, STATION_START_NOT_EXIST);
-		}
-	}
-
-	/**
-	 * Check if end Station object not exist by Line.
-	 * 
-	 * @param stationEndName
-	 * @param lineName
-	 * @param error
-	 */
-	private void validateEndStationByLineNoExist(String stationEndName,
-			String lineName, Errors error) {
-
-		try {
-			routesManager.getStationNameByLineNameCriteria(stationEndName,
-					lineName);
-		} catch (RuntimeException e) {
-			error.rejectValue(STATION_END, STATION_END_NOT_EXIST);
 		}
 	}
 
@@ -256,11 +183,10 @@ public class RoutesValidator implements Validator {
 	 */
 	private void validateLine(Lines line, Errors error) {
 
-		
 		if (line == null) {
 			error.rejectValue(LINE_NAME, LINE_NOT_EXIST);
 		} else {
-			
+
 			validateLineName(line.getLineName(), error);
 			if (!error.hasFieldErrors(LINE_NAME)) {
 				validateLineNoExist(line.getLineName(), error);
@@ -284,12 +210,13 @@ public class RoutesValidator implements Validator {
 	/**
 	 * Validate end Station by lineName
 	 */
-	void validateEndStationByLine(String stationEndName,
-			String lineName, Errors error) {
+	void validateEndStationByLine(String stationEndName, String lineName,
+			Errors error) {
 
-		if (!error.hasFieldErrors(LINE_NAME)&&!error.hasFieldErrors(STATION_END)) {
-				validateStationEndName(stationEndName, error);
-				validateEndStationByLineNoExist(stationEndName, lineName, error);
+		if (!error.hasFieldErrors(LINE_NAME)
+				&& !error.hasFieldErrors(STATION_END)) {
+			validateStationEndName(stationEndName, error);
+			validateEndStationByLineNoExist(stationEndName, lineName, error);
 		}
 	}
 
@@ -299,25 +226,28 @@ public class RoutesValidator implements Validator {
 	public boolean validateRouteCode(String routeCode) {
 		return routeCode.matches(ROUTE_CODE_PATERN);
 	}
+
 	/**
 	 * Validate lineName, using regexp pattern
 	 */
 	public boolean validateLineName(String lineName) {
 		return lineName.matches(NAME_CODE_PATERN);
 	}
+
 	/**
 	 * Validate stationStartName, using regexp pattern
 	 */
 	public boolean validateStationStartName(String stationStartName) {
 		return stationStartName.matches(NAME_CODE_PATERN);
 	}
+
 	/**
 	 * Validate stationEndName, using regexp pattern
 	 */
 	public boolean validateStationEndName(String stationEndName) {
 		return stationEndName.matches(NAME_CODE_PATERN);
 	}
-	
+
 	/**
 	 * Validate Stations by null
 	 */
@@ -351,11 +281,83 @@ public class RoutesValidator implements Validator {
 
 			if (!error.hasFieldErrors(STATION_START)
 					&& !error.hasFieldErrors(STATION_END)
-					&& !error.hasFieldErrors(LINE_NAME)
-					) {
+					&& !error.hasFieldErrors(LINE_NAME)) {
 				validateStationBySameName(stationStart.getStationName(),
 						stationEnd.getStationName(), error);
 			}
+		}
+	}
+
+	/**
+	 * Check if Route object exist in database with such stationName.
+	 * 
+	 * @param routeId
+	 * @param routeCode
+	 * @param error
+	 */
+	public boolean validateRouteExist(Integer routeId, String routeCode,
+			Errors error) {
+
+		try {
+			Routes route = routesManager.findByCode(routeCode);
+
+			if (!(route.getRouteId()).equals(routeId)) {
+				error.rejectValue(ROUTE_CODE, ROUTE_CODE_EXIST);
+				return false;
+			}
+			return true;
+		} catch (RuntimeException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Check if Line object not exist in database with such lineName.
+	 * 
+	 * @param lineName
+	 * @param error
+	 */
+	private void validateLineNoExist(String lineName, Errors error) {
+		try {
+			routesManager.findByLineName(lineName);
+		} catch (RuntimeException e) {
+			error.rejectValue(LINE_NAME, LINE_NOT_EXIST);
+		}
+	}
+
+	/**
+	 * Check if start Station object not exist by Line.
+	 * 
+	 * @param stationStartName
+	 * @param lineName
+	 * @param error
+	 */
+	private void validateStartStationByLineNoExist(String stationStartName,
+			String lineName, Errors error) {
+
+		try {
+			routesManager.getStationNameByLineNameCriteria(stationStartName,
+					lineName);
+		} catch (RuntimeException e) {
+			error.rejectValue(STATION_START, STATION_START_NOT_EXIST);
+		}
+	}
+
+	/**
+	 * Check if end Station object not exist by Line.
+	 * 
+	 * @param stationEndName
+	 * @param lineName
+	 * @param error
+	 */
+	private void validateEndStationByLineNoExist(String stationEndName,
+			String lineName, Errors error) {
+
+		try {
+			routesManager.getStationNameByLineNameCriteria(stationEndName,
+					lineName);
+		} catch (RuntimeException e) {
+			error.rejectValue(STATION_END, STATION_END_NOT_EXIST);
 		}
 	}
 

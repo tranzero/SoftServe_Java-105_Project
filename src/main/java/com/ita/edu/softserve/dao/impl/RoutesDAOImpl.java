@@ -56,6 +56,9 @@ public class RoutesDAOImpl extends AbstractDAO<Routes> implements RoutesDAO {
 				.createNamedQuery(Routes.ROUTES_FIND_COUNT));
 	}
 	
+	/**
+	 * Returns Line by lineName
+	 */
 	@Override
 	public Lines findByName(String lineName) {
 		Query query = entityManager.createNamedQuery(Lines.FIND_BY_NAME)
