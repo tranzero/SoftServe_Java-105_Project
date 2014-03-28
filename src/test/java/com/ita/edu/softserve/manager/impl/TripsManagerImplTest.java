@@ -33,6 +33,9 @@ import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TripsCriteriaContainerImpl;
 
 /**
+ * Class under test
+ * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl}
+ * 
  * @author dnyckct
  * 
  */
@@ -130,6 +133,14 @@ public class TripsManagerImplTest {
 		}
 	}
 
+	/**
+	 * Test the methods for deleting trip correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#removeTrip(int)}
+	 * .
+	 */
+	
 	@Test
 	public final void correctTripRemovalTest() {
 		Trips expected = new Trips();
@@ -139,6 +150,14 @@ public class TripsManagerImplTest {
 		verify(userNameService, times(1)).getLoggedUsername();
 	}
 
+	/**
+	 * Test the methods for deleting trip behavior with exceptions.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#removeTrip(int)}
+	 * .
+	 */
+	
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInTripRemovalTest() {
 		Trips expected = new Trips();
@@ -147,6 +166,14 @@ public class TripsManagerImplTest {
 		tripsManager.removeTrip(incorrectTripIdForRemove);
 	}
 
+	/**
+	 * Test the methods for acquiring all trips correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getAllEntities()}
+	 * .
+	 */
+	
 	@Test
 	public final void correctGetAllEntitiesTest() {
 		List<Trips> expected = new ArrayList<Trips>();
@@ -157,11 +184,27 @@ public class TripsManagerImplTest {
 		assertTrue(expected == actual);
 	}
 
+	/**
+	 * Test the methods for acquiring all trips with exceptions.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getAllEntities()}
+	 * .
+	 */
+	
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInGetAllEntitiesTest() {
 		when(tripsDao.getAllEntities()).thenThrow(new RuntimeException());
 		tripsManager.getAllTrips();
 	}
+	
+	/**
+	 * Test the methods for acquiring trips by Id using general DAO method correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#findByTripId(int)}
+	 * .
+	 */
 
 	@Test
 	public final void correctFindByTripIdTest() {
@@ -172,6 +215,14 @@ public class TripsManagerImplTest {
 		verify(tripsDao, times(1)).findById(correctTripIdForSearch);
 		assertTrue(expected == actual);
 	}
+	
+	/**
+	 * Test the methods for acquiring trips by Id using general DAO method with exceptions.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#findByTripId(int)}
+	 * .
+	 */
 
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInFindByTripIdTest() {
@@ -180,6 +231,14 @@ public class TripsManagerImplTest {
 		tripsManager.findByTripId(incorrectTripIdForSearch);
 
 	}
+	
+	/**
+	 * Test the methods for acquiring count of trips that are matching criteria correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsListCriteriaCountUsingContainers(TripsCriteriaContainer)}
+	 * .
+	 */
 
 	@Test
 	public final void correctGetTripsListCriteriaCountUsingContainersTest() {
@@ -209,6 +268,15 @@ public class TripsManagerImplTest {
 				correctTripsCriteriaContainer.getMaxDateValue());
 		assertEquals(expected, actual);
 	}
+	
+	/**
+	 * Test the methods for acquiring count of trips that are matching criteria with exceptions.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsListCriteriaCountUsingContainers(TripsCriteriaContainer)}
+	 * .
+	 */
+
 
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInGetTripsListCriteriaCountUsingContainersTest() {
@@ -228,6 +296,13 @@ public class TripsManagerImplTest {
 				.getTripsListCriteriaCountUsingContainers(incorrectTripsCriteriaContainer);
 	}
 
+	/**
+	 * Test the methods for acquiring page of trips element that are matching criteria correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsListCriteriaPageUsingContainers(TripsCriteriaContainer, Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctGetTripsListCriteriaPageUsingContainersTest() {
 		Trips correctTrip = new Trips();
@@ -254,6 +329,15 @@ public class TripsManagerImplTest {
 		assertTrue(preExpected / correctPageSizeForList + 1 == actual);
 	}
 
+
+	/**
+	 * Test the methods for acquiring page of trips element that are matching criteria with exceptions.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsListCriteriaPageUsingContainers(TripsCriteriaContainer, Integer, Integer)}
+	 * .
+	 */
+	
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInGetTripsListCriteriaPageUsingContainersTest() {
 		when(tripsDao.findById(incorrectTripIdForList)).thenThrow(
@@ -262,6 +346,16 @@ public class TripsManagerImplTest {
 				incorrectTripsCriteriaContainer, incorrectTripIdForList,
 				incorrectPageSizeForList);
 	}
+	
+
+
+	/**
+	 * Test the methods for acquiring list of trips that are matching criteria correct behavior.
+	 *  
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsForCriteriaUsingContainers(TripsCriteriaContainer, PageInfoContainer)}
+	 * .
+	 */
 
 	@Test
 	public final void correctGetTripsForCriteriaUsingContainersTest() {
@@ -289,6 +383,15 @@ public class TripsManagerImplTest {
 		assertTrue(expected == actual);
 	}
 
+
+	/**
+	 * Test the methods for acquiring list of trips that are matching criteria with exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getTripsForCriteriaUsingContainers(TripsCriteriaContainer, PageInfoContainer)}
+	 * .
+	 */
+	
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInGetTripsForCriteriaUsingContainersTest() {
 		when(
@@ -313,6 +416,14 @@ public class TripsManagerImplTest {
 		tripsManager.getTripsForCriteriaUsingContainers(
 				incorrectTripsCriteriaContainer, incorrectPageInfoContainer);
 	}
+	
+	/**
+	 * Test the methods for trip editing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#editTrip(Integer, EditTripsInfoValidationContainer)}
+	 * .
+	 */
 
 	@Test
 	public final void correctEditTripTest() {
@@ -331,6 +442,14 @@ public class TripsManagerImplTest {
 		assertTrue(actual);
 	}
 
+	/**
+	 * Test the methods for trip editing with catched date parse exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#editTrip(Integer, EditTripsInfoValidationContainer)}
+	 * .
+	 */
+
 	@Test
 	public final void catchedDateExceptionInEditTripTest() {
 		boolean actual;
@@ -339,6 +458,14 @@ public class TripsManagerImplTest {
 		assertFalse(actual);
 	}
 
+	/**
+	 * Test the methods for trip editing with catched runtime exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#editTrip(Integer, EditTripsInfoValidationContainer)}
+	 * .
+	 */
+	
 	@Test
 	public final void catchedRuntimeExceptionInEditTripTest() {
 		boolean actual;
@@ -348,6 +475,14 @@ public class TripsManagerImplTest {
 				correctEditTripsInfoValidationContainer);
 		assertFalse(actual);
 	}
+	
+	/**
+	 * Test the methods for trip updating with exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#updateTrip(Trips)}
+	 * .
+	 */
 
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInUpdateTripTest() {
@@ -357,6 +492,14 @@ public class TripsManagerImplTest {
 		tripsManager.updateTrip(tripToUpdate);
 	}
 
+	
+	/**
+	 * Test the methods for trip seats class 1 reducing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#reduceFreeSeatsQuantityClass1(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctReduceFreeSeatsQuantityClass1Test() {
 		tripsManager.reduceFreeSeatsQuantity(
@@ -365,6 +508,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for trip seats class 2 reducing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#reduceFreeSeatsQuantityClass2(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctReduceFreeSeatsQuantityClass2Test() {
 		tripsManager.reduceFreeSeatsQuantity(
@@ -373,6 +523,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for trip seats class 3 reducing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#reduceFreeSeatsQuantityClass3(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctReduceFreeSeatsQuantityClass3Test() {
 		tripsManager.reduceFreeSeatsQuantity(
@@ -381,6 +538,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for trip seats class 1 increasing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#increaseFreeSeatsQuantityClass1(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctIncreaseFreeSeatsQuantityClass1Test() {
 		tripsManager.increaseFreeSeatsQuantity(
@@ -389,6 +553,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for trip seats class 2 increasing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#increaseFreeSeatsQuantityClass2(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctIncreaseFreeSeatsQuantityClass2Test() {
 		tripsManager.increaseFreeSeatsQuantity(
@@ -397,6 +568,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for trip seats class 3 increasing correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#increaseFreeSeatsQuantityClass3(Integer, Integer)}
+	 * .
+	 */
 	@Test
 	public final void correctIncreaseFreeSeatsQuantityClass3Test() {
 		tripsManager.increaseFreeSeatsQuantity(
@@ -405,6 +583,13 @@ public class TripsManagerImplTest {
 				correctTripIdForSeatsManipulations);
 	}
 
+	/**
+	 * Test the methods for getting trip by id using custom query correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getByTripId(int)}
+	 * .
+	 */
 	@Test
 	public final void correctGetByTripIdTest() {
 		Trips expected = new Trips();
@@ -415,6 +600,13 @@ public class TripsManagerImplTest {
 		assertTrue(expected == actual);
 	}
 
+	/**
+	 * Test the methods for getting trip by id using custom query with exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#getByTripId(int)}
+	 * .
+	 */
 	@Test(expected = TripsManagerException.class)
 	public final void exceptionInGetByTripIdTest() {
 		when(tripsDao.getTripById(incorrectTripIdForSearch)).thenThrow(
@@ -423,6 +615,13 @@ public class TripsManagerImplTest {
 
 	}
 
+	/**
+	 * Test the methods for validating trips criteria with null values correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#validateTripsCriteria(TripsCriteriaContainer, Locale)}
+	 * .
+	 */
 	@Test
 	public final void validateNullTripsCriteriaTest() {
 		tripsManager.validateTripsCriteria(emptyTripsCriteriaContainer,
@@ -438,6 +637,13 @@ public class TripsManagerImplTest {
 		assertFalse(emptyTripsCriteriaContainer.getTransportCode() == null);
 	}
 
+	/**
+	 * Test the methods for validating trips criteria with correct values correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#validateTripsCriteria(TripsCriteriaContainer, Locale)}
+	 * .
+	 */
 	@Test
 	public final void validateCorrectTripsCriteriaTest() {
 		tripsManager.validateTripsCriteria(correctTripsCriteriaContainer,
@@ -462,6 +668,13 @@ public class TripsManagerImplTest {
 				correctTripsCriteriaContainerCopy.getTransportCode());
 	}
 
+	/**
+	 * Test the methods for trips adding correct behavior.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#addTripsWithContainer(AddTripsInfoValidationContainer)}
+	 * .
+	 */
 	@Test
 	public final void correctAddTripsWithContainerTest() {
 		Transports foundTransport = new Transports();
@@ -482,7 +695,14 @@ public class TripsManagerImplTest {
 		verify(tripsDao, times(1)).saveOrUpdate(writtenTrip);
 		assertTrue(actual);
 	}
-	
+
+	/**
+	 * Test the methods for trips adding with catched date parsing exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#addTripsWithContainer(AddTripsInfoValidationContainer)}
+	 * .
+	 */
 	@Test
 	public final void cachedDateExceptionInAddTripsWithContainerTest() {
 		Transports foundTransport = new Transports();
@@ -495,14 +715,22 @@ public class TripsManagerImplTest {
 				.addTripsWithContainer(incorrectAddTripsInfoValidationContainer);
 		assertFalse(actual);
 	}
-	
+
+	/**
+	 * Test the methods for trips adding with catched runtime exceptions.
+	 *   
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TripsManagerImpl#addTripsWithContainer(AddTripsInfoValidationContainer)}
+	 * .
+	 */
 	@Test
 	public final void cachedRuntimeExceptionInAddTripsWithContainerTest() {
 		boolean actual;
 		when(
 				transportsDao.findById(Integer
 						.parseInt(incorrectAddTripsInfoValidationContainer
-								.getTransportId()))).thenThrow(new RuntimeException());
+								.getTransportId()))).thenThrow(
+				new RuntimeException());
 		actual = tripsManager
 				.addTripsWithContainer(incorrectAddTripsInfoValidationContainer);
 		assertFalse(actual);

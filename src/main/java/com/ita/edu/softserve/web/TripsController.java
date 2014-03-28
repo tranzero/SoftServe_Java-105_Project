@@ -285,10 +285,16 @@ public class TripsController {
 	@Autowired
 	private TransportsManager transportsManager;
 
+	/**
+	 * Field for validator using while adding trips
+	 */
 	@Autowired
 	@Qualifier("addTripsValidator")
 	private Validator addTripsValidator;
 
+	/**
+	 * Field for validator using while editing trips
+	 */
 	@Autowired
 	@Qualifier("editTripsValidator")
 	private Validator editTripsValidator;
@@ -297,13 +303,13 @@ public class TripsController {
 	 * Container of trips search and sorting information
 	 */
 
+	@Autowired
+	Encoder encoder;
+
 	/**
 	 * Field for using paging-related controller-level methods (class realized
 	 * using singleton)
 	 */
-
-	@Autowired
-	Encoder encoder;
 
 	private PaginationManager paginationManager = PaginationManager
 			.getInstance();
@@ -342,6 +348,15 @@ public class TripsController {
 
 	}
 
+	/**
+	 * Puts boolean variables in the page to define if non-default values should
+	 * be shown in form elements
+	 * 
+	 * @param container
+	 *            container with filtering info
+	 * @param modelMap
+	 *            Model map to fill
+	 */
 	private void putFillAddTripsElementsOptions(
 			TransportForAddTripsCriteriaContainer container,
 			Map<String, Object> modelMap) {
@@ -370,16 +385,16 @@ public class TripsController {
 	/**
 	 * Method for filling model map used in transports-list related controllers
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page
-	 * @param resultsPerPage
-	 *            Amount of results per page
+	 * 
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
 	 *            Used spring locale
 	 */
-
 	private void completeMapForAddTrip(
 			PageInfoContainer container,
 			TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer,
@@ -415,6 +430,21 @@ public class TripsController {
 								: DEFAULT_DATE_FORMAT));
 	}
 
+	/**
+	 * 
+	 * Method for filling model map used in trips editing controllers
+	 * 
+	 * @param tripId
+	 *            id of trip to edit
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 */
 	private void completeMapForEditTrip(
 			Integer tripId,
 			PageInfoContainer container,
@@ -464,12 +494,13 @@ public class TripsController {
 	}
 
 	/**
+	 * 
 	 * Method for filling model map used in trips-list related controllers
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page
-	 * @param resultsPerPage
-	 *            Amount of results per page
+	 * @param container
+	 *            container with paging info
+	 * @param tripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -503,12 +534,13 @@ public class TripsController {
 	}
 
 	/**
+	 * 
 	 * Controller method for displaying trips list page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param tripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -527,10 +559,10 @@ public class TripsController {
 	/**
 	 * Controller method for displaying AJAX-source trips list page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param tripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -549,10 +581,10 @@ public class TripsController {
 	/**
 	 * Controller method for displaying trips manager page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param tripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -570,10 +602,10 @@ public class TripsController {
 	/**
 	 * Controller method for displaying AJAX-source trips manager page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param tripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -590,19 +622,24 @@ public class TripsController {
 	}
 
 	/**
+	 * 
 	 * Controller method for displaying adding trips page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
+	 * @param errors
+	 *            container for errors from unsuccessful attempt to add trips
+	 * @param info
+	 *            container for parameters from unsuccessful attempt to add
+	 *            trips
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
 	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
-
 	@RequestMapping(value = ADDTRIP_WEB_NAME, method = RequestMethod.GET)
 	public String printAddTrips(
 			PageInfoContainerImpl container,
@@ -618,12 +655,13 @@ public class TripsController {
 	}
 
 	/**
+	 * 
 	 * Controller method for displaying AJAX-source adding trips page
 	 * 
-	 * @param pageNumber
-	 *            Number of displaying page (spring-defined)
-	 * @param resultsPerPage
-	 *            Amount of results per page (spring-defined)
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
@@ -641,6 +679,26 @@ public class TripsController {
 		return ADDTRIPPAGE_SPRING_NAME;
 	}
 
+	/**
+	 * 
+	 * Controller method for displaying editing trips page
+	 * 
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
+	 * @param errors
+	 *            container for errors from unsuccessful attempt to edit trip
+	 * @param info
+	 *            container for parameters from unsuccessful attempt to edit
+	 *            trip
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 * @return definition of jsp to use
+	 */
+
 	@RequestMapping(value = TRIP_EDIT_PATH, method = RequestMethod.GET)
 	public String printEditTrips(
 			@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId,
@@ -653,6 +711,21 @@ public class TripsController {
 		modelMap.put(ERROR_NAME, errors);
 		return EDITTRIP_SPRING_NAME;
 	}
+
+	/**
+	 * 
+	 * Controller method for displaying AJAX-source editing trip page
+	 * 
+	 * @param container
+	 *            container with paging info
+	 * @param transportForAddTripsCriteriaContainer
+	 *            container with filtering info
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 * @return definition of jsp to use
+	 */
 
 	@RequestMapping(value = TRIP_EDIT_PAGE_PATH, method = RequestMethod.GET)
 	public String printEditTripsPage(
@@ -668,12 +741,15 @@ public class TripsController {
 	/**
 	 * Controller method for performing addition of trips
 	 * 
+	 * @param container
+	 *            container with definition of trips range to add
 	 * @param modelMap
 	 *            Model map to fill
 	 * @param locale
 	 *            Used spring locale
 	 * @return definition of jsp to use
 	 */
+
 	@RequestMapping(value = ADDNEWTRIPS_WEB_NAME)
 	public String printAddTripsPage(Locale locale,
 			AddTripsInfoValidationContainer container, BindingResult result) {
@@ -705,6 +781,21 @@ public class TripsController {
 		}
 
 	}
+
+	/**
+	 * 
+	 * Controller method for performing editing of trips
+	 * 
+	 * @param tripId
+	 *            id of trips to edit
+	 * @param container
+	 *            container with definition of trip changes
+	 * @param modelMap
+	 *            Model map to fill
+	 * @param locale
+	 *            Used spring locale
+	 * @return definition of jsp to use
+	 */
 
 	@RequestMapping(value = TRIP_EDIT_ACTION_PATH, method = RequestMethod.POST)
 	public String editTripAction(
@@ -740,6 +831,15 @@ public class TripsController {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * Controller method for performing deleting of trips
+	 * 
+	 * @param tripId
+	 *            id of trips to delete
+	 * @return definition of jsp to use
+	 */	
 
 	@RequestMapping(value = TRIP_DELETE_PATH)
 	public String deleteTrip(@PathVariable(TRIPID_PATH_VARIABLE) Integer tripId) {

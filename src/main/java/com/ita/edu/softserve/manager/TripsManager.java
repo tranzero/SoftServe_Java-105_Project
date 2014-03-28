@@ -30,8 +30,9 @@ public interface TripsManager extends BaseManager {
 	 */
 	List<Trips> getAllTrips();
 
-
 	/**
+	 * 
+	 * Returns size of list of trips according given limits and criteria
 	 * 
 	 * @param transportCode
 	 *            transport code for matching
@@ -47,7 +48,7 @@ public interface TripsManager extends BaseManager {
 	 *            minimum date for date range
 	 * @param maxDate
 	 *            maximum date for date range
-	 * @return List of trips size according given limits and criteria
+	 * @return Size of list of trips according given limits and criteria
 	 */
 
 	long getTripsListCriteriaCount(String transportCode, String routeName,
@@ -55,6 +56,8 @@ public interface TripsManager extends BaseManager {
 			Integer remSeatClass3, Date minDate, Date maxDate);
 
 	/**
+	 * 
+	 * Returns list of trips according given limits and criteria
 	 * 
 	 * @param firstElement
 	 *            Starting element for result list
@@ -88,6 +91,9 @@ public interface TripsManager extends BaseManager {
 
 	/**
 	 * 
+	 * Returns list of trips according given limits and criteria (using page
+	 * number instead of starting element)
+	 * 
 	 * @param pageNumber
 	 *            Starting page for result list
 	 * @param count
@@ -119,6 +125,9 @@ public interface TripsManager extends BaseManager {
 
 	/**
 	 * 
+	 * Returns list of trips size according given limits and criteria using
+	 * containers
+	 * 
 	 * @param tripsCriteriaContainer
 	 *            container with given limits and criteria
 	 * @return List of trips size according given limits and criteria
@@ -127,6 +136,9 @@ public interface TripsManager extends BaseManager {
 			TripsCriteriaContainer tripsCriteriaContainer);
 
 	/**
+	 * 
+	 * Returns list of trips according given limits and criteria using
+	 * containers
 	 * 
 	 * @param tripsCriteriaContainer
 	 *            container with given limits and criteria
@@ -138,25 +150,93 @@ public interface TripsManager extends BaseManager {
 			TripsCriteriaContainer tripsCriteriaContainer,
 			PageInfoContainer container);
 
+	/**
+	 * Returns trip that matches given id
+	 * 
+	 * @param id
+	 *            id of trips to search
+	 * @return trip that matches given id
+	 */
 	Trips findByTripId(Integer id);
-	
-	 void reduceFreeSeatsQuantity(Integer tripId, Integer seatType);
-	
-	 void increaseFreeSeatsQuantity(Integer tripId, Integer seatType);
-	
+
+	/**
+	 * Reduces seats quantity of given class for given trip
+	 * 
+	 * @param tripId
+	 *            trip id to reduce seats
+	 * @param seatType
+	 *            seat class to reduce count
+	 */
+	void reduceFreeSeatsQuantity(Integer tripId, Integer seatType);
+
+	/**
+	 * Increases seats quantity of given class for given trip
+	 * 
+	 * @param tripId
+	 *            trip id to increase seats
+	 * @param seatType
+	 *            seat class to increase count
+	 */
+	void increaseFreeSeatsQuantity(Integer tripId, Integer seatType);
+
+	/**
+	 * Updates given trip id DB
+	 * 
+	 * @param trip
+	 *            to change
+	 */
 	void updateTrip(Trips trip);
 
+	/**
+	 * Deletes trip from DB
+	 * 
+	 * @param id
+	 *            trip id to delete
+	 */
 	void removeTrip(Integer id);
 
+	/**
+	 * Returns page number for given element using given criteria
+	 * 
+	 * @param tripsCriteriaContainer
+	 *            container with given limits and criteria
+	 * @param elementIndex
+	 *            id of trip to check
+	 * @param pageSize
+	 *            size of page
+	 * @return page number for given element using given criteria
+	 */
 	long getTripsListCriteriaPageUsingContainers(
 			TripsCriteriaContainer tripsCriteriaContainer,
 			Integer elementIndex, Integer pageSize);
 
+	/**
+	 * Returns trip with given id using custom query
+	 * 
+	 * @param id
+	 *            id of trip to find
+	 * @return trip with given id
+	 */
 	Trips getTripById(int id);
 
-	boolean editTrip(Integer tripId,
-			EditTripsInfoValidationContainer container);
+	/**
+	 * Edits given trip using given data
+	 * 
+	 * @param tripId
+	 *            id of trip to change
+	 * @param container
+	 *            container with info for trip changing
+	 * @return success operation identifier
+	 */
+	boolean editTrip(Integer tripId, EditTripsInfoValidationContainer container);
 
+	/**
+	 * Adds trips range using given data
+	 * 
+	 * @param container
+	 *            container with info of data for trips range to aadd
+	 * @return success operation identifier
+	 */
 	boolean addTripsWithContainer(AddTripsInfoValidationContainer container);
 
 }
