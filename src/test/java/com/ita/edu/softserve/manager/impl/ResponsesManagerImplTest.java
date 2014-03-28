@@ -8,9 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.spy;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -75,7 +73,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByRouteId(routeId)}
 	 */
 	@Test
-	public final void getResponsesByRouteIdTest() {
+	public void getResponsesByRouteIdTest() {
 		List<Responses> listOfResponses = new ArrayList<Responses>();
 		Responses response = mock(Responses.class);
 		listOfResponses.add(response);
@@ -97,7 +95,7 @@ public class ResponsesManagerImplTest {
 	 * If empty list
 	 */
 	@Test
-	public final void getResponsesByRouteIdIfEmptyListTest() {
+	public void getResponsesByRouteIdIfEmptyListTest() {
 		List<Responses> responsesList = new ArrayList<Responses>();
 		List<Responses> expectedResponses = new ArrayList<Responses>();
 
@@ -116,7 +114,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test
-	public final void getResponsesByRouteIdIfExceptionTest() {
+	public void getResponsesByRouteIdIfExceptionTest() {
 
 		RuntimeException runtimeEx = new RuntimeException();
 		ResponsesManagerException actualException = null;
@@ -140,7 +138,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByTripId(tripId)}
 	 */
 	@Test
-	public final void getResponsesByTripIdTest() {
+	public void getResponsesByTripIdTest() {
 		List<Responses> listOfResponses = new ArrayList<Responses>();
 		Responses response = mock(Responses.class);
 		listOfResponses.add(response);
@@ -162,7 +160,7 @@ public class ResponsesManagerImplTest {
 	 * If empty list
 	 */
 	@Test
-	public final void getResponsesByTripIdIfEmptyListTest() {
+	public void getResponsesByTripIdIfEmptyListTest() {
 		List<Responses> responsesList = new ArrayList<Responses>();
 		List<Responses> expectedResponses = new ArrayList<Responses>();
 
@@ -181,7 +179,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test
-	public final void getResponsesByTripIdIfExceptionTest() {
+	public void getResponsesByTripIdIfExceptionTest() {
 		RuntimeException runtimeEx = new RuntimeException();
 		ResponsesManagerException actualException = null;
 
@@ -204,7 +202,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getResponsesByTransportId(transportId)}
 	 */
 	@Test
-	public final void getResponsesByTransportIdTest() {
+	public void getResponsesByTransportIdTest() {
 		List<Responses> listOfResponses = new ArrayList<Responses>();
 		Responses response = mock(Responses.class);
 		listOfResponses.add(response);
@@ -227,7 +225,7 @@ public class ResponsesManagerImplTest {
 	 * If empty list
 	 */
 	@Test
-	public final void getResponsesByTransportIdIfEmptyListTest() {
+	public void getResponsesByTransportIdIfEmptyListTest() {
 		List<Responses> responsesList = new ArrayList<Responses>();
 		List<Responses> expectedResponses = new ArrayList<Responses>();
 
@@ -247,7 +245,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test
-	public final void getResponsesByTransportIdIfExceptionTest() {
+	public void getResponsesByTransportIdIfExceptionTest() {
 		RuntimeException runtimeEx = new RuntimeException();
 		ResponsesManagerException actualException = null;
 
@@ -270,7 +268,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#getUncheckedResponses()}
 	 */
 	@Test
-	public final void getUncheckedResponsesTest() {
+	public void getUncheckedResponsesTest() {
 		List<Responses> listOfResponses = new ArrayList<Responses>();
 		Responses response = mock(Responses.class);
 		listOfResponses.add(response);
@@ -292,7 +290,7 @@ public class ResponsesManagerImplTest {
 	 * If empty list
 	 */
 	@Test
-	public final void getUncheckedResponsesIfEmptyListTest() {
+	public void getUncheckedResponsesIfEmptyListTest() {
 		List<Responses> responsesList = new ArrayList<Responses>();
 		List<Responses> expectedResponses = new ArrayList<Responses>();
 
@@ -311,7 +309,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void getUncheckedResponsesIfExceptionTest() {
+	public void getUncheckedResponsesIfExceptionTest() {
 		when(mockResponsesDaoImpl.findUncheckedResponses()).thenThrow(
 				new RuntimeException());
 
@@ -323,7 +321,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
 	 */
 	@Test
-	public final void addResponseTest() {
+	public void addResponseTest() {
 		Integer userId = 1;
 		Integer tripId = 2;
 		String responseText = "Good trip";
@@ -346,7 +344,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#addResponse(userId, tripId, responseText)}
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void addResponseIfExceptionTest() {
+	public void addResponseIfExceptionTest() {
 		Integer userId = 1;
 		Integer tripId = 2;
 		String responseText = "Good trip";
@@ -369,7 +367,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#delResponse(responseId)}
 	 */
 	@Test
-	public final void delResponseTest() {
+	public void delResponseTest() {
 		Integer responseId = 1;
 		Responses response = mock(Responses.class);
 
@@ -388,7 +386,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void delResponseIfExceptionTest() {
+	public void delResponseIfExceptionTest() {
 		Integer responseId = 1;
 
 		when(mockResponsesDaoImpl.findById(responseId)).thenThrow(
@@ -402,7 +400,7 @@ public class ResponsesManagerImplTest {
 	 * {@link com.ita.edu.softserve.service.impl.ResponsesManagerImpl#markAsChecked(responseId)}
 	 */
 	@Test
-	public final void markAsCheckedTest() {
+	public void markAsCheckedTest() {
 		Integer responseId = 1;
 		Responses response = mock(Responses.class);
 		Responses updatedResponse = mock(Responses.class);
@@ -425,7 +423,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void markAsCheckedIfExceptionTest() {
+	public void markAsCheckedIfExceptionTest() {
 		Integer responseId = 1;
 		Responses response = mock(Responses.class);
 		Responses updatedResponse = mock(Responses.class);
@@ -449,7 +447,7 @@ public class ResponsesManagerImplTest {
 	 * If exception
 	 */
 	@Test(expected = RuntimeException.class)
-	public final void markAsCheckedIfExceptionBeforeUpdateTest() {
+	public void markAsCheckedIfExceptionBeforeUpdateTest() {
 		Integer responseId = 1;
 		Responses response = mock(Responses.class);
 		Responses updatedResponse = mock(Responses.class);
