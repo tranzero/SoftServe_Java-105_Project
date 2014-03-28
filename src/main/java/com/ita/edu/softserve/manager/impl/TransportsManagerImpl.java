@@ -10,7 +10,6 @@ import org.springframework.validation.Errors;
 
 import com.ita.edu.softserve.dao.TransportsDao;
 import com.ita.edu.softserve.entity.Transports;
-import com.ita.edu.softserve.manager.ManagerFactory;
 import com.ita.edu.softserve.manager.TransportsManager;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.utils.StaticValidator;
@@ -324,29 +323,19 @@ public class TransportsManagerImpl implements TransportsManager {
 				transportCriteriaContainer.getOrderByDirection());
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public long getTransportsListCountWithContainers(
 			TransportsCriteriaContainer transportCriteriaContainer) {
 
-		return getTransportsListCount(
-				transportCriteriaContainer.getTransportCode(),
-				transportCriteriaContainer.getRouteName(),
-				transportCriteriaContainer.getRoutesCode(),
+		return transportsDao.getTransportsListCount(
+				"%" + transportCriteriaContainer.getTransportCode() + "%",
+				"%" + transportCriteriaContainer.getRouteName() + "%",
+				"%" + transportCriteriaContainer.getRoutesCode() + "%",
 				transportCriteriaContainer.getSeatClass1(),
 				transportCriteriaContainer.getSeatClass2(),
 				transportCriteriaContainer.getSeatClass3(),
 				transportCriteriaContainer.getPrice());
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public long getTransportsListCount(String transportCode, String routeName,
-			String routesCode, Integer seatClass1, Integer seatClass2,
-			Integer seatClass3, Double price) {
-
-		return transportsDao.getTransportsListCount("%" + transportCode + "%",
-				"%" + routeName + "%", "%" + routesCode + "%", seatClass1,
-				seatClass2, seatClass3, price);
 	}
 
 	@Transactional(readOnly = true)
@@ -465,12 +454,12 @@ public class TransportsManagerImpl implements TransportsManager {
 				seatClass3, price, orderByCriteria, orderByDirection);
 	}
 
-	/**
-	 * @return the instance of TransportsManager.
-	 */
-	public static TransportsManager getInstance() {
-		return ManagerFactory.getManager(TransportsManager.class);
-	}
+//	/**
+//	 * @return the instance of TransportsManager.
+//	 */
+//	public static TransportsManager getInstance() {
+//		return ManagerFactory.getManager(TransportsManager.class);
+//	}
 
 	/**
 	 * Returns number of transport elements that go through two stations

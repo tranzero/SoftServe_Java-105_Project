@@ -33,8 +33,10 @@ import com.ita.edu.softserve.entity.Stations;
 import com.ita.edu.softserve.entity.Transports;
 import com.ita.edu.softserve.manager.UserNameService;
 import com.ita.edu.softserve.validationcontainers.PageInfoContainer;
+import com.ita.edu.softserve.validationcontainers.TransportForAddTripsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.TransportsCriteriaContainer;
 import com.ita.edu.softserve.validationcontainers.impl.PageInfoContainerImpl;
+import com.ita.edu.softserve.validationcontainers.impl.TransportForAddTripsCriteriaContainerImpl;
 import com.ita.edu.softserve.validationcontainers.impl.TransportsCriteriaContainerImpl;
 
 /**
@@ -158,12 +160,12 @@ public class TestTransportsManagerImpl {
 	 */
 	@Test(expected = RuntimeException.class)
 	public final void testFindTransportsByCodeException() {
-		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode)).thenThrow(
-				new RuntimeException());
+		when(mockTransportsDaoImpl.findByCode(illegalTransportsCode))
+				.thenThrow(new RuntimeException());
 
 		transportsManagerImpl.findTransportsByCode(illegalTransportsCode);
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#saveTransports(com.ita.edu.softserve.entity.Transports[])}
@@ -309,7 +311,7 @@ public class TestTransportsManagerImpl {
 	@Test
 	public final void testUpdateTransportsForNull() {
 		when(mockTransportsDaoImpl.update(transports)).thenReturn(null);
-		
+
 		Transports expectedTransport = transportsManagerImpl
 				.findTransportsByCode(illegalTransportsCode);
 
@@ -317,7 +319,7 @@ public class TestTransportsManagerImpl {
 				illegalTransportsCode);
 		assertNull(expectedTransport);
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#updateTransports(com.ita.edu.softserve.entity.Transports[])}
@@ -399,7 +401,7 @@ public class TestTransportsManagerImpl {
 	@Test
 	public final void testGetAllTransportsForNull() {
 		when(mockTransportsDaoImpl.getAllEntities()).thenReturn(null);
-		
+
 		List<Transports> actual = transportsManagerImpl.getAllTransports();
 
 		verify(mockTransportsDaoImpl, times(1)).getAllEntities();
@@ -435,15 +437,16 @@ public class TestTransportsManagerImpl {
 
 		when(mockTransportsDaoImpl.findByCode("T000000001")).thenReturn(
 				actualTransports);
-		
+
 		Transports expectedTransports = new Transports();
 		expectedTransports.setTransportId(1);
 		expectedTransports.setTransportCode("T000000001");
 
 		Errors errors = new BeanPropertyBindingResult(actualTransports,
 				"transports");
-		transportsManagerImpl.validateIfTransportExist(expectedTransports, errors);
-		
+		transportsManagerImpl.validateIfTransportExist(expectedTransports,
+				errors);
+
 		verify(mockTransportsDaoImpl, times(1)).findByCode("T000000001");
 		assertNull(errors.getFieldError("transportCode"));
 	}
@@ -463,14 +466,14 @@ public class TestTransportsManagerImpl {
 
 		when(mockTransportsDaoImpl.findByCode("T000000001")).thenReturn(
 				testTransports);
-		
+
 		Transports transports = new Transports();
 		transports.setTransportId(1);
 		transports.setTransportCode("T000000001");
 
 		Errors errors = new BeanPropertyBindingResult(transports, "transports");
 		transportsManagerImpl.validateIfTransportExist(transports, errors);
-		
+
 		verify(mockTransportsDaoImpl, times(1)).findByCode("T000000001");
 		assertNotNull(errors.getFieldError("transportCode"));
 	}
@@ -626,6 +629,43 @@ public class TestTransportsManagerImpl {
 	}
 
 	/*--------------------------*/
+	/**
+	 * Test method for
+	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#validateTransportCriteria(TransportsCriteriaContainer)}
+	 * .
+	 */
+	@Test
+	public final void testValidateCorrectTripsCriteriaTest() {
+		TransportsCriteriaContainer transportsCriteriaContainer = new TransportsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+		TransportsCriteriaContainer transportsCriteriaContainerCopy = new TransportsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+
+		transportsManagerImpl
+				.validateTransportCriteria(transportsCriteriaContainer);
+		assertEquals(transportsCriteriaContainer.getTransportCode(),
+				transportsCriteriaContainerCopy.getTransportCode());
+		assertEquals(transportsCriteriaContainer.getRouteName(),
+				transportsCriteriaContainerCopy.getRouteName());
+		assertEquals(transportsCriteriaContainer.getRoutesCode(),
+				transportsCriteriaContainerCopy.getRoutesCode());
+		assertEquals(transportsCriteriaContainer.getSeatClass1(),
+				transportsCriteriaContainerCopy.getSeatClass1());
+		assertEquals(transportsCriteriaContainer.getSeatClass2(),
+				transportsCriteriaContainerCopy.getSeatClass2());
+		assertEquals(transportsCriteriaContainer.getSeatClass3(),
+				transportsCriteriaContainerCopy.getSeatClass3());
+		assertEquals(transportsCriteriaContainer.getPriceName(),
+				transportsCriteriaContainerCopy.getPriceName());
+		assertEquals(transportsCriteriaContainer.getOrderByCriteria(),
+				transportsCriteriaContainerCopy.getOrderByCriteria());
+		assertEquals(transportsCriteriaContainer.getTransportCode(),
+				transportsCriteriaContainerCopy.getTransportCode());
+		assertEquals(transportsCriteriaContainer.getOrderByDirection(),
+				transportsCriteriaContainerCopy.getOrderByDirection());
+	}
 
 	/**
 	 * Test method for
@@ -652,6 +692,41 @@ public class TestTransportsManagerImpl {
 		assertEquals(expectedListOfTransports, actualListOfTransports);
 	}
 
+	@Test
+	public final void testGetTransportsListCountWithContainers() {
+
+		long expected = 0;
+		long actual;
+
+		TransportsCriteriaContainer transportsCriteriaContainer = new TransportsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+
+		when(
+				mockTransportsDaoImpl.getTransportsListCount(
+						transportsCriteriaContainer.getTransportCode(),
+						transportsCriteriaContainer.getRouteName(),
+						transportsCriteriaContainer.getRoutesCode(),
+						transportsCriteriaContainer.getSeatClass1(),
+						transportsCriteriaContainer.getSeatClass2(),
+						transportsCriteriaContainer.getSeatClass3(),
+						transportsCriteriaContainer.getPrice())).thenReturn(
+				expected);
+
+		actual = transportsManagerImpl
+				.getTransportsListCountWithContainers(transportsCriteriaContainer);
+
+		verify(mockTransportsDaoImpl, times(1)).getTransportsListCount(
+				"%" + transportsCriteriaContainer.getTransportCode() + "%",
+				"%" + transportsCriteriaContainer.getRouteName() + "%",
+				"%" + transportsCriteriaContainer.getRoutesCode() + "%",
+				transportsCriteriaContainer.getSeatClass1(),
+				transportsCriteriaContainer.getSeatClass2(),
+				transportsCriteriaContainer.getSeatClass3(),
+				transportsCriteriaContainer.getPrice());
+		assertEquals(expected, actual);
+	}
+
 	/**
 	 * Test method for
 	 * {@link com.ita.edu.softserve.manager.impl.TransportsManagerImpl#getTransportsListWithPaging(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Double, java.lang.String, java.lang.String)}
@@ -675,4 +750,154 @@ public class TestTransportsManagerImpl {
 
 		assertEquals(expectedListOfTransports, actualListOfTransports);
 	}
+
+	@Test
+	public final void testValidateTransportForAddTripsCriteria() {
+		TransportForAddTripsCriteriaContainer expectedTransportForAddTripsCriteriaContainer = new TransportForAddTripsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+		TransportForAddTripsCriteriaContainer actualTransportForAddTripsCriteriaContainer = new TransportForAddTripsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+
+		transportsManagerImpl
+				.validateTransportForAddTripsCriteria(expectedTransportForAddTripsCriteriaContainer);
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer
+						.getTransportCode(),
+				actualTransportForAddTripsCriteriaContainer.getTransportCode());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getRouteName(),
+				actualTransportForAddTripsCriteriaContainer.getRouteName());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getRoutesCode(),
+				actualTransportForAddTripsCriteriaContainer.getRoutesCode());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getSeatClass1(),
+				actualTransportForAddTripsCriteriaContainer.getSeatClass1());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getSeatClass2(),
+				actualTransportForAddTripsCriteriaContainer.getSeatClass2());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getSeatClass3(),
+				actualTransportForAddTripsCriteriaContainer.getSeatClass3());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer.getPriceName(),
+				actualTransportForAddTripsCriteriaContainer.getPriceName());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer
+						.getOrderByCriteria(),
+				actualTransportForAddTripsCriteriaContainer
+						.getOrderByCriteria());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer
+						.getTransportCode(),
+				actualTransportForAddTripsCriteriaContainer.getTransportCode());
+		assertEquals(
+				expectedTransportForAddTripsCriteriaContainer
+						.getOrderByDirection(),
+				actualTransportForAddTripsCriteriaContainer
+						.getOrderByDirection());
+	}
+
+	@Test
+	public void testGetTransportsListForAddTripsWithContainers() {
+		PageInfoContainer container = mock(PageInfoContainerImpl.class);
+		TransportForAddTripsCriteriaContainer transportCriteriaContainer = mock(TransportForAddTripsCriteriaContainerImpl.class);
+
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+
+		when(
+				transportsManagerImpl.getTransportsListForAddTripsWithPaging(1,
+						10, "T000000001", "Stryy-Pyatnychany", "1000000000003",
+						150, 150, 150, 24.0, "routeCode", "ASC")).thenReturn(
+				expectedListOfTransports);
+
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.getTransportsListForAddTripsWithContainers(container,
+						transportCriteriaContainer);
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+
+	@Test
+	public final void testGetTransportsListForAddTripsCount() {
+
+		long expected = 0;
+		long actual;
+
+		TransportForAddTripsCriteriaContainer transportForAddTripsCriteriaContainer = new TransportForAddTripsCriteriaContainerImpl(
+				"T000000001", "Stryy-Pyatnychany", "1000000000003", 150, 150,
+				150, "24.0", "t.transportCode", "ASC");
+
+		when(
+				mockTransportsDaoImpl.getTransportsListForAddTripsCount(
+						transportForAddTripsCriteriaContainer
+								.getTransportCode(),
+						transportForAddTripsCriteriaContainer.getRouteName(),
+						transportForAddTripsCriteriaContainer.getRoutesCode(),
+						transportForAddTripsCriteriaContainer.getSeatClass1(),
+						transportForAddTripsCriteriaContainer.getSeatClass2(),
+						transportForAddTripsCriteriaContainer.getSeatClass3(),
+						transportForAddTripsCriteriaContainer.getPrice()))
+				.thenReturn(expected);
+
+		actual = transportsManagerImpl.getTransportsListForAddTripsCount(
+				transportForAddTripsCriteriaContainer.getTransportCode(),
+				transportForAddTripsCriteriaContainer.getRouteName(),
+				transportForAddTripsCriteriaContainer.getRoutesCode(),
+				transportForAddTripsCriteriaContainer.getSeatClass1(),
+				transportForAddTripsCriteriaContainer.getSeatClass2(),
+				transportForAddTripsCriteriaContainer.getSeatClass3(),
+				transportForAddTripsCriteriaContainer.getPrice());
+
+		verify(mockTransportsDaoImpl, times(1))
+				.getTransportsListForAddTripsCount(
+						"%"	+ transportForAddTripsCriteriaContainer.getTransportCode() + "%",
+						"%"	+ transportForAddTripsCriteriaContainer.getRouteName() + "%",
+						"%"	+ transportForAddTripsCriteriaContainer.getRoutesCode() + "%",
+						transportForAddTripsCriteriaContainer.getSeatClass1(),
+						transportForAddTripsCriteriaContainer.getSeatClass2(),
+						transportForAddTripsCriteriaContainer.getSeatClass3(),
+						transportForAddTripsCriteriaContainer.getPrice());
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testGetTransportsListForAddTripsWithPaging() {
+
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+
+		when(
+				mockTransportsDaoImpl.getTransportsListForAddTrips(1, 10,
+						"T000000001", "Stryy-Pyatnychany", "1000000000003",
+						150, 150, 150, 24.0, "routeCode", "ASC")).thenReturn(
+				expectedListOfTransports);
+
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.getTransportsListForAddTripsWithPaging(1, 10, "T000000001",
+						"Stryy-Pyatnychany", "1000000000003", 150, 150, 150,
+						24.0, "routeCode", "ASC");
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+
+	@Test
+	public void testGetTransportsListForAddTrips() {
+		List<Transports> expectedListOfTransports = new ArrayList<Transports>();
+
+		when(
+				mockTransportsDaoImpl.getTransportsListForAddTrips(1, 10,
+						"T000000001", "Stryy-Pyatnychany", "1000000000003",
+						150, 150, 150, 24.0, "routeCode", "ASC")).thenReturn(
+				expectedListOfTransports);
+
+		List<Transports> actualListOfTransports = transportsManagerImpl
+				.getTransportsListForAddTrips(1, 10,
+						"T000000001", "Stryy-Pyatnychany", "1000000000003",
+						150, 150, 150, 24.0, "routeCode", "ASC");
+
+		assertEquals(expectedListOfTransports, actualListOfTransports);
+	}
+	
 }
