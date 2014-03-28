@@ -454,13 +454,6 @@ public class TransportsManagerImpl implements TransportsManager {
 				seatClass3, price, orderByCriteria, orderByDirection);
 	}
 
-//	/**
-//	 * @return the instance of TransportsManager.
-//	 */
-//	public static TransportsManager getInstance() {
-//		return ManagerFactory.getManager(TransportsManager.class);
-//	}
-
 	/**
 	 * Returns number of transport elements that go through two stations
 	 * including stops
