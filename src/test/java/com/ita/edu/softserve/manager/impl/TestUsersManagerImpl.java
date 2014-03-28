@@ -148,7 +148,7 @@ public class TestUsersManagerImpl {
 		} catch (RuntimeException e) {
 			actualException = e;
 		}
-		assertNotNull(actualException); // ok
+		assertNotNull(actualException); 
 	}
 
 	// --------------------------------------
