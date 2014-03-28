@@ -142,13 +142,12 @@ public class TestUsersManagerImpl {
 
 		RuntimeException actualException = null;
 		try {
-
 			userManagerImpl.updateTheUserData(user);
 
 		} catch (RuntimeException e) {
 			actualException = e;
 		}
-		assertNotNull(actualException); // ok
+		assertNotNull(actualException); 
 	}
 
 	// --------------------------------------
